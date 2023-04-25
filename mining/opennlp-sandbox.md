@@ -1,7 +1,7 @@
 # opennlp-sandbox 
  
 # Bad smells
-I found 2668 bad smells with 210 repairable:
+I found 2675 bad smells with 210 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | SystemOutErr | 471 | false |
@@ -13,8 +13,8 @@ I found 2668 bad smells with 210 repairable:
 | ConstantValue | 112 | false |
 | BoundedWildcard | 110 | false |
 | ZeroLengthArrayInitialization | 89 | false |
+| DynamicRegexReplaceableByCompiledPattern | 80 | false |
 | RegExpRedundantEscape | 76 | false |
-| DynamicRegexReplaceableByCompiledPattern | 73 | false |
 | RedundantFieldInitialization | 68 | false |
 | DataFlowIssue | 64 | false |
 | ObsoleteCollection | 61 | false |
@@ -224,15 +224,75 @@ in `mallet-addon/src/main/java/opennlp/addons/mallet/TransducerModel.java`
 
 ## RuleId[id=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohMinSMC` can be replaced with 'cl.conceptList.get(i).cohMinSMC'
+`1.*c.cohMinJ` can be replaced with 'c.cohMinJ'
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 #### Snippet
 ```java
-			if (c.cohMinSMC > cl.conceptList.get(i).cohMinSMC){
+			if (c.cohMinJ< cl.conceptList.get(i).cohMinJ){
 				rightNeighborsNumber++;
-				sum+=1.*cl.conceptList.get(i).cohMinSMC/c.cohMinSMC;		
+				sum+=1.*c.cohMinJ/cl.conceptList.get(i).cohMinJ;
 			}
 		}
+```
+
+### PointlessArithmeticExpression
+`1.*cl.conceptList.get(i).cohMinJ` can be replaced with 'cl.conceptList.get(i).cohMinJ'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohMinJ > cl.conceptList.get(i).cohMinJ){
+				rightNeighborsNumber++;
+				sum+=1.*cl.conceptList.get(i).cohMinJ/c.cohMinJ;	
+			}
+		}
+```
+
+### PointlessArithmeticExpression
+`1.*c.cohMinSMC` can be replaced with 'c.cohMinSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohMinSMC < cl.conceptList.get(i).cohMinSMC){
+				rightNeighborsNumber++;
+				sum+=1.*c.cohMinSMC/cl.conceptList.get(i).cohMinSMC;		
+			}
+		}
+```
+
+### PointlessArithmeticExpression
+`1.*cl.conceptList.get(i).cohAvgSMC` can be replaced with 'cl.conceptList.get(i).cohAvgSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohAvgSMC > cl.conceptList.get(i).cohAvgSMC){
+				rightNeighborsNumber++;
+				sum+=1.*cl.conceptList.get(i).cohAvgSMC/c.cohAvgSMC;		
+			}
+		}
+```
+
+### PointlessArithmeticExpression
+`1.*cl.conceptList.get(i).cohAvgJ` can be replaced with 'cl.conceptList.get(i).cohAvgJ'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohAvgJ > cl.conceptList.get(i).cohAvgJ){
+				rightNeighborsNumber++;
+				val = 1.*cl.conceptList.get(i).cohAvgJ/c.cohAvgJ;	
+				if (val>max)
+					max = val;
+```
+
+### PointlessArithmeticExpression
+`1.*c.cohAvgSMC` can be replaced with 'c.cohAvgSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohAvgSMC<=cl.conceptList.get(i).cohAvgSMC){
+				rightNeighborsNumber++;
+				val = 1.*c.cohAvgSMC/cl.conceptList.get(i).cohAvgSMC;	
+				if (val<min)
+					min = val;	
 ```
 
 ### PointlessArithmeticExpression
@@ -248,15 +308,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```
 
 ### PointlessArithmeticExpression
-`1.*c.cohAvgSMC` can be replaced with 'c.cohAvgSMC'
+`1.*cl.conceptList.get(i).cohMinSMC` can be replaced with 'cl.conceptList.get(i).cohMinSMC'
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 #### Snippet
 ```java
-			if (c.cohAvgSMC < cl.conceptList.get(i).cohAvgSMC){
+			if (c.cohMinSMC > cl.conceptList.get(i).cohMinSMC){
 				rightNeighborsNumber++;
-				sum+=1.*c.cohAvgSMC/cl.conceptList.get(i).cohAvgSMC;	
+				sum+=1.*cl.conceptList.get(i).cohMinSMC/c.cohMinSMC;		
 			}
 		}
+```
+
+### PointlessArithmeticExpression
+`1.*cl.conceptList.get(i).cohMinSMC` can be replaced with 'cl.conceptList.get(i).cohMinSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohMinSMC > cl.conceptList.get(i).cohMinSMC){
+				rightNeighborsNumber++;
+				val = 1.*cl.conceptList.get(i).cohMinSMC/c.cohMinSMC;	
+				if (val>max)
+					max = val;
+```
+
+### PointlessArithmeticExpression
+`1.*c.cohMinSMC` can be replaced with 'c.cohMinSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohMinSMC< cl.conceptList.get(i).cohMinSMC){
+				rightNeighborsNumber++;
+				val = 1.*c.cohMinSMC/cl.conceptList.get(i).cohMinSMC;
+				if (val<min)
+					min = val;	
 ```
 
 ### PointlessArithmeticExpression
@@ -266,9 +350,21 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```java
 			if (c.cohMinJ< cl.conceptList.get(i).cohMinJ){
 				rightNeighborsNumber++;
-				sum+=1.*c.cohMinJ/cl.conceptList.get(i).cohMinJ;
-			}
-		}
+				val = 1.*c.cohMinJ/cl.conceptList.get(i).cohMinJ;
+				if (val<min)
+					min = val;	
+```
+
+### PointlessArithmeticExpression
+`1.*cl.conceptList.get(i).cohAvgSMC` can be replaced with 'cl.conceptList.get(i).cohAvgSMC'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+			if (c.cohAvgSMC > cl.conceptList.get(i).cohAvgSMC){
+				rightNeighborsNumber++;
+				val = 1.*cl.conceptList.get(i).cohAvgSMC/c.cohAvgSMC;	
+				if (val>max)
+					max = val;
 ```
 
 ### PointlessArithmeticExpression
@@ -300,21 +396,9 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 #### Snippet
 ```java
-			if (c.cohAvgSMC<=cl.conceptList.get(i).cohAvgSMC){
+			if (c.cohAvgSMC < cl.conceptList.get(i).cohAvgSMC){
 				rightNeighborsNumber++;
-				val = 1.*c.cohAvgSMC/cl.conceptList.get(i).cohAvgSMC;	
-				if (val<min)
-					min = val;	
-```
-
-### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohMinJ` can be replaced with 'cl.conceptList.get(i).cohMinJ'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohMinJ > cl.conceptList.get(i).cohMinJ){
-				rightNeighborsNumber++;
-				sum+=1.*cl.conceptList.get(i).cohMinJ/c.cohMinJ;	
+				sum+=1.*c.cohAvgSMC/cl.conceptList.get(i).cohAvgSMC;	
 			}
 		}
 ```
@@ -329,90 +413,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 				val = 1.*c.cohAvgJ/cl.conceptList.get(i).cohAvgJ;
 				if (val<min)
 					min = val;	
-```
-
-### PointlessArithmeticExpression
-`1.*c.cohMinSMC` can be replaced with 'c.cohMinSMC'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohMinSMC< cl.conceptList.get(i).cohMinSMC){
-				rightNeighborsNumber++;
-				val = 1.*c.cohMinSMC/cl.conceptList.get(i).cohMinSMC;
-				if (val<min)
-					min = val;	
-```
-
-### PointlessArithmeticExpression
-`1.*c.cohMinSMC` can be replaced with 'c.cohMinSMC'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohMinSMC < cl.conceptList.get(i).cohMinSMC){
-				rightNeighborsNumber++;
-				sum+=1.*c.cohMinSMC/cl.conceptList.get(i).cohMinSMC;		
-			}
-		}
-```
-
-### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohAvgJ` can be replaced with 'cl.conceptList.get(i).cohAvgJ'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohAvgJ > cl.conceptList.get(i).cohAvgJ){
-				rightNeighborsNumber++;
-				val = 1.*cl.conceptList.get(i).cohAvgJ/c.cohAvgJ;	
-				if (val>max)
-					max = val;
-```
-
-### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohAvgSMC` can be replaced with 'cl.conceptList.get(i).cohAvgSMC'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohAvgSMC > cl.conceptList.get(i).cohAvgSMC){
-				rightNeighborsNumber++;
-				val = 1.*cl.conceptList.get(i).cohAvgSMC/c.cohAvgSMC;	
-				if (val>max)
-					max = val;
-```
-
-### PointlessArithmeticExpression
-`1.*c.cohMinJ` can be replaced with 'c.cohMinJ'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohMinJ< cl.conceptList.get(i).cohMinJ){
-				rightNeighborsNumber++;
-				val = 1.*c.cohMinJ/cl.conceptList.get(i).cohMinJ;
-				if (val<min)
-					min = val;	
-```
-
-### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohMinSMC` can be replaced with 'cl.conceptList.get(i).cohMinSMC'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohMinSMC > cl.conceptList.get(i).cohMinSMC){
-				rightNeighborsNumber++;
-				val = 1.*cl.conceptList.get(i).cohMinSMC/c.cohMinSMC;	
-				if (val>max)
-					max = val;
-```
-
-### PointlessArithmeticExpression
-`1.*cl.conceptList.get(i).cohAvgSMC` can be replaced with 'cl.conceptList.get(i).cohAvgSMC'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-			if (c.cohAvgSMC > cl.conceptList.get(i).cohAvgSMC){
-				rightNeighborsNumber++;
-				sum+=1.*cl.conceptList.get(i).cohAvgSMC/c.cohAvgSMC;		
-			}
-		}
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -442,30 +442,6 @@ in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java
 
 ### EmptyStatementBody
 `if` statement has empty body
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-        features.addAll(getNumberPronounFeatures(np1, np2));
-      }
-      else if (isNumber(np2)) {
-      }
-      else {
-```
-
-### EmptyStatementBody
-`if` statement has empty body
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-      List<Context> entityContexts = (List<Context>) entities.get(key);
-      Set<Context> exclusionSet = constructExclusionSet(key, entities, headSets, nameSets, singletons);
-      if (entityContexts.size() == 1) {
-      }
-      for (int xi1 = 0, xl = entityContexts.size(); xi1 < xl; xi1++) {
-```
-
-### EmptyStatementBody
-`if` statement has empty body
 in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
 #### Snippet
 ```java
@@ -486,6 +462,30 @@ in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/Annotat
                     } else if (node instanceof WPList) {
                     } else if (node instanceof WPTable) {
                         // ignore lists and tables since they most of the time
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+      List<Context> entityContexts = (List<Context>) entities.get(key);
+      Set<Context> exclusionSet = constructExclusionSet(key, entities, headSets, nameSets, singletons);
+      if (entityContexts.size() == 1) {
+      }
+      for (int xi1 = 0, xl = entityContexts.size(); xi1 < xl; xi1++) {
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+        features.addAll(getNumberPronounFeatures(np1, np2));
+      }
+      else if (isNumber(np2)) {
+      }
+      else {
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -523,6 +523,1375 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
     if (token.endsWith("\'s") || token.endsWith("�s")) {
       token = token.substring(0, token.length() - 2);
     }
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (93 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/ReviewBuilderRunner.java`
+#### Snippet
+```java
+	public ReviewBuilderRunner(){
+
+		/*	input.add( new Pair<String, Integer>("chief architect portable mobile tv", 204973051));
+
+		input.add( new Pair<String, Integer>("lg plasma tv", 215734562));
+```
+
+### CommentedOutCode
+Commented out code (11 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/ReviewBuilderRunner.java`
+#### Snippet
+```java
+	 input.add(new Triple<>("nike jordan black cat tee", 1653598764, "jordan black cat"));
+	 input.add(new Triple<>("obermeyer womens kassandra down coat", 1670629180, "down winter coats"));
+/*
+	 input.add(new Triple<>("paramax  surround sound", 835422569, "paramax im3"));
+	 input.add(new Triple<>("mia quincy wedge", 1285886230, "mia quincy wedge"));
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+		}
+		
+		//System.out.println("J");
+		//System.out.println(Arrays.deepToString(objectsSimilarityJ));
+		//System.out.println("SMC");
+```
+
+### CommentedOutCode
+Commented out code (12 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+				continue;
+
+			/*
+			if (len < 4 && len>1) { // every word should start with capital
+				String[] qs = query.split(" ");
+```
+
+### CommentedOutCode
+Commented out code (33 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+
+			}
+			/*
+			if (queryArrayStr.size() < 1) { // release constraints on NP down to 2
+											// keywords
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+
+
+		/*		
+			res=	extractor. extractSentencesWithPotentialReviewPhrases(//"http://www.sitbetter.com/view/chair/ofm-500-l/ofm--high-back-leather-office-chair/");
+		//"http://www.amazon.com/OFM-High-Back-Leather-Integral-Headrest/dp/B002SIW1E0/ref=sr_1_1?ie=UTF8&qid=1353370254&sr=8-1&keywords=OFM-High-Back-Leather-Integral-Headrest");
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+				}
+
+		/*		buf = reviewObjTotal.getOriginalizedSentences();
+				if (buf!=null && afterOriginalization!=null && afterOriginalization.length>0){
+					List<String> b1 = Arrays.asList(afterOriginalization);
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+
+			
+		/*	String textReview = buildText(reviewObjTotal);
+			try {
+				if (textReview!=null && textReview.length()>60)
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SearchResultsProcessor.java`
+#### Snippet
+```java
+   
+    // LOG.info("\n\n ============= NEW ORDER ================= ");
+    /*
+    for (HitBase hit : newHitList) {
+      LOG.info(hit.toString());
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		
+		//TODO check attributes of objects
+		/*
+		if (!(es1.getVenueName().endsWith(es2.getVenueName()) || es2.getVenueName().endsWith(es1.getVenueName())))
+			return false;
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+	public List<String> getWordsThatShouldBeOnBothSidesEvents()
+	{
+/*
+		names.addAll(Arrays.asList(new String[] { "woman", "man", "women", "men", "womans", "mans", "womens", "mens",
+			"boy", "girl", "boys", "girls", "men's", "women's", "woman's", "ice", // for disney
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+			for (String word : name1Tokens)
+			{
+	//			if (stopList.isCommonWord(word) /*&& mostFrequent1000Words.isMostFrequent1000Word(word)*/)
+	//				bCommonEnglishWord = true;
+			}
+```
+
+### CommentedOutCode
+Commented out code (34 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
+#### Snippet
+```java
+    return op;
+  }
+  /*
+  public ObjectPhrase convertSentenceToControlObjectPhraseSingleObj(String sentence){
+    parser = ParserChunker2MatcherProcessor.getInstance();
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+       else
+         synonyms.toArray(syns);
+  //        if (syns.length > 1) Arrays.sort(syns);
+  //        if (DEBUG) System.err.println("word=" + word + ":" + Arrays.asList(syns));
+       word2Syns.put(word, syns);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
+#### Snippet
+```java
+        List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
+        score = parseTreeChunkListScorer.getParseTreeChunkListScore(match);
+        /*
+        if (score > 1.5) {
+          LOG.info(score + " | " + match);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
+#### Snippet
+```java
+
+	public String toString() {
+		// return "\n"+this.getUrl()+" | " +this.getTitle()+ " | "+
+				// this.abstractText ;
+		if (this.getFragments() != null && this.getFragments().size() > 0)
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
+#### Snippet
+```java
+	   public void addNewComment(String author, String text) {
+	      
+//	      XMLGregorianCalendar xmlCal = new XMLGregorianCalendarImpl();  // You'll need to fix this!
+	      
+//	      CommentRangeEnd cRangeEnde = wmlObjectFactory.createCommentRangeEnd();
+```
+
+### CommentedOutCode
+Commented out code (7 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
+#### Snippet
+```java
+	      MainDocumentPart mDocPart;
+	      try {
+	        /* mlPackage = new WordprocessingMLPackage().load(new File(document.getCanonicalPath()));
+
+	         mDocPart = mlPackage.getMainDocumentPart();
+```
+
+### CommentedOutCode
+Commented out code (7 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comment.java`
+#### Snippet
+```java
+
+            Iterator<Relationship> it = mc.iterator();
+       /*     while (it.hasNext() && !relSet) {
+                relShip = it.next();
+                if (relShip.getValue().equalsIgnoreCase(
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
+#### Snippet
+```java
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+			// hits.get(0).getTitle(), hits);
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+			}
+			
+			//File file = new File("C:/ma/personal/argCamp.png");
+	        //byte[] bytes = convertImageToByteArray(file);
+	        //addImageToPackage(wordMLPackage, bytes);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+				// forced split by ',' somewhere in the middle of sentence
+				// disused - Feb 26 13
+				//furtherSplit = furtherMakeSentencesShorter(furtherSplit);
+				//furtherSplit.remove(furtherSplit.size()-1);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+		sents = cleanSplitListOfSents(longestSents);
+
+		//sents = removeDuplicates(sents);
+		//sents = verifyEnforceStartsUpperCase(sents);
+
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+			}
+		}
+/*
+		nameValuePairs = rb.rsp.getValues();
+		c = (ResultContext) nameValuePairs.get("response");
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+		}
+		rb.setQparser(parser);
+		/*
+		try {
+				rb.setScoreDoc(parser.getPaging());
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+			// hits.get(0).getTitle(), hits);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFetcher.java`
+#### Snippet
+```java
+    catch (Exception e) {
+
+      // LOG.error(e.getMessage(), e);
+      // System.err.println("error fetching url " + url);
+    }
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFetcher.java`
+#### Snippet
+```java
+      // System.err.println("error fetching url " + url);
+    }
+/*    try {
+      Thread.sleep(50); // do nothing 4 sec
+    } catch (InterruptedException e) {
+```
+
+### CommentedOutCode
+Commented out code (10 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxoQuerySnapshotMatcher.java`
+#### Snippet
+```java
+   * @param taxo
+   */
+  /*
+  public void convertDatToXML(String taxonomyXML_Path, TaxonomySerializer taxo) {
+    XStream xStream = new XStream();
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxoQuerySnapshotMatcher.java`
+#### Snippet
+```java
+  */
+
+  /*
+  public void xmlWork() {
+    TaxoQuerySnapshotMatcher matcher = new TaxoQuerySnapshotMatcher(
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+	public DocList filterResultsBySyntMatchReduceDocSet(DocList docList,
+			SolrQueryRequest req,  SolrParams params) {
+		//if (!docList.hasScores())
+		//	return docList;
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+        result = 1.0;
+
+      // double ld = LevensteinDistanceFinder. levensteinDistance(str1, str2, 1,
+      // 10, 1, 10);
+      // System.out.println(ld);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+        result = 1.0;
+
+      // double ld = LevensteinDistanceFinder. levensteinDistance(str1, str2, 1,
+      // 10, 1, 10);
+      // System.out.println(ld);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+#### Snippet
+```java
+	public DocList filterResultsBySyntMatchReduceDocSet(DocList docList,
+																											SolrQueryRequest req, SolrParams params) {
+		//if (!docList.hasScores())
+		//	return docList;
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+		for(String s: sents){
+			s = ContentGeneratorSupport.cleanSpacesInCleanedHTMLpage(s);
+		/*	s = s.trim().replace("  ", ". ").replace("..", ".").replace(". . .", " ")
+					.replace(": ", ". ").replace("- ", ". ").
+					replace (". .",".").trim(); */
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+		sents = cleanSplitListOfSents(longestSents);
+
+		//sents = removeDuplicates(sents);
+		//sents = verifyEnforceStartsUpperCase(sents);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+			// hits.get(0).getTitle(), hits);
+
+```
+
+### CommentedOutCode
+Commented out code (16 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaFormManager.java`
+#### Snippet
+```java
+
+  }
+/*
+  // all lemmas ending with # in ch1 and/or ch2 SHOULD occur in chunkToAdd
+  public boolean mustOccurVerifier(ParseTreePath ch1, ParseTreePath ch2,
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageContentSentenceExtractor.java`
+#### Snippet
+```java
+
+		sents = cleanListOfSents(longestSents);
+	/*	
+		for(int i = 0; i< sents.length; i++){
+			sents[i] = sents[i].trim().replace("  ", ". ").replace("..", ".").replace(". . .", " ")
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+		sents = cleanSplitListOfSents(longestSents);
+
+		//sents = removeDuplicates(sents);
+		//sents = verifyEnforceStartsUpperCase(sents);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+					LOG.info("Could not find the original sentence \n"+f +"\n in the page " );
+				}
+				//if (followSent !=null)
+				//	result.add(followSent);
+			} catch (Exception e) {
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+		List<List<List<ParseTreeChunk>>> cleanedFromInconsPos = new ArrayList<>(),
+				cleanedFromInconsNeg = new ArrayList<>();
+		/*
+		System.out.println("pos = "+ pos);
+		System.out.println("neg = "+ neg);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+	public int AddIntent(List<List<ParseTreeChunk>> intent, int generator) {
+		// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
+		// System.out.println("debug called for " + intent);
+		//printLattice();
+		int generator_tmp = GetMaximalConcept(intent, generator);
+```
+
+### CommentedOutCode
+Commented out code (15 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+				}
+			}
+			/*for (int parent : newParents) {
+				System.out.println("parent = " + parent);
+				System.out.println("candidate intent:"+conceptList.get(candidate).intent);
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+		PhraseConcept bottom = new PhraseConcept();
+		md = new ParseTreeMatcherDeterministic();
+		/*Set<Integer> b_intent = new HashSet<Integer>();
+		for (int index = 0; index < attributeCount; ++index) {
+			b_intent.add(index);
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
+#### Snippet
+```java
+			int k1max = pos1.size() - 1, k2max = pos2.size() - 1;
+			while (k1 <= k1max && k2 <= k2max) {
+				/*        // first check if the same POS
+        String sim = posManager.similarPOS(pos1.get(k1), pos2.get(k2));
+        String lemmaMatch = lemmaFormManager.matchLemmas(ps, lem1.get(k1),
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
+#### Snippet
+```java
+								bReachedCommonWord = true;
+							}
+							// else
+								// System.err.println("Next match reached '"+lemmaMatch+
+							// "' | k1 - k2: "+k1 + " "+k2 +
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
+#### Snippet
+```java
+	public int AddIntent(List<List<ParseTreeChunk>> intent, LinkedHashSet<Integer>extent,int generator) {
+		// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
+		// System.out.println("debug called for " + intent);
+		//printLattice();
+		int generator_tmp = GetMaximalConcept(intent, generator);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
+#### Snippet
+```java
+				if (intent.size()!=intersection.size()){
+					// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
+					// System.out.println("recursive call (inclusion)");
+					// System.out.println(intent + "----" + intersection);
+					candidate = AddIntent(intersection,new_extent, candidate);
+```
+
+### CommentedOutCode
+Commented out code (11 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+    }
+  }
+  /*
+  private void indexTrainingSample(String text, String flag, int id)
+          throws IOException {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
+#### Snippet
+```java
+		
+		addFiles(new File(fileName));
+		//FileUtils.deleteDirectory(new File(destinationDir));
+		//FileUtils.forceMkdir(new File(destinationDir));
+		
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
+#### Snippet
+```java
+				System.out.println("processing "+f.getName());
+				
+				//if (f.getName().indexOf(".html")<0)
+					//continue;
+				classifier = new DocClassifier("", new JSONObject());
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
+#### Snippet
+```java
+
+    ParseTreeChunk res = new ParseTreeChunk(commonLemmas, commonPOS, 0, 0);
+    // if (parseTreeChunkListScorer.getScore(res)> 0.6)
+    // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" + res);
+    return res;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
+#### Snippet
+```java
+    List<String> pos1 = chunk1.getPOSs();
+    List<String> pos2 = chunk2.getPOSs();
+    // Map <ParseTreeChunk, Double> scoredResults = new HashMap <ParseTreeChunk,
+    // Double> ();
+    int timesRepetitiveRun = NUMBER_OF_ITERATIONS;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
+#### Snippet
+```java
+      score = parseTreeChunkListScorer.getScore(currResult);
+      if (score > globalScore) {
+        // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" +
+        // result+" score = "+ score +"\n\n");
+        result = currResult;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
+#### Snippet
+```java
+      score = parseTreeChunkListScorer.getScore(currResult);
+      if (score > globalScore) {
+        // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" +
+        // currResult+" score = "+ score +"\n\n");
+        result = currResult;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+#### Snippet
+```java
+	public void processDirectory(String fileName) throws IOException {
+		addFiles(new File(fileName));
+	//	FileUtils.deleteDirectory(new File(destinationDir));
+	//	FileUtils.forceMkdir(new File(destinationDir));
+		
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
+#### Snippet
+```java
+          if (chunkToAdd == null)
+            chunkToAdd = new ArrayList<>();
+          // System.out.println("ch1 = "+
+          // ch1.toString()+" | ch2="+ch2.toString()
+          // +"\n result = "+chunkToAdd.toString() + "\n");
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
+#### Snippet
+```java
+                bReachedCommonWord = true;
+              }
+              // else
+              // System.err.println("Next match reached '"+lemmaMatch+
+              // "' | k1 - k2: "+k1 + " "+k2 +
+```
+
+### CommentedOutCode
+Commented out code (11 lines)
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/store/MemoryCorpusStore.java`
+#### Snippet
+```java
+    // validate it!
+
+//    TypeSystemDescription tsDescription = UimaUtil.createTypeSystemDescription(
+//        new ByteArrayInputStream(typeSystemBytes));
+//    
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    if (text == null)
+      return null;
+    // if (sentenceDetector!=null)
+    // return sentenceDetector.sentDetect(text);
+    else {
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      StringBuilder cand = new StringBuilder();
+
+      // while(m.find()){
+      // System.out.println(m.group());
+      // }
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+			String toParse) {
+		List<List<ParseTreeChunk>> results = new ArrayList<>();
+		// if (toParse.endsWith("]]]")){
+		// toParse = toParse.replace("[[","").replace("]]","");
+		// }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+					List<ParseTreeChunk> resultCompsReduced = generalizationListReducer
+							.applyFilteringBySubsumption(resultComps);
+					// if (resultCompsReduced.size() != resultComps.size())
+						// System.out.println("reduction of gen list occurred");
+				}
+```
+
+### CommentedOutCode
+Commented out code (14 lines)
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+	}
+
+/*	public Boolean equals(ParseTreeChunk ch) {
+		List<String> lems = ch.getLemmas();
+		List<String> poss = ch.POSs;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+
+                  if (nChild.getNodeName().equals("answer")) {
+                    // String answer =
+                    // nChild.getAttributes().item(0).getTextContent();
+                    String senseid = nChild.getAttributes().item(1)
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/DefaultLinker.java`
+#### Snippet
+```java
+      }
+      if (LinkerMode.EVAL == mode) {
+        //String[] names = {"Pronoun", "Proper", "Def-NP", "Is-a", "Plural Pronoun"};
+        //eval = new Evaluation(names);
+      }
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefModel.java`
+#### Snippet
+```java
+  }
+
+//  public AcronymDictionary getAcronyms() {
+//    return null;
+//  }
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefModel.java`
+#### Snippet
+```java
+
+  // TODO: Where is this model used ?
+//  public AbstractModel getIModel() {
+//    return null;
+//  }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+#### Snippet
+```java
+      processText(finders,names,in);
+    }
+    //long t2 = System.currentTimeMillis();
+    //System.err.println("Time "+(t2-t1));
+  }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+#### Snippet
+```java
+      for (int fi = 0, fl = finders.length; fi < fl; fi++) {
+        nameSpans[fi] = finders[fi].nameFinder.find(tokens);
+        //System.err.println("EnglishNameFinder.processText: "+tags[fi] + " "
+        // + java.util.Arrays.asList(finderTags[fi]));
+        nameOutcomes[fi] = NameFinderEventStream.generateOutcomes(nameSpans[fi], null, tokens.length);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+#### Snippet
+```java
+      for (int fi = 0, fl = finders.length; fi < fl; fi++) {
+        nameSpans[fi] = finders[fi].nameFinder.find(tokens);
+        //System.err.println("english.NameFinder.processParse: "+tags[fi] + " "
+        // + java.util.Arrays.asList(nameSpans[fi]));
+      }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+#### Snippet
+```java
+    double[] dist = numModel.numberDist(c);
+    Number number;
+    //System.err.println("MaxentCompatibiltyResolver.computeNumber: "+c+" sing="
+    // +dist[numModel.getSingularIndex()]+" plural="+dist[numModel.getPluralIndex()]);
+    if (dist[numModel.getSingularIndex()] > minNumberProb) {
+```
+
+### CommentedOutCode
+Commented out code (27 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/ShallowParseMentionFinder.java`
+#### Snippet
+```java
+  }
+
+  /*
+  protected final List getNounPhrases(Parse p) {
+    List nps = p.getNounPhrases();
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+#### Snippet
+```java
+      contexts[mi] = new MentionContext(mentions[mi], mentionInSentenceIndex,
+          numMentionsInSentence, mi, sentenceIndex, getHeadFinder());
+      //System.err.println("AbstractLinker.constructMentionContexts: mi="+mi
+      // +" sn="+mentionParse.getSentenceNumber()+" extent="+mentions[mi]+" parse="
+      // +mentionParse.getSpan()+" mc="+contexts[mi].toText());
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+#### Snippet
+```java
+        else if (mode == LinkerMode.EVAL) {
+          entities[ri] = resolvers[ri].retain(mention, discourseModel);
+          //DiscourseEntity rde = resolvers[ri].resolve(mention, discourseModel);
+          //eval.update(rde == entities[ri], ri, entities[ri], rde);
+        }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+#### Snippet
+```java
+    }
+    if (!canResolve && removeUnresolvedMentions) {
+      //System.err.println("No resolver for: "+econtext.toText()
+      //    + " head="+econtext.headTokenText+" "+econtext.headTokenTag);
+      validEntity = false;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+      //all other NPs
+      for (Parse child : parts) {
+        //System.err.println("PTBHeadFinder.getHead: "+p.getSyntacticType()+" "+p
+        // +" child "+pi+"="+child.getSyntacticType()+" "+child);
+        if (child.isNounPhrase()) {
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+
+    while (null != (head = getHead(p))) {
+      //System.err.print(" -> "+head);
+     //if (p.getEntityId() != -1 && head.getEntityId() != p.getEntityId()) {
+      // System.err.println(p+" ("+p.getEntityId()+") -> "+head+" ("+head.getEntityId()+")");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+    for (int sci = 0, scn = sChildren.size(); sci < scn;sci++) {
+      Parse sc = sChildren.get(sci);
+      //System.err.println("PTBHeadFinder.getHeadIndex "+p+" "+p.getSyntacticType()
+      // +" sChild "+sci+" type = "+sc.getSyntacticType());
+      if (sc.getSyntacticType().startsWith("S")) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+      }
+    }
+    //System.err.println("PTBHeadFinder.getHeadIndex: "+p+" hi="+toks.size()+"-"+tokenCount
+    // +" -1 = "+(toks.size()-tokenCount -1));
+    return toks.size() - tokenCount - 1;
+```
+
+### CommentedOutCode
+Commented out code (27 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBMentionFinder.java`
+#### Snippet
+```java
+
+
+  /*
+  private boolean isTraceNp(Parse np){
+    List sc = np.getSyntacticChildren();
+```
+
+### CommentedOutCode
+Commented out code (30 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
+#### Snippet
+```java
+   * @param headFinder Object which provides head information.
+   */
+  /*
+  public MentionContext(Parse mentionParse, int mentionIndex, int mentionsInSentence,
+  int mentionsInDocument, int sentenceIndex, String nameType, HeadFinder headFinder) {
+```
+
+### CommentedOutCode
+Commented out code (18 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
+#### Snippet
+```java
+  }
+
+  /*
+  private static String[] getLemmas(MentionContext xec) {
+    //TODO: Try multi-word lemmas first.
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefiniteNounResolver.java`
+#### Snippet
+```java
+    boolean rv = mtokens.length > 1 && !mention.getHeadTokenTag().startsWith("NNP")
+        && ResolverUtils.definiteArticle(firstTok, mention.getFirstTokenTag());
+    //if (rv) {
+    //  System.err.println("defNp "+ec);
+    //}
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+#### Snippet
+```java
+    String modelName = args[0];
+    GenderModel model = new GenderModel(modelName, false);
+    //Context.wn = new WordNet(System.getProperty("WNHOME"), true);
+    //Context.morphy = new Morphy(Context.wn);
+    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/IsAResolver.java`
+#### Snippet
+```java
+  protected boolean excluded(MentionContext ec, DiscourseEntity de) {
+    MentionContext cec = de.getLastExtent();
+    //System.err.println("IsAResolver.excluded?: ec.span="+ec.getSpan()+" cec.span="+cec.getSpan()
+    //    +" cec="+cec.toText()+" lastToken="+ec.getNextToken());
+    if (ec.getSentenceNumber() != cec.getSentenceNumber()) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/IsAResolver.java`
+#### Snippet
+```java
+    }
+    //shallow parse appositives
+    //System.err.println("IsAResolver.excluded: ec="+ec.toText()+" "
+    //    +ec.span+" cec="+cec.toText()+" "+cec.span);
+    if (cec.getIndexSpan().getEnd() == ec.getIndexSpan().getStart() - 2) {
+```
+
+### CommentedOutCode
+Commented out code (31 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingularPronounResolver.java`
+#### Snippet
+```java
+      features.addAll(ResolverUtils.getDistanceFeatures(mention,entity));
+      features.add(ResolverUtils.getMentionCountFeature(entity));
+      /*
+      //lexical features
+      Set featureSet = new HashSet();
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingularPronounResolver.java`
+#### Snippet
+```java
+  protected boolean outOfRange(MentionContext mention, DiscourseEntity entity) {
+    MentionContext cec = entity.getLastExtent();
+    //System.err.println("MaxentSingularPronounresolve.outOfRange: ["+entity.getLastExtent().toText()
+    // +" ("+entity.getId()+")] ["+mention.toText()+" ("+mention.getId()+")] entity.sentenceNumber=("
+    // +entity.getLastExtent().getSentenceNumber()+")-mention.sentenceNumber=("
+```
+
+### CommentedOutCode
+Commented out code (22 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/PluralPronounResolver.java`
+#### Snippet
+```java
+      features.addAll(ResolverUtils.getContextFeatures(cec));
+      features.add(ResolverUtils.getMentionCountFeature(entity));
+      /*
+      //lexical features
+      Set featureSet = new HashSet();
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+    //System.err.println("AbtractMentionFinder.collectMentions: "+headMap);
+    for (Parse np : nps) {
+      //System.err.println("AbstractMentionFinder: collectMentions: np[" + npi + "]="
+      //    + np + " head=" + headMap.get(np));
+      if (!isHeadOfExistingMention(np, headMap, recentMentions)) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+          }
+        } else {
+          //System.err.println(
+          //    "AbstractMentionFinder.collectMentions excluding np as part of name. np=" + np);
+        }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+        }
+      } else {
+        //System.err.println(
+        //    "AbstractMentionFinder.collectMentions excluding np as head of previous mention. np=" + np);
+      }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+            Mention snpExtent = new Mention(npSpan, npSpan, tok.getEntityId(), null,"CNP");
+            entities.add(snpExtent);
+            //System.err.println("adding extent for conjunction in: "+np+" preeceeded by "
+            // +((Parse) npTokens.get(ti-1)).getSyntacticType());
+            inCoordinatedNounPhrase = true;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+          Mention ppExtent = new Mention(tok.getSpan(), tok.getSpan(),
+              tok.getEntityId(), null,Linker.PRONOUN_MODIFIER);
+          //System.err.println("AbstractEntityFinder.collectPossesivePronouns: adding possesive pronoun: "
+          //    +tok+" "+tok.getEntityId());
+          entities.add(ppExtent);
+```
+
+### CommentedOutCode
+Commented out code (18 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+   * @param mentions The list of mentions into which a new mention can be added.
+   */
+//  private void addPossesiveMentions(Parse possesiveNounPhrase, List<Mention> mentions) {
+//    List<Parse> kids = possesiveNounPhrase.getSyntacticChildren();
+//    if (kids.size() >1) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
+    Parse head = headFinder.getHead(p);
+    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
+    //if (head != null) { System.err.println("head.hashCode()="+head.hashCode());}
+    if (head != null) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+      //hobbsEntityDistance = entityDistance - (entities within sentence from mention to end)
+      // + (entities within sentence form start to mention)
+      //hobbsEntityDistance = entityDistance - (cec.maxNounLocation - cec.getNounPhraseSentenceIndex)
+      // + cec.getNounPhraseSentenceIndex;
+      hobbsEntityDistance = entityDistance +
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+    features.add("de=" + entityDistance);
+    features.add("ds=" + sentenceDistance);
+    //features.add("ds=" + sdist + pronoun);
+    //features.add("dn=" + cec.sentenceNumber);
+    //features.add("ep=" + cec.nounLocation);
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+      pronounMap.put("number","plural");
+    }
+    /*
+    if (Linker.firstPersonPronounPattern.matcher(pronoun).matches()) {
+      pronounMap.put("person","first");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
+#### Snippet
+```java
+      List<String> sentenceStrList = summ.getSentences();
+
+      // SentenceClusterer clust = new SentenceClusterer();
+      //  clust.runClusterer(doc, summ.processedSent);
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+      for (int xi1 = 0, xl = entityContexts.size(); xi1 < xl; xi1++) {
+        Context ec1 = entityContexts.get(xi1);
+        //if (isPronoun(ec1)) {
+        //  continue;
+        //}
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+        for (int xi2 = xi1 + 1; xi2 < xl; xi2++) {
+          Context ec2 = entityContexts.get(xi2);
+          //if (isPronoun(ec2)) {
+          //  continue;
+          //}
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+  }
+
+  /*
+  private boolean isPronoun(MentionContext mention) {
+    return mention.getHeadTokenTag().startsWith("PRP");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+    String modelName = args[0];
+    SimilarityModel model = new SimilarityModel(modelName, false);
+    //Context.wn = new WordNet(System.getProperty("WNHOME"), true);
+    //Context.morphy = new Morphy(Context.wn);
+    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderModelInputDialog.java`
+#### Snippet
+```java
+
+// TODO: Implement browse button
+//    Button browseButton = new Button(dialogArea, SWT.PUSH);
+//    browseButton.setText("Browse...");
+
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderPreferencePage.java`
+#### Snippet
+```java
+    
+    // TODO: We need a view settings which are enabled/disabled based on this one
+//    BooleanFieldEditor enableRecallBoosting = new BooleanFieldEditor(
+//        OpenNLPPreferenceConstants.ENABLE_CONFIRMED_NAME_DETECTION,
+//        "Force the detection of confirmed names", getFieldEditorParent());
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileModelValidatorImpl.java`
+#### Snippet
+```java
+      getBlackList();
+    }
+//
+//    Pattern p = Pattern.compile("[0-9]", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+//    if (p.matcher(namedEntity).find()) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `mallet-addon/src/main/java/opennlp/addons/mallet/MaxentTrainer.java`
+#### Snippet
+```java
+
+    MaxEntTrainer trainer = new MaxEntTrainer();
+//    trainer.setGaussianPriorVariance(1d);
+//    trainer.setNumIterations(100);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
+#### Snippet
+```java
+    // objective 1: label likelihood objective
+
+//    CRFTrainerByLabelLikelihood crfTrainer = new CRFTrainerByLabelLikelihood(crf);
+//    crfTrainer.setGaussianPriorVariance(1.0);
+
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+        if (neighbors != null) {
+          for (Integer j : neighbors) {
+            // sum += getCurrentScore(rawScores,
+            // sentId)/(getCurrentScore(rawScores, neigh)) *
+            // getCurrentScore(currWtScores, neigh);
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
+#### Snippet
+```java
+  }
+
+//    private void preComputeWordClasses() {
+//        Set<String> uniqueWordsVocabulary = new HashSet<String>(vocabulary);
+//        for (String d : docsWithClass.keySet()) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `mahout-addon/src/main/java/SimpleTest.java`
+#### Snippet
+```java
+    vector1.set(2, 1);
+    
+//    encoder.addToVector("f1", vector1);
+//    encoder.addToVector("f", vector1);
+
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -599,27 +1968,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFet
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `genModel` from instance context
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+Assignment to static field `instance` from instance context
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
 #### Snippet
 ```java
-
-  public MaxentCompatibilityModel(String corefProject) throws IOException {
-    genModel = GenderModel.testModel(corefProject + "/gen");
-    numModel = NumberModel.testModel(corefProject + "/num");
-  }
+  @Override
+  public void stop(BundleContext context) throws Exception {
+    instance = null;
+    
+    if (corpusServerServiceReference != null) {
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `numModel` from instance context
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+Assignment to static field `instance` from instance context
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
 #### Snippet
 ```java
-  public MaxentCompatibilityModel(String corefProject) throws IOException {
-    genModel = GenderModel.testModel(corefProject + "/gen");
-    numModel = NumberModel.testModel(corefProject + "/num");
-  }
-
+  @Override
+  public void start(final BundleContext context) throws Exception {
+    instance = this;
+    
+    // Registers a service listener to listen for a corpus server implementation.
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -647,6 +2016,42 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `genModel` from instance context
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+#### Snippet
+```java
+
+  public MaxentCompatibilityModel(String corefProject) throws IOException {
+    genModel = GenderModel.testModel(corefProject + "/gen");
+    numModel = NumberModel.testModel(corefProject + "/num");
+  }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `numModel` from instance context
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+#### Snippet
+```java
+  public MaxentCompatibilityModel(String corefProject) throws IOException {
+    genModel = GenderModel.testModel(corefProject + "/gen");
+    numModel = NumberModel.testModel(corefProject + "/num");
+  }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `acroMapLoaded` from instance context
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.java`
+#### Snippet
+```java
+    if (!acroMapLoaded) {
+      initAcronyms(projectName + "/acronyms");
+      acroMapLoaded = true;
+    }
+    showExclusions = false;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `acroMapLoaded` from instance context
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.java`
 #### Snippet
@@ -671,18 +2076,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `acroMapLoaded` from instance context
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.java`
-#### Snippet
-```java
-    if (!acroMapLoaded) {
-      initAcronyms(projectName + "/acronyms");
-      acroMapLoaded = true;
-    }
-    showExclusions = false;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `trained` from instance context
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingletonNonReferentialResolver.java`
 #### Snippet
@@ -695,51 +2088,15 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingletonNonReferen
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `plugin` from instance context
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPlugin.java`
-#### Snippet
-```java
-  public void start(BundleContext context) throws Exception {
-    super.start(context);
-    plugin = this;
-  }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `plugin` from instance context
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPlugin.java`
-#### Snippet
-```java
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    plugin = null;
-    super.stop(context);
-  }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `instance` from instance context
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/OpenNLPPlugin.java`
 #### Snippet
 ```java
-  @Override
-  public void stop(BundleContext context) throws Exception {
-    instance = null;
-    
-    if (corpusServerServiceReference != null) {
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `instance` from instance context
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
-#### Snippet
-```java
-  @Override
-  public void start(final BundleContext context) throws Exception {
-    instance = this;
-    
-    // Registers a service listener to listen for a corpus server implementation.
+		super.start(context);
+		
+		instance = this;
+	}
+	
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -755,1384 +2112,27 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/OpenNLPP
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `instance` from instance context
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/OpenNLPPlugin.java`
+Assignment to static field `plugin` from instance context
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPlugin.java`
 #### Snippet
 ```java
-		super.start(context);
-		
-		instance = this;
-	}
-	
-```
-
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (6 lines)
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
-#### Snippet
-```java
-  }
-
-//    private void preComputeWordClasses() {
-//        Set<String> uniqueWordsVocabulary = new HashSet<String>(vocabulary);
-//        for (String d : docsWithClass.keySet()) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-
-                  if (nChild.getNodeName().equals("answer")) {
-                    // String answer =
-                    // nChild.getAttributes().item(0).getTextContent();
-                    String senseid = nChild.getAttributes().item(1)
-```
-
-### CommentedOutCode
-Commented out code (93 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/ReviewBuilderRunner.java`
-#### Snippet
-```java
-	public ReviewBuilderRunner(){
-
-		/*	input.add( new Pair<String, Integer>("chief architect portable mobile tv", 204973051));
-
-		input.add( new Pair<String, Integer>("lg plasma tv", 215734562));
-```
-
-### CommentedOutCode
-Commented out code (11 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/ReviewBuilderRunner.java`
-#### Snippet
-```java
-	 input.add(new Triple<>("nike jordan black cat tee", 1653598764, "jordan black cat"));
-	 input.add(new Triple<>("obermeyer womens kassandra down coat", 1670629180, "down winter coats"));
-/*
-	 input.add(new Triple<>("paramax  surround sound", 835422569, "paramax im3"));
-	 input.add(new Triple<>("mia quincy wedge", 1285886230, "mia quincy wedge"));
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
-#### Snippet
-```java
-		}
-		
-		//System.out.println("J");
-		//System.out.println(Arrays.deepToString(objectsSimilarityJ));
-		//System.out.println("SMC");
-```
-
-### CommentedOutCode
-Commented out code (12 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-				continue;
-
-			/*
-			if (len < 4 && len>1) { // every word should start with capital
-				String[] qs = query.split(" ");
-```
-
-### CommentedOutCode
-Commented out code (33 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-
-			}
-			/*
-			if (queryArrayStr.size() < 1) { // release constraints on NP down to 2
-											// keywords
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-			for (String word : name1Tokens)
-			{
-	//			if (stopList.isCommonWord(word) /*&& mostFrequent1000Words.isMostFrequent1000Word(word)*/)
-	//				bCommonEnglishWord = true;
-			}
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		
-		//TODO check attributes of objects
-		/*
-		if (!(es1.getVenueName().endsWith(es2.getVenueName()) || es2.getVenueName().endsWith(es1.getVenueName())))
-			return false;
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-	public List<String> getWordsThatShouldBeOnBothSidesEvents()
-	{
-/*
-		names.addAll(Arrays.asList(new String[] { "woman", "man", "women", "men", "womans", "mans", "womens", "mens",
-			"boy", "girl", "boys", "girls", "men's", "women's", "woman's", "ice", // for disney
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-
-
-		/*		
-			res=	extractor. extractSentencesWithPotentialReviewPhrases(//"http://www.sitbetter.com/view/chair/ofm-500-l/ofm--high-back-leather-office-chair/");
-		//"http://www.amazon.com/OFM-High-Back-Leather-Integral-Headrest/dp/B002SIW1E0/ref=sr_1_1?ie=UTF8&qid=1353370254&sr=8-1&keywords=OFM-High-Back-Leather-Integral-Headrest");
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-				}
-
-		/*		buf = reviewObjTotal.getOriginalizedSentences();
-				if (buf!=null && afterOriginalization!=null && afterOriginalization.length>0){
-					List<String> b1 = Arrays.asList(afterOriginalization);
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-
-			
-		/*	String textReview = buildText(reviewObjTotal);
-			try {
-				if (textReview!=null && textReview.length()>60)
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SearchResultsProcessor.java`
-#### Snippet
-```java
-   
-    // LOG.info("\n\n ============= NEW ORDER ================= ");
-    /*
-    for (HitBase hit : newHitList) {
-      LOG.info(hit.toString());
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-       else
-         synonyms.toArray(syns);
-  //        if (syns.length > 1) Arrays.sort(syns);
-  //        if (DEBUG) System.err.println("word=" + word + ":" + Arrays.asList(syns));
-       word2Syns.put(word, syns);
-```
-
-### CommentedOutCode
-Commented out code (34 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
-#### Snippet
-```java
-    return op;
-  }
-  /*
-  public ObjectPhrase convertSentenceToControlObjectPhraseSingleObj(String sentence){
-    parser = ParserChunker2MatcherProcessor.getInstance();
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
-#### Snippet
-```java
-        List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
-        score = parseTreeChunkListScorer.getParseTreeChunkListScore(match);
-        /*
-        if (score > 1.5) {
-          LOG.info(score + " | " + match);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
-#### Snippet
-```java
-	   public void addNewComment(String author, String text) {
-	      
-//	      XMLGregorianCalendar xmlCal = new XMLGregorianCalendarImpl();  // You'll need to fix this!
-	      
-//	      CommentRangeEnd cRangeEnde = wmlObjectFactory.createCommentRangeEnd();
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
-#### Snippet
-```java
-	      MainDocumentPart mDocPart;
-	      try {
-	        /* mlPackage = new WordprocessingMLPackage().load(new File(document.getCanonicalPath()));
-
-	         mDocPart = mlPackage.getMainDocumentPart();
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
-#### Snippet
-```java
-
-	public String toString() {
-		// return "\n"+this.getUrl()+" | " +this.getTitle()+ " | "+
-				// this.abstractText ;
-		if (this.getFragments() != null && this.getFragments().size() > 0)
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comment.java`
-#### Snippet
-```java
-
-            Iterator<Relationship> it = mc.iterator();
-       /*     while (it.hasNext() && !relSet) {
-                relShip = it.next();
-                if (relShip.getValue().equalsIgnoreCase(
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
-#### Snippet
-```java
-			}
-			
-			//File file = new File("C:/ma/personal/argCamp.png");
-	        //byte[] bytes = convertImageToByteArray(file);
-	        //addImageToPackage(wordMLPackage, bytes);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-			// hits.get(0).getTitle(), hits);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-		sents = cleanSplitListOfSents(longestSents);
-
-		//sents = removeDuplicates(sents);
-		//sents = verifyEnforceStartsUpperCase(sents);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-				// forced split by ',' somewhere in the middle of sentence
-				// disused - Feb 26 13
-				//furtherSplit = furtherMakeSentencesShorter(furtherSplit);
-				//furtherSplit.remove(furtherSplit.size()-1);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-			// hits.get(0).getTitle(), hits);
-
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-			}
-		}
-/*
-		nameValuePairs = rb.rsp.getValues();
-		c = (ResultContext) nameValuePairs.get("response");
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-		}
-		rb.setQparser(parser);
-		/*
-		try {
-				rb.setScoreDoc(parser.getPaging());
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFetcher.java`
-#### Snippet
-```java
-    catch (Exception e) {
-
-      // LOG.error(e.getMessage(), e);
-      // System.err.println("error fetching url " + url);
-    }
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFetcher.java`
-#### Snippet
-```java
-      // System.err.println("error fetching url " + url);
-    }
-/*    try {
-      Thread.sleep(50); // do nothing 4 sec
-    } catch (InterruptedException e) {
-```
-
-### CommentedOutCode
-Commented out code (10 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxoQuerySnapshotMatcher.java`
-#### Snippet
-```java
-   * @param taxo
-   */
-  /*
-  public void convertDatToXML(String taxonomyXML_Path, TaxonomySerializer taxo) {
-    XStream xStream = new XStream();
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxoQuerySnapshotMatcher.java`
-#### Snippet
-```java
-  */
-
-  /*
-  public void xmlWork() {
-    TaxoQuerySnapshotMatcher matcher = new TaxoQuerySnapshotMatcher(
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-        result = 1.0;
-
-      // double ld = LevensteinDistanceFinder. levensteinDistance(str1, str2, 1,
-      // 10, 1, 10);
-      // System.out.println(ld);
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-        result = 1.0;
-
-      // double ld = LevensteinDistanceFinder. levensteinDistance(str1, str2, 1,
-      // 10, 1, 10);
-      // System.out.println(ld);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
-#### Snippet
-```java
-	public DocList filterResultsBySyntMatchReduceDocSet(DocList docList,
-			SolrQueryRequest req,  SolrParams params) {
-		//if (!docList.hasScores())
-		//	return docList;
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
-#### Snippet
-```java
-	public DocList filterResultsBySyntMatchReduceDocSet(DocList docList,
-																											SolrQueryRequest req, SolrParams params) {
-		//if (!docList.hasScores())
-		//	return docList;
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-			// hits.get(0).getTitle(), hits);
-
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-		for(String s: sents){
-			s = ContentGeneratorSupport.cleanSpacesInCleanedHTMLpage(s);
-		/*	s = s.trim().replace("  ", ". ").replace("..", ".").replace(". . .", " ")
-					.replace(": ", ". ").replace("- ", ". ").
-					replace (". .",".").trim(); */
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-		sents = cleanSplitListOfSents(longestSents);
-
-		//sents = removeDuplicates(sents);
-		//sents = verifyEnforceStartsUpperCase(sents);
-
-```
-
-### CommentedOutCode
-Commented out code (16 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaFormManager.java`
-#### Snippet
-```java
-
-  }
-/*
-  // all lemmas ending with # in ch1 and/or ch2 SHOULD occur in chunkToAdd
-  public boolean mustOccurVerifier(ParseTreePath ch1, ParseTreePath ch2,
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageContentSentenceExtractor.java`
-#### Snippet
-```java
-
-		sents = cleanListOfSents(longestSents);
-	/*	
-		for(int i = 0; i< sents.length; i++){
-			sents[i] = sents[i].trim().replace("  ", ". ").replace("..", ".").replace(". . .", " ")
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
-		sents = cleanSplitListOfSents(longestSents);
-
-		//sents = removeDuplicates(sents);
-		//sents = verifyEnforceStartsUpperCase(sents);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
-					LOG.info("Could not find the original sentence \n"+f +"\n in the page " );
-				}
-				//if (followSent !=null)
-				//	result.add(followSent);
-			} catch (Exception e) {
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
-#### Snippet
-```java
-			int k1max = pos1.size() - 1, k2max = pos2.size() - 1;
-			while (k1 <= k1max && k2 <= k2max) {
-				/*        // first check if the same POS
-        String sim = posManager.similarPOS(pos1.get(k1), pos2.get(k2));
-        String lemmaMatch = lemmaFormManager.matchLemmas(ps, lem1.get(k1),
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
-#### Snippet
-```java
-								bReachedCommonWord = true;
-							}
-							// else
-								// System.err.println("Next match reached '"+lemmaMatch+
-							// "' | k1 - k2: "+k1 + " "+k2 +
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-		PhraseConcept bottom = new PhraseConcept();
-		md = new ParseTreeMatcherDeterministic();
-		/*Set<Integer> b_intent = new HashSet<Integer>();
-		for (int index = 0; index < attributeCount; ++index) {
-			b_intent.add(index);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-	public int AddIntent(List<List<ParseTreeChunk>> intent, int generator) {
-		// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
-		// System.out.println("debug called for " + intent);
-		//printLattice();
-		int generator_tmp = GetMaximalConcept(intent, generator);
-```
-
-### CommentedOutCode
-Commented out code (15 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-				}
-			}
-			/*for (int parent : newParents) {
-				System.out.println("parent = " + parent);
-				System.out.println("candidate intent:"+conceptList.get(candidate).intent);
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-		List<List<List<ParseTreeChunk>>> cleanedFromInconsPos = new ArrayList<>(),
-				cleanedFromInconsNeg = new ArrayList<>();
-		/*
-		System.out.println("pos = "+ pos);
-		System.out.println("neg = "+ neg);
-```
-
-### CommentedOutCode
-Commented out code (11 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-    }
-  }
-  /*
-  private void indexTrainingSample(String text, String flag, int id)
-          throws IOException {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
-#### Snippet
-```java
-	public int AddIntent(List<List<ParseTreeChunk>> intent, LinkedHashSet<Integer>extent,int generator) {
-		// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
-		// System.out.println("debug called for " + intent);
-		//printLattice();
-		int generator_tmp = GetMaximalConcept(intent, generator);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
-#### Snippet
-```java
-				if (intent.size()!=intersection.size()){
-					// TODO OPENNLP-1454 Candidate for logger.debug(...) if required/helpful
-					// System.out.println("recursive call (inclusion)");
-					// System.out.println(intent + "----" + intersection);
-					candidate = AddIntent(intersection,new_extent, candidate);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
-#### Snippet
-```java
-		
-		addFiles(new File(fileName));
-		//FileUtils.deleteDirectory(new File(destinationDir));
-		//FileUtils.forceMkdir(new File(destinationDir));
-		
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
-#### Snippet
-```java
-				System.out.println("processing "+f.getName());
-				
-				//if (f.getName().indexOf(".html")<0)
-					//continue;
-				classifier = new DocClassifier("", new JSONObject());
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
-#### Snippet
-```java
-	public void processDirectory(String fileName) throws IOException {
-		addFiles(new File(fileName));
-	//	FileUtils.deleteDirectory(new File(destinationDir));
-	//	FileUtils.forceMkdir(new File(destinationDir));
-		
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
-#### Snippet
-```java
-                bReachedCommonWord = true;
-              }
-              // else
-              // System.err.println("Next match reached '"+lemmaMatch+
-              // "' | k1 - k2: "+k1 + " "+k2 +
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
-#### Snippet
-```java
-          if (chunkToAdd == null)
-            chunkToAdd = new ArrayList<>();
-          // System.out.println("ch1 = "+
-          // ch1.toString()+" | ch2="+ch2.toString()
-          // +"\n result = "+chunkToAdd.toString() + "\n");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
-#### Snippet
-```java
-
-    ParseTreeChunk res = new ParseTreeChunk(commonLemmas, commonPOS, 0, 0);
-    // if (parseTreeChunkListScorer.getScore(res)> 0.6)
-    // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" + res);
-    return res;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
-#### Snippet
-```java
-    List<String> pos1 = chunk1.getPOSs();
-    List<String> pos2 = chunk2.getPOSs();
-    // Map <ParseTreeChunk, Double> scoredResults = new HashMap <ParseTreeChunk,
-    // Double> ();
-    int timesRepetitiveRun = NUMBER_OF_ITERATIONS;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
-#### Snippet
-```java
-      score = parseTreeChunkListScorer.getScore(currResult);
-      if (score > globalScore) {
-        // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" +
-        // result+" score = "+ score +"\n\n");
-        result = currResult;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcher.java`
-#### Snippet
-```java
-      score = parseTreeChunkListScorer.getScore(currResult);
-      if (score > globalScore) {
-        // System.out.println(chunk1 + "  + \n"+ chunk2 + " = \n" +
-        // currResult+" score = "+ score +"\n\n");
-        result = currResult;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/DefaultLinker.java`
-#### Snippet
-```java
-      }
-      if (LinkerMode.EVAL == mode) {
-        //String[] names = {"Pronoun", "Proper", "Def-NP", "Is-a", "Plural Pronoun"};
-        //eval = new Evaluation(names);
-      }
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefModel.java`
-#### Snippet
-```java
-  }
-
-//  public AcronymDictionary getAcronyms() {
-//    return null;
-//  }
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefModel.java`
-#### Snippet
-```java
-
-  // TODO: Where is this model used ?
-//  public AbstractModel getIModel() {
-//    return null;
-//  }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
-#### Snippet
-```java
-      processText(finders,names,in);
-    }
-    //long t2 = System.currentTimeMillis();
-    //System.err.println("Time "+(t2-t1));
+  @Override
+  public void stop(BundleContext context) throws Exception {
+    plugin = null;
+    super.stop(context);
   }
 ```
 
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `plugin` from instance context
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPlugin.java`
 #### Snippet
 ```java
-      for (int fi = 0, fl = finders.length; fi < fl; fi++) {
-        nameSpans[fi] = finders[fi].nameFinder.find(tokens);
-        //System.err.println("english.NameFinder.processParse: "+tags[fi] + " "
-        // + java.util.Arrays.asList(nameSpans[fi]));
-      }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
-#### Snippet
-```java
-      for (int fi = 0, fl = finders.length; fi < fl; fi++) {
-        nameSpans[fi] = finders[fi].nameFinder.find(tokens);
-        //System.err.println("EnglishNameFinder.processText: "+tags[fi] + " "
-        // + java.util.Arrays.asList(finderTags[fi]));
-        nameOutcomes[fi] = NameFinderEventStream.generateOutcomes(nameSpans[fi], null, tokens.length);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
-#### Snippet
-```java
-    double[] dist = numModel.numberDist(c);
-    Number number;
-    //System.err.println("MaxentCompatibiltyResolver.computeNumber: "+c+" sing="
-    // +dist[numModel.getSingularIndex()]+" plural="+dist[numModel.getPluralIndex()]);
-    if (dist[numModel.getSingularIndex()] > minNumberProb) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    if (text == null)
-      return null;
-    // if (sentenceDetector!=null)
-    // return sentenceDetector.sentDetect(text);
-    else {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
-#### Snippet
-```java
-        else if (mode == LinkerMode.EVAL) {
-          entities[ri] = resolvers[ri].retain(mention, discourseModel);
-          //DiscourseEntity rde = resolvers[ri].resolve(mention, discourseModel);
-          //eval.update(rde == entities[ri], ri, entities[ri], rde);
-        }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
-#### Snippet
-```java
-    }
-    if (!canResolve && removeUnresolvedMentions) {
-      //System.err.println("No resolver for: "+econtext.toText()
-      //    + " head="+econtext.headTokenText+" "+econtext.headTokenTag);
-      validEntity = false;
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
-#### Snippet
-```java
-      contexts[mi] = new MentionContext(mentions[mi], mentionInSentenceIndex,
-          numMentionsInSentence, mi, sentenceIndex, getHeadFinder());
-      //System.err.println("AbstractLinker.constructMentionContexts: mi="+mi
-      // +" sn="+mentionParse.getSentenceNumber()+" extent="+mentions[mi]+" parse="
-      // +mentionParse.getSpan()+" mc="+contexts[mi].toText());
-```
-
-### CommentedOutCode
-Commented out code (27 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/ShallowParseMentionFinder.java`
-#### Snippet
-```java
+  public void start(BundleContext context) throws Exception {
+    super.start(context);
+    plugin = this;
   }
 
-  /*
-  protected final List getNounPhrases(Parse p) {
-    List nps = p.getNounPhrases();
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-    for (int sci = 0, scn = sChildren.size(); sci < scn;sci++) {
-      Parse sc = sChildren.get(sci);
-      //System.err.println("PTBHeadFinder.getHeadIndex "+p+" "+p.getSyntacticType()
-      // +" sChild "+sci+" type = "+sc.getSyntacticType());
-      if (sc.getSyntacticType().startsWith("S")) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-      }
-    }
-    //System.err.println("PTBHeadFinder.getHeadIndex: "+p+" hi="+toks.size()+"-"+tokenCount
-    // +" -1 = "+(toks.size()-tokenCount -1));
-    return toks.size() - tokenCount - 1;
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-
-    while (null != (head = getHead(p))) {
-      //System.err.print(" -> "+head);
-     //if (p.getEntityId() != -1 && head.getEntityId() != p.getEntityId()) {
-      // System.err.println(p+" ("+p.getEntityId()+") -> "+head+" ("+head.getEntityId()+")");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-      //all other NPs
-      for (Parse child : parts) {
-        //System.err.println("PTBHeadFinder.getHead: "+p.getSyntacticType()+" "+p
-        // +" child "+pi+"="+child.getSyntacticType()+" "+child);
-        if (child.isNounPhrase()) {
-```
-
-### CommentedOutCode
-Commented out code (27 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBMentionFinder.java`
-#### Snippet
-```java
-
-
-  /*
-  private boolean isTraceNp(Parse np){
-    List sc = np.getSyntacticChildren();
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
-#### Snippet
-```java
-    String modelName = args[0];
-    GenderModel model = new GenderModel(modelName, false);
-    //Context.wn = new WordNet(System.getProperty("WNHOME"), true);
-    //Context.morphy = new Morphy(Context.wn);
-    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-```
-
-### CommentedOutCode
-Commented out code (30 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
-#### Snippet
-```java
-   * @param headFinder Object which provides head information.
-   */
-  /*
-  public MentionContext(Parse mentionParse, int mentionIndex, int mentionsInSentence,
-  int mentionsInDocument, int sentenceIndex, String nameType, HeadFinder headFinder) {
-```
-
-### CommentedOutCode
-Commented out code (18 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
-#### Snippet
-```java
-  }
-
-  /*
-  private static String[] getLemmas(MentionContext xec) {
-    //TODO: Try multi-word lemmas first.
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefiniteNounResolver.java`
-#### Snippet
-```java
-    boolean rv = mtokens.length > 1 && !mention.getHeadTokenTag().startsWith("NNP")
-        && ResolverUtils.definiteArticle(firstTok, mention.getFirstTokenTag());
-    //if (rv) {
-    //  System.err.println("defNp "+ec);
-    //}
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/IsAResolver.java`
-#### Snippet
-```java
-  protected boolean excluded(MentionContext ec, DiscourseEntity de) {
-    MentionContext cec = de.getLastExtent();
-    //System.err.println("IsAResolver.excluded?: ec.span="+ec.getSpan()+" cec.span="+cec.getSpan()
-    //    +" cec="+cec.toText()+" lastToken="+ec.getNextToken());
-    if (ec.getSentenceNumber() != cec.getSentenceNumber()) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/IsAResolver.java`
-#### Snippet
-```java
-    }
-    //shallow parse appositives
-    //System.err.println("IsAResolver.excluded: ec="+ec.toText()+" "
-    //    +ec.span+" cec="+cec.toText()+" "+cec.span);
-    if (cec.getIndexSpan().getEnd() == ec.getIndexSpan().getStart() - 2) {
-```
-
-### CommentedOutCode
-Commented out code (31 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingularPronounResolver.java`
-#### Snippet
-```java
-      features.addAll(ResolverUtils.getDistanceFeatures(mention,entity));
-      features.add(ResolverUtils.getMentionCountFeature(entity));
-      /*
-      //lexical features
-      Set featureSet = new HashSet();
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SingularPronounResolver.java`
-#### Snippet
-```java
-  protected boolean outOfRange(MentionContext mention, DiscourseEntity entity) {
-    MentionContext cec = entity.getLastExtent();
-    //System.err.println("MaxentSingularPronounresolve.outOfRange: ["+entity.getLastExtent().toText()
-    // +" ("+entity.getId()+")] ["+mention.toText()+" ("+mention.getId()+")] entity.sentenceNumber=("
-    // +entity.getLastExtent().getSentenceNumber()+")-mention.sentenceNumber=("
-```
-
-### CommentedOutCode
-Commented out code (22 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/PluralPronounResolver.java`
-#### Snippet
-```java
-      features.addAll(ResolverUtils.getContextFeatures(cec));
-      features.add(ResolverUtils.getMentionCountFeature(entity));
-      /*
-      //lexical features
-      Set featureSet = new HashSet();
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-      //hobbsEntityDistance = entityDistance - (entities within sentence from mention to end)
-      // + (entities within sentence form start to mention)
-      //hobbsEntityDistance = entityDistance - (cec.maxNounLocation - cec.getNounPhraseSentenceIndex)
-      // + cec.getNounPhraseSentenceIndex;
-      hobbsEntityDistance = entityDistance +
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    features.add("de=" + entityDistance);
-    features.add("ds=" + sentenceDistance);
-    //features.add("ds=" + sdist + pronoun);
-    //features.add("dn=" + cec.sentenceNumber);
-    //features.add("ep=" + cec.nounLocation);
-```
-
-### CommentedOutCode
-Commented out code (9 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-      pronounMap.put("number","plural");
-    }
-    /*
-    if (Linker.firstPersonPronounPattern.matcher(pronoun).matches()) {
-      pronounMap.put("person","first");
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      StringBuilder cand = new StringBuilder();
-
-      // while(m.find()){
-      // System.out.println(m.group());
-      // }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-					List<ParseTreeChunk> resultCompsReduced = generalizationListReducer
-							.applyFilteringBySubsumption(resultComps);
-					// if (resultCompsReduced.size() != resultComps.size())
-						// System.out.println("reduction of gen list occurred");
-				}
-```
-
-### CommentedOutCode
-Commented out code (14 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-	}
-
-/*	public Boolean equals(ParseTreeChunk ch) {
-		List<String> lems = ch.getLemmas();
-		List<String> poss = ch.POSs;
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-			String toParse) {
-		List<List<ParseTreeChunk>> results = new ArrayList<>();
-		// if (toParse.endsWith("]]]")){
-		// toParse = toParse.replace("[[","").replace("]]","");
-		// }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-            Mention snpExtent = new Mention(npSpan, npSpan, tok.getEntityId(), null,"CNP");
-            entities.add(snpExtent);
-            //System.err.println("adding extent for conjunction in: "+np+" preeceeded by "
-            // +((Parse) npTokens.get(ti-1)).getSyntacticType());
-            inCoordinatedNounPhrase = true;
-```
-
-### CommentedOutCode
-Commented out code (18 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-   * @param mentions The list of mentions into which a new mention can be added.
-   */
-//  private void addPossesiveMentions(Parse possesiveNounPhrase, List<Mention> mentions) {
-//    List<Parse> kids = possesiveNounPhrase.getSyntacticChildren();
-//    if (kids.size() >1) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
-    Parse head = headFinder.getHead(p);
-    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
-    //if (head != null) { System.err.println("head.hashCode()="+head.hashCode());}
-    if (head != null) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-    //System.err.println("AbtractMentionFinder.collectMentions: "+headMap);
-    for (Parse np : nps) {
-      //System.err.println("AbstractMentionFinder: collectMentions: np[" + npi + "]="
-      //    + np + " head=" + headMap.get(np));
-      if (!isHeadOfExistingMention(np, headMap, recentMentions)) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-          }
-        } else {
-          //System.err.println(
-          //    "AbstractMentionFinder.collectMentions excluding np as part of name. np=" + np);
-        }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-        }
-      } else {
-        //System.err.println(
-        //    "AbstractMentionFinder.collectMentions excluding np as head of previous mention. np=" + np);
-      }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-          Mention ppExtent = new Mention(tok.getSpan(), tok.getSpan(),
-              tok.getEntityId(), null,Linker.PRONOUN_MODIFIER);
-          //System.err.println("AbstractEntityFinder.collectPossesivePronouns: adding possesive pronoun: "
-          //    +tok+" "+tok.getEntityId());
-          entities.add(ppExtent);
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-      for (int xi1 = 0, xl = entityContexts.size(); xi1 < xl; xi1++) {
-        Context ec1 = entityContexts.get(xi1);
-        //if (isPronoun(ec1)) {
-        //  continue;
-        //}
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-        for (int xi2 = xi1 + 1; xi2 < xl; xi2++) {
-          Context ec2 = entityContexts.get(xi2);
-          //if (isPronoun(ec2)) {
-          //  continue;
-          //}
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-  }
-
-  /*
-  private boolean isPronoun(MentionContext mention) {
-    return mention.getHeadTokenTag().startsWith("PRP");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-    String modelName = args[0];
-    SimilarityModel model = new SimilarityModel(modelName, false);
-    //Context.wn = new WordNet(System.getProperty("WNHOME"), true);
-    //Context.morphy = new Morphy(Context.wn);
-    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `mallet-addon/src/main/java/opennlp/addons/mallet/MaxentTrainer.java`
-#### Snippet
-```java
-
-    MaxEntTrainer trainer = new MaxEntTrainer();
-//    trainer.setGaussianPriorVariance(1d);
-//    trainer.setNumIterations(100);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
-#### Snippet
-```java
-    // objective 1: label likelihood objective
-
-//    CRFTrainerByLabelLikelihood crfTrainer = new CRFTrainerByLabelLikelihood(crf);
-//    crfTrainer.setGaussianPriorVariance(1.0);
-
-```
-
-### CommentedOutCode
-Commented out code (11 lines)
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/store/MemoryCorpusStore.java`
-#### Snippet
-```java
-    // validate it!
-
-//    TypeSystemDescription tsDescription = UimaUtil.createTypeSystemDescription(
-//        new ByteArrayInputStream(typeSystemBytes));
-//    
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderPreferencePage.java`
-#### Snippet
-```java
-    
-    // TODO: We need a view settings which are enabled/disabled based on this one
-//    BooleanFieldEditor enableRecallBoosting = new BooleanFieldEditor(
-//        OpenNLPPreferenceConstants.ENABLE_CONFIRMED_NAME_DETECTION,
-//        "Force the detection of confirmed names", getFieldEditorParent());
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderModelInputDialog.java`
-#### Snippet
-```java
-
-// TODO: Implement browse button
-//    Button browseButton = new Button(dialogArea, SWT.PUSH);
-//    browseButton.setText("Browse...");
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-      List<String> sentenceStrList = summ.getSentences();
-
-      // SentenceClusterer clust = new SentenceClusterer();
-      //  clust.runClusterer(doc, summ.processedSent);
-
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileModelValidatorImpl.java`
-#### Snippet
-```java
-      getBlackList();
-    }
-//
-//    Pattern p = Pattern.compile("[0-9]", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-//    if (p.matcher(namedEntity).find()) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `mahout-addon/src/main/java/SimpleTest.java`
-#### Snippet
-```java
-    vector1.set(2, 1);
-    
-//    encoder.addToVector("f1", vector1);
-//    encoder.addToVector("f", vector1);
-
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-        if (neighbors != null) {
-          for (Integer j : neighbors) {
-            // sum += getCurrentScore(rawScores,
-            // sentId)/(getCurrentScore(rawScores, neigh)) *
-            // getCurrentScore(currWtScores, neigh);
 ```
 
 ## RuleId[id=ManualArrayCopy]
@@ -2186,423 +2186,447 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityA
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\~` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+
+  public static String stripStyleTags(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<STYLE.*?</STYLE>",
+        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    Matcher matcher = p.matcher(text);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+
+  public static String stripScriptTags(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<SCRIPT.*?</SCRIPT>",
+        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    Matcher matcher = p.matcher(text);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+
+  public static String stripNoScriptTags(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<NOSCRIPT.*?</NOSCRIPT>",
+        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    Matcher matcher = p.matcher(text);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\,` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-```
 
-### RegExpRedundantEscape
-Redundant character escape `\'` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\:` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\_` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\~` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+  public static String stripHTML(String text) {
+    return text.replaceAll("\\<.*?>", "");
+  }
 
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+    text = Utils.stripNoScriptTags(text);
+    text = Utils.stripStyleTags(text);
+    return text.replaceAll("\\<.*?>", "");
+  }
 
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
 
+  public static String stripHTMLCommentsMultiLine(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<!--.*?-->", Pattern.DOTALL);
+    Matcher matcher = p.matcher(text);
+    return matcher.replaceAll("");
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\,` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\<` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
 
+  public static String stripHTMLMultiLine(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<.*?>", Pattern.DOTALL);
+    Matcher matcher = p.matcher(text);
+    return matcher.replaceAll("");
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\'` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\]` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.java`
 #### Snippet
 ```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
+				results = resultsAll;
 
-```
+		return results.toString().replaceAll("(\\[|\\]|,)", " ").trim();
+	}
 
-### RegExpRedundantEscape
-Redundant character escape `\:` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\_` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\~` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\,` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\'` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\:` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\_` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
-          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
-                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
-  );
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\*` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\|` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\'` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\,` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\:` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\_` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\\?` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+    ArrayList<String> sentences = new ArrayList<>();
+    if (text.trim().length() > 0) {
+      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
+      text += " XOXOX.";
+      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\%` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\.` in RegExp
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+    ArrayList<String> sentences = new ArrayList<>();
+    if (text.trim().length() > 0) {
+      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
+      text += " XOXOX.";
+      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\;` in RegExp
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+Redundant character escape `\\]` in RegExp
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
 #### Snippet
 ```java
+    protected String text;
 
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
 
-  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+    public AnnotatingMarkupParser() {
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
+Redundant character escape `\\]` in RegExp
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
+#### Snippet
+```java
+    protected String text;
+
+    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
+
+    public AnnotatingMarkupParser() {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
+#### Snippet
+```java
+    protected String text;
+
+    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
+
+    public AnnotatingMarkupParser() {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\~` in RegExp
 in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
 #### Snippet
 ```java
-
-  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
-  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
-
   private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\,` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\'` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\:` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\_` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\~` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\,` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\'` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\:` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\_` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\~` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\,` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\'` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\:` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\_` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+  private static final Pattern NON_TERMINAL_PATTERN = Pattern.compile(
+          "\\(("+ NON_TERMINAL_MATCHER +"+)" + // source NT
+                  "\\s("+ NON_TERMINAL_MATCHER +"+)((\\s"+ NON_TERMINAL_MATCHER +"+)*)\\)" // expansion NTs
+  );
+
 ```
 
 ### RegExpRedundantEscape
@@ -2834,6 +2858,138 @@ in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFre
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\*` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\|` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\'` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\,` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\:` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\_` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\?` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\%` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\;` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private static final String NON_TERMINAL_MATCHER = "[\\w\\~\\*\\-\\.\\,\\'\\:\\_\\\"]";
+  private static final String TERMINAL_MATCHER = "[\\*òàùìèé\\|\\w\\'\\.\\,\\:\\_Ù\\?È\\%\\;À\\-\\\"]";
+
+  private static final Pattern TERMINAL_PATTERN = Pattern.compile("\\(("+ NON_TERMINAL_MATCHER +"+)\\s("+ TERMINAL_MATCHER +"+)\\)");
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\~` in RegExp
 in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
 #### Snippet
@@ -2929,175 +3085,7 @@ in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFre
 
 ```
 
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripStyleTags(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<STYLE.*?</STYLE>",
-        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-    Matcher matcher = p.matcher(text);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripNoScriptTags(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<NOSCRIPT.*?</NOSCRIPT>",
-        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-    Matcher matcher = p.matcher(text);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripHTMLCommentsMultiLine(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<!--.*?-->", Pattern.DOTALL);
-    Matcher matcher = p.matcher(text);
-    return matcher.replaceAll("");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripHTML(String text) {
-    return text.replaceAll("\\<.*?>", "");
-  }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripScriptTags(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<SCRIPT.*?</SCRIPT>",
-        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-    Matcher matcher = p.matcher(text);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripHTMLMultiLine(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<.*?>", Pattern.DOTALL);
-    Matcher matcher = p.matcher(text);
-    return matcher.replaceAll("");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\<` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-    text = Utils.stripNoScriptTags(text);
-    text = Utils.stripStyleTags(text);
-    return text.replaceAll("\\<.*?>", "");
-  }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.java`
-#### Snippet
-```java
-				results = resultsAll;
-
-		return results.toString().replaceAll("(\\[|\\]|,)", " ").trim();
-	}
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\?` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    ArrayList<String> sentences = new ArrayList<>();
-    if (text.trim().length() > 0) {
-      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
-      text += " XOXOX.";
-      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    ArrayList<String> sentences = new ArrayList<>();
-    if (text.trim().length() > 0) {
-      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
-      text += " XOXOX.";
-      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
-#### Snippet
-```java
-    protected String text;
-
-    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
-
-    public AnnotatingMarkupParser() {
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
-#### Snippet
-```java
-    protected String text;
-
-    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
-
-    public AnnotatingMarkupParser() {
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
-#### Snippet
-```java
-    protected String text;
-
-    protected static final Pattern REDIRECT_PATTERN = Pattern.compile("^#REDIRECT \\[\\[([^\\]]*)\\]\\]");
-
-    public AnnotatingMarkupParser() {
-```
-
 ## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/Activator.java`
-#### Snippet
-```java
-    corpusServer.start();
-    
-    context.registerService(CorpusServer.class.getName(), corpusServer, new Hashtable<>());
-  }
-
-```
-
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
@@ -3111,27 +3099,87 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+Obsolete collection type `Hashtable<>` used
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
 #### Snippet
 ```java
-        if (extent.getParse() == null) {
-
-          Stack<Parse> nodes = new Stack<>();
-          nodes.add(p);
-
+        httpService = (HttpService)super.addingService(serviceRef);
+         
+        Dictionary<String, String> jerseyServletParams = new Hashtable<>();
+        jerseyServletParams.put("javax.ws.rs.Application", CorpusServerApplication.class.getName());
+        
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+Obsolete collection type `Hashtable<>` used
+in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/TaggingServerBundle.java`
 #### Snippet
 ```java
-        if (extent.getParse() == null) {
+        httpService = (HttpService)super.addingService(serviceRef);
+         
+        Dictionary<String, String> jerseyServletParams = new Hashtable<>();
+        jerseyServletParams.put("javax.ws.rs.Application", TaggingServerApplication.class.getName());
+        
+```
 
-          Stack<Parse> nodes = new Stack<>();
-          nodes.add(p);
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      throws Exception {
 
+    Hashtable<String, Integer> tokenHash = new Hashtable<>();
+    // ArrayList tokens = TextProcessor.tokenizeWithPunctuation(s);
+    ArrayList<String> tokens = TextProcessor.fastTokenize(s, true);
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      throws Exception {
+
+    Hashtable<String, Integer> tokenHash = new Hashtable<>();
+    // ArrayList tokens = TextProcessor.tokenizeWithPunctuation(s);
+    ArrayList<String> tokens = TextProcessor.fastTokenize(s, true);
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+  }
+
+  public static Hashtable<String, Integer> getAllBigrams(
+      ArrayList<String> tokens, boolean retainPunc) {
+    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+  public static Hashtable<String, Integer> getAllBigrams(
+      ArrayList<String> tokens, boolean retainPunc) {
+    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
+    ArrayList<String> r = new ArrayList<>();
+    for (int i = 0; i < tokens.size() - 1; i++) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+  public static Hashtable<String, Integer> getAllBigrams(
+      ArrayList<String> tokens, boolean retainPunc) {
+    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
+    ArrayList<String> r = new ArrayList<>();
+    for (int i = 0; i < tokens.size() - 1; i++) {
 ```
 
 ### ObsoleteCollection
@@ -3144,66 +3192,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
   public static Hashtable<String, Integer> getAllBigrams(String[] tokens,
       boolean retainPunc) {
     // convert to ArrayList and pass on
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      throws Exception {
-
-    Hashtable<String, Integer> tokenHash = new Hashtable<>();
-    // ArrayList tokens = TextProcessor.tokenizeWithPunctuation(s);
-    ArrayList<String> tokens = TextProcessor.fastTokenize(s, true);
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      throws Exception {
-
-    Hashtable<String, Integer> tokenHash = new Hashtable<>();
-    // ArrayList tokens = TextProcessor.tokenizeWithPunctuation(s);
-    ArrayList<String> tokens = TextProcessor.fastTokenize(s, true);
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-  }
-
-  public static Hashtable<String, Integer> getAllBigrams(
-      ArrayList<String> tokens, boolean retainPunc) {
-    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-  public static Hashtable<String, Integer> getAllBigrams(
-      ArrayList<String> tokens, boolean retainPunc) {
-    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
-    ArrayList<String> r = new ArrayList<>();
-    for (int i = 0; i < tokens.size() - 1; i++) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-  public static Hashtable<String, Integer> getAllBigrams(
-      ArrayList<String> tokens, boolean retainPunc) {
-    Hashtable<String, Integer> bGramCandidates = new Hashtable<>();
-    ArrayList<String> r = new ArrayList<>();
-    for (int i = 0; i < tokens.size() - 1; i++) {
 ```
 
 ### ObsoleteCollection
@@ -3244,6 +3232,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 
 ### ObsoleteCollection
 Obsolete collection type `Stack` used
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+        if (extent.getParse() == null) {
+
+          Stack<Parse> nodes = new Stack<>();
+          nodes.add(p);
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack<>` used
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+        if (extent.getParse() == null) {
+
+          Stack<Parse> nodes = new Stack<>();
+          nodes.add(p);
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
 in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefContentHandler.java`
 #### Snippet
 ```java
@@ -3268,26 +3280,14 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefContentHandler
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/TaggingServerBundle.java`
+in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java`
 #### Snippet
 ```java
-        httpService = (HttpService)super.addingService(serviceRef);
-         
-        Dictionary<String, String> jerseyServletParams = new Hashtable<>();
-        jerseyServletParams.put("javax.ws.rs.Application", TaggingServerApplication.class.getName());
-        
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
-#### Snippet
-```java
-        httpService = (HttpService)super.addingService(serviceRef);
-         
-        Dictionary<String, String> jerseyServletParams = new Hashtable<>();
-        jerseyServletParams.put("javax.ws.rs.Application", CorpusServerApplication.class.getName());
-        
+	public IDFWordWeight(String fileName)
+	{
+		idf = new Hashtable<>();
+		load(fileName);
+	}
 ```
 
 ### ObsoleteCollection
@@ -3300,66 +3300,6 @@ public class IDFWordWeight implements WordWeight
 	final Hashtable<String, Double> idf;
 	private static IDFWordWeight instance;
 	
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java`
-#### Snippet
-```java
-	public IDFWordWeight(String fileName)
-	{
-		idf = new Hashtable<>();
-		load(fileName);
-	}
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordnetWord.java`
-#### Snippet
-```java
-	public WordnetWord()
-	{
-		rels = new Hashtable<>();
-	}
-	
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordnetWord.java`
-#### Snippet
-```java
-	//Cache..
-	ISynset synonyms;
-	final Hashtable<IPointer, List<ISynsetID>> rels;
-	
-	public WordnetWord()
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTagger.java`
-#### Snippet
-```java
-public class OpenNLPPOSTagger implements POSTagger {
-  private final POSTaggerME tagger;
-  private Hashtable<Integer, String[]> tagMap;
-  private final DocProcessor dp;
-  private final String[] nounTags = {"NOUN", "NN", "NNS","NNP","NNPS"};
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTagger.java`
-#### Snippet
-```java
-
-  private void initTagMap() {
-    tagMap = new Hashtable<>();
-    tagMap.put(POSTagger.NOUN, nounTags);
-  }
 ```
 
 ### ObsoleteCollection
@@ -3399,51 +3339,63 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.j
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordnetWord.java`
 #### Snippet
 ```java
-    List<LexicalChain> lc = lcs.buildLexicalChains(article, sent);
-    Collections.sort(lc);
-    Hashtable<Integer, Score> sentScores = new Hashtable<>();
-    try{
-      List<Score> scores = textRank.rankSentences(article, sent, dp, article.length());
+	public WordnetWord()
+	{
+		rels = new Hashtable<>();
+	}
+	
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordnetWord.java`
+#### Snippet
+```java
+	//Cache..
+	ISynset synonyms;
+	final Hashtable<IPointer, List<ISynsetID>> rels;
+	
+	public WordnetWord()
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTagger.java`
 #### Snippet
 ```java
-    List<LexicalChain> lc = lcs.buildLexicalChains(article, sent);
-    Collections.sort(lc);
-    Hashtable<Integer, Score> sentScores = new Hashtable<>();
-    try{
-      List<Score> scores = textRank.rankSentences(article, sent, dp, article.length());
+
+  private void initTagMap() {
+    tagMap = new Hashtable<>();
+    tagMap.put(POSTagger.NOUN, nounTags);
+  }
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTagger.java`
 #### Snippet
 ```java
-    }
-
-    Hashtable<Sentence, Boolean> summSents = new Hashtable<>();
-    List<Score> finalSc = new ArrayList<>();
-    int currWordCnt = 0;
+public class OpenNLPPOSTagger implements POSTagger {
+  private final POSTaggerME tagger;
+  private Hashtable<Integer, String[]> tagMap;
+  private final DocProcessor dp;
+  private final String[] nounTags = {"NOUN", "NN", "NNS","NNP","NNPS"};
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/Activator.java`
 #### Snippet
 ```java
-    }
+    corpusServer.start();
+    
+    context.registerService(CorpusServer.class.getName(), corpusServer, new Hashtable<>());
+  }
 
-    Hashtable<Sentence, Boolean> summSents = new Hashtable<>();
-    List<Score> finalSc = new ArrayList<>();
-    int currWordCnt = 0;
 ```
 
 ### ObsoleteCollection
@@ -3459,63 +3411,51 @@ in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 #### Snippet
 ```java
-  // processedSent - Sentences after stemming and stopword removal..
-  private void getSentences(String str, List<String> sentences,
-                            Hashtable<String, List<Integer>> iidx, List<String> processedSent) {
-    int oldSentEndIdx = 0;
-    int sentEndIdx = 0;
+    List<LexicalChain> lc = lcs.buildLexicalChains(article, sent);
+    Collections.sort(lc);
+    Hashtable<Integer, Score> sentScores = new Hashtable<>();
+    try{
+      List<Score> scores = textRank.rankSentences(article, sent, dp, article.length());
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+#### Snippet
+```java
+    List<LexicalChain> lc = lcs.buildLexicalChains(article, sent);
+    Collections.sort(lc);
+    Hashtable<Integer, Score> sentScores = new Hashtable<>();
+    try{
+      List<Score> scores = textRank.rankSentences(article, sent, dp, article.length());
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 #### Snippet
 ```java
-  private final Pointer[] rels = {Pointer.ANTONYM, Pointer.HYPERNYM, Pointer.HYPONYM, Pointer.MERONYM_PART,
-          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
-  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
-  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
+    }
 
+    Hashtable<Sentence, Boolean> summSents = new Hashtable<>();
+    List<Score> finalSc = new ArrayList<>();
+    int currWordCnt = 0;
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 #### Snippet
 ```java
-  private final Pointer[] rels = {Pointer.ANTONYM, Pointer.HYPERNYM, Pointer.HYPONYM, Pointer.MERONYM_PART,
-          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
-  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
-  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
+    }
 
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
-#### Snippet
-```java
-          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
-  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
-  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
-
-  public WordRelationshipDetermination() throws Exception {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
-#### Snippet
-```java
-          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
-  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
-  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
-
-  public WordRelationshipDetermination() throws Exception {
+    Hashtable<Sentence, Boolean> summSents = new Hashtable<>();
+    List<Score> finalSc = new ArrayList<>();
+    int currWordCnt = 0;
 ```
 
 ### ObsoleteCollection
@@ -3543,15 +3483,51 @@ public class StopWords {
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
 #### Snippet
 ```java
+  private final Pointer[] rels = {Pointer.ANTONYM, Pointer.HYPERNYM, Pointer.HYPONYM, Pointer.MERONYM_PART,
+          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
+  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
+  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
 
-  private void addToChain(Word noun, LexicalChain l,
-                          Hashtable<String, List<LexicalChain>> chains, Sentence sent) {
+```
 
-    l.addWord(noun);
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+#### Snippet
+```java
+  private final Pointer[] rels = {Pointer.ANTONYM, Pointer.HYPERNYM, Pointer.HYPONYM, Pointer.MERONYM_PART,
+          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
+  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
+  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+#### Snippet
+```java
+          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
+  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
+  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
+
+  public WordRelationshipDetermination() {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+#### Snippet
+```java
+          Pointer.MERONYM_SUBSTANCE, Pointer.PARTICIPLE, Pointer.HYPERNYM_INSTANCE};
+  private final Hashtable<ISynsetID, ISynset> cache = new Hashtable<>();
+  private final Hashtable<ISynset, List<IWord>> synsetWordCache = new Hashtable<>();
+
+  public WordRelationshipDetermination() {
 ```
 
 ### ObsoleteCollection
@@ -3576,6 +3552,30 @@ in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChaini
     Hashtable<String, Boolean> words = new Hashtable<>();
     List<LexicalChain> toRem = new ArrayList<>();
     for(int i=lc.size()-1; i>=0;i--)
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
+    // POS tag article
+    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
+    List<LexicalChain> lc = new ArrayList<>();
+    // Build lexical chains
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
+    // POS tag article
+    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
+    List<LexicalChain> lc = new ArrayList<>();
+    // Build lexical chains
 ```
 
 ### ObsoleteCollection
@@ -3595,23 +3595,23 @@ Obsolete collection type `Hashtable`> used
 in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
 #### Snippet
 ```java
-  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
-    // POS tag article
-    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
-    List<LexicalChain> lc = new ArrayList<>();
-    // Build lexical chains
+
+  private void addToChain(Word noun, LexicalChain l,
+                          Hashtable<String, List<LexicalChain>> chains, Sentence sent) {
+
+    l.addWord(noun);
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
 #### Snippet
 ```java
-  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
-    // POS tag article
-    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
-    List<LexicalChain> lc = new ArrayList<>();
-    // Build lexical chains
+  // processedSent - Sentences after stemming and stopword removal..
+  private void getSentences(String str, List<String> sentences,
+                            Hashtable<String, List<Integer>> iidx, List<String> processedSent) {
+    int oldSentEndIdx = 0;
+    int sentEndIdx = 0;
 ```
 
 ### ObsoleteCollection
@@ -3627,6 +3627,90 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 ```
 
 ### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  }
+
+  public Hashtable<Integer, List<Integer>> getLinks() {
+    return links;
+  }
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  }
+
+  private void setLinks(Hashtable<Integer, List<Integer>> links) {
+    this.links = links;
+  }
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  // of j(wjk) * PR(Vj) )
+  public List<Score> getTextRankScore(List<Score> rawScores,
+                                      List<String> sentences, Hashtable<String, Double> wrdWts) {
+    List<Score> currWtScores = new ArrayList<>();
+    // Start with equal weights for all sentences
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  // words..
+  public double getWeightedSimilarity(String sent1, String sent2,
+                                      Hashtable<String, Double> wrdWts) {
+    String[] words1 = sent1.trim().split("\\s+");
+    String[] words2 = sent2.trim().split("\\s+");
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+    String[] words2 = sent2.trim().split("\\s+");
+    double wordsInCommon = 0;
+    Hashtable<String, Boolean> dups = new Hashtable<>();
+    for (String s : words1) {
+      String currWrd1 = s.trim();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+    String[] words2 = sent2.trim().split("\\s+");
+    double wordsInCommon = 0;
+    Hashtable<String, Boolean> dups = new Hashtable<>();
+    for (String s : words1) {
+      String currWrd1 = s.trim();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  private final StopWords sw;
+  private String article;
+  private Hashtable<Integer, List<Integer>> links;
+  private List<String> sentences = new ArrayList<>();
+  private List<String> processedSent = new ArrayList<>();
+```
+
+### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
 in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 #### Snippet
@@ -3636,6 +3720,30 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
     setLinks(new Hashtable<>());
     processedSent = new ArrayList<>();
     docProc = dp;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable`> used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  // Used in the denominator of the Text rank formula.
+  public List<Score> getNeighborsSigmaWtSim(List<String> sentences,
+                                            Hashtable<String, List<Integer>> iidx, Hashtable<String, Double> wts) {
+    List<Score> allScores = new ArrayList<>();
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  // Used in the denominator of the Text rank formula.
+  public List<Score> getNeighborsSigmaWtSim(List<String> sentences,
+                                            Hashtable<String, List<Integer>> iidx, Hashtable<String, Double> wts) {
+    List<Score> allScores = new ArrayList<>();
+
 ```
 
 ### ObsoleteCollection
@@ -3667,66 +3775,6 @@ Obsolete collection type `Hashtable` used
 in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 #### Snippet
 ```java
-  // words..
-  public double getWeightedSimilarity(String sent1, String sent2,
-                                      Hashtable<String, Double> wrdWts) {
-    String[] words1 = sent1.split(" ");
-    String[] words2 = sent2.split(" ");
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-    String[] words2 = sent2.split(" ");
-    double wordsInCommon = 0;
-    Hashtable<String, Boolean> dups = new Hashtable<>();
-    for (String s : words1) {
-      String currWrd1 = s.trim();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-    String[] words2 = sent2.split(" ");
-    double wordsInCommon = 0;
-    Hashtable<String, Boolean> dups = new Hashtable<>();
-    for (String s : words1) {
-      String currWrd1 = s.trim();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  // Used in the denominator of the Text rank formula.
-  public List<Score> getNeighborsSigmaWtSim(List<String> sentences,
-                                            Hashtable<String, List<Integer>> iidx, Hashtable<String, Double> wts) {
-    List<Score> allScores = new ArrayList<>();
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  // Used in the denominator of the Text rank formula.
-  public List<Score> getNeighborsSigmaWtSim(List<String> sentences,
-                                            Hashtable<String, List<Integer>> iidx, Hashtable<String, Double> wts) {
-    List<Score> allScores = new ArrayList<>();
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
   }
 
   private Hashtable<String, Double> toWordWtHashtable(WordWeight wwt,
@@ -3768,54 +3816,6 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
     Hashtable<String, Double> wrdWt = new Hashtable<>();
     Enumeration<String> keys = iidx.keys();
     while (keys.hasMoreElements()) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  // of j(wjk) * PR(Vj) )
-  public List<Score> getTextRankScore(List<Score> rawScores,
-                                      List<String> sentences, Hashtable<String, Double> wrdWts) {
-    List<Score> currWtScores = new ArrayList<>();
-    // Start with equal weights for all sentences
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  private final StopWords sw;
-  private String article;
-  private Hashtable<Integer, List<Integer>> links;
-  private List<String> sentences = new ArrayList<>();
-  private List<String> processedSent = new ArrayList<>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  }
-
-  private void setLinks(Hashtable<Integer, List<Integer>> links) {
-    this.links = links;
-  }
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable`> used
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-  }
-
-  public Hashtable<Integer, List<Integer>> getLinks() {
-    return links;
-  }
 ```
 
 ## RuleId[id=CastToIncompatibleInterface]
@@ -3841,18 +3841,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
       List<Context> entityContexts = (List<Context>) entities.get(key);
       GenderEnum gender = getGender(entityContexts);
       if (gender != null) {
-```
-
-### CastToIncompatibleInterface
-Cast to incompatible interface `List`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-    Map<Integer, Set<String>> nameSets = new HashMap<>();
-    for (Integer key : entities.keySet()) {
-      List<Context> entityContexts = (List<Context>) entities.get(key);
-      nameSets.put(key, constructNameSet(entityContexts));
-    }
 ```
 
 ### CastToIncompatibleInterface
@@ -3889,6 +3877,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
       List<Context> candidateContexts = (List<Context>) entities.get(key);
       if (key.equals(entityKey)) {
         exclusionSet.addAll(candidateContexts);
+```
+
+### CastToIncompatibleInterface
+Cast to incompatible interface `List`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
+    Map<Integer, Set<String>> nameSets = new HashMap<>();
+    for (Integer key : entities.keySet()) {
+      List<Context> entityContexts = (List<Context>) entities.get(key);
+      nameSets.put(key, constructNameSet(entityContexts));
+    }
 ```
 
 ### CastToIncompatibleInterface
@@ -4012,54 +4012,6 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
-Iteration over `docsWithClass.keySet()` may be replaced with 'entrySet()' iteration
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
-#### Snippet
-```java
-    classMegaDocMap = new HashMap<>();
-    Map<String, StringBuilder> mockClassMegaDocMap = new HashMap<>();
-    for (String doc : docsWithClass.keySet()) {
-      String cl = docsWithClass.get(doc);
-      StringBuilder megaDoc = mockClassMegaDocMap.get(cl);
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `mockClassMegaDocMap.keySet()` may be replaced with 'entrySet()' iteration
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
-#### Snippet
-```java
-      }
-    }
-    for (String cl : mockClassMegaDocMap.keySet()) {
-      classMegaDocMap.put(cl, mockClassMegaDocMap.get(cl).toString());
-    }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `corpusIndexerMap.keySet()` may be replaced with 'values()' iteration
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-  public void shutdown() throws IOException {
-    
-    for (String corpusId : corpusIndexerMap.keySet()) {
-      AnalysisEngine indexer = corpusIndexerMap.get(corpusId);
-      
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `corpusSearcherMap.keySet()` may be replaced with 'entrySet()' iteration
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-    }
-    
-    for (String corpusId : corpusSearcherMap.keySet()) {
-      IndexSearcher searcher = corpusSearcherMap.get(corpusId);
-      
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `fields.keySet()` may be replaced with 'entrySet()' iteration
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
 #### Snippet
@@ -4105,6 +4057,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 			for (String extraField : extraFields.keySet()) {
 				sdoc.addField(extraField, extraFields.get(extraField));
 			}
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+  public static String convertHashMapToString(HashMap<String, Integer> m) {
+    StringBuilder s = new StringBuilder();
+    for (String x : m.keySet()) {
+      s.append(x);
+      s.append("-");
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -4132,18 +4096,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-  public static String convertHashMapToString(HashMap<String, Integer> m) {
-    StringBuilder s = new StringBuilder();
-    for (String x : m.keySet()) {
-      s.append(x);
-      s.append("-");
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `b1.keySet()` may be replaced with 'values()' iteration
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
@@ -4153,6 +4105,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
     for (String s : b1.keySet()) {
       retVal += b1.get(s);
     }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `commonSegments.keySet()` may be replaced with 'entrySet()' iteration
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    System.out.println(segments.size() + " docs");
+    // now we have the segments and their frequencies
+    for (String seg : commonSegments.keySet()) {
+      System.out.println(seg + ":" + commonSegments.get(seg).size());
+    }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `uniqueTokens.keySet()` may be replaced with 'entrySet()' iteration
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      HashMap<String, Integer> uniqueTokens = TextProcessor
+          .getUniqueTokenIndex(allTokens);
+      for (String t : uniqueTokens.keySet()) {
+        Integer freq = uniqueTokens.get(t);
+        if (freq == segments.size()) {
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -4192,42 +4168,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `commonSegments.keySet()` may be replaced with 'entrySet()' iteration
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    System.out.println(segments.size() + " docs");
-    // now we have the segments and their frequencies
-    for (String seg : commonSegments.keySet()) {
-      System.out.println(seg + ":" + commonSegments.get(seg).size());
-    }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `uniqueTokens.keySet()` may be replaced with 'entrySet()' iteration
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      HashMap<String, Integer> uniqueTokens = TextProcessor
-          .getUniqueTokenIndex(allTokens);
-      for (String t : uniqueTokens.keySet()) {
-        Integer freq = uniqueTokens.get(t);
-        if (freq == segments.size()) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `entities.keySet()` may be replaced with 'entrySet()' iteration
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-  private Map<Integer, Set<String>> constructNameSets(Map<Integer, Context> entities) {
-    Map<Integer, Set<String>> nameSets = new HashMap<>();
-    for (Integer key : entities.keySet()) {
-      List<Context> entityContexts = (List<Context>) entities.get(key);
-      nameSets.put(key, constructNameSet(entityContexts));
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `entities.keySet()` may be replaced with 'entrySet()' iteration
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
@@ -4256,11 +4196,47 @@ Iteration over `entities.keySet()` may be replaced with 'entrySet()' iteration
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
+  private Map<Integer, Set<String>> constructNameSets(Map<Integer, Context> entities) {
+    Map<Integer, Set<String>> nameSets = new HashMap<>();
+    for (Integer key : entities.keySet()) {
+      List<Context> entityContexts = (List<Context>) entities.get(key);
+      nameSets.put(key, constructNameSet(entityContexts));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `entities.keySet()` may be replaced with 'entrySet()' iteration
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+#### Snippet
+```java
   private Map<Integer, Set<String>> constructHeadSets(Map<Integer, Context> entities) {
     Map<Integer, Set<String>> headSets = new HashMap<>();
     for (Integer key : entities.keySet()) {
       List<Context> entityContexts = (List<Context>) entities.get(key);
       headSets.put(key, constructHeadSet(entityContexts));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `corpusIndexerMap.keySet()` may be replaced with 'values()' iteration
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+  public void shutdown() throws IOException {
+    
+    for (String corpusId : corpusIndexerMap.keySet()) {
+      AnalysisEngine indexer = corpusIndexerMap.get(corpusId);
+      
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `corpusSearcherMap.keySet()` may be replaced with 'entrySet()' iteration
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+    }
+    
+    for (String corpusId : corpusSearcherMap.keySet()) {
+      IndexSearcher searcher = corpusSearcherMap.get(corpusId);
+      
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -4273,6 +4249,30 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
         for (String labelName: this.labelToId.keySet()) {
             Integer labelId = this.labelToId.get(labelName);
             assert labelId != null;
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `docsWithClass.keySet()` may be replaced with 'entrySet()' iteration
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
+#### Snippet
+```java
+    classMegaDocMap = new HashMap<>();
+    Map<String, StringBuilder> mockClassMegaDocMap = new HashMap<>();
+    for (String doc : docsWithClass.keySet()) {
+      String cl = docsWithClass.get(doc);
+      StringBuilder megaDoc = mockClassMegaDocMap.get(cl);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `mockClassMegaDocMap.keySet()` may be replaced with 'entrySet()' iteration
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/SimpleNaiveBayesClassifier.java`
+#### Snippet
+```java
+      }
+    }
+    for (String cl : mockClassMegaDocMap.keySet()) {
+      classMegaDocMap.put(cl, mockClassMegaDocMap.get(cl).toString());
+    }
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -4461,54 +4461,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Levenst
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`toString.length() > 0` can be replaced with '!toString.isEmpty()'
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-    String toString = Arrays.toString(sentence);
-
-    if (toString.length() > 0) {
-      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`possibleRules.size() > 0` can be replaced with '!possibleRules.isEmpty()'
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ContextFreeGrammar.java`
-#### Snippet
-```java
-      }
-    }
-    if (possibleRules.size() > 0) {
-      return possibleRules.get(new Random().nextInt(possibleRules.size()));
-    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`stems.size() > 0` can be replaced with '!stems.isEmpty()'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      }
-
-      if (stems.size() > 0)
-        return stems;
-      else {
-```
-
-### SizeReplaceableByIsEmpty
-`synsets.size() > 0` can be replaced with '!synsets.isEmpty()'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
-#### Snippet
-```java
-            try {
-              ArrayList<Synset> synsets = word.getSynsets();
-              if (synsets != null && synsets.size() > 0) {
-                for (Synset syn : synsets) {
-                  contextClusters.add(syn.getOffset() + "");
-```
-
-### SizeReplaceableByIsEmpty
 `cList.get(k).extent.size()==0` can be replaced with 'cList.get(k).extent.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaConverter.java`
 #### Snippet
@@ -4545,6 +4497,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`c.extent.size() == 0` can be replaced with 'c.extent.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+		if (c.extent.size() == 1)
+			return 1.;//c.intent.size();
+		if (c.extent.size() == 0)
+			return 0.;
+		else {
+```
+
+### SizeReplaceableByIsEmpty
+`this.attributes.size()>0` can be replaced with '!this.attributes.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+#### Snippet
+```java
+		fnlst.removeAll(ListUtils.union(intent1,intent2)); 
+		int fn = fnlst.size();
+		return (this.attributes.size()>0) ? 1.*(tp + fn)/this.attributes.size() : 0;
+	}
+	
+```
+
+### SizeReplaceableByIsEmpty
 `this.attributes.size() > 0` can be replaced with '!this.attributes.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 #### Snippet
@@ -4569,27 +4545,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`c.extent.size() == 0` can be replaced with 'c.extent.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+`orig.formedPhrases.size()>0` can be replaced with '!orig.formedPhrases.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-		if (c.extent.size() == 1)
-			return 1.;//c.intent.size();
-		if (c.extent.size() == 0)
-			return 0.;
-		else {
+
+				List<String> buf = reviewObjTotal.getSentimentPhrases();
+				if (orig.formedPhrases!=null && orig.formedPhrases.size()>0){
+					buf.addAll(orig.formedPhrases);
+					reviewObjTotal.setSentimentPhrases(buf);
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.attributes.size()>0` can be replaced with '!this.attributes.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
+`first.size()>0` can be replaced with '!first.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCompleteQueryRunner.java`
 #### Snippet
 ```java
-		fnlst.removeAll(ListUtils.union(intent1,intent2)); 
-		int fn = fnlst.size();
-		return (this.attributes.size()>0) ? 1.*(tp + fn)/this.attributes.size() : 0;
-	}
-	
+			
+			first.retainAll(second);
+			if (first.size()>0)
+			   return first;
+			else
+```
+
+### SizeReplaceableByIsEmpty
+`name1TokensC.size() > 0` can be replaced with '!name1TokensC.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+
+		name1TokensC.retainAll(namesBothSides);
+		if (name1TokensC.size() > 0)
+			return false;
+		else
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4633,47 +4621,11 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityA
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
 #### Snippet
 ```java
-
-		name1TokensC.retainAll(namesBothSides);
-		if (name1TokensC.size() > 0)
-			return false;
-		else
-```
-
-### SizeReplaceableByIsEmpty
-`name1TokensC.size() > 0` can be replaced with '!name1TokensC.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
 		name1Tokens.retainAll(name2Tokens);
 
 		if ((name1TokensC.size() > 0 && name1Tokens.size() < 3) || (name1TokensC.size() > 1 && name1Tokens.size() < 5))
 		{ // 'mens == men; case !(name1TokensC.size()==2 && (name1TokensC.get(0).indexOf(name1TokensC.get(1))>-1 ||
 			// name1TokensC.get(1).indexOf(name1TokensC.get(0))>-1 ))){
-```
-
-### SizeReplaceableByIsEmpty
-`orig.formedPhrases.size()>0` can be replaced with '!orig.formedPhrases.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-
-				List<String> buf = reviewObjTotal.getSentimentPhrases();
-				if (orig.formedPhrases!=null && orig.formedPhrases.size()>0){
-					buf.addAll(orig.formedPhrases);
-					reviewObjTotal.setSentimentPhrases(buf);
-```
-
-### SizeReplaceableByIsEmpty
-`first.size()>0` can be replaced with '!first.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCompleteQueryRunner.java`
-#### Snippet
-```java
-			
-			first.retainAll(second);
-			if (first.size()>0)
-			   return first;
-			else
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4686,18 +4638,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymM
      if (word == null || word.length() == 0) continue; // ignore
 
 
-```
-
-### SizeReplaceableByIsEmpty
-`possibleRules.size() > 0` can be replaced with '!possibleRules.isEmpty()'
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-      }
-    }
-    if (possibleRules.size() > 0) {
-      return possibleRules.get(new Random().nextInt(possibleRules.size()));
-    } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4749,18 +4689,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 ```
 
 ### SizeReplaceableByIsEmpty
-`cleanedRes.size() > 0` can be replaced with '!cleanedRes.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
-#### Snippet
-```java
-			}
-			//wordRes.removeAll(queryWordsToRemove);
-			if (cleanedRes.size() > 0) {
-				//cleanedRes.addAll(toAddAtEnd);
-				res.add(cleanedRes);
-```
-
-### SizeReplaceableByIsEmpty
 `ids.size() > 0` can be replaced with '!ids.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
@@ -4770,6 +4698,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
     if (ids != null && ids.size() > 0) {
       StringBuilder sbuf = new StringBuilder();
 
+```
+
+### SizeReplaceableByIsEmpty
+`cleanedRes.size() > 0` can be replaced with '!cleanedRes.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+			}
+			//wordRes.removeAll(queryWordsToRemove);
+			if (cleanedRes.size() > 0) {
+				//cleanedRes.addAll(toAddAtEnd);
+				res.add(cleanedRes);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4785,15 +4725,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 ```
 
 ### SizeReplaceableByIsEmpty
-`verbNetGenList.size()>0` can be replaced with '!verbNetGenList.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/ParseTreeNodeGeneralizer.java`
+`clausesBodiesToAdd.size()>0` can be replaced with '!clausesBodiesToAdd.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeWithDeduction.java`
 #### Snippet
 ```java
-		if (posGenStrList.get(0).startsWith("VB")){	
-			List<Map<String, List<String>>> verbNetGenList = vnProc .generalize(ch1.getWord(), ch2.getWord());
-			if (verbNetGenList.size()>0){
-				Map<String, List<String>> verbNetGen = verbNetGenList.get(0);
-				Map<String, Object> attr = newNode.getAttributes();
+					List<String> lemmas = ch.getLemmas();
+					List<List<List<ParseTreeChunk>>> clausesBodiesToAdd = findClausesForListOfLemmas(lemmas);
+					if (clausesBodiesToAdd!=null && clausesBodiesToAdd.size()>0)
+						intentExtendedByDeduction .add(flattenParseTreeChunkLst(clausesBodiesToAdd));
+			}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4869,18 +4809,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 ```
 
 ### SizeReplaceableByIsEmpty
-`clausesBodiesToAdd.size()>0` can be replaced with '!clausesBodiesToAdd.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeWithDeduction.java`
-#### Snippet
-```java
-					List<String> lemmas = ch.getLemmas();
-					List<List<List<ParseTreeChunk>>> clausesBodiesToAdd = findClausesForListOfLemmas(lemmas);
-					if (clausesBodiesToAdd!=null && clausesBodiesToAdd.size()>0)
-						intentExtendedByDeduction .add(flattenParseTreeChunkLst(clausesBodiesToAdd));
-			}
-```
-
-### SizeReplaceableByIsEmpty
 `chunkToAdd.size() > 0` can be replaced with '!chunkToAdd.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGroupGeneralizer.java`
 #### Snippet
@@ -4905,87 +4833,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/Phrase
 ```
 
 ### SizeReplaceableByIsEmpty
-`accum.size() > 0` can be replaced with '!accum.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
+`verbNetGenList.size()>0` can be replaced with '!verbNetGenList.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/ParseTreeNodeGeneralizer.java`
 #### Snippet
 ```java
-			}
-		}
-		if (accum.size() > 0) {
-			overlapsPlaus.add(accum);
-		}
-```
-
-### SizeReplaceableByIsEmpty
-`accum.size() > 0` can be replaced with '!accum.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGeneralizer.java`
-#### Snippet
-```java
-			}
-		}
-		if (accum.size() > 0) {
-			overlapsPlaus.add(accum);
-		}
-```
-
-### SizeReplaceableByIsEmpty
-`newGroup.size()>0` can be replaced with '!newGroup.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-						newGroup.add(ch);
-				}
-				if (newGroup.size()>0)
-					memberList.add(newGroup);
-			} 
-```
-
-### SizeReplaceableByIsEmpty
-`memberList.size()>0` can be replaced with '!memberList.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-					memberList.add(newGroup);
-			} 
-			if (memberList.size()>0)
-				cleanedFromInconsPos.add(memberList);
-		}
-```
-
-### SizeReplaceableByIsEmpty
-`newGroup.size()>0` can be replaced with '!newGroup.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-						newGroup.add(ch);
-				}
-				if (newGroup.size()>0)
-					memberList.add(newGroup);
-			} 
-```
-
-### SizeReplaceableByIsEmpty
-`memberList.size()>0` can be replaced with '!memberList.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-					memberList.add(newGroup);
-			} 
-			if (memberList.size()>0)
-				cleanedFromInconsNeg.add(memberList);
-		}
-```
-
-### SizeReplaceableByIsEmpty
-`group.size()>0` can be replaced with '!group.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-			Set<ParseTreeChunk> newSet= new HashSet<>();
-			for(  List<ParseTreeChunk> group: member){
-				if (group.size()>0)
-					newSet.addAll(group);
-			}
+		if (posGenStrList.get(0).startsWith("VB")){	
+			List<Map<String, List<String>>> verbNetGenList = vnProc .generalize(ch1.getWord(), ch2.getWord());
+			if (verbNetGenList.size()>0){
+				Map<String, List<String>> verbNetGen = verbNetGenList.get(0);
+				Map<String, Object> attr = newNode.getAttributes();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5061,6 +4917,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 ```
 
 ### SizeReplaceableByIsEmpty
+`newGroup.size()>0` can be replaced with '!newGroup.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+					newGroup.add(ch);
+			}
+			if (newGroup.size()>0)
+				newList.add(newGroup);
+		} 
+```
+
+### SizeReplaceableByIsEmpty
 `group.size()>0` can be replaced with '!group.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
@@ -5077,11 +4945,83 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
 ```java
-					newGroup.add(ch);
+						newGroup.add(ch);
+				}
+				if (newGroup.size()>0)
+					memberList.add(newGroup);
+			} 
+```
+
+### SizeReplaceableByIsEmpty
+`memberList.size()>0` can be replaced with '!memberList.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+					memberList.add(newGroup);
+			} 
+			if (memberList.size()>0)
+				cleanedFromInconsPos.add(memberList);
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`newGroup.size()>0` can be replaced with '!newGroup.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+						newGroup.add(ch);
+				}
+				if (newGroup.size()>0)
+					memberList.add(newGroup);
+			} 
+```
+
+### SizeReplaceableByIsEmpty
+`memberList.size()>0` can be replaced with '!memberList.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+					memberList.add(newGroup);
+			} 
+			if (memberList.size()>0)
+				cleanedFromInconsNeg.add(memberList);
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`group.size()>0` can be replaced with '!group.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+			Set<ParseTreeChunk> newSet= new HashSet<>();
+			for(  List<ParseTreeChunk> group: member){
+				if (group.size()>0)
+					newSet.addAll(group);
 			}
-			if (newGroup.size()>0)
-				newList.add(newGroup);
-		} 
+```
+
+### SizeReplaceableByIsEmpty
+`accum.size() > 0` can be replaced with '!accum.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhraseGeneralizer.java`
+#### Snippet
+```java
+			}
+		}
+		if (accum.size() > 0) {
+			overlapsPlaus.add(accum);
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`accum.size() > 0` can be replaced with '!accum.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGeneralizer.java`
+#### Snippet
+```java
+			}
+		}
+		if (accum.size() > 0) {
+			overlapsPlaus.add(accum);
+		}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5094,6 +5034,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.
 				if (classifResults != null && classifResults.size() > 0) {
 					localCats.addAll(classifResults);
 					LOGGER.debug(sentence + " =>  " + classifResults);
+```
+
+### SizeReplaceableByIsEmpty
+`conceptList.get(curNode).parents.size()>0` can be replaced with '!conceptList.get(curNode).parents.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
+#### Snippet
+```java
+	public void AddExtentToAncestors(LinkedHashSet<Integer>extent, int curNode) {
+		//
+		if (conceptList.get(curNode).parents.size()>0){
+			for (int parent : conceptList.get(curNode).parents){
+				conceptList.get(parent).addExtents(extent);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5121,18 +5073,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 ```
 
 ### SizeReplaceableByIsEmpty
-`conceptList.get(curNode).parents.size()>0` can be replaced with '!conceptList.get(curNode).parents.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
-#### Snippet
-```java
-	public void AddExtentToAncestors(LinkedHashSet<Integer>extent, int curNode) {
-		//
-		if (conceptList.get(curNode).parents.size()>0){
-			for (int parent : conceptList.get(curNode).parents){
-				conceptList.get(parent).addExtents(extent);
-```
-
-### SizeReplaceableByIsEmpty
 `ch.getLemmas().size() > 0` can be replaced with '!ch.getLemmas().isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/GeneralizationListReducer.java`
 #### Snippet
@@ -5145,15 +5085,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/Generalization
 ```
 
 ### SizeReplaceableByIsEmpty
-`accum.size() > 0` can be replaced with '!accum.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
+`newNodeList.size() > 0` can be replaced with '!newNodeList.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/SyntacticTreeNode.java`
 #### Snippet
 ```java
-      }
-    }
-    if (accum.size() > 0) {
-      overlapsPlaus.add(accum);
-    }
+      // put the new node list at the place of the old node if there are
+      // any
+      if (newNodeList != null && newNodeList.size() > 0) {
+        childrenNodes.addAll(index, newNodeList);
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5169,15 +5109,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
 ```
 
 ### SizeReplaceableByIsEmpty
-`newNodeList.size() > 0` can be replaced with '!newNodeList.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/SyntacticTreeNode.java`
+`accum.size() > 0` can be replaced with '!accum.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
 #### Snippet
 ```java
-      // put the new node list at the place of the old node if there are
-      // any
-      if (newNodeList != null && newNodeList.size() > 0) {
-        childrenNodes.addAll(index, newNodeList);
-
+      }
+    }
+    if (accum.size() > 0) {
+      overlapsPlaus.add(accum);
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5197,11 +5137,11 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/SentenceNode.java`
 #### Snippet
 ```java
-  public List<String> getOrderedLemmaList() {
+  public List<String> getOrderedPOSList() {
     List<String> types = new ArrayList<>();
     if (this.getChildren() != null && this.getChildren().size() > 0) {
       for (SyntacticTreeNode child : this.getChildren()) {
-        types.addAll(child.getOrderedLemmaList());
+        types.addAll(child.getOrderedPOSList());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5209,11 +5149,11 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/SentenceNode.java`
 #### Snippet
 ```java
-  public List<String> getOrderedPOSList() {
+  public List<String> getOrderedLemmaList() {
     List<String> types = new ArrayList<>();
     if (this.getChildren() != null && this.getChildren().size() > 0) {
       for (SyntacticTreeNode child : this.getChildren()) {
-        types.addAll(child.getOrderedPOSList());
+        types.addAll(child.getOrderedLemmaList());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5257,18 +5197,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
 #### Snippet
 ```java
-  public List<String> getOrderedLemmaList() {
-    List<String> types = new ArrayList<>();
-    if (children != null && children.size() > 0) {
-      for (SyntacticTreeNode child : children) {
-        types.addAll(child.getOrderedLemmaList());
-```
-
-### SizeReplaceableByIsEmpty
-`children.size() > 0` can be replaced with '!children.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
-#### Snippet
-```java
   public List<String> getOrderedPOSList() {
     List<String> types = new ArrayList<>();
     if (children != null && children.size() > 0) {
@@ -5286,6 +5214,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
     if (children != null && children.size() > 0) {
       for (SyntacticTreeNode child : children) {
         if (child != null)
+```
+
+### SizeReplaceableByIsEmpty
+`children.size() > 0` can be replaced with '!children.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
+#### Snippet
+```java
+  public List<String> getOrderedLemmaList() {
+    List<String> types = new ArrayList<>();
+    if (children != null && children.size() > 0) {
+      for (SyntacticTreeNode child : children) {
+        types.addAll(child.getOrderedLemmaList());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5332,6 +5272,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
     String[] paragraphList = splitParagraph(text);
     for (String paragraph : paragraphList) {
       if (paragraph.length() == 0)
+        continue;
+
+```
+
+### SizeReplaceableByIsEmpty
+`paragraph.trim().length() == 0` can be replaced with 'paragraph.trim().isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+
+  public List<Parse> parseParagraphNlp(String paragraph) {
+    if (paragraph == null || paragraph.trim().length() == 0)
+      return null;
+
+```
+
+### SizeReplaceableByIsEmpty
+`sentence.length() == 0` can be replaced with 'sentence.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    for (String sentence : sentences) {
+      sentence = sentence.trim();
+      if (sentence.length() == 0)
         continue;
 
 ```
@@ -5397,90 +5361,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### SizeReplaceableByIsEmpty
-`paragraph.trim().length() == 0` can be replaced with 'paragraph.trim().isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-
-  public List<Parse> parseParagraphNlp(String paragraph) {
-    if (paragraph == null || paragraph.trim().length() == 0)
-      return null;
-
-```
-
-### SizeReplaceableByIsEmpty
-`sentence.length() == 0` can be replaced with 'sentence.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    for (String sentence : sentences) {
-      sentence = sentence.trim();
-      if (sentence.length() == 0)
-        continue;
-
-```
-
-### SizeReplaceableByIsEmpty
-`toks.size() == 0` can be replaced with 'toks.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-    }
-    List<Parse> toks = p.getTokens();
-    if (toks.size() == 0) {
-      System.err.println("PTBHeadFinder.getHeadIndex(): empty tok list for parse " + p);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`ctoks.size() == 0` can be replaced with 'ctoks.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-        if (child0.isNounPhrase()) {
-          List<Parse> ctoks = child0.getTokens();
-          if (ctoks.size() == 0) {
-            System.err.println("PTBHeadFinder: NP " + child0 + " with no tokens");
-          }
-```
-
-### SizeReplaceableByIsEmpty
-`parts.size() > 0` can be replaced with '!parts.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractParse.java`
-#### Snippet
-```java
-    List<Parse> parts = getSyntacticChildren();
-    List<Parse> nps = new ArrayList<>();
-    while (parts.size() > 0) {
-      List<Parse> newParts = new ArrayList<>();
-      for (Parse cp : parts) {
-```
-
-### SizeReplaceableByIsEmpty
-`kids.size() > 0` can be replaced with '!kids.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-    List<Parse> tokens = new ArrayList<>();
-    List<Parse> kids = new LinkedList<>(Arrays.asList(parse.getChildren()));
-    while (kids.size() > 0) {
-      Parse p = kids.remove(0);
-      if (p.isPosTag()) {
-```
-
-### SizeReplaceableByIsEmpty
-`kids.size() > 0` can be replaced with '!kids.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-    List<Parse> names = new ArrayList<>();
-    List<Parse> kids = new LinkedList<>(Arrays.asList(parse.getChildren()));
-    while (kids.size() > 0) {
-      Parse p = kids.remove(0);
-      if (ENTITY_SET.contains(p.getType())) {
-```
-
-### SizeReplaceableByIsEmpty
 `txt.length() > 0` can be replaced with '!txt.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
@@ -5490,6 +5370,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
     if (txt.length() > 0) {
       for (int i = txt.length() - 1; i >= 0; i--) {
         if (String.valueOf(txt.charAt(i)).equals(".")) {
+```
+
+### SizeReplaceableByIsEmpty
+`text.trim().length() > 0` can be replaced with '!text.trim().isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+
+    ArrayList<String> sentences = new ArrayList<>();
+    if (text.trim().length() > 0) {
+      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
+      text += " XOXOX.";
+```
+
+### SizeReplaceableByIsEmpty
+`sentences.size() > 0` can be replaced with '!sentences.isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+        sentences.add(text.substring(idx).trim());
+      }
+      if (sentences.size() > 0) {
+        sentences.set(sentences.size() - 1, sentences.get(sentences.size() - 1)
+            .replace(" XOXOX.", ""));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5538,30 +5442,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
       if (token.length() == 0) {
         return "";
       }
-```
-
-### SizeReplaceableByIsEmpty
-`text.trim().length() > 0` can be replaced with '!text.trim().isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-
-    ArrayList<String> sentences = new ArrayList<>();
-    if (text.trim().length() > 0) {
-      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
-      text += " XOXOX.";
-```
-
-### SizeReplaceableByIsEmpty
-`sentences.size() > 0` can be replaced with '!sentences.isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-        sentences.add(text.substring(idx).trim());
-      }
-      if (sentences.size() > 0) {
-        sentences.set(sentences.size() - 1, sentences.get(sentences.size() - 1)
-            .replace(" XOXOX.", ""));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5622,6 +5502,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
       if (token.length() == 0) {
         return "";
       }
+```
+
+### SizeReplaceableByIsEmpty
+`stems.size() > 0` can be replaced with '!stems.isEmpty()'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      }
+
+      if (stems.size() > 0)
+        return stems;
+      else {
+```
+
+### SizeReplaceableByIsEmpty
+`synsets.size() > 0` can be replaced with '!synsets.isEmpty()'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
+#### Snippet
+```java
+            try {
+              ArrayList<Synset> synsets = word.getSynsets();
+              if (synsets != null && synsets.size() > 0) {
+                for (Synset syn : synsets) {
+                  contextClusters.add(syn.getOffset() + "");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5697,6 +5601,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 ```
 
 ### SizeReplaceableByIsEmpty
+`attrs.keySet().size()>0` can be replaced with '!attrs.keySet().isEmpty()'
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+			if (this.parseTreeNodes!=null){
+				Map<String, Object> attrs = this.parseTreeNodes.get(i).getAttributes();
+				if (attrs!=null && attrs.keySet().size()>0){
+					buf.append(attrs).append(" ");
+				}
+```
+
+### SizeReplaceableByIsEmpty
 `ps.size()>0` can be replaced with '!ps.isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
 #### Snippet
@@ -5709,15 +5625,75 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 ```
 
 ### SizeReplaceableByIsEmpty
-`attrs.keySet().size()>0` can be replaced with '!attrs.keySet().isEmpty()'
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+`document.size() > 0` can be replaced with '!document.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
 #### Snippet
 ```java
-			if (this.parseTreeNodes!=null){
-				Map<String, Object> attrs = this.parseTreeNodes.get(i).getAttributes();
-				if (attrs!=null && attrs.keySet().size()>0){
-					buf.append(attrs).append(" ");
-				}
+      }
+    }
+    if (document.size() > 0) {
+      DiscourseEntity[] entities = treebankLinker.getEntities(document.toArray(new Mention[0]));
+      //showEntities(entities);
+```
+
+### SizeReplaceableByIsEmpty
+`ctoks.size() == 0` can be replaced with 'ctoks.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+        if (child0.isNounPhrase()) {
+          List<Parse> ctoks = child0.getTokens();
+          if (ctoks.size() == 0) {
+            System.err.println("PTBHeadFinder: NP " + child0 + " with no tokens");
+          }
+```
+
+### SizeReplaceableByIsEmpty
+`toks.size() == 0` can be replaced with 'toks.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+    }
+    List<Parse> toks = p.getTokens();
+    if (toks.size() == 0) {
+      System.err.println("PTBHeadFinder.getHeadIndex(): empty tok list for parse " + p);
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`parts.size() > 0` can be replaced with '!parts.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractParse.java`
+#### Snippet
+```java
+    List<Parse> parts = getSyntacticChildren();
+    List<Parse> nps = new ArrayList<>();
+    while (parts.size() > 0) {
+      List<Parse> newParts = new ArrayList<>();
+      for (Parse cp : parts) {
+```
+
+### SizeReplaceableByIsEmpty
+`kids.size() > 0` can be replaced with '!kids.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+    List<Parse> tokens = new ArrayList<>();
+    List<Parse> kids = new LinkedList<>(Arrays.asList(parse.getChildren()));
+    while (kids.size() > 0) {
+      Parse p = kids.remove(0);
+      if (p.isPosTag()) {
+```
+
+### SizeReplaceableByIsEmpty
+`kids.size() > 0` can be replaced with '!kids.isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+    List<Parse> names = new ArrayList<>();
+    List<Parse> kids = new LinkedList<>(Arrays.asList(parse.getChildren()));
+    while (kids.size() > 0) {
+      Parse p = kids.remove(0);
+      if (ENTITY_SET.contains(p.getType())) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5741,30 +5717,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefSampleStream.j
     
     if (documents.size() > 0) {
       return documents.remove(0);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`ec.getSynsets().size() == 0` can be replaced with 'ec.getSynsets().isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-
-  private boolean inSuperClass(Context ec, Context cec) {
-    if (ec.getSynsets().size() == 0 || cec.getSynsets().size() == 0) {
-      return false;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`cec.getSynsets().size() == 0` can be replaced with 'cec.getSynsets().isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-
-  private boolean inSuperClass(Context ec, Context cec) {
-    if (ec.getSynsets().size() == 0 || cec.getSynsets().size() == 0) {
-      return false;
     }
 ```
 
@@ -5793,39 +5745,27 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`tsStoreString.length() != 0` can be replaced with '!tsStoreString.isEmpty()'
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+`ec.getSynsets().size() == 0` can be replaced with 'ec.getSynsets().isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
-      tsStore = new PreferenceStore();
-      
-      if (tsStoreString.length() != 0) { 
-        try (InputStream tsStoreIn = new ByteArrayInputStream(tsStoreString.getBytes(StandardCharsets.UTF_8))) {
-          tsStore.load(tsStoreIn);
+
+  private boolean inSuperClass(Context ec, Context cec) {
+    if (ec.getSynsets().size() == 0 || cec.getSynsets().size() == 0) {
+      return false;
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
-`sentences.size() == 0` can be replaced with 'sentences.isEmpty()'
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
+`cec.getSynsets().size() == 0` can be replaced with 'cec.getSynsets().isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
-      nameFinder.setText(text);
-      
-      if (sentences.size() == 0) {
-        nameFinderView.setMessage("CAS must at least contain one sentence!");
-        return;
-```
 
-### SizeReplaceableByIsEmpty
-`tokens.size() == 0` can be replaced with 'tokens.isEmpty()'
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
-#### Snippet
-```java
-      nameFinder.setSentences(sentences.toArray(new Span[0]));
-      
-      if (tokens.size() == 0) {
-        nameFinderView.setMessage("CAS must at least contain one token within a sentence!");
-        return;
+  private boolean inSuperClass(Context ec, Context cec) {
+    if (ec.getSynsets().size() == 0 || cec.getSynsets().size() == 0) {
+      return false;
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5853,15 +5793,51 @@ in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`document.size() > 0` can be replaced with '!document.isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
+`sentences.size() == 0` can be replaced with 'sentences.isEmpty()'
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
 #### Snippet
 ```java
-      }
+      nameFinder.setText(text);
+      
+      if (sentences.size() == 0) {
+        nameFinderView.setMessage("CAS must at least contain one sentence!");
+        return;
+```
+
+### SizeReplaceableByIsEmpty
+`tokens.size() == 0` can be replaced with 'tokens.isEmpty()'
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
+#### Snippet
+```java
+      nameFinder.setSentences(sentences.toArray(new Span[0]));
+      
+      if (tokens.size() == 0) {
+        nameFinderView.setMessage("CAS must at least contain one token within a sentence!");
+        return;
+```
+
+### SizeReplaceableByIsEmpty
+`tsStoreString.length() != 0` can be replaced with '!tsStoreString.isEmpty()'
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+      tsStore = new PreferenceStore();
+      
+      if (tsStoreString.length() != 0) { 
+        try (InputStream tsStoreIn = new ByteArrayInputStream(tsStoreString.getBytes(StandardCharsets.UTF_8))) {
+          tsStore.load(tsStoreIn);
+```
+
+### SizeReplaceableByIsEmpty
+`toString.length() > 0` can be replaced with '!toString.isEmpty()'
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+    String toString = Arrays.toString(sentence);
+
+    if (toString.length() > 0) {
+      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
     }
-    if (document.size() > 0) {
-      DiscourseEntity[] entities = treebankLinker.getEntities(document.toArray(new Mention[0]));
-      //showEntities(entities);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5873,7 +5849,31 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 
     if (HIGHER_TITLE_WEIGHT && getSentences().size()>0) {
       String sent = getSentences().get(0);
-      String[] wrds = sent.split(" ");
+      String[] wrds = sent.trim().split("\\s+");
+```
+
+### SizeReplaceableByIsEmpty
+`possibleRules.size() > 0` can be replaced with '!possibleRules.isEmpty()'
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ContextFreeGrammar.java`
+#### Snippet
+```java
+      }
+    }
+    if (possibleRules.size() > 0) {
+      return possibleRules.get(new Random().nextInt(possibleRules.size()));
+    } else {
+```
+
+### SizeReplaceableByIsEmpty
+`possibleRules.size() > 0` can be replaced with '!possibleRules.isEmpty()'
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+      }
+    }
+    if (possibleRules.size() > 0) {
+      return possibleRules.get(new Random().nextInt(possibleRules.size()));
+    } else {
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -5914,31 +5914,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringD
   }
 ```
 
-## RuleId[id=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/LevensteinDistanceFinder.java`
-#### Snippet
-```java
-        int cross = left[i - 1] + delta;
-        if (fromLeft < fromUp) {
-          if (fromLeft < cross) {
-            min = fromLeft;
-          } else {
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/LevensteinDistanceFinder.java`
-#### Snippet
-```java
-          }
-        } else {
-          if (fromUp < cross) {
-            min = fromUp;
-          } else {
-```
-
 ## RuleId[id=SuspiciousListRemoveInLoop]
 ### SuspiciousListRemoveInLoop
 Suspicious 'List.remove()' in loop
@@ -5974,6 +5949,31 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/ObjectPhraseListForSe
           oPhrases.remove(j);
         }
       }
+```
+
+## RuleId[id=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/LevensteinDistanceFinder.java`
+#### Snippet
+```java
+        int cross = left[i - 1] + delta;
+        if (fromLeft < fromUp) {
+          if (fromLeft < cross) {
+            min = fromLeft;
+          } else {
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/LevensteinDistanceFinder.java`
+#### Snippet
+```java
+          }
+        } else {
+          if (fromUp < cross) {
+            min = fromUp;
+          } else {
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
@@ -6037,6 +6037,19 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatModel.java`
         this.maxSeqLen = maxSeqLen;
 ```
 
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `NoisyChannel` has no concrete subclass
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/languagemodel/NoisyChannel.java`
+#### Snippet
+```java
+ * Abstract impl of a noisy channel
+ */
+public abstract class NoisyChannel {
+
+  private String[] dictionary;
+```
+
 ## RuleId[id=MismatchedStringBuilderQueryUpdate]
 ### MismatchedStringBuilderQueryUpdate
 Contents of `StringBuilder buf` are updated, but never queried
@@ -6064,54 +6077,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchRe
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends WSDSample`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-
-  public static ArrayList<String> buildSurroundingContext(
-    ObjectStream<WSDSample> samples, int windowSize) throws IOException {
-    IMSWSDContextGenerator contextGenerator = new IMSWSDContextGenerator();
-    ArrayList<String> surroundingWordsModel = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends WTDIMS`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
-#### Snippet
-```java
-   */
-  public ArrayList<String> extractTrainingSurroundingWords(
-      ArrayList<WTDIMS> trainingData) {
-
-    HashMap<String, Object> words = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SynNode`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-   * @return senses from the nodes
-   */
-  public static ArrayList<WordSense> updateSenses(ArrayList<SynNode> nodes) {
-    ArrayList<WordSense> scoredSenses = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
-#### Snippet
-```java
-  }
-
-  private void readTable(Set<String> set, DatabaseMetaData md, String searchCriteria, String schema)
-          throws SQLException {
-    try (ResultSet rs = md.getTables(null, schema, null, new String[]{ searchCriteria })) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParseTreeChunk`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
 #### Snippet
@@ -6136,42 +6101,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceO
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Synset`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-   * @return count of features to consider
-   */
-  private int assessFeature(ArrayList<Synset> featureSynsets,
-      ArrayList<WordPOS> relevantWords) {
-    int count = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WordPOS`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-   * @return count of synonyms to consider
-   */
-  private int assessSynonyms(ArrayList<WordPOS> synonyms,
-      ArrayList<WordPOS> relevantWords) {
-    int count = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WordPOS`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-   */
-  private int assessSynonyms(ArrayList<WordPOS> synonyms,
-      ArrayList<WordPOS> relevantWords) {
-    int count = 0;
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends HitBase`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SearchResultsProcessor.java`
 #### Snippet
@@ -6180,30 +6109,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SearchResults
   
   private List<HitBase> calculateMatchScoreResortHits(List<HitBase> hits,
       String searchQuery) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-  }
-
-  private HashMap<String,String[]> optimize(HashMap<String,String[]> word2Syns, HashMap<String,String> internedWords) {
-   if (DEBUG) {
-     System.err.println("before gc");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArrayList`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-  }
-
-  private HashMap<String,String[]> createIndex(Map<String,ArrayList<Integer>> word2Groups, Map<Integer,ArrayList<String>> group2Words) {
-   HashMap<String,String[]> word2Syns = new HashMap<>();
 
 ```
 
@@ -6220,30 +6125,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-   * @param rulesMap
-   */
-  private static void normalize(Rule rule, Collection<String> nonTerminals, Collection<String> terminals, Map<Rule, Double> rulesMap) {
-    String[] expansion = rule.getExpansion();
-    String firstExpansion = expansion[0];
-```
-
-### BoundedWildcard
-Can generalize to `? super Rule`
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-  }
-
-  private static void addRule(Rule rule, Map<Rule, Double> rulesMap) {
-    Double prob = rulesMap.get(rule);
-    if (prob != null && prob > 0d) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends HitBase`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingWebQueryRunner.java`
 #### Snippet
@@ -6256,15 +6137,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingWebQueryR
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HitBase`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
+Can generalize to `? extends ArrayList`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
 #### Snippet
 ```java
-   * @return total similarity score for all search results
-   */
-  private double calculateTotalMatchScoreForHits(List<HitBase> hits,
-      String searchQuery) {
+  }
 
+  private HashMap<String,String[]> createIndex(Map<String,ArrayList<Integer>> word2Groups, Map<Integer,ArrayList<String>> group2Words) {
+   HashMap<String,String[]> word2Syns = new HashMap<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+  }
+
+  private HashMap<String,String[]> optimize(HashMap<String,String[]> word2Syns, HashMap<String,String> internedWords) {
+   if (DEBUG) {
+     System.err.println("before gc");
 ```
 
 ### BoundedWildcard
@@ -6281,14 +6174,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/StoryDiscours
 
 ### BoundedWildcard
 Can generalize to `? extends HitBase`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
 #### Snippet
 ```java
-	}
+   * @return total similarity score for all search results
+   */
+  private double calculateTotalMatchScoreForHits(List<HitBase> hits,
+      String searchQuery) {
 
-	public static String toResultantString(List<HitBase> hits) {
-		StringBuilder buf = new StringBuilder();
-		boolean pBreak = true;
 ```
 
 ### BoundedWildcard
@@ -6301,6 +6194,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
 	public static List<HitBase> removeDuplicates(List<HitBase> hits) {
 		StringDistanceMeasurer meas = new StringDistanceMeasurer();
 		double imageDupeThresh = 0.8; // if more similar, then considered dupes
+```
+
+### BoundedWildcard
+Can generalize to `? extends HitBase`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
+#### Snippet
+```java
+	}
+
+	public static String toResultantString(List<HitBase> hits) {
+		StringBuilder buf = new StringBuilder();
+		boolean pBreak = true;
 ```
 
 ### BoundedWildcard
@@ -6341,14 +6246,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 
 ### BoundedWildcard
 Can generalize to `? extends HitBase`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
 #### Snippet
 ```java
-public class WordDocBuilderEndNotes extends WordDocBuilderSingleImageSearchCall{
-	
-	public String buildWordDoc(List<HitBase> content, String title){
-		
-		String outputDocFilename =  absPath+"written/"+ title.replace(' ','_').replace('\"', ' ').trim()+ ".docx";
+	}
+
+	private List<HitBase> calculateMatchScoreResortHits(List<HitBase> hits,
+			String searchQuery) {
+		try {
 ```
 
 ### BoundedWildcard
@@ -6365,14 +6270,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 
 ### BoundedWildcard
 Can generalize to `? extends HitBase`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
 #### Snippet
 ```java
-	}
-
-	private List<HitBase> calculateMatchScoreResortHits(List<HitBase> hits,
-			String searchQuery) {
-		try {
+public class WordDocBuilderEndNotes extends WordDocBuilderSingleImageSearchCall{
+	
+	public String buildWordDoc(List<HitBase> content, String title){
+		
+		String outputDocFilename =  absPath+"written/"+ title.replace(' ','_').replace('\"', ' ').trim()+ ".docx";
 ```
 
 ### BoundedWildcard
@@ -6388,18 +6293,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
-#### Snippet
-```java
-
-  private List<List<String>> getCommonWordsFromList_List_ParseTreeChunk(
-      List<List<ParseTreeChunk>> matchList, List<String> queryWordsToRemove,
-      List<String> toAddAtEnd) {
-    List<List<String>> res = new ArrayList<>();
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
 #### Snippet
@@ -6408,6 +6301,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 	private void append(SolrDocumentList results, ScoreDoc[] more, 
 			Set<Integer> alreadyFound, Map<String,SchemaField> fields,
 			Map<String,Object> extraFields, float scoreCutoff, 
+			IndexReader reader, boolean includeScore) throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+#### Snippet
+```java
+
+	private void append(SolrDocumentList results, ScoreDoc[] more,
+			Set<Integer> alreadyFound, Map<String,SchemaField> fields,
+			Map<String,Object> extraFields, float scoreCutoff,
 			IndexReader reader, boolean includeScore) throws IOException {
 ```
 
@@ -6448,27 +6353,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/ValueSo
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
-#### Snippet
-```java
-
-	private void append(SolrDocumentList results, ScoreDoc[] more,
-			Set<Integer> alreadyFound, Map<String,SchemaField> fields,
-			Map<String,Object> extraFields, float scoreCutoff,
-			IndexReader reader, boolean includeScore) throws IOException {
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
 #### Snippet
 ```java
 
-	private List<List<String>> getCommonWordsFromList_List_ParseTreeChunk(
-			List<List<ParseTreeChunk>> matchList, List<String> queryWordsToRemove,
-			List<String> toAddAtEnd) {
-		List<List<String>> res = new ArrayList<>();
+  private List<List<String>> getCommonWordsFromList_List_ParseTreeChunk(
+      List<List<ParseTreeChunk>> matchList, List<String> queryWordsToRemove,
+      List<String> toAddAtEnd) {
+    List<List<String>> res = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -6481,6 +6374,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
   public static String convertKeyValueToString(ArrayList<KeyValue> l) {
     StringBuilder retVal = new StringBuilder();
     for (KeyValue kv : l) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+
+	private List<List<String>> getCommonWordsFromList_List_ParseTreeChunk(
+			List<List<ParseTreeChunk>> matchList, List<String> queryWordsToRemove,
+			List<String> toAddAtEnd) {
+		List<List<String>> res = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -6568,51 +6473,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParseTreeNode`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-	}
-
-	private ParseTreeChunk convertNodeListIntoChunk(List<ParseTreeNode> ps) {
-		List<String> lemmas = new ArrayList<>(),  poss = new ArrayList<>();
-		for(ParseTreeNode n: ps){
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-
-	public List<List<ParseTreeChunk>> formGroupedPhrasesFromChunksForPara(
-			List<List<ParseTreeNode>> phrs) {
-		List<List<ParseTreeChunk>> results = new ArrayList<>();
-		List<ParseTreeChunk> nps = new ArrayList<>(), vps = new ArrayList<>(),
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`>
+Can generalize to `? extends ParseTreeChunk`
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
 ```java
+		return cleaned;
 	}
-
-	public List<ParseTreeChunk> flattenParseTreeChunkLst(List<List<List<ParseTreeChunk>>> listOfLists){
-		List<ParseTreeChunk> newList = new ArrayList<>();
-		Set<ParseTreeChunk> newSetAll = new HashSet<>();
+	public List<ParseTreeChunk> intesectParseTreeChunkLists(List<ParseTreeChunk> a, List<ParseTreeChunk> b){
+		List<Integer> inters = new ArrayList<>();
+		for(int i=0; i<a.size(); i++)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>
+Can generalize to `? extends ParseTreeChunk`
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
 ```java
+		return cleaned;
 	}
-
-	public List<List<ParseTreeChunk>> flattenParseTreeChunkListList(List<List<List<ParseTreeChunk>>> listOfLists){
-		List<List<ParseTreeChunk>> newList = new ArrayList<>();
-
+	public List<ParseTreeChunk> intesectParseTreeChunkLists(List<ParseTreeChunk> a, List<ParseTreeChunk> b){
+		List<Integer> inters = new ArrayList<>();
+		for(int i=0; i<a.size(); i++)
 ```
 
 ### BoundedWildcard
@@ -6634,57 +6515,81 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 ```java
 	}
 
+	public List<ParseTreeChunk> subtract(List<ParseTreeChunk> main, List<ParseTreeChunk> toSubtract){
+		List<Integer> toDelete = new ArrayList<>();
+		for(int i=0; i<main.size(); i++)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ParseTreeChunk`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+	}
+
+	public List<ParseTreeChunk> subtract(List<ParseTreeChunk> main, List<ParseTreeChunk> toSubtract){
+		List<Integer> toDelete = new ArrayList<>();
+		for(int i=0; i<main.size(); i++)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ParseTreeChunk`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+	}
+
 	public List<ParseTreeChunk> removeDuplicates(List<ParseTreeChunk> dupes){
 		List<Integer> toDelete = new ArrayList<>();
 		for(int i=0; i<dupes.size(); i++)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParseTreeChunk`
+Can generalize to `? extends List`>
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
 ```java
-		return cleaned;
 	}
-	public List<ParseTreeChunk> intesectParseTreeChunkLists(List<ParseTreeChunk> a, List<ParseTreeChunk> b){
-		List<Integer> inters = new ArrayList<>();
-		for(int i=0; i<a.size(); i++)
+
+	public List<List<ParseTreeChunk>> flattenParseTreeChunkListList(List<List<List<ParseTreeChunk>>> listOfLists){
+		List<List<ParseTreeChunk>> newList = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParseTreeChunk`
+Can generalize to `? extends List`>
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
 ```java
-		return cleaned;
 	}
-	public List<ParseTreeChunk> intesectParseTreeChunkLists(List<ParseTreeChunk> a, List<ParseTreeChunk> b){
-		List<Integer> inters = new ArrayList<>();
-		for(int i=0; i<a.size(); i++)
+
+	public List<ParseTreeChunk> flattenParseTreeChunkLst(List<List<List<ParseTreeChunk>>> listOfLists){
+		List<ParseTreeChunk> newList = new ArrayList<>();
+		Set<ParseTreeChunk> newSetAll = new HashSet<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParseTreeChunk`
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+Can generalize to `? extends ParseTreeNode`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
 #### Snippet
 ```java
 	}
 
-	public List<ParseTreeChunk> subtract(List<ParseTreeChunk> main, List<ParseTreeChunk> toSubtract){
-		List<Integer> toDelete = new ArrayList<>();
-		for(int i=0; i<main.size(); i++)
+	private ParseTreeChunk convertNodeListIntoChunk(List<ParseTreeNode> ps) {
+		List<String> lemmas = new ArrayList<>(),  poss = new ArrayList<>();
+		for(ParseTreeNode n: ps){
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParseTreeChunk`
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+Can generalize to `? extends List`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
 #### Snippet
 ```java
-	}
 
-	public List<ParseTreeChunk> subtract(List<ParseTreeChunk> main, List<ParseTreeChunk> toSubtract){
-		List<Integer> toDelete = new ArrayList<>();
-		for(int i=0; i<main.size(); i++)
+	public List<List<ParseTreeChunk>> formGroupedPhrasesFromChunksForPara(
+			List<List<ParseTreeNode>> phrs) {
+		List<List<ParseTreeChunk>> results = new ArrayList<>();
+		List<ParseTreeChunk> nps = new ArrayList<>(), vps = new ArrayList<>(),
 ```
 
 ### BoundedWildcard
@@ -6760,42 +6665,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/CorefParse.java`
-#### Snippet
-```java
-  private final List<Parse> parses;
-
-  public CorefParse(List<Parse> parses, DiscourseEntity[] entities) {
-    this.parses = parses;
-    parseMap = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSample.java`
-#### Snippet
-```java
-  private final List<Parse> parses;
-
-  public CorefSample(List<Parse> parses) {
-    this.parses = parses;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends CorefSample`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
-#### Snippet
-```java
-  }
-  
-  public static void train(String modelDirectory, ObjectStream<CorefSample> samples,
-      boolean useTreebank, boolean useDiscourseModel) throws IOException {
-    
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
@@ -6832,39 +6701,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Context`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
+Can generalize to `? extends WTDIMS`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
 #### Snippet
 ```java
-  }
+   */
+  public ArrayList<String> extractTrainingSurroundingWords(
+      ArrayList<WTDIMS> trainingData) {
 
-  private NumberEnum getNumber(List<Context> entity) {
-    for (Context ec : entity) {
-      NumberEnum ne = getNumber(ec);
+    HashMap<String, Object> words = new HashMap<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+Can generalize to `? extends WSDSample`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
 #### Snippet
 ```java
-  }
 
-  private void getParents(Synset synset, List<String> parents) throws JWNLException {
-    Pointer[] pointers = synset.getPointers();
-    for (Pointer pointer : pointers) {
+  public static ArrayList<String> buildSurroundingContext(
+    ObjectStream<WSDSample> samples, int windowSize) throws IOException {
+    IMSWSDContextGenerator contextGenerator = new IMSWSDContextGenerator();
+    ArrayList<String> surroundingWordsModel = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Context`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+Can generalize to `? extends SynNode`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
 #### Snippet
 ```java
-  }
+   * @return senses from the nodes
+   */
+  public static ArrayList<WordSense> updateSenses(ArrayList<SynNode> nodes) {
+    ArrayList<WordSense> scoredSenses = new ArrayList<>();
 
-  private GenderEnum getGender(List<Context> entity) {
-    for (Context ec : entity) {
-      GenderEnum ge = getGender(ec);
 ```
 
 ### BoundedWildcard
@@ -6889,30 +6758,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
       Pair<List<String>, Map<String, HashSet<Integer>>> objB, Integer segSize) {
 
     HashSet<String> commonSegments = new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-	// sub-expressions
-	public List<List<ParseTreeChunk>> matchTwoSentencesGroupedChunks(
-			List<List<ParseTreeChunk>> sent1, List<List<ParseTreeChunk>> sent2) {
-		List<List<ParseTreeChunk>> results = new ArrayList<>();
-		// first irerate through component
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-	// sub-expressions
-	public List<List<ParseTreeChunk>> matchTwoSentencesGroupedChunks(
-			List<List<ParseTreeChunk>> sent1, List<List<ParseTreeChunk>> sent2) {
-		List<List<ParseTreeChunk>> results = new ArrayList<>();
-		// first irerate through component
 ```
 
 ### BoundedWildcard
@@ -6952,6 +6797,102 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+	// sub-expressions
+	public List<List<ParseTreeChunk>> matchTwoSentencesGroupedChunks(
+			List<List<ParseTreeChunk>> sent1, List<List<ParseTreeChunk>> sent2) {
+		List<List<ParseTreeChunk>> results = new ArrayList<>();
+		// first irerate through component
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+	// sub-expressions
+	public List<List<ParseTreeChunk>> matchTwoSentencesGroupedChunks(
+			List<List<ParseTreeChunk>> sent1, List<List<ParseTreeChunk>> sent2) {
+		List<List<ParseTreeChunk>> results = new ArrayList<>();
+		// first irerate through component
+```
+
+### BoundedWildcard
+Can generalize to `? extends Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/CorefParse.java`
+#### Snippet
+```java
+  private final List<Parse> parses;
+
+  public CorefParse(List<Parse> parses, DiscourseEntity[] entities) {
+    this.parses = parses;
+    parseMap = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSample.java`
+#### Snippet
+```java
+  private final List<Parse> parses;
+
+  public CorefSample(List<Parse> parses) {
+    this.parses = parses;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CorefSample`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+  }
+  
+  public static void train(String modelDirectory, ObjectStream<CorefSample> samples,
+      boolean useTreebank, boolean useDiscourseModel) throws IOException {
+    
+```
+
+### BoundedWildcard
+Can generalize to `? extends Context`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
+#### Snippet
+```java
+  }
+
+  private NumberEnum getNumber(List<Context> entity) {
+    for (Context ec : entity) {
+      NumberEnum ne = getNumber(ec);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+#### Snippet
+```java
+  }
+
+  private void getParents(Synset synset, List<String> parents) throws JWNLException {
+    Pointer[] pointers = synset.getPointers();
+    for (Pointer pointer : pointers) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Context`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+#### Snippet
+```java
+  }
+
+  private GenderEnum getGender(List<Context> entity) {
+    for (Context ec : entity) {
+      GenderEnum ge = getGender(ec);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Parse`
 in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
 #### Snippet
@@ -6976,6 +6917,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefContentHandler
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+  }
+
+  private Mention[] collectMentions(List<Parse> nps, Map<Parse, Parse> headMap) {
+    List<Mention> mentions = new ArrayList<>(nps.size());
+    Set<Parse> recentMentions = new HashSet<>();
+```
+
+### BoundedWildcard
 Can generalize to `? super Mention`
 in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
 #### Snippet
@@ -6985,6 +6938,66 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinde
   private void collectCoordinatedNounPhraseMentions(Parse np, List<Mention> entities) {
     //System.err.println("collectCoordNp: "+np);
     //exclude nps with UCPs inside.
+```
+
+### BoundedWildcard
+Can generalize to `? super Mention`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+//  }
+
+  private void collectPrenominalNamedEntities(Parse np, List<Mention> extents) {
+    Parse htoken = headFinder.getHeadToken(np);
+    List<Parse> nes = np.getNamedEntities();
+```
+
+### BoundedWildcard
+Can generalize to `? super Mention`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+  }
+
+  private void collectPossesivePronouns(Parse np, List<Mention> entities) {
+    //TODO: Look at how training is done and examine whether this is
+    // needed or can be accomidated in a different way.
+```
+
+### BoundedWildcard
+Can generalize to `? extends Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+   *  @return mapping from noun phrases and the child np which is their head
+   **/
+  protected Map<Parse, Parse> constructHeadMap(List<Parse> nps) {
+    Map<Parse, Parse> headMap = new HashMap<>();
+    for (Parse np : nps) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+  protected boolean collectCoordinatedNounPhrases;
+
+  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
+    Parse head = headFinder.getHead(p);
+    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
+```
+
+### BoundedWildcard
+Can generalize to `? super Parse`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+#### Snippet
+```java
+  protected boolean collectCoordinatedNounPhrases;
+
+  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
+    Parse head = headFinder.getHead(p);
+    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
 ```
 
 ### BoundedWildcard
@@ -7004,30 +7017,6 @@ Can generalize to `? extends Parse`
 in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
 #### Snippet
 ```java
-   *  @return mapping from noun phrases and the child np which is their head
-   **/
-  protected Map<Parse, Parse> constructHeadMap(List<Parse> nps) {
-    Map<Parse, Parse> headMap = new HashMap<>();
-    for (Parse np : nps) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Mention`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
-//  }
-
-  private void collectPrenominalNamedEntities(Parse np, List<Mention> extents) {
-    Parse htoken = headFinder.getHeadToken(np);
-    List<Parse> nes = np.getNamedEntities();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
-#### Snippet
-```java
 
 
   private void clearMentions(Set<Parse> mentions, Parse np) {
@@ -7036,75 +7025,75 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinde
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+Can generalize to `? extends Sentence`
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
 #### Snippet
 ```java
-  protected boolean collectCoordinatedNounPhrases;
 
-  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
-    Parse head = headFinder.getHead(p);
-    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
+  /*Sets up data and calls the TextRank algorithm..*/
+  public List<Score> rankSentences(String doc, List<Sentence> sentences,
+                                   DocProcessor dp, int maxWords ) {
+    try {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+Can generalize to `? extends Sentence`
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
 #### Snippet
 ```java
-  protected boolean collectCoordinatedNounPhrases;
 
-  private void gatherHeads(Parse p, Map<Parse, Parse> heads) {
-    Parse head = headFinder.getHead(p);
-    //System.err.println("AbstractMention.gatherHeads: "+head+" -> ("+p.hashCode()+") "+p);
+  /* Use the page rank scores to determine the summary.*/
+  public String scores2String(List<Sentence> sentences, List<Score> scores, int maxWords) {
+    StringBuilder b = new StringBuilder();
+    // for(int i=0;i< min(maxWords, scores.size()-1);i++)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Parse`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+Can generalize to `? extends Score`
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
 #### Snippet
 ```java
-  }
 
-  private Mention[] collectMentions(List<Parse> nps, Map<Parse, Parse> headMap) {
-    List<Mention> mentions = new ArrayList<>(nps.size());
-    Set<Parse> recentMentions = new HashSet<>();
+  /* Use the page rank scores to determine the summary.*/
+  public String scores2String(List<Sentence> sentences, List<Score> scores, int maxWords) {
+    StringBuilder b = new StringBuilder();
+    // for(int i=0;i< min(maxWords, scores.size()-1);i++)
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Mention`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinder.java`
+Can generalize to `? extends WordPOS`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-  }
-
-  private void collectPossesivePronouns(Parse np, List<Mention> entities) {
-    //TODO: Look at how training is done and examine whether this is
-    // needed or can be accomidated in a different way.
+   * @return count of synonyms to consider
+   */
+  private int assessSynonyms(ArrayList<WordPOS> synonyms,
+      ArrayList<WordPOS> relevantWords) {
+    int count = 0;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Context`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+Can generalize to `? extends WordPOS`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-  }
+   */
+  private int assessSynonyms(ArrayList<WordPOS> synonyms,
+      ArrayList<WordPOS> relevantWords) {
+    int count = 0;
 
-  private boolean hasSuperClass(List<Context> entityContexts, List<Context> candidateContexts) {
-    for (Context ec : entityContexts) {
-      for (Context candidateContext : candidateContexts) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Context`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+Can generalize to `? extends Synset`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-  }
-
-  private boolean hasSuperClass(List<Context> entityContexts, List<Context> candidateContexts) {
-    for (Context ec : entityContexts) {
-      for (Context candidateContext : candidateContexts) {
+   * @return count of features to consider
+   */
+  private int assessFeature(ArrayList<Synset> featureSynsets,
+      ArrayList<WordPOS> relevantWords) {
+    int count = 0;
 ```
 
 ### BoundedWildcard
@@ -7168,87 +7157,27 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Span`
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
+Can generalize to `? extends Context`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
   }
-  
-  public void setExclusionSpans(List<Span> exclusionSpans) {
-    
-    this.exclusionSpans = new ArrayList<>();
+
+  private boolean hasSuperClass(List<Context> entityContexts, List<Context> candidateContexts) {
+    for (Context ec : entityContexts) {
+      for (Context candidateContext : candidateContexts) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Span`
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
+Can generalize to `? extends Context`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
   }
-  
-  public void setParagraphs(List<Span> paragraphs) {
-    this.paragraphs =  paragraphs;
-  }
-```
 
-### BoundedWildcard
-Can generalize to `? extends Sentence`
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-
-  /*Sets up data and calls the TextRank algorithm..*/
-  public List<Score> rankSentences(String doc, List<Sentence> sentences,
-                                   DocProcessor dp, int maxWords ) {
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sentence`
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-
-  /* Use the page rank scores to determine the summary.*/
-  public String scores2String(List<Sentence> sentences, List<Score> scores, int maxWords) {
-    StringBuilder b = new StringBuilder();
-    // for(int i=0;i< min(maxWords, scores.size()-1);i++)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Score`
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-
-  /* Use the page rank scores to determine the summary.*/
-  public String scores2String(List<Sentence> sentences, List<Score> scores, int maxWords) {
-    StringBuilder b = new StringBuilder();
-    // for(int i=0;i< min(maxWords, scores.size()-1);i++)
-```
-
-### BoundedWildcard
-Can generalize to `? extends PotentialAnnotation`
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
-#### Snippet
-```java
-  }
-  
-  static List<PotentialAnnotation> searchEntities(List<PotentialAnnotation> entities, int begin, int end) {
-    
-    List<PotentialAnnotation> intersectingEntities = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends PotentialAnnotation`
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
-#### Snippet
-```java
-  
-  // Could pass null, means any type
-  public static PotentialAnnotation searchEntity(List<PotentialAnnotation> entities, int begin, int end, String type) {
-    
-    Span testSpan = new Span(begin, end);
+  private boolean hasSuperClass(List<Context> entityContexts, List<Context> candidateContexts) {
+    for (Context ec : entityContexts) {
+      for (Context candidateContext : candidateContexts) {
 ```
 
 ### BoundedWildcard
@@ -7273,6 +7202,54 @@ in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
   public int getBestSent(LexicalChain l, Hashtable<Integer, Score> pageRankScores) {
     double bestScore = 0; int bestStr = -1;
     for(Sentence s : l.getSentences()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LexicalChain`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+   * Takes care to only remove small chains that were added "long back"
+   */
+  private void purge(List<LexicalChain> lc, int sentId, int totSents) {
+    //Do nothing for the first 50 sentences.
+    if(lc.size()<20 ) return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Sentence`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+
+  //Build Lexical chains..
+  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
+    // POS tag article
+    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Word`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+
+  private boolean containsAllWords(Hashtable<Word, Boolean> words,
+                                   List<Word> word) {
+    boolean ret = true;
+    for(Word w: word)
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+#### Snippet
+```java
+
+  private void addToChain(Word noun, LexicalChain l,
+                          Hashtable<String, List<LexicalChain>> chains, Sentence sent) {
+
+    l.addWord(noun);
 ```
 
 ### BoundedWildcard
@@ -7313,50 +7290,74 @@ in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcesso
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
 #### Snippet
 ```java
+  }
 
-  private void addToChain(Word noun, LexicalChain l,
-                          Hashtable<String, List<LexicalChain>> chains, Sentence sent) {
-
-    l.addWord(noun);
+  private void readTable(Set<String> set, DatabaseMetaData md, String searchCriteria, String schema)
+          throws SQLException {
+    try (ResultSet rs = md.getTables(null, schema, null, new String[]{ searchCriteria })) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LexicalChain`
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+Can generalize to `? extends Span`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
 #### Snippet
 ```java
-   * Takes care to only remove small chains that were added "long back"
-   */
-  private void purge(List<LexicalChain> lc, int sentId, int totSents) {
-    //Do nothing for the first 50 sentences.
-    if(lc.size()<20 ) return;
+  }
+  
+  public void setParagraphs(List<Span> paragraphs) {
+    this.paragraphs =  paragraphs;
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Word`
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+Can generalize to `? extends Span`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
 #### Snippet
 ```java
-
-  private boolean containsAllWords(Hashtable<Word, Boolean> words,
-                                   List<Word> word) {
-    boolean ret = true;
-    for(Word w: word)
+  }
+  
+  public void setExclusionSpans(List<Span> exclusionSpans) {
+    
+    this.exclusionSpans = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Sentence`
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChainingSummarizer.java`
+Can generalize to `? extends PotentialAnnotation`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
+#### Snippet
+```java
+  
+  // Could pass null, means any type
+  public static PotentialAnnotation searchEntity(List<PotentialAnnotation> entities, int begin, int end, String type) {
+    
+    Span testSpan = new Span(begin, end);
+```
+
+### BoundedWildcard
+Can generalize to `? extends PotentialAnnotation`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
+#### Snippet
+```java
+  }
+  
+  static List<PotentialAnnotation> searchEntities(List<PotentialAnnotation> entities, int begin, int end) {
+    
+    List<PotentialAnnotation> intersectingEntities = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Score`
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 #### Snippet
 ```java
 
-  //Build Lexical chains..
-  public List<LexicalChain> buildLexicalChains(String article, List<Sentence> sent) {
-    // POS tag article
-    Hashtable<String, List<LexicalChain>> chains = new Hashtable<>();
+  // Gets the current score from the list of scores passed ...
+  public double getScoreFrom(List<Score> scores, int id) {
+    for (Score s : scores) {
+      if (s.getSentId() == id)
 ```
 
 ### BoundedWildcard
@@ -7372,91 +7373,30 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Score`
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
-#### Snippet
-```java
-
-  // Gets the current score from the list of scores passed ...
-  public double getScoreFrom(List<Score> scores, int id) {
-    for (Score s : scores) {
-      if (s.getSentId() == id)
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `NoisyChannel` has no concrete subclass
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/languagemodel/NoisyChannel.java`
-#### Snippet
-```java
- * Abstract impl of a noisy channel
- */
-public abstract class NoisyChannel {
-
-  private String[] dictionary;
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorpusStore.java`
-#### Snippet
-```java
-public class DerbyCorpusStore implements CorpusStore {
-
-  private final static Logger LOGGER = Logger.getLogger(DerbyCorpusStore.class .getName());
-
-  private final DataSource dataSource;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
+Can generalize to `? super Rule`
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
 #### Snippet
 ```java
   }
 
-  private final static Logger LOGGER = Logger.getLogger(CorpusServerImpl.class
-      .getName());
-  
+  private static void addRule(Rule rule, Map<Rule, Double> rulesMap) {
+    Double prob = rulesMap.get(rule);
+    if (prob != null && prob > 0d) {
 ```
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
+### BoundedWildcard
+Can generalize to `? super String`
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
 #### Snippet
 ```java
-public class DerbyCorporaStore extends AbstractCorporaStore {
-
-  private final static Logger LOGGER = Logger.getLogger(DerbyCorporaStore.class .getName());
-  public static final String DB_NAME = "XmiCasDB";
-
+   * @param rulesMap
+   */
+  private static void normalize(Rule rule, Collection<String> nonTerminals, Collection<String> terminals, Map<Rule, Double> rulesMap) {
+    String[] expansion = rule.getExpansion();
+    String firstExpansion = expansion[0];
 ```
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-  final static String LUCENE_ID_FIELD = "id";
-  
-  private final static Logger LOGGER = Logger.getLogger(
-      LuceneSearchService.class .getName());
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-public class LuceneSearchService implements SearchService {
-
-  final static String LUCENE_ID_FIELD = "id";
-  
-  private final static Logger LOGGER = Logger.getLogger(
-```
-
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `static public`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
@@ -7530,18 +7470,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
-#### Snippet
-```java
-	
-
-	private final static String TAXO_FILENAME = "taxo_data.dat";
-
-	private Map<String, List<List<String>>> lemma_ExtendedAssocWords = new HashMap<>();
-```
-
-### MissortedModifiers
 Missorted modifiers `static public`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
@@ -7551,6 +7479,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
   static public void main(String[] args) {
     System.out.println(isLatinWord("Performing Arts Center (SPAC)"));
     System.out.println(isLatinWord("â€œJazz Ageâ€�"));
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+	
+
+	private final static String TAXO_FILENAME = "taxo_data.dat";
+
+	private Map<String, List<List<String>>> lemma_ExtendedAssocWords = new HashMap<>();
 ```
 
 ### MissortedModifiers
@@ -7590,6 +7530,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/taskqueue/MemoryTaskQueueService.java`
+#### Snippet
+```java
+public class MemoryTaskQueueService implements TaskQueueService {
+
+  private final static Logger LOGGER = Logger.getLogger(MemoryTaskQueueService.class .getName());
+
+  private final Map<String, MemoryTaskQueue> queues = new HashMap<>();
+```
+
+### MissortedModifiers
 Missorted modifiers `synchronized static`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
@@ -7614,15 +7566,87 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+Missorted modifiers `final protected`
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
 #### Snippet
 ```java
-  protected final Map<Integer, String> ixToChar;
-  protected final List<String> data;
-  private final static double eps = 1e-8;
-  private final static double decay = 0.9;
+        public int currentPosition = 0;
 
+        final protected Appendable wrappedBuffer;
+
+        public CountingAppendable(Appendable wrappedBuffer) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
+#### Snippet
+```java
+  }
+
+  private final static Logger LOGGER = Logger.getLogger(CorpusServerImpl.class
+      .getName());
+  
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorpusStore.java`
+#### Snippet
+```java
+public class DerbyCorpusStore implements CorpusStore {
+
+  private final static Logger LOGGER = Logger.getLogger(DerbyCorpusStore.class .getName());
+
+  private final DataSource dataSource;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
+#### Snippet
+```java
+  private final Stemmer stemmer;
+
+  private final static Pattern REPLACEMENT_PATTERN =
+          Pattern.compile("&#?[0-9 a-z A-Z][0-9 a-z A-Z][0-9 a-z A-Z]?;");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
+#### Snippet
+```java
+public class DerbyCorporaStore extends AbstractCorporaStore {
+
+  private final static Logger LOGGER = Logger.getLogger(DerbyCorporaStore.class .getName());
+  public static final String DB_NAME = "XmiCasDB";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+  final static String LUCENE_ID_FIELD = "id";
+  
+  private final static Logger LOGGER = Logger.getLogger(
+      LuceneSearchService.class .getName());
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+public class LuceneSearchService implements SearchService {
+
+  final static String LUCENE_ID_FIELD = "id";
+  
+  private final static Logger LOGGER = Logger.getLogger(
 ```
 
 ### MissortedModifiers
@@ -7639,37 +7663,13 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/taskqueue/MemoryTaskQueueService.java`
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
 #### Snippet
 ```java
-public class MemoryTaskQueueService implements TaskQueueService {
-
-  private final static Logger LOGGER = Logger.getLogger(MemoryTaskQueueService.class .getName());
-
-  private final Map<String, MemoryTaskQueue> queues = new HashMap<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final protected`
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
-#### Snippet
-```java
-        public int currentPosition = 0;
-
-        final protected Appendable wrappedBuffer;
-
-        public CountingAppendable(Appendable wrappedBuffer) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
-#### Snippet
-```java
-  private final Stemmer stemmer;
-
-  private final static Pattern REPLACEMENT_PATTERN =
-          Pattern.compile("&#?[0-9 a-z A-Z][0-9 a-z A-Z][0-9 a-z A-Z]?;");
+  protected final Map<Integer, String> ixToChar;
+  protected final List<String> data;
+  private final static double eps = 1e-8;
+  private final static double decay = 0.9;
 
 ```
 
@@ -7781,6 +7781,78 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSent
         ||sentTry.startsWith( "fax") || sentTry.contains("refund it") || sentTry.contains("your money")
         ||sentTry.startsWith( "free") || sentTry.contains("purchase orders")
         ||sentTry.startsWith( "exchange it ") || sentTry.contains("return it") || sentTry.contains("credit card")
+```
+
+### DuplicateCondition
+Duplicate condition `features[count].endsWith("?")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+				if (features[count]!=null){
+					bufs[currentRevIndex].append(features[count]);
+					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
+							||features[count].endsWith(".\"") ))
+						bufs[currentRevIndex].append(". ");
+```
+
+### DuplicateCondition
+Duplicate condition `features[count].endsWith("?")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+				if (features[count]!=null){
+					bufs[currentRevIndex].append(features[count]);
+					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
+							||features[count].endsWith(".\"") ))
+						bufs[currentRevIndex].append(". ");
+```
+
+### DuplicateCondition
+Duplicate condition `features[count].endsWith("?")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+				if (features[count]!=null){
+					buf.append(features[count]);
+					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
+							||features[count].endsWith(".\"") ))
+						buf.append(". ");
+```
+
+### DuplicateCondition
+Duplicate condition `features[count].endsWith("?")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+				if (features[count]!=null){
+					buf.append(features[count]);
+					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
+							||features[count].endsWith(".\"") ))
+						buf.append(". ");
+```
+
+### DuplicateCondition
+Duplicate condition `feature.startsWith("View Larger")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+		List<String> results = new ArrayList<>();
+		for(String feature: productFeaturesList){
+			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
+				continue;
+			results.add(feature);
+```
+
+### DuplicateCondition
+Duplicate condition `feature.startsWith("View Larger")`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+		List<String> results = new ArrayList<>();
+		for(String feature: productFeaturesList){
+			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
+				continue;
+			results.add(feature);
 ```
 
 ### DuplicateCondition
@@ -7904,78 +7976,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityA
 ```
 
 ### DuplicateCondition
-Duplicate condition `features[count].endsWith("?")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-				if (features[count]!=null){
-					buf.append(features[count]);
-					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
-							||features[count].endsWith(".\"") ))
-						buf.append(". ");
-```
-
-### DuplicateCondition
-Duplicate condition `features[count].endsWith("?")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-				if (features[count]!=null){
-					buf.append(features[count]);
-					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
-							||features[count].endsWith(".\"") ))
-						buf.append(". ");
-```
-
-### DuplicateCondition
-Duplicate condition `features[count].endsWith("?")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-				if (features[count]!=null){
-					bufs[currentRevIndex].append(features[count]);
-					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
-							||features[count].endsWith(".\"") ))
-						bufs[currentRevIndex].append(". ");
-```
-
-### DuplicateCondition
-Duplicate condition `features[count].endsWith("?")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-				if (features[count]!=null){
-					bufs[currentRevIndex].append(features[count]);
-					if (!(features[count].endsWith("!") ||features[count].endsWith("?")||features[count].endsWith("?") 
-							||features[count].endsWith(".\"") ))
-						bufs[currentRevIndex].append(". ");
-```
-
-### DuplicateCondition
-Duplicate condition `feature.startsWith("View Larger")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-		List<String> results = new ArrayList<>();
-		for(String feature: productFeaturesList){
-			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
-				continue;
-			results.add(feature);
-```
-
-### DuplicateCondition
-Duplicate condition `feature.startsWith("View Larger")`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-		List<String> results = new ArrayList<>();
-		for(String feature: productFeaturesList){
-			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
-				continue;
-			results.add(feature);
-```
-
-### DuplicateCondition
 Duplicate condition `feature.startsWith("View Larger")`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageContentSentenceExtractor.java`
 #### Snippet
@@ -7990,30 +7990,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageCon
 ### DuplicateCondition
 Duplicate condition `feature.startsWith("View Larger")`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageContentSentenceExtractor.java`
-#### Snippet
-```java
-		List<String> results = new ArrayList<>();
-		for(String feature: productFeaturesList){
-			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
-				continue;
-			results.add(feature);
-```
-
-### DuplicateCondition
-Duplicate condition `feature.startsWith("View Larger")`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
-		List<String> results = new ArrayList<>();
-		for(String feature: productFeaturesList){
-			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
-				continue;
-			results.add(feature);
-```
-
-### DuplicateCondition
-Duplicate condition `feature.startsWith("View Larger")`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
 ```java
 		List<String> results = new ArrayList<>();
@@ -8117,6 +8093,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSente
         ||sentTry.startsWith( "fax") || sentTry.contains("refund it") || sentTry.contains("your money")
         ||sentTry.startsWith( "free") || sentTry.contains("purchase orders")
         ||sentTry.startsWith( "exchange it ") || sentTry.contains("return it") || sentTry.contains("credit card")
+```
+
+### DuplicateCondition
+Duplicate condition `feature.startsWith("View Larger")`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+		List<String> results = new ArrayList<>();
+		for(String feature: productFeaturesList){
+			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
+				continue;
+			results.add(feature);
+```
+
+### DuplicateCondition
+Duplicate condition `feature.startsWith("View Larger")`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+		List<String> results = new ArrayList<>();
+		for(String feature: productFeaturesList){
+			if (feature.startsWith("Unlimited Free") || feature.startsWith("View Larger") || feature.startsWith("View Larger") || feature.indexOf("shipping")>0)
+				continue;
+			results.add(feature);
 ```
 
 ### DuplicateCondition
@@ -8231,30 +8231,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/SentencePairMa
 
 ### IfStatementMissingBreakInLoop
 Loop can be terminated after condition is met
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
-#### Snippet
-```java
-			boolean bAccept = true;
-			for(String h: EmailNormalizer.HEADERS){
-				if (l.startsWith(h)){
-					bAccept = false;
-				}
-```
-
-### IfStatementMissingBreakInLoop
-Loop can be terminated after condition is met
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
-#### Snippet
-```java
-			}
-			for(String h: EmailNormalizer.PROHIBITED_STRINGS){
-				if (l.indexOf(h)>0){
-					bAccept = false;
-				}
-```
-
-### IfStatementMissingBreakInLoop
-Loop can be terminated after condition is met
 in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
 #### Snippet
 ```java
@@ -8277,19 +8253,31 @@ in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailN
 				}
 ```
 
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDDefaultParameters.java`
+### IfStatementMissingBreakInLoop
+Loop can be terminated after condition is met
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
 #### Snippet
 ```java
-    File folder = new File(trainingDataDirectory);
-    if (!folder.exists())
-      folder.mkdirs();
-  }
-
+			boolean bAccept = true;
+			for(String h: EmailNormalizer.HEADERS){
+				if (l.startsWith(h)){
+					bAccept = false;
+				}
 ```
 
+### IfStatementMissingBreakInLoop
+Loop can be terminated after condition is met
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
+#### Snippet
+```java
+			}
+			for(String h: EmailNormalizer.PROHIBITED_STRINGS){
+				if (l.indexOf(h)>0){
+					bAccept = false;
+				}
+```
+
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `String.replace()` is ignored
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
@@ -8315,30 +8303,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSent
 ```
 
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
-#### Snippet
-```java
-			if (!f.exists()) {
-				try {
-					f.createNewFile();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-```
-
-### IgnoreResultOfCall
-Result of `BigInteger.add()` is ignored
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
-#### Snippet
-```java
-			        
-			         endnote.setId(refId);
-			         refId.add(BigInteger.ONE);
-			         String url = para.getUrl();
-			         String endnoteBody = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:pPr><w:pStyle w:val=\"EndnoteText\"/></w:pPr><w:r><w:rPr>" +
-```
-
-### IgnoreResultOfCall
 Result of `String.replace()` is ignored
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
@@ -8351,6 +8315,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 ```
 
 ### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+			if (!f.exists()) {
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+```
+
+### IgnoreResultOfCall
 Result of `String.replace()` is ignored
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
 #### Snippet
@@ -8360,6 +8336,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 			pageSentence.replace("_should_find_orig_", "");
 
 		return mainAndFollowSent;
+```
+
+### IgnoreResultOfCall
+Result of `BigInteger.add()` is ignored
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+#### Snippet
+```java
+			        
+			         endnote.setId(refId);
+			         refId.add(BigInteger.ONE);
+			         String url = para.getUrl();
+			         String endnoteBody = "<w:p xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" ><w:pPr><w:pStyle w:val=\"EndnoteText\"/></w:pPr><w:r><w:rPr>" +
 ```
 
 ### IgnoreResultOfCall
@@ -8420,6 +8408,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 				new File(destinationFile).createNewFile();
 			} catch (IOException e) {
 				throw new RuntimeException(e.getLocalizedMessage(), e);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDDefaultParameters.java`
+#### Snippet
+```java
+    File folder = new File(trainingDataDirectory);
+    if (!folder.exists())
+      folder.mkdirs();
+  }
+
 ```
 
 ### IgnoreResultOfCall
@@ -8497,6 +8497,18 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/AdaptiveLogisticRegressionT
 
 ### RedundantMethodOverride
 Method `isSortAndMerge()` is identical to its super method
+in `mahout-addon/src/main/java/opennlp/addons/mahout/LogisticRegressionTrainer.java`
+#### Snippet
+```java
+
+  @Override
+  public boolean isSortAndMerge() {
+    return true;
+  }
+```
+
+### RedundantMethodOverride
+Method `isSortAndMerge()` is identical to its super method
 in `mahout-addon/src/main/java/opennlp/addons/mahout/OnlineLogisticRegressionTrainer.java`
 #### Snippet
 ```java
@@ -8510,18 +8522,6 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/OnlineLogisticRegressionTra
 ### RedundantMethodOverride
 Method `isSortAndMerge()` is identical to its super method
 in `mahout-addon/src/main/java/opennlp/addons/mahout/PassiveAggressiveTrainer.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean isSortAndMerge() {
-    return true;
-  }
-```
-
-### RedundantMethodOverride
-Method `isSortAndMerge()` is identical to its super method
-in `mahout-addon/src/main/java/opennlp/addons/mahout/LogisticRegressionTrainer.java`
 #### Snippet
 ```java
 
@@ -8570,18 +8570,6 @@ in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcesso
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
-Common parts with variables can be extracted from 'if'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-                    Element eWord = (Element) nWord;
-
-                    if (eWord.getAttribute(ATTRIBUTE_CMD).equals("done")) {
-                      // if the word is already disambiguated
-                      String word = eWord.getTextContent();
-```
-
-### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/ValueSortMap.java`
 #### Snippet
@@ -8603,6 +8591,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/ParseTreeNode.j
 		if (lemma1.equals("*"))
 			return "*";
 		//TODO
+```
+
+### IfStatementWithIdenticalBranches
+Common parts with variables can be extracted from 'if'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+                    Element eWord = (Element) nWord;
+
+                    if (eWord.getAttribute(ATTRIBUTE_CMD).equals("done")) {
+                      // if the word is already disambiguated
+                      String word = eWord.getTextContent();
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -8628,18 +8628,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
         if (size > 0 && !accumCommonParams.containsAll(paramsForGivenMeaning)) {
           score += size;
           accumCommonParams.addAll(paramsForGivenMeaning);
-```
-
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-			parentIsMaximal = false;
-			for (int parent : conceptList.get(Generator).parents) {
-				if (conceptList.get(parent).intent.containsAll(intent)) {
-					Generator = parent;
-					parentIsMaximal = true;
 ```
 
 ### SlowListContainsAll
@@ -8676,6 +8664,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 					if (conceptList.get(candidate).intent.containsAll(conceptList.get(parent).intent)) {
 						iterator.remove();
 					}
+```
+
+### SlowListContainsAll
+Call to 'list.containsAll(collection)' may have poor performance
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+			parentIsMaximal = false;
+			for (int parent : conceptList.get(Generator).parents) {
+				if (conceptList.get(parent).intent.containsAll(intent)) {
+					Generator = parent;
+					parentIsMaximal = true;
 ```
 
 ### SlowListContainsAll
@@ -8861,54 +8861,6 @@ import java.util.ArrayList;
 
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
-`count = count + 1` could be simplified to 'count += 1'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-          // TODO change to lemma check
-          if (sentenceWordPOS.isStemEquivalent(senseWordPOS)) {
-            count = count + 1;
-          }
-        }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`count = count + 1` could be simplified to 'count += 1'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-        for (WordPOS sentenceWordPOS : contextWords) {
-          if (sentenceWordPOS.isStemEquivalent(senseWordPOS)) {
-            count = count + 1;
-          }
-        }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`count = count + 1` could be simplified to 'count += 1'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-        for (WordPOS sentenceWord : relevantWords) {
-          if (sentenceWord.isStemEquivalent(senseWord)) {
-            count = count + 1;
-          }
-        }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`count = count + 1` could be simplified to 'count += 1'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-      for (WordPOS sentenceWord : relevantWords) {
-        if (sentenceWord.isStemEquivalent(synonym)) {
-          count = count + 1;
-        }
-      }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `pageSentence = pageSentence + ". "` could be simplified to 'pageSentence += ". "'
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
 #### Snippet
@@ -8933,18 +8885,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSent
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`flags = flags - flagToCheck` could be simplified to 'flags -= flagToCheck'
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-    if (isFlagSet(flags, flagToCheck)) {
-      flags = flags - flagToCheck;
-    }
-    return flags;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `flags = flags + flagToCheck` could be simplified to 'flags += flagToCheck'
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
@@ -8952,6 +8892,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
     }
     if (!isFlagSet(flags, flagToCheck)) {
       flags = flags + flagToCheck;
+    }
+    return flags;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`flags = flags - flagToCheck` could be simplified to 'flags -= flagToCheck'
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+
+    if (isFlagSet(flags, flagToCheck)) {
+      flags = flags - flagToCheck;
     }
     return flags;
 ```
@@ -8992,127 +8944,55 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCover
 
 ```
 
+### ReplaceAssignmentWithOperatorAssignment
+`count = count + 1` could be simplified to 'count += 1'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+        for (WordPOS sentenceWordPOS : contextWords) {
+          if (sentenceWordPOS.isStemEquivalent(senseWordPOS)) {
+            count = count + 1;
+          }
+        }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`count = count + 1` could be simplified to 'count += 1'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+      for (WordPOS sentenceWord : relevantWords) {
+        if (sentenceWord.isStemEquivalent(synonym)) {
+          count = count + 1;
+        }
+      }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`count = count + 1` could be simplified to 'count += 1'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+        for (WordPOS sentenceWord : relevantWords) {
+          if (sentenceWord.isStemEquivalent(senseWord)) {
+            count = count + 1;
+          }
+        }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`count = count + 1` could be simplified to 'count += 1'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+          // TODO change to lemma check
+          if (sentenceWordPOS.isStemEquivalent(senseWordPOS)) {
+            count = count + 1;
+          }
+        }
+```
+
 ## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-            new InputStreamReader(CFGRunner.class.getResourceAsStream(s)))) {
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        tokens.add(line);
-      }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
-#### Snippet
-```java
-            new SystemInputStreamFactory(), StandardCharsets.UTF_8)) {
-      String line;
-      while ((line = lineStream.read()) != null) {
-
-        WSDSample sample = WSDSample.parse(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-        Event ev = new Event(sense + "", context);
-        events.add(ev);
-      } while ((sample = samples.read()) != null);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-    ArrayList<String> surroundingWordsModel = new ArrayList<>();
-    WSDSample sample;
-    while ((sample = samples.read()) != null) {
-      String[] words = contextGenerator
-        .extractSurroundingContext(sample.getTargetPosition(),
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-      String line;
-
-      while ((line = wordsList.readLine()) != null) {
-
-        String[] temp = line.split("\\s");
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(resource))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        String word = line.split("\\s")[0];
-        if (!wordTags.contains(word)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/IndexTagger.java`
-#### Snippet
-```java
-      String tag;
-      int idx = 0;
-      while ((tag = in.readLine()) != null) {
-        idx2Tag.put(idx, tag);
-        idx += 1;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
-#### Snippet
-```java
-      String ch;
-      int idx = 0;
-      while ((ch = in.readLine()) != null) {
-        char2idx.put(ch.charAt(0), idx);
-        idx += 1;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
-#### Snippet
-```java
-      String word;
-      int idx = 0;
-      while ((word = in.readLine()) != null) {
-        word2idx.put(word, idx);
-        idx += 1;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
-#### Snippet
-```java
-
-      String tag;
-      while ((tag = reader.readLine()) != null) {
-        characterMap.put(characterMap.size(), tag.charAt(0));
-      }
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
@@ -9123,18 +9003,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 		    while ((line = br.readLine()) != null) {
 		    	for (int j = 0; j<line.length();j++){
 		    		if (line.charAt(j)=='.'){
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = mappingFileIn.read(buffer)) > 0) {
-          mappingTmpOut.write(buffer, 0, len);
-        }
 ```
 
 ### NestedAssignment
@@ -9271,26 +9139,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 
 ### NestedAssignment
 Result of assignment expression used
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
 #### Snippet
 ```java
-    //System.err.print("EntityFinder.getLastHead: "+p);
+            new SystemInputStreamFactory(), StandardCharsets.UTF_8)) {
+      String line;
+      while ((line = lineStream.read()) != null) {
 
-    while (null != (head = getHead(p))) {
-      //System.err.print(" -> "+head);
-     //if (p.getEntityId() != -1 && head.getEntityId() != p.getEntityId()) {
+        WSDSample sample = WSDSample.parse(line);
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
 #### Snippet
 ```java
-      //System.err.println("Reading acronyms database: " + file + " ");
-      String line;
-      while (null != (line = str.readLine())) {
-        StringTokenizer st = new StringTokenizer(line, "\t");
-        String acro = st.nextToken();
+    ArrayList<String> surroundingWordsModel = new ArrayList<>();
+    WSDSample sample;
+    while ((sample = samples.read()) != null) {
+      String[] words = contextGenerator
+        .extractSurroundingContext(sample.getTargetPosition(),
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
+#### Snippet
+```java
+        Event ev = new Event(sense + "", context);
+        events.add(ev);
+      } while ((sample = samples.read()) != null);
+    }
+
 ```
 
 ### NestedAssignment
@@ -9319,6 +9199,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 
 ### NestedAssignment
 Result of assignment expression used
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(resource))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        String word = line.split("\\s")[0];
+        if (!wordTags.contains(word)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+      String line;
+
+      while ((line = wordsList.readLine()) != null) {
+
+        String[] temp = line.split("\\s");
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+    //System.err.print("EntityFinder.getLastHead: "+p);
+
+    while (null != (head = getHead(p))) {
+      //System.err.print(" -> "+head);
+     //if (p.getEntityId() != -1 && head.getEntityId() != p.getEntityId()) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.java`
+#### Snippet
+```java
+      //System.err.println("Reading acronyms database: " + file + " ");
+      String line;
+      while (null != (line = str.readLine())) {
+        StringTokenizer st = new StringTokenizer(line, "\t");
+        String acro = st.nextToken();
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
 #### Snippet
 ```java
@@ -9327,66 +9255,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.jav
         while ((line = lineStream.read()) != null) {
 
           if (line.equals("")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
-#### Snippet
-```java
-      else {
-        NameSample sample;
-        while (!dataSets.hasNext() && (sample = samples.read()) != null) {
-          dataSets = createDataSets(sample);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
-#### Snippet
-```java
-
-    DataSet sample;
-    while ((sample = this.samples.read()) != null) {
-      total++;
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
-#### Snippet
-```java
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))){
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" ");
-                if (vectorSize == -1) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatModel.java`
-#### Snippet
-```java
-        GlobalVectors gloves = null;
-        ZipEntry entry;
-        while ((entry = zipIn.getNextEntry()) != null) {
-            String name = entry.getName();
-            switch (name) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
-#### Snippet
-```java
-    int nameIndex = 0;
-    Sequence<T> sequence;
-    while ((sequence = sequences.read()) != null) {
-      FeatureVector[] featureVectors = new FeatureVector[sequence.getEvents().length];
-      Label[] malletOutcomes = new Label[sequence.getEvents().length];
 ```
 
 ### NestedAssignment
@@ -9403,14 +9271,14 @@ in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java
 
 ### NestedAssignment
 Result of assignment expression used
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileSentenceProvider.java`
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
 #### Snippet
 ```java
-              new FileInputStream(params.getSentenceFile()), StandardCharsets.UTF_8))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-          sentences.add(line);
-        }
+    WordnetWord ww = (WordnetWord) w;
+    IWord syn;
+    if((syn = this.isSynonym(noun, w))!=null) {
+      ret = new WordnetWord();
+      ret.lexicon = noun;
 ```
 
 ### NestedAssignment
@@ -9439,14 +9307,26 @@ in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcesso
 
 ### NestedAssignment
 Result of assignment expression used
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
 #### Snippet
 ```java
-    WordnetWord ww = (WordnetWord) w;
-    IWord syn;
-    if((syn = this.isSynonym(noun, w))!=null) {
-      ret = new WordnetWord();
-      ret.lexicon = noun;
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = mappingFileIn.read(buffer)) > 0) {
+          mappingTmpOut.write(buffer, 0, len);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileKnownEntityProvider.java`
+#### Snippet
+```java
+              new FileInputStream(params.getKnownEntitiesFile()), StandardCharsets.UTF_8))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+          knownEntities.add(line);
+        }
 ```
 
 ### NestedAssignment
@@ -9463,14 +9343,134 @@ in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileModel
 
 ### NestedAssignment
 Result of assignment expression used
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileKnownEntityProvider.java`
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/FileSentenceProvider.java`
 #### Snippet
 ```java
-              new FileInputStream(params.getKnownEntitiesFile()), StandardCharsets.UTF_8))) {
+              new FileInputStream(params.getSentenceFile()), StandardCharsets.UTF_8))) {
         String line;
         while ((line = br.readLine()) != null) {
-          knownEntities.add(line);
+          sentences.add(line);
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
+#### Snippet
+```java
+    int nameIndex = 0;
+    Sequence<T> sequence;
+    while ((sequence = sequences.read()) != null) {
+      FeatureVector[] featureVectors = new FeatureVector[sequence.getEvents().length];
+      Label[] malletOutcomes = new Label[sequence.getEvents().length];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/IndexTagger.java`
+#### Snippet
+```java
+      String tag;
+      int idx = 0;
+      while ((tag = in.readLine()) != null) {
+        idx2Tag.put(idx, tag);
+        idx += 1;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
+#### Snippet
+```java
+      String word;
+      int idx = 0;
+      while ((word = in.readLine()) != null) {
+        word2idx.put(word, idx);
+        idx += 1;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
+#### Snippet
+```java
+      String ch;
+      int idx = 0;
+      while ((ch = in.readLine()) != null) {
+        char2idx.put(ch.charAt(0), idx);
+        idx += 1;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
+#### Snippet
+```java
+
+      String tag;
+      while ((tag = reader.readLine()) != null) {
+        characterMap.put(characterMap.size(), tag.charAt(0));
+      }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
+#### Snippet
+```java
+
+    DataSet sample;
+    while ((sample = this.samples.read()) != null) {
+      total++;
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
+#### Snippet
+```java
+      else {
+        NameSample sample;
+        while (!dataSets.hasNext() && (sample = samples.read()) != null) {
+          dataSets = createDataSets(sample);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatModel.java`
+#### Snippet
+```java
+        GlobalVectors gloves = null;
+        ZipEntry entry;
+        while ((entry = zipIn.getNextEntry()) != null) {
+            String name = entry.getName();
+            switch (name) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
+#### Snippet
+```java
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (vectorSize == -1) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+            new InputStreamReader(CFGRunner.class.getResourceAsStream(s)))) {
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        tokens.add(line);
+      }
 ```
 
 ### NestedAssignment
@@ -9560,6 +9560,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `instance` is accessed in both synchronized and unsynchronized contexts
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+  private static String MODEL_DIR=null;
+  private static final String MODEL_DIR_REL = "src/test/resources/models";
+  protected static ParserChunker2MatcherProcessor instance;
+
+  private SentenceDetector sentenceDetector;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `parser` is accessed in both synchronized and unsynchronized contexts
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
@@ -9584,27 +9596,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `instance` is accessed in both synchronized and unsynchronized contexts
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+Field `nameList` is accessed in both synchronized and unsynchronized contexts
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderJob.java`
 #### Snippet
 ```java
-  private static String MODEL_DIR=null;
-  private static final String MODEL_DIR_REL = "src/test/resources/models";
-  protected static ParserChunker2MatcherProcessor instance;
-
-  private SentenceDetector sentenceDetector;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `modelPath` is accessed in both synchronized and unsynchronized contexts
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
-#### Snippet
-```java
-  private SentenceDetectorME sentenceDetector;
+  private Span[] verifiedNames = new Span[0];
   
-  private String modelPath;
-  
-  private String text;
+  private List<PotentialAnnotation> nameList;
+
+  private boolean ignoreShortTokens;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9620,6 +9620,18 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdete
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `modelPath` is accessed in both synchronized and unsynchronized contexts
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
+#### Snippet
+```java
+  private SentenceDetectorME sentenceDetector;
+  
+  private String modelPath;
+  
+  private String text;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `text` is accessed in both synchronized and unsynchronized contexts
 in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
 #### Snippet
@@ -9629,18 +9641,6 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdete
   private String text;
   
   private String sentenceType;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `nameList` is accessed in both synchronized and unsynchronized contexts
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderJob.java`
-#### Snippet
-```java
-  private Span[] verifiedNames = new Span[0];
-  
-  private List<PotentialAnnotation> nameList;
-
-  private boolean ignoreShortTokens;
 ```
 
 ## RuleId[id=UseOfPropertiesAsHashtable]
@@ -9755,42 +9755,6 @@ in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorT
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0d` is redundant
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/UpdatableSimpleNaiveBayesClassifier.java`
-#### Snippet
-```java
-  private final Collection<String> vocabulary = new TreeSet<>(); // the bag of all the words in the corpus
-  private final Map<String, Integer> classCounts = new LinkedHashMap<>();
-  private double noDocs = 0d;
-  private final Map<String, Map<String, Integer>> nm = new HashMap<>();
-  private final Map<String, Double> priors = new HashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
-#### Snippet
-```java
-  public static final String DB_NAME = "XmiCasDB";
-
-  private DataSource dataSource = null;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
-#### Snippet
-```java
-public class FcaReader {
-	
-	ArrayList<String> obNames = null;
-	ArrayList<String> atNames = null;
-	int [][] binContext = null;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 #### Snippet
@@ -9800,30 +9764,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 	ArrayList<String> atNames = null;
 	int [][] binContext = null;
 	int objectsNumber = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
-#### Snippet
-```java
-	ArrayList<String> atNames = null;
-	int [][] binContext = null;
-	int objectsNumber = 0;
-	int attributesNumber = 0;
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
-#### Snippet
-```java
-	ArrayList<String> obNames = null;
-	ArrayList<String> atNames = null;
-	int [][] binContext = null;
-	int objectsNumber = 0;
-	int attributesNumber = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -9840,14 +9780,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 #### Snippet
 ```java
-			probability = 0,
-			blS_Jaa = 0,	
-			blS_SMCaa = 0,
-			blS_Jam = 0,	
-			blS_SMCam = 0,
+	ArrayList<String> atNames = null;
+	int [][] binContext = null;
+	int objectsNumber = 0;
+	int attributesNumber = 0;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
+#### Snippet
+```java
+	ArrayList<String> obNames = null;
+	ArrayList<String> atNames = null;
+	int [][] binContext = null;
+	int objectsNumber = 0;
+	int attributesNumber = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
+#### Snippet
+```java
+public class FcaReader {
+	
+	ArrayList<String> obNames = null;
+	ArrayList<String> atNames = null;
+	int [][] binContext = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9867,167 +9831,11 @@ Field initialization to `0` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
 #### Snippet
 ```java
-			blS_Jam = 0,	
-			blS_SMCam = 0,
-			blS_Jmm = 0,	
-			blS_Jma = 0,	
-			blS_SMCma = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-	double intLogStabilityBottom = 0,
-			intLogStabilityUp = 0,
-			separation = 0,
-			probability = 0,
-			blS_Jaa = 0,	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-	double cohAvgJ = 0,
-		   cohMinJ = 0,
-		   cohAvgSMC = 0,
-		   cohMinSMC = 0;
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-		   cohMinJ = 0,
-		   cohAvgSMC = 0,
-		   cohMinSMC = 0;
-	
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_Jmm = 0,	
-			blS_Jma = 0,	
-			blS_SMCma = 0,
-			blS_SMCmm = 0,
-			blCV = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-	
-	double cohAvgJ = 0,
-		   cohMinJ = 0,
-		   cohAvgSMC = 0,
-		   cohMinSMC = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blP = 0;
-	
-	double cohAvgJ = 0,
-		   cohMinJ = 0,
-		   cohAvgSMC = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_SMCma = 0,
-			blS_SMCmm = 0,
-			blCV = 0,
-			blCFC = 0,
-			blCU = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_Jaa = 0,	
-			blS_SMCaa = 0,
-			blS_Jam = 0,	
-			blS_SMCam = 0,
-			blS_Jmm = 0,	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
 			blS_Jma = 0,	
 			blS_SMCma = 0,
 			blS_SMCmm = 0,
 			blCV = 0,
 			blCFC = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_SMCam = 0,
-			blS_Jmm = 0,	
-			blS_Jma = 0,	
-			blS_SMCma = 0,
-			blS_SMCmm = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_SMCmm = 0,
-			blCV = 0,
-			blCFC = 0,
-			blCU = 0,
-			blP = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blS_SMCaa = 0,
-			blS_Jam = 0,	
-			blS_SMCam = 0,
-			blS_Jmm = 0,	
-			blS_Jma = 0,	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blCFC = 0,
-			blCU = 0,
-			blP = 0;
-	
-	double cohAvgJ = 0,
 ```
 
 ### RedundantFieldInitialization
@@ -10040,6 +9848,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
 			blS_Jaa = 0,	
 			blS_SMCaa = 0,
 			blS_Jam = 0,	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+		   cohMinJ = 0,
+		   cohAvgSMC = 0,
+		   cohMinSMC = 0;
+	
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+	double cohAvgJ = 0,
+		   cohMinJ = 0,
+		   cohAvgSMC = 0,
+		   cohMinSMC = 0;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			probability = 0,
+			blS_Jaa = 0,	
+			blS_SMCaa = 0,
+			blS_Jam = 0,	
+			blS_SMCam = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_SMCma = 0,
+			blS_SMCmm = 0,
+			blCV = 0,
+			blCFC = 0,
+			blCU = 0,
 ```
 
 ### RedundantFieldInitialization
@@ -10052,18 +9908,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
 			probability = 0,
 			blS_Jaa = 0,	
 			blS_SMCaa = 0,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
-#### Snippet
-```java
-			blCV = 0,
-			blCFC = 0,
-			blCU = 0,
-			blP = 0;
-	
 ```
 
 ### RedundantFieldInitialization
@@ -10076,6 +9920,150 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
 	double intLogStabilityBottom = 0,
 			intLogStabilityUp = 0,
 			separation = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blCFC = 0,
+			blCU = 0,
+			blP = 0;
+	
+	double cohAvgJ = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_SMCaa = 0,
+			blS_Jam = 0,	
+			blS_SMCam = 0,
+			blS_Jmm = 0,	
+			blS_Jma = 0,	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blP = 0;
+	
+	double cohAvgJ = 0,
+		   cohMinJ = 0,
+		   cohAvgSMC = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+	
+	double cohAvgJ = 0,
+		   cohMinJ = 0,
+		   cohAvgSMC = 0,
+		   cohMinSMC = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blCV = 0,
+			blCFC = 0,
+			blCU = 0,
+			blP = 0;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_Jmm = 0,	
+			blS_Jma = 0,	
+			blS_SMCma = 0,
+			blS_SMCmm = 0,
+			blCV = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_SMCam = 0,
+			blS_Jmm = 0,	
+			blS_Jma = 0,	
+			blS_SMCma = 0,
+			blS_SMCmm = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_Jaa = 0,	
+			blS_SMCaa = 0,
+			blS_Jam = 0,	
+			blS_SMCam = 0,
+			blS_Jmm = 0,	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_Jam = 0,	
+			blS_SMCam = 0,
+			blS_Jmm = 0,	
+			blS_Jma = 0,	
+			blS_SMCma = 0,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+			blS_SMCmm = 0,
+			blCV = 0,
+			blCFC = 0,
+			blCU = 0,
+			blP = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
+#### Snippet
+```java
+	double intLogStabilityBottom = 0,
+			intLogStabilityUp = 0,
+			separation = 0,
+			probability = 0,
+			blS_Jaa = 0,	
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+#### Snippet
+```java
+
+public class SynonymListFilter {
+	SynonymMap map=null;
+	
+	public SynonymListFilter(String dir){
 ```
 
 ### RedundantFieldInitialization
@@ -10115,18 +10103,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
-#### Snippet
-```java
-
-public class SynonymListFilter {
-	SynonymMap map=null;
-	
-	public SynonymListFilter(String dir){
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
 #### Snippet
@@ -10139,18 +10115,6 @@ public class NL2ObjCreateAssign extends NL2Obj {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/YahooAnswersMiner.java`
-#### Snippet
-```java
-public class YahooAnswersMiner extends BingQueryRunner{
-
-	private int page = 0;
-	private static final int HITS_PER_PAGE = 50;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
 #### Snippet
@@ -10159,6 +10123,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
 		j, k, k0;
 	private boolean dirty = false;
 	private static final int INITIAL_SIZE = 50;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/YahooAnswersMiner.java`
+#### Snippet
+```java
+public class YahooAnswersMiner extends BingQueryRunner{
+
+	private int page = 0;
+	private static final int HITS_PER_PAGE = 50;
 
 ```
 
@@ -10203,11 +10179,11 @@ Field initialization to `null` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
 #### Snippet
 ```java
-	}	
 
-	IVerbIndex index = null;
-
-	private VerbNetProcessor() {
+	static VerbNetProcessor instance;
+	static private String pathToVerbnet = null; //new File( "." ).getCanonicalPath()+"/src/test/resources";
+	public static VerbNetProcessor getInstance(String resourceDir) {
+		if (resourceDir==null)
 ```
 
 ### RedundantFieldInitialization
@@ -10215,11 +10191,11 @@ Field initialization to `null` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
 #### Snippet
 ```java
+	}	
 
-	static VerbNetProcessor instance;
-	static private String pathToVerbnet = null; //new File( "." ).getCanonicalPath()+"/src/test/resources";
-	public static VerbNetProcessor getInstance(String resourceDir) {
-		if (resourceDir==null)
+	IVerbIndex index = null;
+
+	private VerbNetProcessor() {
 ```
 
 ### RedundantFieldInitialization
@@ -10239,18 +10215,6 @@ Field initialization to `0` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
 #### Snippet
 ```java
-	
-	double intLogStabilityBottom = 0;
-	double intLogStabilityUp = 0;
-	
-	
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
-#### Snippet
-```java
 	final Set<Integer> extent;
 	
 	double intLogStabilityBottom = 0;
@@ -10259,27 +10223,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+Field initialization to `0` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
 #### Snippet
 ```java
-
-  private IndexWriter indexWriter = null;
-  private String absolutePathTrainingSet = null;
-
-  public ClassifierTrainingSetIndexer() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-  private final Tika tika = new Tika();
-
-  private IndexWriter indexWriter = null;
-  private String absolutePathTrainingSet = null;
-
+	
+	double intLogStabilityBottom = 0;
+	double intLogStabilityUp = 0;
+	
+	
 ```
 
 ### RedundantFieldInitialization
@@ -10308,6 +10260,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+  private final Tika tika = new Tika();
+
+  private IndexWriter indexWriter = null;
+  private String absolutePathTrainingSet = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+
+  private IndexWriter indexWriter = null;
+  private String absolutePathTrainingSet = null;
+
+  public ClassifierTrainingSetIndexer() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
 #### Snippet
 ```java
@@ -10352,18 +10328,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 	private String sourceDir = null, destinationDir = null;
 	//interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Niveau_d%27%C3%A9nergie" title="Niveau d&#39;énergie – French" lang="fr" 
 	private static final String[][] MULTILINGUAL_TOKENS = new String[][]{{"interwiki-fr\"><a href=\"", "lang=\"fr\""},
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `opennlp-coref/src/main/java/opennlp/tools/coref/DiscourseEntity.java`
-#### Snippet
-```java
-public class DiscourseEntity extends DiscourseElement {
-
-  private String category = null;
-  private GenderEnum gender;
-  private double genderProb;
 ```
 
 ### RedundantFieldInitialization
@@ -10376,6 +10340,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
   private static String MODEL_DIR=null;
   private static final String MODEL_DIR_REL = "src/test/resources/models";
   protected static ParserChunker2MatcherProcessor instance;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `opennlp-coref/src/main/java/opennlp/tools/coref/DiscourseEntity.java`
+#### Snippet
+```java
+public class DiscourseEntity extends DiscourseElement {
+
+  private String category = null;
+  private GenderEnum gender;
+  private double genderProb;
 ```
 
 ### RedundantFieldInitialization
@@ -10427,15 +10403,51 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefContentHandler
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `summarizer/src/main/java/opennlp/summarization/Sentence.java`
+#### Snippet
+```java
+	private int paraPos;
+	private boolean hasQuote;
+	private double wordWt = 0;
+	private int wordCnt;
+	
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
+#### Snippet
+```java
+    public static class CountingAppendable implements Appendable {
+
+        public int currentPosition = 0;
+
+        final protected Appendable wrappedBuffer;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
+#### Snippet
+```java
+  public static final String DB_NAME = "XmiCasDB";
+
+  private DataSource dataSource = null;
+
+  @Override
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
 #### Snippet
 ```java
-                        "Also, these names should match subdirectory names of -trainDir and -validDir when those are " +
-                        "applicable. \n Example -labels pos neg")
-        List<String> labels = null;
+        @Option(name = "-trainDir", required = true, usage = "Path to train data directory." +
+                " Setting this value will take the system to training mode. ")
+        String trainDir = null;
 
-        @Override
+        @Option(name = "-validDir", usage = "Path to validation data directory. Optional.")
 ```
 
 ### RedundantFieldInitialization
@@ -10467,11 +10479,11 @@ Field initialization to `null` is redundant
 in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
 #### Snippet
 ```java
-        @Option(name = "-trainDir", required = true, usage = "Path to train data directory." +
-                " Setting this value will take the system to training mode. ")
-        String trainDir = null;
+                        "Also, these names should match subdirectory names of -trainDir and -validDir when those are " +
+                        "applicable. \n Example -labels pos neg")
+        List<String> labels = null;
 
-        @Option(name = "-validDir", usage = "Path to validation data directory. Optional.")
+        @Override
 ```
 
 ### RedundantFieldInitialization
@@ -10484,18 +10496,6 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
         String glovesPath = null;
 
         @Option(name = "-modelPath", required = true, usage = "Path to model file. " +
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
-#### Snippet
-```java
-    private final String extension = ".txt";
-    private final GlobalVectors embedder;
-    private int cursor = 0;
-    private final int batchSize;
-    private final int vectorLen;
 ```
 
 ### RedundantFieldInitialization
@@ -10523,6 +10523,18 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
+#### Snippet
+```java
+    private final String extension = ".txt";
+    private final GlobalVectors embedder;
+    private int cursor = 0;
+    private final int batchSize;
+    private final int vectorLen;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
 #### Snippet
@@ -10547,42 +10559,18 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/AnnotatingMarkupParser.java`
+Field initialization to `0d` is redundant
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/UpdatableSimpleNaiveBayesClassifier.java`
 #### Snippet
 ```java
-    public static class CountingAppendable implements Appendable {
-
-        public int currentPosition = 0;
-
-        final protected Appendable wrappedBuffer;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `summarizer/src/main/java/opennlp/summarization/Sentence.java`
-#### Snippet
-```java
-	private int paraPos;
-	private boolean hasQuote;
-	private double wordWt = 0;
-	private int wordCnt;
-	
+  private final Collection<String> vocabulary = new TreeSet<>(); // the bag of all the words in the corpus
+  private final Map<String, Integer> classCounts = new LinkedHashMap<>();
+  private double noDocs = 0d;
+  private final Map<String, Map<String, Integer>> nm = new HashMap<>();
+  private final Map<String, Double> priors = new HashMap<>();
 ```
 
 ## RuleId[id=EqualsAndHashcode]
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
-#### Snippet
-```java
-
-// TODO extend Word from Wordnet
-public class Word {
-
-  public enum Type {
-```
-
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TokenObject.java`
@@ -10593,6 +10581,18 @@ import java.util.Comparator;
 public class TokenObject {
   private String token;
 
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
+#### Snippet
+```java
+
+// TODO extend Word from Wordnet
+public class Word {
+
+  public enum Type {
 ```
 
 ### EqualsAndHashcode
@@ -10673,146 +10673,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/cgReques
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ContextFreeGrammar.java`
-#### Snippet
-```java
-      expansion.addAll(getTerminals(word));
-    }
-    return expansion.toArray(new String[0]);
-
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
-#### Snippet
-```java
-    }
-
-    return contextWords.toArray(new String[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
-#### Snippet
-```java
-    }
-
-    return contextClusters.toArray(new String[0]);
-
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
-#### Snippet
-```java
-    }
-
-    return contextWords.toArray(new String[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
-#### Snippet
-```java
-    }
-    String[] res;
-    res = localCollocations.toArray(new String[0]);
-
-    return res;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-                String[] lemmas = lemmatizer.lemmatize(words, tags);
-
-                WSDSample wtd = new WSDSample(words, tags, lemmas, index, senseIDs.toArray(new String[0]));
-                setInstances.add(wtd);
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-              String[] lemmas = lemmatizer.lemmatize(words, tags);
-
-              WSDSample wtd = new WSDSample(words, tags, lemmas, index, senses.toArray(new String[0]));
-              setInstances.add(wtd);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namecat/NameCategorizer.java`
-#### Snippet
-```java
-  public String[] categorize(String[] names) {
-    if (names.length == 0) {
-      return new String[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/SequenceTagging.java`
-#### Snippet
-```java
-    }
-    else {
-      return new Span[0];
-    }
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
-#### Snippet
-```java
-
-    if (texts.length == 0) {
-      return new String[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
-#### Snippet
-```java
-        }
-
-        return normalizedTexts.toArray(new String[0]);
-      }
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-		sents = verifyEnforceStartsUpperCase(sents);
+		}
 
-		reviewObj.setFeaturePhrases(productFeaturesList.toArray(new String[0]));
-		reviewObj.setOrigSentences(sents);
+		return hitsDedup.toArray(new String[0]);
 
+	}
 ```
 
 ### ZeroLengthArrayInitialization
@@ -10832,22 +10700,10 @@ Allocation of zero length array
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-		}
+		sents = verifyEnforceStartsUpperCase(sents);
 
-		return hitsDedup.toArray(new String[0]);
-
-	}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-      expansion.addAll(getTerminals(word));
-    }
-    return expansion.toArray(new String[0]);
-  }
+		reviewObj.setFeaturePhrases(productFeaturesList.toArray(new String[0]));
+		reviewObj.setOrigSentences(sents);
 
 ```
 
@@ -11045,30 +10901,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
-#### Snippet
-```java
-       lines.add(ls.toString());
-     }
-     taxo_list.add(lines.toArray(new String[0]));
-    }
-    ProfileReaderWriter.writeReport(taxo_list, csvFilename);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
-#### Snippet
-```java
-       lines.add(ls.toString());
-     }
-     taxo_list.add(lines.toArray(new String[0]));
-    }
-    ProfileReaderWriter.writeReport(taxo_list, csvFilenameListEntries);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
 ```java
@@ -11093,31 +10925,31 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
+#### Snippet
+```java
+       lines.add(ls.toString());
+     }
+     taxo_list.add(lines.toArray(new String[0]));
+    }
+    ProfileReaderWriter.writeReport(taxo_list, csvFilename);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
+#### Snippet
+```java
+       lines.add(ls.toString());
+     }
+     taxo_list.add(lines.toArray(new String[0]));
+    }
+    ProfileReaderWriter.writeReport(taxo_list, csvFilenameListEntries);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			}
-		}
-		return sentsClean.toArray(new String[0]);
-	}
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSentenceSearchResultsProcessor.java`
-#### Snippet
-```java
-			results.add(h.getTitle()+ " | "+h.getAbstractText());
-		}
-		return results.toArray(new String[0]);
-	}
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
 #### Snippet
 ```java
 			}
@@ -11148,6 +10980,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExt
 		results.add(pageTitles.toArray(new String[0]));
 		results.add(mosFrequentWordsListFromPage.toArray(new String[0]));
 		results.add(sents);
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
+#### Snippet
+```java
+			}
+		}
+		return sentsClean.toArray(new String[0]);
+	}
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSentenceSearchResultsProcessor.java`
+#### Snippet
+```java
+			results.add(h.getTitle()+ " | "+h.getAbstractText());
+		}
+		return results.toArray(new String[0]);
+	}
 
 ```
 
@@ -11201,14 +11057,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
 #### Snippet
 ```java
-    }
-    
-    return mentions.toArray(new Mention[0]);
+  @Override
+  public Progress[] getProgress() {
+    return new Progress[0];
   }
-  
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/namefind/BratNameFinderResource.java`
+#### Snippet
+```java
+
+            NameAnn ann = new NameAnn();
+            ann.texts = textSegments.toArray(new String[0]);
+            ann.offsets = spanSegments.toArray(new int[spanSegments.size()][]);
+            ann.type = name.getType();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    else {
+      List<String> sents = TextProcessor.splitToSentences(text);
+      return sents.toArray(new String[0]);
+    }
+  }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11237,14 +11117,110 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
 #### Snippet
 ```java
-    else {
-      List<String> sents = TextProcessor.splitToSentences(text);
-      return sents.toArray(new String[0]);
     }
+
+    return contextWords.toArray(new String[0]);
   }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
+#### Snippet
+```java
+    }
+
+    return contextClusters.toArray(new String[0]);
+
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
+#### Snippet
+```java
+    }
+    String[] res;
+    res = localCollocations.toArray(new String[0]);
+
+    return res;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
+#### Snippet
+```java
+    }
+
+    return contextWords.toArray(new String[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+                String[] lemmas = lemmatizer.lemmatize(words, tags);
+
+                WSDSample wtd = new WSDSample(words, tags, lemmas, index, senseIDs.toArray(new String[0]));
+                setInstances.add(wtd);
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+              String[] lemmas = lemmatizer.lemmatize(words, tags);
+
+              WSDSample wtd = new WSDSample(words, tags, lemmas, index, senses.toArray(new String[0]));
+              setInstances.add(wtd);
+            }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+    }
+    
+    return mentions.toArray(new Mention[0]);
+  }
+  
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
+#### Snippet
+```java
+      if (line.equals("")) {
+        DiscourseEntity[] entities =
+            treebankLinker.getEntities(document.toArray(new Mention[0]));
+        //showEntities(entities);
+        new CorefParse(parses,entities).show();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
+#### Snippet
+```java
+    }
+    if (document.size() > 0) {
+      DiscourseEntity[] entities = treebankLinker.getEntities(document.toArray(new Mention[0]));
+      //showEntities(entities);
+      (new CorefParse(parses, entities)).show();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11264,18 +11240,6 @@ Allocation of zero length array
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
 #### Snippet
 ```java
-  private void addEvent(String outcome, Context np1) {
-    List<String> feats = getFeatures(np1);
-    events.add(new Event(outcome, feats.toArray(new String[0])));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
-#### Snippet
-```java
   public double[] numberDist(Context c) {
     List<String> feats = getFeatures(c);
     return testModel.eval(feats.toArray(new String[0]));
@@ -11285,48 +11249,12 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
-#### Snippet
-```java
-        List<String> parents = new ArrayList<>();
-        getParents(synset,parents);
-        return parents.toArray(new String[0]);
-      }
-      else {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
-#### Snippet
-```java
-      }
-      List<String> lemmas = morphy.lookupAllBaseForms(pos,word);
-      return lemmas.toArray(new String[0]);
-    }
-    catch (JWNLException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
 #### Snippet
 ```java
   private void addEvent(String outcome, Context np1) {
     List<String> feats = getFeatures(np1);
     events.add(new Event(outcome, feats.toArray(new String[0])));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
-#### Snippet
-```java
-    List<String> features = getFeatures(np1);
-    //System.err.println("GenderModel.genderDistribution: "+features);
-    return testModel.eval(features.toArray(new String[0]));
   }
 
 ```
@@ -11341,6 +11269,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
     tokens = headTokens.toArray(new Parse[0]);
     basalNextToken = head.getNextToken();
     //System.err.println("MentionContext.init: "+ent+" "+ent.getEntityId()+" head="+head);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+      }
+    }
+    return createParses(kids.toArray(new Parse[0]));
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11369,26 +11309,50 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
 #### Snippet
 ```java
       }
+      List<String> lemmas = morphy.lookupAllBaseForms(pos,word);
+      return lemmas.toArray(new String[0]);
     }
-    return createParses(kids.toArray(new Parse[0]));
+    catch (JWNLException e) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+#### Snippet
+```java
+        List<String> parents = new ArrayList<>();
+        getParents(synset,parents);
+        return parents.toArray(new String[0]);
+      }
+      else {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+#### Snippet
+```java
+  private void addEvent(String outcome, Context np1) {
+    List<String> feats = getFeatures(np1);
+    events.add(new Event(outcome, feats.toArray(new String[0])));
   }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
 #### Snippet
 ```java
-  public double getNonReferentialProbability(MentionContext mention) {
-    List<String> features = getFeatures(mention);
-    double r = model.eval(features.toArray(new String[0]))[nonRefIndex];
-    if (debugOn) System.err.println(this + " " + mention.toText() + " ->  null " + r + " " + features);
-    return r;
+    List<String> features = getFeatures(np1);
+    //System.err.println("GenderModel.genderDistribution: "+features);
+    return testModel.eval(features.toArray(new String[0]));
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11417,6 +11381,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferenti
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
+#### Snippet
+```java
+  public double getNonReferentialProbability(MentionContext mention) {
+    List<String> features = getFeatures(mention);
+    double r = model.eval(features.toArray(new String[0]))[nonRefIndex];
+    if (debugOn) System.err.println(this + " " + mention.toText() + " ->  null " + r + " " + features);
+    return r;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
 #### Snippet
 ```java
@@ -11425,6 +11401,30 @@ in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.jav
                 treebankLinker.getEntities(document.toArray(new Mention[0]));
             //showEntities(entities);
             new CorefParse(parses, entities).show();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/Muc6FullParseCorefSampleStreamFactory.java`
+#### Snippet
+```java
+    
+    return new MucMentionInserterStream(new NameFinderCorefEnhancerStream(nameFinders.toArray(
+            new TokenNameFinder[0]), tags.toArray(new String[0]), parsedSamples));
+  }
+  
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/Muc6FullParseCorefSampleStreamFactory.java`
+#### Snippet
+```java
+    
+    return new MucMentionInserterStream(new NameFinderCorefEnhancerStream(nameFinders.toArray(
+            new TokenNameFinder[0]), tags.toArray(new String[0]), parsedSamples));
+  }
+  
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11501,42 +11501,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/AbstractMentionFinde
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/Muc6FullParseCorefSampleStreamFactory.java`
-#### Snippet
-```java
-    
-    return new MucMentionInserterStream(new NameFinderCorefEnhancerStream(nameFinders.toArray(
-            new TokenNameFinder[0]), tags.toArray(new String[0]), parsedSamples));
-  }
-  
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/Muc6FullParseCorefSampleStreamFactory.java`
-#### Snippet
-```java
-    
-    return new MucMentionInserterStream(new NameFinderCorefEnhancerStream(nameFinders.toArray(
-            new TokenNameFinder[0]), tags.toArray(new String[0]), parsedSamples));
-  }
-  
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
-#### Snippet
-```java
-    List<String> feats = getFeatures(mention1, mention2);
-    if (debugOn) System.err.println("SimilarityModel.compatible: feats=" + feats);
-    return (testModel.eval(feats.toArray(new String[0]))[SAME_INDEX]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
@@ -11561,25 +11525,13 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/namefind/BratNameFinderResource.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
-
-            NameAnn ann = new NameAnn();
-            ann.texts = textSegments.toArray(new String[0]);
-            ann.offsets = spanSegments.toArray(new int[spanSegments.size()][]);
-            ann.type = name.getType();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `mallet-addon/src/main/java/opennlp/addons/mallet/TransducerModel.java`
-#### Snippet
-```java
-      MaxLatticeDefault lattice = new MaxLatticeDefault(model, malletSequence, null, 3);
-
-      answers = lattice.bestOutputSequences(numSequences).toArray(new Sequence[0]);
-    }
+    List<String> feats = getFeatures(mention1, mention2);
+    if (debugOn) System.err.println("SimilarityModel.compatible: feats=" + feats);
+    return (testModel.eval(feats.toArray(new String[0]))[SAME_INDEX]);
+  }
 
 ```
 
@@ -11612,18 +11564,6 @@ Allocation of zero length array
 in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceContentProvider.java`
 #### Snippet
 ```java
-  @Override
-  public Object[] getElements(Object inputElement) {
-    return new Object[0];
-  }
-  
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceContentProvider.java`
-#### Snippet
-```java
 
     if (exclusionSpanTypes == null) {
       exclusionSpanTypes = new Type[0];
@@ -11633,38 +11573,14 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdete
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
-#### Snippet
-```java
-
-  PotentialAnnotation[] getDetectedSentences() {
-    return detectedSentences.toArray(new PotentialAnnotation[0]);
-  }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/MultiModelNameFinder.java`
-#### Snippet
-```java
-    // TODO: Merge names here ...
-    
-    return names.toArray(new ConfidenceSpan[0]);
-  }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceContentProvider.java`
 #### Snippet
 ```java
   @Override
-  public Progress[] getProgress() {
-    return new Progress[0];
+  public Object[] getElements(Object inputElement) {
+    return new Object[0];
   }
-
+  
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11677,6 +11593,18 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefind
   private Span[] verifiedNames = new Span[0];
   
   private List<PotentialAnnotation> nameList;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorJob.java`
+#### Snippet
+```java
+
+  PotentialAnnotation[] getDetectedSentences() {
+    return detectedSentences.toArray(new PotentialAnnotation[0]);
+  }
+}
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11717,26 +11645,98 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefind
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/MultiModelNameFinder.java`
 #### Snippet
 ```java
-      if (line.equals("")) {
-        DiscourseEntity[] entities =
-            treebankLinker.getEntities(document.toArray(new Mention[0]));
-        //showEntities(entities);
-        new CorefParse(parses,entities).show();
+    // TODO: Merge names here ...
+    
+    return names.toArray(new ConfidenceSpan[0]);
+  }
+}
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
+in `mallet-addon/src/main/java/opennlp/addons/mallet/TransducerModel.java`
+#### Snippet
+```java
+      MaxLatticeDefault lattice = new MaxLatticeDefault(model, malletSequence, null, 3);
+
+      answers = lattice.bestOutputSequences(numSequences).toArray(new Sequence[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namecat/NameCategorizer.java`
+#### Snippet
+```java
+  public String[] categorize(String[] names) {
+    if (names.length == 0) {
+      return new String[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/SequenceTagging.java`
 #### Snippet
 ```java
     }
-    if (document.size() > 0) {
-      DiscourseEntity[] entities = treebankLinker.getEntities(document.toArray(new Mention[0]));
-      //showEntities(entities);
-      (new CorefParse(parses, entities)).show();
+    else {
+      return new Span[0];
+    }
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
+#### Snippet
+```java
+
+    if (texts.length == 0) {
+      return new String[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
+#### Snippet
+```java
+        }
+
+        return normalizedTexts.toArray(new String[0]);
+      }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ContextFreeGrammar.java`
+#### Snippet
+```java
+      expansion.addAll(getTerminals(word));
+    }
+    return expansion.toArray(new String[0]);
+
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+      expansion.addAll(getTerminals(word));
+    }
+    return expansion.toArray(new String[0]);
+  }
+
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -11753,18 +11753,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.
 ```
 
 ## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-The value `null` assigned to `taskQueueService` is never used
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
-#### Snippet
-```java
-  
-  public void stop() {
-    taskQueueService = null;
-    
-  // Note: 
-```
-
 ### UnusedAssignment
 The value `1` assigned to `mult1` is never used
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/Measures.java`
@@ -11787,6 +11775,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymL
 		syn = filter.getSynonym("yell");
 	}
 }
+```
+
+### UnusedAssignment
+The value `"Page 2 of 93"` assigned to `para` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+#### Snippet
+```java
+		System.out.println(para);
+
+		para = "Page 2 of 93";
+
+		System.exit(0);
 ```
 
 ### UnusedAssignment
@@ -11814,15 +11814,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityA
 ```
 
 ### UnusedAssignment
-The value `"Page 2 of 93"` assigned to `para` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+The value `ParserChunker2MatcherProcessor.getInstance(resourceDir)` assigned to `sm` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorRunner.java`
 #### Snippet
 ```java
-		System.out.println(para);
+			String resourceDir = args[2];
+			if (resourceDir!=null)
+				sm = ParserChunker2MatcherProcessor.getInstance(resourceDir);
+			else
+				sm = ParserChunker2MatcherProcessor.getInstance();
+```
 
-		para = "Page 2 of 93";
+### UnusedAssignment
+The value `ParserChunker2MatcherProcessor.getInstance()` assigned to `sm` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorRunner.java`
+#### Snippet
+```java
+				sm = ParserChunker2MatcherProcessor.getInstance(resourceDir);
+			else
+				sm = ParserChunker2MatcherProcessor.getInstance();
+	
+		} catch (Exception e) {
+```
 
-		System.exit(0);
+### UnusedAssignment
+The value `null` assigned to `buffer` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+
+     if (len == output.length) return output;
+     buffer = null; // help gc
+     buffer = new byte[len];
+     System.arraycopy(output, 0, buffer, 0, len);
 ```
 
 ### UnusedAssignment
@@ -11910,42 +11934,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymM
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `buffer` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-
-     if (len == output.length) return output;
-     buffer = null; // help gc
-     buffer = new byte[len];
-     System.arraycopy(output, 0, buffer, 0, len);
-```
-
-### UnusedAssignment
-The value `ParserChunker2MatcherProcessor.getInstance(resourceDir)` assigned to `sm` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorRunner.java`
-#### Snippet
-```java
-			String resourceDir = args[2];
-			if (resourceDir!=null)
-				sm = ParserChunker2MatcherProcessor.getInstance(resourceDir);
-			else
-				sm = ParserChunker2MatcherProcessor.getInstance();
-```
-
-### UnusedAssignment
-The value `ParserChunker2MatcherProcessor.getInstance()` assigned to `sm` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorRunner.java`
-#### Snippet
-```java
-				sm = ParserChunker2MatcherProcessor.getInstance(resourceDir);
-			else
-				sm = ParserChunker2MatcherProcessor.getInstance();
-	
-		} catch (Exception e) {
-```
-
-### UnusedAssignment
 The value `getFullOriginalSentenceFromWebpageBySnippetFragment(
 fragment.replace("_should_find_orig_", ""), sents)` assigned to `mainAndFollowSent` is never used
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
@@ -12004,32 +11992,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentG
 				sm = ParserChunker2MatcherProcessor.getInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
-```
-
-### UnusedAssignment
-The value `Math.pow((double) (lOverlap * lOverlap) / (double) l1
-/ (double) l2, 0.4)` assigned to `result` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-                         // double score
-      }
-      result = Math.pow((double) (lOverlap * lOverlap) / (double) l1
-          / (double) l2, 0.4);
-
-```
-
-### UnusedAssignment
-The value `Math.pow((double) (lOverlap * lOverlap) / (double) l1
-/ (double) l2, 0.4)` assigned to `result` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-                         // double score
-      }
-      result = Math.pow((double) (lOverlap * lOverlap) / (double) l1
-          / (double) l2, 0.4);
-
 ```
 
 ### UnusedAssignment
@@ -12105,6 +12067,32 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 ```
 
 ### UnusedAssignment
+The value `Math.pow((double) (lOverlap * lOverlap) / (double) l1
+/ (double) l2, 0.4)` assigned to `result` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+                         // double score
+      }
+      result = Math.pow((double) (lOverlap * lOverlap) / (double) l1
+          / (double) l2, 0.4);
+
+```
+
+### UnusedAssignment
+The value `Math.pow((double) (lOverlap * lOverlap) / (double) l1
+/ (double) l2, 0.4)` assigned to `result` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+                         // double score
+      }
+      result = Math.pow((double) (lOverlap * lOverlap) / (double) l1
+          / (double) l2, 0.4);
+
+```
+
+### UnusedAssignment
 The value `true` assigned to `bEqual` is never used
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaGeneralizer.java`
 #### Snippet
@@ -12169,42 +12157,6 @@ The value `false` assigned to `soFarCovers` is never used
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
 #### Snippet
 ```java
-				String vRuleBeingCovered = line.get(attr);
-				if (vRuleBeingCovered==null){// rule for this attribute exists but RuleBeingCovered has no value
-					soFarCovers = false;
-					return false;
-				}
-```
-
-### UnusedAssignment
-The value `false` assigned to `soFarCovers` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-				if (valArrRuleBeingCoveredStr==null || valArrRuleStr==null) { // we assume single value, not an array of values
-					if (!vRuleBeingCovered.equals(rule)){
-						soFarCovers = false;
-						return false;
-					}
-```
-
-### UnusedAssignment
-The value `false` assigned to `soFarCovers` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-					for(String r: valListRule){
-						if (!strListContainsMember(valListRuleBeingCovered, r)){
-							soFarCovers = false;
-							return false;
-						} 
-```
-
-### UnusedAssignment
-The value `false` assigned to `soFarCovers` is never used
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
 				String vCase = line[attrIndex].toLowerCase().replace("\"", "").replace(",  ", ",").replace(", ", ",");
 				if (vCase==null){// rule for this attribute exists but case has no value
 					soFarCovers = false;
@@ -12237,6 +12189,42 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCover
 ```
 
 ### UnusedAssignment
+The value `false` assigned to `soFarCovers` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+				String vRuleBeingCovered = line.get(attr);
+				if (vRuleBeingCovered==null){// rule for this attribute exists but RuleBeingCovered has no value
+					soFarCovers = false;
+					return false;
+				}
+```
+
+### UnusedAssignment
+The value `false` assigned to `soFarCovers` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+				if (valArrRuleBeingCoveredStr==null || valArrRuleStr==null) { // we assume single value, not an array of values
+					if (!vRuleBeingCovered.equals(rule)){
+						soFarCovers = false;
+						return false;
+					}
+```
+
+### UnusedAssignment
+The value `false` assigned to `soFarCovers` is never used
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+					for(String r: valListRule){
+						if (!strListContainsMember(valListRuleBeingCovered, r)){
+							soFarCovers = false;
+							return false;
+						} 
+```
+
+### UnusedAssignment
 The value `args[0]` assigned to `runner.sourceDir` is never used
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetVerifier.java`
 #### Snippet
@@ -12306,6 +12294,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 			runner.sourceDir = args[0]; runner.destinationDir = args[1];
 			runner.sourceDir =
 					"/Users/borisgalitsky/Documents/svm_tk_july2015/milkyway/training_corpus_multilingual_verif";
+```
+
+### UnusedAssignment
+The value `null` assigned to `taskQueueService` is never used
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
+#### Snippet
+```java
+  
+  public void stop() {
+    taskQueueService = null;
+    
+  // Note: 
 ```
 
 ### UnusedAssignment
@@ -12359,54 +12359,6 @@ in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `array1.equals(null)` is always `false`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
-
-    if (array1.equals(null) || array2.equals(null))
-      return false;
-
-```
-
-### ConstantValue
-Condition `array1.equals(null) || array2.equals(null)` is always `false`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
-
-    if (array1.equals(null) || array2.equals(null))
-      return false;
-
-```
-
-### ConstantValue
-Condition `array2.equals(null)` is always `false` when reached
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
-
-    if (array1.equals(null) || array2.equals(null))
-      return false;
-
-```
-
-### ConstantValue
-Value `pos` is always 'null'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-      return sense;
-    } else {
-      WSDHelper.print(word + "    " + pos);
-      WSDHelper.print("The word has no definitions in WordNet !");
-      return null;
-```
-
-### ConstantValue
 Condition `k<=newAttrCount` is always `true` when reached
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaConverter.java`
 #### Snippet
@@ -12416,18 +12368,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaConverter.java`
 		while (run && k<=newAttrCount){
 			if (cList.get(k).extent.size()==0)
 				k++;
-```
-
-### ConstantValue
-Condition `mappingFileIn != null` is always `true`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-      }
-      finally {
-        if (mappingFileIn != null) {
-          try {
-            mappingFileIn.close();
 ```
 
 ### ConstantValue
@@ -12599,51 +12539,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/BasicLevelMetrics.java`
 ```
 
 ### ConstantValue
-Condition `name2r.equals(name1r)` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+Condition `pageSentence == null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
 #### Snippet
 ```java
-		String name1r = name1.replace(" ", "");
-		if (name1r.equals(name2r) || name1r.startsWith(name2r) || name1r.startsWith(name2) || name1r.endsWith(name2r)
-			|| name1r.endsWith(name2r) || name2r.equals(name1r) || name2r.startsWith(name1r)
-			|| name2r.startsWith(name1) || name2r.endsWith(name1r) || name2r.endsWith(name2)
-
-```
-
-### ConstantValue
-Condition `bCommonEnglishWord` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-			}
-
-			if (bCommonEnglishWord)
-			{
-				LOG.info("Rejected common entity: common word = " + entityExpression);
-```
-
-### ConstantValue
-Condition `map1 != null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		Map<String, Integer> map1 = null; //LastFM_APIManager.extractTagsForArtist(name1);
-		Map<String, Integer> map2 = null; //LastFM_APIManager.extractTagsForArtist(name2);
-		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
-			map1.entrySet().removeAll(map2.entrySet());
-		if (map1.size() > 0) // same or subset of tags => different groups
-```
-
-### ConstantValue
-Condition `map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		Map<String, Integer> map1 = null; //LastFM_APIManager.extractTagsForArtist(name1);
-		Map<String, Integer> map2 = null; //LastFM_APIManager.extractTagsForArtist(name2);
-		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
-			map1.entrySet().removeAll(map2.entrySet());
-		if (map1.size() > 0) // same or subset of tags => different groups
+			return "";
+		}
+		if (pageSentence == null)
+			return "";
+		pageSentence = Utils.fullStripHTML(pageSentence);
 ```
 
 ### ConstantValue
@@ -12656,18 +12560,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.
 		if (resourceDir ==null)
 			try {
 				resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
-```
-
-### ConstantValue
-Condition `pageSentence == null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-			return "";
-		}
-		if (pageSentence == null)
-			return "";
-		pageSentence = Utils.fullStripHTML(pageSentence);
 ```
 
 ### ConstantValue
@@ -12695,6 +12587,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/Fragment.java
 ```
 
 ### ConstantValue
+Condition `name2r.equals(name1r)` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		String name1r = name1.replace(" ", "");
+		if (name1r.equals(name2r) || name1r.startsWith(name2r) || name1r.startsWith(name2) || name1r.endsWith(name2r)
+			|| name1r.endsWith(name2r) || name2r.equals(name1r) || name2r.startsWith(name1r)
+			|| name2r.startsWith(name1) || name2r.endsWith(name1r) || name2r.endsWith(name2)
+
+```
+
+### ConstantValue
+Condition `map1 != null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		Map<String, Integer> map1 = null; //LastFM_APIManager.extractTagsForArtist(name1);
+		Map<String, Integer> map2 = null; //LastFM_APIManager.extractTagsForArtist(name2);
+		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
+			map1.entrySet().removeAll(map2.entrySet());
+		if (map1.size() > 0) // same or subset of tags => different groups
+```
+
+### ConstantValue
+Condition `map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		Map<String, Integer> map1 = null; //LastFM_APIManager.extractTagsForArtist(name1);
+		Map<String, Integer> map2 = null; //LastFM_APIManager.extractTagsForArtist(name2);
+		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
+			map1.entrySet().removeAll(map2.entrySet());
+		if (map1.size() > 0) // same or subset of tags => different groups
+```
+
+### ConstantValue
+Condition `bCommonEnglishWord` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+			}
+
+			if (bCommonEnglishWord)
+			{
+				LOG.info("Rejected common entity: common word = " + entityExpression);
+```
+
+### ConstantValue
 Condition `args.length>4` is always `true`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorRunner.java`
 #### Snippet
@@ -12719,15 +12659,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/StoryDiscours
 ```
 
 ### ConstantValue
-Condition `srchResArea == null` is always `false`
+Condition `urls == null` is always `false`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngineResultsScraper.java`
 #### Snippet
 ```java
       return results;
-    String[] srchResArea = content.split("</p>");
-    if (srchResArea == null)
+    String[] urls = content.split("<cite>");
+    if (urls == null)
       return results;
-    for (String u : srchResArea) {
+    for (String u : urls) {
 ```
 
 ### ConstantValue
@@ -12755,15 +12695,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```
 
 ### ConstantValue
-Condition `urls == null` is always `false`
+Condition `srchResArea == null` is always `false`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngineResultsScraper.java`
 #### Snippet
 ```java
       return results;
-    String[] urls = content.split("<cite>");
-    if (urls == null)
+    String[] srchResArea = content.split("</p>");
+    if (srchResArea == null)
       return results;
-    for (String u : urls) {
+    for (String u : srchResArea) {
 ```
 
 ### ConstantValue
@@ -12815,6 +12755,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 ```
 
 ### ConstantValue
+Condition `parts!=null` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
+#### Snippet
+```java
+		String[] parts = query.split(" ");
+		int MAX_QUERY_LENGTH_NOT_TO_RERANK = 3;
+		if (parts!=null && parts.length< MAX_QUERY_LENGTH_NOT_TO_RERANK)
+			return true;
+
+```
+
+### ConstantValue
 Condition `distBest > 0.4` is always `true`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
 #### Snippet
@@ -12827,15 +12779,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 ```
 
 ### ConstantValue
-Condition `parts!=null` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
+Condition `searchResult != null` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
 #### Snippet
 ```java
-		String[] parts = query.split(" ");
-		int MAX_QUERY_LENGTH_NOT_TO_RERANK = 3;
-		if (parts!=null && parts.length< MAX_QUERY_LENGTH_NOT_TO_RERANK)
-			return true;
-
+				searchResult = searchResult.subList(0, MAX_SEARCH_RESULTS);
+			//TODO for shorter run
+			if (searchResult != null) {
+				for (HitBase item : searchResult) { // got some text from .html
+					if (item.getAbstractText() != null
 ```
 
 ### ConstantValue
@@ -12863,18 +12815,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 ```
 
 ### ConstantValue
-Condition `searchResult != null` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-				searchResult = searchResult.subList(0, MAX_SEARCH_RESULTS);
-			//TODO for shorter run
-			if (searchResult != null) {
-				for (HitBase item : searchResult) { // got some text from .html
-					if (item.getAbstractText() != null
-```
-
-### ConstantValue
 Condition `pageSentence != null` is always `true`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
 #### Snippet
@@ -12899,6 +12839,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentG
 ```
 
 ### ConstantValue
+Condition `requestExpression==null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+		if (fieldNameQuery ==null)
+			return docList;
+		if (requestExpression==null || requestExpression.length()<5  || requestExpression.split(" ").length<3)
+			return docList;
+		int[] docIDsHits = new int[len];
+```
+
+### ConstantValue
 Condition `MIN_SCORE_FOR_LING > 1.0` is always `true`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
 #### Snippet
@@ -12911,6 +12863,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringD
 ```
 
 ### ConstantValue
+Condition `requestExpression==null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+#### Snippet
+```java
+		if (fieldNameQuery ==null)
+			return docList;
+		if (requestExpression==null || requestExpression.length()<5  || requestExpression.split(" ").length<3)
+			return docList;
+		int[] docIDsHits = new int[len];
+```
+
+### ConstantValue
 Condition `resourceDir==null` is always `true`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/CsvAdapter.java`
 #### Snippet
@@ -12920,18 +12884,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 		  if (resourceDir==null)
 				try {
 					resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
-```
-
-### ConstantValue
-Condition `requestExpression==null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
-#### Snippet
-```java
-		if (fieldNameQuery ==null)
-			return docList;
-		if (requestExpression==null || requestExpression.length()<5  || requestExpression.split(" ").length<3)
-			return docList;
-		int[] docIDsHits = new int[len];
 ```
 
 ### ConstantValue
@@ -12959,15 +12911,63 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/ValueSo
 ```
 
 ### ConstantValue
-Condition `requestExpression==null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+Condition `tmp != null` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-		if (fieldNameQuery ==null)
-			return docList;
-		if (requestExpression==null || requestExpression.length()<5  || requestExpression.split(" ").length<3)
-			return docList;
-		int[] docIDsHits = new int[len];
+    s = s.replaceAll("â€™", "__apostrophe__");
+    String tmp = s;
+    if (tmp != null) {
+      for (String[] mapping : CHARACTER_MAPPINGS) {
+        tmp = tmp.replaceAll(mapping[0], mapping[1]);
+```
+
+### ConstantValue
+Condition `pageSentence.length() > 40` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+
+					if ((syntScore > RELEVANCE_THRESHOLD || measScore > 0.5)
+							&& measScore < 0.8 && pageSentence.length() > 40) // >70
+					{
+						String pageSentenceProc = GeneratedSentenceProcessor
+```
+
+### ConstantValue
+Condition `followSent != null` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+									.processSentence(pageSentenceProc);
+							followSent = new StringBuilder(GeneratedSentenceProcessor.processSentence(followSent.toString()));
+							if (followSent != null) {
+								pageSentenceProc += " "+ followSent;
+							}
+```
+
+### ConstantValue
+Condition `distBest > 0.4` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+
+		}
+		if (distBest > 0.4) {
+			result = sents[bestSentIndex];
+
+```
+
+### ConstantValue
+Condition `pageSentence != null` is always `true`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			// or get original snippet
+			pageSentence = fragment;
+		if (pageSentence != null)
+			pageSentence.replace("_should_find_orig_", "");
+
 ```
 
 ### ConstantValue
@@ -13016,66 +13016,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 					if (followSent != null) {
 						pageSentenceProc += " "+ followSent;
 					}
-```
-
-### ConstantValue
-Condition `distBest > 0.4` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-
-		}
-		if (distBest > 0.4) {
-			result = sents[bestSentIndex];
-
-```
-
-### ConstantValue
-Condition `pageSentence.length() > 40` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-
-					if ((syntScore > RELEVANCE_THRESHOLD || measScore > 0.5)
-							&& measScore < 0.8 && pageSentence.length() > 40) // >70
-					{
-						String pageSentenceProc = GeneratedSentenceProcessor
-```
-
-### ConstantValue
-Condition `followSent != null` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-									.processSentence(pageSentenceProc);
-							followSent = new StringBuilder(GeneratedSentenceProcessor.processSentence(followSent.toString()));
-							if (followSent != null) {
-								pageSentenceProc += " "+ followSent;
-							}
-```
-
-### ConstantValue
-Condition `pageSentence != null` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			// or get original snippet
-			pageSentence = fragment;
-		if (pageSentence != null)
-			pageSentence.replace("_should_find_orig_", "");
-
-```
-
-### ConstantValue
-Condition `tmp != null` is always `true`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-    s = s.replaceAll("â€™", "__apostrophe__");
-    String tmp = s;
-    if (tmp != null) {
-      for (String[] mapping : CHARACTER_MAPPINGS) {
-        tmp = tmp.replaceAll(mapping[0], mapping[1]);
 ```
 
 ### ConstantValue
@@ -13199,6 +13139,66 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhr
 ```
 
 ### ConstantValue
+Condition `lemmas==null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/communicative_actions/CommunicativeActionsArcBuilder.java`
+#### Snippet
+```java
+				String lemma = ca.getFirst();
+				String[] lemmas = lemma.split("_");
+				if (lemmas==null || lemmas.length<2){
+					if (node.getWord().toLowerCase().startsWith(lemma))
+						return index;
+```
+
+### ConstantValue
+Condition `vCase==null` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+				rule = rule.toLowerCase().replace("\"", "").replace(",  ", ",").replace(", ", ",");
+				String vCase = line[attrIndex].toLowerCase().replace("\"", "").replace(",  ", ",").replace(", ", ",");
+				if (vCase==null){// rule for this attribute exists but case has no value
+					soFarCovers = false;
+					return false;
+```
+
+### ConstantValue
+Value `soFarCovers` is always 'true'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+				}		    		
+			}
+			return  soFarCovers;
+		}
+		
+```
+
+### ConstantValue
+Condition `score > 1000000f` is always `false`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+		}
+		score = catScore;
+		if (score > 1000000f)
+			return 10000000f;
+
+```
+
+### ConstantValue
+Value `soFarCovers` is always 'true'
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
+#### Snippet
+```java
+				}		    		
+			}
+			return  soFarCovers;
+		}
+
+```
+
+### ConstantValue
 Condition `overlap == null` is always `false`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGeneralizer.java`
 #### Snippet
@@ -13235,66 +13235,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/Phrase
 ```
 
 ### ConstantValue
-Condition `lemmas==null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/communicative_actions/CommunicativeActionsArcBuilder.java`
-#### Snippet
-```java
-				String lemma = ca.getFirst();
-				String[] lemmas = lemma.split("_");
-				if (lemmas==null || lemmas.length<2){
-					if (node.getWord().toLowerCase().startsWith(lemma))
-						return index;
-```
-
-### ConstantValue
-Condition `score > 1000000f` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-		}
-		score = catScore;
-		if (score > 1000000f)
-			return 10000000f;
-
-```
-
-### ConstantValue
-Value `soFarCovers` is always 'true'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-				}		    		
-			}
-			return  soFarCovers;
-		}
-
-```
-
-### ConstantValue
-Condition `vCase==null` is always `false`
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-				rule = rule.toLowerCase().replace("\"", "").replace(",  ", ",").replace(", ", ",");
-				String vCase = line[attrIndex].toLowerCase().replace("\"", "").replace(",  ", ",").replace(", ", ",");
-				if (vCase==null){// rule for this attribute exists but case has no value
-					soFarCovers = false;
-					return false;
-```
-
-### ConstantValue
-Value `soFarCovers` is always 'true'
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
-#### Snippet
-```java
-				}		    		
-			}
-			return  soFarCovers;
-		}
-		
-```
-
-### ConstantValue
 Condition `k<=newAttrCount` is always `true` when reached
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
 #### Snippet
@@ -13304,18 +13244,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 		while (run && k<=newAttrCount){
 			if (cList.get(k).extent.size()==0)
 				k++;
-```
-
-### ConstantValue
-Condition `lemmaMatch != null` is always `true` when reached
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
-#### Snippet
-```java
-            lem2.get(k2), sim);
-        if ((sim != null)
-            && (lemmaMatch == null || (lemmaMatch != null && !lemmaMatch
-                .equals("fail")))) {
-          commonPOS.add(pos1.get(k1));
 ```
 
 ### ConstantValue
@@ -13367,39 +13295,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
 ```
 
 ### ConstantValue
-Condition `ai < args.length` is always `true` when reached
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+Condition `lemmaMatch != null` is always `true` when reached
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatcherDeterministic.java`
 #### Snippet
 ```java
-    int ai = 0;
-    boolean parsedInput = false;
-    while (args[ai].startsWith("-") && ai < args.length) {
-      if (args[ai].equals("-parse")) {
-        parsedInput = true;
+            lem2.get(k2), sim);
+        if ((sim != null)
+            && (lemmaMatch == null || (lemmaMatch != null && !lemmaMatch
+                .equals("fail")))) {
+          commonPOS.add(pos1.get(k1));
 ```
 
 ### ConstantValue
-Condition `useTreebank` is always `true`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+Condition `"add".equals(action)` is always `false`
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
 #### Snippet
 ```java
-    Linker simLinker;
-    
-    if (useTreebank) {
-      simLinker = new TreebankLinker(modelDirectory + "/coref/", LinkerMode.SIM);
-    }
+                .header("Content-Length", xmiBytes.length);
+
+        if ("add".equals(action)) {
+          try (Response res = casResponseBuilder.post(
+                  Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
 ```
 
 ### ConstantValue
-Condition `useTreebank` is always `true`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+Condition `"update".equals(action)` is always `true`
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
 #### Snippet
 ```java
-    // Now train linkers
-    Linker trainLinker;
-    if (useTreebank) {
-      trainLinker = new TreebankLinker(modelDirectory + "/coref/", LinkerMode.TRAIN, useDiscourseModel);
-    }
+            logResponse(res, casId);
+          }
+        } else if ("update".equals(action)) {
+          try (Response res = casResponseBuilder.put(
+                  Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
 ```
 
 ### ConstantValue
@@ -13427,39 +13355,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### ConstantValue
-Condition `!nonTheModsMatch` is always `false` when reached
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+Value `pos` is always 'null'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
 #### Snippet
 ```java
-        sameHead = true;
-        featureSet.add("hds=" + mentionHeadString);
-        if (!modsMatch || !nonTheModsMatch) { //only check if we haven't already found one which is the same
-          modsMatch = true;
-          nonTheModsMatch = true;
+      return sense;
+    } else {
+      WSDHelper.print(word + "    " + pos);
+      WSDHelper.print("The word has no definitions in WordNet !");
+      return null;
 ```
 
 ### ConstantValue
-Value `nonTheModsMatch` is always 'true'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+Condition `isSafePunc(chars, i)` is always `false` when reached
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
-        sameHead = true;
-        featureSet.add("hds=" + mentionHeadString);
-        if (!modsMatch || !nonTheModsMatch) { //only check if we haven't already found one which is the same
-          modsMatch = true;
-          nonTheModsMatch = true;
-```
-
-### ConstantValue
-Condition `tok.equals("these")` is always `false`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-  public static boolean definiteArticle(String tok, String tag) {
-    tok = tok.toLowerCase();
-    if (tok.equals("the") || tok.equals("these") || tok.equals("these") || tag.equals("PRP$")) {
-      return (true);
-    }
+    for (int i = 0; i < chars.length; i++) {
+      char c = chars[i];
+      if (Character.isLetterOrDigit(c) || isSafePunc(chars, i)) {
+        tok.append(c);
+      } else if (Character.isWhitespace(c)) {
 ```
 
 ### ConstantValue
@@ -13523,18 +13439,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 ```
 
 ### ConstantValue
-Condition `isSafePunc(chars, i)` is always `false` when reached
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    for (int i = 0; i < chars.length; i++) {
-      char c = chars[i];
-      if (Character.isLetterOrDigit(c) || isSafePunc(chars, i)) {
-        tok.append(c);
-      } else if (Character.isWhitespace(c)) {
-```
-
-### ConstantValue
 Condition `token.length() == 0` is always `false`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
@@ -13559,15 +13463,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 ```
 
 ### ConstantValue
-Condition `loadAsResource` is always `false`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
+Condition `array1.equals(null)` is always `false`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
 #### Snippet
 ```java
-    }
-    else if (mode == ResolverMode.TEST) {
-      if (loadAsResource) {
-        model = new BinaryGISModelReader(new DataInputStream(
-            this.getClass().getResourceAsStream(modelName))).getModel();
+  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
+
+    if (array1.equals(null) || array2.equals(null))
+      return false;
+
+```
+
+### ConstantValue
+Condition `array1.equals(null) || array2.equals(null)` is always `false`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
+
+    if (array1.equals(null) || array2.equals(null))
+      return false;
+
+```
+
+### ConstantValue
+Condition `array2.equals(null)` is always `false` when reached
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static boolean areStringArraysEqual(String[] array1, String[] array2) {
+
+    if (array1.equals(null) || array2.equals(null))
+      return false;
+
 ```
 
 ### ConstantValue
@@ -13575,11 +13503,11 @@ Condition `i < this.lemmas.size()` is always `true` when reached
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
 #### Snippet
 ```java
-			return false; // sub-chunk should be shorter than chunk
-
+		boolean notSubChunkWithGivenAlignment = false, unComparable = false;
+		
 		for (int i = 0; i < lems.size() && i < this.lemmas.size(); i++) {
-			if (!(this.lemmas.get(i).equals(lems.get(i)) && this.POSs.get(i).equals(
-					poss.get(i))))
+			// both lemma and pos are different
+			if (!this.POSs.get(i).equals(poss.get(i)) && !this.lemmas.get(i).equals(lems.get(i)) ){
 ```
 
 ### ConstantValue
@@ -13599,23 +13527,95 @@ Condition `i < this.lemmas.size()` is always `true` when reached
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
 #### Snippet
 ```java
-		boolean notSubChunkWithGivenAlignment = false, unComparable = false;
-		
+			return false; // sub-chunk should be shorter than chunk
+
 		for (int i = 0; i < lems.size() && i < this.lemmas.size(); i++) {
-			// both lemma and pos are different
-			if (!this.POSs.get(i).equals(poss.get(i)) && !this.lemmas.get(i).equals(lems.get(i)) ){
+			if (!(this.lemmas.get(i).equals(lems.get(i)) && this.POSs.get(i).equals(
+					poss.get(i))))
 ```
 
 ### ConstantValue
-Value `result` is always 'null'
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/TypeInputDialog.java`
+Condition `ai < args.length` is always `true` when reached
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
 #### Snippet
 ```java
-      }
+    int ai = 0;
+    boolean parsedInput = false;
+    while (args[ai].startsWith("-") && ai < args.length) {
+      if (args[ai].equals("-parse")) {
+        parsedInput = true;
+```
 
-      return result;
-    });
-  }
+### ConstantValue
+Condition `useTreebank` is always `true`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+    Linker simLinker;
+    
+    if (useTreebank) {
+      simLinker = new TreebankLinker(modelDirectory + "/coref/", LinkerMode.SIM);
+    }
+```
+
+### ConstantValue
+Condition `useTreebank` is always `true`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+#### Snippet
+```java
+    // Now train linkers
+    Linker trainLinker;
+    if (useTreebank) {
+      trainLinker = new TreebankLinker(modelDirectory + "/coref/", LinkerMode.TRAIN, useDiscourseModel);
+    }
+```
+
+### ConstantValue
+Condition `loadAsResource` is always `false`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
+#### Snippet
+```java
+    }
+    else if (mode == ResolverMode.TEST) {
+      if (loadAsResource) {
+        model = new BinaryGISModelReader(new DataInputStream(
+            this.getClass().getResourceAsStream(modelName))).getModel();
+```
+
+### ConstantValue
+Condition `tok.equals("these")` is always `false`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+  public static boolean definiteArticle(String tok, String tag) {
+    tok = tok.toLowerCase();
+    if (tok.equals("the") || tok.equals("these") || tok.equals("these") || tag.equals("PRP$")) {
+      return (true);
+    }
+```
+
+### ConstantValue
+Condition `!nonTheModsMatch` is always `false` when reached
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+        sameHead = true;
+        featureSet.add("hds=" + mentionHeadString);
+        if (!modsMatch || !nonTheModsMatch) { //only check if we haven't already found one which is the same
+          modsMatch = true;
+          nonTheModsMatch = true;
+```
+
+### ConstantValue
+Value `nonTheModsMatch` is always 'true'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+        sameHead = true;
+        featureSet.add("hds=" + mentionHeadString);
+        if (!modsMatch || !nonTheModsMatch) { //only check if we haven't already found one which is the same
+          modsMatch = true;
+          nonTheModsMatch = true;
 ```
 
 ### ConstantValue
@@ -13631,6 +13631,42 @@ in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/Annotat
 ```
 
 ### ConstantValue
+Value `result` is always 'null'
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/TypeInputDialog.java`
+#### Snippet
+```java
+      }
+
+      return result;
+    });
+  }
+```
+
+### ConstantValue
+Condition `SENTENCE_FRAG==SIMPLE` is always `false` when reached
+in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
+#### Snippet
+```java
+
+    //Custom/simple method if specified or open nlp model was not found
+    if(sentModel==null || SENTENCE_FRAG==SIMPLE)
+      getSentences(text, sentStrs, null, cleanedSents);
+    else{
+```
+
+### ConstantValue
+Condition `mappingFileIn != null` is always `true`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+      }
+      finally {
+        if (mappingFileIn != null) {
+          try {
+            mappingFileIn.close();
+```
+
+### ConstantValue
 Condition `editor instanceof AnnotationEditor` is always `true`
 in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderViewPage.java`
 #### Snippet
@@ -13640,42 +13676,6 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefind
         if (editor instanceof AnnotationEditor) {
           ((AnnotationEditor) editor).selectAndReveal(entity.getBeginIndex(),
               entity.getEndIndex() - entity.getBeginIndex());
-```
-
-### ConstantValue
-Condition `editor instanceof AnnotationEditor` is always `true`
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorViewPage.java`
-#### Snippet
-```java
-        PotentialAnnotation entity = (PotentialAnnotation) selection.getFirstElement();
-
-        if (editor instanceof AnnotationEditor) {
-          ((AnnotationEditor) editor).selectAndReveal(
-              entity.getBeginIndex(),
-```
-
-### ConstantValue
-Condition `"add".equals(action)` is always `false`
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
-#### Snippet
-```java
-                .header("Content-Length", xmiBytes.length);
-
-        if ("add".equals(action)) {
-          try (Response res = casResponseBuilder.post(
-                  Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
-```
-
-### ConstantValue
-Condition `"update".equals(action)` is always `true`
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
-#### Snippet
-```java
-            logResponse(res, casId);
-          }
-        } else if ("update".equals(action)) {
-          try (Response res = casResponseBuilder.put(
-                  Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
 ```
 
 ### ConstantValue
@@ -13691,15 +13691,15 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefind
 ```
 
 ### ConstantValue
-Condition `SENTENCE_FRAG==SIMPLE` is always `false` when reached
-in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
+Condition `editor instanceof AnnotationEditor` is always `true`
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdetect/SentenceDetectorViewPage.java`
 #### Snippet
 ```java
+        PotentialAnnotation entity = (PotentialAnnotation) selection.getFirstElement();
 
-    //Custom/simple method if specified or open nlp model was not found
-    if(sentModel==null || SENTENCE_FRAG==SIMPLE)
-      getSentences(text, sentStrs, null, cleanedSents);
-    else{
+        if (editor instanceof AnnotationEditor) {
+          ((AnnotationEditor) editor).selectAndReveal(
+              entity.getBeginIndex(),
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
@@ -13753,18 +13753,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingRelatedSp
 
 ### MethodOverridesStaticMethod
 Method `main()` tries to override a static method of a superclass
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
-#### Snippet
-```java
-
-    
-    public static void main(String[] args){
-    	WordDocBuilderEndNotes b = new WordDocBuilderEndNotes();
-    	List<HitBase> content = new ArrayList<>();
-```
-
-### MethodOverridesStaticMethod
-Method `main()` tries to override a static method of a superclass
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
 ```java
@@ -13773,6 +13761,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 	public static void main(String[] args) {
 		RelatedSentenceFinderML f = new RelatedSentenceFinderML();
 
+```
+
+### MethodOverridesStaticMethod
+Method `main()` tries to override a static method of a superclass
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+#### Snippet
+```java
+
+    
+    public static void main(String[] args){
+    	WordDocBuilderEndNotes b = new WordDocBuilderEndNotes();
+    	List<HitBase> content = new ArrayList<>();
 ```
 
 ### MethodOverridesStaticMethod
@@ -13789,18 +13789,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 
 ### MethodOverridesStaticMethod
 Method `main()` tries to override a static method of a superclass
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
-#### Snippet
-```java
-  }
-
-  public static void main(String[] args) {
-    TaxonomyExtenderViaMebMining self = new TaxonomyExtenderViaMebMining();
-    self.extendTaxonomy("src/test/resources/taxonomies/irs_dom.ari", "tax", "en");
-```
-
-### MethodOverridesStaticMethod
-Method `main()` tries to override a static method of a superclass
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeWithAbduction.java`
 #### Snippet
 ```java
@@ -13809,6 +13797,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 	public static void main (String[] args) {
 		String[] posArr = new String[] {"I rent an office space. This office is for my business. I can deduct office rental expense from my business profit to calculate net income. ",
 				"To run my business, I have to rent an office. The net business profit is calculated as follows. Rental expense needs to be subtracted from revenue. ",
+```
+
+### MethodOverridesStaticMethod
+Method `main()` tries to override a static method of a superclass
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
+#### Snippet
+```java
+  }
+
+  public static void main(String[] args) {
+    TaxonomyExtenderViaMebMining self = new TaxonomyExtenderViaMebMining();
+    self.extendTaxonomy("src/test/resources/taxonomies/irs_dom.ari", "tax", "en");
 ```
 
 ### MethodOverridesStaticMethod
@@ -14020,30 +14020,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 
 ## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `lowerCase` may be 'static'
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
-#### Snippet
-```java
-  public static String NUM = "$NUM$";
-
-  private final boolean lowerCase = false;
-  private final boolean allowUnk = true;
-
-```
-
-### FieldMayBeStatic
-Field `allowUnk` may be 'static'
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
-#### Snippet
-```java
-
-  private final boolean lowerCase = false;
-  private final boolean allowUnk = true;
-
-  private final Pattern digitPattern = Pattern.compile("\\d+(,\\d+)*(\\.\\d+)?");
-```
-
-### FieldMayBeStatic
 Field `translatorURL` may be 'static'
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MachineTranslationWrapper.java`
 #### Snippet
@@ -14152,6 +14128,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 ```
 
 ### FieldMayBeStatic
+Field `newFolder` may be 'static'
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
+#### Snippet
+```java
+
+	private final String origFolder = "maildir_ENRON_EMAILS";
+	private final String newFolder = "data11_17";
+
+	public static String normalize(File f){
+```
+
+### FieldMayBeStatic
 Field `origFolder` may be 'static'
 in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
 #### Snippet
@@ -14164,15 +14152,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailT
 ```
 
 ### FieldMayBeStatic
-Field `newFolder` may be 'static'
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
+Field `action` may be 'static'
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
 #### Snippet
 ```java
 
-	private final String origFolder = "maildir_ENRON_EMAILS";
-	private final String newFolder = "data11_17";
+  // TODO: Make it configurable
+  private final String action = "update";
+  
+  private Type idType;
+```
 
-	public static String normalize(File f){
+### FieldMayBeStatic
+Field `minNumberProb` may be 'static'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
+#### Snippet
+```java
+
+  private final double minGenderProb = 0.66;
+  private final double minNumberProb = 0.66;
+
+  private static TestGenderModel genModel;
 ```
 
 ### FieldMayBeStatic
@@ -14200,18 +14200,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel
 ```
 
 ### FieldMayBeStatic
-Field `minNumberProb` may be 'static'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
-#### Snippet
-```java
-
-  private final double minGenderProb = 0.66;
-  private final double minNumberProb = 0.66;
-
-  private static TestGenderModel genModel;
-```
-
-### FieldMayBeStatic
 Field `modelExtension` may be 'static'
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
 #### Snippet
@@ -14221,18 +14209,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/NumberModel.java`
   private final String modelExtension = ".bin.gz";
   private MaxentModel testModel;
   private List<Event> events;
-```
-
-### FieldMayBeStatic
-Field `modelExtension` may be 'static'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
-#### Snippet
-```java
-
-  private final String modelName;
-  private final String modelExtension = ".bin.gz";
-  private MaxentModel testModel;
-  private Collection<Event> events;
 ```
 
 ### FieldMayBeStatic
@@ -14248,6 +14224,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
 ```
 
 ### FieldMayBeStatic
+Field `modelExtension` may be 'static'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
+#### Snippet
+```java
+
+  private final String modelName;
+  private final String modelExtension = ".bin.gz";
+  private MaxentModel testModel;
+  private Collection<Event> events;
+```
+
+### FieldMayBeStatic
 Field `NUM_SENTS_BACK_PRONOUNS` may be 'static'
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/PluralPronounResolver.java`
 #### Snippet
@@ -14257,18 +14245,6 @@ public class PluralPronounResolver extends MaxentResolver {
   final int NUM_SENTS_BACK_PRONOUNS = 2;
 
   public PluralPronounResolver(String projectName, ResolverMode m) throws IOException {
-```
-
-### FieldMayBeStatic
-Field `debugOn` may be 'static'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
-#### Snippet
-```java
-  private List<Event> events;
-  private boolean loadAsResource;
-  private final boolean debugOn = false;
-  private final ResolverMode mode;
-  private final String modelName;
 ```
 
 ### FieldMayBeStatic
@@ -14284,15 +14260,27 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferenti
 ```
 
 ### FieldMayBeStatic
-Field `modelExtension` may be 'static'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
+Field `debugOn` may be 'static'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
+#### Snippet
+```java
+  private List<Event> events;
+  private boolean loadAsResource;
+  private final boolean debugOn = false;
+  private final ResolverMode mode;
+  private final String modelName;
+```
+
+### FieldMayBeStatic
+Field `idfFile` may be 'static'
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
 #### Snippet
 ```java
 
-  private final String modelName;
-  private final String modelExtension = ".bin.gz";
-  private MaxentModel testModel;
-  private List<Event> events;
+  // An optional file to store idf of words. If idf is not available it uses a default equal weight for all words.
+  private final String idfFile = "resources/idf.csv";
+  public TextRankSummarizer() {
+  }
 ```
 
 ### FieldMayBeStatic
@@ -14308,27 +14296,39 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 ```
 
 ### FieldMayBeStatic
-Field `extension` may be 'static'
-in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
+Field `modelExtension` may be 'static'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
 ```java
-    private List<Integer> labels;
-    private Map<String, Integer> labelToId;
-    private final String extension = ".txt";
-    private final GlobalVectors embedder;
-    private int cursor = 0;
+
+  private final String modelName;
+  private final String modelExtension = ".bin.gz";
+  private MaxentModel testModel;
+  private List<Event> events;
 ```
 
 ### FieldMayBeStatic
-Field `vectorSize` may be 'static'
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
+Field `lowerCase` may be 'static'
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
+#### Snippet
+```java
+  public static String NUM = "$NUM$";
+
+  private final boolean lowerCase = false;
+  private final boolean allowUnk = true;
+
+```
+
+### FieldMayBeStatic
+Field `allowUnk` may be 'static'
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
 #### Snippet
 ```java
 
-  private final int batchSize = 128;
-  private final int vectorSize = 300;
+  private final boolean lowerCase = false;
+  private final boolean allowUnk = true;
 
-  private final int totalSamples;
+  private final Pattern digitPattern = Pattern.compile("\\d+(,\\d+)*(\\.\\d+)?");
 ```
 
 ### FieldMayBeStatic
@@ -14344,51 +14344,27 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
 ```
 
 ### FieldMayBeStatic
-Field `eps` may be 'static'
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+Field `vectorSize` may be 'static'
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
 #### Snippet
 ```java
-  private final INDArray by; // output bias
 
-  private final double eps = 1e-8;
-  private final double decay = 0.95;
-  private final boolean rmsProp;
+  private final int batchSize = 128;
+  private final int vectorSize = 300;
+
+  private final int totalSamples;
 ```
 
 ### FieldMayBeStatic
-Field `decay` may be 'static'
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+Field `extension` may be 'static'
+in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
 #### Snippet
 ```java
-
-  private final double eps = 1e-8;
-  private final double decay = 0.95;
-  private final boolean rmsProp;
-
-```
-
-### FieldMayBeStatic
-Field `action` may be 'static'
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSCasWriter.java`
-#### Snippet
-```java
-
-  // TODO: Make it configurable
-  private final String action = "update";
-  
-  private Type idType;
-```
-
-### FieldMayBeStatic
-Field `idfFile` may be 'static'
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-
-  // An optional file to store idf of words. If idf is not available it uses a default equal weight for all words.
-  private final String idfFile = "resources/idf.csv";
-  public TextRankSummarizer() {
-  }
+    private List<Integer> labels;
+    private Map<String, Integer> labelToId;
+    private final String extension = ".txt";
+    private final GlobalVectors embedder;
+    private int cursor = 0;
 ```
 
 ### FieldMayBeStatic
@@ -14415,115 +14391,31 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
 
 ```
 
+### FieldMayBeStatic
+Field `decay` may be 'static'
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+
+  private final double eps = 1e-8;
+  private final double decay = 0.95;
+  private final boolean rmsProp;
+
+```
+
+### FieldMayBeStatic
+Field `eps` may be 'static'
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+  private final INDArray by; // output bias
+
+  private final double eps = 1e-8;
+  private final double decay = 0.95;
+  private final boolean rmsProp;
+```
+
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `RegressionModelUtils` has only 'static' members, and lacks a 'private' constructor
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/regression/RegressionModelUtils.java`
-#### Snippet
-```java
- * A utility class for calculating various regression models costs.
- */
-public class RegressionModelUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GradientDescentUtils` has only 'static' members, and lacks a 'private' constructor
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/regression/GradientDescentUtils.java`
-#### Snippet
-```java
- * A utility class for calculating gradient descent.
- */
-public class GradientDescentUtils {
-
-  private static final double THRESHOLD = 0.5;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CFGRunner` has only 'static' members, and lacks a 'private' constructor
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
- * Runner for {@link ContextFreeGrammar}s
- */
-public class CFGRunner {
-
-  public static void main(String[] args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AnomalyDetectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
-#### Snippet
-```java
- * Utility class for anomaly detection
- */
-public class AnomalyDetectionUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NGramUtils` has only 'static' members, and lacks a 'private' constructor
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/ngram/NGramUtils.java`
-#### Snippet
-```java
- * A utility class for calculating probabilities of tri/bi/uni-grams.
- */
-public class NGramUtils {
-
-  private static <T> Double count(T x0, T x1, T x2, Collection<T[]> sentences) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WSDHelper` has only 'static' members, and lacks a 'private' constructor
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-import opennlp.tools.tokenize.TokenizerModel;
-
-public class WSDHelper {
-
-  protected static TokenizerME tokenizer;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
-#### Snippet
-```java
-import org.xml.sax.SAXException;
-
-public class UimaUtil {
-
-  public static TypeSystemDescription createTypeSystemDescription(InputStream in) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ModelUtil` has only 'static' members, and lacks a 'private' constructor
-in `tf-ner-poc/src/main/java/org/apache/opennlp/ModelUtil.java`
-#### Snippet
-```java
-import java.util.zip.ZipInputStream;
-
-public class ModelUtil {
-
-  public static Path writeModelToTmpDir(InputStream modelIn) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Viterbi` has only 'static' members, and lacks a 'private' constructor
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/Viterbi.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class Viterbi {
-
-  /*
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `MinedSentenceProcessor` has only 'static' members, and lacks a 'private' constructor
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
@@ -14645,6 +14537,54 @@ public class ParserCacheSerializer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ModelServiceKeys` has only 'static' members, and lacks a 'private' constructor
+in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/ModelServiceKeys.java`
+#### Snippet
+```java
+ * This information will be used to select a suitable model.
+ */
+public class ModelServiceKeys {
+  public static final String MODEL_LANGUAGE_KEY = "MODEL_LANGUAGE";
+  public static final String MODEL_NAME_KEY = "MODEL_NAME";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
+#### Snippet
+```java
+import org.xml.sax.SAXException;
+
+public class UimaUtil {
+
+  public static TypeSystemDescription createTypeSystemDescription(InputStream in) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TextProcessor` has only 'static' members, and lacks a 'private' constructor
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+import opennlp.tools.similarity.apps.utils.Pair;
+
+public class TextProcessor {
+
+  private static final Logger LOG = Logger
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WSDHelper` has only 'static' members, and lacks a 'private' constructor
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+import opennlp.tools.tokenize.TokenizerModel;
+
+public class WSDHelper {
+
+  protected static TokenizerME tokenizer;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CorefTrainer` has only 'static' members, and lacks a 'private' constructor
 in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
 #### Snippet
@@ -14669,6 +14609,18 @@ public class DictionaryFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/UimaUtil.java`
+#### Snippet
+```java
+import org.xml.sax.SAXException;
+
+public class UimaUtil {
+
+  static TypeSystemDescription createTypeSystemDescription(InputStream in) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ResolverUtils` has only 'static' members, and lacks a 'private' constructor
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
 #### Snippet
@@ -14681,39 +14633,27 @@ public class ResolverUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TextProcessor` has only 'static' members, and lacks a 'private' constructor
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+Class `WikinewsConverter` has only 'static' members, and lacks a 'private' constructor
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
 #### Snippet
 ```java
-import opennlp.tools.similarity.apps.utils.Pair;
-
-public class TextProcessor {
-
-  private static final Logger LOG = Logger
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ModelServiceKeys` has only 'static' members, and lacks a 'private' constructor
-in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/ModelServiceKeys.java`
-#### Snippet
-```java
- * This information will be used to select a suitable model.
+ * file and writes each article as an XMI file.
  */
-public class ModelServiceKeys {
-  public static final String MODEL_LANGUAGE_KEY = "MODEL_LANGUAGE";
-  public static final String MODEL_NAME_KEY = "MODEL_NAME";
+public class WikinewsConverter {
+
+  static class CASArticleFilter implements IArticleFilter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CorpusServerPreferenceConstants` has only 'static' members, and lacks a 'private' constructor
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPreferenceConstants.java`
+Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
 #### Snippet
 ```java
-package org.apache.opennlp.corpus_server.caseditor;
+import org.xml.sax.SAXException;
 
-public class CorpusServerPreferenceConstants {
-  static final String LAST_USED_SERVER_ADDRESS = CorpusServerPlugin.PLUGIN_ID + ".LAST_USED_SERVER_ADDRESS";
-  public static final String LAST_USED_SEARCH_QUERIES = CorpusServerPlugin.PLUGIN_ID + ".SEARCH_QUERIES";
+public class UimaUtil {
+
+  public static TypeSystemDescription createTypeSystemDescription(InputStream in) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14726,18 +14666,6 @@ import org.eclipse.core.runtime.CoreException;
 public class ModelUtil {
 
   // TODO: Loading from a ULR (file, http) should be possible
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/UimaUtil.java`
-#### Snippet
-```java
-import org.xml.sax.SAXException;
-
-public class UimaUtil {
-
-  static TypeSystemDescription createTypeSystemDescription(InputStream in) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14765,18 +14693,6 @@ public class UIMAUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `WikinewsConverter` has only 'static' members, and lacks a 'private' constructor
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
-#### Snippet
-```java
- * file and writes each article as an XMI file.
- */
-public class WikinewsConverter {
-
-  static class CASArticleFilter implements IArticleFilter {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `NameFinderPreferenceInitializer` has only 'static' members, and lacks a 'private' constructor
 in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/NameFinderPreferenceInitializer.java`
 #### Snippet
@@ -14786,18 +14702,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 public class NameFinderPreferenceInitializer {
 
   static void initializeDefaultPreferences(IPreferenceStore store) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UimaUtil` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
-#### Snippet
-```java
-import org.xml.sax.SAXException;
-
-public class UimaUtil {
-
-  public static TypeSystemDescription createTypeSystemDescription(InputStream in) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14813,6 +14717,90 @@ public class DefaultModelBuilderUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ModelUtil` has only 'static' members, and lacks a 'private' constructor
+in `tf-ner-poc/src/main/java/org/apache/opennlp/ModelUtil.java`
+#### Snippet
+```java
+import java.util.zip.ZipInputStream;
+
+public class ModelUtil {
+
+  public static Path writeModelToTmpDir(InputStream modelIn) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CorpusServerPreferenceConstants` has only 'static' members, and lacks a 'private' constructor
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerPreferenceConstants.java`
+#### Snippet
+```java
+package org.apache.opennlp.corpus_server.caseditor;
+
+public class CorpusServerPreferenceConstants {
+  static final String LAST_USED_SERVER_ADDRESS = CorpusServerPlugin.PLUGIN_ID + ".LAST_USED_SERVER_ADDRESS";
+  public static final String LAST_USED_SEARCH_QUERIES = CorpusServerPlugin.PLUGIN_ID + ".SEARCH_QUERIES";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Viterbi` has only 'static' members, and lacks a 'private' constructor
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/Viterbi.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class Viterbi {
+
+  /*
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CFGRunner` has only 'static' members, and lacks a 'private' constructor
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+ * Runner for {@link ContextFreeGrammar}s
+ */
+public class CFGRunner {
+
+  public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegressionModelUtils` has only 'static' members, and lacks a 'private' constructor
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/regression/RegressionModelUtils.java`
+#### Snippet
+```java
+ * A utility class for calculating various regression models costs.
+ */
+public class RegressionModelUtils {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GradientDescentUtils` has only 'static' members, and lacks a 'private' constructor
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/regression/GradientDescentUtils.java`
+#### Snippet
+```java
+ * A utility class for calculating gradient descent.
+ */
+public class GradientDescentUtils {
+
+  private static final double THRESHOLD = 0.5;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CASImporter` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
+#### Snippet
+```java
+import javax.ws.rs.core.Response;
+
+public class CASImporter {
+
+  public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ReplaceTypeSystem` has only 'static' members, and lacks a 'private' constructor
 in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/ReplaceTypeSystem.java`
 #### Snippet
@@ -14825,15 +14813,15 @@ public class ReplaceTypeSystem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CreateCorpus` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateCorpus.java`
+Class `AnomalyDetectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
 #### Snippet
 ```java
- * Command Line Tool to create a new corpus in the corpus server.
+ * Utility class for anomaly detection
  */
-public class CreateCorpus {
+public class AnomalyDetectionUtils {
 
-  public static void main(String[] args) throws Exception {
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14845,18 +14833,6 @@ import javax.ws.rs.core.Response;
 
 public class CreateTaskQueue {
   
-  public static void main(String[] args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CASImporter` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
-#### Snippet
-```java
-import javax.ws.rs.core.Response;
-
-public class CASImporter {
-
   public static void main(String[] args) throws Exception {
 ```
 
@@ -14873,15 +14849,27 @@ public class FileUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DropCorpus` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
+Class `CreateCorpus` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateCorpus.java`
 #### Snippet
 ```java
- * Command Line Tool to drop a corpus in the corpus server.
+ * Command Line Tool to create a new corpus in the corpus server.
  */
-public class DropCorpus {
+public class CreateCorpus {
 
   public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CorpusBackup` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
+#### Snippet
+```java
+ * <a href="http://localhost:8080/corpus-server/rest">http://localhost:8080/corpus-server/rest</a>.
+ */
+public class CorpusBackup {
+
+  private static void copyStream(InputStream in, OutputStream out) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14909,15 +14897,15 @@ public class RemoveCAS {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CorpusBackup` has only 'static' members, and lacks a 'private' constructor
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
+Class `DropCorpus` has only 'static' members, and lacks a 'private' constructor
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
 #### Snippet
 ```java
- * <a href="http://localhost:8080/corpus-server/rest">http://localhost:8080/corpus-server/rest</a>.
+ * Command Line Tool to drop a corpus in the corpus server.
  */
-public class CorpusBackup {
+public class DropCorpus {
 
-  private static void copyStream(InputStream in, OutputStream out) throws IOException {
+  public static void main(String[] args) throws Exception {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14932,163 +14920,19 @@ public class SimpleTest {
   public static void main(String[] args) {
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `NGramUtils` has only 'static' members, and lacks a 'private' constructor
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/ngram/NGramUtils.java`
+#### Snippet
+```java
+ * A utility class for calculating probabilities of tri/bi/uni-grams.
+ */
+public class NGramUtils {
+
+  private static <T> Double count(T x0, T x1, T x2, Collection<T[]> sentences) {
+```
+
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `CFGRunner.class.getResourceAsStream(s)` might be null
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-    Collection<String> tokens = new LinkedList<>();
-    try (BufferedReader bufferedReader = new BufferedReader(
-            new InputStreamReader(CFGRunner.class.getResourceAsStream(s)))) {
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
-#### Snippet
-```java
-    if ((WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()]) != null)) {
-      if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-        .equals(POS.VERB)) {
-        ref = wordBaseForm + ".v";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
-#### Snippet
-```java
-        ref = wordBaseForm + ".v";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-        .equals(POS.NOUN)) {
-        ref = wordBaseForm + ".n";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
-#### Snippet
-```java
-        ref = wordBaseForm + ".n";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-        .equals(POS.ADJECTIVE)) {
-        ref = wordBaseForm + ".a";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
-#### Snippet
-```java
-        ref = wordBaseForm + ".a";
-      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
-        .equals(POS.ADVERB)) {
-        ref = wordBaseForm + ".r";
-      }
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-
-    if ((WSDHelper.getPOS(this.getTargetTag()) != null)) {
-      if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.VERB)) {
-        ref = wordBaseForm + ".v";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-      if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.VERB)) {
-        ref = wordBaseForm + ".v";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
-        ref = wordBaseForm + ".n";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
-        ref = wordBaseForm + ".n";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
-        ref = wordBaseForm + ".a";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADVERB)) {
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
-        ref = wordBaseForm + ".a";
-      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADVERB)) {
-        ref = wordBaseForm + ".r";
-      }
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
-#### Snippet
-```java
-    if (this.lemma != null && iword.getLemma() != null) {
-      if (iword.getLemma().equals(this.getLemma())
-          && WSDHelper.getPOS(iword.getPos()).equals(
-              WSDHelper.getPOS(this.getPos()))) {
-        return true;
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
-#### Snippet
-```java
-
-    if (iword.getLemma().equals(this.getLemma())
-        && WSDHelper.getPOS(iword.getPos()).equals(
-            WSDHelper.getPOS(this.getPos()))
-        && iword.getLexsn().equals(this.getLexsn())) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
-#### Snippet
-```java
-  // order than the startup.
-  
-  taskQueueService = null;
-  
-  if (store != null && indexListener != null) {
-```
-
-### DataFlowIssue
-Dereference of `listOfFiles` may produce `NullPointerException`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-    if (tempFolder.isDirectory()) {
-      listOfFiles = tempFolder.listFiles();
-      for (File file : listOfFiles) {
-
-        ArrayList<WSDSample> list = getSemcorOneFileData(
-```
-
 ### DataFlowIssue
 Variable is already assigned to this value
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaConverter.java`
@@ -15102,15 +14946,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaConverter.java`
 ```
 
 ### DataFlowIssue
-Method invocation `size` will produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+Variable is already assigned to this value
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
-			map1.entrySet().removeAll(map2.entrySet());
-		if (map1.size() > 0) // same or subset of tags => different groups
-			return true;
+		try {
+			List<HitBase> pagesForAProduct = prodman.findProductByName(name, 1);
+			reviewObjTotal = null; 
 
+			for(HitBase p: pagesForAProduct){
+```
+
+### DataFlowIssue
+Method invocation `getOriginalizedSentences` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+			e.printStackTrace();
+		} 
+		return reviewObjTotal.getOriginalizedSentences();
+	}
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+		sents = cleanListOfSents(longestSents);
+		sents = removeDuplicates(sents);
+		sents = verifyEnforceStartsUpperCase(sents);
+
+		reviewObj.setFeaturePhrases(productFeaturesList.toArray(new String[0]));
 ```
 
 ### DataFlowIssue
@@ -15138,38 +15006,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+Method invocation `size` will produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
 #### Snippet
 ```java
-		sents = cleanListOfSents(longestSents);
-		sents = removeDuplicates(sents);
-		sents = verifyEnforceStartsUpperCase(sents);
-
-		reviewObj.setFeaturePhrases(productFeaturesList.toArray(new String[0]));
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-		try {
-			List<HitBase> pagesForAProduct = prodman.findProductByName(name, 1);
-			reviewObjTotal = null; 
-
-			for(HitBase p: pagesForAProduct){
-```
-
-### DataFlowIssue
-Method invocation `getOriginalizedSentences` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-			e.printStackTrace();
-		} 
-		return reviewObjTotal.getOriginalizedSentences();
-	}
+		if (map1 != null && map2 != null && map1.size() > 0 && map2.size() > 0)
+			map1.entrySet().removeAll(map2.entrySet());
+		if (map1.size() > 0) // same or subset of tags => different groups
+			return true;
 
 ```
 
@@ -15198,18 +15042,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```
 
 ### DataFlowIssue
-Method invocation `getEndnote` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
-#### Snippet
-```java
-					
-					 CTFtnEdn endnote = Context.getWmlObjectFactory().createCTFtnEdn();
-			         endnotes.getEndnote().add(endnote);
-			        
-			         endnote.setId(refId);
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
@@ -15217,18 +15049,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 		}
 
 		opinionSentencesToAdd = removeDuplicatesFromResultantHits(opinionSentencesToAdd);
-		return opinionSentencesToAdd;
-	}
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-		}
-
-		opinionSentencesToAdd = ContentGeneratorSupport.removeDuplicatesFromResultantHits(opinionSentencesToAdd);
 		return opinionSentencesToAdd;
 	}
 ```
@@ -15282,6 +15102,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+		}
+
+		opinionSentencesToAdd = ContentGeneratorSupport.removeDuplicatesFromResultantHits(opinionSentencesToAdd);
+		return opinionSentencesToAdd;
+	}
+```
+
+### DataFlowIssue
+Method invocation `getEndnote` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+#### Snippet
+```java
+					
+					 CTFtnEdn endnote = Context.getWmlObjectFactory().createCTFtnEdn();
+			         endnotes.getEndnote().add(endnote);
+			        
+			         endnote.setId(refId);
+```
+
+### DataFlowIssue
 Method invocation `readLine` may produce `NullPointerException`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFetcher.java`
 #### Snippet
@@ -15294,18 +15138,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/PageFet
 ```
 
 ### DataFlowIssue
-Method invocation `getInputStream` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.java`
-#### Snippet
-```java
-		}
-
-		StreamLogger outputGobbler = new StreamLogger(mStartProcess.getInputStream());
-		outputGobbler.start();
-
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
@@ -15315,6 +15147,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 			req = substituteField(req, fieldToTry);
 			super.handleRequestBody(req, rsp);
 		} catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getInputStream` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.java`
+#### Snippet
+```java
+		}
+
+		StreamLogger outputGobbler = new StreamLogger(mStartProcess.getInputStream());
+		outputGobbler.start();
+
 ```
 
 ### DataFlowIssue
@@ -15370,11 +15214,11 @@ Array access `mainAndFollowSent[0]` may produce `NullPointerException`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
 ```java
-					String[] mainAndFollowSent = getFullOriginalSentenceFromWebpageBySnippetFragment(
-							fragment.replace("_should_find_orig_", ""), sents.toArray(new String[]{}));
-					pageSentence = mainAndFollowSent[0];
-					followSent = mainAndFollowSent[1];
-
+				String[] mainAndFollowSent = getFullOriginalSentenceFromWebpageBySnippetFragment(
+						f, sents);
+				pageSentence = mainAndFollowSent[0];
+				followSent = mainAndFollowSent[1];
+				if (pageSentence!=null)
 ```
 
 ### DataFlowIssue
@@ -15382,11 +15226,11 @@ Array access `mainAndFollowSent[0]` may produce `NullPointerException`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
 ```java
-				String[] mainAndFollowSent = getFullOriginalSentenceFromWebpageBySnippetFragment(
-						f, sents);
-				pageSentence = mainAndFollowSent[0];
-				followSent = mainAndFollowSent[1];
-				if (pageSentence!=null)
+					String[] mainAndFollowSent = getFullOriginalSentenceFromWebpageBySnippetFragment(
+							fragment.replace("_should_find_orig_", ""), sents.toArray(new String[]{}));
+					pageSentence = mainAndFollowSent[0];
+					followSent = mainAndFollowSent[1];
+
 ```
 
 ### DataFlowIssue
@@ -15426,15 +15270,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/communicative_a
 ```
 
 ### DataFlowIssue
-Dereference of `file.listFiles()` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+Dereference of `hits` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.java`
 #### Snippet
 ```java
-    }
-    if (file.isDirectory()) {
-      for (File f : file.listFiles()) {
-        if (f.getName().startsWith("."))
-          continue;
+			LOGGER.error("problem searching index \n" + e1);
+		}
+		LOGGER.debug("Found " + hits.totalHits + " hits for " + queryStr);
+		int count = 0;
+		
 ```
 
 ### DataFlowIssue
@@ -15450,15 +15294,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrai
 ```
 
 ### DataFlowIssue
-Dereference of `hits` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.java`
+Dereference of `file.listFiles()` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
 #### Snippet
 ```java
-			LOGGER.error("problem searching index \n" + e1);
-		}
-		LOGGER.debug("Found " + hits.totalHits + " hits for " + queryStr);
-		int count = 0;
-		
+    }
+    if (file.isDirectory()) {
+      for (File f : file.listFiles()) {
+        if (f.getName().startsWith("."))
+          continue;
 ```
 
 ### DataFlowIssue
@@ -15486,6 +15330,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 ```
 
 ### DataFlowIssue
+Dereference of `file.listFiles()` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+#### Snippet
+```java
+			}
+			if (file.isDirectory()) {
+				for (File f : file.listFiles()) {
+					try {
+						addFiles(f);
+```
+
+### DataFlowIssue
 Array access `LANGS[langIndex]` may produce `NullPointerException`
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
 #### Snippet
@@ -15499,18 +15355,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 
 ### DataFlowIssue
 Dereference of `file.listFiles()` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
-#### Snippet
-```java
-			}
-			if (file.isDirectory()) {
-				for (File f : file.listFiles()) {
-					try {
-						addFiles(f);
-```
-
-### DataFlowIssue
-Dereference of `file.listFiles()` may produce `NullPointerException`
 in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
 #### Snippet
 ```java
@@ -15519,6 +15363,162 @@ in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailN
 			for (File f : file.listFiles()) {
 				addFilesPos(f);
 				System.out.println(f.getName());
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
+#### Snippet
+```java
+
+    if ((WSDHelper.getPOS(this.getTargetTag()) != null)) {
+      if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.VERB)) {
+        ref = wordBaseForm + ".v";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
+#### Snippet
+```java
+      if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.VERB)) {
+        ref = wordBaseForm + ".v";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
+        ref = wordBaseForm + ".n";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
+#### Snippet
+```java
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.NOUN)) {
+        ref = wordBaseForm + ".n";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
+        ref = wordBaseForm + ".a";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADVERB)) {
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
+#### Snippet
+```java
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADJECTIVE)) {
+        ref = wordBaseForm + ".a";
+      } else if (WSDHelper.getPOS(this.getTargetTag()).equals(POS.ADVERB)) {
+        ref = wordBaseForm + ".r";
+      }
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
+#### Snippet
+```java
+    if ((WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()]) != null)) {
+      if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+        .equals(POS.VERB)) {
+        ref = wordBaseForm + ".v";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
+#### Snippet
+```java
+        ref = wordBaseForm + ".v";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+        .equals(POS.NOUN)) {
+        ref = wordBaseForm + ".n";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
+#### Snippet
+```java
+        ref = wordBaseForm + ".n";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+        .equals(POS.ADJECTIVE)) {
+        ref = wordBaseForm + ".a";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WTDIMS.java`
+#### Snippet
+```java
+        ref = wordBaseForm + ".a";
+      } else if (WSDHelper.getPOS(this.getPosTags()[this.getWordIndex()])
+        .equals(POS.ADVERB)) {
+        ref = wordBaseForm + ".r";
+      }
+```
+
+### DataFlowIssue
+Method invocation `update` may produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+        LOG.severe("NoSuchAlgorithmException " + 2);
+      }
+      md.update(s.getBytes(StandardCharsets.UTF_8)); // step 3
+      byte[] raw = md.digest();
+      hash = null; // (new BASE64Encoder()).encode(raw);
+```
+
+### DataFlowIssue
+Method invocation `toArray` will produce `NullPointerException`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+
+    // iterate through the stop words and start removing
+    for (Object o : stopPhrases.toArray()) {
+      String p = (String) o;
+      int idx = startPart.indexOf(p);
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
+#### Snippet
+```java
+
+    if (iword.getLemma().equals(this.getLemma())
+        && WSDHelper.getPOS(iword.getPos()).equals(
+            WSDHelper.getPOS(this.getPos()))
+        && iword.getLexsn().equals(this.getLexsn())) {
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/Word.java`
+#### Snippet
+```java
+    if (this.lemma != null && iword.getLemma() != null) {
+      if (iword.getLemma().equals(this.getLemma())
+          && WSDHelper.getPOS(iword.getPos()).equals(
+              WSDHelper.getPOS(this.getPos()))) {
+        return true;
+```
+
+### DataFlowIssue
+Dereference of `listOfFiles` may produce `NullPointerException`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+    if (tempFolder.isDirectory()) {
+      listOfFiles = tempFolder.listFiles();
+      for (File file : listOfFiles) {
+
+        ArrayList<WSDSample> list = getSemcorOneFileData(
 ```
 
 ### DataFlowIssue
@@ -15558,30 +15558,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.
 ```
 
 ### DataFlowIssue
-Method invocation `toArray` will produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-
-    // iterate through the stop words and start removing
-    for (Object o : stopPhrases.toArray()) {
-      String p = (String) o;
-      int idx = startPart.indexOf(p);
-```
-
-### DataFlowIssue
-Method invocation `update` may produce `NullPointerException`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-        LOG.severe("NoSuchAlgorithmException " + 2);
-      }
-      md.update(s.getBytes(StandardCharsets.UTF_8)); // step 3
-      byte[] raw = md.digest();
-      hash = null; // (new BASE64Encoder()).encode(raw);
-```
-
-### DataFlowIssue
 Argument `Context.parseContext(words[0])` might be null
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
 #### Snippet
@@ -15603,6 +15579,30 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
           Context.parseContext(words[1])));
     }
   }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/CorpusServerImpl.java`
+#### Snippet
+```java
+  // order than the startup.
+  
+  taskQueueService = null;
+  
+  if (store != null && indexListener != null) {
+```
+
+### DataFlowIssue
+Argument `WordRelationshipDetermination.class.getResource(DICTIONARY_FILE)` might be null
+in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
+#### Snippet
+```java
+
+  public WordRelationshipDetermination() {
+    dictionary = new RAMDictionary(WordRelationshipDetermination.class.getResource(DICTIONARY_FILE), ILoadPolicy.IMMEDIATE_LOAD);
+    ((RAMDictionary)dictionary).load();
+    openDict();
 ```
 
 ### DataFlowIssue
@@ -15642,6 +15642,18 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
 ```
 
 ### DataFlowIssue
+Argument `CFGRunner.class.getResourceAsStream(s)` might be null
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+    Collection<String> tokens = new LinkedList<>();
+    try (BufferedReader bufferedReader = new BufferedReader(
+            new InputStreamReader(CFGRunner.class.getResourceAsStream(s)))) {
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+```
+
+### DataFlowIssue
 Method invocation `getRow` may produce `NullPointerException`
 in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
 #### Snippet
@@ -15678,18 +15690,6 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
 ```
 
 ### DataFlowIssue
-Argument `WordRelationshipDetermination.class.getResource(DICTIONARY_FILE)` might be null
-in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
-#### Snippet
-```java
-
-  public WordRelationshipDetermination() throws Exception {
-    dictionary = new RAMDictionary(WordRelationshipDetermination.class.getResource(DICTIONARY_FILE), ILoadPolicy.IMMEDIATE_LOAD);
-    ((RAMDictionary)dictionary).load();
-    openDict();
-```
-
-### DataFlowIssue
 Dereference of `xmiFiles` may produce `NullPointerException`
 in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
 #### Snippet
@@ -15715,258 +15715,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-
-  public String getGloss() {
-    return this.synset.getGloss().toString();
-  }
-
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
-#### Snippet
-```java
-    int i = 0;
-    for (String word : model) {
-      if (surroundingContextClusters.contains(word.toString())) {
-        serializedFeatures[i] = "F" + i + "=1";
-      } else {
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
-#### Snippet
-```java
-    }
-    for (String word : model) {
-      if (surroundingWords.contains(word.toString())) {
-        serializedFeatures[i] = "F" + i + "=1";
-      } else {
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-
-    String[] tokenizedGloss = WSDHelper.getTokenizer()
-        .tokenize(child.getGloss().toString());
-    ArrayList<WordPOS> relvGlossWords = WSDHelper
-        .getAllRelevantWords(tokenizedGloss);
-```
-
 ### StringOperationCanBeSimplified
 `toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
 in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
@@ -16040,30 +15788,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.ja
 ```
 
 ### StringOperationCanBeSimplified
-`new String()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-   StringBuilder buf = new StringBuilder(len);
-   for (int j=0; j < size; j++) buf.append(words[j]);
-   String allWords = new String(buf.toString()); // ensure compact string across JDK versions
-   buf = null;
-
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-     String w = internedWords.get(word);
-     if (w == null) {
-       word = new String(word); // ensure compact string
-       internedWords.put(word, word);
-     } else {
-```
-
-### StringOperationCanBeSimplified
 `toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
 in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
 #### Snippet
@@ -16088,6 +15812,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
 ```
 
 ### StringOperationCanBeSimplified
+`new String()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+   StringBuilder buf = new StringBuilder(len);
+   for (int j=0; j < size; j++) buf.append(words[j]);
+   String allWords = new String(buf.toString()); // ensure compact string across JDK versions
+   buf = null;
+
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+     String w = internedWords.get(word);
+     if (w == null) {
+       word = new String(word); // ensure compact string
+       internedWords.put(word, word);
+     } else {
+```
+
+### StringOperationCanBeSimplified
 Call to `toString()` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
 #### Snippet
@@ -16097,30 +15845,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringD
         w = ps.stem(w.toLowerCase()).toString();
       } catch (Exception e) {
         // do nothing, just have original term
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaGeneralizer.java`
-#### Snippet
-```java
-		try {
-			if (ps != null) {
-				if (ps.stem(lemma1).toString()
-						.equalsIgnoreCase(ps.stem(lemma2).toString())) {
-					bEqual = true;
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaGeneralizer.java`
-#### Snippet
-```java
-			if (ps != null) {
-				if (ps.stem(lemma1).toString()
-						.equalsIgnoreCase(ps.stem(lemma2).toString())) {
-					bEqual = true;
-					results.add(lemma1);
 ```
 
 ### StringOperationCanBeSimplified
@@ -16145,6 +15869,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaF
             .equalsIgnoreCase(ps.stem(lemma2).toString())) {
           return lemma1;
         }
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaGeneralizer.java`
+#### Snippet
+```java
+		try {
+			if (ps != null) {
+				if (ps.stem(lemma1).toString()
+						.equalsIgnoreCase(ps.stem(lemma2).toString())) {
+					bEqual = true;
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaGeneralizer.java`
+#### Snippet
+```java
+			if (ps != null) {
+				if (ps.stem(lemma1).toString()
+						.equalsIgnoreCase(ps.stem(lemma2).toString())) {
+					bEqual = true;
+					results.add(lemma1);
 ```
 
 ### StringOperationCanBeSimplified
@@ -16196,6 +15944,90 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/LemmaFormManag
 ```
 
 ### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+
+  public String getGloss() {
+    return this.synset.getGloss().toString();
+  }
+
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    PStemmer st = new PStemmer();
+
+    return st.stem(term).toString();
+  }
+
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+
+    int endIdx = txt.length() - (txt.length() / 4);
+    String endPart = txt.substring(endIdx, txt.length());
+
+    String middlePart = txt.substring(startIdx, endIdx);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    }
+
+    return new PStemmer().stem(token).toString();
+  }
+
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/OSCCWSDContextGenerator.java`
+#### Snippet
+```java
+    int i = 0;
+    for (String word : model) {
+      if (surroundingContextClusters.contains(word.toString())) {
+        serializedFeatures[i] = "F" + i + "=1";
+      } else {
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/IMSWSDContextGenerator.java`
+#### Snippet
+```java
+    }
+    for (String word : model) {
+      if (surroundingWords.contains(word.toString())) {
+        serializedFeatures[i] = "F" + i + "=1";
+      } else {
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+		for(String part: parts){
+			String lemma = StringUtils.substringBetween(part, "P'", "':");
+			String pos = part.substring(part.indexOf(":")+1, part.length());
+			
+			if (pos==null || lemma ==null){
+```
+
+### StringOperationCanBeSimplified
 Call to `substring()` is redundant
 in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
 #### Snippet
@@ -16220,51 +16052,219 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/MentionContext.java`
 ```
 
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
 
-    int endIdx = txt.length() - (txt.length() / 4);
-    String endPart = txt.substring(endIdx, txt.length());
-
-    String middlePart = txt.substring(startIdx, endIdx);
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-    PStemmer st = new PStemmer();
 
-    return st.stem(term).toString();
-  }
-
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
 ```
 
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-    }
 
-    return new PStemmer().stem(token).toString();
-  }
-
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
 ```
 
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-		for(String part: parts){
-			String lemma = StringUtils.substringBetween(part, "P'", "':");
-			String pos = part.substring(part.indexOf(":")+1, part.length());
-			
-			if (pos==null || lemma ==null){
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+
+    String[] tokenizedGloss = WSDHelper.getTokenizer()
+        .tokenize(child.getGloss().toString());
+    ArrayList<WordPOS> relvGlossWords = WSDHelper
+        .getAllRelevantWords(tokenizedGloss);
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -16295,6 +16295,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'lemmaFormManager' in a Serializable class
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+	private ParseTreeMatcher parseTreeMatcher;
+
+	private LemmaFormManager lemmaFormManager;
+
+	private GeneralizationListReducer generalizationListReducer;
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'generalizationListReducer' in a Serializable class
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
 #### Snippet
@@ -16319,18 +16331,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'lemmaFormManager' in a Serializable class
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-	private ParseTreeMatcher parseTreeMatcher;
-
-	private LemmaFormManager lemmaFormManager;
-
-	private GeneralizationListReducer generalizationListReducer;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'embedder' in a Serializable class
 in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
 #### Snippet
@@ -16344,18 +16344,6 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
 
 ## RuleId[id=RedundantCollectionOperation]
 ### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-
-  private double q(Rule rule) {
-    return rules.keySet().contains(rule) ? rules.get(rule) : 0;
-  }
-
-```
-
-### RedundantCollectionOperation
 Unnecessary 'contains()' check
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
 #### Snippet
@@ -16367,31 +16355,19 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 			}
 ```
 
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+  private double q(Rule rule) {
+    return rules.keySet().contains(rule) ? rules.get(rule) : 0;
+  }
+
+```
+
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-            mappingFileIn.close();
-          }
-          catch (IOException e) {}
-        }
-        
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-            mappingTmpOut.close();
-          }
-          catch (IOException e) {}
-        }
-      }
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MachineTranslationWrapper.java`
@@ -16464,6 +16440,30 @@ in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/LexicalChaini
           //chaincnt++
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+            mappingFileIn.close();
+          }
+          catch (IOException e) {}
+        }
+        
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
+#### Snippet
+```java
+            mappingTmpOut.close();
+          }
+          catch (IOException e) {}
+        }
+      }
+```
+
 ## RuleId[id=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `p`
@@ -16516,18 +16516,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityA
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
-#### Snippet
-```java
-                (rule != null ? rule.getEntry() : null) + " " +
-                (leftTree != null && rightTree != null ?
-                        leftTree + " " + rightTree.toString() :
-                        (rule != null ? rule.getExpansion()[0] : null)
-                ) +
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
 #### Snippet
 ```java
@@ -16560,6 +16548,18 @@ in `summarizer/src/main/java/opennlp/summarization/Sentence.java`
 			b.append(stemmer.toString());
 			b.append(SPACE);
 		}
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+                (rule != null ? rule.getEntry() : null) + " " +
+                (leftTree != null && rightTree != null ?
+                        leftTree + " " + rightTree.toString() :
+                        (rule != null ? rule.getExpansion()[0] : null)
+                ) +
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -16700,30 +16700,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 ## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-          outcome = model.getWSDMaxentModel().getBestOutcome(outcomeProbs);
-
-          if (outcome != null && !outcome.equals("")) {
-
-            return this.getParams().getSenseSource().name() + " " + wordTag
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-        outcome = model.getWSDMaxentModel().getBestOutcome(outcomeProbs);
-
-        if (outcome != null && !outcome.equals("")) {
-
-          return this.getParams().getSenseSource().name() + " " + wordTag
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/EmailSender.java`
 #### Snippet
 ```java
@@ -16832,14 +16808,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCover
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
 #### Snippet
 ```java
-    
-    for (String line = input.readLine(); null != line; line = input.readLine()) {
-      if (line.equals("")) {
-        System.out.println();
-        clearPrevTokenMaps(finders);
+          outcome = model.getWSDMaxentModel().getBestOutcome(outcomeProbs);
+
+          if (outcome != null && !outcome.equals("")) {
+
+            return this.getParams().getSenseSource().name() + " " + wordTag
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
+#### Snippet
+```java
+        outcome = model.getWSDMaxentModel().getBestOutcome(outcomeProbs);
+
+        if (outcome != null && !outcome.equals("")) {
+
+          return this.getParams().getSenseSource().name() + " " + wordTag
 ```
 
 ### StringEqualsEmptyString
@@ -16856,14 +16844,14 @@ in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.ja
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
 #### Snippet
 ```java
-        while ((line = lineStream.read()) != null) {
-
-          if (line.equals("")) {
-            DiscourseEntity[] entities =
-                treebankLinker.getEntities(document.toArray(new Mention[0]));
+    
+    for (String line = input.readLine(); null != line; line = input.readLine()) {
+      if (line.equals("")) {
+        System.out.println();
+        clearPrevTokenMaps(finders);
 ```
 
 ### StringEqualsEmptyString
@@ -16876,6 +16864,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
       if (line.equals("")) {
         DiscourseEntity[] entities =
             treebankLinker.getEntities(document.toArray(new Mention[0]));
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
+#### Snippet
+```java
+        while ((line = lineStream.read()) != null) {
+
+          if (line.equals("")) {
+            DiscourseEntity[] entities =
+                treebankLinker.getEntities(document.toArray(new Mention[0]));
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
@@ -17088,378 +17088,6 @@ public class EpistemicStatesTrainingSet {
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/UpdatableSimpleNaiveBayesClassifier.java`
-#### Snippet
-```java
-      }
-    }
-    System.err.println("class found: " + foundClass);
-    return foundClass;
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-
-    if (toString.length() > 0) {
-      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-              rulesMap, startSymbol, true);
-      ProbabilisticContextFreeGrammar.ParseTree parseTree = pcfg.cky(Arrays.asList(sentence));
-      System.out.println(parseTree);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
-#### Snippet
-```java
-      String msg = "Could not instantiate the " + subclassName
-        + ". The initialization throw an exception.";
-      System.err.println(msg);
-      e.printStackTrace();
-      throw new InvalidFormatException(msg, e);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-    if (!ArgumentParser.validateArguments(args,
-        DisambiguatorEvaluatorParams.class)) {
-      System.err.println(getHelp());
-      throw new TerminateToolException(1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-    WSDEvaluator evaluator = new WSDEvaluator(disambiguator);
-
-    System.out.print("Evaluating ... ");
-
-    try (ObjectStream<WSDSample> sampleStream = DisambiguatorTool.openSampleData(
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-        evaluator.evaluate(sampleStream);
-      } catch (IOException e) {
-        System.err.println("failed");
-        System.err.println("Reading test data error " + e.getMessage());
-        throw new TerminateToolException(-1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-      } catch (IOException e) {
-        System.err.println("failed");
-        System.err.println("Reading test data error " + e.getMessage());
-        throw new TerminateToolException(-1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-    }
-
-    System.out.println("done");
-    System.out.println();
-    System.out.println("Accuracy: " + evaluator.getAccuracy());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-
-    System.out.println("done");
-    System.out.println();
-    System.out.println("Accuracy: " + evaluator.getAccuracy());
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
-#### Snippet
-```java
-    System.out.println("done");
-    System.out.println();
-    System.out.println("Accuracy: " + evaluator.getAccuracy());
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
-#### Snippet
-```java
-
-    if (!ArgumentParser.validateArguments(args, DisambiguatorToolParams.class)) {
-      System.err.println(getHelp());
-      throw new TerminateToolException(1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
-#### Snippet
-```java
-    WSDisambiguator disambiguator = makeTool(params);
-
-    PerformanceMonitor perfMon = new PerformanceMonitor(System.err, "sent");
-
-    perfMon.start();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDEvaluator.java`
-#### Snippet
-```java
-
-    if (predictedSense == null) {
-      System.out
-          .println("There was no sense for : " + reference.getTargetWord());
-      return null;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static void print(Object[][] array) {
-    if (array == null) {
-      System.out.println("object is null");
-    } else {
-      System.out.print("[");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      System.out.println("object is null");
-    } else {
-      System.out.print("[");
-      for (int i = 0; i < array.length; i++) {
-        print(array[i]);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-        print(array[i]);
-        if (i != array.length - 1) {
-          System.out.print("\n");
-        }
-        print("]");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static void print(Object in) {
-    if (in == null) {
-      System.out.println("object is null");
-    } else {
-      System.out.println(in);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      System.out.println("object is null");
-    } else {
-      System.out.println(in);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static void print(Object[] array) {
-    if (array == null) {
-      System.out.println("object is null");
-    } else {
-      System.out.println(Arrays.asList(array));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      System.out.println("object is null");
-    } else {
-      System.out.println(Arrays.asList(array));
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the pertainyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the attributes");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hyponyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  meronyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the cause terms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  coordinate terms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  holonyms");
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
-#### Snippet
-```java
-    });
-
-    System.out.println(result[0]);
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaWriter.java`
 #### Snippet
 ```java
@@ -17706,6 +17334,114 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FormalConcept.java`
 		System.out.format("Concept cohMinSMC: %.3f \n", cohMinSMC);
 	    //System.out.format("Concept stability: [ %.3f; %.3f] \n", getIntLogStabilityBottom(), getIntLogStabilityUp());
 	    System.out.println("--------------------");
+	}
+	
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+	
+	public void printConceptByPosition(int index) {
+		System.out.println("Concept at position " + index);
+		conceptList.get(index).printConcept();
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+	public void printBinContext() {
+		for (int[] ints : binaryContext) {
+			System.out.println(Arrays.toString(ints));
+		}	
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+	
+	public void printConceptByPositionFull(int index) {
+		System.out.println("Concept at position " + index);
+		conceptList.get(index).printConceptFull();
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+		for (int i = 0; i<objectCount; i++){
+			for (int j = 0; j<attributeCount; j++){
+				System.out.print(binaryContext[i][j]+" ");
+			}
+			System.out.println();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+				System.out.print(binaryContext[i][j]+" ");
+			}
+			System.out.println();
+		}	
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+	
+	public void printLatticeStats() {
+		System.out.println("Lattice stats");
+		System.out.println("max_object_index = " + objectCount);
+		System.out.println("max_attribute_index = " + attributeCount);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+	public void printLatticeStats() {
+		System.out.println("Lattice stats");
+		System.out.println("max_object_index = " + objectCount);
+		System.out.println("max_attribute_index = " + attributeCount);
+		System.out.println("Current concept count = " + conceptList.size());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+		System.out.println("Lattice stats");
+		System.out.println("max_object_index = " + objectCount);
+		System.out.println("max_attribute_index = " + attributeCount);
+		System.out.println("Current concept count = " + conceptList.size());
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+		System.out.println("max_object_index = " + objectCount);
+		System.out.println("max_attribute_index = " + attributeCount);
+		System.out.println("Current concept count = " + conceptList.size());
 	}
 	
 ```
@@ -17755,114 +17491,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MachineTr
 		
 		System.out.println(rePhraser.rePhrase("I went to the nearest bookstore to buy a book written by my friend and his aunt"));
 
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-		for (int i = 0; i<objectCount; i++){
-			for (int j = 0; j<attributeCount; j++){
-				System.out.print(binaryContext[i][j]+" ");
-			}
-			System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-				System.out.print(binaryContext[i][j]+" ");
-			}
-			System.out.println();
-		}	
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-	
-	public void printConceptByPositionFull(int index) {
-		System.out.println("Concept at position " + index);
-		conceptList.get(index).printConceptFull();
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-	
-	public void printLatticeStats() {
-		System.out.println("Lattice stats");
-		System.out.println("max_object_index = " + objectCount);
-		System.out.println("max_attribute_index = " + attributeCount);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-	public void printLatticeStats() {
-		System.out.println("Lattice stats");
-		System.out.println("max_object_index = " + objectCount);
-		System.out.println("max_attribute_index = " + attributeCount);
-		System.out.println("Current concept count = " + conceptList.size());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-		System.out.println("Lattice stats");
-		System.out.println("max_object_index = " + objectCount);
-		System.out.println("max_attribute_index = " + attributeCount);
-		System.out.println("Current concept count = " + conceptList.size());
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-		System.out.println("max_object_index = " + objectCount);
-		System.out.println("max_attribute_index = " + attributeCount);
-		System.out.println("Current concept count = " + conceptList.size());
-	}
-	
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-	
-	public void printConceptByPosition(int index) {
-		System.out.println("Concept at position " + index);
-		conceptList.get(index).printConcept();
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-	public void printBinContext() {
-		for (int[] ints : binaryContext) {
-			System.out.println(Arrays.toString(ints));
-		}	
 	}
 ```
 
@@ -17955,18 +17583,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/BingAPIProductSearchManager.java`
 #### Snippet
 ```java
-		BingAPIProductSearchManager man = new BingAPIProductSearchManager ();
-		List<HitBase> res = man.findProductByName("chain saw", 5);
-		System.out.println(res);  	
-	}
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/BingAPIProductSearchManager.java`
-#### Snippet
-```java
 				if (title.contains(commonWord + " ") || title.contains(" " + commonWord)){
 					overlapCount++;
 					System.out.println(" found word "+ commonWord + " in title = "+title);
@@ -17976,14 +17592,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/BingAPIPr
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/BingAPIProductSearchManager.java`
 #### Snippet
 ```java
-		};
-		String[] res = orig.convert(sents, "VIP Product", "vv propro");
-		System.out.println(Arrays.asList(res));
+		BingAPIProductSearchManager man = new BingAPIProductSearchManager ();
+		List<HitBase> res = man.findProductByName("chain saw", 5);
+		System.out.println(res);  	
 	}
+}
+```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+#### Snippet
+```java
+			Random rand = new Random();
+			int index = (int) Math.floor(rand.nextDouble()*(double)synonyms.length);
+			System.out.println("Found synonyms " + Arrays.asList(synonyms) + " | selected synonym = "+synonyms[index] +" | for the input = "+ word);
+			return synonyms[index];
+			
 ```
 
 ### SystemOutErr
@@ -18003,6 +17631,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
 #### Snippet
 ```java
+		};
+		String[] res = orig.convert(sents, "VIP Product", "vv propro");
+		System.out.println(Arrays.asList(res));
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
+#### Snippet
+```java
 						line = line.replace(oldSentim+" ", newSentim+" "); 	
 						line = line.replace(" "+oldSentim, " "+newSentim);
 						System.out.println("Synonym for sentiment substitution: "+oldSentim + "->"+newSentim);
@@ -18012,14 +17652,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceO
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
 #### Snippet
 ```java
-			Random rand = new Random();
-			int index = (int) Math.floor(rand.nextDouble()*(double)synonyms.length);
-			System.out.println("Found synonyms " + Arrays.asList(synonyms) + " | selected synonym = "+synonyms[index] +" | for the input = "+ word);
-			return synonyms[index];
-			
+			return null ; // too long of a sentence to parse
+
+		System.out.println("About to parse: "+sentence);
+		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
+		if (groupedChunks.size()<1)
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+				//"The tablet phenomenon turns Silicon Valley upside down - SiliconValley.com";
+		List<String> res = new PhraseProcessor().extractNounPhraseProductNameCandidate(sent);
+		System.out.println(res);
+	}
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+			return null ; // too long of a sentence to parse
+
+		System.out.println("About to parse: "+sentence);
+		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
+		if (groupedChunks.size()<1)
 ```
 
 ### SystemOutErr
@@ -18096,38 +17760,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSent
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
 #### Snippet
 ```java
-			return null ; // too long of a sentence to parse
+		actionWithObject.addAll( lingPhrases.get(4));
 
-		System.out.println("About to parse: "+sentence);
-		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
-		if (groupedChunks.size()<1)
-```
+		System.out.println("      === "+actionWithObject);
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-				//"The tablet phenomenon turns Silicon Valley upside down - SiliconValley.com";
-		List<String> res = new PhraseProcessor().extractNounPhraseProductNameCandidate(sent);
-		System.out.println(res);
-	}
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-			return null ; // too long of a sentence to parse
-
-		System.out.println("About to parse: "+sentence);
-		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
-		if (groupedChunks.size()<1)
+		for(ParseTreeChunk verbChunk: actionWithObject){
 ```
 
 ### SystemOutErr
@@ -18144,26 +17784,134 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.ja
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
 #### Snippet
 ```java
-		actionWithObject.addAll( lingPhrases.get(4));
-
-		System.out.println("      === "+actionWithObject);
-
-		for(ParseTreeChunk verbChunk: actionWithObject){
+    BingQueryRunner self = new BingQueryRunner();
+    List<HitBase> resp1 = self.runSearch("albert einstein", 15);
+    System.out.println(resp1);
+    
+    AzureSearchResultSet<AzureSearchImageResult> res = self.runImageSearch("albert einstein");
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
+#### Snippet
+```java
+    
+    AzureSearchResultSet<AzureSearchImageResult> res = self.runImageSearch("albert einstein");
+    System.out.println(res);
+    try {
+    	self.setLang("es-MX");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
+#### Snippet
+```java
+          .runSearch(//"art scene");
+        		  "biomecanica las palancas");
+      System.out.print(resp.get(0));
+    } catch (Exception e) {
+      e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
 #### Snippet
 ```java
 
-		double value = vw2v.vec.similarity("product", "item");
-		System.out.println(value);
-	}
+		para = para.replaceAll("  [A-Z]", ". $0");
+		System.out.println(para);
 
+		para = "Page 2 of 93";
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+#### Snippet
+```java
+		String[] spaces = StringUtils.split(sent, ' ');
+		if ((float) commas.length / (float) spaces.length > 0.5) {
+			System.out.println("Rejection: too many commas  in sent ='"+sent);
+			return null;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+#### Snippet
+```java
+		String[] brakets = StringUtils.split(sent.replace('(', '#').replace(')', '#')/*.replace('[', '#').replace(']', '#')*/, '#');
+		if ((float) periods.length / (float) spaces.length > 0.2) {
+			System.out.println("Rejection: too many brakets in sent ='"+sent);
+			return null;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+					hitsDedup.add(hits[i]);
+			if (hitsDedup.size() < hits.length) {
+				System.out.println("Removed duplicates from relevant search results, including "
+					+ hits[idsToRemove.get(0)]);
+			}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
+		}
+		catch (Exception e) {
+			System.out.println("Problem removing duplicates from relevant images");
+		}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
+#### Snippet
+```java
+					} else {
+						s.stem();
+						System.out.print(s);
+						s.reset();
+						if (ch < 0)
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
+#### Snippet
+```java
+							break;
+						else {
+							System.out.print((char) ch);
+						}
+					}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
+#### Snippet
+```java
+				}
+			} catch (IOException e) {
+				System.out.println("error reading " + arg);
+			}
+		}
 ```
 
 ### SystemOutErr
@@ -18252,97 +18000,13 @@ in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-		String[] spaces = StringUtils.split(sent, ' ');
-		if ((float) commas.length / (float) spaces.length > 0.5) {
-			System.out.println("Rejection: too many commas  in sent ='"+sent);
-			return null;
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-		String[] brakets = StringUtils.split(sent.replace('(', '#').replace(')', '#')/*.replace('[', '#').replace(']', '#')*/, '#');
-		if ((float) periods.length / (float) spaces.length > 0.2) {
-			System.out.println("Rejection: too many brakets in sent ='"+sent);
-			return null;
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
 #### Snippet
 ```java
 
-		para = para.replaceAll("  [A-Z]", ". $0");
-		System.out.println(para);
-
-		para = "Page 2 of 93";
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
-#### Snippet
-```java
-    BingQueryRunner self = new BingQueryRunner();
-    List<HitBase> resp1 = self.runSearch("albert einstein", 15);
-    System.out.println(resp1);
-    
-    AzureSearchResultSet<AzureSearchImageResult> res = self.runImageSearch("albert einstein");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
-#### Snippet
-```java
-    
-    AzureSearchResultSet<AzureSearchImageResult> res = self.runImageSearch("albert einstein");
-    System.out.println(res);
-    try {
-    	self.setLang("es-MX");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
-#### Snippet
-```java
-          .runSearch(//"art scene");
-        		  "biomecanica las palancas");
-      System.out.print(resp.get(0));
-    } catch (Exception e) {
-      e.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-					hitsDedup.add(hits[i]);
-			if (hitsDedup.size() < hits.length) {
-				System.out.println("Removed duplicates from relevant search results, including "
-					+ hits[idsToRemove.get(0)]);
-			}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
-#### Snippet
-```java
-		}
-		catch (Exception e) {
-			System.out.println("Problem removing duplicates from relevant images");
-		}
+		double value = vw2v.vec.similarity("product", "item");
+		System.out.println(value);
+	}
 
 ```
 
@@ -18368,42 +18032,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/YahooAnswersM
 				System.out.println(candidateSentences);
 				data.add(candidateSentences);
 			}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
-#### Snippet
-```java
-					} else {
-						s.stem();
-						System.out.print(s);
-						s.reset();
-						if (ch < 0)
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
-#### Snippet
-```java
-							break;
-						else {
-							System.out.print((char) ch);
-						}
-					}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/stemmer/PStemmer.java`
-#### Snippet
-```java
-				}
-			} catch (IOException e) {
-				System.out.println("error reading " + arg);
-			}
-		}
 ```
 
 ### SystemOutErr
@@ -18491,54 +18119,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCom
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-  private HashMap<String,String[]> optimize(HashMap<String,String[]> word2Syns, HashMap<String,String> internedWords) {
-   if (DEBUG) {
-     System.err.println("before gc");
-     for (int i=0; i < 10; i++) System.gc();
-     System.err.println("after gc");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-     System.err.println("before gc");
-     for (int i=0; i < 10; i++) System.gc();
-     System.err.println("after gc");
-   }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-     internedWords = null;
-     allWords = null;
-     System.err.println("before gc");
-     for (int i=0; i < 10; i++) System.gc();
-     System.err.println("after gc");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
-#### Snippet
-```java
-     System.err.println("before gc");
-     for (int i=0; i < 10; i++) System.gc();
-     System.err.println("after gc");
-   }
-   return word2Syns;
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingRelatedSpellingQueryRunner.java`
 #### Snippet
@@ -18599,6 +18179,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+  private HashMap<String,String[]> optimize(HashMap<String,String[]> word2Syns, HashMap<String,String> internedWords) {
+   if (DEBUG) {
+     System.err.println("before gc");
+     for (int i=0; i < 10; i++) System.gc();
+     System.err.println("after gc");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+     System.err.println("before gc");
+     for (int i=0; i < 10; i++) System.gc();
+     System.err.println("after gc");
+   }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+     internedWords = null;
+     allWords = null;
+     System.err.println("before gc");
+     for (int i=0; i < 10; i++) System.gc();
+     System.err.println("after gc");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymMap.java`
+#### Snippet
+```java
+     System.err.println("before gc");
+     for (int i=0; i < 10; i++) System.gc();
+     System.err.println("after gc");
+   }
+   return word2Syns;
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/StoryDiscourseNavigator.java`
 #### Snippet
@@ -18631,30 +18259,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/StoryDiscours
 		} catch (Exception e) {
 			System.err.print("Problem extracting taxonomy node");
 		}
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
-#### Snippet
-```java
-
-	      org.docx4j.wml.Comments.Comment c = Context.getWmlObjectFactory().createCommentsComment();
-	      System.out.println("test");
-//	      comment.setParent(cmPart);
-	      c.setAuthor(author);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
-#### Snippet
-```java
-	      cmPart.getJaxbElement().getComment().add(c);
-
-	      System.out.println("test ende");
-	   }
 
 ```
 
@@ -18708,50 +18312,50 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
 #### Snippet
 ```java
-					// You cannot create an array using a long, it needs to be an int.
-					if (length > Integer.MAX_VALUE) {
-							System.out.println("File too large!!");
-					}
-					byte[] bytes = new byte[(int)length];
+
+	      org.docx4j.wml.Comments.Comment c = Context.getWmlObjectFactory().createCommentsComment();
+	      System.out.println("test");
+//	      comment.setParent(cmPart);
+	      c.setAuthor(author);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
 #### Snippet
 ```java
-					// Ensure all the bytes have been read
-					if (offset < bytes.length) {
-							System.out.println("Could not completely read file "
-													+file.getName());
-					}
+	      cmPart.getJaxbElement().getComment().add(c);
+
+	      System.out.println("test ende");
+	   }
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
 ```java
-			try {
-				wordMLPackage.save(new File(outputDocFilename));
-				System.out.println("Finished creating docx ="+outputDocFilename);
-			} catch (Exception e) {
-				e.printStackTrace();
+					// "Jazz Master and arguably the most famous jazz musician alive, trumpeter Wynton Marsalis",
+					);
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
 ```java
-				String fileNameToDownload = "/var/www/wrt_latest/"+title.replace(' ','_').replace('\"', ' ').trim()+ ".docx";
-				wordMLPackage.save(new File(fileNameToDownload));
-				System.out.println("Wrote a doc for download :"+fileNameToDownload);
-			} catch (Exception e) {
-				e.printStackTrace();
+					);
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+			// hits.get(0).getTitle(), hits);
 ```
 
 ### SystemOutErr
@@ -18831,35 +18435,35 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
 ```java
-					// "Jazz Master and arguably the most famous jazz musician alive, trumpeter Wynton Marsalis",
-					);
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
-					);
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-			// hits.get(0).getTitle(), hits);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
 	public List<HitBase> generateContentAbout(String sentence) throws Exception {
 		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
 		System.out.println(" \n=== Entity to write about = " + sentence);
 
 		List<HitBase> searchResult = yrunner.runSearch(sentence, 100);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+					// You cannot create an array using a long, it needs to be an int.
+					if (length > Integer.MAX_VALUE) {
+							System.out.println("File too large!!");
+					}
+					byte[] bytes = new byte[(int)length];
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+					// Ensure all the bytes have been read
+					if (offset < bytes.length) {
+							System.out.println("Could not completely read file "
+													+file.getName());
+					}
 ```
 
 ### SystemOutErr
@@ -18903,6 +18507,30 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
 #### Snippet
 ```java
+	public List<HitBase> generateContentAbout(String sentence) throws Exception {
+		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
+		System.out.println(" \n=== Entity to write about = " + sentence);
+	
+		int stepCount=0;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+			}
+		} catch (Exception e) {
+			System.err.println("Problem downloading  the page and splitting into sentences");
+			return new Triple<>(allFragms, downloadedPage, sents);
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
 					// "Jazz Master and arguably the most famous jazz musician alive, trumpeter Wynton Marsalis",
 					);
 			System.out.println(HitBase.toString(hits));
@@ -18920,18 +18548,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 			System.out.println(HitBase.toResultantString(hits));
 			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
 			// hits.get(0).getTitle(), hits);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-			}
-		} catch (Exception e) {
-			System.err.println("Problem downloading  the page and splitting into sentences");
-			return new Triple<>(allFragms, downloadedPage, sents);
-		}
 ```
 
 ### SystemOutErr
@@ -19020,14 +18636,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
 #### Snippet
 ```java
-	public List<HitBase> generateContentAbout(String sentence) throws Exception {
-		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
-		System.out.println(" \n=== Entity to write about = " + sentence);
-	
-		int stepCount=0;
+			try {
+				wordMLPackage.save(new File(outputDocFilename));
+				System.out.println("Finished creating docx ="+outputDocFilename);
+			} catch (Exception e) {
+				e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderEndNotes.java`
+#### Snippet
+```java
+				String fileNameToDownload = "/var/www/wrt_latest/"+title.replace(' ','_').replace('\"', ' ').trim()+ ".docx";
+				wordMLPackage.save(new File(fileNameToDownload));
+				System.out.println("Wrote a doc for download :"+fileNameToDownload);
+			} catch (Exception e) {
+				e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentGeneratorRequestHandler.java`
+#### Snippet
+```java
+				String line;
+				while ((line = br.readLine()) != null) {
+					System.out.println(line);
+				}
+			} catch (IOException ioe) {
 ```
 
 ### SystemOutErr
@@ -19052,18 +18692,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentG
 			System.out.println(HitBase.toString(hits));
 			generatedContent = HitBase.toResultantString(hits) + "\n REFERENCES \n" + HitBase.produceReferenceSection(hits) ;
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentGeneratorRequestHandler.java`
-#### Snippet
-```java
-				String line;
-				while ((line = br.readLine()) != null) {
-					System.out.println(line);
-				}
-			} catch (IOException ioe) {
 ```
 
 ### SystemOutErr
@@ -19152,78 +18780,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-    matchRes.add(meas.measureStringDistance(sent7a, sent7b));
-
-    System.out.println(matchRes);
-    // [0.8178702752867737, 0.21082473737065027, 0.27594593229224296,
-    // 0.7517586466500455, 0.9100766715907641]
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-    matchRes.add(meas.measureStringDistance(sent8c, sent8d));
-
-    System.out.println(matchRes);
-    // [0.48044977359257246, 0.8365116420730185, 0.8365116420730185,
-    // 0.48044977359257246, 0.27594593229224296,
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
-#### Snippet
-```java
-    matchRes.add(meas.measureStringDistance(sent2a, sent8d));
-
-    System.out.println("Now testing 1 and 0: \n" + matchRes);
-    // Now testing 1 and 0:
-    // [1.0, 0.0]
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
-#### Snippet
-```java
-      sm = ParserChunker2MatcherProcessor.getInstance();
-    } catch (Exception e) { // now try 'local' openNLP
-      System.err.println("Problem loading synt matcher");
-
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
-#### Snippet
-```java
-
-    } catch (Exception e) {
-      System.err.print("Problem extracting taxonomy node");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
-#### Snippet
-```java
-      }
-    } catch (Exception e) {
-      System.err.println("Problem taxonomy matching");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
 #### Snippet
 ```java
@@ -19272,14 +18828,38 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
 #### Snippet
 ```java
-				String line;
-				while ((line = br.readLine()) != null) {
-					System.out.println(line);
-				}
-			} catch (IOException ioe) {
+    matchRes.add(meas.measureStringDistance(sent7a, sent7b));
+
+    System.out.println(matchRes);
+    // [0.8178702752867737, 0.21082473737065027, 0.27594593229224296,
+    // 0.7517586466500455, 0.9100766715907641]
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+    matchRes.add(meas.measureStringDistance(sent8c, sent8d));
+
+    System.out.println(matchRes);
+    // [0.48044977359257246, 0.8365116420730185, 0.8365116420730185,
+    // 0.48044977359257246, 0.27594593229224296,
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/StringDistanceMeasurer.java`
+#### Snippet
+```java
+    matchRes.add(meas.measureStringDistance(sent2a, sent8d));
+
+    System.out.println("Now testing 1 and 0: \n" + matchRes);
+    // Now testing 1 and 0:
+    // [1.0, 0.0]
 ```
 
 ### SystemOutErr
@@ -19319,327 +18899,51 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.java`
 #### Snippet
 ```java
-
-		} catch (Exception e) {
-			System.err.print("Problem searching for "+query);
-		}
-
+				String line;
+				while ((line = br.readLine()) != null) {
+					System.out.println(line);
+				}
+			} catch (IOException ioe) {
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
 #### Snippet
 ```java
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.print("Problem searching for "+query);
-		}
 
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
-#### Snippet
-```java
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("Problem taxonomy matching");
-		}
+    } catch (Exception e) {
+      System.err.print("Problem extracting taxonomy node");
+    }
 
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
 #### Snippet
 ```java
-			}
-		} catch (Exception e) {
-			System.err.println("Problem downloading  the page and splitting into sentences");
-			return new Triple<>(allFragms, downloadedPage, sents);
-		}
-```
+      }
+    } catch (Exception e) {
+      System.err.println("Problem taxonomy matching");
+    }
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-	public List<HitBase> generateContentAbout(String sentence) throws Exception {
-		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
-		System.out.println(" \n=== Entity to write about = " + sentence);
-
-		String[] extraKeywords = new StoryDiscourseNavigator().obtainAdditionalKeywordsForAnEntity(sentence);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-
-		String[] extraKeywords = new StoryDiscourseNavigator().obtainAdditionalKeywordsForAnEntity(sentence);
-		System.out.println("Found  extraKeywords "+ Arrays.asList(extraKeywords));
-		if (extraKeywords==null || extraKeywords.length<1)
-			extraKeywords = StoryDiscourseNavigator.FREQUENT_PERFORMING_VERBS;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-	public List<HitBase> findRelatedOpinionsForSentence(String sentence, List<String> sents) {
-		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
-		System.out.println(" \n\n=== Sentence  = " + sentence);
-		List<String> nounPhraseQueries = buildSearchEngineQueryFromSentence(sentence);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-		BingQueryRunner yrunner = new BingQueryRunner();
-		for (String query : nounPhraseQueries) {
-			System.out.println("\nquery = " + query);
-			// query += " "+join(MENTAL_VERBS, " OR ") ;
-			List<HitBase> searchResult = yrunner.runSearch(query, 100);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-		// snippet fragment
-		if (!(pageSentence != null && pageSentence.length()>50) ){
-			System.out.println("Cannot accept the sentence = "+ pageSentence +
-					"!(pageSentence != null && pageSentence.length()>50 && (float) pageSentence.length() / (float) fragment.length() < 4.0) )");
-			
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
-			if (match==null || match.size()<1){
-				System.out
-				.println("Rejected Sentence : empty match "+ pageSentence);
-				return null;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			
-			if (!matchRes.isVerbExists() || matchRes.isImperativeVerb()) {
-				System.out
-				.println("Rejected Sentence : No verb OR Yes imperative verb :"
-						+ pageSentence);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			syntScore = parseTreeChunkListScorer
-					.getParseTreeChunkListScore(match);
-			System.out.println(parseTreeChunk.listToString(match) + " "
-					+ syntScore + "\n pre-processed sent = '" + pageSentence);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					}
-					if (syntScore > RELEVANCE_THRESHOLD) {
-						System.out.println("Got match with other sent: "
-								+ parseTreeChunk.listToString(match) + " " + syntScore);
-					}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					result.fragment = fragment;
-
-					System.out.println("Accepted sentence: " + pageSentenceProc
-							+ "| with title= " + title);
-					System.out.println("For fragment = " + fragment);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					System.out.println("Accepted sentence: " + pageSentenceProc
-							+ "| with title= " + title);
-					System.out.println("For fragment = " + fragment);
-				} else
-					System.out
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					System.out.println("For fragment = " + fragment);
-				} else
-					System.out
-					.println("Rejected sentence due to wrong area at webpage: "
-							+ pageSentence);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-							+ pageSentence);
-			} else
-				System.out.println("Rejected sentence due to low score: "
-						+ pageSentence);
-			// }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					// "Jazz Master and arguably the most famous jazz musician alive, trumpeter Wynton Marsalis",
-					);
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					);
-			System.out.println(HitBase.toString(hits));
-			System.out.println(HitBase.toResultantString(hits));
-			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
-			// hits.get(0).getTitle(), hits);
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomyExtenderViaMebMining.java`
 #### Snippet
 ```java
-			}
-		} catch (Exception e) {
-			System.err.println("Problem downloading  the page and splitting into sentences");
-			return item;
-		}
-```
+      sm = ParserChunker2MatcherProcessor.getInstance();
+    } catch (Exception e) { // now try 'local' openNLP
+      System.err.println("Problem loading synt matcher");
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
-					if (!matchRes.isVerbExists() || matchRes.isImperativeVerb()) {
-						System.out.println("Rejected Sentence : No verb OR Yes imperative verb :" + pageSentence);
-						continue;
-					}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-					syntScore = parseTreeChunkListScorer
-							.getParseTreeChunkListScore(match);
-					System.out.println(parseTreeChunk.listToString(match) + " "
-							+ syntScore + "\n pre-processed sent = '" + pageSentence);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-						}
-						if (syntScore > RELEVANCE_THRESHOLD) {
-							System.out.println("Got match with other sent: "
-									+ parseTreeChunk.listToString(match) + " " + syntScore);
-						}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-							f.fragment = fragment;
-							result.add(f);
-							System.out.println("Accepted sentence: " + pageSentenceProc + " | "+followSent
-									+ "| with title= " + title);
-							System.out.println("For fragment = " + fragment);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-							System.out.println("Accepted sentence: " + pageSentenceProc + " | "+followSent
-									+ "| with title= " + title);
-							System.out.println("For fragment = " + fragment);
-						} else
-							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-							System.out.println("For fragment = " + fragment);
-						} else
-							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
-					} else
-						System.out.println("Rejected sentence due to low score: " + pageSentence);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
-					} else
-						System.out.println("Rejected sentence due to low score: " + pageSentence);
-					// }
-				} catch (Throwable t) {
+    }
 ```
 
 ### SystemOutErr
@@ -19808,6 +19112,342 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWrit
 			System.out.println("Creating file "+reportName);
 		}
 		
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+
+		} catch (Exception e) {
+			System.err.print("Problem searching for "+query);
+		}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("Problem taxonomy matching");
+		}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
+#### Snippet
+```java
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.print("Problem searching for "+query);
+		}
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			}
+		} catch (Exception e) {
+			System.err.println("Problem downloading  the page and splitting into sentences");
+			return item;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
+					if (!matchRes.isVerbExists() || matchRes.isImperativeVerb()) {
+						System.out.println("Rejected Sentence : No verb OR Yes imperative verb :" + pageSentence);
+						continue;
+					}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					syntScore = parseTreeChunkListScorer
+							.getParseTreeChunkListScore(match);
+					System.out.println(parseTreeChunk.listToString(match) + " "
+							+ syntScore + "\n pre-processed sent = '" + pageSentence);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+						}
+						if (syntScore > RELEVANCE_THRESHOLD) {
+							System.out.println("Got match with other sent: "
+									+ parseTreeChunk.listToString(match) + " " + syntScore);
+						}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+							f.fragment = fragment;
+							result.add(f);
+							System.out.println("Accepted sentence: " + pageSentenceProc + " | "+followSent
+									+ "| with title= " + title);
+							System.out.println("For fragment = " + fragment);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+							System.out.println("Accepted sentence: " + pageSentenceProc + " | "+followSent
+									+ "| with title= " + title);
+							System.out.println("For fragment = " + fragment);
+						} else
+							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+							System.out.println("For fragment = " + fragment);
+						} else
+							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
+					} else
+						System.out.println("Rejected sentence due to low score: " + pageSentence);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+							System.out.println("Rejected sentence due to wrong area at webpage: " + pageSentence);
+					} else
+						System.out.println("Rejected sentence due to low score: " + pageSentence);
+					// }
+				} catch (Throwable t) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+	public List<HitBase> findRelatedOpinionsForSentence(String sentence, List<String> sents) {
+		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
+		System.out.println(" \n\n=== Sentence  = " + sentence);
+		List<String> nounPhraseQueries = buildSearchEngineQueryFromSentence(sentence);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+		BingQueryRunner yrunner = new BingQueryRunner();
+		for (String query : nounPhraseQueries) {
+			System.out.println("\nquery = " + query);
+			// query += " "+join(MENTAL_VERBS, " OR ") ;
+			List<HitBase> searchResult = yrunner.runSearch(query, 100);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			}
+		} catch (Exception e) {
+			System.err.println("Problem downloading  the page and splitting into sentences");
+			return new Triple<>(allFragms, downloadedPage, sents);
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+	public List<HitBase> generateContentAbout(String sentence) throws Exception {
+		List<HitBase> opinionSentencesToAdd = new ArrayList<>();
+		System.out.println(" \n=== Entity to write about = " + sentence);
+
+		String[] extraKeywords = new StoryDiscourseNavigator().obtainAdditionalKeywordsForAnEntity(sentence);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+
+		String[] extraKeywords = new StoryDiscourseNavigator().obtainAdditionalKeywordsForAnEntity(sentence);
+		System.out.println("Found  extraKeywords "+ Arrays.asList(extraKeywords));
+		if (extraKeywords==null || extraKeywords.length<1)
+			extraKeywords = StoryDiscourseNavigator.FREQUENT_PERFORMING_VERBS;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+		// snippet fragment
+		if (!(pageSentence != null && pageSentence.length()>50) ){
+			System.out.println("Cannot accept the sentence = "+ pageSentence +
+					"!(pageSentence != null && pageSentence.length()>50 && (float) pageSentence.length() / (float) fragment.length() < 4.0) )");
+			
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			List<List<ParseTreeChunk>> match = matchRes.getMatchResult();
+			if (match==null || match.size()<1){
+				System.out
+				.println("Rejected Sentence : empty match "+ pageSentence);
+				return null;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			
+			if (!matchRes.isVerbExists() || matchRes.isImperativeVerb()) {
+				System.out
+				.println("Rejected Sentence : No verb OR Yes imperative verb :"
+						+ pageSentence);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			syntScore = parseTreeChunkListScorer
+					.getParseTreeChunkListScore(match);
+			System.out.println(parseTreeChunk.listToString(match) + " "
+					+ syntScore + "\n pre-processed sent = '" + pageSentence);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					}
+					if (syntScore > RELEVANCE_THRESHOLD) {
+						System.out.println("Got match with other sent: "
+								+ parseTreeChunk.listToString(match) + " " + syntScore);
+					}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					result.fragment = fragment;
+
+					System.out.println("Accepted sentence: " + pageSentenceProc
+							+ "| with title= " + title);
+					System.out.println("For fragment = " + fragment);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					System.out.println("Accepted sentence: " + pageSentenceProc
+							+ "| with title= " + title);
+					System.out.println("For fragment = " + fragment);
+				} else
+					System.out
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					System.out.println("For fragment = " + fragment);
+				} else
+					System.out
+					.println("Rejected sentence due to wrong area at webpage: "
+							+ pageSentence);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+							+ pageSentence);
+			} else
+				System.out.println("Rejected sentence due to low score: "
+						+ pageSentence);
+			// }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					// "Jazz Master and arguably the most famous jazz musician alive, trumpeter Wynton Marsalis",
+					);
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+					);
+			System.out.println(HitBase.toString(hits));
+			System.out.println(HitBase.toResultantString(hits));
+			// WordFileGenerator.createWordDoc("Essey about Albert Einstein",
+			// hits.get(0).getTitle(), hits);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
+#### Snippet
+```java
+		List<String[]> res = 
+				extractor.extractSentencesWithPotentialProductKeywords("http://www.sitbetter.com/view/chair/ofm-500-l/ofm--high-back-leather-office-chair/");
+		System.out.println(res.get(1));
+		
+	}
 ```
 
 ### SystemOutErr
@@ -20027,15 +19667,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSente
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaFormManager.java`
 #### Snippet
 ```java
-		List<String[]> res = 
-				extractor.extractSentencesWithPotentialProductKeywords("http://www.sitbetter.com/view/chair/ofm-500-l/ofm--high-back-leather-office-chair/");
-		System.out.println(res.get(1));
-		
-	}
+      }
+    } catch (Exception e) {
+      System.err.println("Problem processing " + lemma1 + " " + lemma2);
+      return null;
+    }
 ```
 
 ### SystemOutErr
@@ -20052,38 +19692,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaG
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaFormManager.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/IntersectionSetBuilder.java`
 #### Snippet
 ```java
-      }
-    } catch (Exception e) {
-      System.err.println("Problem processing " + lemma1 + " " + lemma2);
-      return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
+					rule.put(attr_value[0].trim(),"");
+				else
+					System.err.println("Problem parsing rule file "+lstr);
 			}
-		} catch (Exception e) {
-			System.err.println("Problem downloading  the page and splitting into sentences");
-			return item;
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
-				f.fragment = fragment;
-				result.add(f);
-				System.out.println("Accepted sentence: " + pageSentenceProc
-						+ "| with title= " + title);
-				System.out.println("For fragment = " + fragment);
+			rules.add(rule);
 ```
 
 ### SystemOutErr
@@ -20159,6 +19775,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSente
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+			}
+		} catch (Exception e) {
+			System.err.println("Problem downloading  the page and splitting into sentences");
+			return item;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+#### Snippet
+```java
+				f.fragment = fragment;
+				result.add(f);
+				System.out.println("Accepted sentence: " + pageSentenceProc
+						+ "| with title= " + title);
+				System.out.println("For fragment = " + fragment);
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
@@ -20207,18 +19847,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/ParseTreeNodeGeneralizer.java`
-#### Snippet
-```java
-						phrDscr = new ArrayList<>(new HashSet<>(phrDscr));
-				} catch (Exception e) {
-					System.err.println("Problem de-duplicating verbnet expr" + attr);
-				}
-				if (verbNetGen!=null){
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeWithDeduction.java`
 #### Snippet
@@ -20244,6 +19872,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/ParseTreeNodeGeneralizer.java`
+#### Snippet
+```java
+						phrDscr = new ArrayList<>(new HashSet<>(phrDscr));
+				} catch (Exception e) {
+					System.err.println("Problem de-duplicating verbnet expr" + attr);
+				}
+				if (verbNetGen!=null){
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PatternStructureWriter.java`
 #### Snippet
 ```java
@@ -20255,54 +19895,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/IntersectionSetBuilder.java`
-#### Snippet
-```java
-					rule.put(attr_value[0].trim(),"");
-				else
-					System.err.println("Problem parsing rule file "+lstr);
-			}
-			rules.add(rule);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
-#### Snippet
-```java
-
-	public void printConcept() {
-		System.out.println("Concept position:" + position);
-		System.out.println("Concept intent:" + intent);
-		System.out.println("Concept parents:" + parents);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
-#### Snippet
-```java
-	public void printConcept() {
-		System.out.println("Concept position:" + position);
-		System.out.println("Concept intent:" + intent);
-		System.out.println("Concept parents:" + parents);
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
-#### Snippet
-```java
-		System.out.println("Concept position:" + position);
-		System.out.println("Concept intent:" + intent);
-		System.out.println("Concept parents:" + parents);
-	}
-	
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
 #### Snippet
@@ -20372,6 +19964,78 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 		System.out.println("log stab: ["+ intLogStabilityBottom + "; "+intLogStabilityUp+"]");		
 	}
 	
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
+#### Snippet
+```java
+
+	public void printConcept() {
+		System.out.println("Concept position:" + position);
+		System.out.println("Concept intent:" + intent);
+		System.out.println("Concept parents:" + parents);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
+#### Snippet
+```java
+	public void printConcept() {
+		System.out.println("Concept position:" + position);
+		System.out.println("Concept intent:" + intent);
+		System.out.println("Concept parents:" + parents);
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhraseConcept.java`
+#### Snippet
+```java
+		System.out.println("Concept position:" + position);
+		System.out.println("Concept intent:" + intent);
+		System.out.println("Concept parents:" + parents);
+	}
+	
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+		negIntersectionsUnderPosLst= subtract(negIntersectionsUnderPosLst, posIntersectionsUnderNegLst);
+
+		System.out.println("Pos - neg inters = "+posIntersectionsUnderNegLst);
+		System.out.println("Neg - pos inters = "+negIntersectionsUnderPosLst);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
+#### Snippet
+```java
+
+		System.out.println("Pos - neg inters = "+posIntersectionsUnderNegLst);
+		System.out.println("Neg - pos inters = "+negIntersectionsUnderPosLst);
+
+		Boolean bPositiveClass = (float)posIntersectionsUnderNegLst.size()/(float)negIntersectionsUnderPosLst.size() > 1f;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+
+	public void printConceptByPosition(int index) {
+		System.out.println("Concept at position " + index);
+		conceptList.get(index).printConcept();
+	}
 ```
 
 ### SystemOutErr
@@ -20439,18 +20103,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
 #### Snippet
 ```java
-
-	public void printConceptByPosition(int index) {
-		System.out.println("Concept at position " + index);
-		conceptList.get(index).printConcept();
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
 		generator = generator_tmp;
 		if (conceptList.get(generator).intent.equals(intent)) {
 			System.out.println("at generator:" + conceptList.get(generator).intent);
@@ -20508,30 +20160,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/Phrase
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-		negIntersectionsUnderPosLst= subtract(negIntersectionsUnderPosLst, posIntersectionsUnderNegLst);
-
-		System.out.println("Pos - neg inters = "+posIntersectionsUnderNegLst);
-		System.out.println("Neg - pos inters = "+negIntersectionsUnderPosLst);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
-#### Snippet
-```java
-
-		System.out.println("Pos - neg inters = "+posIntersectionsUnderNegLst);
-		System.out.println("Neg - pos inters = "+negIntersectionsUnderPosLst);
-
-		Boolean bPositiveClass = (float)posIntersectionsUnderNegLst.size()/(float)negIntersectionsUnderPosLst.size() > 1f;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCoverageProcessor.java`
 #### Snippet
 ```java
@@ -20540,42 +20168,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/FeatureSpaceCover
 			System.out.println("wrong key"+key);
 		}
 		return res;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-
-    if (!file.exists()) {
-      System.out.println(file + " does not exist.");
-    }
-    if (file.isDirectory()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-          continue;
-        addFiles(f);
-        System.out.println(f.getName());
-      }
-    } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-          } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Could not add: " + f);
-          }
-        } catch (Exception ee) {
 ```
 
 ### SystemOutErr
@@ -20636,6 +20228,42 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/LemmaFormManag
       System.err.println("Problem processing " + lemma1 + " " + lemma2);
       return null;
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+          } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not add: " + f);
+          }
+        } catch (Exception ee) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+
+    if (!file.exists()) {
+      System.out.println(file + " does not exist.");
+    }
+    if (file.isDirectory()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+          continue;
+        addFiles(f);
+        System.out.println(f.getName());
+      }
+    } else {
 ```
 
 ### SystemOutErr
@@ -20739,6 +20367,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
 #### Snippet
 ```java
+		try {
+			if (!file.exists()) {
+				System.out.println(file + " does not exist.");
+			}
+			if (file.isDirectory()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+#### Snippet
+```java
 					continue;
 				
 				System.out.println("processing "+f.getName());
@@ -20772,14 +20412,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
 #### Snippet
 ```java
-		try {
-			if (!file.exists()) {
-				System.out.println(file + " does not exist.");
+
+		if (!file.exists()) {
+			System.out.println(file + " does not exist.");
+		}
+		if (file.isDirectory()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
+#### Snippet
+```java
+			for (File f : file.listFiles()) {
+				addFilesPos(f);
+				System.out.println(f.getName());
 			}
-			if (file.isDirectory()) {
+		} else {
 ```
 
 ### SystemOutErr
@@ -20804,30 +20456,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
       System.err.println("problem processing word " + lem2.toString());
     }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
-#### Snippet
-```java
-
-		if (!file.exists()) {
-			System.out.println(file + " does not exist.");
-		}
-		if (file.isDirectory()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailNormalizer.java`
-#### Snippet
-```java
-			for (File f : file.listFiles()) {
-				addFilesPos(f);
-				System.out.println(f.getName());
-			}
-		} else {
 ```
 
 ### SystemOutErr
@@ -20891,27 +20519,483 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
+#### Snippet
+```java
+
+    while (true) {
+      System.out.println("Requesting next CAS ID!");
+
+      // TODO: Make query configurable ...
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
+#### Snippet
+```java
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            String casId = response.readEntity(String.class);
+            System.out.println("Received CAS ID: " + casId);
+            casIdList.add(casId);
+        } else if (response.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
+#### Snippet
+```java
+            casIdList.add(casId);
+        } else if (response.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
+          System.out.println("##### FINISHED #####");
+          break;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
+#### Snippet
+```java
+
+        if (corpusServer == null) {
+          System.out.println("Registered a Corpus Server implementation!");
+
+          corpusServerServiceReference = ev.getServiceReference();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
+#### Snippet
+```java
+
+        if (ev.getServiceReference().equals(corpusServerServiceReference)) {
+          System.out.println("Unregistered Corpus Server implementation!");
+
+          context.ungetService(corpusServerServiceReference);
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/DefaultLinker.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
+#### Snippet
+```java
+      String msg = "Could not instantiate the " + subclassName
+        + ". The initialization throw an exception.";
+      System.err.println(msg);
+      e.printStackTrace();
+      throw new InvalidFormatException(msg, e);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+    if (!ArgumentParser.validateArguments(args,
+        DisambiguatorEvaluatorParams.class)) {
+      System.err.println(getHelp());
+      throw new TerminateToolException(1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+    WSDEvaluator evaluator = new WSDEvaluator(disambiguator);
+
+    System.out.print("Evaluating ... ");
+
+    try (ObjectStream<WSDSample> sampleStream = DisambiguatorTool.openSampleData(
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+        evaluator.evaluate(sampleStream);
+      } catch (IOException e) {
+        System.err.println("failed");
+        System.err.println("Reading test data error " + e.getMessage());
+        throw new TerminateToolException(-1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+      } catch (IOException e) {
+        System.err.println("failed");
+        System.err.println("Reading test data error " + e.getMessage());
+        throw new TerminateToolException(-1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
 #### Snippet
 ```java
     }
-    else {
-      System.err.println("DefaultLinker: Invalid Mode");
+
+    System.out.println("done");
+    System.out.println();
+    System.out.println("Accuracy: " + evaluator.getAccuracy());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+
+    System.out.println("done");
+    System.out.println();
+    System.out.println("Accuracy: " + evaluator.getAccuracy());
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorEvaluatorTool.java`
+#### Snippet
+```java
+    System.out.println("done");
+    System.out.println();
+    System.out.println("Accuracy: " + evaluator.getAccuracy());
+  }
+}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
+#### Snippet
+```java
+
+    if (!ArgumentParser.validateArguments(args, DisambiguatorToolParams.class)) {
+      System.err.println(getHelp());
+      throw new TerminateToolException(1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/cmdline/disambiguator/DisambiguatorTool.java`
+#### Snippet
+```java
+    WSDisambiguator disambiguator = makeTool(params);
+
+    PerformanceMonitor perfMon = new PerformanceMonitor(System.err, "sent");
+
+    perfMon.start();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    for (List<SentenceNode> nodeList : nodeListList) {
+      for (SentenceNode node : nodeList) {
+        System.out.println(node);
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    } catch (Exception e) { // a typical error when 'model' is not installed
+      LOG.warning("The model can't be read and we rely on cache");
+      System.err.println("Please install OpenNLP model files in 'src/test/resources' (folder 'model'");
     }
   }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/CorefParse.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDEvaluator.java`
 #### Snippet
 ```java
-    for (Parse p : parses) {
-      show(p);
-      System.out.println();
+
+    if (predictedSense == null) {
+      System.out
+          .println("There was no sense for : " + reference.getTargetWord());
+      return null;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the attributes");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  holonyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  coordinate terms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the cause terms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hyponyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the pertainyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  meronyms");
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    }
+
+    System.out.println(segments.size() + " docs");
+    // now we have the segments and their frequencies
+    for (String seg : commonSegments.keySet()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    // now we have the segments and their frequencies
+    for (String seg : commonSegments.keySet()) {
+      System.out.println(seg + ":" + commonSegments.get(seg).size());
     }
   }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static void print(Object in) {
+    if (in == null) {
+      System.out.println("object is null");
+    } else {
+      System.out.println(in);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      System.out.println("object is null");
+    } else {
+      System.out.println(in);
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static void print(Object[][] array) {
+    if (array == null) {
+      System.out.println("object is null");
+    } else {
+      System.out.print("[");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      System.out.println("object is null");
+    } else {
+      System.out.print("[");
+      for (int i = 0; i < array.length; i++) {
+        print(array[i]);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+        print(array[i]);
+        if (i != array.length - 1) {
+          System.out.print("\n");
+        }
+        print("]");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static void print(Object[] array) {
+    if (array == null) {
+      System.out.println("object is null");
+    } else {
+      System.out.println(Arrays.asList(array));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      System.out.println("object is null");
+    } else {
+      System.out.println(Arrays.asList(array));
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+		String phrStr = "[<1>NP'Property':NN, <2>NP'has':VBZ, <3>NP'lots':NNS, <4>NP'of':IN, <5>NP'trash':NN, <6>NP'and':CC, <7>NP'debris':NN]";
+	    ParseTreeChunk ch = new ParseTreeChunk(phrStr);
+	    System.out.println(ch);
+	}
+}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+			}
+			if (lems.size() != poss.size()) {
+				System.err.println("lems.size()!= poss.size()");
+			}
+			if (lems.size() < 2) { // single word phrase, nothing to match
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+		List<List<ParseTreeChunk>> sent2GrpLst = groupChunksAsParses(chunk2List);
+
+		System.out.println("=== Grouped chunks 1 " + sent1GrpLst);
+		System.out.println("=== Grouped chunks 2 " + sent2GrpLst);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
+#### Snippet
+```java
+
+		System.out.println("=== Grouped chunks 1 " + sent1GrpLst);
+		System.out.println("=== Grouped chunks 2 " + sent2GrpLst);
+
+		return matchTwoSentencesGroupedChunks(sent1GrpLst, sent2GrpLst);
 ```
 
 ### SystemOutErr
@@ -20999,6 +21083,30 @@ in `opennlp-coref/src/main/java/opennlp/tools/lang/english/CorefParse.java`
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/CorefParse.java`
+#### Snippet
+```java
+    for (Parse p : parses) {
+      show(p);
+      System.out.println();
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/DefaultLinker.java`
+#### Snippet
+```java
+    }
+    else {
+      System.err.println("DefaultLinker: Invalid Mode");
+    }
+  }
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/coref/DiscourseModel.java`
 #### Snippet
@@ -21063,18 +21171,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
 #### Snippet
 ```java
-    for (String line = input.readLine(); null != line; line = input.readLine()) {
-      if (line.equals("")) {
-        System.out.println();
-        clearPrevTokenMaps(finders);
-        continue;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
-#### Snippet
-```java
       if (line.equals("")) {
         clearPrevTokenMaps(finders);
         System.out.println();
@@ -21095,6 +21191,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.ja
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankNameFinder.java`
+#### Snippet
+```java
+    for (String line = input.readLine(); null != line; line = input.readLine()) {
+      if (line.equals("")) {
+        System.out.println();
+        clearPrevTokenMaps(finders);
+        continue;
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel.java`
 #### Snippet
@@ -21108,38 +21216,26 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/MaxentCompatibilityModel
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
 #### Snippet
 ```java
-    for (List<SentenceNode> nodeList : nodeListList) {
-      for (SentenceNode node : nodeList) {
-        System.out.println(node);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    } catch (Exception e) { // a typical error when 'model' is not installed
-      LOG.warning("The model can't be read and we rely on cache");
-      System.err.println("Please install OpenNLP model files in 'src/test/resources' (folder 'model'");
+  private static void showEntities(DiscourseEntity[] entities) {
+    for (int ei = 0, en = entities.length; ei < en;ei++) {
+      System.out.println(ei + " " + entities[ei]);
     }
   }
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
 #### Snippet
 ```java
-        }
-        else {
-          System.err.println("AbstractLinker.Unknown mode: " + mode);
-        }
-        if (ri == SINGULAR_PRONOUN && entities[ri] == null) {
+  public static void main(String[] args) throws IOException {
+    if (args.length == 0) {
+      System.err.println("Usage: TreebankLinker model_directory < parses");
+      System.exit(1);
+    }
 ```
 
 ### SystemOutErr
@@ -21156,14 +21252,26 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
 #### Snippet
 ```java
-    List<Parse> toks = p.getTokens();
-    if (toks.size() == 0) {
-      System.err.println("PTBHeadFinder.getHeadIndex(): empty tok list for parse " + p);
+        }
+        else {
+          System.err.println("AbstractLinker.Unknown mode: " + mode);
+        }
+        if (ri == SINGULAR_PRONOUN && entities[ri] == null) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DictionaryFactory.java`
+#### Snippet
+```java
+      }
+      catch (IOException | JWNLException e) {
+        System.err.println(e);
+      }
     }
-    for (int ti = toks.size() - tokenCount - 1; ti >= 0; ti--) {
 ```
 
 ### SystemOutErr
@@ -21180,14 +21288,26 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DictionaryFactory.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
 #### Snippet
 ```java
-      }
-      catch (IOException | JWNLException e) {
-        System.err.println(e);
-      }
+    List<Parse> toks = p.getTokens();
+    if (toks.size() == 0) {
+      System.err.println("PTBHeadFinder.getHeadIndex(): empty tok list for parse " + p);
     }
+    for (int ti = toks.size() - tokenCount - 1; ti >= 0; ti--) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+          parse.getSpan().getEnd() == p.getSpan().getEnd()) {
+
+        System.out.println("Maybe incorrect measurement!");
+        
+        // get parent and update distance
 ```
 
 ### SystemOutErr
@@ -21239,18 +21359,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/GenderModel.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-          parse.getSpan().getEnd() == p.getSpan().getEnd()) {
-
-        System.out.println("Maybe incorrect measurement!");
-        
-        // get parent and update distance
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/SpeechPronounResolver.java`
 #### Snippet
@@ -21288,42 +21396,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    }
-    else {
-      System.err.println("MaxentResolver: Uninitialized Semantic Model");
-      return SIM_UNKNOWN;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    }
-
-    System.out.println(segments.size() + " docs");
-    // now we have the segments and their frequencies
-    for (String seg : commonSegments.keySet()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    // now we have the segments and their frequencies
-    for (String seg : commonSegments.keySet()) {
-      System.out.println(seg + ":" + commonSegments.get(seg).size());
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferentialResolver.java`
 #### Snippet
 ```java
@@ -21344,66 +21416,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/DefaultNonReferenti
       System.err.println(this + " referential");
       if (debugOn) {
         try (FileWriter writer = new FileWriter(modelName + ".events")) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-		List<List<ParseTreeChunk>> sent2GrpLst = groupChunksAsParses(chunk2List);
-
-		System.out.println("=== Grouped chunks 1 " + sent1GrpLst);
-		System.out.println("=== Grouped chunks 2 " + sent2GrpLst);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-
-		System.out.println("=== Grouped chunks 1 " + sent1GrpLst);
-		System.out.println("=== Grouped chunks 2 " + sent2GrpLst);
-
-		return matchTwoSentencesGroupedChunks(sent1GrpLst, sent2GrpLst);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-			}
-			if (lems.size() != poss.size()) {
-				System.err.println("lems.size()!= poss.size()");
-			}
-			if (lems.size() < 2) { // single word phrase, nothing to match
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
-#### Snippet
-```java
-		String phrStr = "[<1>NP'Property':NN, <2>NP'has':VBZ, <3>NP'lots':NNS, <4>NP'of':IN, <5>NP'trash':NN, <6>NP'and':CC, <7>NP'debris':NN]";
-	    ParseTreeChunk ch = new ParseTreeChunk(phrStr);
-	    System.out.println(ch);
-	}
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
-#### Snippet
-```java
-      for (Parse p : parses) {
-        show(p);
-        System.out.println();
-      }
-    }
 ```
 
 ### SystemOutErr
@@ -21515,6 +21527,42 @@ in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.jav
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/cmdline/coref/CoreferencerTool.java`
+#### Snippet
+```java
+      for (Parse p : parses) {
+        show(p);
+        System.out.println();
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
+#### Snippet
+```java
+    }
+    else {
+      System.err.println("Unknown mode: " + this.mode);
+    }
+    //add one for non-referent possibility
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
+#### Snippet
+```java
+    if (ResolverMode.TRAIN == mode) {
+      if (DEBUG) {
+        System.err.println(this + " referential");
+        try (FileWriter writer = new FileWriter(modelName + ".events")) {
+          for (Event e : events) {
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
 #### Snippet
@@ -21576,26 +21624,14 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
-#### Snippet
-```java
-    if (ResolverMode.TRAIN == mode) {
-      if (DEBUG) {
-        System.err.println(this + " referential");
-        try (FileWriter writer = new FileWriter(modelName + ".events")) {
-          for (Event e : events) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
 #### Snippet
 ```java
     }
     else {
-      System.err.println("Unknown mode: " + this.mode);
+      System.err.println("MaxentResolver: Uninitialized Semantic Model");
+      return SIM_UNKNOWN;
     }
-    //add one for non-referent possibility
 ```
 
 ### SystemOutErr
@@ -21608,6 +21644,54 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucMentionInserterStre
         System.out.println("Inserting mention failed: " + commonParent.getType() + " Failed id: " + id);
         failed = true;
       }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws Exception {
+    if (args.length != 2) {
+      System.err.println("Usage: Parser <XML-File> <Output-Folder>"); 
+      System.exit(-1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
+#### Snippet
+```java
+      wxp.parse();
+    } catch (Exception e) {
+      System.out.println("Parsing the corpus failed:");
+      System.out.println();
+      e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      System.out.println("Parsing the corpus failed:");
+      System.out.println();
+      e.printStackTrace();
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java`
+#### Snippet
+```java
+		    }   	
+		} catch(Exception ex){
+			System.err.println("Could not load the file with IDF");
+			ex.printStackTrace();
+		}
 ```
 
 ### SystemOutErr
@@ -21656,450 +21740,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/sim/SimilarityModel.java`
       System.out.println(p + " " + model.getFeatures(Context.parseContext(words[0]),
           Context.parseContext(words[1])));
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
-#### Snippet
-```java
-            parser.parseArgument(args);
-        } catch (CmdLineException e) {
-            System.out.println(e.getMessage());
-            e.getParser().printUsage(System.out);
-            System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
-#### Snippet
-```java
-        } catch (CmdLineException e) {
-            System.out.println(e.getMessage());
-            e.getParser().printUsage(System.out);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
-#### Snippet
-```java
-        NeuralDocCat classifier = new NeuralDocCat(model);
-
-        System.out.println("Labels:" + model.getLabels());
-        Tokenizer tokenizer = WhitespaceTokenizer.INSTANCE;
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
-#### Snippet
-```java
-            String[] tokens = tokenizer.tokenize(text.toLowerCase());
-            double[] probs = classifier.categorize(tokens);
-            System.out.println(">>" + file);
-            System.out.println("Probabilities:" + Arrays.toString(probs));
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
-#### Snippet
-```java
-            double[] probs = classifier.categorize(tokens);
-            System.out.println(">>" + file);
-            System.out.println("Probabilities:" + Arrays.toString(probs));
-        }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
-#### Snippet
-```java
-            parser.parseArgument(args);
-        } catch (CmdLineException e) {
-            System.out.println(e.getMessage());
-            e.getParser().printUsage(System.out);
-            System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
-#### Snippet
-```java
-        } catch (CmdLineException e) {
-            System.out.println(e.getMessage());
-            e.getParser().printUsage(System.out);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    DataSetIterator train = new NameSampleDataSetIterator(samples, wordVectors, windowSize, labels);
-
-    System.out.println("Starting training");
-
-    for (int i = 0; i < epochs; i++) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-      net.fit(train);
-      train.reset();
-      System.out.printf("Finished epoch %d%n", i);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws Exception {
-    if (args.length != 3) {
-      System.out.println("Usage: trainFile testFile gloveTxt");
-      return;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    };
-
-    System.out.print("Loading vectors ... ");
-    WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(args[2]));
-    System.out.println("Done");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    System.out.print("Loading vectors ... ");
-    WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(args[2]));
-    System.out.println("Done");
-
-    int windowSize = 5;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    NameFinderDL nameFinder = new NameFinderDL(net, wordVectors, windowSize, labels);
-
-    System.out.print("Evaluating ... ");
-    TokenNameFinderEvaluator nameFinderEvaluator = new TokenNameFinderEvaluator(nameFinder);
-    nameFinderEvaluator.evaluate(evalStream);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    nameFinderEvaluator.evaluate(evalStream);
-
-    System.out.println("Done");
-
-    System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    System.out.println("Done");
-
-    System.out.println();
-    System.out.println();
-    System.out.println("Results");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-
-    System.out.println();
-    System.out.println();
-    System.out.println("Results");
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    System.out.println();
-    System.out.println();
-    System.out.println("Results");
-
-    System.out.println(nameFinderEvaluator.getFMeasure().toString());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
-#### Snippet
-```java
-    System.out.println("Results");
-
-    System.out.println(nameFinderEvaluator.getFMeasure().toString());
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-        currentEpoch++;
-        if (currentEpoch == epochs) {
-          System.out.println("training finished: e:" + epochs + ", l: " + smoothLoss + ", h:(" + learningRate + ", " + seqLength + ", " + hiddenLayerSize + ")");
-          break;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-      if (n % 1000 == 0 && n > 0) {
-        String txt = sample(inputs.getInt(0));
-        System.out.printf("\n---\n %s \n----\n", txt);
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-      smoothLoss = smoothLoss * 0.999 + loss * 0.001;
-      if (Double.isNaN(smoothLoss)) {
-        System.out.println("loss is NaN (over/underflow occured, try adjusting hyperparameters)");
-        break;
-      }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-      }
-      if (n % 100 == 0) {
-        System.out.printf("iter %d, loss: %f\n", n, smoothLoss); // print progress
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-    vocabSize = tokens.size();
-
-    System.out.printf("data has %d tokens, %d unique.\n", data.size(), vocabSize);
-    charToIx = new HashMap<>();
-    ixToChar = new HashMap<>();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
-#### Snippet
-```java
-    for (int i = 0; i < ordersString.length; i++) {
-      orders[i] = Integer.parseInt(ordersString[i]);
-      System.err.println("Orders: " + orders[i]);
-    }
-    return orders;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
-#### Snippet
-```java
-        currentEpoch++;
-        if (currentEpoch == epochs) {
-          System.out.println("training finished: e:" + epochs + ", l: " + smoothLoss + ", h:(" + learningRate + ", " + seqLength + ", " + hiddenLayerSize + ")");
-          break;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
-#### Snippet
-```java
-        for (int i = 0; i < 3; i++) {
-          String txt = sample(inputs.getInt(0));
-          System.out.printf("\n---\n %s \n----\n", txt);
-        }
-      }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
-#### Snippet
-```java
-      smoothLoss = newLoss;
-      if (Double.isNaN(smoothLoss) || Double.isInfinite(smoothLoss)) {
-        System.out.println("loss is " + smoothLoss + "(" + loss + ") (over/underflow occurred, try adjusting hyperparameters)");
-        break;
-      }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
-#### Snippet
-```java
-      }
-      if (n % 100 == 0) {
-        System.out.printf("iter %d, loss: %f\n", n, smoothLoss); // print progress
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
-#### Snippet
-```java
-
-        if (corpusServer == null) {
-          System.out.println("Registered a Corpus Server implementation!");
-
-          corpusServerServiceReference = ev.getServiceReference();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorpusServerBundle.java`
-#### Snippet
-```java
-
-        if (ev.getServiceReference().equals(corpusServerServiceReference)) {
-          System.out.println("Unregistered Corpus Server implementation!");
-
-          context.ungetService(corpusServerServiceReference);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws Exception {
-    if (args.length != 2) {
-      System.err.println("Usage: Parser <XML-File> <Output-Folder>"); 
-      System.exit(-1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
-#### Snippet
-```java
-      wxp.parse();
-    } catch (Exception e) {
-      System.out.println("Parsing the corpus failed:");
-      System.out.println();
-      e.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/WikinewsConverter.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      System.out.println("Parsing the corpus failed:");
-      System.out.println();
-      e.printStackTrace();
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
-#### Snippet
-```java
-
-    while (true) {
-      System.out.println("Requesting next CAS ID!");
-
-      // TODO: Make query configurable ...
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
-#### Snippet
-```java
-        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-            String casId = response.readEntity(String.class);
-            System.out.println("Received CAS ID: " + casId);
-            casIdList.add(casId);
-        } else if (response.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/CSQueueCollectionReader.java`
-#### Snippet
-```java
-            casIdList.add(casId);
-        } else if (response.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
-          System.out.println("##### FINISHED #####");
-          break;
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java`
-#### Snippet
-```java
-		    }   	
-		} catch(Exception ex){
-			System.err.println("Could not load the file with IDF");
-			ex.printStackTrace();
-		}
 ```
 
 ### SystemOutErr
@@ -22196,30 +21836,6 @@ in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
       System.out.println(System.currentTimeMillis() - strt);
     } catch(Exception ex) {
       ex.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
-#### Snippet
-```java
-  private static void showEntities(DiscourseEntity[] entities) {
-    for (int ei = 0, en = entities.length; ei < en;ei++) {
-      System.out.println(ei + " " + entities[ei]);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/lang/english/TreebankLinker.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws IOException {
-    if (args.length == 0) {
-      System.err.println("Usage: TreebankLinker model_directory < parses");
-      System.exit(1);
-    }
 ```
 
 ### SystemOutErr
@@ -22415,6 +22031,450 @@ in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericMo
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `mallet-addon/src/main/java/opennlp/addons/mallet/CRFTrainer.java`
+#### Snippet
+```java
+    for (int i = 0; i < ordersString.length; i++) {
+      orders[i] = Integer.parseInt(ordersString[i]);
+      System.err.println("Orders: " + orders[i]);
+    }
+    return orders;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
+#### Snippet
+```java
+         OutputStream modelOut = new BufferedOutputStream(new FileOutputStream(params.getModelFile()))) {
+
+      System.out.println("\tBuilding Model using " + annotatedSentences.size() + " annotations");
+      System.out.println("\t\treading training data...");
+      model = NameFinderME.train("en", entityType, samples, trainParams, new TokenNameFinderFactory());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
+#### Snippet
+```java
+
+      System.out.println("\tBuilding Model using " + annotatedSentences.size() + " annotations");
+      System.out.println("\t\treading training data...");
+      model = NameFinderME.train("en", entityType, samples, trainParams, new TokenNameFinderFactory());
+      model.serialize(modelOut);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
+#### Snippet
+```java
+      model.serialize(modelOut);
+
+      System.out.println("\tmodel generated");
+    } catch (Exception e) {
+      throw new RuntimeException("Error building model! " + e.getLocalizedMessage(), e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tf-ner-poc/src/main/java/org/apache/opennlp/normalizer/Normalizer.java`
+#### Snippet
+```java
+    });
+
+    System.out.println(result[0]);
+  }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
+#### Snippet
+```java
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+            e.getParser().printUsage(System.out);
+            System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
+#### Snippet
+```java
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+            e.getParser().printUsage(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
+#### Snippet
+```java
+        NeuralDocCat classifier = new NeuralDocCat(model);
+
+        System.out.println("Labels:" + model.getLabels());
+        Tokenizer tokenizer = WhitespaceTokenizer.INSTANCE;
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
+#### Snippet
+```java
+            String[] tokens = tokenizer.tokenize(text.toLowerCase());
+            double[] probs = classifier.categorize(tokens);
+            System.out.println(">>" + file);
+            System.out.println("Probabilities:" + Arrays.toString(probs));
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCat.java`
+#### Snippet
+```java
+            double[] probs = classifier.categorize(tokens);
+            System.out.println(">>" + file);
+            System.out.println("Probabilities:" + Arrays.toString(probs));
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
+#### Snippet
+```java
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+            e.getParser().printUsage(System.out);
+            System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NeuralDocCatTrainer.java`
+#### Snippet
+```java
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+            e.getParser().printUsage(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+    vocabSize = tokens.size();
+
+    System.out.printf("data has %d tokens, %d unique.\n", data.size(), vocabSize);
+    charToIx = new HashMap<>();
+    ixToChar = new HashMap<>();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+        currentEpoch++;
+        if (currentEpoch == epochs) {
+          System.out.println("training finished: e:" + epochs + ", l: " + smoothLoss + ", h:(" + learningRate + ", " + seqLength + ", " + hiddenLayerSize + ")");
+          break;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+      if (n % 1000 == 0 && n > 0) {
+        String txt = sample(inputs.getInt(0));
+        System.out.printf("\n---\n %s \n----\n", txt);
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+      smoothLoss = smoothLoss * 0.999 + loss * 0.001;
+      if (Double.isNaN(smoothLoss)) {
+        System.out.println("loss is NaN (over/underflow occured, try adjusting hyperparameters)");
+        break;
+      }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+      }
+      if (n % 100 == 0) {
+        System.out.printf("iter %d, loss: %f\n", n, smoothLoss); // print progress
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+
+    if (toString.length() > 0) {
+      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+              rulesMap, startSymbol, true);
+      ProbabilisticContextFreeGrammar.ParseTree parseTree = pcfg.cky(Arrays.asList(sentence));
+      System.out.println(parseTree);
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws Exception {
+    if (args.length != 3) {
+      System.out.println("Usage: trainFile testFile gloveTxt");
+      return;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    };
+
+    System.out.print("Loading vectors ... ");
+    WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(args[2]));
+    System.out.println("Done");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    System.out.print("Loading vectors ... ");
+    WordVectors wordVectors = WordVectorSerializer.readWord2VecModel(new File(args[2]));
+    System.out.println("Done");
+
+    int windowSize = 5;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    NameFinderDL nameFinder = new NameFinderDL(net, wordVectors, windowSize, labels);
+
+    System.out.print("Evaluating ... ");
+    TokenNameFinderEvaluator nameFinderEvaluator = new TokenNameFinderEvaluator(nameFinder);
+    nameFinderEvaluator.evaluate(evalStream);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    nameFinderEvaluator.evaluate(evalStream);
+
+    System.out.println("Done");
+
+    System.out.println();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    System.out.println("Done");
+
+    System.out.println();
+    System.out.println();
+    System.out.println("Results");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+
+    System.out.println();
+    System.out.println();
+    System.out.println("Results");
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    System.out.println();
+    System.out.println();
+    System.out.println("Results");
+
+    System.out.println(nameFinderEvaluator.getFMeasure().toString());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    System.out.println("Results");
+
+    System.out.println(nameFinderEvaluator.getFMeasure().toString());
+  }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+    DataSetIterator train = new NameSampleDataSetIterator(samples, wordVectors, windowSize, labels);
+
+    System.out.println("Starting training");
+
+    for (int i = 0; i < epochs; i++) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameFinderDL.java`
+#### Snippet
+```java
+      net.fit(train);
+      train.reset();
+      System.out.printf("Finished epoch %d%n", i);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+        currentEpoch++;
+        if (currentEpoch == epochs) {
+          System.out.println("training finished: e:" + epochs + ", l: " + smoothLoss + ", h:(" + learningRate + ", " + seqLength + ", " + hiddenLayerSize + ")");
+          break;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+        for (int i = 0; i < 3; i++) {
+          String txt = sample(inputs.getInt(0));
+          System.out.printf("\n---\n %s \n----\n", txt);
+        }
+      }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+      smoothLoss = newLoss;
+      if (Double.isNaN(smoothLoss) || Double.isInfinite(smoothLoss)) {
+        System.out.println("loss is " + smoothLoss + "(" + loss + ") (over/underflow occurred, try adjusting hyperparameters)");
+        break;
+      }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+      }
+      if (n % 100 == 0) {
+        System.out.printf("iter %d, loss: %f\n", n, smoothLoss); // print progress
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
+#### Snippet
+```java
+
+    if (args.length != 2) {
+      System.out.println("WikinewsImporter address xmiFileOrFolder");
+      System.exit(-1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
+#### Snippet
+```java
+              .put(Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
+
+        System.out.println(xmiFile.getName() + " " + response.getStatus());
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/classification/UpdatableSimpleNaiveBayesClassifier.java`
+#### Snippet
+```java
+      }
+    }
+    System.err.println("class found: " + foundClass);
+    return foundClass;
+  }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/ReplaceTypeSystem.java`
 #### Snippet
@@ -22435,6 +22495,30 @@ in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_se
 
         System.out.println("Response: " + response.getStatus());
       }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateTaskQueue.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws Exception {
+    if (args.length != 4) {
+      System.out.println("CreateCorpus address corpusId queueId query");
+      System.exit(-1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateTaskQueue.java`
+#### Snippet
+```java
+            .post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
+
+      System.out.println("Result: " + response.getStatus());
+    }
 
 ```
 
@@ -22464,74 +22548,50 @@ in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_se
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateTaskQueue.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
 #### Snippet
 ```java
-  public static void main(String[] args) throws Exception {
-    if (args.length != 4) {
-      System.out.println("CreateCorpus address corpusId queueId query");
+
+    if (args.length != 3) {
+      System.out.println("CorpusBackup address corpusName backupFile");
       System.exit(-1);
     }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CreateTaskQueue.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
 #### Snippet
 ```java
-            .post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
-
-      System.out.println("Result: " + response.getStatus());
+        .post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
+      
+      System.out.println("Result (_createTaskQueue): " + createQueueResponse.getStatus());
     }
-
+    
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
 #### Snippet
 ```java
 
-    if (args.length != 2) {
-      System.out.println("WikinewsImporter address xmiFileOrFolder");
-      System.exit(-1);
-    }
+        if (response2.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
+          System.out.println("##### FINISHED #####");
+          break;
+        }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CASImporter.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
 #### Snippet
 ```java
-              .put(Entity.entity(xmiBytes, MediaType.APPLICATION_OCTET_STREAM_TYPE))) {
+        zipPackageOut.closeEntry();
 
-        System.out.println(xmiFile.getName() + " " + response.getStatus());
+        System.out.println(casId);
       }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
-#### Snippet
-```java
-
-    if (args.length != 2) {
-      System.out.println("DropCorpus address corpusName");
-      System.exit(-1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
-#### Snippet
-```java
-            .post(Entity.entity("", MediaType.APPLICATION_JSON))) {
-
-      System.out.println("Result: " + response.getStatus());
-    }
-
 ```
 
 ### SystemOutErr
@@ -22596,86 +22656,38 @@ in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_se
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
-#### Snippet
-```java
-         OutputStream modelOut = new BufferedOutputStream(new FileOutputStream(params.getModelFile()))) {
-
-      System.out.println("\tBuilding Model using " + annotatedSentences.size() + " annotations");
-      System.out.println("\t\treading training data...");
-      model = NameFinderME.train("en", entityType, samples, trainParams, new TokenNameFinderFactory());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
 #### Snippet
 ```java
 
-      System.out.println("\tBuilding Model using " + annotatedSentences.size() + " annotations");
-      System.out.println("\t\treading training data...");
-      model = NameFinderME.train("en", entityType, samples, trainParams, new TokenNameFinderFactory());
-      model.serialize(modelOut);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
-#### Snippet
-```java
-      model.serialize(modelOut);
-
-      System.out.println("\tmodel generated");
-    } catch (Exception e) {
-      throw new RuntimeException("Error building model! " + e.getLocalizedMessage(), e);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
-#### Snippet
-```java
-
-    if (args.length != 3) {
-      System.out.println("CorpusBackup address corpusName backupFile");
+    if (args.length != 2) {
+      System.out.println("DropCorpus address corpusName");
       System.exit(-1);
     }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
+in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/DropCorpus.java`
 #### Snippet
 ```java
-        .post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
-      
-      System.out.println("Result (_createTaskQueue): " + createQueueResponse.getStatus());
+            .post(Entity.entity("", MediaType.APPLICATION_JSON))) {
+
+      System.out.println("Result: " + response.getStatus());
     }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mahout-addon/src/main/java/SimpleTest.java`
+#### Snippet
+```java
+    Vector result = pa.classifyFull(vector);
     
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
-#### Snippet
-```java
-
-        if (response2.getStatus() == Response.Status.NO_CONTENT.getStatusCode()) {
-          System.out.println("##### FINISHED #####");
-          break;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-tools/src/main/java/org/apache/opennlp/corpus_server/tools/CorpusBackup.java`
-#### Snippet
-```java
-        zipPackageOut.closeEntry();
-
-        System.out.println(casId);
-      }
-    }
+    System.out.println(result);
+  }
+}
 ```
 
 ### SystemOutErr
@@ -22692,14 +22704,14 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/AdaptiveLogisticRegressionT
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `mahout-addon/src/main/java/SimpleTest.java`
+in `mahout-addon/src/main/java/opennlp/addons/mahout/LogisticRegressionTrainer.java`
 #### Snippet
 ```java
-    Vector result = pa.classifyFull(vector);
+      
+      // What should be reported at the end of every iteration ?!
+      System.out.println("Iteration " + (k + 1));
+    }
     
-    System.out.println(result);
-  }
-}
 ```
 
 ### SystemOutErr
@@ -22717,18 +22729,6 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/OnlineLogisticRegressionTra
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `mahout-addon/src/main/java/opennlp/addons/mahout/PassiveAggressiveTrainer.java`
-#### Snippet
-```java
-      
-      // What should be reported at the end of every iteration ?!
-      System.out.println("Iteration " + (k + 1));
-    }
-    
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mahout-addon/src/main/java/opennlp/addons/mahout/LogisticRegressionTrainer.java`
 #### Snippet
 ```java
       
@@ -22816,114 +22816,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
-#### Snippet
-```java
-
-    if (toString.length() > 0) {
-      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-   */
-  public static boolean containsNumbers(String word) {
-    return word.matches(".*[0-9].*");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-          line = br.readLine();
-          if (line != null) {
-            String word = line.split("\\t")[0];
-            words.put(word, null);
-          }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
-#### Snippet
-```java
-
-          String lemma = wordToDisambiguate.getLemmas()[i].toLowerCase()
-              .replaceAll("[^a-z_]", "").trim();
-
-          if (lemma.length() > 1) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-      while ((line = wordsList.readLine()) != null) {
-
-        String[] temp = line.split("\\s");
-
-        ArrayList<String> tempSenses = new ArrayList<>();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-                          .getTextContent();
-
-                      List<String> textBeforeTokenized = Arrays.asList(textBefore.split("\\s"));
-                      List<String> textAfterTokenized = Arrays.asList(textAfter.split("\\s"));
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-
-                      List<String> textBeforeTokenized = Arrays.asList(textBefore.split("\\s"));
-                      List<String> textAfterTokenized = Arrays.asList(textAfter.split("\\s"));
-
-                      textBeforeTokenized.removeAll(Collections.singleton(null));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-      String line;
-      while ((line = br.readLine()) != null) {
-        String word = line.split("\\s")[0];
-        if (!wordTags.contains(word)) {
-          wordTags.add(word);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-              final POSTagger tagger = WSDHelper.getTagger();
-
-              final String[] words = sentence.split("\\s");
-              final String[] tags = tagger.tag(words);
-              String[] lemmas = lemmatizer.lemmatize(words, tags);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
 #### Snippet
 ```java
@@ -22932,66 +22824,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSent
     pageSentence = pageSentence.replaceAll("\\s+", " "); // make single
     // spaces
     // everywhere
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-	public int getAttemptedNameMerge(String name1, String name2)
-	{
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-	public int getAttemptedNameMerge(String name1, String name2)
-	{
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-
-		name1 = name1.toLowerCase();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-
-		name1 = name1.toLowerCase();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-		para = "inventions of albert einstein                            what was albert einsteins invention                            invention of einstein                            what were albert einsteins inventions ";
-
-		para = para.replaceAll("  [A-Z]", ". $0");
-		System.out.println(para);
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23008,14 +22840,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSent
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
 #### Snippet
 ```java
+		para = "inventions of albert einstein                            what was albert einsteins invention                            invention of einstein                            what were albert einsteins inventions ";
 
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-		List<TextChunk> sentsList = new ArrayList<>();
+		para = para.replaceAll("  [A-Z]", ". $0");
+		System.out.println(para);
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23032,14 +22864,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageRe
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCompleteQueryRunner.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-	public List<String> getAutoCompleteExpression(String rawExpr){
-		// insert spaces into camel cases
-		rawExpr= rawExpr.replaceAll("([a-z][a-z])([A-Z][a-z])", "$1 $2");
-		String query = rawExpr.replace(' ', '+');
-		query = URLEncoder.encode(query, StandardCharsets.UTF_8);
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+		List<TextChunk> sentsList = new ArrayList<>();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23080,26 +22912,62 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCom
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCompleteQueryRunner.java`
 #### Snippet
 ```java
-
-      if (trim) {
-        parseTreeString = parseTreeString.replace("\n", "").replace("\t", "").replaceAll("\\s+", " ");
-      }
-
+	public List<String> getAutoCompleteExpression(String rawExpr){
+		// insert spaces into camel cases
+		rawExpr= rawExpr.replaceAll("([a-z][a-z])([A-Z][a-z])", "$1 $2");
+		String query = rawExpr.replace(' ', '+');
+		query = URLEncoder.encode(query, StandardCharsets.UTF_8);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngineResultsScraper.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
 #### Snippet
 ```java
-    if (content == null)
-      return results;
-    String[] srchResArea = content.split("</p>");
-    if (srchResArea == null)
-      return results;
+	public int getAttemptedNameMerge(String name1, String name2)
+	{
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+	public int getAttemptedNameMerge(String name1, String name2)
+	{
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+
+		name1 = name1.toLowerCase();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+
+		name1 = name1.toLowerCase();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23115,6 +22983,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngineResultsScraper.java`
+#### Snippet
+```java
+    if (content == null)
+      return results;
+    String[] srchResArea = content.split("</p>");
+    if (srchResArea == null)
+      return results;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
@@ -23124,18 +23004,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 					pageContent = pageContent.trim().replaceAll("  [A-Z]", ". $0")// .replace("  ",
 							// ". ")
 							.replace("..", ".").replace(". . .", " ").trim(); // sometimes   html breaks are converted into ' ' (two spaces), so
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-		List<TextChunk> sentsList = new ArrayList<>();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23188,6 +23056,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+		List<TextChunk> sentsList = new ArrayList<>();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
 #### Snippet
 ```java
@@ -23207,30 +23087,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 		else if (requestExpression.contains(":")) {// still field-based expression
 			requestExpression = requestExpression.replaceAll(fieldNameQuery+":", "").replace('+',' ').replaceAll("  ", " ").replace("q=", "");
 		}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-		List<TextChunk> sentsList = new ArrayList<>();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripHTML(String text) {
-    return text.replaceAll("\\<.*?>", "");
-  }
 
 ```
 
@@ -23275,11 +23131,11 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-    text = Utils.unescapeHTML(text);
-    text = StringUtils.trimToEmpty(text);
-    text = text.replaceAll("\\s+", " ");
-    return text;
+
+  public static String stripHTML(String text) {
+    return text.replaceAll("\\<.*?>", "");
   }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23304,6 +23160,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
     return Utils.convertToASCII(b.toString().replaceAll("\\s+", " "));
   }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+    text = Utils.unescapeHTML(text);
+    text = StringUtils.trimToEmpty(text);
+    text = text.replaceAll("\\s+", " ");
+    return text;
+  }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+		List<TextChunk> sentsList = new ArrayList<>();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23368,14 +23248,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageCon
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
 #### Snippet
 ```java
-					pageContent = GeneratedSentenceProcessor
-							.normalizeForSentenceSplitting(pageContent);
-					pageContent = pageContent.trim().replaceAll("  [A-Z]", ". $0")// .replace("  ",
-							// ". ")
-							.replace("..", ".").replace(". . .", " ").trim(); // sometimes
+
+    pageSentence = pageSentence.trim();
+    pageSentence = pageSentence.replaceAll("\\s+", " "); // make single
+    // spaces
+    // everywhere
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23392,14 +23272,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
 ```java
-
-    pageSentence = pageSentence.trim();
-    pageSentence = pageSentence.replaceAll("\\s+", " "); // make single
-    // spaces
-    // everywhere
+					pageContent = GeneratedSentenceProcessor
+							.normalizeForSentenceSplitting(pageContent);
+					pageContent = pageContent.trim().replaceAll("  [A-Z]", ". $0")// .replace("  ",
+							// ". ")
+							.replace("..", ".").replace(". . .", " ").trim(); // sometimes
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23487,15 +23367,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierT
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSample.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/FeaturesExtractor.java`
 #### Snippet
 ```java
-    List<Parse> parses = new ArrayList<>();
-    
-    for (String line : corefSampleString.split("\\r?\\n")) {
-      parses.add(Parse.parseParse(line));
-    }
+
+          String lemma = wordToDisambiguate.getLemmas()[i].toLowerCase()
+              .replaceAll("[^a-z_]", "").trim();
+
+          if (lemma.length() > 1) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+  public static String generateUrlSafeFingerPrint(String s) {
+    String signature = TextProcessor.generateFingerPrint(s);
+    return signature.replaceAll("[?/]", "+");
+  }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23631,13 +23523,25 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
 #### Snippet
 ```java
-  public static String generateUrlSafeFingerPrint(String s) {
-    String signature = TextProcessor.generateFingerPrint(s);
-    return signature.replaceAll("[?/]", "+");
+          line = br.readLine();
+          if (line != null) {
+            String word = line.split("\\t")[0];
+            words.put(word, null);
+          }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+   */
+  public static boolean containsNumbers(String word) {
+    return word.matches(".*[0-9].*");
   }
 
 ```
@@ -23656,14 +23560,74 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
 #### Snippet
 ```java
+      String line;
+      while ((line = br.readLine()) != null) {
+        String word = line.split("\\s")[0];
+        if (!wordTags.contains(word)) {
+          wordTags.add(word);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+      while ((line = wordsList.readLine()) != null) {
+
+        String[] temp = line.split("\\s");
+
+        ArrayList<String> tempSenses = new ArrayList<>();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+                          .getTextContent();
+
+                      List<String> textBeforeTokenized = Arrays.asList(textBefore.split("\\s"));
+                      List<String> textAfterTokenized = Arrays.asList(textAfter.split("\\s"));
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+
+                      List<String> textBeforeTokenized = Arrays.asList(textBefore.split("\\s"));
+                      List<String> textAfterTokenized = Arrays.asList(textAfter.split("\\s"));
+
+                      textBeforeTokenized.removeAll(Collections.singleton(null));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+              final POSTagger tagger = WSDHelper.getTagger();
+
+              final String[] words = sentence.split("\\s");
+              final String[] tags = tagger.tag(words);
+              String[] lemmas = lemmatizer.lemmatize(words, tags);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSample.java`
+#### Snippet
+```java
+    List<Parse> parses = new ArrayList<>();
+    
+    for (String line : corefSampleString.split("\\r?\\n")) {
+      parses.add(Parse.parseParse(line));
     }
-    
-    String[] lastUsedQueries = lastUsedSearchQueriesString.split(LUCENE_QUERY_DELIMITER);
-    
-    if (lastUsedQueries.length > 0)
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -23679,6 +23643,30 @@ in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/Wikinew
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/Sentence.java`
+#### Snippet
+```java
+	public int getWordCnt()
+	{
+		return wordCnt==0? this.getStringVal().split("\\s+").length: wordCnt;
+	}
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/Sentence.java`
+#### Snippet
+```java
+		int ret = 0;
+		StopWords sw = StopWords.getInstance();
+		String[] wrds = stringVal.split("\\s+");
+		for(String wrd: wrds){
+			if(!sw.isStopWord(wrd)&&!wrd.startsWith("'")&&!wrd.equals(".")&&!wrd.equals("?"))
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
 #### Snippet
@@ -23690,43 +23678,103 @@ in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcesso
         //Skip stop words and stem the word
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/preprocess/DefaultDocProcessor.java`
+#### Snippet
+```java
+  public String[] getWords(String sent)
+  {
+    return sent.trim().split("\\s+");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
+#### Snippet
+```java
+    }
+    
+    String[] lastUsedQueries = lastUsedSearchQueriesString.split(LUCENE_QUERY_DELIMITER);
+    
+    if (lastUsedQueries.length > 0)
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/CFGRunner.java`
+#### Snippet
+```java
+
+    if (toString.length() > 0) {
+      System.out.println(toString.substring(1, toString.length() - 1).replaceAll(",", ""));
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+  public double getWeightedSimilarity(String sent1, String sent2,
+                                      Hashtable<String, Double> wrdWts) {
+    String[] words1 = sent1.trim().split("\\s+");
+    String[] words2 = sent2.trim().split("\\s+");
+    double wordsInCommon = 0;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+                                      Hashtable<String, Double> wrdWts) {
+    String[] words1 = sent1.trim().split("\\s+");
+    String[] words2 = sent2.trim().split("\\s+");
+    double wordsInCommon = 0;
+    Hashtable<String, Boolean> dups = new Hashtable<>();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+    for (int i = 0; i < sentences.size(); i++) {
+      String nextSent = sentences.get(i);
+      String[] words = nextSent.trim().split("\\s+");
+      Score s = new Score();
+      s.setSentId(i);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRank.java`
+#### Snippet
+```java
+    if (HIGHER_TITLE_WEIGHT && getSentences().size()>0) {
+      String sent = getSentences().get(0);
+      String[] wrds = sent.trim().split("\\s+");
+      for (String wrd : wrds)
+        wrdWts.put(wrd, TITLE_WRD_WT);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/cfg/ProbabilisticContextFreeGrammar.java`
+#### Snippet
+```java
+
+      if (trim) {
+        parseTreeString = parseTreeString.replace("\n", "").replace("\t", "").replaceAll("\\s+", " ");
+      }
+
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/languagemodel/LanguageModel.java`
-#### Snippet
-```java
- * A language model can calculate the probability <i>p</i> (between 0 and 1) of a
- * certain set of {@code T} objects, given a vocabulary.
- * {@code T} is usually an {@link java.lang.Iterable} or an array as language models are very commonly used for
- * sentences, so that T is e.g. an array of {@code String}s.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.opennlp.utils` is unnecessary and can be removed
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
-#### Snippet
-```java
-
-  /**
-   * calculate Mu distribution parameters for a {@link org.apache.opennlp.utils.TrainingSet}'s set of features
-   *
-   * @param inputs the {@link org.apache.opennlp.utils.TrainingSet} to fit
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.opennlp.utils` is unnecessary and can be removed
-in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
-#### Snippet
-```java
-   * calculate Mu distribution parameters for a {@link org.apache.opennlp.utils.TrainingSet}'s set of features
-   *
-   * @param inputs the {@link org.apache.opennlp.utils.TrainingSet} to fit
-   * @return the <code>double[]</code> containing the Mu parameters for each feature
-   */
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.mail` is unnecessary, and can be replaced with an import
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/SMTPAuthenticator.java`
@@ -23788,18 +23836,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
-#### Snippet
-```java
-	   public CommentsRel(WordprocessingMLPackage wordMLPack) {
-	      this.wordMlPackage = wordMLPack;
-	      wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
-	      setCommentRel();
-	      cmPart = wordMlPackage.getMainDocumentPart().getCommentsPart();
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.docx4j.wml` is unnecessary and can be removed
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
 #### Snippet
@@ -23821,6 +23857,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comments
 	   private final org.docx4j.wml.ObjectFactory wmlObjectFactory;
 	   private final CommentsPart cmPart;
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/CommentsRel.java`
+#### Snippet
+```java
+	   public CommentsRel(WordprocessingMLPackage wordMLPack) {
+	      this.wordMlPackage = wordMLPack;
+	      wmlObjectFactory = new org.docx4j.wml.ObjectFactory();
+	      setCommentRel();
+	      cmPart = wordMlPackage.getMainDocumentPart().getCommentsPart();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -23888,30 +23936,6 @@ Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
 #### Snippet
 ```java
-    private static P addInlineImageToParagraph(Inline inline) {
-        // Now add the in-line image to a paragraph
-    		org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
-        P paragraph = factory.createP();
-        R run = factory.createR();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
-#### Snippet
-```java
-    private static P addInlineImageToParagraph(Inline inline) {
-        // Now add the in-line image to a paragraph
-    		org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
-        P paragraph = factory.createP();
-        R run = factory.createR();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
-#### Snippet
-```java
     
     private static CTFootnotes createFootnote(P paragraph){
     	org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
@@ -23929,6 +23953,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
     	org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
     	CTFootnotes fn = factory.createCTFootnotes();
     	fn.setParent(paragraph);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+    private static P addInlineImageToParagraph(Inline inline) {
+        // Now add the in-line image to a paragraph
+    		org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
+        P paragraph = factory.createP();
+        R run = factory.createR();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.docx4j.wml` is unnecessary, and can be replaced with an import
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+    private static P addInlineImageToParagraph(Inline inline) {
+        // Now add the in-line image to a paragraph
+    		org.docx4j.wml.ObjectFactory factory = new org.docx4j.wml.ObjectFactory();
+        P paragraph = factory.createP();
+        R run = factory.createR();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -23972,11 +24020,23 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  public static boolean containsDigit(String token) {
+  public static boolean isTokenAllDigitOrPunc(String token) {
     for (int i = 0; i < token.length(); i++) {
-      if (java.lang.Character.isDigit(token.charAt(i))) {
-        return true;
+      if (java.lang.Character.isLetter(token.charAt(i))) {
+        return false;
       }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+
+  public static String stripScriptTags(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<SCRIPT.*?</SCRIPT>",
+        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    Matcher matcher = p.matcher(text);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -24004,27 +24064,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
+Qualifier `java.lang` is unnecessary and can be removed
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-
-  public static String stripScriptTags(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<SCRIPT.*?</SCRIPT>",
-        Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-    Matcher matcher = p.matcher(text);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-
-  public static String stripHTMLMultiLine(String text) {
-    Pattern p = java.util.regex.Pattern.compile("\\<.*?>", Pattern.DOTALL);
-    Matcher matcher = p.matcher(text);
-    return matcher.replaceAll("");
+  public static boolean containsDigit(String token) {
+    for (int i = 0; i < token.length(); i++) {
+      if (java.lang.Character.isDigit(token.charAt(i))) {
+        return true;
+      }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -24040,15 +24088,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
+Qualifier `java.util.regex` is unnecessary and can be removed
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  public static boolean isTokenAllDigitOrPunc(String token) {
-    for (int i = 0; i < token.length(); i++) {
-      if (java.lang.Character.isLetter(token.charAt(i))) {
-        return false;
-      }
+
+  public static String stripHTMLMultiLine(String text) {
+    Pattern p = java.util.regex.Pattern.compile("\\<.*?>", Pattern.DOTALL);
+    Matcher matcher = p.matcher(text);
+    return matcher.replaceAll("");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -24100,6 +24148,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.uima.caseditor.editor` is unnecessary, and can be replaced with an import
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+
+public class DefaultCasDocumentProvider extends
+        org.apache.uima.caseditor.editor.CasDocumentProvider {
+
+  private static final int READ_TIMEOUT = 30000;
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.uima.caseditor.editor` is unnecessary and can be removed
 in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
 #### Snippet
@@ -24112,15 +24172,39 @@ in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_serve
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.uima.caseditor.editor` is unnecessary, and can be replaced with an import
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/languagemodel/LanguageModel.java`
+#### Snippet
+```java
+ * A language model can calculate the probability <i>p</i> (between 0 and 1) of a
+ * certain set of {@code T} objects, given a vocabulary.
+ * {@code T} is usually an {@link java.lang.Iterable} or an array as language models are very commonly used for
+ * sentences, so that T is e.g. an array of {@code String}s.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.opennlp.utils` is unnecessary and can be removed
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
 #### Snippet
 ```java
 
-public class DefaultCasDocumentProvider extends
-        org.apache.uima.caseditor.editor.CasDocumentProvider {
+  /**
+   * calculate Mu distribution parameters for a {@link org.apache.opennlp.utils.TrainingSet}'s set of features
+   *
+   * @param inputs the {@link org.apache.opennlp.utils.TrainingSet} to fit
+```
 
-  private static final int READ_TIMEOUT = 30000;
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.opennlp.utils` is unnecessary and can be removed
+in `nlp-utils/src/main/java/org/apache/opennlp/utils/anomalydetection/AnomalyDetectionUtils.java`
+#### Snippet
+```java
+   * calculate Mu distribution parameters for a {@link org.apache.opennlp.utils.TrainingSet}'s set of features
+   *
+   * @param inputs the {@link org.apache.opennlp.utils.TrainingSet} to fit
+   * @return the <code>double[]</code> containing the Mu parameters for each feature
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -24138,474 +24222,6 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/AbstractOnlineLearnerTraine
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
-#### Snippet
-```java
-        + ". The initialization throw an exception.";
-      System.err.println(msg);
-      e.printStackTrace();
-      throw new InvalidFormatException(msg, e);
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
-#### Snippet
-```java
-      return (new ArrayList<>(synsets));
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    }
-    return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-          .getSenses();
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    }
-    return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    }
-    return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-
-            } catch (JWNLException e) {
-              e.printStackTrace();
-            }
-          } else {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-                      .getGloss());
-            } catch (JWNLException e) {
-              e.printStackTrace();
-            }
-          } else if (parts[0]
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-        dictionary = Dictionary.getDefaultResourceInstance();
-      } catch (JWNLException e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return words;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-            tokenizerModelPath)));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-            setModel(new WSDModel(file));
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      ppertainyms = PointerUtils.getPertainyms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the pertainyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the pertainyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pattributes = PointerUtils.getAttributes(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the attributes");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the attributes");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      phyponyms = PointerUtils.getDirectHyponyms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hyponyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hyponyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      phypernyms = PointerUtils.getDirectHypernyms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pmeronyms = PointerUtils.getMeronyms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  meronyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  meronyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-            break;
-          } catch (JWNLException e) {
-            e.printStackTrace();
-          }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-              + wd.getSenseKey();
-        } catch (JWNLException e) {
-          e.printStackTrace();
-        }
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-            break;
-          } catch (JWNLException e) {
-            e.printStackTrace();
-          }
-          break;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pentailments = PointerUtils.getEntailments(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  hypernyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pcauses = PointerUtils.getCauses(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the cause terms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the cause terms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pcoordinateTerms = PointerUtils.getCoordinateTerms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  coordinate terms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  coordinate terms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-      pholonyms = PointerUtils.getHolonyms(this.synset);
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  holonyms");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
-#### Snippet
-```java
-    } catch (NullPointerException e) {
-      System.err.println("Error finding the  holonyms");
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
-#### Snippet
-```java
-      typeSystemDesciptor.resolveImports();
-    } catch (InvalidXMLException e) {
-      e.printStackTrace();
-      typeSystemDesciptor = null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
-#### Snippet
-```java
-          new FsIndexDescription[] { indexDescriptor });
-    } catch (ResourceInitializationException e) {
-      e.printStackTrace();
-      cas = null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
-#### Snippet
-```java
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneIndexer.java`
-#### Snippet
-```java
-      indexWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 #### Snippet
 ```java
@@ -24614,18 +24230,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/fca/FcaReader.java`
 			e.printStackTrace();
 		}
 	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/EmailSender.java`
-#### Snippet
-```java
-			}
-		catch(Exception e) {
-			e.printStackTrace();
-			correct=false;
-		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -24642,6 +24246,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/EmailSender.
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/EmailSender.java`
+#### Snippet
+```java
+			}
+		catch(Exception e) {
+			e.printStackTrace();
+			correct=false;
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MachineTranslationWrapper.java`
 #### Snippet
 ```java
@@ -24650,6 +24266,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MachineTr
 			e.printStackTrace();
 			return null;
 		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+#### Snippet
+```java
+		}
+		catch (IOException ex){
+			ex.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+#### Snippet
+```java
+			map = new SynonymMap( new FileInputStream(dir+"wn_s.pl"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -24714,42 +24354,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceO
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-            senseKey = synWord.getSenseKey();
-          } catch (JWNLException e) {
-            e.printStackTrace();
-          }
-          break;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
-#### Snippet
-```java
-			map = new SynonymMap( new FileInputStream(dir+"wn_s.pl"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
-#### Snippet
-```java
-		}
-		catch (IOException ex){
-			ex.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
 #### Snippet
 ```java
@@ -24758,66 +24362,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.ja
 				e.printStackTrace();
 			}
 			System.out.println(sent+"\n"+opls+"\n");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return true;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return true;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
-#### Snippet
-```java
-				resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
-			} catch (IOException e) {
-				e.printStackTrace();
-				vec = null;
-				return;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
-#### Snippet
-```java
-			iter = new FileSentenceIterator(new File(filePath));
-		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 ```
 
 ### ThrowablePrintStackTrace
@@ -24858,14 +24402,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunn
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
+#### Snippet
+```java
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
-				reviewObj.setRating(rating);
-			} catch (NumberFormatException e) {
+					bufs[currentRevIndex].append("\n");
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+			
 ```
 
 ### ThrowablePrintStackTrace
@@ -24885,6 +24441,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
 #### Snippet
 ```java
+				reviewObj.setRating(rating);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+#### Snippet
+```java
 				} catch (Exception e) {
 					results.add(sent);
 					e.printStackTrace();
@@ -24894,14 +24462,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageRe
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/WebPageReviewExtractor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
 #### Snippet
 ```java
-					bufs[currentRevIndex].append("\n");
-			} catch (Exception e) {
+				resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
+			} catch (IOException e) {
 				e.printStackTrace();
-			}
-			
+				vec = null;
+				return;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/word2vec/W2VDistanceMeasurer.java`
+#### Snippet
+```java
+			iter = new FileSentenceIterator(new File(filePath));
+		} catch (URISyntaxException e1) {
+			e1.printStackTrace();
+		}
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -24930,14 +24510,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingRelatedSp
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
 #### Snippet
 ```java
-            }
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-          oPhrase.setParamValues(paramValues);
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return true;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return true;
 ```
 
 ### ThrowablePrintStackTrace
@@ -25002,14 +24594,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
 #### Snippet
 ```java
-      } catch (Exception e) {
-        LOG.warning("No search results for query '" + sentence);
-        e.printStackTrace();
-        return null;
-      }
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          oPhrase.setParamValues(paramValues);
 ```
 
 ### ThrowablePrintStackTrace
@@ -25022,6 +24614,42 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecogni
         e.printStackTrace();
       }
       totalMatchScore += score;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
+#### Snippet
+```java
+      } catch (Exception e) {
+        LOG.warning("No search results for query '" + sentence);
+        e.printStackTrace();
+        return null;
+      }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
+#### Snippet
+```java
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
+#### Snippet
+```java
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -25074,30 +24702,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comments
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
-#### Snippet
-```java
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/HitBase.java`
-#### Snippet
-```java
-			
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comment.java`
 #### Snippet
 ```java
@@ -25110,14 +24714,50 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Comment.
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
 #### Snippet
 ```java
-			addImageToPackage(wordMLPackage, bytes);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
+#### Snippet
+```java
+								fragment.replace("_should_find_orig_", ""), sentsSortedByLength);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					// if the above gives null than try to match all sentences from snippet fragment
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
+#### Snippet
+```java
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			else
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
+#### Snippet
+```java
+					// }
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}
 ```
 
 ### ThrowablePrintStackTrace
@@ -25142,6 +24782,174 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 			e.printStackTrace();
 		}
 		
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilder.java`
+#### Snippet
+```java
+			addImageToPackage(wordMLPackage, bytes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/QueryExpansionRequestHandler.java`
+#### Snippet
+```java
+			super.handleRequestBody(req1, rsp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
+#### Snippet
+```java
+			} catch (Exception e) {
+				LOG.info(e.getMessage());
+				e.printStackTrace();
+			}
+			hit.setGenerWithQueryScore(score);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+			parser = QParser.getParser(rb.getQueryString(), defType, rb.req);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Query q = null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+			q = parser.getQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (q == null) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+			rb.setSortSpec(parser.getSortSpec(true));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		rb.setQparser(parser);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+						fqp = QParser.getParser(fq, null, rb.req);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					try {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
+#### Snippet
+```java
+						filters.add(fqp.getQuery());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/NLProgram2CodeRequestHandler.java`
+#### Snippet
+```java
+				opls = compiler.convertSentenceToControlObjectPhrase(sent);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(sent+"\n"+opls+"\n");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+			// }
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+		return result;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+							fragment.replace("_should_find_orig_", ""), sentsSortedByLength);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// if the above gives null than try to match all sentences from snippet fragment
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
+#### Snippet
+```java
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -25242,206 +25050,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentGeneratorRequestHandler.java`
 #### Snippet
 ```java
-								fragment.replace("_should_find_orig_", ""), sentsSortedByLength);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					// if the above gives null than try to match all sentences from snippet fragment
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
-
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			else
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
-					// }
-				} catch (Throwable t) {
-					t.printStackTrace();
-				}
-			}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinderML.java`
-#### Snippet
-```java
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/QueryExpansionRequestHandler.java`
-#### Snippet
-```java
-			super.handleRequestBody(req1, rsp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SearchResultsReRankerRequestHandler.java`
-#### Snippet
-```java
-			} catch (Exception e) {
-				LOG.info(e.getMessage());
-				e.printStackTrace();
-			}
-			hit.setGenerWithQueryScore(score);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/NLProgram2CodeRequestHandler.java`
-#### Snippet
-```java
-				opls = compiler.convertSentenceToControlObjectPhrase(sent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			System.out.println(sent+"\n"+opls+"\n");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-			// }
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-		return result;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-							fragment.replace("_should_find_orig_", ""), sentsSortedByLength);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				// if the above gives null than try to match all sentences from snippet fragment
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenerator.java`
-#### Snippet
-```java
-
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
 		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-			parser = QParser.getParser(rb.getQueryString(), defType, rb.req);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Query q = null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-			q = parser.getQuery();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (q == null) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-			rb.setSortSpec(parser.getSortSpec(true));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		rb.setQparser(parser);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-						fqp = QParser.getParser(fq, null, rb.req);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					try {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeQueryComponent.java`
-#### Snippet
-```java
-						filters.add(fqp.getQuery());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
 ```
 
 ### ThrowablePrintStackTrace
@@ -25554,14 +25170,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentG
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/ContentGeneratorRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderSingleImageSearchCall.java`
 #### Snippet
 ```java
-				}
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			addImageToPackage(wordMLPackage, bytes);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -25614,18 +25230,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocB
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/WordDocBuilderSingleImageSearchCall.java`
-#### Snippet
-```java
-			addImageToPackage(wordMLPackage, bytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/AriAdapter.java`
 #### Snippet
 ```java
@@ -25634,6 +25238,66 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
       e.printStackTrace();
 
     }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+			super.handleRequestBody(req, rsp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+		} catch (Exception e) {
+			dListResult = dList;
+			e.printStackTrace();
+		}
+		// c.docs = dListResult;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+					fquery.add(parser.getQuery(), Occur.MUST);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+
+		} catch (CorruptIndexException e1) {
+			e1.printStackTrace();
+			//log.severe("Corrupt index"+e1);
+		} catch (IOException e1) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+#### Snippet
+```java
+			//log.severe("Corrupt index"+e1);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			//log.severe("File read IO / index"+e1);
+		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -25674,7 +25338,7 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
 ```java
 					fquery.add(parser.getQuery(), Occur.MUST);
@@ -25686,31 +25350,7 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
-#### Snippet
-```java
-			super.handleRequestBody(req, rsp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
-#### Snippet
-```java
-		} catch (Exception e) {
-			dListResult = dList;
-			e.printStackTrace();
-		}
-		// c.docs = dListResult;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
 ```java
 
@@ -25722,7 +25362,7 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
 ```java
 			//log.severe("Corrupt index"+e1);
@@ -25734,26 +25374,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/SyntGenR
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
 #### Snippet
 ```java
-      data = (TaxonomySerializer) in.readObject();
-    } catch (IOException | ClassNotFoundException ex) {
-      ex.printStackTrace();
-    }
-    return data;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
-#### Snippet
-```java
-      out.writeObject(this);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-
+			super.handleRequestBody(req, rsp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rsp;
 ```
 
 ### ThrowablePrintStackTrace
@@ -25794,62 +25422,98 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
 #### Snippet
 ```java
-			super.handleRequestBody(req, rsp);
-		} catch (Exception e) {
+      out.writeObject(this);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/TaxonomySerializer.java`
+#### Snippet
+```java
+      data = (TaxonomySerializer) in.readObject();
+    } catch (IOException | ClassNotFoundException ex) {
+      ex.printStackTrace();
+    }
+    return data;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+#### Snippet
+```java
+			writer.flush();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return rsp;
+	}
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
 #### Snippet
 ```java
-					fquery.add(parser.getQuery(), Occur.MUST);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
-#### Snippet
-```java
-
-		} catch (CorruptIndexException e1) {
-			e1.printStackTrace();
-			//log.severe("Corrupt index"+e1);
-		} catch (IOException e1) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
-#### Snippet
-```java
-			//log.severe("Corrupt index"+e1);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-			//log.severe("File read IO / index"+e1);
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
-#### Snippet
-```java
-
-		} catch (Exception e) {
+			writer.flush();
+		} catch (IOException e) {
 			e.printStackTrace();
-			System.err.print("Problem searching for "+query);
 		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+#### Snippet
+```java
+			profiles = reader.readAll();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return profiles;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+#### Snippet
+```java
+			profiles = reader.readAll();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return profiles;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+#### Snippet
+```java
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+#### Snippet
+```java
+			writer.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -25866,50 +25530,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-			// }
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/DomainTaxonomyExtender.java`
 #### Snippet
 ```java
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.print("Problem searching for "+query);
 		}
-
 ```
 
 ### ThrowablePrintStackTrace
@@ -25986,74 +25614,50 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-			profiles = reader.readAll();
-		} catch (IOException e) {
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return profiles;
+
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-			writer.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-			profiles = reader.readAll();
-		} catch (IOException e) {
-			e.printStackTrace();
+			// }
+		} catch (Throwable t) {
+			t.printStackTrace();
 		}
-		return profiles;
+
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-			writer.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
-#### Snippet
-```java
-			writer.flush();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/ProfileReaderWriter.java`
-#### Snippet
-```java
-			writer.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -26085,18 +25689,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
 #### Snippet
 ```java
-				resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		pathToVerbnet = resourceDir + "/new_vn";
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
-#### Snippet
-```java
 					System.out.println(f.getPrimaryType().getID() + " => " + f.getXTag() + " >> " + f.getSecondaryType().getID() + " : " + f.getExamples().get(0));
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -26109,11 +25701,35 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
 #### Snippet
 ```java
+				resourceDir = new File( "." ).getCanonicalPath()+"/src/test/resources";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		pathToVerbnet = resourceDir + "/new_vn";
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
+#### Snippet
+```java
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSentenceSearchResultsProcessor.java`
+#### Snippet
+```java
+					replace("..", ". ").trim();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			LOG.info("Problem processing snapshot "+hit.getAbstractText());
+		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -26142,13 +25758,13 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSente
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSentenceSearchResultsProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
 #### Snippet
 ```java
-					replace("..", ". ").trim();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			LOG.info("Problem processing snapshot "+hit.getAbstractText());
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
 		}
 ```
 
@@ -26162,18 +25778,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToP
 					e.printStackTrace();
 				}
 			else
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/SnippetToParagraph.java`
-#### Snippet
-```java
-			} catch (Exception e) {
-
-				e.printStackTrace();
-			}
-		}
 ```
 
 ### ThrowablePrintStackTrace
@@ -26205,59 +25809,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
 #### Snippet
 ```java
-      indexer.indexTrainingSet();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    indexer.close();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-      indexDir = FSDirectory.open(new File(dir + INDEX_PATH).toPath());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-      initIndexWriter(RESOURCE_DIR);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
       return new File(".").getCanonicalPath() + INDEX_PATH;
     } catch (IOException e) {
       e.printStackTrace();
       return null;
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
-#### Snippet
-```java
-      indexWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -26313,11 +25869,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
 #### Snippet
 ```java
-      initIndexWriter(RESOURCE_DIR);
-    } catch (Exception e) {
+      indexDir = FSDirectory.open(new File(dir + INDEX_PATH).toPath());
+    } catch (IOException e) {
       e.printStackTrace();
     }
-  }
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -26330,6 +25886,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrai
       e.printStackTrace();
     }
   }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+      initIndexWriter(RESOURCE_DIR);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+      initIndexWriter(RESOURCE_DIR);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+      indexWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+#### Snippet
+```java
+      indexer.indexTrainingSet();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    indexer.close();
 ```
 
 ### ThrowablePrintStackTrace
@@ -26409,18 +26013,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
 #### Snippet
 ```java
-			content = FileUtils.readFileToString(new File(filename), StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String[] entries = StringUtils.substringsBetween(content, "[[", "]]");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
-#### Snippet
-```java
 				runner.processDirectory( runner.sourceDir);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -26433,23 +26025,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
 #### Snippet
 ```java
-				}
-			} catch (Exception ee) {
-				ee.printStackTrace();
-			}
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
-#### Snippet
-```java
-			}
+			content = FileUtils.readFileToString(new File(filename), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+		String[] entries = StringUtils.substringsBetween(content, "[[", "]]");
 ```
 
 ### ThrowablePrintStackTrace
@@ -26481,35 +26061,35 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
 #### Snippet
 ```java
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+#### Snippet
+```java
+				}
+			} catch (Exception ee) {
+				ee.printStackTrace();
+			}
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifierTrainingSetMultilingualExtender.java`
+#### Snippet
+```java
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
-#### Snippet
-```java
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
-#### Snippet
-```java
-			content = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String[] lines = content.split("\n");
 ```
 
 ### ThrowablePrintStackTrace
@@ -26538,134 +26118,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailN
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
 #### Snippet
 ```java
-      sentenceDetector = new SentenceDetectorME(model);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } 
-  }
+			content = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String[] lines = content.split("\n");
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/enron_email_recognizer/EmailTrainingSetFormer.java`
 #### Snippet
 ```java
-    }
-    catch (JWNLException e) {
-      e.printStackTrace();
-      return null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
-#### Snippet
-```java
-    }
-    catch (JWNLException e) {
-      e.printStackTrace();
-      return null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
-#### Snippet
-```java
-    }
-    catch (JWNLException e) {
-      e.printStackTrace();
-      return null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    } catch (RuntimeException e) {
-      LOG.severe("RuntimeException " + e);
-      e.printStackTrace();
-      return "";
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
-#### Snippet
-```java
-        ixes.putScalar(t, ix);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-      catch (IOException e) {
-        // Failed to load ts
-        e.printStackTrace();
-        
-        // TODO: Stop here, and display some kind of
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-          new FsIndexDescription[] { indexDescriptor });
-    } catch (ResourceInitializationException e) {
-      e.printStackTrace();
-      cas = null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-          tsStore.load(tsStoreIn);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-                tsStoreBytes.toString(StandardCharsets.UTF_8));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
-#### Snippet
-```java
-        ixes.putScalar(t, ix);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -26682,23 +26154,119 @@ in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_ser
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
 #### Snippet
 ```java
-          page.openEditor(input, "org.apache.uima.caseditor.editor");
-        } catch (PartInitException e) {
-          e.printStackTrace();
-        }
-        
+          new FsIndexDescription[] { indexDesciptor });
+    } catch (ResourceInitializationException e) {
+      e.printStackTrace();
+      cas = null;
+    }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
+in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
 #### Snippet
 ```java
-            page.openEditor(input, "org.apache.uima.caseditor.editor");
-          } catch (PartInitException e) {
+      typeSystemDescriptor.resolveImports();
+    } catch (InvalidXMLException e) {
+      e.printStackTrace();
+      typeSystemDescriptor = null;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
+#### Snippet
+```java
+        + ". The initialization throw an exception.";
+      System.err.println(msg);
+      e.printStackTrace();
+      throw new InvalidFormatException(msg, e);
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
+#### Snippet
+```java
+          .getSenses();
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    }
+    return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+      sentenceDetector = new SentenceDetectorME(model);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } 
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
+#### Snippet
+```java
+      return (new ArrayList<>(synsets));
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    }
+    return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
+#### Snippet
+```java
+            setModel(new WSDModel(file));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
+#### Snippet
+```java
+              + wd.getSenseKey();
+        } catch (JWNLException e) {
+          e.printStackTrace();
+        }
+      }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
+#### Snippet
+```java
+            break;
+          } catch (JWNLException e) {
+            e.printStackTrace();
+          }
+          break;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
+#### Snippet
+```java
+            break;
+          } catch (JWNLException e) {
             e.printStackTrace();
           }
         }
@@ -26706,14 +26274,398 @@ in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_serve
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
 #### Snippet
 ```java
-        page.openEditor(input, "org.apache.uima.caseditor.editor");
-      } catch (PartInitException e) {
+      pattributes = PointerUtils.getAttributes(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the attributes");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the attributes");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      pholonyms = PointerUtils.getHolonyms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  holonyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  holonyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      phypernyms = PointerUtils.getDirectHypernyms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      pcoordinateTerms = PointerUtils.getCoordinateTerms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  coordinate terms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  coordinate terms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      pcauses = PointerUtils.getCauses(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the cause terms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the cause terms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      phyponyms = PointerUtils.getDirectHyponyms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hyponyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hyponyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      ppertainyms = PointerUtils.getPertainyms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the pertainyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the pertainyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      pentailments = PointerUtils.getEntailments(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  hypernyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+      pmeronyms = PointerUtils.getMeronyms(this.synset);
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  meronyms");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/SynNode.java`
+#### Snippet
+```java
+    } catch (NullPointerException e) {
+      System.err.println("Error finding the  meronyms");
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    } catch (RuntimeException e) {
+      LOG.severe("RuntimeException " + e);
+      e.printStackTrace();
+      return "";
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+        dictionary = Dictionary.getDefaultResourceInstance();
+      } catch (JWNLException e) {
         e.printStackTrace();
       }
-    });
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return words;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+            tokenizerModelPath)));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+
+    } catch (JWNLException e) {
+      e.printStackTrace();
+    }
+    return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+
+            } catch (JWNLException e) {
+              e.printStackTrace();
+            }
+          } else {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+                      .getGloss());
+            } catch (JWNLException e) {
+              e.printStackTrace();
+            }
+          } else if (parts[0]
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SemcorReaderExtended.java`
+#### Snippet
+```java
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+#### Snippet
+```java
+    }
+    catch (JWNLException e) {
+      e.printStackTrace();
+      return null;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+#### Snippet
+```java
+    }
+    catch (JWNLException e) {
+      e.printStackTrace();
+      return null;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+#### Snippet
+```java
+    }
+    catch (JWNLException e) {
+      e.printStackTrace();
+      return null;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -26778,42 +26730,6 @@ in `wikinews-importer/src/main/java/org/apache/opennlp/wikinews_importer/Wikinew
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/tokenize/TokenizerViewPage.java`
-#### Snippet
-```java
-          tokenizerJob.join();
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-        
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
-#### Snippet
-```java
-          new FsIndexDescription[] { indexDesciptor });
-    } catch (ResourceInitializationException e) {
-      e.printStackTrace();
-      cas = null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `corpus-server/corpus-server-connector/src/main/java/org/apache/opennlp/corpus_server/connector/UimaUtil.java`
-#### Snippet
-```java
-      typeSystemDescriptor.resolveImports();
-    } catch (InvalidXMLException e) {
-      e.printStackTrace();
-      typeSystemDescriptor = null;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `summarizer/src/main/java/opennlp/summarization/preprocess/IDFWordWeight.java`
 #### Snippet
 ```java
@@ -26838,14 +26754,38 @@ in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.j
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
 #### Snippet
 ```java
-      for(Score s: scores) sentScores.put(s.getSentId(), s);
-    }catch(Exception ex){
-      ex.printStackTrace();
-    }
+            senseKey = synWord.getSenseKey();
+          } catch (JWNLException e) {
+            e.printStackTrace();
+          }
+          break;
+```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
+#### Snippet
+```java
+      typeSystemDesciptor.resolveImports();
+    } catch (InvalidXMLException e) {
+      e.printStackTrace();
+      typeSystemDesciptor = null;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/UimaUtil.java`
+#### Snippet
+```java
+          new FsIndexDescription[] { indexDescriptor });
+    } catch (ResourceInitializationException e) {
+      e.printStackTrace();
+      cas = null;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -26862,6 +26802,18 @@ in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `summarizer/src/main/java/opennlp/summarization/meta/MetaSummarizer.java`
+#### Snippet
+```java
+      for(Score s: scores) sentScores.put(s.getSentId(), s);
+    }catch(Exception ex){
+      ex.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelationshipDetermination.java`
 #### Snippet
 ```java
@@ -26874,6 +26826,30 @@ in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/WordRelations
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneIndexer.java`
+#### Snippet
+```java
+      indexWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/tokenize/TokenizerViewPage.java`
+#### Snippet
+```java
+          tokenizerJob.join();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericModelableImpl.java`
 #### Snippet
 ```java
@@ -26882,6 +26858,114 @@ in `modelbuilder-addon/src/main/java/opennlp/addons/modelbuilder/impls/GenericMo
       ex.printStackTrace();
     }
   }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
+#### Snippet
+```java
+            page.openEditor(input, "org.apache.uima.caseditor.editor");
+          } catch (PartInitException e) {
+            e.printStackTrace();
+          }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
+#### Snippet
+```java
+          page.openEditor(input, "org.apache.uima.caseditor.editor");
+        } catch (PartInitException e) {
+          e.printStackTrace();
+        }
+        
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
+#### Snippet
+```java
+        page.openEditor(input, "org.apache.uima.caseditor.editor");
+      } catch (PartInitException e) {
+        e.printStackTrace();
+      }
+    });
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+      catch (IOException e) {
+        // Failed to load ts
+        e.printStackTrace();
+        
+        // TODO: Stop here, and display some kind of
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+                tsStoreBytes.toString(StandardCharsets.UTF_8));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+          new FsIndexDescription[] { indexDescriptor });
+    } catch (ResourceInitializationException e) {
+      e.printStackTrace();
+      cas = null;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+          tsStore.load(tsStoreIn);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/RNN.java`
+#### Snippet
+```java
+        ixes.putScalar(t, ix);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `opennlp-dl/src/main/java/opennlp/tools/dl/StackedRNN.java`
+#### Snippet
+```java
+        ixes.putScalar(t, ix);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -27022,18 +27106,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `WSDParameters()` of an abstract class should not be declared 'public'
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDParameters.java`
-#### Snippet
-```java
-  }
-
-  public WSDParameters() {
-    this.senseSource = SenseSource.WORDNET;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SyntacticTreeNode()` of an abstract class should not be declared 'public'
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/SyntacticTreeNode.java`
 #### Snippet
@@ -27042,6 +27114,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 
   public SyntacticTreeNode(String type) {
     this.type = type;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `WSDParameters()` of an abstract class should not be declared 'public'
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDParameters.java`
+#### Snippet
+```java
+  }
+
+  public WSDParameters() {
+    this.senseSource = SenseSource.WORDNET;
   }
 ```
 
@@ -27062,11 +27146,11 @@ Constructor `AbstractLinker()` of an abstract class should not be declared 'publ
 in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
 #### Snippet
 ```java
-   * @param useDiscourseModel Specifies whether coreferent mention should be combined or not.
+   * @param mode The mode the linker should be run in: testing, training, or evaluation.
    */
-  public AbstractLinker(String project, LinkerMode mode,boolean useDiscourseModel) {
-    this.corefProject = project;
-    this.mode = mode;
+  public AbstractLinker(String project, LinkerMode mode) {
+    this(project,mode,true);
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -27074,11 +27158,11 @@ Constructor `AbstractLinker()` of an abstract class should not be declared 'publ
 in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
 #### Snippet
 ```java
-   * @param mode The mode the linker should be run in: testing, training, or evaluation.
+   * @param useDiscourseModel Specifies whether coreferent mention should be combined or not.
    */
-  public AbstractLinker(String project, LinkerMode mode) {
-    this(project,mode,true);
-  }
+  public AbstractLinker(String project, LinkerMode mode,boolean useDiscourseModel) {
+    this.corefProject = project;
+    this.mode = mode;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -27091,6 +27175,18 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/AbstractResolver.ja
   public AbstractResolver(int neb) {
     numEntitiesBack = neb;
     showExclusions = true;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MaxentResolver()` of an abstract class should not be declared 'public'
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
+#### Snippet
+```java
+   * @throws IOException If the model file is not found or can not be written to.
+   */
+  public MaxentResolver(String modelDirectory, String name, ResolverMode mode, int numberOfEntitiesBack,
+                        boolean preferFirstReferent, NonReferentialResolver nonReferentialResolver)
+      throws IOException {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -27113,8 +27209,8 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java
   }
 
   public MaxentResolver(String modelDirectory, String modelName, ResolverMode mode,
-                        int numberEntitiesBack, boolean preferFirstReferent,
-                        double nonReferentialProbability) throws IOException {
+                        int numberEntitiesBack, boolean preferFirstReferent) throws IOException {
+    //this(projectName, modelName, mode, numberEntitiesBack, preferFirstReferent,
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -27137,20 +27233,8 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java
   }
 
   public MaxentResolver(String modelDirectory, String modelName, ResolverMode mode,
-                        int numberEntitiesBack, boolean preferFirstReferent) throws IOException {
-    //this(projectName, modelName, mode, numberEntitiesBack, preferFirstReferent,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MaxentResolver()` of an abstract class should not be declared 'public'
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/MaxentResolver.java`
-#### Snippet
-```java
-   * @throws IOException If the model file is not found or can not be written to.
-   */
-  public MaxentResolver(String modelDirectory, String name, ResolverMode mode, int numberOfEntitiesBack,
-                        boolean preferFirstReferent, NonReferentialResolver nonReferentialResolver)
-      throws IOException {
+                        int numberEntitiesBack, boolean preferFirstReferent,
+                        double nonReferentialProbability) throws IOException {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -27241,18 +27325,6 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ProperNounResolver.
 ## RuleId[id=CaughtExceptionImmediatelyRethrown]
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
-#### Snippet
-```java
-        }
-      }
-      catch (IOException e) {
-        // TODO: Or just ignore it ?! and do not create the indexer for this corpus?!
-        throw e;
-```
-
-### CaughtExceptionImmediatelyRethrown
-Caught exception `e` is immediately rethrown
 in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTagger.java`
 #### Snippet
 ```java
@@ -27263,17 +27335,41 @@ in `summarizer/src/main/java/opennlp/summarization/lexicalchaining/OpenNLPPOSTag
       throw e;
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `word`
-in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
+### CaughtExceptionImmediatelyRethrown
+Caught exception `e` is immediately rethrown
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/LuceneSearchService.java`
 #### Snippet
 ```java
-    // 1. preprocess word
-    if (lowerCase) {
-      word = StringUtil.toLowerCase(word);
-    }
+        }
+      }
+      catch (IOException e) {
+        // TODO: Or just ignore it ?! and do not create the indexer for this corpus?!
+        throw e;
+```
 
+## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `generator`
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+		//System.out.println("add intent "+intent+extent+generator);
+		int generator_tmp = GetMaximalConcept(intent, generator);
+		generator = generator_tmp;
+		//System.out.println("	max gen "+generator);
+		if (conceptList.get(generator).getIntent().equals(intent)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `Generator`
+in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+#### Snippet
+```java
+			for (int parent : conceptList.get(Generator).getParents()) {
+				if (conceptList.get(parent).getIntent().containsAll(intent)) {
+					Generator = parent;
+					parentIsMaximal = true;
+					break;
 ```
 
 ### AssignmentToMethodParameter
@@ -27313,39 +27409,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/utils/email/EmailSender.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `generator`
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
+Assignment to method parameter `dir`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
 #### Snippet
 ```java
-		//System.out.println("add intent "+intent+extent+generator);
-		int generator_tmp = GetMaximalConcept(intent, generator);
-		generator = generator_tmp;
-		//System.out.println("	max gen "+generator);
-		if (conceptList.get(generator).getIntent().equals(intent)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `Generator`
-in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
-#### Snippet
-```java
-			for (int parent : conceptList.get(Generator).getParents()) {
-				if (conceptList.get(parent).getIntent().containsAll(intent)) {
-					Generator = parent;
-					parentIsMaximal = true;
-					break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
-#### Snippet
-```java
-
-	public String[] convert(String[] sents, String name, String keywordsName){
-		name = name.replace("Amazon.com:" , "").replace("Amazon.com" , "").replace("..." , " ")
-				.replace("Customer Reviews: ", "");
-
+	
+	public SynonymListFilter(String dir){
+		dir = dir.replace("maps/analytics","");
+		try {
+			map = new SynonymMap( new FileInputStream(dir+"wn_s.pl"));
 ```
 
 ### AssignmentToMethodParameter
@@ -27353,10 +27425,22 @@ Assignment to method parameter `prodName`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
 #### Snippet
 ```java
-	
-	private void insertProductNameForRefsFullNameKeywords(String prodName, String keywordsName){
-		prodName = StringUtils.trim(prodName.toLowerCase());
-				
+
+	private void insertProductNameForRefs(String prodName){
+		prodName = prodName.toLowerCase();
+		prodName = StringUtils.trim(prodName);
+		
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prodName`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
+#### Snippet
+```java
+	private void insertProductNameForRefs(String prodName){
+		prodName = prodName.toLowerCase();
+		prodName = StringUtils.trim(prodName);
+		
 		for(int i = 0; i< sents.length; i++){
 ```
 
@@ -27385,15 +27469,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceO
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `prodName`
+Assignment to method parameter `name`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
 #### Snippet
 ```java
 
-	private void insertProductNameForRefs(String prodName){
-		prodName = prodName.toLowerCase();
-		prodName = StringUtils.trim(prodName);
-		
+	public String[] convert(String[] sents, String name, String keywordsName){
+		name = name.replace("Amazon.com:" , "").replace("Amazon.com" , "").replace("..." , " ")
+				.replace("Customer Reviews: ", "");
+
 ```
 
 ### AssignmentToMethodParameter
@@ -27401,23 +27485,35 @@ Assignment to method parameter `prodName`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/SentenceOriginalizer.java`
 #### Snippet
 ```java
-	private void insertProductNameForRefs(String prodName){
-		prodName = prodName.toLowerCase();
-		prodName = StringUtils.trim(prodName);
-		
+	
+	private void insertProductNameForRefsFullNameKeywords(String prodName, String keywordsName){
+		prodName = StringUtils.trim(prodName.toLowerCase());
+				
 		for(int i = 0; i< sents.length; i++){
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `dir`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
 #### Snippet
 ```java
-	
-	public SynonymListFilter(String dir){
-		dir = dir.replace("maps/analytics","");
-		try {
-			map = new SynonymMap( new FileInputStream(dir+"wn_s.pl"));
+      return null;
+
+    sent = sent.replace('[', ' ').replace(']', ' ')
+        .replace("_should_find_orig_", "").replace(".   .", ". ")
+        .replace("amp;", " ").replace("1.", " ").replace("2.", " ")
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
+#### Snippet
+```java
+    int endIndex = sent.indexOf(" posted");
+    if (endIndex > 0)
+      sent = sent.substring(0, endIndex);
+
+    return sent;
 ```
 
 ### AssignmentToMethodParameter
@@ -27589,30 +27685,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSent
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
-#### Snippet
-```java
-      return null;
-
-    sent = sent.replace('[', ' ').replace(']', ' ')
-        .replace("_should_find_orig_", "").replace(".   .", ". ")
-        .replace("amp;", " ").replace("1.", " ").replace("2.", " ")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSentenceProcessor.java`
-#### Snippet
-```java
-    int endIndex = sent.indexOf(" posted");
-    if (endIndex > 0)
-      sent = sent.substring(0, endIndex);
-
-    return sent;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `sentence`
 in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.java`
 #### Snippet
@@ -27625,195 +27697,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2ObjCreateAssign.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+Assignment to method parameter `query`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
 #### Snippet
 ```java
-	public int getAttemptedNameMerge(String name1, String name2)
-	{
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		if (query.length()>MAX_QUERY_LENGTH){
+			try {
+				query = query.substring(0, MAX_QUERY_LENGTH);
+				//should not cut words, need the last space to end the query
+				query = query.substring(0, StringUtils.lastIndexOf(query, " "));
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name2`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+Assignment to method parameter `query`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
 #### Snippet
 ```java
-		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-		// suspected word merge if higher case is in the middle of word
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-
-		name1 = name1.toLowerCase();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
-
-		name1 = name1.toLowerCase();
-		name2 = name2.toLowerCase();
-		if (name1.equals(name2) || name1.startsWith(name2) || name2.startsWith(name1) || name1.endsWith(name2)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name2`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-
-		name1 = name1.toLowerCase();
-		name2 = name2.toLowerCase();
-		if (name1.equals(name2) || name1.startsWith(name2) || name2.startsWith(name1) || name1.endsWith(name2)
-			|| name1.endsWith(name2) || name1.contains(name2) || name1.contains(name2)) // ??
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-	{
-		// normalize gender
-		name1 = normalizeGenderAndOtherAttributes(name1);
-		name2 = normalizeGenderAndOtherAttributes(name2);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name2`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		// normalize gender
-		name1 = normalizeGenderAndOtherAttributes(name1);
-		name2 = normalizeGenderAndOtherAttributes(name2);
-
-		Boolean bShortTitlesSimilarInWebSpace = attemptShortTitlesSimilarityInWebSpace(name1, name2);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-	private String normalizeGenderAndOtherAttributes(String name1)
-	{
-		name1 = Utils.convertToASCII(name1.replace("/", " ").replace("w/", "with ")).replace('!', ' ').toLowerCase();
-
-		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		name1 = Utils.convertToASCII(name1.replace("/", " ").replace("w/", "with ")).replace('!', ' ').toLowerCase();
-
-		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
-			.replace("women's", "women").replace("woman's", "women");
-		name1 = name1.replace(" man ", " men ").replace(" mans ", " men ").replace(" men's ", " men ")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
-			.replace("women's", "women").replace("woman's", "women");
-		name1 = name1.replace(" man ", " men ").replace(" mans ", " men ").replace(" men's ", " men ")
-			.replace(" man's ", " men ").replace(" mens ", " men ").replace("summer camp", "summer_camp")
-			.replace("gaea theatre festival", "tfestival"); // need regexp for this
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `thresh`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		if (thresh == null || thresh == 0f)
-		{
-			thresh = 0.8f;
-		}
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-
-		// normalize gender
-		name1 = normalizeGenderAndOtherAttributes(name1);
-		name2 = normalizeGenderAndOtherAttributes(name2);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name2`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		// normalize gender
-		name1 = normalizeGenderAndOtherAttributes(name1);
-		name2 = normalizeGenderAndOtherAttributes(name2);
-
-		StringBuilder reason = new StringBuilder();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name1Tokens`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		if (name1Tokens.indexOf("of") > 0 && name2Tokens.indexOf("of") > 0)
-		{
-			name1Tokens = extractMainNounPhrase(name1Tokens);
-			name2Tokens = extractMainNounPhrase(name2Tokens);
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name2Tokens`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-		{
-			name1Tokens = extractMainNounPhrase(name1Tokens);
-			name2Tokens = extractMainNounPhrase(name2Tokens);
-		}
-	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-			return null;
-
-		sent = sent.replace('[', ' ').replace(']', ' ')
-				.replace("_should_find_orig_", "").replace(".   .", ". ")
-				.replace("amp;", " ").replace("1.", " ").replace("2.", " ")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
-#### Snippet
-```java
-		int endIndex = sent.indexOf(" posted");
-		if (endIndex > 0)
-			sent = sent.substring(0, endIndex);
-
-		return sent;
+				query = query.substring(0, MAX_QUERY_LENGTH);
+				//should not cut words, need the last space to end the query
+				query = query.substring(0, StringUtils.lastIndexOf(query, " "));
+			} catch (Exception e) {
+				LOG.severe("Problem reducing the length of query :"+query);
 ```
 
 ### AssignmentToMethodParameter
@@ -27985,27 +27889,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSent
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `query`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
 #### Snippet
 ```java
-		if (query.length()>MAX_QUERY_LENGTH){
-			try {
-				query = query.substring(0, MAX_QUERY_LENGTH);
-				//should not cut words, need the last space to end the query
-				query = query.substring(0, StringUtils.lastIndexOf(query, " "));
+			return null;
+
+		sent = sent.replace('[', ' ').replace(']', ' ')
+				.replace("_should_find_orig_", "").replace(".   .", ". ")
+				.replace("amp;", " ").replace("1.", " ").replace("2.", " ")
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `query`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/BingQueryRunner.java`
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GeneratedSentenceProcessor.java`
 #### Snippet
 ```java
-				query = query.substring(0, MAX_QUERY_LENGTH);
-				//should not cut words, need the last space to end the query
-				query = query.substring(0, StringUtils.lastIndexOf(query, " "));
-			} catch (Exception e) {
-				LOG.severe("Problem reducing the length of query :"+query);
+		int endIndex = sent.indexOf(" posted");
+		if (endIndex > 0)
+			sent = sent.substring(0, endIndex);
+
+		return sent;
 ```
 
 ### AssignmentToMethodParameter
@@ -28018,6 +27922,174 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCom
 		rawExpr= rawExpr.replaceAll("([a-z][a-z])([A-Z][a-z])", "$1 $2");
 		String query = rawExpr.replace(' ', '+');
 		query = URLEncoder.encode(query, StandardCharsets.UTF_8);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+	public int getAttemptedNameMerge(String name1, String name2)
+	{
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name2`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name1 = name1.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+		// suspected word merge if higher case is in the middle of word
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+
+		name1 = name1.toLowerCase();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name2 = name2.replaceAll("[a-z][A-Z]", "$0&$0").replaceAll(".&.", " ");
+
+		name1 = name1.toLowerCase();
+		name2 = name2.toLowerCase();
+		if (name1.equals(name2) || name1.startsWith(name2) || name2.startsWith(name1) || name1.endsWith(name2)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name2`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+
+		name1 = name1.toLowerCase();
+		name2 = name2.toLowerCase();
+		if (name1.equals(name2) || name1.startsWith(name2) || name2.startsWith(name1) || name1.endsWith(name2)
+			|| name1.endsWith(name2) || name1.contains(name2) || name1.contains(name2)) // ??
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1Tokens`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		if (name1Tokens.indexOf("of") > 0 && name2Tokens.indexOf("of") > 0)
+		{
+			name1Tokens = extractMainNounPhrase(name1Tokens);
+			name2Tokens = extractMainNounPhrase(name2Tokens);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name2Tokens`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		{
+			name1Tokens = extractMainNounPhrase(name1Tokens);
+			name2Tokens = extractMainNounPhrase(name2Tokens);
+		}
+	}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `thresh`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		if (thresh == null || thresh == 0f)
+		{
+			thresh = 0.8f;
+		}
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+
+		// normalize gender
+		name1 = normalizeGenderAndOtherAttributes(name1);
+		name2 = normalizeGenderAndOtherAttributes(name2);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name2`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		// normalize gender
+		name1 = normalizeGenderAndOtherAttributes(name1);
+		name2 = normalizeGenderAndOtherAttributes(name2);
+
+		StringBuilder reason = new StringBuilder();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+	{
+		// normalize gender
+		name1 = normalizeGenderAndOtherAttributes(name1);
+		name2 = normalizeGenderAndOtherAttributes(name2);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name2`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		// normalize gender
+		name1 = normalizeGenderAndOtherAttributes(name1);
+		name2 = normalizeGenderAndOtherAttributes(name2);
+
+		Boolean bShortTitlesSimilarInWebSpace = attemptShortTitlesSimilarityInWebSpace(name1, name2);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+	private String normalizeGenderAndOtherAttributes(String name1)
+	{
+		name1 = Utils.convertToASCII(name1.replace("/", " ").replace("w/", "with ")).replace('!', ' ').toLowerCase();
+
+		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name1 = Utils.convertToASCII(name1.replace("/", " ").replace("w/", "with ")).replace('!', ' ').toLowerCase();
+
+		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
+			.replace("women's", "women").replace("woman's", "women");
+		name1 = name1.replace(" man ", " men ").replace(" mans ", " men ").replace(" men's ", " men ")
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name1`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+		name1 = name1.replace("woman", "women").replace("womans", "women").replace("womens", "women")
+			.replace("women's", "women").replace("woman's", "women");
+		name1 = name1.replace(" man ", " men ").replace(" mans ", " men ").replace(" men's ", " men ")
+			.replace(" man's ", " men ").replace(" mens ", " men ").replace("summer camp", "summer_camp")
+			.replace("gaea theatre festival", "tfestival"); // need regexp for this
 ```
 
 ### AssignmentToMethodParameter
@@ -28039,8 +28111,8 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```java
     if (content == null)
       return results;
-    content = StringUtils.substringBetween(content, "<div id=\"results",
-        "class=\"pagination");
+    content = StringUtils.substringBetween(content, ">Advanced</a></div>",
+        "<input type=\"text\" value=");
     if (content == null)
 ```
 
@@ -28051,8 +28123,8 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```java
     if (content == null)
       return results;
-    content = StringUtils.substringBetween(content, ">Advanced</a></div>",
-        "<input type=\"text\" value=");
+    content = StringUtils.substringBetween(content, "<div id=\"results",
+        "class=\"pagination");
     if (content == null)
 ```
 
@@ -28066,30 +28138,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 			sentsAll = new ArrayList<>();
 		// put orig sentence in structure
 		List<String> origs = new ArrayList<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `downloadedPage`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-		//String pageOrigHTML = pFetcher.fetchOrigHTML(url);
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `downloadedPage`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
-#### Snippet
-```java
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-		List<TextChunk> sentsList = new ArrayList<>();
 ```
 
 ### AssignmentToMethodParameter
@@ -28114,6 +28162,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGenera
 		pageContent = SPACES_PATTERN.matcher(pageContent).replaceAll("$1. $3")
 				.replace("..", ".").replace(". . .", " ")
 				.replace(".    .",". ").trim();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `downloadedPage`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+		//String pageOrigHTML = pFetcher.fetchOrigHTML(url);
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `downloadedPage`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/ContentGeneratorSupport.java`
+#### Snippet
+```java
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+		List<TextChunk> sentsList = new ArrayList<>();
 ```
 
 ### AssignmentToMethodParameter
@@ -28249,6 +28321,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/taxo_builder/
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `req`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+#### Snippet
+```java
+	public SolrQueryResponse runSearchIteration(SolrQueryRequest req, SolrQueryResponse rsp, String fieldToTry){
+		try {
+			req = substituteField(req, fieldToTry);
+			super.handleRequestBody(req, rsp);
+		} catch (Exception e) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `dir`
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.java`
 #### Snippet
@@ -28297,51 +28381,27 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/TreeKernelRunner.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `req`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/IterativeSearchRequestHandler.java`
+Assignment to method parameter `s`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-	public SolrQueryResponse runSearchIteration(SolrQueryRequest req, SolrQueryResponse rsp, String fieldToTry){
-		try {
-			req = substituteField(req, fieldToTry);
-			super.handleRequestBody(req, rsp);
-		} catch (Exception e) {
+
+  public static String convertToASCII(String s) {
+    s = s.replace("&amp", "");
+    s = s.replaceAll("â€™", "__apostrophe__");
+    String tmp = s;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sentsAll`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+Assignment to method parameter `s`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-			String originalSentence, List<String> sentsAll) {
-		if (sentsAll == null)
-			sentsAll = new ArrayList<>();
-		// put orig sentence in structure
-		List<String> origs = new ArrayList<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `downloadedPage`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-		int maxSentsFromPage= 100;
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `downloadedPage`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-
-		downloadedPage= downloadedPage.replace("     ", "&");
-		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
-		String[] sents = downloadedPage.split("#");
-		List<TextChunk> sentsList = new ArrayList<>();
+  public static String convertToASCII(String s) {
+    s = s.replace("&amp", "");
+    s = s.replaceAll("â€™", "__apostrophe__");
+    String tmp = s;
+    if (tmp != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -28349,11 +28409,11 @@ Assignment to method parameter `flags`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
+  public static Integer setFlag(Integer flags, Integer flagToCheck) {
     if (flags == null) {
-      // nothing to reset
       flags = 0;
-      return flags;
     }
+    if (!isFlagSet(flags, flagToCheck)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -28361,47 +28421,11 @@ Assignment to method parameter `flags`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-
-    if (isFlagSet(flags, flagToCheck)) {
-      flags = flags - flagToCheck;
+    }
+    if (!isFlagSet(flags, flagToCheck)) {
+      flags = flags + flagToCheck;
     }
     return flags;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-      String domain = StringUtils.substringBetween(siteUrl, "http://", "/");
-      if (domain == null) {
-        url = siteUrl + (url.startsWith("/") ? "" : "/") + url;
-      } else {
-        if (!url.startsWith("/")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-        if (!url.startsWith("/")) {
-          int lastIndex = StringUtils.lastIndexOf(siteUrl, "/");
-          url = siteUrl.substring(0, lastIndex) + "/" + url;
-        } else {
-          url = "http://" + domain + url;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-          url = siteUrl.substring(0, lastIndex) + "/" + url;
-        } else {
-          url = "http://" + domain + url;
-        }
-      }
 ```
 
 ### AssignmentToMethodParameter
@@ -28453,87 +28477,39 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
+Assignment to method parameter `url`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-
-  public static String convertToASCII(String s) {
-    s = s.replace("&amp", "");
-    s = s.replaceAll("â€™", "__apostrophe__");
-    String tmp = s;
+      String domain = StringUtils.substringBetween(siteUrl, "http://", "/");
+      if (domain == null) {
+        url = siteUrl + (url.startsWith("/") ? "" : "/") + url;
+      } else {
+        if (!url.startsWith("/")) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
+Assignment to method parameter `url`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  public static String convertToASCII(String s) {
-    s = s.replace("&amp", "");
-    s = s.replaceAll("â€™", "__apostrophe__");
-    String tmp = s;
-    if (tmp != null) {
+        if (!url.startsWith("/")) {
+          int lastIndex = StringUtils.lastIndexOf(siteUrl, "/");
+          url = siteUrl.substring(0, lastIndex) + "/" + url;
+        } else {
+          url = "http://" + domain + url;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `text`
+Assignment to method parameter `url`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-
-  public static String sanitizeString(String text) {
-    text = Utils.stripHTMLCommentsMultiLine(text);
-    text = Utils.stripHTMLMultiLine(text);
-    text = Utils.unescapeHTML(text);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-  public static String sanitizeString(String text) {
-    text = Utils.stripHTMLCommentsMultiLine(text);
-    text = Utils.stripHTMLMultiLine(text);
-    text = Utils.unescapeHTML(text);
-    text = StringUtils.trimToEmpty(text);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-    text = Utils.stripHTMLCommentsMultiLine(text);
-    text = Utils.stripHTMLMultiLine(text);
-    text = Utils.unescapeHTML(text);
-    text = StringUtils.trimToEmpty(text);
-    text = text.replaceAll("\\s+", " ");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-    text = Utils.stripHTMLMultiLine(text);
-    text = Utils.unescapeHTML(text);
-    text = StringUtils.trimToEmpty(text);
-    text = text.replaceAll("\\s+", " ");
-    return text;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
-#### Snippet
-```java
-    text = Utils.unescapeHTML(text);
-    text = StringUtils.trimToEmpty(text);
-    text = text.replaceAll("\\s+", " ");
-    return text;
-  }
+          url = siteUrl.substring(0, lastIndex) + "/" + url;
+        } else {
+          url = "http://" + domain + url;
+        }
+      }
 ```
 
 ### AssignmentToMethodParameter
@@ -28570,6 +28546,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
     text = Utils.stripStyleTags(text);
     return text.replaceAll("\\<.*?>", "");
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `flags`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+    if (flags == null) {
+      // nothing to reset
+      flags = 0;
+      return flags;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `flags`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+
+    if (isFlagSet(flags, flagToCheck)) {
+      flags = flags - flagToCheck;
+    }
+    return flags;
 ```
 
 ### AssignmentToMethodParameter
@@ -28585,27 +28585,99 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `flags`
+Assignment to method parameter `text`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-  public static Integer setFlag(Integer flags, Integer flagToCheck) {
-    if (flags == null) {
-      flags = 0;
-    }
-    if (!isFlagSet(flags, flagToCheck)) {
+
+  public static String sanitizeString(String text) {
+    text = Utils.stripHTMLCommentsMultiLine(text);
+    text = Utils.stripHTMLMultiLine(text);
+    text = Utils.unescapeHTML(text);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `flags`
+Assignment to method parameter `text`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-    }
-    if (!isFlagSet(flags, flagToCheck)) {
-      flags = flags + flagToCheck;
-    }
-    return flags;
+  public static String sanitizeString(String text) {
+    text = Utils.stripHTMLCommentsMultiLine(text);
+    text = Utils.stripHTMLMultiLine(text);
+    text = Utils.unescapeHTML(text);
+    text = StringUtils.trimToEmpty(text);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+    text = Utils.stripHTMLCommentsMultiLine(text);
+    text = Utils.stripHTMLMultiLine(text);
+    text = Utils.unescapeHTML(text);
+    text = StringUtils.trimToEmpty(text);
+    text = text.replaceAll("\\s+", " ");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+    text = Utils.stripHTMLMultiLine(text);
+    text = Utils.unescapeHTML(text);
+    text = StringUtils.trimToEmpty(text);
+    text = text.replaceAll("\\s+", " ");
+    return text;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+#### Snippet
+```java
+    text = Utils.unescapeHTML(text);
+    text = StringUtils.trimToEmpty(text);
+    text = text.replaceAll("\\s+", " ");
+    return text;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `downloadedPage`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+		int maxSentsFromPage= 100;
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `downloadedPage`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+
+		downloadedPage= downloadedPage.replace("     ", "&");
+		downloadedPage = downloadedPage.replaceAll("(?:&)+", "#");
+		String[] sents = downloadedPage.split("#");
+		List<TextChunk> sentsList = new ArrayList<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sentsAll`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+			String originalSentence, List<String> sentsAll) {
+		if (sentsAll == null)
+			sentsAll = new ArrayList<>();
+		// put orig sentence in structure
+		List<String> origs = new ArrayList<>();
 ```
 
 ### AssignmentToMethodParameter
@@ -28690,6 +28762,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/LemmaF
       lemma2 = lemma2.replace("_xyz", "");
       if (lemma1.equals(lemma2)) {
         return lemma1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
+#### Snippet
+```java
+      return null;
+
+    sent = sent.replace('[', ' ').replace(']', ' ')
+        .replace("_should_find_orig_", "").replace(".   .", ". ")
+        .replace("amp;", " ").replace("1.", " ").replace("2.", " ")
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sent`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
+#### Snippet
+```java
+    int endIndex = sent.indexOf(" posted");
+    if (endIndex > 0)
+      sent = sent.substring(0, endIndex);
+
+    return sent;
 ```
 
 ### AssignmentToMethodParameter
@@ -28861,30 +28957,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSente
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
-#### Snippet
-```java
-      return null;
-
-    sent = sent.replace('[', ' ').replace(']', ' ')
-        .replace("_should_find_orig_", "").replace(".   .", ". ")
-        .replace("amp;", " ").replace("1.", " ").replace("2.", " ")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sent`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MinedSentenceProcessor.java`
-#### Snippet
-```java
-    int endIndex = sent.indexOf(" posted");
-    if (endIndex > 0)
-      sent = sent.substring(0, endIndex);
-
-    return sent;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `pos1`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PartOfSpeechGeneralizer.java`
 #### Snippet
@@ -28933,30 +29005,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `Generator`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-			for (int parent : conceptList.get(Generator).parents) {
-				if (conceptList.get(parent).intent.containsAll(intent)) {
-					Generator = parent;
-					parentIsMaximal = true;
-					break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `generator`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-		//printLattice();
-		int generator_tmp = GetMaximalConcept(intent, generator);
-		generator = generator_tmp;
-		if (conceptList.get(generator).intent.equals(intent)) {
-			System.out.println("at generator:" + conceptList.get(generator).intent);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `posTexts`
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
@@ -28981,6 +29029,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `generator`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+		//printLattice();
+		int generator_tmp = GetMaximalConcept(intent, generator);
+		generator = generator_tmp;
+		if (conceptList.get(generator).intent.equals(intent)) {
+			System.out.println("at generator:" + conceptList.get(generator).intent);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `Generator`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
+#### Snippet
+```java
+			for (int parent : conceptList.get(Generator).parents) {
+				if (conceptList.get(parent).intent.containsAll(intent)) {
+					Generator = parent;
+					parentIsMaximal = true;
+					break;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `pageContentReader`
 in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/DocClassifier.java`
 #### Snippet
@@ -29002,6 +29074,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 		generator = generator_tmp;
 		if (conceptList.get(generator).intent.equals(intent)) {
 			System.out.println("at generator:" + conceptList.get(generator).intent);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos1`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
+#### Snippet
+```java
+    }
+    if (pos1.length() > 2) {
+      pos1 = pos1.substring(0, 2);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos2`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
+#### Snippet
+```java
+
+    if (pos2.length() > 2) {
+      pos2 = pos2.substring(0, 2);
+    }
+    if (pos1.equalsIgnoreCase(pos2)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -29053,30 +29149,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/LemmaFormManag
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `pos1`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
-#### Snippet
-```java
-    }
-    if (pos1.length() > 2) {
-      pos1 = pos1.substring(0, 2);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos2`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
-#### Snippet
-```java
-
-    if (pos2.length() > 2) {
-      pos2 = pos2.substring(0, 2);
-    }
-    if (pos1.equalsIgnoreCase(pos2)) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `result`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/GeneralizationListReducer.java`
 #### Snippet
@@ -29101,18 +29173,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/Generalization
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sentence`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserPure2MatcherProcessor.java`
-#### Snippet
-```java
-      return null;
-
-    sentence = TextProcessor.removePunctuation(sentence);
-    SentenceNode node = parseSentenceNode(sentence);
-    if (node == null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `numTabs`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
 #### Snippet
@@ -29125,159 +29185,51 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `useTreebank`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
+Assignment to method parameter `sentence`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserPure2MatcherProcessor.java`
 #### Snippet
 ```java
-    TrainSimilarityModel numTrain = NumberModel.trainModel(modelDirectory + "/coref/num");
-    
-    useTreebank = true; 
-    
-    Linker simLinker;
+      return null;
+
+    sentence = TextProcessor.removePunctuation(sentence);
+    SentenceNode node = parseSentenceNode(sentence);
+    if (node == null) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `entity`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+Assignment to method parameter `token`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
-        //System.err.println("AbstractLinker.updateExtent: creatingExtent:
-        // "+econtext.toText()+" "+econtext.gender+" "+econtext.number);
-        entity = new DiscourseEntity(mention, mention.getGender(), mention.getGenderProb(),
-            mention.getNumber(), mention.getNumberProb());
-        dm.addEntity(entity);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `p`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
-#### Snippet
-```java
-      // System.err.println(p+" ("+p.getEntityId()+") -> "+head+" ("+head.getEntityId()+")");
-      // }
-      p = head;
+  public static String stripToken(String token) {
+    if (token.endsWith("\'s") || token.endsWith("�s")) {
+      token = token.substring(0, token.length() - 2);
     }
-    //System.err.println(" -> null");
+    return token;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `tok`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-   */
-  public static boolean definiteArticle(String tok, String tag) {
-    tok = tok.toLowerCase();
-    if (tok.equals("the") || tok.equals("these") || tok.equals("these") || tag.equals("PRP$")) {
-      return (true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
+Assignment to method parameter `term`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
 
-    if (StringUtils.isNotEmpty(str)) {
-      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
-      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
-      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    if (StringUtils.isNotEmpty(str)) {
-      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
-      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
-      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
-                                         // single space
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
-      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
-      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
-                                         // single space
+  public static String stemTerm(String term) {
+    term = stripToken(term);
+    PStemmer st = new PStemmer();
 
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
+Assignment to method parameter `text`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
 ```java
-
-      // remove empty paragraphs - would be nice to have single regex for this
-      str = str.replaceAll("<p> </p>", "");
-      str = str.replaceAll("<p></p>", "");
-      str = str.replaceAll("<p/>", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      // remove empty paragraphs - would be nice to have single regex for this
-      str = str.replaceAll("<p> </p>", "");
-      str = str.replaceAll("<p></p>", "");
-      str = str.replaceAll("<p/>", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      str = str.replaceAll("<p> </p>", "");
-      str = str.replaceAll("<p></p>", "");
-      str = str.replaceAll("<p/>", "");
-
-      str = str.replaceAll("<strong><br/></strong>", "<br/>"); // escape strong
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      str = str.replaceAll("<p/>", "");
-
-      str = str.replaceAll("<strong><br/></strong>", "<br/>"); // escape strong
-                                                               // tag if
-                                                               // surrounding
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-                                                               // surrounding
-                                                               // break tag
-      str = str.replaceAll("(<br/>)+", "<br/><br/>"); // replace multiple break
-                                                      // tags with 2 break tags
-      str = str.replaceAll("<p><br/>", "<p>"); // replace paragraph followed by
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-      str = str.replaceAll("(<br/>)+", "<br/><br/>"); // replace multiple break
-                                                      // tags with 2 break tags
-      str = str.replaceAll("<p><br/>", "<p>"); // replace paragraph followed by
-                                               // break with just a paragraph
-      // element
+    if (text.trim().length() > 0) {
+      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
+      text += " XOXOX.";
+      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
+      Matcher m = p.matcher(text);
 ```
 
 ### AssignmentToMethodParameter
@@ -29413,42 +29365,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-    if (text.trim().length() > 0) {
-      String s = "[\\?!\\.]\"?[\\s+][A-Z0-9i]";
-      text += " XOXOX.";
-      Pattern p = Pattern.compile(s, Pattern.MULTILINE);
-      Matcher m = p.matcher(text);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `term`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-
-  public static String stemTerm(String term) {
-    term = stripToken(term);
-    PStemmer st = new PStemmer();
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `token`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
-#### Snippet
-```java
-  public static String stripToken(String token) {
-    if (token.endsWith("\'s") || token.endsWith("�s")) {
-      token = token.substring(0, token.length() - 2);
-    }
-    return token;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `token`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
 #### Snippet
@@ -29497,6 +29413,114 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+
+    if (StringUtils.isNotEmpty(str)) {
+      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
+      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
+      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+    if (StringUtils.isNotEmpty(str)) {
+      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
+      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
+      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
+                                         // single space
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      str = str.replaceAll("&nbsp;", " "); // replace &nbsp; with spaces
+      str = str.replaceAll("<br />", "<br/>"); // normalize break tag
+      str = str.replaceAll("\\s+", " "); // replace multiple white spaces with
+                                         // single space
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+
+      // remove empty paragraphs - would be nice to have single regex for this
+      str = str.replaceAll("<p> </p>", "");
+      str = str.replaceAll("<p></p>", "");
+      str = str.replaceAll("<p/>", "");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      // remove empty paragraphs - would be nice to have single regex for this
+      str = str.replaceAll("<p> </p>", "");
+      str = str.replaceAll("<p></p>", "");
+      str = str.replaceAll("<p/>", "");
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      str = str.replaceAll("<p> </p>", "");
+      str = str.replaceAll("<p></p>", "");
+      str = str.replaceAll("<p/>", "");
+
+      str = str.replaceAll("<strong><br/></strong>", "<br/>"); // escape strong
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      str = str.replaceAll("<p/>", "");
+
+      str = str.replaceAll("<strong><br/></strong>", "<br/>"); // escape strong
+                                                               // tag if
+                                                               // surrounding
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+                                                               // surrounding
+                                                               // break tag
+      str = str.replaceAll("(<br/>)+", "<br/><br/>"); // replace multiple break
+                                                      // tags with 2 break tags
+      str = str.replaceAll("<p><br/>", "<p>"); // replace paragraph followed by
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/TextProcessor.java`
+#### Snippet
+```java
+      str = str.replaceAll("(<br/>)+", "<br/><br/>"); // replace multiple break
+                                                      // tags with 2 break tags
+      str = str.replaceAll("<p><br/>", "<p>"); // replace paragraph followed by
+                                               // break with just a paragraph
+      // element
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `toParse`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk.java`
 #### Snippet
@@ -29509,15 +29533,63 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeChunk
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `batchSize`
-in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
+Assignment to method parameter `useTreebank`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefTrainer.java`
 #### Snippet
 ```java
-    @Override
-    public DataSet next(int batchSize) {
-        batchSize = Math.min(batchSize, records.size() - cursor);
-        INDArray features = Nd4j.create(batchSize, vectorLen, maxSeqLen);
-        INDArray labels = Nd4j.create(batchSize, numLabels, maxSeqLen);
+    TrainSimilarityModel numTrain = NumberModel.trainModel(modelDirectory + "/coref/num");
+    
+    useTreebank = true; 
+    
+    Linker simLinker;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `entity`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/AbstractLinker.java`
+#### Snippet
+```java
+        //System.err.println("AbstractLinker.updateExtent: creatingExtent:
+        // "+econtext.toText()+" "+econtext.gender+" "+econtext.number);
+        entity = new DiscourseEntity(mention, mention.getGender(), mention.getGenderProb(),
+            mention.getNumber(), mention.getNumberProb());
+        dm.addEntity(entity);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `p`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
+#### Snippet
+```java
+      // System.err.println(p+" ("+p.getEntityId()+") -> "+head+" ("+head.getEntityId()+")");
+      // }
+      p = head;
+    }
+    //System.err.println(" -> null");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `tok`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+   */
+  public static boolean definiteArticle(String tok, String tag) {
+    tok = tok.toLowerCase();
+    if (tok.equals("the") || tok.equals("these") || tok.equals("these") || tag.equals("PRP$")) {
+      return (true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `word`
+in `tf-ner-poc/src/main/java/org/apache/opennlp/namefinder/WordIndexer.java`
+#### Snippet
+```java
+    // 1. preprocess word
+    if (lowerCase) {
+      word = StringUtil.toLowerCase(word);
+    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -29530,6 +29602,18 @@ in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
             floatPrecisionFormatString = " " + floatPrecisionFormatString;
         }
         LOG.info("Writing {} vectors out, float precision {}", idToWord.size(), floatPrecisionFormatString);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `batchSize`
+in `opennlp-dl/src/main/java/opennlp/tools/dl/DataReader.java`
+#### Snippet
+```java
+    @Override
+    public DataSet next(int batchSize) {
+        batchSize = Math.min(batchSize, records.size() - cursor);
+        INDArray features = Nd4j.create(batchSize, vectorLen, maxSeqLen);
+        INDArray labels = Nd4j.create(batchSize, numLabels, maxSeqLen);
 ```
 
 ## RuleId[id=UnnecessaryContinue]
@@ -29558,234 +29642,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/nl2code/NL2Obj.java`
 ```
 
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDEvaluator.java`
-#### Snippet
-```java
-      System.out
-          .println("There was no sense for : " + reference.getTargetWord());
-      return null;
-    }
-    // get the senseKey from the result
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSampleStream.java`
-#### Snippet
-```java
-    } else {
-      // sentences stream is exhausted
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
-#### Snippet
-```java
-        WSDHelper.print("NULL synset probably a POS tagger mistake ! :: [POS] : "
-                + pos.getLabel() + " [word] : " + word);
-        return null;
-      }
-      List<Synset> synsets = indexWord.getSenses();
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-
-    if (posTag == null) {
-      return null;
-    }
-    if (posTag.startsWith("JJ")) {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-    }
-
-    return null;
-
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-    // don't check words with digits in them
-    if (WSDHelper.containsNumbers(wordToStem.getWord())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-        posMap.put(wordToStem.getWord(), stemList);
-        WSDHelper.getStemCache().put(wordToStem.getPOS().getKey(), posMap);
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-  public static ArrayList<String> StemWordWithWordNet(WordPOS wordToStem) {
-    if (wordToStem == null)
-      return null;
-    ArrayList<String> stems = new ArrayList<>();
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-        return stems;
-      else {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      return POS.VERB;
-    else
-      return null;
-
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
-#### Snippet
-```java
-      return words;
-    } else {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
-#### Snippet
-```java
-          .getTargetTag();
-      } else {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-      WSDHelper.print(word + "    " + pos);
-      WSDHelper.print("The word has no definitions in WordNet !");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
-#### Snippet
-```java
-            + sample.getTargetTag();
-      } else {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDModel.java`
-#### Snippet
-```java
-      return (MaxentModel) artifactMap.get(WSD_MODEL_ENTRY_NAME);
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
-#### Snippet
-```java
-      }
-      
-      return null;
-    }
-    
-```
-
 ### ReturnNull
 Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/DedupResult.java`
@@ -29836,18 +29692,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/FBOpenGra
 
 ### ReturnNull
 Return of `null`
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
-#### Snippet
-```java
-            + sample.getTargetTag();
-      } else {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymListFilter.java`
 #### Snippet
 ```java
@@ -29856,18 +29700,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SynonymL
 				return null;
 			Random rand = new Random();
 			int index = (int) Math.floor(rand.nextDouble()*(double)synonyms.length);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SentimentVocab.java`
-#### Snippet
-```java
-	public Sentiment getSentiment(String word) {
-		if (word == null)
-			return null;
-
-		// get the normalized form
 ```
 
 ### ReturnNull
@@ -29887,11 +29719,119 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SentimentVocab.java`
 #### Snippet
 ```java
+	public Sentiment getSentiment(String word) {
+		if (word == null)
+			return null;
+
+		// get the normalized form
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/SentimentVocab.java`
+#### Snippet
+```java
 	public Sentiment getSentiment(String word, String posType) {
 		if (word == null)
 			return null;
 
 		// get the normalized form
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+	public List<List<ParseTreeChunk>> getPhrasesOfAllTypes(String sentence) {
+		if (sentence==null)
+			return null;
+		if (sentence.split(" ").length ==1) { // this is a word, return empty
+			//queryArrayStr.add( sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		if (sentence.split(" ").length ==1) { // this is a word, return empty
+			//queryArrayStr.add( sentence);
+			return null;
+		}
+		if (sentence.length()>200)
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		}
+		if (sentence.length()>200)
+			return null ; // too long of a sentence to parse
+
+		System.out.println("About to parse: "+sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
+		if (groupedChunks.size()<1)
+			return null;
+
+		return groupedChunks;
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+	public List<ParseTreeChunk> getVerbPhrases(String sentence) {
+		if (sentence==null)
+			return null;
+		if (sentence.split(" ").length ==1) { // this is a word, return empty
+			//queryArrayStr.add( sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		if (sentence.split(" ").length ==1) { // this is a word, return empty
+			//queryArrayStr.add( sentence);
+			return null;
+		}
+		if (sentence.length()>100)
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		}
+		if (sentence.length()>100)
+			return null ; // too long of a sentence to parse
+
+		System.out.println("About to parse: "+sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
+#### Snippet
+```java
+		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
+		if (groupedChunks.size()<1)
+			return null;
+
+		return groupedChunks.get(1);
 ```
 
 ### ReturnNull
@@ -30000,114 +29940,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/apps/review_builder/MinedSent
       return null;
 
     sent = sent.replace('[', ' ').replace(']', ' ')
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-	public List<List<ParseTreeChunk>> getPhrasesOfAllTypes(String sentence) {
-		if (sentence==null)
-			return null;
-		if (sentence.split(" ").length ==1) { // this is a word, return empty
-			//queryArrayStr.add( sentence);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		if (sentence.split(" ").length ==1) { // this is a word, return empty
-			//queryArrayStr.add( sentence);
-			return null;
-		}
-		if (sentence.length()>200)
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		}
-		if (sentence.length()>200)
-			return null ; // too long of a sentence to parse
-
-		System.out.println("About to parse: "+sentence);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
-		if (groupedChunks.size()<1)
-			return null;
-
-		return groupedChunks;
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-	public List<ParseTreeChunk> getVerbPhrases(String sentence) {
-		if (sentence==null)
-			return null;
-		if (sentence.split(" ").length ==1) { // this is a word, return empty
-			//queryArrayStr.add( sentence);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		if (sentence.split(" ").length ==1) { // this is a word, return empty
-			//queryArrayStr.add( sentence);
-			return null;
-		}
-		if (sentence.length()>100)
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		}
-		if (sentence.length()>100)
-			return null ; // too long of a sentence to parse
-
-		System.out.println("About to parse: "+sentence);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/relevanceVocabs/PhraseProcessor.java`
-#### Snippet
-```java
-		List<List<ParseTreeChunk>> groupedChunks = nlProc.formGroupedPhrasesFromChunksForPara(sentence);
-		if (groupedChunks.size()<1)
-			return null;
-
-		return groupedChunks.get(1);
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
-#### Snippet
-```java
-			"helicopter", "sexual", "junior", "jr" }));
-			*/
-		return null;
-
-	}
 ```
 
 ### ReturnNull
@@ -30256,6 +30088,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/GoogleAutoCom
 
 ### ReturnNull
 Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/apps/object_dedup/SimilarityAccessorBase.java`
+#### Snippet
+```java
+			"helicopter", "sexual", "junior", "jr" }));
+			*/
+		return null;
+
+	}
+```
+
+### ReturnNull
+Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/SpeechRecognitionResultsProcessor.java`
 #### Snippet
 ```java
@@ -30352,37 +30196,25 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/solr/Iterativ
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-					"!(pageSentence != null && pageSentence.length()>50 && (float) pageSentence.length() / (float) fragment.length() < 4.0) )");
-			
-			return null;
-		}
-
+  public static String addDomainToUrl(String siteUrl, String url) {
+    if (StringUtils.isEmpty(url)) {
+      return null; // should we return siteUrl here ??
+    }
+    if (!url.startsWith("http://")) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
 #### Snippet
 ```java
-				System.out
-				.println("Rejected Sentence : empty match "+ pageSentence);
-				return null;
-			}
-			
-```
+    }
 
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
-#### Snippet
-```java
-				.println("Rejected Sentence : No verb OR Yes imperative verb :"
-						+ pageSentence);
-				return null;
-			}
+    return null;
+  }
 
 ```
 
@@ -30424,25 +30256,37 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSenten
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-  public static String addDomainToUrl(String siteUrl, String url) {
-    if (StringUtils.isEmpty(url)) {
-      return null; // should we return siteUrl here ??
-    }
-    if (!url.startsWith("http://")) {
+					"!(pageSentence != null && pageSentence.length()>50 && (float) pageSentence.length() / (float) fragment.length() < 4.0) )");
+			
+			return null;
+		}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/utils/Utils.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
 #### Snippet
 ```java
-    }
+				System.out
+				.println("Rejected Sentence : empty match "+ pageSentence);
+				return null;
+			}
+			
+```
 
-    return null;
-  }
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/RelatedSentenceFinder.java`
+#### Snippet
+```java
+				.println("Rejected Sentence : No verb OR Yes imperative verb :"
+						+ pageSentence);
+				return null;
+			}
 
 ```
 
@@ -30452,6 +30296,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/ParseTreeNode.j
 #### Snippet
 ```java
 			return pos1 + "*";
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
+#### Snippet
+```java
+		if (downloadedPage == null || downloadedPage.length() < 100)
+		{
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
+#### Snippet
+```java
+			}
 		}
 		return null;
 	}
@@ -30484,18 +30352,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcesso
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/VerbNetProcessor.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSentenceSearchResultsProcessor.java`
 #### Snippet
 ```java
@@ -30504,18 +30360,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/MultiSente
 			return null;
 		}
 		//ProfileReaderWriter.writeReport(reportData, "resultsForQuery_"+query.replace(' ', '_')+".csv");
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/apps/WebPageExtractor.java`
-#### Snippet
-```java
-		if (downloadedPage == null || downloadedPage.length() < 100)
-		{
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -30736,18 +30580,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/NERPhr
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGeneralizer.java`
-#### Snippet
-```java
-
-		if (overlap == null || overlap.size() < 1)
-			return null;
-
-		// to accumulate starts of alignments
-```
-
-### ReturnNull
-Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/communicative_actions/CommunicativeActionsArcBuilder.java`
 #### Snippet
 ```java
@@ -30760,14 +30592,26 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/communicative_a
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/matching/PhraseGeneralizer.java`
 #### Snippet
 ```java
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
+
+		if (overlap == null || overlap.size() < 1)
+			return null;
+
+		// to accumulate starts of alignments
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
+#### Snippet
+```java
+      return pos1 + "*";
     }
+    return null;
   }
+
 ```
 
 ### ReturnNull
@@ -30820,14 +30664,14 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/LemmaFormManag
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/POSManager.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/doc_classifier/ClassifierTrainingSetIndexer.java`
 #### Snippet
 ```java
-      return pos1 + "*";
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
     }
-    return null;
   }
-
 ```
 
 ### ReturnNull
@@ -30892,6 +30736,18 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
 
 ### ReturnNull
 Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
+#### Snippet
+```java
+  private String getText(boolean useLemma, boolean removeStopWord) {
+    if (children == null || children.size() == 0)
+      return null;
+
+    StringBuilder builder = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserPure2MatcherProcessor.java`
 #### Snippet
 ```java
@@ -30916,19 +30772,31 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/PhraseNode.java`
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorporaResource.java`
 #### Snippet
 ```java
-  private String getText(boolean useLemma, boolean removeStopWord) {
-    if (children == null || children.size() == 0)
-      return null;
-
-    StringBuilder builder = new StringBuilder();
+      }
+      else {
+        return null;
+      }
+	}
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSampleDataStream.java`
+in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/taskqueue/MemoryTaskQueue.java`
+#### Snippet
+```java
+      return casIdQueueIterator.next();
+    else
+      return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/ServiceUtil.java`
 #### Snippet
 ```java
     }
@@ -30940,50 +30808,26 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSampleDataStream.java`
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSample.java`
 #### Snippet
 ```java
-  private static ArrayList<SyntacticTreeNode> convertChildrenNodes(Parse parse) {
-    if (parse == null)
-      return null;
+      e.printStackTrace();
+    }
+    return null;
+  }
 
-    Parse[] children = parse.getChildren();
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDSampleStream.java`
 #### Snippet
 ```java
-    Parse[] children = parse.getChildren();
-    if (children == null || children.length == 0)
-      return null;
-
-    ArrayList<SyntacticTreeNode> childrenNodeList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    // most likely a heading
-    if (sentence == null || sentence.trim().length() < MIN_SENTENCE_LENGTH)
-      return null;
-
-    Parse[] parseArray;
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    } catch (Throwable t) {
-      LOG.log(Level.WARNING, "failed to parse the sentence : '" + sentence); //, t);
+    } else {
+      // sentences stream is exhausted
       return null;
     }
-    // there should be only one result parse
+  }
 ```
 
 ### ReturnNull
@@ -30991,8 +30835,32 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
 ```java
-      return parseArray[0];
-    else
+  public static SentenceNode sentenceToSentenceNode(Parse sentenceParse) {
+    if (sentenceParse == null)
+      return null;
+
+    // convert the OpenNLP Parse to our own tree nodes
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    SyntacticTreeNode node = toSyntacticTreeNode(sentenceParse);
+    if ((node == null))
+      return null;
+    if (node instanceof SentenceNode)
+      return (SentenceNode) node;
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+      return sn;
+    } else
       return null;
   }
 
@@ -31003,35 +30871,11 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
 ```java
-  private static SyntacticTreeNode toSyntacticTreeNode(Parse parse) {
-    if (parse == null)
+  public String[] splitSentences(String text) {
+    if (text == null)
       return null;
-
-    // check for junk types
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-    String type = parse.getType();
-    if (SyntacticTreeNode.isJunkType(type, parse))
-      return null;
-
-    String text = parse.getText();
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
-#### Snippet
-```java
-      rootNode = (PhraseNode) childrenNodeList.get(0);
-    } catch (Exception e) {
-      return null;
-    }
-      return new SentenceNode(text, rootNode.getChildren());
+    // if (sentenceDetector!=null)
+    // return sentenceDetector.sentDetect(text);
 ```
 
 ### ReturnNull
@@ -31087,11 +30931,11 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
 ```java
-  public String[] tokenizeSentence(String sentence) {
-    if (sentence == null)
+  private static SyntacticTreeNode toSyntacticTreeNode(Parse parse) {
+    if (parse == null)
       return null;
 
-    return tokenizer.tokenize(sentence);
+    // check for junk types
 ```
 
 ### ReturnNull
@@ -31099,11 +30943,47 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
 ```java
-  public String[] splitSentences(String text) {
-    if (text == null)
+    String type = parse.getType();
+    if (SyntacticTreeNode.isJunkType(type, parse))
       return null;
-    // if (sentenceDetector!=null)
-    // return sentenceDetector.sentDetect(text);
+
+    String text = parse.getText();
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+      rootNode = (PhraseNode) childrenNodeList.get(0);
+    } catch (Exception e) {
+      return null;
+    }
+      return new SentenceNode(text, rootNode.getChildren());
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+      String sentence) {
+    if (sentence == null || sentence.trim().length() < MIN_SENTENCE_LENGTH)
+      return null;
+    /*
+     * sentence = TextProcessor.removePunctuation(sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    String[][] resTagToks = parseChunkSentence(sentence);
+    if (resTagToks == null)
+      return null;
+    String[] res = resTagToks[0];
+    String[] tags = resTagToks[1];
 ```
 
 ### ReturnNull
@@ -31116,6 +30996,54 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
       return null;
 
     List<List<Parse>> textParses = new ArrayList<>(1);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    // most likely a heading
+    if (sentence == null || sentence.trim().length() < MIN_SENTENCE_LENGTH)
+      return null;
+
+    Parse[] parseArray;
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    } catch (Throwable t) {
+      LOG.log(Level.WARNING, "failed to parse the sentence : '" + sentence); //, t);
+      return null;
+    }
+    // there should be only one result parse
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+      return parseArray[0];
+    else
+      return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+  public List<Parse> parseParagraphNlp(String paragraph) {
+    if (paragraph == null || paragraph.trim().length() == 0)
+      return null;
+
+    // normalize the text before parsing, otherwise, the sentences may not
 ```
 
 ### ReturnNull
@@ -31147,6 +31075,42 @@ Return of `null`
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
 ```java
+  public String[] tokenizeSentence(String sentence) {
+    if (sentence == null)
+      return null;
+
+    return tokenizer.tokenize(sentence);
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+  private static ArrayList<SyntacticTreeNode> convertChildrenNodes(Parse parse) {
+    if (parse == null)
+      return null;
+
+    Parse[] children = parse.getChildren();
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
+    Parse[] children = parse.getChildren();
+    if (children == null || children.length == 0)
+      return null;
+
+    ArrayList<SyntacticTreeNode> childrenNodeList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+#### Snippet
+```java
       List<Parse> paragraphParses) {
     if (paragraphParses == null || paragraphParses.size() == 0)
       return null;
@@ -31168,74 +31132,206 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDEvaluator.java`
 #### Snippet
 ```java
-  public static SentenceNode sentenceToSentenceNode(Parse sentenceParse) {
-    if (sentenceParse == null)
+      System.out
+          .println("There was no sense for : " + reference.getTargetWord());
       return null;
-
-    // convert the OpenNLP Parse to our own tree nodes
+    }
+    // get the senseKey from the result
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
 #### Snippet
 ```java
-    SyntacticTreeNode node = toSyntacticTreeNode(sentenceParse);
-    if ((node == null))
-      return null;
-    if (node instanceof SentenceNode)
-      return (SentenceNode) node;
+        WSDHelper.print("NULL synset probably a POS tagger mistake ! :: [POS] : "
+                + pos.getLabel() + " [word] : " + word);
+        return null;
+      }
+      List<Synset> synsets = indexWord.getSenses();
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WordPOS.java`
 #### Snippet
 ```java
-      return sn;
-    } else
-      return null;
+      e.printStackTrace();
+    }
+    return null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorME.java`
 #### Snippet
 ```java
-  public List<Parse> parseParagraphNlp(String paragraph) {
-    if (paragraph == null || paragraph.trim().length() == 0)
-      return null;
+          .getTargetTag();
+      } else {
+        return null;
+      }
 
-    // normalize the text before parsing, otherwise, the sentences may not
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
 #### Snippet
 ```java
-      String sentence) {
-    if (sentence == null || sentence.trim().length() < MIN_SENTENCE_LENGTH)
+      WSDHelper.print(word + "    " + pos);
+      WSDHelper.print("The word has no definitions in WordNet !");
       return null;
-    /*
-     * sentence = TextProcessor.removePunctuation(sentence);
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/MFS.java`
 #### Snippet
 ```java
-    String[][] resTagToks = parseChunkSentence(sentence);
-    if (resTagToks == null)
+            + sample.getTargetTag();
+      } else {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+    // don't check words with digits in them
+    if (WSDHelper.containsNumbers(wordToStem.getWord())) {
       return null;
-    String[] res = resTagToks[0];
-    String[] tags = resTagToks[1];
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+        posMap.put(wordToStem.getWord(), stemList);
+        WSDHelper.getStemCache().put(wordToStem.getPOS().getKey(), posMap);
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      return POS.VERB;
+    else
+      return null;
+
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      return words;
+    } else {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+
+    if (posTag == null) {
+      return null;
+    }
+    if (posTag.startsWith("JJ")) {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+    }
+
+    return null;
+
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+  public static ArrayList<String> StemWordWithWordNet(WordPOS wordToStem) {
+    if (wordToStem == null)
+      return null;
+    ArrayList<String> stems = new ArrayList<>();
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+        return stems;
+      else {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDHelper.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/CorefSampleDataStream.java`
+#### Snippet
+```java
+    }
+    else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDModel.java`
+#### Snippet
+```java
+      return (MaxentModel) artifactMap.get(WSD_MODEL_ENTRY_NAME);
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -31312,14 +31408,74 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/PTBHeadFinder.java`
 
 ### ReturnNull
 Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
 #### Snippet
 ```java
-    catch (JWNLException e) {
-      e.printStackTrace();
+    }
+    else {
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+    //find right-most child which is a token
+    if (index < 0) {
+      return null;
+    }
+    else {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+    //find left-most child which is a token
+    if (parent == null) {
+      return null;
+    }
+    else {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+  public String getSyntacticType() {
+    if (ENTITY_SET.contains(parse.getType())) {
+      return null;
+    }
+    else if (parse.getType().contains("#")) {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+#### Snippet
+```java
+    Parse parent = parse.getParent();
+    if (parent == null) {
+      return null;
+    }
+    else {
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/PerfectResolver.java`
+#### Snippet
+```java
+
+  public DiscourseEntity resolve(MentionContext ec, DiscourseModel dm) {
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -31360,158 +31516,14 @@ in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
 
 ### ReturnNull
 Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/JWNLDictionary.java`
 #### Snippet
 ```java
-    //find left-most child which is a token
-    if (parent == null) {
-      return null;
-    }
-    else {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-    //find right-most child which is a token
-    if (index < 0) {
-      return null;
-    }
-    else {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-  public String getSyntacticType() {
-    if (ENTITY_SET.contains(parse.getType())) {
-      return null;
-    }
-    else if (parse.getType().contains("#")) {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-    Parse parent = parse.getParent();
-    if (parent == null) {
-      return null;
-    }
-    else {
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/mention/DefaultParse.java`
-#### Snippet
-```java
-    }
-    else {
+    catch (JWNLException e) {
+      e.printStackTrace();
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/PerfectResolver.java`
-#### Snippet
-```java
-
-  public DiscourseEntity resolve(MentionContext ec, DiscourseModel dm) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    if (start == end) {
-      //System.err.println("stripNp: return null 1");
-      return null;
-    }
-    //strip determiners
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    if (start == end) {
-      //System.err.println("stripNp: return null 2");
-      return null;
-    }
-    //get to first NNP
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    if (start == end) {
-      //System.err.println("stripNp: return null 3");
-      return null;
-    }
-    if (start + 1 != end) { // don't do this on head words, to keep "U.S."
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-      if (start == end) {
-        //System.err.println("stripNp: return null 4");
-        return null;
-      }
-      //strip off and honerifics on the end
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-    if (start == end) {
-      //System.err.println("stripNp: return null 5");
-      return null;
-    }
-    StringBuilder strip = new StringBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-      return "exactMatchNoDT";
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -31600,14 +31612,86 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucCorefSampleStream.j
 
 ### ReturnNull
 Return of `null`
-in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/FullParseCorefEnhancerStream.java`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
 #### Snippet
 ```java
-    }
-    else {
+    if (start == end) {
+      //System.err.println("stripNp: return null 1");
       return null;
     }
+    //strip determiners
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+    if (start == end) {
+      //System.err.println("stripNp: return null 2");
+      return null;
+    }
+    //get to first NNP
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+    if (start == end) {
+      //System.err.println("stripNp: return null 3");
+      return null;
+    }
+    if (start + 1 != end) { // don't do this on head words, to keep "U.S."
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+      if (start == end) {
+        //System.err.println("stripNp: return null 4");
+        return null;
+      }
+      //strip off and honerifics on the end
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+    if (start == end) {
+      //System.err.println("stripNp: return null 5");
+      return null;
+    }
+    StringBuilder strip = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+      return "exactMatchNoDT";
+    }
+    return null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-coref/src/main/java/opennlp/tools/coref/resolver/ResolverUtils.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -31636,7 +31720,7 @@ in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/MucMentionInserterStre
 
 ### ReturnNull
 Return of `null`
-in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/ServiceUtil.java`
+in `opennlp-coref/src/main/java/opennlp/tools/formats/muc/FullParseCorefEnhancerStream.java`
 #### Snippet
 ```java
     }
@@ -31648,146 +31732,38 @@ in `tagging-server/src/main/java/org/apache/opennlp/tagging_server/ServiceUtil.j
 
 ### ReturnNull
 Return of `null`
-in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
+in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
+#### Snippet
+```java
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/Lesk.java`
+#### Snippet
+```java
+            + sample.getTargetTag();
+      } else {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `corpus-server/corpus-server-impl/src/main/java/org/apache/opennlp/corpus_server/impl/DerbyCorporaStore.java`
 #### Snippet
 ```java
       }
-
+      
       return null;
     }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
-#### Snippet
-```java
-            return embeddings.getRow(wordToId.get(word));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mallet-addon/src/main/java/opennlp/addons/mallet/ClassifierModel.java`
-#### Snippet
-```java
-  @Override
-  public String getAllOutcomes(double[] outcomes) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
-#### Snippet
-```java
-  @Override
-  public IPersistableElement getPersistable() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
-#### Snippet
-```java
-  @Override
-  public ImageDescriptor getImageDescriptor() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
-#### Snippet
-```java
-  @Override
-  public Object getAdapter(Class clazz) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/CorporaResource.java`
-#### Snippet
-```java
-      }
-      else {
-        return null;
-      }
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
-#### Snippet
-```java
-    // if not, we can only show an error message!
     
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `corpus-server/corpus-server-core/src/main/java/org/apache/opennlp/corpus_server/taskqueue/MemoryTaskQueue.java`
-#### Snippet
-```java
-      return casIdQueueIterator.next();
-    else
-      return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
-#### Snippet
-```java
-      @Override
-      public Image getColumnImage(Object arg0, int arg1) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
-#### Snippet
-```java
-      @Override
-      public Image getColumnImage(Object arg0, int arg1) {
-        return null;
-      }
-
 ```
 
 ### ReturnNull
@@ -31852,18 +31828,6 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/sentdete
 
 ### ReturnNull
 Return of `null`
-in `summarizer/src/main/java/opennlp/summarization/textrank/TextRankSummarizer.java`
-#### Snippet
-```java
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefinder/EntityContentProvider.java`
 #### Snippet
 ```java
@@ -31872,6 +31836,126 @@ in `caseditor-opennlp-plugin/src/main/java/org/apache/opennlp/caseditor/namefind
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `mallet-addon/src/main/java/opennlp/addons/mallet/ClassifierModel.java`
+#### Snippet
+```java
+  @Override
+  public String getAllOutcomes(double[] outcomes) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
+#### Snippet
+```java
+  @Override
+  public Object getAdapter(Class clazz) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
+#### Snippet
+```java
+  @Override
+  public IPersistableElement getPersistable() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusServerCasEditorInput.java`
+#### Snippet
+```java
+  @Override
+  public ImageDescriptor getImageDescriptor() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/TaskQueueView.java`
+#### Snippet
+```java
+      @Override
+      public Image getColumnImage(Object arg0, int arg1) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/CorpusExplorerView.java`
+#### Snippet
+```java
+      @Override
+      public Image getColumnImage(Object arg0, int arg1) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `caseditor-corpus-server-plugin/src/main/java/org/apache/opennlp/corpus_server/caseditor/DefaultCasDocumentProvider.java`
+#### Snippet
+```java
+    // if not, we can only show an error message!
+    
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-dl/src/main/java/opennlp/tools/dl/NameSampleDataSetIterator.java`
+#### Snippet
+```java
+      }
+
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `opennlp-dl/src/main/java/opennlp/tools/dl/GlobalVectors.java`
+#### Snippet
+```java
+            return embeddings.getRow(wordToId.get(word));
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -31887,54 +31971,6 @@ in `mahout-addon/src/main/java/opennlp/addons/mahout/VectorClassifierModel.java`
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `theFactory` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
-#### Snippet
-```java
-    }
-    try {
-      WSDisambiguatorFactory theFactory = ExtensionLoader
-        .instantiateExtension(WSDisambiguatorFactory.class, subclassName);
-      return theFactory;
-```
-
-### UnnecessaryLocalVariable
-Local variable `a` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/LeskParameters.java`
-#### Snippet
-```java
-    this.iexp = LeskParameters.DFLT_IEXP;
-    this.dexp = LeskParameters.DFLT_DEXP;
-    boolean[] a = { true, true, true, true, true, true, true, true, true, true };
-    this.features = a;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `senseid` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-                    // String answer =
-                    // nChild.getAttributes().item(0).getTextContent();
-                    String senseid = nChild.getAttributes().item(1)
-                        .getTextContent();
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `temp` is redundant
-in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
-#### Snippet
-```java
-                        .getTextContent();
-
-                    String temp = senseid;
-                    // String[] temp = { answer, senseid };
-                    senseIDs.add(temp);
-```
-
 ### UnnecessaryLocalVariable
 Local variable `generator_tmp` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/fca/ConceptLattice.java`
@@ -31984,18 +32020,6 @@ in `opennlp-similarity/src/main/java/opennlp/tools/similarity/apps/WebSearchEngi
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `generator_tmp` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
-#### Snippet
-```java
-		// System.out.println("debug called for " + intent);
-		//printLattice();
-		int generator_tmp = GetMaximalConcept(intent, generator);
-		generator = generator_tmp;
-		if (conceptList.get(generator).intent.equals(intent)) {
-```
-
-### UnnecessaryLocalVariable
 Local variable `decision` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatticeBase.java`
 #### Snippet
@@ -32009,7 +32033,7 @@ in `opennlp-similarity/src/main/java/opennlp/tools/jsmlearning/JSMLearnerOnLatti
 
 ### UnnecessaryLocalVariable
 Local variable `generator_tmp` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/PhrasePatternStructure.java`
 #### Snippet
 ```java
 		// System.out.println("debug called for " + intent);
@@ -32032,15 +32056,15 @@ in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structu
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `resultDupl` is redundant
-in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/GeneralizationListReducer.java`
+Local variable `generator_tmp` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/parse_thicket/pattern_structure/LinguisticPatternStructure.java`
 #### Snippet
 ```java
-  public List<ParseTreeChunk> applyFilteringBySubsumption_OLD(
-      List<ParseTreeChunk> result) {
-    List<ParseTreeChunk> resultDupl = new ArrayList<>(new HashSet<>(result));
-    result = resultDupl;
-    if (result.size() < 2)
+		// System.out.println("debug called for " + intent);
+		//printLattice();
+		int generator_tmp = GetMaximalConcept(intent, generator);
+		generator = generator_tmp;
+		if (conceptList.get(generator).intent.equals(intent)) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -32056,6 +32080,42 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/ParseTreeMatch
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `resultDupl` is redundant
+in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/GeneralizationListReducer.java`
+#### Snippet
+```java
+  public List<ParseTreeChunk> applyFilteringBySubsumption_OLD(
+      List<ParseTreeChunk> result) {
+    List<ParseTreeChunk> resultDupl = new ArrayList<>(new HashSet<>(result));
+    result = resultDupl;
+    if (result.size() < 2)
+```
+
+### UnnecessaryLocalVariable
+Local variable `theFactory` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/WSDisambiguatorFactory.java`
+#### Snippet
+```java
+    }
+    try {
+      WSDisambiguatorFactory theFactory = ExtensionLoader
+        .instantiateExtension(WSDisambiguatorFactory.class, subclassName);
+      return theFactory;
+```
+
+### UnnecessaryLocalVariable
+Local variable `a` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/LeskParameters.java`
+#### Snippet
+```java
+    this.iexp = LeskParameters.DFLT_IEXP;
+    this.dexp = LeskParameters.DFLT_DEXP;
+    boolean[] a = { true, true, true, true, true, true, true, true, true, true };
+    this.features = a;
+  }
+```
+
+### UnnecessaryLocalVariable
 Local variable `sn` is redundant
 in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matcher/ParserChunker2MatcherProcessor.java`
 #### Snippet
@@ -32065,6 +32125,30 @@ in `opennlp-similarity/src/main/java/opennlp/tools/textsimilarity/chunker2matche
       SentenceNode sn = new SentenceNode("sentence", node.getChildren());
       return sn;
     } else
+```
+
+### UnnecessaryLocalVariable
+Local variable `senseid` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+                    // String answer =
+                    // nChild.getAttributes().item(0).getTextContent();
+                    String senseid = nChild.getAttributes().item(1)
+                        .getTextContent();
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `temp` is redundant
+in `opennlp-wsd/src/main/java/opennlp/tools/disambiguator/datareader/SensevalReader.java`
+#### Snippet
+```java
+                        .getTextContent();
+
+                    String temp = senseid;
+                    // String[] temp = { answer, senseid };
+                    senseIDs.add(temp);
 ```
 
 ### UnnecessaryLocalVariable
