@@ -14,32 +14,32 @@ I found 42 bad smells with 2 repairable:
 | UnnecessarySuperQualifier | 1 | false |
 | BusyWait | 1 | false |
 | UNUSED_IMPORT | 1 | false |
-| NestedAssignment | 1 | false |
 | DialogTitleCapitalization | 1 | false |
+| NestedAssignment | 1 | false |
 | UnusedAssignment | 1 | false |
 ## RuleId[id=IOResource]
 ### IOResource
 'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/EchoServer.java`
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
 #### Snippet
 ```java
-  public static void send(String host, int port, String message) {
-    try (Socket sock = new Socket(host, port)) {
-      ObjectOutputStream outStream = new ObjectOutputStream(sock.getOutputStream());
-      outStream.writeObject(message);
-      System.out.println("Sent message " + message);
+    msg.setPid(pid);
+    msg.setPorts(ports);
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
 ```
 
 ### IOResource
 'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/EchoServer.java`
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 #### Snippet
 ```java
-      outStream.writeObject(message);
-      System.out.println("Sent message " + message);
-      ObjectInputStream inputStream = new ObjectInputStream(sock.getInputStream());
-      String echo = (String) inputStream.readObject();
-      System.out.println("Received message " + echo);
+            String clientAddress = accept.getRemoteSocketAddress().toString().split("/")[1].split(":")[0];
+            InputStream inputStream = accept.getInputStream();
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            ProcessRegisterMsg msg = (ProcessRegisterMsg) objectInputStream.readObject();
+            listener.onDebuggeeProcess(msg, clientAddress);
 ```
 
 ### IOResource
@@ -68,29 +68,41 @@ in `agent/src/main/java/EchoServer.java`
 
 ### IOResource
 'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
-    msg.setPid(pid);
-    msg.setPorts(ports);
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
+  public static void send(String host, int port, String message) {
+    try (Socket sock = new Socket(host, port)) {
+      ObjectOutputStream outStream = new ObjectOutputStream(sock.getOutputStream());
+      outStream.writeObject(message);
+      System.out.println("Sent message " + message);
 ```
 
 ### IOResource
 'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
-            String clientAddress = accept.getRemoteSocketAddress().toString().split("/")[1].split(":")[0];
-            InputStream inputStream = accept.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            ProcessRegisterMsg msg = (ProcessRegisterMsg) objectInputStream.readObject();
-            listener.onDebuggeeProcess(msg, clientAddress);
+      outStream.writeObject(message);
+      System.out.println("Sent message " + message);
+      ObjectInputStream inputStream = new ObjectInputStream(sock.getInputStream());
+      String echo = (String) inputStream.readObject();
+      System.out.println("Received message " + echo);
 ```
 
 ## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+#### Snippet
+```java
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
+
+```
+
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
@@ -117,6 +129,42 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void info(String str) {
+        System.out.println(str);
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void error(String str) {
+        System.out.println(str);
+      }
+    };
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/EchoServer.java`
+#### Snippet
+```java
+          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+          String msg = (String) objectInputStream.readObject();
+          System.out.println("Received message " + msg);
+          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+          objectOutputStream.writeObject(msg);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
@@ -137,66 +185,6 @@ in `agent/src/main/java/EchoServer.java`
       System.out.println("Received message " + echo);
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/EchoServer.java`
-#### Snippet
-```java
-          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-          String msg = (String) objectInputStream.readObject();
-          System.out.println("Received message " + msg);
-          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-          objectOutputStream.writeObject(msg);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void error(String str) {
-        System.out.println(str);
-      }
-    };
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void info(String str) {
-        System.out.println(str);
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/Agent.java`
-#### Snippet
-```java
-      args = parseArgs(strArgs);
-    } catch (IllegalArgumentException e) {
-      System.err.println("[attachme] FATAL ERROR: " + e.getMessage());
-      System.exit(1);
-      return;
 ```
 
 ### SystemOutErr
@@ -271,6 +259,18 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
     }
 ```
 
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/Agent.java`
+#### Snippet
+```java
+      args = parseArgs(strArgs);
+    } catch (IllegalArgumentException e) {
+      System.err.println("[attachme] FATAL ERROR: " + e.getMessage());
+      System.exit(1);
+      return;
+```
+
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 't' in a Serializable class
@@ -299,18 +299,6 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
-#### Snippet
-```java
-    @Override
-    public Icon getIcon() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `agent/src/main/java/com/attachme/agent/PortResolver.java`
 #### Snippet
 ```java
@@ -319,6 +307,18 @@ in `agent/src/main/java/com/attachme/agent/PortResolver.java`
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
+#### Snippet
+```java
+    @Override
+    public Icon getIcon() {
+      return null;
+    }
+
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -410,6 +410,19 @@ import java.net.InetSocketAddress;
 public class AttachmeServer implements Runnable {
 ```
 
+## RuleId[id=DialogTitleCapitalization]
+### DialogTitleCapitalization
+String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
+#### Snippet
+```java
+  @Override
+  public String getDisplayName() {
+    return "Attachme debugger registry";
+  }
+
+```
+
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -426,14 +439,14 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/EchoServer.java`
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 #### Snippet
 ```java
-      System.out.println("Received message " + echo);
-    } catch (IOException | ClassNotFoundException e) {
-      e.printStackTrace();
-      throw new IllegalStateException(e);
-    }
+            this.log.info("Registered a debuggee process with pid " + msg.getPid() + " and possible ports " + msg.getPorts().toString());
+          } catch (RuntimeException e) {
+            e.printStackTrace();
+            this.log.error(exceptionToString(e));
+          }
 ```
 
 ### ThrowablePrintStackTrace
@@ -450,26 +463,14 @@ in `agent/src/main/java/EchoServer.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
-            this.log.info("Registered a debuggee process with pid " + msg.getPid() + " and possible ports " + msg.getPorts().toString());
-          } catch (RuntimeException e) {
-            e.printStackTrace();
-            this.log.error(exceptionToString(e));
-          }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/Agent.java`
-#### Snippet
-```java
-    Thread task = new Thread(new DebugPortTask(args), "AttachmeAgentTread");
-    task.setDaemon(true);
-    task.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
-    task.start();
-  }
+      System.out.println("Received message " + echo);
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+      throw new IllegalStateException(e);
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -508,17 +509,16 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
         }
 ```
 
-## RuleId[id=DialogTitleCapitalization]
-### DialogTitleCapitalization
-String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/Agent.java`
 #### Snippet
 ```java
-  @Override
-  public String getDisplayName() {
-    return "Attachme debugger registry";
+    Thread task = new Thread(new DebugPortTask(args), "AttachmeAgentTread");
+    task.setDaemon(true);
+    task.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
+    task.start();
   }
-
 ```
 
 ## RuleId[id=UnusedAssignment]
