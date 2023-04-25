@@ -1,7 +1,7 @@
 # fhir-gateway 
  
 # Bad smells
-I found 44 bad smells with 6 repairable:
+I found 43 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,7 +16,6 @@ I found 44 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
 | SetReplaceableByEnumSet | 1 | false |
@@ -24,15 +23,15 @@ I found 44 bad smells with 6 repairable:
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
 #### Snippet
 ```java
-import org.apache.http.entity.ContentType;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
-public class ProxyConstants {
-
-  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -48,18 +47,6 @@ public class FhirUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MainApp` has only 'static' members, and lacks a 'private' constructor
 in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
 #### Snippet
@@ -72,15 +59,27 @@ public class MainApp {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
 #### Snippet
 ```java
-import com.auth0.jwt.interfaces.DecodedJWT;
+import org.slf4j.Logger;
 
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
+public class ExceptionUtil {
+
+  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
+#### Snippet
+```java
+import org.apache.http.entity.ContentType;
+
+public class ProxyConstants {
+
+  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -224,30 +223,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
-
-  private AllowedQueriesConfig config = null;
-
-  AllowedQueriesChecker(String configFile) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-    private final Set<String> deletedPatients = Sets.newHashSet();
-    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
-    private boolean patientsToCreate = false;
-
-    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
 #### Snippet
 ```java
@@ -256,6 +231,18 @@ in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
   private static CapabilityPostProcessor instance = null;
 
   private final FhirContext fhirContext;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
+#### Snippet
+```java
+  private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
+
+  private AllowedQueriesConfig config = null;
+
+  AllowedQueriesChecker(String configFile) throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -270,6 +257,18 @@ public final class PatientFinderImp implements PatientFinder {
   private static final String PATCH_OP_REPLACE = "replace";
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
+    private final Set<String> deletedPatients = Sets.newHashSet();
+    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
+    private boolean patientsToCreate = false;
+
+    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
+```
+
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
@@ -281,19 +280,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
    * @return true iff patient is in the patient-list associated to the current user.
    */
   @Override
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-14-49-25.114.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -323,11 +309,23 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-  @Override
-  public String postProcess(HttpResponse response) {
+          String.format("The token issuer %s does not match the expected token issuer", issuer),
+          AuthenticationException.class);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    }
+    // We should never get here, this is to keep the IDE happy!
     return null;
   }
 
@@ -347,23 +345,11 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
 #### Snippet
 ```java
-          String.format("The token issuer %s does not match the expected token issuer", issuer),
-          AuthenticationException.class);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    }
-    // We should never get here, this is to keep the IDE happy!
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
