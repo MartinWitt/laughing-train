@@ -22,19 +22,6 @@ I found 28 bad smells with 2 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | UnusedAssignment | 1 | false |
 | UnnecessaryBoxing | 1 | false |
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
-#### Snippet
-```java
-
-    private static void invalidArguments() {
-        System.out.println(sm.getString("migration.usage"));
-        System.exit(1);
-    }
-```
-
 ## RuleId[id=StringEquality]
 ### StringEquality
 String values are compared using `!=`, not 'equals()'
@@ -60,19 +47,20 @@ in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
                         // Since this is a runtime conversion, the idea is to only convert to
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `GlobMatcher` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/tomcat/jakartaee/GlobMatcher.java`
+## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
 #### Snippet
 ```java
- * <p>All methods are static.</p>
- */
-public final class GlobMatcher {
 
-
+    private static void invalidArguments() {
+        System.out.println(sm.getString("migration.usage"));
+        System.exit(1);
+    }
 ```
 
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `MigrationCLI` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
@@ -83,6 +71,18 @@ in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
 public class MigrationCLI {
 
     private static final StringManager sm = StringManager.getManager(MigrationCLI.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GlobMatcher` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/tomcat/jakartaee/GlobMatcher.java`
+#### Snippet
+```java
+ * <p>All methods are static.</p>
+ */
+public final class GlobMatcher {
+
+
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -96,19 +96,6 @@ in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
                         String[] split = newString.split(";|<");
                         for (String current : split) {
                             int pos = current.indexOf(profile.getTarget() + "/");
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
-#### Snippet
-```java
- * @author James Todd [gonzo@eng.sun.com]
- * @author Mel Martinez [mmartinez@g1440.com]
- * @see java.util.ResourceBundle
- */
-public class StringManager {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -136,54 +123,17 @@ in `src/main/java/org/apache/tomcat/jakartaee/Migration.java`
             File destFile = new File(dest, profile.convert(file));
 ```
 
-## RuleId[id=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
 #### Snippet
 ```java
-                        // Since this is a runtime conversion, the idea is to only convert to
-                        // Jakarta EE specification classes that exist in the container
-                        String[] split = newString.split(";|<");
-                        for (String current : split) {
-                            int pos = current.indexOf(profile.getTarget() + "/");
-```
-
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`converted = converted | updateValues(attributes, profile)` could be simplified to 'converted \|= updateValues(attributes, profile)'
-in `src/main/java/org/apache/tomcat/jakartaee/ManifestConverter.java`
-#### Snippet
-```java
-        boolean converted = updateValues(manifest.getMainAttributes(), profile);
-        for (Attributes attributes : manifest.getEntries().values()) {
-            converted = converted | updateValues(attributes, profile);
-        }
-        return converted;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`resourceName = resourceName + ".class"` could be simplified to 'resourceName += ".class"'
-in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
-#### Snippet
-```java
-                                    resourceName = resourceName.replace('.', '/');
-                                }
-                                resourceName = resourceName + ".class";
-                                if (loader.getResource(resourceName) == null) {
-                                    if (logger.isLoggable(Level.FINE)) {
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`converted = converted | converter.convert(name, src, dest, profile)` could be simplified to 'converted \|= converter.convert(name, src, dest, profile)'
-in `src/main/java/org/apache/tomcat/jakartaee/Migration.java`
-#### Snippet
-```java
-            for (Converter converter : converters) {
-                if (converter.accepts(name)) {
-                    converted = converted | converter.convert(name, src, dest, profile);
-                    break;
-                }
+ * @author James Todd [gonzo@eng.sun.com]
+ * @author Mel Martinez [mmartinez@g1440.com]
+ * @see java.util.ResourceBundle
+ */
+public class StringManager {
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -209,6 +159,56 @@ in `src/main/java/org/apache/tomcat/jakartaee/Migration.java`
             while ((srcZipEntry = srcZipStream.getNextZipEntry()) != null) {
                 String srcName = srcZipEntry.getName();
                 if (isSignatureFile(srcName)) {
+```
+
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`resourceName = resourceName + ".class"` could be simplified to 'resourceName += ".class"'
+in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
+#### Snippet
+```java
+                                    resourceName = resourceName.replace('.', '/');
+                                }
+                                resourceName = resourceName + ".class";
+                                if (loader.getResource(resourceName) == null) {
+                                    if (logger.isLoggable(Level.FINE)) {
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`converted = converted | updateValues(attributes, profile)` could be simplified to 'converted \|= updateValues(attributes, profile)'
+in `src/main/java/org/apache/tomcat/jakartaee/ManifestConverter.java`
+#### Snippet
+```java
+        boolean converted = updateValues(manifest.getMainAttributes(), profile);
+        for (Attributes attributes : manifest.getEntries().values()) {
+            converted = converted | updateValues(attributes, profile);
+        }
+        return converted;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`converted = converted | converter.convert(name, src, dest, profile)` could be simplified to 'converted \|= converter.convert(name, src, dest, profile)'
+in `src/main/java/org/apache/tomcat/jakartaee/Migration.java`
+#### Snippet
+```java
+            for (Converter converter : converters) {
+                if (converter.accepts(name)) {
+                    converted = converted | converter.convert(name, src, dest, profile);
+                    break;
+                }
+```
+
+## RuleId[id=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `src/main/java/org/apache/tomcat/jakartaee/ClassConverter.java`
+#### Snippet
+```java
+                        // Since this is a runtime conversion, the idea is to only convert to
+                        // Jakarta EE specification classes that exist in the container
+                        String[] split = newString.split(";|<");
+                        for (String current : split) {
+                            int pos = current.indexOf(profile.getTarget() + "/");
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -253,7 +253,7 @@ in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-21-12-44-50.929.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-15-52-50.693.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -294,18 +294,6 @@ in `src/main/java/org/apache/tomcat/jakartaee/Migration.java`
 in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
 #### Snippet
 ```java
-     * @return The instance associated with the given package and Locale
-     */
-    public static final synchronized StringManager getManager(
-            String packageName, Locale locale) {
-
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
-#### Snippet
-```java
      *         Locale
      */
     public static final StringManager getManager(String packageName) {
@@ -325,6 +313,18 @@ in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
     }
 ```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/tomcat/jakartaee/StringManager.java`
+#### Snippet
+```java
+     * @return The instance associated with the given package and Locale
+     */
+    public static final synchronized StringManager getManager(
+            String packageName, Locale locale) {
+
+```
+
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `profile` initializer `null` is redundant
@@ -340,18 +340,6 @@ in `src/main/java/org/apache/tomcat/jakartaee/MigrationTask.java`
 
 ## RuleId[id=UtilityClassWithPublicConstructor]
 ### UtilityClassWithPublicConstructor
-Class `GlobMatcher` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/tomcat/jakartaee/GlobMatcher.java`
-#### Snippet
-```java
- * <p>All methods are static.</p>
- */
-public final class GlobMatcher {
-
-
-```
-
-### UtilityClassWithPublicConstructor
 Class `MigrationCLI` has only 'static' members, and a 'public' constructor
 in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
 #### Snippet
@@ -361,6 +349,18 @@ in `src/main/java/org/apache/tomcat/jakartaee/MigrationCLI.java`
 public class MigrationCLI {
 
     private static final StringManager sm = StringManager.getManager(MigrationCLI.class);
+```
+
+### UtilityClassWithPublicConstructor
+Class `GlobMatcher` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/tomcat/jakartaee/GlobMatcher.java`
+#### Snippet
+```java
+ * <p>All methods are static.</p>
+ */
+public final class GlobMatcher {
+
+
 ```
 
 ## RuleId[id=UnnecessaryBoxing]
