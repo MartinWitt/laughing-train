@@ -98,6 +98,42 @@ in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `com.codahale.metrics` is unnecessary and can be removed
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
+#### Snippet
+```java
+    /**
+     * Returns an instrumented {@link ScheduledExecutorService} that monitors the number of tasks submitted, running,
+     * completed and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
+     * {@link com.codahale.metrics.InstrumentedScheduledExecutorService}, but produces tagged metrics to the specified
+     * {@link TaggedMetricRegistry}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.codahale.metrics` is unnecessary and can be removed
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
+#### Snippet
+```java
+    /**
+     * Returns an instrumented {@link ExecutorService} that monitors the number of tasks submitted, running, completed
+     * and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
+     * {@link com.codahale.metrics.InstrumentedExecutorService}, but produces tagged metrics to the specified
+     * {@link TaggedMetricRegistry}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.palantir.tracing` is unnecessary, and can be replaced with an import
+in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/RemotingCompatibleTracingInvocationEventHandler.java`
+#### Snippet
+```java
+                Object wrappedTrace = wrapMethod.invoke(null, (Runnable) () -> {});
+                String expectedTracingPackage =
+                        com.palantir.tracing.Tracers.class.getPackage().getName();
+                String actualTracingPackage =
+                        wrappedTrace.getClass().getPackage().getName();
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util.function` is unnecessary and can be removed
 in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
 #### Snippet
@@ -107,6 +143,42 @@ in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
          * @deprecated use {@link #withLogging(Logger, LoggingLevel, java.util.function.LongPredicate)}
          */
         @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
+#### Snippet
+```java
+    /** Always enabled instrumentation handler. */
+    protected AbstractInvocationEventHandler() {
+        this((java.util.function.BooleanSupplier) () -> true);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("FunctionalInterfaceClash")
+    protected AbstractInvocationEventHandler(java.util.function.BooleanSupplier isEnabledSupplier) {
+        this.isEnabledSupplier = checkNotNull(isEnabledSupplier, "isEnabledSupplier");
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
+in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
+#### Snippet
+```java
+     * @return false if "instrument.fully.qualified.class.Name" is set to "false", otherwise true
+     */
+    protected static com.palantir.tritium.api.functions.BooleanSupplier getSystemPropertySupplier(
+            Class<? extends InvocationEventHandler<InvocationContext>> clazz) {
+        checkNotNull(clazz, "clazz");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -138,59 +210,11 @@ Qualifier `java.util.function` is unnecessary, and can be replaced with an impor
 in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
 #### Snippet
 ```java
-     */
-    @SuppressWarnings("FunctionalInterfaceClash")
-    protected AbstractInvocationEventHandler(java.util.function.BooleanSupplier isEnabledSupplier) {
-        this.isEnabledSupplier = checkNotNull(isEnabledSupplier, "isEnabledSupplier");
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
-    /** Always enabled instrumentation handler. */
-    protected AbstractInvocationEventHandler() {
-        this((java.util.function.BooleanSupplier) () -> true);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
     private static final Object[] NO_ARGS = {};
 
     private final java.util.function.BooleanSupplier isEnabledSupplier;
 
     /** Always enabled instrumentation handler. */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
-     * @return false if "instrument.fully.qualified.class.Name" is set to "false", otherwise true
-     */
-    protected static com.palantir.tritium.api.functions.BooleanSupplier getSystemPropertySupplier(
-            Class<? extends InvocationEventHandler<InvocationContext>> clazz) {
-        checkNotNull(clazz, "clazz");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tracing` is unnecessary, and can be replaced with an import
-in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/RemotingCompatibleTracingInvocationEventHandler.java`
-#### Snippet
-```java
-                Object wrappedTrace = wrapMethod.invoke(null, (Runnable) () -> {});
-                String expectedTracingPackage =
-                        com.palantir.tracing.Tracers.class.getPackage().getName();
-                String actualTracingPackage =
-                        wrappedTrace.getClass().getPackage().getName();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -215,30 +239,6 @@ package com.palantir.tritium.tracing;
 enum JavaTracingTracer implements com.palantir.tritium.tracing.Tracer {
     INSTANCE;
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.codahale.metrics` is unnecessary and can be removed
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
-#### Snippet
-```java
-    /**
-     * Returns an instrumented {@link ScheduledExecutorService} that monitors the number of tasks submitted, running,
-     * completed and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
-     * {@link com.codahale.metrics.InstrumentedScheduledExecutorService}, but produces tagged metrics to the specified
-     * {@link TaggedMetricRegistry}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.codahale.metrics` is unnecessary and can be removed
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
-#### Snippet
-```java
-    /**
-     * Returns an instrumented {@link ExecutorService} that monitors the number of tasks submitted, running, completed
-     * and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
-     * {@link com.codahale.metrics.InstrumentedExecutorService}, but produces tagged metrics to the specified
-     * {@link TaggedMetricRegistry}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -294,11 +294,23 @@ Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replac
 in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
 #### Snippet
 ```java
-            nanos -> nanos >= 1_000_000;
+    private static final ImmutableList<String> MESSAGE_PATTERNS = generateMessagePatterns(20);
 
-    public static final com.palantir.tritium.api.functions.LongPredicate NEVER_LOG = _input -> false;
+    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
 
-    private final BiConsumer<String, Object[]> logger;
+    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
+in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
+#### Snippet
+```java
+    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
+
+    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
+            nanos -> nanos > 1000;
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -311,42 +323,6 @@ in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocation
         this(logger, level, (java.util.function.LongPredicate) LOG_ALL_DURATIONS);
     }
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    private final BiConsumer<String, Object[]> logger;
-    private final LoggingLevel level;
-    private final java.util.function.LongPredicate durationPredicate;
-
-    public LoggingInvocationEventHandler(Logger logger, LoggingLevel level) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    @SuppressWarnings("FunctionalInterfaceClash") // back compat
-    public LoggingInvocationEventHandler(
-            Logger logger, LoggingLevel level, java.util.function.LongPredicate durationPredicate) {
-        super((java.util.function.BooleanSupplier)
-                createEnabledSupplier(checkNotNull(logger, "logger"), checkNotNull(level, "level")));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    private static final ImmutableList<String> MESSAGE_PATTERNS = generateMessagePatterns(20);
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -374,15 +350,27 @@ in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocation
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
+#### Snippet
+```java
+    @SuppressWarnings("FunctionalInterfaceClash") // back compat
+    public LoggingInvocationEventHandler(
+            Logger logger, LoggingLevel level, java.util.function.LongPredicate durationPredicate) {
+        super((java.util.function.BooleanSupplier)
+                createEnabledSupplier(checkNotNull(logger, "logger"), checkNotNull(level, "level")));
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
 in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
 #### Snippet
 ```java
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
+            nanos -> nanos >= 1_000_000;
 
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
-            nanos -> nanos > 1000;
+    public static final com.palantir.tritium.api.functions.LongPredicate NEVER_LOG = _input -> false;
 
+    private final BiConsumer<String, Object[]> logger;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -395,6 +383,18 @@ in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocation
     public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_0_MILLIS =
             nanos -> nanos >= 1_000_000;
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
+#### Snippet
+```java
+    private final BiConsumer<String, Object[]> logger;
+    private final LoggingLevel level;
+    private final java.util.function.LongPredicate durationPredicate;
+
+    public LoggingInvocationEventHandler(Logger logger, LoggingLevel level) {
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -424,27 +424,15 @@ in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/Default
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'withLogging' is still used
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
+Deprecated member 'registerCache' is still used
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
 #### Snippet
 ```java
-        @Deprecated
-        @SuppressWarnings({"FunctionalInterfaceClash", "InlineMeSuggester"}) // back compat
-        public Builder<T, U> withLogging(
-                Logger logger,
-                LoggingLevel loggingLevel,
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'wrap' is still used
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
-#### Snippet
-```java
-            })
     @Deprecated
-    static <T, U extends T> T wrap(
-            Class<T> interfaceClass, U delegate, List<InvocationEventHandler<InvocationContext>> handlers) {
-        return wrap(interfaceClass, delegate, handlers, InstrumentationFilters.INSTRUMENT_ALL);
+    @SuppressWarnings("BanGuavaCaches") // this implementation is explicitly for Guava caches
+    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, @Safe String name) {
+        registerCache(registry, cache, name, Clock.defaultClock());
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -460,15 +448,27 @@ in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/SharedT
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'registerCache' is still used
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
+Deprecated member 'wrap' is still used
+in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
 #### Snippet
 ```java
+            })
     @Deprecated
-    @SuppressWarnings("BanGuavaCaches") // this implementation is explicitly for Guava caches
-    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, @Safe String name) {
-        registerCache(registry, cache, name, Clock.defaultClock());
-    }
+    static <T, U extends T> T wrap(
+            Class<T> interfaceClass, U delegate, List<InvocationEventHandler<InvocationContext>> handlers) {
+        return wrap(interfaceClass, delegate, handlers, InstrumentationFilters.INSTRUMENT_ALL);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withLogging' is still used
+in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
+#### Snippet
+```java
+        @Deprecated
+        @SuppressWarnings({"FunctionalInterfaceClash", "InlineMeSuggester"}) // back compat
+        public Builder<T, U> withLogging(
+                Logger logger,
+                LoggingLevel loggingLevel,
 ```
 
 ### DeprecatedIsStillUsed
@@ -497,15 +497,15 @@ public final class LockFreeExponentiallyDecayingReservoir implements Reservoir {
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `types` is accessed in both synchronized and unsynchronized contexts
+Field `filer` is accessed in both synchronized and unsynchronized contexts
 in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
 #### Snippet
 ```java
+    private final Set<Name> invalidElements = new HashSet<>();
+    private Messager messager;
     private Filer filer;
     private Elements elements;
     private Types types;
-
-    @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -521,6 +521,18 @@ in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnota
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `types` is accessed in both synchronized and unsynchronized contexts
+in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
+#### Snippet
+```java
+    private Filer filer;
+    private Elements elements;
+    private Types types;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `messager` is accessed in both synchronized and unsynchronized contexts
 in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
 #### Snippet
@@ -530,18 +542,6 @@ in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnota
     private Messager messager;
     private Filer filer;
     private Elements elements;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `filer` is accessed in both synchronized and unsynchronized contexts
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    private final Set<Name> invalidElements = new HashSet<>();
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-    private Types types;
 ```
 
 ## RuleId[id=StaticPseudoFunctionalStyleMethod]
@@ -696,18 +696,6 @@ in `tritium-annotations/src/main/java/com/palantir/tritium/annotations/internal/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InvocationEventHandler`
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
-#### Snippet
-```java
-        }
-
-        public Builder<T, U> withHandlers(Iterable<InvocationEventHandler<InvocationContext>> additionalHandlers) {
-            checkNotNull(additionalHandlers, "additionalHandlers");
-            this.handlers.addAll(additionalHandlers);
-```
-
-### BoundedWildcard
 Can generalize to `? super MetricName`
 in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/TaggedMetricSet.java`
 #### Snippet
@@ -741,6 +729,18 @@ in `tritium-metrics-jvm/src/main/java/com/palantir/tritium/metrics/jvm/JvmMetric
     private static Long totalHeapPlusNonHeap(MemoryMXBean memoryBean, Function<MemoryUsage, Long> longFunction) {
         Long heap = negativeToNull(longFunction.apply(memoryBean.getHeapMemoryUsage()));
         Long nonHeap = negativeToNull(longFunction.apply(memoryBean.getNonHeapMemoryUsage()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvocationEventHandler`
+in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
+#### Snippet
+```java
+        }
+
+        public Builder<T, U> withHandlers(Iterable<InvocationEventHandler<InvocationContext>> additionalHandlers) {
+            checkNotNull(additionalHandlers, "additionalHandlers");
+            this.handlers.addAll(additionalHandlers);
 ```
 
 ### BoundedWildcard
@@ -852,30 +852,6 @@ in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/LockFre
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    protected final <T extends Metric> T getOrAdd(
-            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
-        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
-        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    protected final <T extends Metric> T getOrAdd(
-            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
-        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
-        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
-```
-
-### BoundedWildcard
 Can generalize to `? super MetricName`
 in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
 #### Snippet
@@ -897,6 +873,30 @@ in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/Abstrac
     public final void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
         registry.forEach(consumer);
         taggedRegistries.forEach((tag, metrics) -> metrics.forEachMetric((metricName, metric) ->
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
+#### Snippet
+```java
+
+    protected final <T extends Metric> T getOrAdd(
+            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
+        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
+        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
+#### Snippet
+```java
+
+    protected final <T extends Metric> T getOrAdd(
+            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
+        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
+        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
 ```
 
 ### BoundedWildcard
@@ -1051,11 +1051,11 @@ in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetr
 in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentation.java`
 #### Snippet
 ```java
-                SafeArg.of("additionalInterfaces", additionalInterfaces),
-                SafeArg.of("interfaceClass", interfaceClass));
-        ImmutableList<Class<?>> interfaces = ImmutableList.<Class<?>>builderWithExpectedSize(
-                        additionalInterfaces.size() + 1)
-                .add(interfaceClass)
+        Class<?>[] discoveredInterfaces = Proxies.interfaces(interfaceClass, delegateClass);
+        ImmutableList.Builder<Class<?>> additionalInterfaces =
+                ImmutableList.builderWithExpectedSize(discoveredInterfaces.length - 1);
+        checkState(interfaceClass.equals(discoveredInterfaces[0]), "Expected the provided interface first");
+        for (int i = 1; i < discoveredInterfaces.length; i++) {
 ```
 
 ### UnstableApiUsage
@@ -1063,10 +1063,10 @@ in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentatio
 in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentation.java`
 #### Snippet
 ```java
-        Class<?>[] discoveredInterfaces = Proxies.interfaces(interfaceClass, delegateClass);
-        ImmutableList.Builder<Class<?>> additionalInterfaces =
-                ImmutableList.builderWithExpectedSize(discoveredInterfaces.length - 1);
-        checkState(interfaceClass.equals(discoveredInterfaces[0]), "Expected the provided interface first");
-        for (int i = 1; i < discoveredInterfaces.length; i++) {
+                SafeArg.of("additionalInterfaces", additionalInterfaces),
+                SafeArg.of("interfaceClass", interfaceClass));
+        ImmutableList<Class<?>> interfaces = ImmutableList.<Class<?>>builderWithExpectedSize(
+                        additionalInterfaces.size() + 1)
+                .add(interfaceClass)
 ```
 
