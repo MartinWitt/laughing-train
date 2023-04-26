@@ -17,8 +17,8 @@ I found 71 bad smells with 2 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | NonFinalFieldOfException | 1 | false |
-| UnnecessaryToStringCall | 1 | true |
 | ManualMinMaxCalculation | 1 | false |
+| UnnecessaryToStringCall | 1 | true |
 | BoundedWildcard | 1 | false |
 | UnusedAssignment | 1 | false |
 | ConstantValue | 1 | false |
@@ -37,18 +37,6 @@ in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
-#### Snippet
-```java
-    public FileItemIterator getItemIterator(final ActionRequest request)
-            throws FileUploadException, IOException {
-        return super.getItemIterator(new PortletRequestContext(request));
-    }
-
-```
-
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/commons/fileupload2/jaksrvlt/JakSrvltFileUpload.java`
@@ -73,7 +61,187 @@ in `src/main/java/org/apache/commons/fileupload2/servlet/ServletFileUpload.java`
 
 ```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
+#### Snippet
+```java
+    public FileItemIterator getItemIterator(final ActionRequest request)
+            throws FileUploadException, IOException {
+        return super.getItemIterator(new PortletRequestContext(request));
+    }
+
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+ * </p>
+ * <p>
+ * After retrieving an instance of this class from a {@link org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
+ * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload #parseRequest(javax.servlet.http.HttpServletRequest)}), you may either request all contents
+ * of the file at once using {@link #get()} or request an {@link java.io.InputStream InputStream} with {@link #getInputStream()} and process the file without
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+ * After retrieving an instance of this class from a {@link org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
+ * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload #parseRequest(javax.servlet.http.HttpServletRequest)}), you may either request all contents
+ * of the file at once using {@link #get()} or request an {@link java.io.InputStream InputStream} with {@link #getInputStream()} and process the file without
+ * attempting to load it into memory, which may come handy with large files.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+
+    /**
+     * Gets an {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
+     *
+     * @return An {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+     * Gets an {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
+     *
+     * @return An {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
+     *
+     * @throws IOException if an error occurs.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+
+    /**
+     * Gets an {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
+     *
+     * @return An {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
+#### Snippet
+```java
+     * Gets an {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
+     *
+     * @return An {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
+     *
+     * @throws IOException if an error occurs.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/jaksrvlt/JakSrvltFileUpload.java`
+#### Snippet
+```java
+ * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
+ * #parseRequest(HttpServletRequest)} to acquire a list of {@link
+ * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
+ * widget.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/servlet/ServletFileUpload.java`
+#### Snippet
+```java
+ * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
+ * #parseRequest(HttpServletRequest)} to acquire a list of {@link
+ * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
+ * widget.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/FileUpload.java`
+#### Snippet
+```java
+ * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
+ * #parseRequest(RequestContext)} to acquire a list
+ * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
+ * with a given HTML widget.</p>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
+#### Snippet
+```java
+     *             stream is reached.
+     * @throws  IOException  if an I/O error occurs.
+     * @see        java.io.FilterInputStream#in
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
+#### Snippet
+```java
+     *
+     * @throws  IOException  if an I/O error occurs.
+     * @see        java.io.FilterInputStream#in
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
+#### Snippet
+```java
+     * {@code b.length - off}
+     * @throws  IOException  if an I/O error occurs.
+     * @see        java.io.FilterInputStream#in
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
+#### Snippet
+```java
+ * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
+ * #parseRequest(javax.servlet.http.HttpServletRequest)} to acquire a list
+ * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
+ * with a given HTML widget.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
+#### Snippet
+```java
+     *
+     * @return The directory in which temporary files will be located.
+     * @see #setRepository(java.io.File)
+     */
+    public File getRepository() {
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
@@ -124,246 +292,6 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItemFactory.java`
-#### Snippet
-```java
-     *
-     * @return The directory in which temporary files will be located.
-     * @see #setRepository(java.io.File)
-     */
-    public File getRepository() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
-#### Snippet
-```java
- * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload
- * #parseRequest(javax.servlet.http.HttpServletRequest)} to acquire a list
- * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
- * with a given HTML widget.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
-#### Snippet
-```java
-     *
-     * @throws  IOException  if an I/O error occurs.
-     * @see        java.io.FilterInputStream#in
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
-#### Snippet
-```java
-     * {@code b.length - off}
-     * @throws  IOException  if an I/O error occurs.
-     * @see        java.io.FilterInputStream#in
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/util/LimitedInputStream.java`
-#### Snippet
-```java
-     *             stream is reached.
-     * @throws  IOException  if an I/O error occurs.
-     * @see        java.io.FilterInputStream#in
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
-
-    /**
-     * Gets an {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
-     *
-     * @return An {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
-     * Gets an {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
-     *
-     * @return An {@link java.io.OutputStream OutputStream} that can be used for storing the contents of the file.
-     *
-     * @throws IOException if an error occurs.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
-
-    /**
-     * Gets an {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
-     *
-     * @return An {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
-     * Gets an {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
-     *
-     * @return An {@link java.io.InputStream InputStream} that can be used to retrieve the contents of the file.
-     *
-     * @throws IOException if an error occurs.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
- * </p>
- * <p>
- * After retrieving an instance of this class from a {@link org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
- * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload #parseRequest(javax.servlet.http.HttpServletRequest)}), you may either request all contents
- * of the file at once using {@link #get()} or request an {@link java.io.InputStream InputStream} with {@link #getInputStream()} and process the file without
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileItem.java`
-#### Snippet
-```java
- * After retrieving an instance of this class from a {@link org.apache.commons.fileupload2.FileUpload FileUpload} instance (see
- * {@link org.apache.commons.fileupload2.servlet.ServletFileUpload #parseRequest(javax.servlet.http.HttpServletRequest)}), you may either request all contents
- * of the file at once using {@link #get()} or request an {@link java.io.InputStream InputStream} with {@link #getInputStream()} and process the file without
- * attempting to load it into memory, which may come handy with large files.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/jaksrvlt/JakSrvltFileUpload.java`
-#### Snippet
-```java
- * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
- * #parseRequest(HttpServletRequest)} to acquire a list of {@link
- * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
- * widget.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/FileUpload.java`
-#### Snippet
-```java
- * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
- * #parseRequest(RequestContext)} to acquire a list
- * of {@link org.apache.commons.fileupload2.FileItem FileItems} associated
- * with a given HTML widget.</p>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
-#### Snippet
-```java
-     * Returns the next available {@link FileItemStream}.
-     *
-     * @throws java.util.NoSuchElementException No more items are available. Use {@link #hasNext()} to prevent this exception.
-     * @throws FileUploadException              Parsing or processing the file item failed.
-     * @throws IOException                      Reading the file item failed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/servlet/ServletFileUpload.java`
-#### Snippet
-```java
- * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
- * #parseRequest(HttpServletRequest)} to acquire a list of {@link
- * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
- * widget.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/AbstractFileUpload.java`
-#### Snippet
-```java
- * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
- * #parseRequest(RequestContext)} to acquire a list of {@link
- * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
- * widget.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-     *
-     * @return The original file name in the client's file system.
-     * @throws org.apache.commons.fileupload2.InvalidFileNameException The file name contains a NUL character,
-     *   which might be an indicator of a security attack. If you intend to
-     *   use the file name anyways, catch the exception and use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-     *   which might be an indicator of a security attack. If you intend to
-     *   use the file name anyways, catch the exception and use
-     *   {@link org.apache.commons.fileupload2.InvalidFileNameException#getName()}.
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-
-    /**
-     * Gets an {@link java.io.InputStream InputStream} that can be
-     * used to retrieve the contents of the file.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-     * used to retrieve the contents of the file.
-     *
-     * @return An {@link java.io.InputStream InputStream} that can be
-     *         used to retrieve the contents of the file.
-     * @throws IOException if an error occurs.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 #### Snippet
 ```java
@@ -405,9 +333,9 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 ```java
 
     /**
-     * Creates and returns a {@link java.io.File File} representing a uniquely
-     * named temporary file in the configured repository path. The lifetime of
-     * the file is tied to the lifetime of the {@code FileItem} instance;
+     * Gets an {@link java.io.InputStream InputStream} that can be
+     * used to retrieve the contents of the file.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -415,11 +343,35 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 #### Snippet
 ```java
-     * same File each time.</b>
-     * </p>
-     * @return The {@link java.io.File File} to be used for temporary storage.
+     * used to retrieve the contents of the file.
+     *
+     * @return An {@link java.io.InputStream InputStream} that can be
+     *         used to retrieve the contents of the file.
+     * @throws IOException if an error occurs.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+     *
+     * @return The original file name in the client's file system.
+     * @throws org.apache.commons.fileupload2.InvalidFileNameException The file name contains a NUL character,
+     *   which might be an indicator of a security attack. If you intend to
+     *   use the file name anyways, catch the exception and use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+     *   which might be an indicator of a security attack. If you intend to
+     *   use the file name anyways, catch the exception and use
+     *   {@link org.apache.commons.fileupload2.InvalidFileNameException#getName()}.
      */
-    protected File getTempFile() {
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -480,6 +432,54 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
  * corresponding instance of {@link java.io.File} is garbage collected.)
  * This is done by the so-called reaper thread, which is started and stopped
  * automatically by the {@link org.apache.commons.io.FileCleaningTracker} when
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+
+    /**
+     * Creates and returns a {@link java.io.File File} representing a uniquely
+     * named temporary file in the configured repository path. The lifetime of
+     * the file is tied to the lifetime of the {@code FileItem} instance;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+     * same File each time.</b>
+     * </p>
+     * @return The {@link java.io.File File} to be used for temporary storage.
+     */
+    protected File getTempFile() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
+#### Snippet
+```java
+     * Returns the next available {@link FileItemStream}.
+     *
+     * @throws java.util.NoSuchElementException No more items are available. Use {@link #hasNext()} to prevent this exception.
+     * @throws FileUploadException              Parsing or processing the file item failed.
+     * @throws IOException                      Reading the file item failed.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.fileupload2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/fileupload2/AbstractFileUpload.java`
+#### Snippet
+```java
+ * <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>.  Use {@link
+ * #parseRequest(RequestContext)} to acquire a list of {@link
+ * org.apache.commons.fileupload2.FileItem}s associated with a given HTML
+ * widget.
+ * </p>
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -551,33 +551,21 @@ Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
 #### Snippet
 ```java
-     * Current position in the string.
-     */
-    private int pos = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
-#### Snippet
-```java
-     * Start of a token.
-     */
-    private int i1 = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
-#### Snippet
-```java
      * End of a token.
      */
     private int i2 = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
+#### Snippet
+```java
+     * Current position in the string.
+     */
+    private int pos = 0;
 
     /**
 ```
@@ -594,6 +582,31 @@ in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
     /**
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/fileupload2/ParameterParser.java`
+#### Snippet
+```java
+     * Start of a token.
+     */
+    private int i1 = 0;
+
+    /**
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-14-48-00.293.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -605,18 +618,6 @@ in `src/main/java/org/apache/commons/fileupload2/util/FileItemHeadersImpl.java`
             return null;
         }
         return headerValueList.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/fileupload2/AbstractFileUpload.java`
-#### Snippet
-```java
-
-        if (boundaryStr == null) {
-            return null;
-        }
-        final byte[] boundary;
 ```
 
 ### ReturnNull
@@ -645,6 +646,18 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/fileupload2/AbstractFileUpload.java`
+#### Snippet
+```java
+
+        if (boundaryStr == null) {
+            return null;
+        }
+        final byte[] boundary;
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/fileupload2/util/mime/MimeUtility.java`
 #### Snippet
 ```java
@@ -653,19 +666,6 @@ in `src/main/java/org/apache/commons/fileupload2/util/mime/MimeUtility.java`
             return null;
         }
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-17-29-02.409.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -709,6 +709,18 @@ public interface FileItemIterator {
 
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
+#### Snippet
+```java
+    @Override
+    public String getString(final String charset)
+        throws UnsupportedEncodingException, IOException {
+        return new String(get(), charset);
+    }
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
 in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
 #### Snippet
 ```java
@@ -717,6 +729,18 @@ in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
     private boolean findNextItem() throws FileUploadException, IOException {
         if (eof) {
             return false;
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public List<FileItem> getFileItems() throws FileUploadException, IOException {
+        final List<FileItem> items = new ArrayList<>();
+        while (hasNext()) {
 ```
 
 ### DuplicateThrows
@@ -743,28 +767,17 @@ in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
             init(fileUploadBase, ctx);
 ```
 
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/fileupload2/impl/FileItemIteratorImpl.java`
+## RuleId[id=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `src/main/java/org/apache/commons/fileupload2/MultipartStream.java`
 #### Snippet
 ```java
-
-    @Override
-    public List<FileItem> getFileItems() throws FileUploadException, IOException {
-        final List<FileItem> items = new ArrayList<>();
-        while (hasNext()) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
-#### Snippet
-```java
-    @Override
-    public String getString(final String charset)
-        throws UnsupportedEncodingException, IOException {
-        return new String(get(), charset);
-    }
+            pos = MultipartStream.this.findSeparator();
+            if (pos == -1) {
+                if (tail - head > keepRegion) {
+                    pad = keepRegion;
+                } else {
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -780,32 +793,7 @@ in `src/main/java/org/apache/commons/fileupload2/disk/DiskFileItem.java`
             }
 ```
 
-## RuleId[id=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `src/main/java/org/apache/commons/fileupload2/MultipartStream.java`
-#### Snippet
-```java
-            pos = MultipartStream.this.findSeparator();
-            if (pos == -1) {
-                if (tail - head > keepRegion) {
-                    pad = keepRegion;
-                } else {
-```
-
 ## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
-#### Snippet
-```java
-     *         {@code false} otherwise.
-     */
-    public static final boolean isMultipartContent(final ActionRequest request) {
-        return AbstractFileUpload.isMultipartContent(
-                new PortletRequestContext(request));
-```
-
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/fileupload2/jaksrvlt/JakSrvltFileUpload.java`
@@ -828,6 +816,18 @@ in `src/main/java/org/apache/commons/fileupload2/servlet/ServletFileUpload.java`
     public static final boolean isMultipartContent(final HttpServletRequest request) {
         return POST_METHOD.equalsIgnoreCase(request.getMethod()) && AbstractFileUpload.isMultipartContent(new ServletRequestContext(request));
     }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/fileupload2/portlet/PortletFileUpload.java`
+#### Snippet
+```java
+     *         {@code false} otherwise.
+     */
+    public static final boolean isMultipartContent(final ActionRequest request) {
+        return AbstractFileUpload.isMultipartContent(
+                new PortletRequestContext(request));
 ```
 
 ### FinalStaticMethod
