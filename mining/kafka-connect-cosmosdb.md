@@ -253,18 +253,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-public class CosmosDBSinkTask extends SinkTask {
-    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
-    private CosmosClient client = null;
-    private CosmosDBSinkConfig config;
-    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.java`
 #### Snippet
 ```java
@@ -277,14 +265,14 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
 ```java
-    private CosmosAsyncClient client = null;
-    private CosmosDBSourceConfig config;
-    private LinkedTransferQueue<JsonNode> queue = null;
-    private ChangeFeedProcessor changeFeedProcessor;
-    private JsonToStruct jsonToStruct = new JsonToStruct();
+public class CosmosDBSinkTask extends SinkTask {
+    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
+    private CosmosClient client = null;
+    private CosmosDBSinkConfig config;
+    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -297,6 +285,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
     private CosmosAsyncClient client = null;
     private CosmosDBSourceConfig config;
     private LinkedTransferQueue<JsonNode> queue = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+    private CosmosAsyncClient client = null;
+    private CosmosDBSourceConfig config;
+    private LinkedTransferQueue<JsonNode> queue = null;
+    private ChangeFeedProcessor changeFeedProcessor;
+    private JsonToStruct jsonToStruct = new JsonToStruct();
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -318,11 +318,11 @@ Return of `null`
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
 #### Snippet
 ```java
-    public static Map<String, Object> handleMap(Map<String, Object> map) {
-        if (map == null) {
+    public static Map<String, Object> toJsonMap(Struct struct) {
+        if (struct == null) {
             return null;
         }
-        Map<String, Object> cacheMap = new HashMap<>();
+        Map<String, Object> jsonMap = new HashMap<String, Object>(0);
 ```
 
 ### ReturnNull
@@ -330,11 +330,11 @@ Return of `null`
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
 #### Snippet
 ```java
-    public static Map<String, Object> toJsonMap(Struct struct) {
-        if (struct == null) {
+    public static Map<String, Object> handleMap(Map<String, Object> map) {
+        if (map == null) {
             return null;
         }
-        Map<String, Object> jsonMap = new HashMap<String, Object>(0);
+        Map<String, Object> cacheMap = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -376,7 +376,7 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-25-11-38-31.324.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-02-41-32.090.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -425,18 +425,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/SinkWriterBase.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-                SinkWriteResponse response = cosmosdbWriter.write(toBeWrittenRecordList);
-
-                if (response.getFailedRecordResponses().size() == 0) {
-                    logger.debug("Sink write completed, {} records succeeded.", response.getSucceededRecords().size());
-
-```
-
-### SizeReplaceableByIsEmpty
 `containerList.size() == 0` can be replaced with 'containerList.isEmpty()'
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.java`
 #### Snippet
@@ -446,6 +434,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
         if (containerList.size() == 0) {
             logger.debug("Container list is not specified");
             return taskConfigs;
+```
+
+### SizeReplaceableByIsEmpty
+`response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+#### Snippet
+```java
+                SinkWriteResponse response = cosmosdbWriter.write(toBeWrittenRecordList);
+
+                if (response.getFailedRecordResponses().size() == 0) {
+                    logger.debug("Sink write completed, {} records succeeded.", response.getSucceededRecords().size());
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -536,18 +536,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SourceRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
-    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
-        Long bufferSize = config.getTaskBufferSize();
-        Long batchSize = config.getTaskBatchSize();
-```
-
-### BoundedWildcard
 Can generalize to `? extends JsonNode`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
@@ -557,6 +545,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
     protected void handleCosmosDbChanges(List<JsonNode> docs)  {
         for (JsonNode document : docs) {
             // Blocks for each transfer till it is processed by the poll method.
+```
+
+### BoundedWildcard
+Can generalize to `? super SourceRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
+    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
+        Long bufferSize = config.getTaskBufferSize();
+        Long batchSize = config.getTaskBatchSize();
 ```
 
 ### BoundedWildcard
@@ -586,18 +586,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
-#### Snippet
-```java
-                DELIMITER_CONFIG_DOC,
-                groupName,
-                groupOrder++,
-                ConfigDef.Width.MEDIUM,
-                DELIMITER_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConfig.java`
 #### Snippet
 ```java
@@ -610,6 +598,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConf
 
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
+#### Snippet
+```java
+                DELIMITER_CONFIG_DOC,
+                groupName,
+                groupOrder++,
+                ConfigDef.Width.MEDIUM,
+                DELIMITER_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
 #### Snippet
 ```java
@@ -617,6 +617,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrate
                 groupName,
                 groupOrder++,
                 ConfigDef.Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
+#### Snippet
+```java
+                ID_STRATEGY_DOC,
+                groupName,
+                groupOrder++,
+                Width.MEDIUM,
                 TEMPLATE_CONFIG_DISPLAY
 ```
 
@@ -645,18 +657,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.jav
 ```
 
 ### UnusedAssignment
-The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
-#### Snippet
-```java
-                ID_STRATEGY_DOC,
-                groupName,
-                groupOrder++,
-                Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
 The value changed at `databaseGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -669,18 +669,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 ```
 
 ### UnusedAssignment
-The value changed at `connectionGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONN_KEY_DOC,
-                        connectionGroupName,
-                        connectionGroupOrder++,
-                        Width.LONG,
-                        COSMOS_CONN_KEY_DISPLAY
-```
-
-### UnusedAssignment
 Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -690,6 +678,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
     private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
 
     public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
+```
+
+### UnusedAssignment
+The value changed at `connectionGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONN_KEY_DOC,
+                        connectionGroupName,
+                        connectionGroupOrder++,
+                        Width.LONG,
+                        COSMOS_CONN_KEY_DISPLAY
 ```
 
 ## RuleId[id=ConstantValue]
@@ -708,18 +708,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
 ## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `getConfig()` tries to override a static method of a superclass
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
-#### Snippet
-```java
-    }
-
-    public static ConfigDef getConfig() {
-        ConfigDef result = CosmosDBConfig.getConfig();
-        
-```
-
-### MethodOverridesStaticMethod
-Method `getConfig()` tries to override a static method of a superclass
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
 #### Snippet
 ```java
@@ -728,5 +716,17 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
     public static ConfigDef getConfig() {
         ConfigDef result = CosmosDBConfig.getConfig();
 
+```
+
+### MethodOverridesStaticMethod
+Method `getConfig()` tries to override a static method of a superclass
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
+#### Snippet
+```java
+    }
+
+    public static ConfigDef getConfig() {
+        ConfigDef result = CosmosDBConfig.getConfig();
+        
 ```
 
