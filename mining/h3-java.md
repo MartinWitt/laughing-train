@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-19-44-28.278.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-03-02-53.390.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,19 +116,20 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osName Value of system property "os.name"
-   */
-  static final OperatingSystem detectOs(String javaVendor, String osName) {
-    // Detecting Android using the properties from:
-    // https://developer.android.com/reference/java/lang/System.html
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
 ```
 
+## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
@@ -141,17 +142,16 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
       return ARCH_X64;
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
+### FinalStaticMethod
+'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
+   * @param osName Value of system property "os.name"
+   */
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
 ```
 
 ## RuleId[id=BoundedWildcard]
