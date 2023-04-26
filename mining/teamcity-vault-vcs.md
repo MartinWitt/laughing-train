@@ -18,8 +18,8 @@ I found 121 bad smells with 18 repairable:
 | DataFlowIssue | 3 | false |
 | BoundedWildcard | 3 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
-| StringBufferReplaceableByStringBuilder | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| StringBufferReplaceableByStringBuilder | 2 | false |
 | MagicConstant | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | CommentedOutCode | 1 | false |
@@ -61,18 +61,6 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/Di
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
-#### Snippet
-```java
-    }
-
-    private RawChangeInfoType(int id, @NotNull String name) {
-      myId = id;
-      myName = name;
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
 #### Snippet
@@ -85,15 +73,15 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+Modifier `private` is redundant for enum constructors
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
 #### Snippet
 ```java
- */
-public class ChangesPatchBuilder {
-  public static interface FileContentProvider {
+    }
 
-    public abstract File getFile(@NotNull String path, @NotNull String version)
+    private RawChangeInfoType(int id, @NotNull String name) {
+      myId = id;
+      myName = name;
 ```
 
 ### UnnecessaryModifier
@@ -118,6 +106,18 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
     public abstract File getFile(@NotNull String path, @NotNull String version)
       throws VcsException;
   }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+#### Snippet
+```java
+ */
+public class ChangesPatchBuilder {
+  public static interface FileContentProvider {
+
+    public abstract File getFile(@NotNull String path, @NotNull String version)
 ```
 
 ### UnnecessaryModifier
@@ -240,11 +240,11 @@ Obsolete collection type `Stack` used
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
 #### Snippet
 ```java
+  }
 
-  private void addFolderContent(@NotNull String historyFolderPath,
-                                @NotNull Stack<ChangeInfo> changes,
-                                @Nullable String actionString,
-                                @NotNull ModificationInfo mi) throws VcsException {
+  private void processRawChangeInfo(@NotNull Stack<ChangeInfo> changes, @NotNull RawChangeInfo rawChangeInfo) throws VcsException {
+
+    final String repoPath = VaultUtil.getFullRepoPathWithCommonPart(rawChangeInfo.getPath(), myTargetPath);
 ```
 
 ### ObsoleteCollection
@@ -300,11 +300,11 @@ Obsolete collection type `Stack` used
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
 #### Snippet
 ```java
-  }
 
-  private void processRawChangeInfo(@NotNull Stack<ChangeInfo> changes, @NotNull RawChangeInfo rawChangeInfo) throws VcsException {
-
-    final String repoPath = VaultUtil.getFullRepoPathWithCommonPart(rawChangeInfo.getPath(), myTargetPath);
+  private void addFolderContent(@NotNull String historyFolderPath,
+                                @NotNull Stack<ChangeInfo> changes,
+                                @Nullable String actionString,
+                                @NotNull ModificationInfo mi) throws VcsException {
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -459,30 +459,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-    LOG.debug("MemoryFileSystem create folder: " + path);
-    if (containsNode(path)) {
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
-    } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
-#### Snippet
-```java
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
-    } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
-    }
-  }
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
-#### Snippet
-```java
     LOG.debug("MemoryFileSystem create file: " + path);
     if (containsFile(path)) {
       throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
@@ -507,6 +483,30 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
+    LOG.debug("MemoryFileSystem create folder: " + path);
+    if (containsNode(path)) {
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+    } else {
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
+#### Snippet
+```java
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+    } else {
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+    }
+  }
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
+#### Snippet
+```java
   public void writeFile(String path) {
     LOG.debug("MemoryFileSystem write file: " + path);
     Assert.assertFalse(myImpl.add(path, true, false), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
@@ -519,10 +519,10 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
 #### Snippet
 ```java
-  private void fail(String message)
+  private void fail(Exception e)
     throws VcsException {
-    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
-    LOG.warn(message);
+    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
+    LOG.warn(message, e);
     if (myStrict)
 ```
 
@@ -531,10 +531,10 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
 #### Snippet
 ```java
-  private void fail(Exception e)
+  private void fail(String message)
     throws VcsException {
-    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
-    LOG.warn(message, e);
+    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
+    LOG.warn(message);
     if (myStrict)
 ```
 
@@ -937,42 +937,6 @@ Qualifier `java.util` is unnecessary and can be removed
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
-   * A shorcut (when there is no need to distinguish files and directories).
-   *
-   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
-   */
-  public void toCollection(final Collection<String> files) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-   * A shorcut (when there is no need to distinguish files and directories).
-   *
-   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
-   */
-  public void toCollection(final Collection<String> files) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-   * A shorcut (when there is no need to distinguish files and directories).
-   *
-   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
-   */
-  public void toCollection(final Collection<String> files) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
    * A shorcut (when there is no need to distinguish new files and modified files).
    *
    * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
@@ -1002,6 +966,42 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
    * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
    */
   public void toCollections(final Collection<String> files, final Collection<String> directories) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
+   * A shorcut (when there is no need to distinguish files and directories).
+   *
+   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
+   */
+  public void toCollection(final Collection<String> files) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
+   * A shorcut (when there is no need to distinguish files and directories).
+   *
+   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
+   */
+  public void toCollection(final Collection<String> files) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
+   * A shorcut (when there is no need to distinguish files and directories).
+   *
+   * @see #toCollections(java.util.Collection, java.util.Collection, java.util.Collection)}
+   */
+  public void toCollection(final Collection<String> files) {
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -1075,11 +1075,11 @@ Field initialization to `false` is redundant
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
+    Edge parent = null;
     Map<String, Edge> children = new TreeMap<String, Edge>();
     boolean isFile = false;
     boolean isNew = false;
     boolean marker = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -1087,23 +1087,11 @@ Field initialization to `false` is redundant
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
-    Edge parent = null;
     Map<String, Edge> children = new TreeMap<String, Edge>();
     boolean isFile = false;
     boolean isNew = false;
     boolean marker = false;
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-
-  private static class Node {
-    Edge parent = null;
-    Map<String, Edge> children = new TreeMap<String, Edge>();
-    boolean isFile = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1116,6 +1104,18 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
     boolean marker = false;
 
     Edge findEdge(String value) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
+
+  private static class Node {
+    Edge parent = null;
+    Map<String, Edge> children = new TreeMap<String, Edge>();
+    boolean isFile = false;
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -1192,6 +1192,30 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.jav
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+    final StringBuffer path = new StringBuffer(node.getName());
+    do {
+      node = node.getParent();
+      path.insert(0, "/").insert(0, node.getName());
+    } while (node != myRoot);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+    do {
+      final String name = node.getName();
+      node = node.getParent();
+      node.removeChild(name);
+      if (myPathMap.containsKey(node.getNewPath()) || node.hasChildren()) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
 #### Snippet
@@ -1217,30 +1241,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `node`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-    do {
-      final String name = node.getName();
-      node = node.getParent();
-      node.removeChild(name);
-      if (myPathMap.containsKey(node.getNewPath()) || node.hasChildren()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-    final StringBuffer path = new StringBuffer(node.getName());
-    do {
-      node = node.getParent();
-      path.insert(0, "/").insert(0, node.getName());
-    } while (node != myRoot);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
@@ -1254,7 +1254,7 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-18-41-09.489.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-00-26-11.681.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1469,31 +1469,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer path` may be declared as 'StringBuilder'
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-
-  private String getTreeNodePath(@NotNull Node node) {
-    final StringBuffer path = new StringBuffer(node.getName());
-    do {
-      node = node.getParent();
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer suffix` may be declared as 'StringBuilder'
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-    final String[] components = newPath.split("/");
-    String path = newPath;
-    final StringBuffer suffix = new StringBuffer();  
-    for (int i = components.length - 1; i > 0 ; --i) {
-      if (myPathMap.containsKey(path)) {
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `histPath` is redundant
@@ -1517,5 +1492,30 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCo
         final String histPath = misc2;
         final String currPath = myPathHistory.getNewPath(histPath);
         if (skipBranchedPath(currPath, rawChangeInfo)) return;
+```
+
+## RuleId[id=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer path` may be declared as 'StringBuilder'
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+
+  private String getTreeNodePath(@NotNull Node node) {
+    final StringBuffer path = new StringBuffer(node.getName());
+    do {
+      node = node.getParent();
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer suffix` may be declared as 'StringBuilder'
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+    final String[] components = newPath.split("/");
+    String path = newPath;
+    final StringBuffer suffix = new StringBuffer();  
+    for (int i = components.length - 1; i > 0 ; --i) {
+      if (myPathMap.containsKey(path)) {
 ```
 
