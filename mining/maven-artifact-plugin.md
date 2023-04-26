@@ -186,18 +186,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `javaVersion`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-    private static String extractJavaMajorVersion(String javaVersion) {
-        if (javaVersion.startsWith("1.")) {
-            javaVersion = javaVersion.substring(2);
-        }
-        int index = javaVersion.indexOf('.'); // for example 8.0_202
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `prefix`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
 #### Snippet
@@ -207,6 +195,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         prefix = prefix + i;
         File artifactFile = artifact.getFile();
         if (artifactFile.isDirectory()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `javaVersion`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+    private static String extractJavaMajorVersion(String javaVersion) {
+        if (javaVersion.startsWith("1.")) {
+            javaVersion = javaVersion.substring(2);
+        }
+        int index = javaVersion.indexOf('.'); // for example 8.0_202
 ```
 
 ## RuleId[id=ReturnNull]
@@ -263,6 +263,30 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
+            log.warn("unable to open jar file " + file, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
         }
 
         return null;
@@ -288,30 +312,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 #### Snippet
 ```java
             log.warn("Unable to read " + entryName + " from " + jar, e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("unable to open jar file " + file, e);
         }
         return null;
     }
