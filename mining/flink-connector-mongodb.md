@@ -16,6 +16,18 @@ I found 51 bad smells with 3 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sink/writer/MongoWriter.java`
+#### Snippet
+```java
+    private final MongoClient mongoClient;
+
+    private boolean checkpointInProgress = false;
+    private volatile long lastSendTime = 0L;
+    private volatile long ackTime = Long.MAX_VALUE;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0L` is redundant
 in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sink/writer/MongoWriter.java`
 #### Snippet
@@ -29,14 +41,14 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sin
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sink/writer/MongoWriter.java`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/reader/split/MongoScanSourceSplitReader.java`
 #### Snippet
 ```java
-    private final MongoClient mongoClient;
+    @Nullable private final List<String> projectedFields;
 
-    private boolean checkpointInProgress = false;
-    private volatile long lastSendTime = 0L;
-    private volatile long ackTime = Long.MAX_VALUE;
+    private boolean closed = false;
+    private boolean finished = false;
+    private MongoClient mongoClient;
 ```
 
 ### RedundantFieldInitialization
@@ -49,18 +61,6 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sou
     private boolean finished = false;
     private MongoClient mongoClient;
     private MongoCursor<BsonDocument> currentCursor;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/reader/split/MongoScanSourceSplitReader.java`
-#### Snippet
-```java
-    @Nullable private final List<String> projectedFields;
-
-    private boolean closed = false;
-    private boolean finished = false;
-    private MongoClient mongoClient;
 ```
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
@@ -89,7 +89,32 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sin
         }
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-22-35-06.518.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/MongoKeyExtractor.java`
+#### Snippet
+```java
+        @Override
+        public BsonValue apply(RowData rowData) {
+            return null;
+        }
+    }
+```
+
 ### ReturnNull
 Return of `null`
 in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/converter/BsonToRowDataConverters.java`
@@ -112,31 +137,6 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/tab
                         return null;
                     }
                 };
-```
-
-### ReturnNull
-Return of `null`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/MongoKeyExtractor.java`
-#### Snippet
-```java
-        @Override
-        public BsonValue apply(RowData rowData) {
-            return null;
-        }
-    }
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-15-02-23-57.791.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -203,18 +203,6 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/tab
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super MongoSourceSplit`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/MongoSourceEnumerator.java`
-#### Snippet
-```java
-    public MongoSourceEnumerator(
-            Boundedness boundedness,
-            SplitEnumeratorContext<MongoSourceSplit> context,
-            MongoSplitAssigner splitAssigner) {
-        this.boundedness = boundedness;
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/reader/emitter/MongoRecordEmitter.java`
 #### Snippet
@@ -239,6 +227,54 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/tab
 ```
 
 ### BoundedWildcard
+Can generalize to `? super MongoSourceSplit`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/MongoSourceEnumerator.java`
+#### Snippet
+```java
+    public MongoSourceEnumerator(
+            Boundedness boundedness,
+            SplitEnumeratorContext<MongoSourceSplit> context,
+            MongoSplitAssigner splitAssigner) {
+        this.boundedness = boundedness;
+```
+
+### BoundedWildcard
+Can generalize to `? super RowData`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/serialization/MongoRowDataSerializationSchema.java`
+#### Snippet
+```java
+    public MongoRowDataSerializationSchema(
+            RowDataToBsonConverters.RowDataToBsonConverter rowDataToBsonConverter,
+            Function<RowData, BsonValue> createKey) {
+        this.rowDataToBsonConverter = rowDataToBsonConverter;
+        this.createKey = createKey;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BsonValue`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/serialization/MongoRowDataSerializationSchema.java`
+#### Snippet
+```java
+    public MongoRowDataSerializationSchema(
+            RowDataToBsonConverters.RowDataToBsonConverter rowDataToBsonConverter,
+            Function<RowData, BsonValue> createKey) {
+        this.rowDataToBsonConverter = rowDataToBsonConverter;
+        this.createKey = createKey;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BsonValue`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/converter/RowDataToBsonConverters.java`
+#### Snippet
+```java
+
+    private static SerializableFunction<Object, BsonValue> wrapIntoNullSafeInternalConverter(
+            SerializableFunction<Object, BsonValue> internalConverter, LogicalType type) {
+        return new SerializableFunction<Object, BsonValue>() {
+            private static final long serialVersionUID = 1L;
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/reader/deserializer/MongoDeserializationSchema.java`
 #### Snippet
@@ -251,159 +287,39 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/sou
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+Can generalize to `? super MongoSplitContext`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
 #### Snippet
 ```java
-    public static <T> void serializeList(
-            DataOutputStream out,
-            List<T> list,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
-            throws IOException {
+    static Collection<MongoScanSourceSplit> split(
+            MongoSplitContext splitContext,
+            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
+        MongoReadOptions readOptions = splitContext.getReadOptions();
+        MongoNamespace namespace = splitContext.getMongoNamespace();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DataOutputStream`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+Can generalize to `? super Integer`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
 #### Snippet
 ```java
-            DataOutputStream out,
-            List<T> list,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
-            throws IOException {
-        out.writeInt(list.size());
+    static Collection<MongoScanSourceSplit> split(
+            MongoSplitContext splitContext,
+            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
+        MongoReadOptions readOptions = splitContext.getReadOptions();
+        MongoNamespace namespace = splitContext.getMongoNamespace();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+Can generalize to `? extends List`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
 #### Snippet
 ```java
-            DataOutputStream out,
-            List<T> list,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
-            throws IOException {
-        out.writeInt(list.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-            DataOutputStream out,
-            List<T> list,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
-            throws IOException {
-        out.writeInt(list.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super DataInputStream`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-
-    public static <T> List<T> deserializeList(
-            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
-            throws IOException {
-        int size = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-
-    public static <T> List<T> deserializeList(
-            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
-            throws IOException {
-        int size = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-
-    public static <T> List<T> deserializeList(
-            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
-            throws IOException {
-        int size = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? super DataInputStream`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-    public static <K, V> Map<K, V> deserializeMap(
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-    public static <K, V> Map<K, V> deserializeMap(
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-    public static <K, V> Map<K, V> deserializeMap(
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? super DataInputStream`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-        int size = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-        int size = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
-#### Snippet
-```java
-            DataInputStream in,
-            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
-            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
-            throws IOException {
-        int size = in.readInt();
+    static Collection<MongoScanSourceSplit> split(
+            MongoSplitContext splitContext,
+            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
+        MongoReadOptions readOptions = splitContext.getReadOptions();
+        MongoNamespace namespace = splitContext.getMongoNamespace();
 ```
 
 ### BoundedWildcard
@@ -479,75 +395,159 @@ in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/com
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BsonValue`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/converter/RowDataToBsonConverters.java`
+Can generalize to `? super DataInputStream`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
 
-    private static SerializableFunction<Object, BsonValue> wrapIntoNullSafeInternalConverter(
-            SerializableFunction<Object, BsonValue> internalConverter, LogicalType type) {
-        return new SerializableFunction<Object, BsonValue>() {
-            private static final long serialVersionUID = 1L;
+    public static <T> List<T> deserializeList(
+            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
+            throws IOException {
+        int size = in.readInt();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RowData`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/serialization/MongoRowDataSerializationSchema.java`
+Can generalize to `? extends T`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
-    public MongoRowDataSerializationSchema(
-            RowDataToBsonConverters.RowDataToBsonConverter rowDataToBsonConverter,
-            Function<RowData, BsonValue> createKey) {
-        this.rowDataToBsonConverter = rowDataToBsonConverter;
-        this.createKey = createKey;
+
+    public static <T> List<T> deserializeList(
+            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
+            throws IOException {
+        int size = in.readInt();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BsonValue`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/table/serialization/MongoRowDataSerializationSchema.java`
+Can generalize to `? extends IOException`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
-    public MongoRowDataSerializationSchema(
-            RowDataToBsonConverters.RowDataToBsonConverter rowDataToBsonConverter,
-            Function<RowData, BsonValue> createKey) {
-        this.rowDataToBsonConverter = rowDataToBsonConverter;
-        this.createKey = createKey;
+
+    public static <T> List<T> deserializeList(
+            DataInputStream in, FunctionWithException<DataInputStream, T, IOException> deserializer)
+            throws IOException {
+        int size = in.readInt();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MongoSplitContext`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
+Can generalize to `? extends T`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
-    static Collection<MongoScanSourceSplit> split(
-            MongoSplitContext splitContext,
-            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
-        MongoReadOptions readOptions = splitContext.getReadOptions();
-        MongoNamespace namespace = splitContext.getMongoNamespace();
+    public static <T> void serializeList(
+            DataOutputStream out,
+            List<T> list,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            throws IOException {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
+Can generalize to `? super DataOutputStream`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
-    static Collection<MongoScanSourceSplit> split(
-            MongoSplitContext splitContext,
-            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
-        MongoReadOptions readOptions = splitContext.getReadOptions();
-        MongoNamespace namespace = splitContext.getMongoNamespace();
+            DataOutputStream out,
+            List<T> list,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            throws IOException {
+        out.writeInt(list.size());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/source/enumerator/splitter/MongoSampleSplitter.java`
+Can generalize to `? super T`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
 #### Snippet
 ```java
-    static Collection<MongoScanSourceSplit> split(
-            MongoSplitContext splitContext,
-            BiFunction<MongoSplitContext, Integer, List<BsonDocument>> sampler) {
-        MongoReadOptions readOptions = splitContext.getReadOptions();
-        MongoNamespace namespace = splitContext.getMongoNamespace();
+            DataOutputStream out,
+            List<T> list,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            throws IOException {
+        out.writeInt(list.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+            DataOutputStream out,
+            List<T> list,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            throws IOException {
+        out.writeInt(list.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super DataInputStream`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+    public static <K, V> Map<K, V> deserializeMap(
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+    public static <K, V> Map<K, V> deserializeMap(
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+    public static <K, V> Map<K, V> deserializeMap(
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? super DataInputStream`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+        int size = in.readInt();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+        int size = in.readInt();
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `flink-connector-mongodb/src/main/java/org/apache/flink/connector/mongodb/common/utils/MongoSerdeUtils.java`
+#### Snippet
+```java
+            DataInputStream in,
+            FunctionWithException<DataInputStream, K, IOException> keyDeserializer,
+            FunctionWithException<DataInputStream, V, IOException> valueDeserializer)
+            throws IOException {
+        int size = in.readInt();
 ```
 
 ### BoundedWildcard
