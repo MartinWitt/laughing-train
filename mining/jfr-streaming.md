@@ -19,18 +19,6 @@ I found 22 bad smells with 2 repairable:
 | UnnecessaryCallToStringValueOf | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
-#### Snippet
-```java
-    private byte[] buffer;
-    private int index = 0;
-    private boolean EOF = false;
-    // There is a recording id and an id you get from the recording for the stream.
-    // streamId is the id for the stream.
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
 #### Snippet
@@ -40,6 +28,18 @@ in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
     private int index = 0;
     private boolean EOF = false;
     // There is a recording id and an id you get from the recording for the stream.
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
+#### Snippet
+```java
+    private byte[] buffer;
+    private int index = 0;
+    private boolean EOF = false;
+    // There is a recording id and an id you get from the recording for the stream.
+    // streamId is the id for the stream.
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -109,6 +109,30 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `core/src/main/java/com/microsoft/jfr/FlightRecorderConnection.java`
+#### Snippet
+```java
+
+        try {
+            Object[] args = new Object[]{};
+            String[] argTypes = new String[]{};
+            final long id = (long) mBeanServerConnection.invoke(objectName, "newRecording", args, argTypes);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/com/microsoft/jfr/FlightRecorderConnection.java`
+#### Snippet
+```java
+        try {
+            Object[] args = new Object[]{};
+            String[] argTypes = new String[]{};
+            final long id = (long) mBeanServerConnection.invoke(objectName, "newRecording", args, argTypes);
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `core/src/main/java/com/microsoft/jfr/dcmd/FlightRecorderDiagnosticCommandConnection.java`
 #### Snippet
 ```java
@@ -116,30 +140,6 @@ in `core/src/main/java/com/microsoft/jfr/dcmd/FlightRecorderDiagnosticCommandCon
     private static Object[] mkParamsArray(List<String> args) {
         return new Object[]{args.toArray(new String[0])};
     }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/com/microsoft/jfr/FlightRecorderConnection.java`
-#### Snippet
-```java
-
-        try {
-            Object[] args = new Object[]{};
-            String[] argTypes = new String[]{};
-            final long id = (long) mBeanServerConnection.invoke(objectName, "newRecording", args, argTypes);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/com/microsoft/jfr/FlightRecorderConnection.java`
-#### Snippet
-```java
-        try {
-            Object[] args = new Object[]{};
-            String[] argTypes = new String[]{};
-            final long id = (long) mBeanServerConnection.invoke(objectName, "newRecording", args, argTypes);
 
 ```
 
@@ -221,30 +221,6 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
-    private volatile long id = -1;
-```
-
-### MissortedModifiers
 Missorted modifiers `final static`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
@@ -266,6 +242,30 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+    private volatile long id = -1;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
