@@ -1,7 +1,7 @@
 # nifi-maven 
  
 # Bad smells
-I found 38 bad smells with 2 repairable:
+I found 37 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 7 | false |
@@ -14,10 +14,9 @@ I found 38 bad smells with 2 repairable:
 | NestedAssignment | 2 | false |
 | IOResource | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
-| DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
+| DataFlowIssue | 1 | false |
 | UnnecessarySemicolon | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
 | MissortedModifiers | 1 | false |
@@ -47,19 +46,6 @@ public class NarDependencyUtils {
     public static final String COMPILE_STRING = "compile";
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `providedServiceDefinitions` might be null
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-        } else {
-            final Class<?> serviceApiClass = Class.forName("org.apache.nifi.documentation.StandardServiceAPI", false, classLoader);
-            final List<Object> providedServices = getDocumentationServiceAPIs(serviceApiClass, providedServiceDefinitions);
-            final Map<String,Object> propertyServices = getDocumentationServiceAPIs(serviceApiClass, propertyServiceDefinitions);
-
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.codehaus.plexus.archiver` is unnecessary, and can be replaced with an import
@@ -71,6 +57,19 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
     @Component(role = org.codehaus.plexus.archiver.Archiver.class, hint = "jar")
     private JarArchiver jarArchiver;
     /**
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `providedServiceDefinitions` might be null
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+        } else {
+            final Class<?> serviceApiClass = Class.forName("org.apache.nifi.documentation.StandardServiceAPI", false, classLoader);
+            final List<Object> providedServices = getDocumentationServiceAPIs(serviceApiClass, providedServiceDefinitions);
+            final Map<String,Object> propertyServices = getDocumentationServiceAPIs(serviceApiClass, propertyServiceDefinitions);
+
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -89,18 +88,6 @@ in `src/main/java/org/apache/nifi/extension/definition/ExtensionType.java`
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-        final byte[] buffer = new byte[8192];
-        int len;
-        while ((len = in.read(buffer)) >= 0) {
-            out.write(buffer, 0, len);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
 #### Snippet
 ```java
@@ -109,6 +96,18 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefin
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
 
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+        final byte[] buffer = new byte[8192];
+        int len;
+        while ((len = in.read(buffer)) >= 0) {
+            out.write(buffer, 0, len);
+        }
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -236,6 +235,30 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
 
 ## RuleId[id=CollectionContainsUrl]
 ### CollectionContainsUrl
+Set `resourceUrls` may contain URL objects
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+
+    private Set<String> discoverClassNames(final String extensionType) throws IOException {
+        final Set<URL> resourceUrls = new HashSet<>();
+
+        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
+```
+
+### CollectionContainsUrl
+Set `urls` may contain URL objects
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+#### Snippet
+```java
+
+    private Set<URL> toURLs(final Artifact artifact) throws MojoExecutionException {
+        final Set<URL> urls = new HashSet<>();
+
+        final File artifactFile = artifact.getFile();
+```
+
+### CollectionContainsUrl
 Set `urls` may contain URL objects
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
@@ -257,30 +280,6 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
             final Set<URL> artifactUrls = toURLs(artifact);
             urls.addAll(artifactUrls);
         }
-```
-
-### CollectionContainsUrl
-Set `urls` may contain URL objects
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-
-    private Set<URL> toURLs(final Artifact artifact) throws MojoExecutionException {
-        final Set<URL> urls = new HashSet<>();
-
-        final File artifactFile = artifact.getFile();
-```
-
-### CollectionContainsUrl
-Set `resourceUrls` may contain URL objects
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-
-    private Set<String> discoverClassNames(final String extensionType) throws IOException {
-        final Set<URL> resourceUrls = new HashSet<>();
-
-        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
 ```
 
 ## RuleId[id=ReturnNull]
@@ -320,19 +319,6 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-03-29-35.016.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `classifier.trim().length() > 0` can be replaced with '!classifier.trim().isEmpty()'
@@ -361,39 +347,27 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Set`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-
-
-    private Set<Artifact> gatherArtifacts(final MavenProject mavenProject, final Supplier<Set<Artifact>> setSupplier) throws MojoExecutionException {
-        final Set<Artifact> artifacts = setSupplier.get();
-        final DependencyNodeVisitor nodeVisitor = new DependencyNodeVisitor() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-        private Set<Artifact> allArtifacts = new TreeSet<>();
-
-        public void addArtifacts(final Set<Artifact> artifacts) {
-            if (artifacts != null) {
-                allArtifacts.addAll(artifacts);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+Can generalize to `? super ServiceAPIDefinition`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
 #### Snippet
 ```java
     }
 
-    private String findProvidedDependencyVersion(final Set<Artifact> artifacts, final String groupId, final String artifactId) {
-        final ProjectBuildingRequest projectRequest = new DefaultProjectBuildingRequest();
-        projectRequest.setRepositorySession(repoSession);
+    private void processImplementedInterface(final Class<?> implementedInterface, final Class<?> controllerServiceClass, final Set<ServiceAPIDefinition> serviceApis) {
+        if (controllerServiceClass.isAssignableFrom(implementedInterface) && !controllerServiceClass.equals(implementedInterface)) {
+            final ClassLoader interfaceClassLoader = implementedInterface.getClassLoader();
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+    }
+
+    private void getInterfaceHierarchy(final Class<?> implementedInterface, final Set<Class<?>> interfaceHierarchy) {
+        final Class<?>[] parentInterfaces = implementedInterface.getInterfaces();
+        if (parentInterfaces == null) {
 ```
 
 ### BoundedWildcard
@@ -421,27 +395,39 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Class`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
     }
 
-    private void getInterfaceHierarchy(final Class<?> implementedInterface, final Set<Class<?>> interfaceHierarchy) {
-        final Class<?>[] parentInterfaces = implementedInterface.getInterfaces();
-        if (parentInterfaces == null) {
+    private String findProvidedDependencyVersion(final Set<Artifact> artifacts, final String groupId, final String artifactId) {
+        final ProjectBuildingRequest projectRequest = new DefaultProjectBuildingRequest();
+        projectRequest.setRepositorySession(repoSession);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ServiceAPIDefinition`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
-    }
+        private Set<Artifact> allArtifacts = new TreeSet<>();
 
-    private void processImplementedInterface(final Class<?> implementedInterface, final Class<?> controllerServiceClass, final Set<ServiceAPIDefinition> serviceApis) {
-        if (controllerServiceClass.isAssignableFrom(implementedInterface) && !controllerServiceClass.equals(implementedInterface)) {
-            final ClassLoader interfaceClassLoader = implementedInterface.getClassLoader();
+        public void addArtifacts(final Set<Artifact> artifacts) {
+            if (artifacts != null) {
+                allArtifacts.addAll(artifacts);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+#### Snippet
+```java
+
+
+    private Set<Artifact> gatherArtifacts(final MavenProject mavenProject, final Supplier<Set<Artifact>> setSupplier) throws MojoExecutionException {
+        final Set<Artifact> artifacts = setSupplier.get();
+        final DependencyNodeVisitor nodeVisitor = new DependencyNodeVisitor() {
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -459,15 +445,15 @@ public class ExtensionClassLoaderFactory {
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `propertyServiceDefinitions == null` is always `false` when reached
-in `src/main/java/org/apache/nifi/NarMojo.java`
+Condition `extensionInterfaces == null` is always `false`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
 #### Snippet
 ```java
-
-        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
-                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
-            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
-            writeMethod.invoke(docWriter, extensionInstance);
+    private void addProvidedServiceAPIs(final Class<?> controllerServiceClass, final Class<?> extensionClass, final Set<ServiceAPIDefinition> serviceApis) {
+        final Class<?>[] extensionInterfaces = extensionClass.getInterfaces();
+        if (extensionInterfaces == null) {
+            return;
+        }
 ```
 
 ### ConstantValue
@@ -483,14 +469,14 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefin
 ```
 
 ### ConstantValue
-Condition `extensionInterfaces == null` is always `false`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+Condition `propertyServiceDefinitions == null` is always `false` when reached
+in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-    private void addProvidedServiceAPIs(final Class<?> controllerServiceClass, final Class<?> extensionClass, final Set<ServiceAPIDefinition> serviceApis) {
-        final Class<?>[] extensionInterfaces = extensionClass.getInterfaces();
-        if (extensionInterfaces == null) {
-            return;
-        }
+
+        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
+                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
+            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
+            writeMethod.invoke(docWriter, extensionInstance);
 ```
 
