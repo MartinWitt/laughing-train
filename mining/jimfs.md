@@ -67,18 +67,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathNormalization.java`
 
 ## RuleId[id=MismatchedArrayReadWrite]
 ### MismatchedArrayReadWrite
-Contents of array `NULL_ARRAY` are read, but never written to
-in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
-#### Snippet
-```java
-  private static final int ARRAY_LEN = 8192;
-  private static final byte[] ZERO_ARRAY = new byte[ARRAY_LEN];
-  private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
-
-  /** Zeroes all bytes between off (inclusive) and off + len (exclusive) in the given array. */
-```
-
-### MismatchedArrayReadWrite
 Contents of array `ZERO_ARRAY` are read, but never written to
 in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
 #### Snippet
@@ -88,6 +76,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
   private static final byte[] ZERO_ARRAY = new byte[ARRAY_LEN];
   private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
 
+```
+
+### MismatchedArrayReadWrite
+Contents of array `NULL_ARRAY` are read, but never written to
+in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
+#### Snippet
+```java
+  private static final int ARRAY_LEN = 8192;
+  private static final byte[] ZERO_ARRAY = new byte[ARRAY_LEN];
+  private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
+
+  /** Zeroes all bytes between off (inclusive) and off + len (exclusive) in the given array. */
 ```
 
 ## RuleId[id=ThrowFromFinallyBlock]
@@ -104,18 +104,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file.attribute` is unnecessary and can be removed
-in `jimfs/src/main/java/com/google/common/jimfs/Configuration.java`
-#### Snippet
-```java
-     *   <tr>
-     *     <td>{@code "basic"}</td>
-     *     <td>{@link java.nio.file.attribute.BasicFileAttributeView BasicFileAttributeView}</td>
-     *     <td>{@link java.nio.file.attribute.BasicFileAttributes BasicFileAttributes}</td>
-     *   </tr>
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.text` is unnecessary and can be removed
 in `jimfs/src/main/java/com/google/common/jimfs/PathNormalization.java`
@@ -138,6 +126,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathNormalization.java`
   /** Unicode composed normalization (form {@linkplain java.text.Normalizer.Form#NFC NFC}). */
   NFC(Pattern.CANON_EQ) {
     @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file.attribute` is unnecessary and can be removed
+in `jimfs/src/main/java/com/google/common/jimfs/Configuration.java`
+#### Snippet
+```java
+     *   <tr>
+     *     <td>{@code "basic"}</td>
+     *     <td>{@link java.nio.file.attribute.BasicFileAttributeView BasicFileAttributeView}</td>
+     *     <td>{@link java.nio.file.attribute.BasicFileAttributes BasicFileAttributes}</td>
+     *   </tr>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -538,18 +538,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/AclAttributeProvider.java`
 ```
 
 ### DataFlowIssue
-Argument `inheritedViews.get("basic")` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
-#### Snippet
-```java
-  public DosFileAttributeView view(
-      FileLookup lookup, ImmutableMap<String, FileAttributeView> inheritedViews) {
-    return new View(lookup, (BasicFileAttributeView) inheritedViews.get("basic"));
-  }
-
-```
-
-### DataFlowIssue
 Unboxing of `file.getAttribute("dos", "readonly")` may produce `NullPointerException`
 in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
 #### Snippet
@@ -594,6 +582,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
       this.archive = (boolean) file.getAttribute("dos", "archive");
       this.system = (boolean) file.getAttribute("dos", "system");
     }
+
+```
+
+### DataFlowIssue
+Argument `inheritedViews.get("basic")` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
+#### Snippet
+```java
+  public DosFileAttributeView view(
+      FileLookup lookup, ImmutableMap<String, FileAttributeView> inheritedViews) {
+    return new View(lookup, (BasicFileAttributeView) inheritedViews.get("basic"));
+  }
 
 ```
 
@@ -694,6 +694,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/PosixAttributeProvider.java`
 ```
 
 ### DataFlowIssue
+Method invocation `supports` may produce `NullPointerException`
+in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
+#### Snippet
+```java
+      for (String inheritedView : provider.inherits()) {
+        AttributeProvider inheritedProvider = providersByName.get(inheritedView);
+        if (inheritedProvider.supports(attribute)) {
+          inheritedProvider.set(file, view, attribute, value, create);
+          return;
+```
+
+### DataFlowIssue
 Argument `provider.attributesType()` might be null
 in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
 #### Snippet
@@ -739,18 +751,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
             getFileAttributeView(lookup, inheritedProvider.viewType(), inheritedViews);
 
         inheritedViews.put(inherited, inheritedView);
-```
-
-### DataFlowIssue
-Method invocation `supports` may produce `NullPointerException`
-in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
-#### Snippet
-```java
-      for (String inheritedView : provider.inherits()) {
-        AttributeProvider inheritedProvider = providersByName.get(inheritedView);
-        if (inheritedProvider.supports(attribute)) {
-          inheritedProvider.set(file, view, attribute, value, create);
-          return;
 ```
 
 ### DataFlowIssue
@@ -805,18 +805,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathURLConnection.java`
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `defaultThreadPool` is accessed in both synchronized and unsynchronized contexts
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
-#### Snippet
-```java
-  }
-
-  @NullableDecl private ExecutorService defaultThreadPool;
-
-  /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `size` is accessed in both synchronized and unsynchronized contexts
 in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
 #### Snippet
@@ -828,7 +816,43 @@ in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
   /** Creates a new regular file with the given ID and using the given disk. */
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `defaultThreadPool` is accessed in both synchronized and unsynchronized contexts
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
+#### Snippet
+```java
+  }
+
+  @NullableDecl private ExecutorService defaultThreadPool;
+
+  /**
+```
+
 ## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+
+  private int openCount = 0;
+  private boolean deleted = false;
+
+  /** Returns the read lock for this file. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+  }
+
+  private int openCount = 0;
+  private boolean deleted = false;
+
+```
+
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `jimfs/src/main/java/com/google/common/jimfs/Configuration.java`
@@ -853,31 +877,19 @@ in `jimfs/src/main/java/com/google/common/jimfs/Configuration.java`
     // Disk configuration
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
-#### Snippet
-```java
-  }
-
-  private int openCount = 0;
-  private boolean deleted = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
-#### Snippet
-```java
-
-  private int openCount = 0;
-  private boolean deleted = false;
-
-  /** Returns the read lock for this file. */
-```
-
 ## RuleId[id=EqualsAndHashcode]
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `jimfs/src/main/java/com/google/common/jimfs/UserLookupService.java`
+#### Snippet
+```java
+
+  /** {@link UserPrincipal} implementation. */
+  static final class JimfsUserPrincipal extends NamedPrincipal {
+
+    private JimfsUserPrincipal(String name) {
+```
+
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
 in `jimfs/src/main/java/com/google/common/jimfs/UserLookupService.java`
@@ -902,91 +914,7 @@ in `jimfs/src/main/java/com/google/common/jimfs/UserLookupService.java`
     protected final String name;
 ```
 
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `jimfs/src/main/java/com/google/common/jimfs/UserLookupService.java`
-#### Snippet
-```java
-
-  /** {@link UserPrincipal} implementation. */
-  static final class JimfsUserPrincipal extends NamedPrincipal {
-
-    private JimfsUserPrincipal(String name) {
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
-#### Snippet
-```java
-    while (remaining > ARRAY_LEN) {
-      System.arraycopy(NULL_ARRAY, 0, blocks, off, ARRAY_LEN);
-      off += ARRAY_LEN;
-      remaining -= ARRAY_LEN;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
-#### Snippet
-```java
-    while (remaining > ARRAY_LEN) {
-      System.arraycopy(ZERO_ARRAY, 0, bytes, off, ARRAY_LEN);
-      off += ARRAY_LEN;
-      remaining -= ARRAY_LEN;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `executor`
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystemProvider.java`
-#### Snippet
-```java
-    if (executor == null) {
-      JimfsFileSystem fileSystem = (JimfsFileSystem) path.getFileSystem();
-      executor = fileSystem.getDefaultThreadPool();
-    }
-    return channel.asAsynchronousFileChannel(executor);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `position`
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
-          file.writeLock().lockInterruptibly();
-          try {
-            position = file.sizeWithoutLocking();
-            written = file.write(position, src);
-            this.position = position + written;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `position`
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
-          file.writeLock().lockInterruptibly();
-          try {
-            position = file.sizeWithoutLocking();
-            transferred = file.transferFrom(src, position, count);
-            this.position = position + transferred;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
-#### Snippet
-```java
-        break;
-      } else {
-        pos += read;
-      }
-    }
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
@@ -1009,6 +937,30 @@ in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
       off += written;
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+    long start = pos;
+    for (ByteBuffer buf : bufs) {
+      pos += write(pos, buf);
+    }
+    return pos - start;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+        break;
+      } else {
+        pos += read;
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -1036,15 +988,63 @@ in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+Assignment to method parameter `executor`
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystemProvider.java`
 #### Snippet
 ```java
-    long start = pos;
-    for (ByteBuffer buf : bufs) {
-      pos += write(pos, buf);
+    if (executor == null) {
+      JimfsFileSystem fileSystem = (JimfsFileSystem) path.getFileSystem();
+      executor = fileSystem.getDefaultThreadPool();
     }
-    return pos - start;
+    return channel.asAsynchronousFileChannel(executor);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
+#### Snippet
+```java
+    while (remaining > ARRAY_LEN) {
+      System.arraycopy(NULL_ARRAY, 0, blocks, off, ARRAY_LEN);
+      off += ARRAY_LEN;
+      remaining -= ARRAY_LEN;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
+#### Snippet
+```java
+    while (remaining > ARRAY_LEN) {
+      System.arraycopy(ZERO_ARRAY, 0, bytes, off, ARRAY_LEN);
+      off += ARRAY_LEN;
+      remaining -= ARRAY_LEN;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `position`
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
+          file.writeLock().lockInterruptibly();
+          try {
+            position = file.sizeWithoutLocking();
+            written = file.write(position, src);
+            this.position = position + written;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `position`
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
+          file.writeLock().lockInterruptibly();
+          try {
+            position = file.sizeWithoutLocking();
+            transferred = file.transferFrom(src, position, count);
+            this.position = position + transferred;
 ```
 
 ### AssignmentToMethodParameter
@@ -1084,27 +1084,27 @@ in `jimfs/src/main/java/com/google/common/jimfs/FileTree.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `uriPath`
+Assignment to method parameter `root`
 in `jimfs/src/main/java/com/google/common/jimfs/WindowsPathType.java`
 #### Snippet
 ```java
-  @Override
-  public ParseResult parseUriPath(String uriPath) {
-    uriPath = uriPath.replace('/', '\\');
-    if (uriPath.charAt(0) == '\\' && uriPath.charAt(1) != '\\') {
-      // non-UNC path, so the leading / was just there for the URI path format and isn't part
+  public String toUriPath(String root, Iterable<String> names, boolean directory) {
+    if (root.startsWith("\\\\")) {
+      root = root.replace('\\', '/');
+    } else {
+      root = "/" + root.replace('\\', '/');
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `uriPath`
+Assignment to method parameter `root`
 in `jimfs/src/main/java/com/google/common/jimfs/WindowsPathType.java`
 #### Snippet
 ```java
-      // non-UNC path, so the leading / was just there for the URI path format and isn't part
-      // of what should be parsed
-      uriPath = uriPath.substring(1);
+      root = root.replace('\\', '/');
+    } else {
+      root = "/" + root.replace('\\', '/');
     }
-    return parsePath(uriPath);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -1132,27 +1132,27 @@ in `jimfs/src/main/java/com/google/common/jimfs/WindowsPathType.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `root`
+Assignment to method parameter `uriPath`
 in `jimfs/src/main/java/com/google/common/jimfs/WindowsPathType.java`
 #### Snippet
 ```java
-  public String toUriPath(String root, Iterable<String> names, boolean directory) {
-    if (root.startsWith("\\\\")) {
-      root = root.replace('\\', '/');
-    } else {
-      root = "/" + root.replace('\\', '/');
+  @Override
+  public ParseResult parseUriPath(String uriPath) {
+    uriPath = uriPath.replace('/', '\\');
+    if (uriPath.charAt(0) == '\\' && uriPath.charAt(1) != '\\') {
+      // non-UNC path, so the leading / was just there for the URI path format and isn't part
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `root`
+Assignment to method parameter `uriPath`
 in `jimfs/src/main/java/com/google/common/jimfs/WindowsPathType.java`
 #### Snippet
 ```java
-      root = root.replace('\\', '/');
-    } else {
-      root = "/" + root.replace('\\', '/');
+      // non-UNC path, so the leading / was just there for the URI path format and isn't part
+      // of what should be parsed
+      uriPath = uriPath.substring(1);
     }
-
+    return parsePath(uriPath);
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -1184,7 +1184,7 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileStore.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-19-17-03.023.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-23-37-23.614.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1261,6 +1261,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
 #### Snippet
 ```java
+    if (append) {
+      // synchronize because appending does update the channel's position
+      synchronized (this) {
+        boolean completed = false;
+        try {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
     checkOpen();
 
     synchronized (this) {
@@ -1285,7 +1297,43 @@ Lock operations on 'this' may have unforeseen side-effects
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
 #### Snippet
 ```java
+    if (append) {
+      // synchronize because appending does update the channel's position
+      synchronized (this) {
+        boolean completed = false;
+        try {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
+    checkWritable();
+
+    synchronized (this) {
+      boolean completed = false;
+      try {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
     long written = 0; // will definitely either be assigned or an exception will be thrown
+
+    synchronized (this) {
+      boolean completed = false;
+      try {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
+#### Snippet
+```java
+    int written = 0; // will definitely either be assigned or an exception will be thrown
 
     synchronized (this) {
       boolean completed = false;
@@ -1309,71 +1357,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
 #### Snippet
 ```java
-    checkWritable();
-
-    synchronized (this) {
-      boolean completed = false;
-      try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
-    if (append) {
-      // synchronize because appending does update the channel's position
-      synchronized (this) {
-        boolean completed = false;
-        try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
     long read = 0; // will definitely either be assigned or an exception will be thrown
 
     synchronized (this) {
       boolean completed = false;
       try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
-    if (append) {
-      // synchronize because appending does update the channel's position
-      synchronized (this) {
-        boolean completed = false;
-        try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
-#### Snippet
-```java
-    int written = 0; // will definitely either be assigned or an exception will be thrown
-
-    synchronized (this) {
-      boolean completed = false;
-      try {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jimfs/src/main/java/com/google/common/jimfs/PollingWatchService.java`
-#### Snippet
-```java
-    Snapshot snapshot = takeSnapshot(path);
-
-    synchronized (this) {
-      snapshots.put(key, snapshot);
-      if (pollingFuture == null) {
 ```
 
 ### SynchronizeOnThis
@@ -1386,6 +1374,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/PollingWatchService.java`
           synchronized (PollingWatchService.this) {
             for (Map.Entry<Key, Snapshot> entry : snapshots.entrySet()) {
               Key key = entry.getKey();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jimfs/src/main/java/com/google/common/jimfs/PollingWatchService.java`
+#### Snippet
+```java
+    Snapshot snapshot = takeSnapshot(path);
+
+    synchronized (this) {
+      snapshots.put(key, snapshot);
+      if (pollingFuture == null) {
 ```
 
 ### SynchronizeOnThis
@@ -1415,6 +1415,30 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathURLConnection.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+   */
+  @CanIgnoreReturnValue
+  public long write(long pos, Iterable<ByteBuffer> bufs) throws IOException {
+    long start = pos;
+    for (ByteBuffer buf : bufs) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
+#### Snippet
+```java
+   * read or -1 if {@code pos} is greater than or equal to the size of this file.
+   */
+  public long read(long pos, Iterable<ByteBuffer> bufs) {
+    if (pos >= size()) {
+      return -1;
+```
+
+### BoundedWildcard
 Can generalize to `? extends PathNormalization`
 in `jimfs/src/main/java/com/google/common/jimfs/PathNormalization.java`
 #### Snippet
@@ -1436,30 +1460,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathNormalization.java`
   public static Pattern compilePattern(String regex, Iterable<PathNormalization> normalizations) {
     int flags = 0;
     for (PathNormalization normalization : normalizations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
-#### Snippet
-```java
-   * read or -1 if {@code pos} is greater than or equal to the size of this file.
-   */
-  public long read(long pos, Iterable<ByteBuffer> bufs) {
-    if (pos >= size()) {
-      return -1;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `jimfs/src/main/java/com/google/common/jimfs/RegularFile.java`
-#### Snippet
-```java
-   */
-  @CanIgnoreReturnValue
-  public long write(long pos, Iterable<ByteBuffer> bufs) throws IOException {
-    long start = pos;
-    for (ByteBuffer buf : bufs) {
 ```
 
 ### BoundedWildcard
@@ -1513,6 +1513,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsAsynchronousFileChannel.java`
+#### Snippet
+```java
+    private final ListenableFuture<R> future;
+    private final CompletionHandler<R, ? super A> completionHandler;
+    @NullableDecl private final A attachment;
+
+    private CompletionHandlerCallback(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
 in `jimfs/src/main/java/com/google/common/jimfs/Directory.java`
 #### Snippet
 ```java
@@ -1545,18 +1557,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/DirectoryEntry.java`
   @NullableDecl DirectoryEntry next; // for use in Directory
 
   DirectoryEntry(Directory directory, Name name, @NullableDecl File file) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsAsynchronousFileChannel.java`
-#### Snippet
-```java
-    private final ListenableFuture<R> future;
-    private final CompletionHandler<R, ? super A> completionHandler;
-    @NullableDecl private final A attachment;
-
-    private CompletionHandlerCallback(
 ```
 
 ### NullableProblems
@@ -1621,18 +1621,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/Jimfs.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/AbstractWatchService.java`
-#### Snippet
-```java
-    private final int count;
-
-    @NullableDecl private final T context;
-
-    public Event(Kind<T> kind, int count, @NullableDecl T context) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
 #### Snippet
 ```java
@@ -1641,6 +1629,18 @@ final class JimfsPath implements Path {
   @NullableDecl private final Name root;
   private final ImmutableList<Name> names;
   private final PathService pathService;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
+in `jimfs/src/main/java/com/google/common/jimfs/AbstractWatchService.java`
+#### Snippet
+```java
+    private final int count;
+
+    @NullableDecl private final T context;
+
+    public Event(Kind<T> kind, int count, @NullableDecl T context) {
 ```
 
 ## RuleId[id=ConstantValue]
@@ -1657,126 +1657,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathURLConnection.java`
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-    checkNotClosed();
-
-    file.writeLock().lock();
-    try {
-      if (append) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-    try {
-      if (append) {
-        pos = file.sizeWithoutLocking();
-      }
-      file.write(pos++, (byte) b);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-        pos = file.sizeWithoutLocking();
-      }
-      file.write(pos++, (byte) b);
-
-      file.setLastModifiedTime(fileSystemState.now());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-      file.write(pos++, (byte) b);
-
-      file.setLastModifiedTime(fileSystemState.now());
-    } finally {
-      file.writeLock().unlock();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-      file.setLastModifiedTime(fileSystemState.now());
-    } finally {
-      file.writeLock().unlock();
-    }
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-    checkNotClosed();
-
-    file.writeLock().lock();
-    try {
-      if (append) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-    try {
-      if (append) {
-        pos = file.sizeWithoutLocking();
-      }
-      pos += file.write(pos, b, off, len);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-        pos = file.sizeWithoutLocking();
-      }
-      pos += file.write(pos, b, off, len);
-
-      file.setLastModifiedTime(fileSystemState.now());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-      pos += file.write(pos, b, off, len);
-
-      file.setLastModifiedTime(fileSystemState.now());
-    } finally {
-      file.writeLock().unlock();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
-#### Snippet
-```java
-      file.setLastModifiedTime(fileSystemState.now());
-    } finally {
-      file.writeLock().unlock();
-    }
-  }
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `file` accessed in synchronized context
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
@@ -1803,13 +1683,121 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
 #### Snippet
 ```java
-      return 0;
+    checkNotClosed();
+
+    file.writeLock().lock();
+    try {
+      if (append) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+    try {
+      if (append) {
+        pos = file.sizeWithoutLocking();
+      }
+      file.write(pos++, (byte) b);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+        pos = file.sizeWithoutLocking();
+      }
+      file.write(pos++, (byte) b);
+
+      file.setLastModifiedTime(fileSystemState.now());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+      file.write(pos++, (byte) b);
+
+      file.setLastModifiedTime(fileSystemState.now());
+    } finally {
+      file.writeLock().unlock();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+      file.setLastModifiedTime(fileSystemState.now());
+    } finally {
+      file.writeLock().unlock();
     }
-    long available = Math.max(file.size() - pos, 0);
-    return Ints.saturatedCast(available);
+  }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+    checkNotClosed();
+
+    file.writeLock().lock();
+    try {
+      if (append) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+    try {
+      if (append) {
+        pos = file.sizeWithoutLocking();
+      }
+      pos += file.write(pos, b, off, len);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+        pos = file.sizeWithoutLocking();
+      }
+      pos += file.write(pos, b, off, len);
+
+      file.setLastModifiedTime(fileSystemState.now());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+      pos += file.write(pos, b, off, len);
+
+      file.setLastModifiedTime(fileSystemState.now());
+    } finally {
+      file.writeLock().unlock();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsOutputStream.java`
+#### Snippet
+```java
+      file.setLastModifiedTime(fileSystemState.now());
+    } finally {
+      file.writeLock().unlock();
+    }
   }
 ```
 
@@ -1823,6 +1811,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
       int skip = (int) Math.min(Math.max(file.size() - pos, 0), n);
       pos += skip;
       return skip;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
+#### Snippet
+```java
+      return 0;
+    }
+    long available = Math.max(file.size() - pos, 0);
+    return Ints.saturatedCast(available);
+  }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -1878,6 +1878,30 @@ Non-private field `file` accessed in synchronized context
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
 #### Snippet
 ```java
+    if (isOpen()) {
+      fileSystemState.unregister(this);
+      file.closed();
+
+      // file is set to null here and only here
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
+#### Snippet
+```java
+
+      // file is set to null here and only here
+      file = null;
+    }
+  }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `file` accessed in synchronized context
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
+#### Snippet
+```java
     }
 
     file.readLock().lock();
@@ -1917,30 +1941,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
       return b;
     } finally {
       file.readLock().unlock();
-    }
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
-#### Snippet
-```java
-    if (isOpen()) {
-      fileSystemState.unregister(this);
-      file.closed();
-
-      // file is set to null here and only here
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `file` accessed in synchronized context
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsInputStream.java`
-#### Snippet
-```java
-
-      // file is set to null here and only here
-      file = null;
     }
   }
 ```
