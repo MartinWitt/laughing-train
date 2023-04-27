@@ -56,6 +56,18 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git status --porcelain failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
             String branch = runGitCmd("branch", "--show-current");
             if (branch.isEmpty()) {
                 return null;
@@ -123,18 +135,6 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
     }
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git status --porcelain failed", e);
-            return null;
-        }
-    }
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `processedDescription` is redundant
@@ -149,18 +149,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `gitVersion` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
-        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
-        String gitVersion = versionDetailsMap
-                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
-                .getVersion();
-```
-
-### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
@@ -170,6 +158,18 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
         VersionDetails versionDetails =
                 versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
         return versionDetails;
+```
+
+### UnnecessaryLocalVariable
+Local variable `gitVersion` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        String gitVersion = versionDetailsMap
+                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
+                .getVersion();
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
