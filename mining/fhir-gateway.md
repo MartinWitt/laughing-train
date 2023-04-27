@@ -1,7 +1,7 @@
 # fhir-gateway 
  
 # Bad smells
-I found 43 bad smells with 6 repairable:
+I found 44 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,6 +16,7 @@ I found 43 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
 | SetReplaceableByEnumSet | 1 | false |
@@ -32,18 +33,6 @@ import org.slf4j.LoggerFactory;
 public class FhirUtil {
 
   private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -82,6 +71,18 @@ public class ProxyConstants {
   // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
+#### Snippet
+```java
+import org.slf4j.Logger;
+
+public class ExceptionUtil {
+
+  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -109,30 +110,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.ja
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `authHeader` might be null
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "No Authorization header provided!", AuthenticationException.class);
-    }
-    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
-    FhirContext fhirContext = server.getFhirContext();
-    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
-```
-
-### DataFlowIssue
-Method invocation `checkAccess` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
-    }
-    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
-    if (!outcome.canAccess()) {
-      ExceptionUtil.throwRuntimeExceptionAndLog(
-```
-
-### DataFlowIssue
 Method invocation `getIssuer` may produce `NullPointerException`
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
@@ -154,6 +131,30 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
       verifiedJwt = jwtVerifier.verify(jwt);
     } catch (JWTVerificationException e) {
       // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
+```
+
+### DataFlowIssue
+Argument `authHeader` might be null
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "No Authorization header provided!", AuthenticationException.class);
+    }
+    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
+    FhirContext fhirContext = server.getFhirContext();
+    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
+```
+
+### DataFlowIssue
+Method invocation `checkAccess` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
+    }
+    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
+    if (!outcome.canAccess()) {
+      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ### DataFlowIssue
@@ -285,6 +286,18 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
+#### Snippet
+```java
+  public static String getIdOrNull(RequestDetailsReader requestDetails) {
+    if (requestDetails.getId() == null) {
+      return null;
+    }
+    return requestDetails.getId().getIdPart();
+```
+
+### ReturnNull
+Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 #### Snippet
 ```java
@@ -293,6 +306,30 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    }
+    // We should never get here, this is to keep the IDE happy!
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          String.format("The token issuer %s does not match the expected token issuer", issuer),
+          AuthenticationException.class);
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -321,42 +358,6 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
-#### Snippet
-```java
-  public static String getIdOrNull(RequestDetailsReader requestDetails) {
-    if (requestDetails.getId() == null) {
-      return null;
-    }
-    return requestDetails.getId().getIdPart();
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          String.format("The token issuer %s does not match the expected token issuer", issuer),
-          AuthenticationException.class);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    }
-    // We should never get here, this is to keep the IDE happy!
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
@@ -372,11 +373,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
+          e,
+          ForbiddenOperationException.class);
       return null;
     }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
+  }
 ```
 
 ### ReturnNull
@@ -384,11 +385,24 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          e,
-          ForbiddenOperationException.class);
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
       return null;
     }
-  }
+    Map<String, String[]> queryParams = requestDetails.getParameters();
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-05-13-36.014.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -432,30 +446,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
@@ -477,6 +467,30 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       Map<String, List<String>> patientSearchParams,
       boolean blockJoins) {
     this.fhirContext = fhirContext;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+#### Snippet
+```java
+  private static void makeSearchParamMap(
+      CompartmentDefinition patientCompartment,
+      final Map<String, List<String>> patientSearchParams) {
+    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
+      String resourceType = resource.getCode();
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+#### Snippet
+```java
+  private static void makeSearchParamMap(
+      CompartmentDefinition patientCompartment,
+      final Map<String, List<String>> patientSearchParams) {
+    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
+      String resourceType = resource.getCode();
 ```
 
 ## RuleId[id=ConstantValue]
