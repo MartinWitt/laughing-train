@@ -69,8 +69,8 @@ I found 416 bad smells with 75 repairable:
 | InfiniteRecursion | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
 | IOResource | 1 | false |
-| RedundantLengthCheck | 1 | false |
 | FieldMayBeStatic | 1 | false |
+| RedundantLengthCheck | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
 | ConditionCoveredByFurtherCondition | 1 | false |
 | UseBulkOperation | 1 | false |
@@ -105,6 +105,30 @@ Modifier `static` is redundant for interface fields
 in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
 #### Snippet
 ```java
+    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
+
+    static final String SEND_ADDRESS = "send_address";
+
+    static final String URL_STRING = "url_string";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
+#### Snippet
+```java
+    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
+
+    static final String SEND_ADDRESS = "send_address";
+
+    static final String URL_STRING = "url_string";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
+#### Snippet
+```java
     static final String SEND_ADDRESS = "send_address";
 
     static final String URL_STRING = "url_string";
@@ -129,11 +153,11 @@ Modifier `static` is redundant for interface fields
 in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
 #### Snippet
 ```java
-    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
 
-    static final String SEND_ADDRESS = "send_address";
 
-    static final String URL_STRING = "url_string";
+    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
+
+    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
 ```
 
 ### UnnecessaryModifier
@@ -141,35 +165,11 @@ Modifier `final` is redundant for interface fields
 in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
 #### Snippet
 ```java
-    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
 
-    static final String SEND_ADDRESS = "send_address";
 
-    static final String URL_STRING = "url_string";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
-#### Snippet
-```java
     static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
 
     static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
-
-    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
-#### Snippet
-```java
-    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
-
-    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
-
-    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
 ```
 
 ### UnnecessaryModifier
@@ -194,6 +194,30 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
     static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
 
     static final String SEND_ADDRESS = "send_address";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
+#### Snippet
+```java
+    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
+
+    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
+
+    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
+#### Snippet
+```java
+    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
+
+    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
+
+    static final String DUBBO_DEFAULT_PROTOCOL_TOPIC = "dubbo_default_protocol_topic";
 ```
 
 ### UnnecessaryModifier
@@ -218,30 +242,6 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
     static final InetSocketAddress LOCAL_ADDRESS = InetSocketAddress.createUnresolved(NetUtils.getLocalHost(), 9876);
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
-#### Snippet
-```java
-
-
-    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
-
-    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolConstant.java`
-#### Snippet
-```java
-
-
-    static final String CONSUMER_CROUP_NAME = "dubbo-roucketmq-consumer-group";
-
-    static final String PRODUCER_CROUP_NAME = "dubbo-roucketmq-producer-group";
 ```
 
 ### UnnecessaryModifier
@@ -295,31 +295,6 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
                     switch (event.getType()) {
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `decayTime` from instance context
-in `dubbo-cluster-extensions/dubbo-cluster-loadbalance-peakewma/src/main/java/org/apache/dubbo/rpc/cluster/loadbalance/PeakEwmaLoadBalance.java`
-#### Snippet
-```java
-    @Override
-    public void setApplicationModel(ApplicationModel applicationModel) {
-        decayTime = applicationModel.getModelEnvironment().getConfiguration().getInt(PEAK_EWMA_DECAY_TIME, 10_000);
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SERIALIZER_FACTORY` from instance context
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
-#### Snippet
-```java
-        }
-        synchronized (this) {
-            SERIALIZER_FACTORY = createSerializerFactory();
-        }
-        return SERIALIZER_FACTORY;
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (7 lines)
@@ -334,6 +309,18 @@ in `dubbo-configcenter-extensions/dubbo-configcenter-etcd/src/main/java/org/apac
 ```
 
 ### CommentedOutCode
+Commented out code (5 lines)
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
+#### Snippet
+```java
+        public T parse(InputStream stream) throws InvalidProtocolBufferException {
+            return parser.parseDelimitedFrom(stream, globalRegistry);
+//            CodedInputStream cis = CodedInputStream.newInstance(stream);
+//            // Pre-create the CodedInputStream so that we can remove the size limit restriction
+//            // when parsing.
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/DemoParamBean1SubBean1.java`
 #### Snippet
@@ -345,16 +332,29 @@ in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache
 
 ```
 
-### CommentedOutCode
-Commented out code (5 lines)
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SERIALIZER_FACTORY` from instance context
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
 #### Snippet
 ```java
-        public T parse(InputStream stream) throws InvalidProtocolBufferException {
-            return parser.parseDelimitedFrom(stream, globalRegistry);
-//            CodedInputStream cis = CodedInputStream.newInstance(stream);
-//            // Pre-create the CodedInputStream so that we can remove the size limit restriction
-//            // when parsing.
+        }
+        synchronized (this) {
+            SERIALIZER_FACTORY = createSerializerFactory();
+        }
+        return SERIALIZER_FACTORY;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `decayTime` from instance context
+in `dubbo-cluster-extensions/dubbo-cluster-loadbalance-peakewma/src/main/java/org/apache/dubbo/rpc/cluster/loadbalance/PeakEwmaLoadBalance.java`
+#### Snippet
+```java
+    @Override
+    public void setApplicationModel(ApplicationModel applicationModel) {
+        decayTime = applicationModel.getModelEnvironment().getConfiguration().getInt(PEAK_EWMA_DECAY_TIME, 10_000);
+    }
+
 ```
 
 ## RuleId[id=UnnecessaryQualifierForThis]
@@ -421,51 +421,15 @@ in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubb
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`desc.length() > 0` can be replaced with '!desc.isEmpty()'
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/DecodeableRpcInvocation.java`
+`newInvokerCache.size() > 0` can be replaced with '!newInvokerCache.isEmpty()'
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
 #### Snippet
 ```java
-            Object[] args = RocketMQCodec.EMPTY_OBJECT_ARRAY;
-            Class<?>[] pts = RocketMQCodec.EMPTY_CLASS_ARRAY;
-            if (desc.length() > 0) {
-                FrameworkServiceRepository repository = frameworkModel.getServiceRepository();
-                List<ProviderModel> providerModels = repository.lookupExportedServicesWithoutGroup(keyWithoutGroup(path, version));
-```
-
-### SizeReplaceableByIsEmpty
-`allFields.size() > 0` can be replaced with '!allFields.isEmpty()'
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
-#### Snippet
-```java
-        // get all fields
-        List<Field> allFields = ClassTypeUtil.getAllFields(null, argClass);
-        if (allFields.size() > 0) {
-            for (Field field : allFields) {
-                if (SKIP_FIELD_SERIALVERSIONUID.equals(field.getName()) || SKIP_FIELD_THIS$0.equals(field.getName())) {
-```
-
-### SizeReplaceableByIsEmpty
-`clients.size() > 0` can be replaced with '!clients.isEmpty()'
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/ServerPeer.java`
-#### Snippet
-```java
-    public Collection<Channel> getChannels() {
-        Collection<Channel> channels = super.getChannels();
-        if (clients.size() > 0) {
-            channels = channels == null ? new ArrayList<Channel>() : new ArrayList<Channel>(channels);
-            channels.addAll(clients.values());
-```
-
-### SizeReplaceableByIsEmpty
-`clients.size() > 0` can be replaced with '!clients.isEmpty()'
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/ExchangeServerPeer.java`
-#### Snippet
-```java
-    public Collection<ExchangeChannel> getExchangeChannels() {
-        Collection<ExchangeChannel> channels = super.getExchangeChannels();
-        if (clients.size() > 0) {
-            channels = channels == null ? new ArrayList<ExchangeChannel>() : new ArrayList<ExchangeChannel>(channels);
-            channels.addAll(clients.values());
+            cacheLock.lock();
+            try {
+                if (newInvokerCache.size() > 0) {
+                    Iterator<Map.Entry<URL, InvokerCache<Invoker<T>>>> iterator = newInvokerCache.entrySet().iterator();
+                    while (iterator.hasNext()) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -493,15 +457,39 @@ in `dubbo-serialization-extensions/dubbo-serialization-gson/src/main/java/org/ap
 ```
 
 ### SizeReplaceableByIsEmpty
-`line.trim().length() == 0` can be replaced with 'line.trim().isEmpty()'
-in `dubbo-serialization-extensions/dubbo-serialization-fastjson/src/main/java/org/apache/dubbo/common/serialize/fastjson/FastJsonObjectInput.java`
+`clients.size() > 0` can be replaced with '!clients.isEmpty()'
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/ServerPeer.java`
 #### Snippet
 ```java
-    private String readLine() throws IOException, EOFException {
-        String line = reader.readLine();
-        if (line == null || line.trim().length() == 0) {
-            throw new EOFException();
-        }
+    public Collection<Channel> getChannels() {
+        Collection<Channel> channels = super.getChannels();
+        if (clients.size() > 0) {
+            channels = channels == null ? new ArrayList<Channel>() : new ArrayList<Channel>(channels);
+            channels.addAll(clients.values());
+```
+
+### SizeReplaceableByIsEmpty
+`clients.size() > 0` can be replaced with '!clients.isEmpty()'
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/ExchangeServerPeer.java`
+#### Snippet
+```java
+    public Collection<ExchangeChannel> getExchangeChannels() {
+        Collection<ExchangeChannel> channels = super.getExchangeChannels();
+        if (clients.size() > 0) {
+            channels = channels == null ? new ArrayList<ExchangeChannel>() : new ArrayList<ExchangeChannel>(channels);
+            channels.addAll(clients.values());
+```
+
+### SizeReplaceableByIsEmpty
+`client.length() > 0` can be replaced with '!client.isEmpty()'
+in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/protocol/hessian/HessianProtocol.java`
+#### Snippet
+```java
+            factory.setHessianProxyFactory(hessianProxyFactory);
+            hessianProxyFactory.setConnectionFactory(factory);
+        } else if (client != null && client.length() > 0 && !DEFAULT_HTTP_CLIENT.equals(client)) {
+            throw new IllegalStateException("Unsupported http protocol client=\"" + client + "\"!");
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -529,27 +517,15 @@ in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo
 ```
 
 ### SizeReplaceableByIsEmpty
-`client.length() > 0` can be replaced with '!client.isEmpty()'
-in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/protocol/hessian/HessianProtocol.java`
+`desc.length() > 0` can be replaced with '!desc.isEmpty()'
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/DecodeableRpcInvocation.java`
 #### Snippet
 ```java
-            factory.setHessianProxyFactory(hessianProxyFactory);
-            hessianProxyFactory.setConnectionFactory(factory);
-        } else if (client != null && client.length() > 0 && !DEFAULT_HTTP_CLIENT.equals(client)) {
-            throw new IllegalStateException("Unsupported http protocol client=\"" + client + "\"!");
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`newInvokerCache.size() > 0` can be replaced with '!newInvokerCache.isEmpty()'
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-            cacheLock.lock();
-            try {
-                if (newInvokerCache.size() > 0) {
-                    Iterator<Map.Entry<URL, InvokerCache<Invoker<T>>>> iterator = newInvokerCache.entrySet().iterator();
-                    while (iterator.hasNext()) {
+            Object[] args = RocketMQCodec.EMPTY_OBJECT_ARRAY;
+            Class<?>[] pts = RocketMQCodec.EMPTY_CLASS_ARRAY;
+            if (desc.length() > 0) {
+                FrameworkServiceRepository repository = frameworkModel.getServiceRepository();
+                List<ProviderModel> providerModels = repository.lookupExportedServicesWithoutGroup(keyWithoutGroup(path, version));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -565,15 +541,27 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/
 ```
 
 ### SizeReplaceableByIsEmpty
-`providers.size() > 0` can be replaced with '!providers.isEmpty()'
-in `dubbo-registry-extensions/dubbo-registry-etcd3/src/main/java/org/apache/dubbo/registry/etcd/EtcdRegistry.java`
+`line.trim().length() == 0` can be replaced with 'line.trim().isEmpty()'
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectInput.java`
 #### Snippet
 ```java
-    protected List<URL> toUrlsWithoutEmpty(URL consumer, List<String> providers) {
-        List<URL> urls = new ArrayList<>();
-        if (providers != null && providers.size() > 0) {
-            for (String provider : providers) {
-                provider = URL.decode(provider);
+    private String readLine() throws IOException {
+        String line = reader.readLine();
+        if (line == null || line.trim().length() == 0) {
+            throw new EOFException();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`allFields.size() > 0` can be replaced with '!allFields.isEmpty()'
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
+#### Snippet
+```java
+        // get all fields
+        List<Field> allFields = ClassTypeUtil.getAllFields(null, argClass);
+        if (allFields.size() > 0) {
+            for (Field field : allFields) {
+                if (SKIP_FIELD_SERIALVERSIONUID.equals(field.getName()) || SKIP_FIELD_THIS$0.equals(field.getName())) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -586,6 +574,18 @@ in `dubbo-registry-extensions/dubbo-registry-etcd3/src/main/java/org/apache/dubb
         if (address != null && address.length() > 0) {
             int i = address.indexOf(':');
             if (i < 0) {
+```
+
+### SizeReplaceableByIsEmpty
+`providers.size() > 0` can be replaced with '!providers.isEmpty()'
+in `dubbo-registry-extensions/dubbo-registry-etcd3/src/main/java/org/apache/dubbo/registry/etcd/EtcdRegistry.java`
+#### Snippet
+```java
+    protected List<URL> toUrlsWithoutEmpty(URL consumer, List<String> providers) {
+        List<URL> urls = new ArrayList<>();
+        if (providers != null && providers.size() > 0) {
+            for (String provider : providers) {
+                provider = URL.decode(provider);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -602,10 +602,10 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 
 ### SizeReplaceableByIsEmpty
 `line.trim().length() == 0` can be replaced with 'line.trim().isEmpty()'
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectInput.java`
+in `dubbo-serialization-extensions/dubbo-serialization-fastjson/src/main/java/org/apache/dubbo/common/serialize/fastjson/FastJsonObjectInput.java`
 #### Snippet
 ```java
-    private String readLine() throws IOException {
+    private String readLine() throws IOException, EOFException {
         String line = reader.readLine();
         if (line == null || line.trim().length() == 0) {
             throw new EOFException();
@@ -654,18 +654,6 @@ in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apach
 ## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
-in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyCodecAdapter.java`
-#### Snippet
-```java
-                    } else {
-                        int size = previousData.readableBytes() + grizzlyBuffer.remaining();
-                        frame = ChannelBuffers.dynamicBuffer(size > bufferSize ? size : bufferSize);
-                        frame.writeBytes(previousData, previousData.readableBytes());
-                        frame.writeBytes(grizzlyBuffer.toByteBuffer());
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
 in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaCodecAdapter.java`
 #### Snippet
 ```java
@@ -676,6 +664,18 @@ in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo
                     frame.writeBytes(in.buf());
 ```
 
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyCodecAdapter.java`
+#### Snippet
+```java
+                    } else {
+                        int size = previousData.readableBytes() + grizzlyBuffer.remaining();
+                        frame = ChannelBuffers.dynamicBuffer(size > bufferSize ? size : bufferSize);
+                        frame.writeBytes(previousData, previousData.readableBytes());
+                        frame.writeBytes(grizzlyBuffer.toByteBuffer());
+```
+
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Invoker`
@@ -684,9 +684,9 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/
 ```java
     }
 
-    private Map<String, Invoker<T>> processIp(List<Invoker<T>> invokerList) {
-        Map<String, Invoker<T>> ip2Invoker = new HashMap<>();
-        for (Invoker<T> invoker : invokerList) {
+    private Map<String, Invoker<T>> processAddress(List<Invoker<T>> addresses) {
+        Map<String, Invoker<T>> address2Invoker = new HashMap<>();
+        for (Invoker<T> invoker : addresses) {
 ```
 
 ### BoundedWildcard
@@ -695,30 +695,6 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/
 #### Snippet
 ```java
     }
-
-    private Map<String, Invoker<T>> processAddress(List<Invoker<T>> addresses) {
-        Map<String, Invoker<T>> address2Invoker = new HashMap<>();
-        for (Invoker<T> invoker : addresses) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Invoker`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, Invoker<T>> processAddress(List<Invoker<T>> addresses) {
-        Map<String, Invoker<T>> address2Invoker = new HashMap<>();
-        for (Invoker<T> invoker : addresses) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Invoker`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-
 
     private Map<String, Invoker<T>> processIp(List<Invoker<T>> invokerList) {
         Map<String, Invoker<T>> ip2Invoker = new HashMap<>();
@@ -737,17 +713,53 @@ in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dub
             .map(HealthService::getService)
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `AbstractExchangeGroup` has no concrete subclass
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
+### BoundedWildcard
+Can generalize to `? extends Invoker`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
 #### Snippet
 ```java
- * AbstractGroup
- */
-public abstract class AbstractExchangeGroup implements ExchangeGroup {
+    }
 
-    // log  output
+    private Map<String, Invoker<T>> processAddress(List<Invoker<T>> addresses) {
+        Map<String, Invoker<T>> address2Invoker = new HashMap<>();
+        for (Invoker<T> invoker : addresses) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Invoker`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
+#### Snippet
+```java
+
+
+    private Map<String, Invoker<T>> processIp(List<Invoker<T>> invokerList) {
+        Map<String, Invoker<T>> ip2Invoker = new HashMap<>();
+        for (Invoker<T> invoker : invokerList) {
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `AbstractHessian2FactoryInitializer` has no concrete subclass
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
+#### Snippet
+```java
+import com.caucho.hessian.io.SerializerFactory;
+
+public abstract class AbstractHessian2FactoryInitializer implements Hessian2FactoryInitializer {
+    private static SerializerFactory SERIALIZER_FACTORY;
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractRedisClient` has no concrete subclass
+in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/support/AbstractRedisClient.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public abstract class AbstractRedisClient implements RedisClient {
+    private URL url;
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -763,15 +775,15 @@ public abstract class AbstractGroup implements Group {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractKryoFactory` has no concrete subclass
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/AbstractKryoFactory.java`
+Abstract class `AbstractExchangeGroup` has no concrete subclass
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
 #### Snippet
 ```java
-import java.util.regex.Pattern;
+ * AbstractGroup
+ */
+public abstract class AbstractExchangeGroup implements ExchangeGroup {
 
-public abstract class AbstractKryoFactory extends Pool<Kryo> {
-
-    private final Set<Class> registrations = new LinkedHashSet<Class>();
+    // log  output
 ```
 
 ### AbstractClassNeverImplemented
@@ -799,52 +811,52 @@ public abstract class AbstractEtcdClient<WatcherListener> implements EtcdClient 
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractRedisClient` has no concrete subclass
-in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/support/AbstractRedisClient.java`
+Abstract class `AbstractKryoFactory` has no concrete subclass
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/AbstractKryoFactory.java`
 #### Snippet
 ```java
-import java.util.Set;
+import java.util.regex.Pattern;
 
-public abstract class AbstractRedisClient implements RedisClient {
-    private URL url;
+public abstract class AbstractKryoFactory extends Pool<Kryo> {
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractHessian2FactoryInitializer` has no concrete subclass
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
-#### Snippet
-```java
-import com.caucho.hessian.io.SerializerFactory;
-
-public abstract class AbstractHessian2FactoryInitializer implements Hessian2FactoryInitializer {
-    private static SerializerFactory SERIALIZER_FACTORY;
-
+    private final Set<Class> registrations = new LinkedHashSet<Class>();
 ```
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
 #### Snippet
 ```java
-public class RocketMQCodecSupport {
+    // protected for ut purpose
+    protected static int EXPIRE_TIME = 10 * 60 * 1000;
+    private final static String USER_SPECIFIED_SERVICE_ADDRESS_BUILDER_KEY = "userSpecifiedServiceAddressBuilder";
 
-    private final static String DEFAULT_REMOTING_SERIALIZATION_PROPERTY = "hessian2";
-
-    public static Serialization getRequestSerialization(URL url, Invocation invocation) {
+    private volatile BitList<Invoker<T>> invokers = BitList.emptyList();
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final public`
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/NettyCodecAdapter.java`
+Missorted modifiers `final static`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
 #### Snippet
 ```java
- * NettyCodecAdapter.
- */
-final public class NettyCodecAdapter {
 
-    private final ChannelHandler encoder = new InternalEncoder();
+public class UserSpecifiedAddressRouter<T> extends AbstractStateRouter<T> {
+    private final static Logger logger = LoggerFactory.getLogger(UserSpecifiedAddressRouter.class);
+    // protected for ut purpose
+    protected static int EXPIRE_TIME = 10 * 60 * 1000;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/DefaultUserSpecifiedServiceAddressBuilder.java`
+#### Snippet
+```java
+
+public class DefaultUserSpecifiedServiceAddressBuilder implements UserSpecifiedServiceAddressBuilder {
+    public final static String NAME = "default";
+
+    private final ExtensionLoader<Protocol> protocolExtensionLoader;
 ```
 
 ### MissortedModifiers
@@ -869,6 +881,66 @@ public class HessianProtocolFilter implements Filter {
     private final static InternalThreadLocal<Map<String, String>> attachments = new InternalThreadLocal<>();
 
     @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final public`
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/NettyCodecAdapter.java`
+#### Snippet
+```java
+ * NettyCodecAdapter.
+ */
+final public class NettyCodecAdapter {
+
+    private final ChannelHandler encoder = new InternalEncoder();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
+#### Snippet
+```java
+public class RocketMQCodecSupport {
+
+    private final static String DEFAULT_REMOTING_SERIALIZATION_PROPERTY = "hessian2";
+
+    public static Serialization getRequestSerialization(URL url, Invocation invocation) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
+#### Snippet
+```java
+
+public class UserSpecifiedAddressRouter<T> extends AbstractRouter {
+    private final static Logger logger = LoggerFactory.getLogger(UserSpecifiedAddressRouter.class);
+    // protected for ut purpose
+    protected static int EXPIRE_TIME = 10 * 60 * 1000;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
+#### Snippet
+```java
+    private final static String NULL_CLASS_NAME = "null";
+
+    private final static JsonFormat.TypeRegistry typeRegistry;
+
+    static {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
+#### Snippet
+```java
+public class ProtobufAttachmentUtils {
+    private static Map<String, BuiltinMarshaller> marshallers = new HashMap<>();
+    private final static String NULL_CLASS_NAME = "null";
+
+    private final static JsonFormat.TypeRegistry typeRegistry;
 ```
 
 ### MissortedModifiers
@@ -912,9 +984,9 @@ Missorted modifiers `final static`
 in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSClientConst.java`
 #### Snippet
 ```java
-     * To decide how many threads used to execute DNS poll
+     * To decide the frequency of execute DNS poll (in ms)
      */
-    public final static String DNS_POLLING_POOL_SIZE_KEY = "dnsPollingPoolSize";
+    public final static String DNS_POLLING_CYCLE = "dnsPollingCycle";
 
     /**
 ```
@@ -924,11 +996,11 @@ Missorted modifiers `final static`
 in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSClientConst.java`
 #### Snippet
 ```java
-     * To decide the frequency of execute DNS poll (in ms)
-     */
-    public final static String DNS_POLLING_CYCLE = "dnsPollingCycle";
+    public final static String ADDRESS_PREFIX = "addressPrefix";
 
-    /**
+    public final static String ADDRESS_SUFFIX = "addressSuffix";
+
+    public final static String MAX_QUERIES_PER_RESOLVE = "maxQueriesPerResolve";
 ```
 
 ### MissortedModifiers
@@ -948,11 +1020,11 @@ Missorted modifiers `final static`
 in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSClientConst.java`
 #### Snippet
 ```java
-public class DNSClientConst {
+     * To decide how many threads used to execute DNS poll
+     */
+    public final static String DNS_POLLING_POOL_SIZE_KEY = "dnsPollingPoolSize";
 
-    public final static String ADDRESS_PREFIX = "addressPrefix";
-
-    public final static String ADDRESS_SUFFIX = "addressSuffix";
+    /**
 ```
 
 ### MissortedModifiers
@@ -960,83 +1032,11 @@ Missorted modifiers `final static`
 in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSClientConst.java`
 #### Snippet
 ```java
+public class DNSClientConst {
+
     public final static String ADDRESS_PREFIX = "addressPrefix";
 
     public final static String ADDRESS_SUFFIX = "addressSuffix";
-
-    public final static String MAX_QUERIES_PER_RESOLVE = "maxQueriesPerResolve";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/DefaultUserSpecifiedServiceAddressBuilder.java`
-#### Snippet
-```java
-
-public class DefaultUserSpecifiedServiceAddressBuilder implements UserSpecifiedServiceAddressBuilder {
-    public final static String NAME = "default";
-
-    private final ExtensionLoader<Protocol> protocolExtensionLoader;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-    // protected for ut purpose
-    protected static int EXPIRE_TIME = 10 * 60 * 1000;
-    private final static String USER_SPECIFIED_SERVICE_ADDRESS_BUILDER_KEY = "userSpecifiedServiceAddressBuilder";
-
-    private volatile BitList<Invoker<T>> invokers = BitList.emptyList();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-
-public class UserSpecifiedAddressRouter<T> extends AbstractStateRouter<T> {
-    private final static Logger logger = LoggerFactory.getLogger(UserSpecifiedAddressRouter.class);
-    // protected for ut purpose
-    protected static int EXPIRE_TIME = 10 * 60 * 1000;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-
-public class UserSpecifiedAddressRouter<T> extends AbstractRouter {
-    private final static Logger logger = LoggerFactory.getLogger(UserSpecifiedAddressRouter.class);
-    // protected for ut purpose
-    protected static int EXPIRE_TIME = 10 * 60 * 1000;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
-#### Snippet
-```java
-    private final static String NULL_CLASS_NAME = "null";
-
-    private final static JsonFormat.TypeRegistry typeRegistry;
-
-    static {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
-#### Snippet
-```java
-public class ProtobufAttachmentUtils {
-    private static Map<String, BuiltinMarshaller> marshallers = new HashMap<>();
-    private final static String NULL_CLASS_NAME = "null";
-
-    private final static JsonFormat.TypeRegistry typeRegistry;
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -1104,6 +1104,30 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
+#### Snippet
+```java
+
+        public Notifier(String service) {
+            super.setDaemon(true);
+            super.setName("DubboRedisSubscribe");
+            this.service = service;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
+#### Snippet
+```java
+        public Notifier(String service) {
+            super.setDaemon(true);
+            super.setName("DubboRedisSubscribe");
+            this.service = service;
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQInvoker.java`
 #### Snippet
 ```java
@@ -1124,30 +1148,6 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
             if (super.isDestroyed()) {
                 return;
             }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
-#### Snippet
-```java
-
-        public Notifier(String service) {
-            super.setDaemon(true);
-            super.setName("DubboRedisSubscribe");
-            this.service = service;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
-#### Snippet
-```java
-        public Notifier(String service) {
-            super.setDaemon(true);
-            super.setName("DubboRedisSubscribe");
-            this.service = service;
-        }
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -1224,11 +1224,11 @@ Result of assignment expression used
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClient.java`
 #### Snippet
 ```java
-                        int index = len, count = 0;
-                        if (child.length() > len) {
-                            for (; (index = child.indexOf(PATH_SEPARATOR, index)) != -1; ++index) {
-                                if (count++ > 1) {
-                                    break;
+            int len = path.length(), index = len, count = 0;
+            if (key.length() >= index) {
+                for (; (index = key.indexOf(PATH_SEPARATOR, index)) != -1; ++index) {
+                    if (count++ > 1) {
+                        break;
 ```
 
 ### NestedAssignment
@@ -1260,11 +1260,11 @@ Result of assignment expression used
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClient.java`
 #### Snippet
 ```java
-            int len = path.length(), index = len, count = 0;
-            if (key.length() >= index) {
-                for (; (index = key.indexOf(PATH_SEPARATOR, index)) != -1; ++index) {
-                    if (count++ > 1) {
-                        break;
+                        int index = len, count = 0;
+                        if (child.length() > len) {
+                            for (; (index = child.indexOf(PATH_SEPARATOR, index)) != -1; ++index) {
+                                if (count++ > 1) {
+                                    break;
 ```
 
 ### NestedAssignment
@@ -1307,13 +1307,13 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
+in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryServiceDiscovery.java`
 #### Snippet
 ```java
-        if (basicApiModuleInfo == null) {
-            List<ModuleCacheItem> tempList = new ArrayList<>(apiModulesCache.size());
-            apiModulesCache.forEach((k, v) -> {
-                tempList.add(v);
+        public void start() {
+            final CountDownLatch latch = new CountDownLatch(1);
+            SubscriberRegistration subscriberRegistration = new SubscriberRegistration(serviceName, (dataId, data) -> {
+                handleRegistryData(dataId, data, latch);
             });
 ```
 
@@ -1331,13 +1331,13 @@ in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/co
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryServiceDiscovery.java`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
 #### Snippet
 ```java
-        public void start() {
-            final CountDownLatch latch = new CountDownLatch(1);
-            SubscriberRegistration subscriberRegistration = new SubscriberRegistration(serviceName, (dataId, data) -> {
-                handleRegistryData(dataId, data, latch);
+        if (basicApiModuleInfo == null) {
+            List<ModuleCacheItem> tempList = new ArrayList<>(apiModulesCache.size());
+            apiModulesCache.forEach((k, v) -> {
+                tempList.add(v);
             });
 ```
 
@@ -1356,135 +1356,15 @@ public class Hessian2SerializerFactory extends SerializerFactory {
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `model` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+Field `SERIALIZER_FACTORY` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
 #### Snippet
 ```java
-    private URL url;
 
-    private String model;
+public abstract class AbstractHessian2FactoryInitializer implements Hessian2FactoryInitializer {
+    private static SerializerFactory SERIALIZER_FACTORY;
 
-    private String inistanceName;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `address` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    private DefaultMQPushConsumer defaultMQPushConsumer;
-
-    private String address;
-
-    private String namespace;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `url` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    private String namespace;
-
-    private URL url;
-
-    private String model;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `messageListenerConcurrently` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-public class RocketMQProtocolServer implements ProtocolServer {
-
-    private MessageListenerConcurrently messageListenerConcurrently;
-
-    private DefaultMQProducer defaultMQProducer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `defaultMQPushConsumer` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    private DefaultMQProducer defaultMQProducer;
-
-    private DefaultMQPushConsumer defaultMQPushConsumer;
-
-    private String address;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `defaultMQProducer` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    private MessageListenerConcurrently messageListenerConcurrently;
-
-    private DefaultMQProducer defaultMQProducer;
-
-    private DefaultMQPushConsumer defaultMQPushConsumer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `executor` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    private int sendMsgTimeout;
-
-    private ExecutorService executor;
-
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `destinationRegistry` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    private ServerFactoryBean serverFactoryBean = null;
-
-    private DestinationRegistry destinationRegistry = null;
-
-    private HttpBinder httpBinder;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `server` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    private HttpBinder httpBinder;
-
-    private Server server = null;
-
-    public WebServiceProtocol() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `transportFactory` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    private final ExtensionManagerBus bus = new ExtensionManagerBus();
-
-    private SoapTransportFactory transportFactory = null;
-
-    private ServerFactoryBean serverFactoryBean = null;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `serverFactoryBean` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    private SoapTransportFactory transportFactory = null;
-
-    private ServerFactoryBean serverFactoryBean = null;
-
-    private DestinationRegistry destinationRegistry = null;
+    @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1524,15 +1404,135 @@ in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dub
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `SERIALIZER_FACTORY` is accessed in both synchronized and unsynchronized contexts
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
+Field `model` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
 #### Snippet
 ```java
+    private URL url;
 
-public abstract class AbstractHessian2FactoryInitializer implements Hessian2FactoryInitializer {
-    private static SerializerFactory SERIALIZER_FACTORY;
+    private String model;
 
-    @Override
+    private String inistanceName;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `executor` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+    private int sendMsgTimeout;
+
+    private ExecutorService executor;
+
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `messageListenerConcurrently` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+public class RocketMQProtocolServer implements ProtocolServer {
+
+    private MessageListenerConcurrently messageListenerConcurrently;
+
+    private DefaultMQProducer defaultMQProducer;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `url` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+    private String namespace;
+
+    private URL url;
+
+    private String model;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `address` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+    private DefaultMQPushConsumer defaultMQPushConsumer;
+
+    private String address;
+
+    private String namespace;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `defaultMQProducer` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+    private MessageListenerConcurrently messageListenerConcurrently;
+
+    private DefaultMQProducer defaultMQProducer;
+
+    private DefaultMQPushConsumer defaultMQPushConsumer;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `defaultMQPushConsumer` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
+#### Snippet
+```java
+    private DefaultMQProducer defaultMQProducer;
+
+    private DefaultMQPushConsumer defaultMQPushConsumer;
+
+    private String address;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `serverFactoryBean` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+    private SoapTransportFactory transportFactory = null;
+
+    private ServerFactoryBean serverFactoryBean = null;
+
+    private DestinationRegistry destinationRegistry = null;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `transportFactory` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+    private final ExtensionManagerBus bus = new ExtensionManagerBus();
+
+    private SoapTransportFactory transportFactory = null;
+
+    private ServerFactoryBean serverFactoryBean = null;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `server` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+    private HttpBinder httpBinder;
+
+    private Server server = null;
+
+    public WebServiceProtocol() {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `destinationRegistry` is accessed in both synchronized and unsynchronized contexts
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+    private ServerFactoryBean serverFactoryBean = null;
+
+    private DestinationRegistry destinationRegistry = null;
+
+    private HttpBinder httpBinder;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1599,14 +1599,26 @@ in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/ap
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
+in `dubbo-serialization-extensions/dubbo-serialization-gson/src/main/java/org/apache/dubbo/common/serialize/gson/GsonJsonObjectOutput.java`
 #### Snippet
 ```java
-    private static Map<String, String> apiParamsAndRespStrCache = new ConcurrentHashMap<>(16);
 
-    private static List<ModuleCacheItem> allApiModuleInfo = null;
+    private final PrintWriter writer;
+    private Gson gson = null;
 
-    private static String basicApiModuleInfo = null;
+    public GsonJsonObjectOutput(OutputStream out) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
+#### Snippet
+```java
+    private final int expirePeriod;
+
+    private volatile boolean admin = false;
+
+    private final Map<URL, Long> expireCache = new ConcurrentHashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1623,14 +1635,26 @@ in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/co
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `dubbo-serialization-extensions/dubbo-serialization-gson/src/main/java/org/apache/dubbo/common/serialize/gson/GsonJsonObjectOutput.java`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
 #### Snippet
 ```java
+    private static Map<String, String> apiParamsAndRespStrCache = new ConcurrentHashMap<>(16);
 
-    private final PrintWriter writer;
-    private Gson gson = null;
+    private static List<ModuleCacheItem> allApiModuleInfo = null;
 
-    public GsonJsonObjectOutput(OutputStream out) {
+    private static String basicApiModuleInfo = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-common/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/Address.java`
+#### Snippet
+```java
+    // address - priority: 1
+    private URL urlAddress;
+    private boolean needToCreate = false;
+
+    public Address(String ip, int port) {
 ```
 
 ### RedundantFieldInitialization
@@ -1638,23 +1662,11 @@ Field initialization to `null` is redundant
 in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
 #### Snippet
 ```java
+    private SoapTransportFactory transportFactory = null;
+
     private ServerFactoryBean serverFactoryBean = null;
 
     private DestinationRegistry destinationRegistry = null;
-
-    private HttpBinder httpBinder;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    private HttpBinder httpBinder;
-
-    private Server server = null;
-
-    public WebServiceProtocol() {
 ```
 
 ### RedundantFieldInitialization
@@ -1674,35 +1686,23 @@ Field initialization to `null` is redundant
 in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
 #### Snippet
 ```java
-    private SoapTransportFactory transportFactory = null;
+    private HttpBinder httpBinder;
 
+    private Server server = null;
+
+    public WebServiceProtocol() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
     private ServerFactoryBean serverFactoryBean = null;
 
     private DestinationRegistry destinationRegistry = null;
-```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-common/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/Address.java`
-#### Snippet
-```java
-    // address - priority: 1
-    private URL urlAddress;
-    private boolean needToCreate = false;
-
-    public Address(String ip, int port) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dubbo-registry-extensions/dubbo-registry-redis/src/main/java/org/apache/dubbo/registry/redis/RedisRegistry.java`
-#### Snippet
-```java
-    private final int expirePeriod;
-
-    private volatile boolean admin = false;
-
-    private final Map<URL, Long> expireCache = new ConcurrentHashMap<>();
+    private HttpBinder httpBinder;
 ```
 
 ### RedundantFieldInitialization
@@ -1742,18 +1742,6 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
-#### Snippet
-```java
-    private volatile Client client;
-    private volatile boolean started = false;
-    private volatile boolean connectState = false;
-    private ScheduledFuture future;
-    private ScheduledExecutorService reconnectNotify;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
 #### Snippet
@@ -1763,6 +1751,18 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
     private volatile CloseableClient keepAlive = null;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
+#### Snippet
+```java
+    private final URL url;
+    private volatile Client client;
+    private volatile boolean started = false;
+    private volatile boolean connectState = false;
+    private ScheduledFuture future;
 ```
 
 ### RedundantFieldInitialization
@@ -1782,11 +1782,11 @@ Field initialization to `false` is redundant
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
 #### Snippet
 ```java
-    private final URL url;
     private volatile Client client;
     private volatile boolean started = false;
     private volatile boolean connectState = false;
     private ScheduledFuture future;
+    private ScheduledExecutorService reconnectNotify;
 ```
 
 ## RuleId[id=RedundantImplements]
@@ -1815,6 +1815,66 @@ public class QuicNettyServer extends AbstractServer implements RemotingServer {
 ```
 
 ## RuleId[id=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
+#### Snippet
+```java
+                    } catch (Throwable t) {
+                        RpcException re = new RpcException("Failed to invoke memcached service method. interface: " + type.getName() + ", method: " + invocation.getMethodName() + ", url: " + url + ", cause: " + t.getMessage(), t);
+                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
+                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
+                        } else if (t instanceof MemcachedException || t instanceof IOException) {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
+#### Snippet
+```java
+                    } catch (Throwable t) {
+                        RpcException re = new RpcException("Failed to invoke memcached service method. interface: " + type.getName() + ", method: " + invocation.getMethodName() + ", url: " + url + ", cause: " + t.getMessage(), t);
+                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
+                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
+                        } else if (t instanceof MemcachedException || t instanceof IOException) {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
+#### Snippet
+```java
+                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
+                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
+                        } else if (t instanceof MemcachedException || t instanceof IOException) {
+                            re.setCode(RpcException.NETWORK_EXCEPTION);
+                        }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
+#### Snippet
+```java
+                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
+                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
+                        } else if (t instanceof MemcachedException || t instanceof IOException) {
+                            re.setCode(RpcException.NETWORK_EXCEPTION);
+                        }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSResolver.java`
+#### Snippet
+```java
+            }
+        } catch (Throwable t) {
+            if (t instanceof UnknownHostException) {
+                if (logger.isInfoEnabled()) {
+                    logger.info(t.getLocalizedMessage());
+```
+
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
 in `dubbo-rpc-extensions/dubbo-rpc-redis/src/main/java/org/apache/dubbo/rpc/protocol/redis/RedisProtocol.java`
@@ -1863,66 +1923,6 @@ in `dubbo-rpc-extensions/dubbo-rpc-redis/src/main/java/org/apache/dubbo/rpc/prot
                         }
 ```
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
-#### Snippet
-```java
-                    } catch (Throwable t) {
-                        RpcException re = new RpcException("Failed to invoke memcached service method. interface: " + type.getName() + ", method: " + invocation.getMethodName() + ", url: " + url + ", cause: " + t.getMessage(), t);
-                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
-                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
-                        } else if (t instanceof MemcachedException || t instanceof IOException) {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
-#### Snippet
-```java
-                    } catch (Throwable t) {
-                        RpcException re = new RpcException("Failed to invoke memcached service method. interface: " + type.getName() + ", method: " + invocation.getMethodName() + ", url: " + url + ", cause: " + t.getMessage(), t);
-                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
-                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
-                        } else if (t instanceof MemcachedException || t instanceof IOException) {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
-#### Snippet
-```java
-                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
-                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
-                        } else if (t instanceof MemcachedException || t instanceof IOException) {
-                            re.setCode(RpcException.NETWORK_EXCEPTION);
-                        }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/protocol/memcached/MemcachedProtocol.java`
-#### Snippet
-```java
-                        if (t instanceof TimeoutException || t instanceof SocketTimeoutException) {
-                            re.setCode(RpcException.TIMEOUT_EXCEPTION);
-                        } else if (t instanceof MemcachedException || t instanceof IOException) {
-                            re.setCode(RpcException.NETWORK_EXCEPTION);
-                        }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSResolver.java`
-#### Snippet
-```java
-            }
-        } catch (Throwable t) {
-            if (t instanceof UnknownHostException) {
-                if (logger.isInfoEnabled()) {
-                    logger.info(t.getLocalizedMessage());
-```
-
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer stringBuffer` may be declared as 'StringBuilder'
@@ -1947,6 +1947,19 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
                 .collect(toList());
         Collections.shuffle(addresses);
         return addresses.toArray(new String[0]);
+```
+
+## RuleId[id=DuplicateThrows]
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `dubbo-serialization-extensions/dubbo-serialization-fastjson/src/main/java/org/apache/dubbo/common/serialize/fastjson/FastJsonObjectInput.java`
+#### Snippet
+```java
+    }
+
+    private String readLine() throws IOException, EOFException {
+        String line = reader.readLine();
+        if (line == null || line.trim().length() == 0) {
 ```
 
 ## RuleId[id=NonFinalFieldOfException]
@@ -1974,78 +1987,17 @@ in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/or
 
 ```
 
-## RuleId[id=DuplicateThrows]
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `dubbo-serialization-extensions/dubbo-serialization-fastjson/src/main/java/org/apache/dubbo/common/serialize/fastjson/FastJsonObjectInput.java`
-#### Snippet
-```java
-    }
-
-    private String readLine() throws IOException, EOFException {
-        String line = reader.readLine();
-        if (line == null || line.trim().length() == 0) {
-```
-
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/FileGroup.java`
+in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/jedis/ClusterRedisClient.java`
 #### Snippet
 ```java
-                saves.add(line);
-            }
-            IOUtils.appendLines(file, saves.toArray(new String[0]));
-        } catch (IOException e) {
-            throw new RemotingException(new InetSocketAddress(NetUtils.getLocalHost(), 0), getUrl().toInetSocketAddress(), e.getMessage(), e);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/FileExchangeGroup.java`
-#### Snippet
-```java
-                saves.add(line);
-            }
-            IOUtils.appendLines(file, saves.toArray(new String[0]));
-        } catch (IOException e) {
-            throw new RemotingException(new InetSocketAddress(NetUtils.getLocalHost(), 0), getUrl().toInetSocketAddress(), e.getMessage(), e);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
-#### Snippet
-```java
-            }
-        } else {
-            types = new Type[0];
-        }
-        return types;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/KryoObjectInput.java`
-#### Snippet
-```java
-                return null;
-            } else if (len == 0) {
-                return new byte[]{};
-            } else {
-                return input.readBytes(len);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/optimized/KryoObjectInput2.java`
-#### Snippet
-```java
-                return null;
-            } else if (len == 0) {
-                return new byte[]{};
-            } else {
-                return input.readBytes(len);
+        hostAndPorts.add(new HostAndPort(url.getHost(), url.getPort()));
+        String backupAddresses = url.getBackupAddress(6379);
+        String[] nodes = StringUtils.isEmpty(backupAddresses) ? new String[0] : COMMA_SPLIT_PATTERN.split(backupAddresses);
+        if (nodes.length > 0) {
+            for (String node : nodes) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2074,14 +2026,26 @@ in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubb
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/jedis/ClusterRedisClient.java`
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/FileGroup.java`
 #### Snippet
 ```java
-        hostAndPorts.add(new HostAndPort(url.getHost(), url.getPort()));
-        String backupAddresses = url.getBackupAddress(6379);
-        String[] nodes = StringUtils.isEmpty(backupAddresses) ? new String[0] : COMMA_SPLIT_PATTERN.split(backupAddresses);
-        if (nodes.length > 0) {
-            for (String node : nodes) {
+                saves.add(line);
+            }
+            IOUtils.appendLines(file, saves.toArray(new String[0]));
+        } catch (IOException e) {
+            throw new RemotingException(new InetSocketAddress(NetUtils.getLocalHost(), 0), getUrl().toInetSocketAddress(), e.getMessage(), e);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/FileExchangeGroup.java`
+#### Snippet
+```java
+                saves.add(line);
+            }
+            IOUtils.appendLines(file, saves.toArray(new String[0]));
+        } catch (IOException e) {
+            throw new RemotingException(new InetSocketAddress(NetUtils.getLocalHost(), 0), getUrl().toInetSocketAddress(), e.getMessage(), e);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2098,6 +2062,30 @@ in `dubbo-serialization-extensions/dubbo-serialization-fst/src/main/java/org/apa
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/KryoObjectInput.java`
+#### Snippet
+```java
+                return null;
+            } else if (len == 0) {
+                return new byte[]{};
+            } else {
+                return input.readBytes(len);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/optimized/KryoObjectInput2.java`
+#### Snippet
+```java
+                return null;
+            } else if (len == 0) {
+                return new byte[]{};
+            } else {
+                return input.readBytes(len);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
 #### Snippet
 ```java
@@ -2108,29 +2096,29 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+            }
+        } else {
+            types = new Type[0];
+        }
+        return types;
+```
+
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
 #### Snippet
 ```java
-        ProtocolServer server = serverMap.get(key);
-        if (server == null) {
-            synchronized (this) {
-                server = serverMap.get(key);
-                if (server == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-                    return;
-                }
-                synchronized (this) {
-                    if (servletController == null) {
-
+            return SERIALIZER_FACTORY;
+        }
+        synchronized (this) {
+            SERIALIZER_FACTORY = createSerializerFactory();
+        }
 ```
 
 ### SynchronizeOnThis
@@ -2159,6 +2147,18 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
+#### Snippet
+```java
+        ProtocolServer server = serverMap.get(key);
+        if (server == null) {
+            synchronized (this) {
+                server = serverMap.get(key);
+                if (server == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
 #### Snippet
 ```java
@@ -2171,14 +2171,14 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/dubbo/AbstractHessian2FactoryInitializer.java`
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
 #### Snippet
 ```java
-            return SERIALIZER_FACTORY;
-        }
-        synchronized (this) {
-            SERIALIZER_FACTORY = createSerializerFactory();
-        }
+                    return;
+                }
+                synchronized (this) {
+                    if (servletController == null) {
+
 ```
 
 ### SynchronizeOnThis
@@ -2221,39 +2221,15 @@ in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubb
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `value` initializer `null` is redundant
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
+Variable `handle` initializer `null` is redundant
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/Java8TimeSerializer.java`
 #### Snippet
 ```java
-        String group = url.getParameter(GROUP_KEY, DEFAULT_PARAM_VALUE);
+        }
 
-        String value = null;
-        if (Objects.equals(url.getParameter("groupModel"), "topic")) {
-            value = DEFAULT_CATEGORY + NAME_SEPARATOR + serviceInterface + NAME_SEPARATOR + version + NAME_SEPARATOR + group;
-```
-
-### UnusedAssignment
-Variable `requestParam` initializer `null` is redundant
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
-#### Snippet
-```java
-            paramBean.setName(parameter.getName());
-            paramBean.setJavaType(argClass.getCanonicalName());
-            RequestParam requestParam = null;
-            if (parameter.isAnnotationPresent(RequestParam.class)) {
-                // Handling @RequestParam annotations on properties
-```
-
-### UnusedAssignment
-Variable `timeout` initializer `1000` is redundant
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQInvoker.java`
-#### Snippet
-```java
-    private int calculateTimeout(Invocation invocation, String methodName) {
-        Object countdown = RpcContext.getContext().get().get(CommonConstants.TIME_COUNTDOWN_KEY);
-        int timeout = 1000;
-        if (countdown == null) {
-            timeout = (int) RpcUtils.getTimeout(getUrl(), methodName, RpcContext.getContext(), this.timeout);
+        T handle = null;
+        try {
+            Constructor<T> constructor = handleType.getConstructor(Object.class);
 ```
 
 ### UnusedAssignment
@@ -2276,30 +2252,6 @@ in `dubbo-serialization-extensions/dubbo-serialization-gson/src/main/java/org/ap
         writer.println();
         writer.flush();
         json = null;
-    }
-
-```
-
-### UnusedAssignment
-Variable `rpcException` initializer `null` is redundant
-in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/dubbo/rpc/cluster/support/BroadcastCluster1Invoker.java`
-#### Snippet
-```java
-
-    private RpcException getRpcException(Throwable throwable) {
-        RpcException rpcException = null;
-        if (throwable instanceof RpcException) {
-            rpcException = (RpcException) throwable;
-```
-
-### UnusedAssignment
-The value `null` assigned to `bytes` is never used
-in `dubbo-serialization-extensions/dubbo-serialization-msgpack/src/main/java/org/apache/dubbo/common/serialize/msgpack/MsgpackObjectOutput.java`
-#### Snippet
-```java
-        out.write(bytes);
-        out.flush();
-        bytes = null;
     }
 
 ```
@@ -2329,6 +2281,18 @@ in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apach
 ```
 
 ### UnusedAssignment
+Variable `value` initializer `null` is redundant
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
+#### Snippet
+```java
+        String group = url.getParameter(GROUP_KEY, DEFAULT_PARAM_VALUE);
+
+        String value = null;
+        if (Objects.equals(url.getParameter("groupModel"), "topic")) {
+            value = DEFAULT_CATEGORY + NAME_SEPARATOR + serviceInterface + NAME_SEPARATOR + version + NAME_SEPARATOR + group;
+```
+
+### UnusedAssignment
 Variable `isNotRoute` initializer `true` is redundant
 in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/NameServiceRegistry.java`
 #### Snippet
@@ -2338,6 +2302,42 @@ in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apach
     private boolean isNotRoute = true;
 
     private ClusterInfo clusterInfo;
+```
+
+### UnusedAssignment
+Variable `rpcException` initializer `null` is redundant
+in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/dubbo/rpc/cluster/support/BroadcastCluster1Invoker.java`
+#### Snippet
+```java
+
+    private RpcException getRpcException(Throwable throwable) {
+        RpcException rpcException = null;
+        if (throwable instanceof RpcException) {
+            rpcException = (RpcException) throwable;
+```
+
+### UnusedAssignment
+Variable `timeout` initializer `1000` is redundant
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQInvoker.java`
+#### Snippet
+```java
+    private int calculateTimeout(Invocation invocation, String methodName) {
+        Object countdown = RpcContext.getContext().get().get(CommonConstants.TIME_COUNTDOWN_KEY);
+        int timeout = 1000;
+        if (countdown == null) {
+            timeout = (int) RpcUtils.getTimeout(getUrl(), methodName, RpcContext.getContext(), this.timeout);
+```
+
+### UnusedAssignment
+Variable `requestParam` initializer `null` is redundant
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
+#### Snippet
+```java
+            paramBean.setName(parameter.getName());
+            paramBean.setJavaType(argClass.getCanonicalName());
+            RequestParam requestParam = null;
+            if (parameter.isAnnotationPresent(RequestParam.class)) {
+                // Handling @RequestParam annotations on properties
 ```
 
 ### UnusedAssignment
@@ -2353,15 +2353,40 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ```
 
 ### UnusedAssignment
-Variable `handle` initializer `null` is redundant
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/Java8TimeSerializer.java`
+The value `null` assigned to `bytes` is never used
+in `dubbo-serialization-extensions/dubbo-serialization-msgpack/src/main/java/org/apache/dubbo/common/serialize/msgpack/MsgpackObjectOutput.java`
 #### Snippet
 ```java
-        }
+        out.write(bytes);
+        out.flush();
+        bytes = null;
+    }
 
-        T handle = null;
+```
+
+## RuleId[id=IndexOfReplaceableByContains]
+### IndexOfReplaceableByContains
+`className.indexOf(GENERIC_START_SYMBOL) == -1` can be replaced with '!className.contains(GENERIC_START_SYMBOL)'
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+        className = className.trim();
         try {
-            Constructor<T> constructor = handleType.getConstructor(Object.class);
+            if (className.indexOf(GENERIC_START_SYMBOL) == -1) {
+                // classes in CompletableFuture have no generics
+                return Class.forName(className);
+```
+
+### IndexOfReplaceableByContains
+`typeName.indexOf(GENERIC_START_SYMBOL) == -1` can be replaced with '!typeName.contains(GENERIC_START_SYMBOL)'
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+
+    public static ParameterizedType makeParameterizedType(String typeName) {
+        if (typeName.indexOf(GENERIC_START_SYMBOL) == -1) {
+            return null;
+        }
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -2377,44 +2402,7 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
         } catch (Exception e) {
 ```
 
-## RuleId[id=IndexOfReplaceableByContains]
-### IndexOfReplaceableByContains
-`typeName.indexOf(GENERIC_START_SYMBOL) == -1` can be replaced with '!typeName.contains(GENERIC_START_SYMBOL)'
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
-#### Snippet
-```java
-
-    public static ParameterizedType makeParameterizedType(String typeName) {
-        if (typeName.indexOf(GENERIC_START_SYMBOL) == -1) {
-            return null;
-        }
-```
-
-### IndexOfReplaceableByContains
-`className.indexOf(GENERIC_START_SYMBOL) == -1` can be replaced with '!className.contains(GENERIC_START_SYMBOL)'
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
-#### Snippet
-```java
-        className = className.trim();
-        try {
-            if (className.indexOf(GENERIC_START_SYMBOL) == -1) {
-                // classes in CompletableFuture have no generics
-                return Class.forName(className);
-```
-
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `apiParamsList != null` is always `true`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
-#### Snippet
-```java
-                // Not a basic type, handling properties in method parameters
-                List<ParamBean> apiParamsList = processField(argClass, parameterType, methodParameter);
-                if (apiParamsList != null && !apiParamsList.isEmpty()) {
-                    paramListItem.setParamInfo(apiParamsList);
-                }
-```
-
 ### ConstantValue
 Condition `Objects.isNull(serviceType)` is always `false`
 in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/handler/CommonTypeHandler.java`
@@ -2425,30 +2413,6 @@ in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/h
                 if (Objects.isNull(serviceType)) {
                     return null;
                 }
-```
-
-### ConstantValue
-Condition `e instanceof HttpProtocolErrorCode` is always `true`
-in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
-#### Snippet
-```java
-            }
-
-            if (e instanceof HttpProtocolErrorCode) {
-                return ((HttpProtocolErrorCode) e).getErrorCode();
-            }
-```
-
-### ConstantValue
-Value `e` is always 'null'
-in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
-#### Snippet
-```java
-            }
-        }
-        return super.getErrorCode(e);
-    }
-
 ```
 
 ### ConstantValue
@@ -2476,6 +2440,18 @@ in `dubbo-rpc-extensions/dubbo-rpc-memcached/src/main/java/org/apache/dubbo/rpc/
 ```
 
 ### ConstantValue
+Value `metadata` is always 'null'
+in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dubbo/registry/consul/ConsulServiceDiscovery.java`
+#### Snippet
+```java
+    private Map<String, String> decodeMetadata(Map<String, String> metadata) {
+        if (metadata == null) {
+            return metadata;
+        }
+        Map<String, String> decoded = new HashMap<>(metadata.size());
+```
+
+### ConstantValue
 Condition `getClass() != obj.getClass()` is always `true`
 in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyChannel.java`
 #### Snippet
@@ -2488,6 +2464,42 @@ in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo
 ```
 
 ### ConstantValue
+Condition `e instanceof HttpProtocolErrorCode` is always `true`
+in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
+#### Snippet
+```java
+            }
+
+            if (e instanceof HttpProtocolErrorCode) {
+                return ((HttpProtocolErrorCode) e).getErrorCode();
+            }
+```
+
+### ConstantValue
+Value `e` is always 'null'
+in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
+#### Snippet
+```java
+            }
+        }
+        return super.getErrorCode(e);
+    }
+
+```
+
+### ConstantValue
+Condition `apiParamsList != null` is always `true`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
+#### Snippet
+```java
+                // Not a basic type, handling properties in method parameters
+                List<ParamBean> apiParamsList = processField(argClass, parameterType, methodParameter);
+                if (apiParamsList != null && !apiParamsList.isEmpty()) {
+                    paramListItem.setParamInfo(apiParamsList);
+                }
+```
+
+### ConstantValue
 Condition `t instanceof UnknownHostException` is always `false`
 in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/registry/dns/util/DNSResolver.java`
 #### Snippet
@@ -2497,18 +2509,6 @@ in `dubbo-registry-extensions/dubbo-registry-dns/src/main/java/org/apache/dubbo/
             if (t instanceof UnknownHostException) {
                 if (logger.isInfoEnabled()) {
                     logger.info(t.getLocalizedMessage());
-```
-
-### ConstantValue
-Value `metadata` is always 'null'
-in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dubbo/registry/consul/ConsulServiceDiscovery.java`
-#### Snippet
-```java
-    private Map<String, String> decodeMetadata(Map<String, String> metadata) {
-        if (metadata == null) {
-            return metadata;
-        }
-        Map<String, String> decoded = new HashMap<>(metadata.size());
 ```
 
 ## RuleId[id=IOResource]
@@ -2524,19 +2524,6 @@ in `dubbo-rpc-extensions/dubbo-rpc-redis/src/main/java/org/apache/dubbo/rpc/prot
                     StringUtils.isBlank(url.getPassword()) ? null : url.getPassword(),
 ```
 
-## RuleId[id=RedundantLengthCheck]
-### RedundantLengthCheck
-Redundant array length check
-in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/jedis/ClusterRedisClient.java`
-#### Snippet
-```java
-        String backupAddresses = url.getBackupAddress(6379);
-        String[] nodes = StringUtils.isEmpty(backupAddresses) ? new String[0] : COMMA_SPLIT_PATTERN.split(backupAddresses);
-        if (nodes.length > 0) {
-            for (String node : nodes) {
-                String[] hostAndPort = COLON_SPLIT_PATTERN.split(node);
-```
-
 ## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `root` may be 'static'
@@ -2550,53 +2537,30 @@ in `dubbo-registry-extensions/dubbo-registry-etcd3/src/main/java/org/apache/dubb
     private final Set<String> services = new ConcurrentHashSet<>();
 ```
 
+## RuleId[id=RedundantLengthCheck]
+### RedundantLengthCheck
+Redundant array length check
+in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/jedis/ClusterRedisClient.java`
+#### Snippet
+```java
+        String backupAddresses = url.getBackupAddress(6379);
+        String[] nodes = StringUtils.isEmpty(backupAddresses) ? new String[0] : COMMA_SPLIT_PATTERN.split(backupAddresses);
+        if (nodes.length > 0) {
+            for (String node : nodes) {
+                String[] hostAndPort = COLON_SPLIT_PATTERN.split(node);
+```
+
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/Constants.java`
+Class `PolarisRegistryUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/dubbo/registry/polaris/PolarisRegistryUtils.java`
 #### Snippet
 ```java
- * @date 2021/2/3 10:19
- */
-public class Constants {
+import org.apache.dubbo.common.URL;
 
-    public static final String DOT = ".";
-```
+public class PolarisRegistryUtils {
 
-### UtilityClassWithoutPrivateConstructor
-Class `ExampleApplication` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/ExampleApplication.java`
-#### Snippet
-```java
-@SpringBootApplication
-@EnableDubbo(scanBasePackages = {"org.apache.dubbo.apidocs.examples.api"})
-public class ExampleApplication {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DubboApiDocsCache` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
-#### Snippet
-```java
- * dubbo doc cache.
- */
-public class DubboApiDocsCache {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RocketMQCodecSupport` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
-#### Snippet
-```java
-import org.apache.dubbo.rpc.Invocation;
-
-public class RocketMQCodecSupport {
-
-    private final static String DEFAULT_REMOTING_SERIALIZATION_PROPERTY = "hessian2";
+    public static PolarisOperator getOrCreatePolarisOperator(URL registryURL) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2624,6 +2588,18 @@ public class ExchangeNetworkers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `SofaRegistryConstants` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryConstants.java`
+#### Snippet
+```java
+ * @since 2.7.2
+ */
+public class SofaRegistryConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `dubbo-common-extensions/src/main/java/org/apache/dubbo/common/utils/Utils.java`
 #### Snippet
@@ -2633,6 +2609,30 @@ package org.apache.dubbo.common.utils;
 public final class Utils {
 
     public static boolean checkZeroArgConstructor(Class clazz) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AbstractConsulRegistry` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dubbo/registry/consul/AbstractConsulRegistry.java`
+#### Snippet
+```java
+ * @author cvictory ON 2019-08-02
+ */
+public class AbstractConsulRegistry {
+
+    static final String SERVICE_TAG = "dubbo";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ExampleScaApplication` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/ExampleScaApplication.java`
+#### Snippet
+```java
+@EnableDiscoveryClient
+@EnableDubbo(scanBasePackages = {"org.apache.dubbo.apidocs.examples.api"})
+public class ExampleScaApplication {
+
+    public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2648,37 +2648,85 @@ public class QuicNettyEventLoopFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `KryoUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/KryoUtils.java`
+Class `RocketMQCodecSupport` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
 #### Snippet
 ```java
- * @since 2.6.0
+import org.apache.dubbo.rpc.Invocation;
+
+public class RocketMQCodecSupport {
+
+    private final static String DEFAULT_REMOTING_SERIALIZATION_PROPERTY = "hessian2";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WrapperUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/utils/WrapperUtils.java`
+#### Snippet
+```java
+ * Use WrapperUtils to wrap object to {@link Wrapper}
  */
-public class KryoUtils {
-    private static AbstractKryoFactory kryoFactory = new ThreadLocalKryoFactory();
+public class WrapperUtils {
+    private static final Set<Class<?>> WRAPPER_SET = new HashSet<>();
 
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ClassTypeUtil` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/Constants.java`
 #### Snippet
 ```java
- * Java class tool class, special for Dubbo doc.
+ * @date 2021/2/3 10:19
  */
-public class ClassTypeUtil {
+public class Constants {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClassTypeUtil.class);
+    public static final String DOT = ".";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ExampleScaApplication` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/ExampleScaApplication.java`
+Class `DubboApiDocsCache` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsCache.java`
 #### Snippet
 ```java
-@EnableDiscoveryClient
+ * dubbo doc cache.
+ */
+public class DubboApiDocsCache {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtobufAttachmentUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
+#### Snippet
+```java
+ * ProtobufAttachmentUtils
+ */
+public class ProtobufAttachmentUtils {
+    private static Map<String, BuiltinMarshaller> marshallers = new HashMap<>();
+    private final static String NULL_CLASS_NAME = "null";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtobufUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
+#### Snippet
+```java
+import java.util.concurrent.ConcurrentMap;
+
+public class ProtobufUtils {
+
+    static boolean isSupported(Class<?> clazz) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ExampleApplication` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/ExampleApplication.java`
+#### Snippet
+```java
+@SpringBootApplication
 @EnableDubbo(scanBasePackages = {"org.apache.dubbo.apidocs.examples.api"})
-public class ExampleScaApplication {
+public class ExampleApplication {
 
     public static void main(String[] args) {
 ```
@@ -2708,42 +2756,6 @@ public class DNSClientConst {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SofaRegistryConstants` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryConstants.java`
-#### Snippet
-```java
- * @since 2.7.2
- */
-public class SofaRegistryConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AbstractConsulRegistry` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-registry-extensions/dubbo-registry-consul/src/main/java/org/apache/dubbo/registry/consul/AbstractConsulRegistry.java`
-#### Snippet
-```java
- * @author cvictory ON 2019-08-02
- */
-public class AbstractConsulRegistry {
-
-    static final String SERVICE_TAG = "dubbo";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PolarisRegistryUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/dubbo/registry/polaris/PolarisRegistryUtils.java`
-#### Snippet
-```java
-import org.apache.dubbo.common.URL;
-
-public class PolarisRegistryUtils {
-
-    public static PolarisOperator getOrCreatePolarisOperator(URL registryURL) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `OptionUtil` has only 'static' members, and lacks a 'private' constructor
 in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/option/OptionUtil.java`
 #### Snippet
@@ -2756,52 +2768,40 @@ public class OptionUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `WrapperUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/utils/WrapperUtils.java`
+Class `KryoUtils` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/KryoUtils.java`
 #### Snippet
 ```java
- * Use WrapperUtils to wrap object to {@link Wrapper}
+ * @since 2.6.0
  */
-public class WrapperUtils {
-    private static final Set<Class<?>> WRAPPER_SET = new HashSet<>();
+public class KryoUtils {
+    private static AbstractKryoFactory kryoFactory = new ThreadLocalKryoFactory();
 
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProtobufUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
+Class `ClassTypeUtil` has only 'static' members, and lacks a 'private' constructor
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
 #### Snippet
 ```java
-import java.util.concurrent.ConcurrentMap;
-
-public class ProtobufUtils {
-
-    static boolean isSupported(Class<?> clazz) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProtobufAttachmentUtils` has only 'static' members, and lacks a 'private' constructor
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
-#### Snippet
-```java
- * ProtobufAttachmentUtils
+ * Java class tool class, special for Dubbo doc.
  */
-public class ProtobufAttachmentUtils {
-    private static Map<String, BuiltinMarshaller> marshallers = new HashMap<>();
-    private final static String NULL_CLASS_NAME = "null";
+public class ClassTypeUtil {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ClassTypeUtil.class);
 ```
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Condition `ann instanceof RequestParam` is redundant and can be replaced with a null check
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
+Method invocation `getRemoteAddress` may produce `NullPointerException`
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyServerHandler.java`
 #### Snippet
 ```java
-            // Handling @RequestParam annotations on parameters
-            for (Annotation ann : argAnns) {
-                if (ann instanceof RequestParam) {
-                    requestParam = (RequestParam) ann;
-                }
+
+        if (logger.isInfoEnabled()) {
+            logger.info("The connection of " + channel.getRemoteAddress() + " -> " + channel.getLocalAddress() + " is established.");
+        }
+    }
 ```
 
 ### DataFlowIssue
@@ -2817,30 +2817,18 @@ in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/
 ```
 
 ### DataFlowIssue
-Method invocation `getRemoteAddress` may produce `NullPointerException`
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyServerHandler.java`
+Condition `ann instanceof RequestParam` is redundant and can be replaced with a null check
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
 #### Snippet
 ```java
-
-        if (logger.isInfoEnabled()) {
-            logger.info("The connection of " + channel.getRemoteAddress() + " -> " + channel.getLocalAddress() + " is established.");
-        }
-    }
+            // Handling @RequestParam annotations on parameters
+            for (Annotation ann : argAnns) {
+                if (ann instanceof RequestParam) {
+                    requestParam = (RequestParam) ann;
+                }
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/beans/HtmlTypeEnum.java`
-#### Snippet
-```java
-     */
-    DATETIME_SELECTOR,
-    ;
-
-}
-```
-
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/filter/AdminMockFilter.java`
@@ -2879,6 +2867,18 @@ in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/beans/HtmlTypeEnum.java`
+#### Snippet
+```java
+     */
+    DATETIME_SELECTOR,
+    ;
+
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/TestEnum.java`
 #### Snippet
 ```java
@@ -2890,6 +2890,18 @@ in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache
 ```
 
 ## RuleId[id=TypeParameterHidesVisibleType]
+### TypeParameterHidesVisibleType
+Type parameter `T` hides type parameter 'T'
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> void notify(List<Invoker<T>> invokers) {
+        this.invokers = (List) invokers;
+        // do not build cache until first Specify Invoke happened
+```
+
 ### TypeParameterHidesVisibleType
 Type parameter `T` hides type parameter 'T'
 in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
@@ -2914,18 +2926,6 @@ in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/
         Object addressObj = invocation.get(Address.name);
 ```
 
-### TypeParameterHidesVisibleType
-Type parameter `T` hides type parameter 'T'
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo2/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> void notify(List<Invoker<T>> invokers) {
-        this.invokers = (List) invokers;
-        // do not build cache until first Specify Invoke happened
-```
-
 ## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
@@ -2937,6 +2937,18 @@ in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/
             .filter(it -> null != it).findFirst().orElse(null), resultList);
 
     }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
+#### Snippet
+```java
+        Map<String, String> stringAttachments = map.getAttachmentsMap();
+        if (stringAttachments != null) {
+            stringAttachments.forEach((k, v) -> attachments.put(k, v));
+        }
+
 ```
 
 ### Convert2MethodRef
@@ -2963,22 +2975,10 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
                 if (!checkExists(grandfather)) {
 ```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufAttachmentUtils.java`
-#### Snippet
-```java
-        Map<String, String> stringAttachments = map.getAttachmentsMap();
-        if (stringAttachments != null) {
-            stringAttachments.forEach((k, v) -> attachments.put(k, v));
-        }
-
-```
-
 ## RuleId[id=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Long.toString()` call
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
+in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/ServiceName.java`
 #### Snippet
 ```java
         CRC32 crc32 = new CRC32();
@@ -2990,7 +2990,7 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
 
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Long.toString()` call
-in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/ServiceName.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
 #### Snippet
 ```java
         CRC32 crc32 = new CRC32();
@@ -3053,30 +3053,6 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistry.java`
-#### Snippet
-```java
-            logger.info("Receive updated RPC service addresses: service[" + dataId
-                    + "]\n  .Available target addresses size [" + datas.size() + "]\n"
-                    + sb.toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryServiceDiscovery.java`
-#### Snippet
-```java
-            LOGGER.info("Receive updated RPC service addresses: service[" + dataId
-                    + "]\n  .Available target addresses size [" + datas.size() + "]\n"
-                    + sb.toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/dubbo/registry/polaris/PolarisRegistry.java`
 #### Snippet
 ```java
@@ -3099,7 +3075,43 @@ in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/du
         metadata.put(CommonConstants.PATH_KEY, url.getPath());
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistry.java`
+#### Snippet
+```java
+            logger.info("Receive updated RPC service addresses: service[" + dataId
+                    + "]\n  .Available target addresses size [" + datas.size() + "]\n"
+                    + sb.toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `dubbo-registry-extensions/dubbo-registry-sofa/src/main/java/org/apache/dubbo/registry/sofa/SofaRegistryServiceDiscovery.java`
+#### Snippet
+```java
+            LOGGER.info("Receive updated RPC service addresses: service[" + dataId
+                    + "]\n  .Available target addresses size [" + datas.size() + "]\n"
+                    + sb.toString());
+        }
+
+```
+
 ## RuleId[id=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `RegistryInfoWrapper` may be 'static'
+in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/NameServiceRegistry.java`
+#### Snippet
+```java
+    }
+
+    private class RegistryInfoWrapper {
+
+        private NotifyListener listener;
+```
+
 ### InnerClassMayBeStatic
 Inner class `InvokeResult` may be 'static'
 in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/dubbo/rpc/cluster/support/BroadcastCluster1Invoker.java`
@@ -3110,54 +3122,6 @@ in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/
     private class InvokeResult {
         public RpcException exception;
         public List<BroadcastResult> resultList;
-```
-
-### InnerClassMayBeStatic
-Inner class `URLHashMethodNameSoapActionServiceConfiguration` may be 'static'
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    }
-
-    private class URLHashMethodNameSoapActionServiceConfiguration extends AbstractServiceConfiguration {
-        public String getAction(OperationInfo op, Method method) {
-            String uri = op.getName().getNamespaceURI();
-```
-
-### InnerClassMayBeStatic
-Inner class `InnerReqBean1` may be 'static'
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
-#### Snippet
-```java
-    private InnerReqBean3 innerReqBean3;
-
-    class InnerReqBean1 {
-        @RequestParam("InnerReqBean1#string1")
-        private String string1;
-```
-
-### InnerClassMayBeStatic
-Inner class `InnerReqBean3` may be 'static'
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
-#### Snippet
-```java
-    }
-
-    private class InnerReqBean3 {
-        @RequestParam("InnerReqBean3#string3")
-        private String string3;
-```
-
-### InnerClassMayBeStatic
-Inner class `InnerReqBean2` may be 'static'
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
-#### Snippet
-```java
-    }
-
-    public class InnerReqBean2 {
-        @RequestParam("InnerReqBean2#string2")
-        private String string2;
 ```
 
 ### InnerClassMayBeStatic
@@ -3197,15 +3161,51 @@ in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache
 ```
 
 ### InnerClassMayBeStatic
-Inner class `RegistryInfoWrapper` may be 'static'
-in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/NameServiceRegistry.java`
+Inner class `InnerReqBean3` may be 'static'
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
 #### Snippet
 ```java
     }
 
-    private class RegistryInfoWrapper {
+    private class InnerReqBean3 {
+        @RequestParam("InnerReqBean3#string3")
+        private String string3;
+```
 
-        private NotifyListener listener;
+### InnerClassMayBeStatic
+Inner class `InnerReqBean1` may be 'static'
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
+#### Snippet
+```java
+    private InnerReqBean3 innerReqBean3;
+
+    class InnerReqBean1 {
+        @RequestParam("InnerReqBean1#string1")
+        private String string1;
+```
+
+### InnerClassMayBeStatic
+Inner class `InnerReqBean2` may be 'static'
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/InnerClassRequestBean.java`
+#### Snippet
+```java
+    }
+
+    public class InnerReqBean2 {
+        @RequestParam("InnerReqBean2#string2")
+        private String string2;
+```
+
+### InnerClassMayBeStatic
+Inner class `URLHashMethodNameSoapActionServiceConfiguration` may be 'static'
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+    }
+
+    private class URLHashMethodNameSoapActionServiceConfiguration extends AbstractServiceConfiguration {
+        public String getAction(OperationInfo op, Method method) {
+            String uri = op.getName().getNamespaceURI();
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -3331,6 +3331,18 @@ in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/
 
 ## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/Hessian2SerializerFactory.java`
+#### Snippet
+```java
+    private static boolean isJava8() {
+        String javaVersion = System.getProperty("java.specification.version");
+        return Double.valueOf(javaVersion) >= 1.8;
+    }
+
+```
+
+### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/jedis/ClusterRedisClient.java`
 #### Snippet
@@ -3343,15 +3355,15 @@ in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubb
 ```
 
 ### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/Hessian2SerializerFactory.java`
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
 #### Snippet
 ```java
-    private static boolean isJava8() {
-        String javaVersion = System.getProperty("java.specification.version");
-        return Double.valueOf(javaVersion) >= 1.8;
-    }
-
+                                .get(DEFAULT_REQUEST_TIMEOUT, TimeUnit.MILLISECONDS)
+                                .getKvs().stream()
+                                .mapToLong(keyValue -> Long.valueOf(keyValue.getValue().toString(UTF_8)))
+                                .findFirst().getAsLong();
+                    }, retryPolicy);
 ```
 
 ### UnnecessaryBoxing
@@ -3378,18 +3390,6 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
         /**
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClientWrapper.java`
-#### Snippet
-```java
-                                .get(DEFAULT_REQUEST_TIMEOUT, TimeUnit.MILLISECONDS)
-                                .getKvs().stream()
-                                .mapToLong(keyValue -> Long.valueOf(keyValue.getValue().toString(UTF_8)))
-                                .findFirst().getAsLong();
-                    }, retryPolicy);
-```
-
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -3406,14 +3406,14 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/spi/TestConfigInitializer.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/spi/DubboDocExporterListener.java`
 #### Snippet
 ```java
     @Override
-    public void initServiceConfig(ServiceConfig serviceConfig) {
-        System.out.println("====initServiceConfig");
+    public void unexported(Exporter<?> exporter) {
+        System.out.println("=============unexported=============");
     }
-
+}
 ```
 
 ### SystemOutErr
@@ -3430,14 +3430,14 @@ in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/a
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/spi/DubboDocExporterListener.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/spi/TestConfigInitializer.java`
 #### Snippet
 ```java
     @Override
-    public void unexported(Exporter<?> exporter) {
-        System.out.println("=============unexported=============");
+    public void initServiceConfig(ServiceConfig serviceConfig) {
+        System.out.println("====initServiceConfig");
     }
-}
+
 ```
 
 ### SystemOutErr
@@ -3468,7 +3468,7 @@ in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/ut
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
+in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/ServiceName.java`
 #### Snippet
 ```java
         CRC32 crc32 = new CRC32();
@@ -3480,7 +3480,7 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/ServiceName.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQExporter.java`
 #### Snippet
 ```java
         CRC32 crc32 = new CRC32();
@@ -3491,18 +3491,6 @@ in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apach
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.dubbo.remoting` is unnecessary and can be removed
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
-#### Snippet
-```java
-        }
-        return url.getOrDefaultFrameworkModel().getExtensionLoader(Serialization.class).getExtension(
-            url.getParameter(org.apache.dubbo.remoting.Constants.SERIALIZATION_KEY, DEFAULT_REMOTING_SERIALIZATION_PROPERTY));
-    }
-
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.dubbo.remoting` is unnecessary and can be removed
 in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyServer.java`
@@ -3528,39 +3516,87 @@ in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/responses/BaseResponse.java`
+Qualifier `org.apache.dubbo.common.constants` is unnecessary and can be removed
+in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/NameServiceRegistry.java`
 #### Snippet
 ```java
- * BaseResponse.
- */
-public class BaseResponse<T> implements java.io.Serializable {
-
-    /**
+    public void doSubscribe(URL url, NotifyListener listener) {
+        if (Objects.equals(url.getCategory(),
+            org.apache.dubbo.common.constants.RegistryConstants.CONFIGURATORS_CATEGORY)) {
+            return;
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/QuickStartRespBean.java`
+Qualifier `org.apache.dubbo.remoting` is unnecessary and can be removed
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/codec/RocketMQCodecSupport.java`
 #### Snippet
 ```java
- * quick star demo response bean.
- */
-public class QuickStartRespBean implements java.io.Serializable {
+        }
+        return url.getOrDefaultFrameworkModel().getExtensionLoader(Serialization.class).getExtension(
+            url.getParameter(org.apache.dubbo.remoting.Constants.SERIALIZATION_KEY, DEFAULT_REMOTING_SERIALIZATION_PROPERTY));
+    }
 
-    private static final long serialVersionUID = 7598240511561924368L;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/QuickStartRequestBase.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
 #### Snippet
 ```java
- * @date 2021/1/26 15:24
- */
-public class QuickStartRequestBase<E, T> implements java.io.Serializable {
 
-    private static final long serialVersionUID = 373497393757790262L;
+    @Override
+    public java.sql.Date readFrom(Input input) throws IOException {
+        return new java.sql.Date(input.readFixed64());
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
+#### Snippet
+```java
+    @Override
+    public java.sql.Date readFrom(Input input) throws IOException {
+        return new java.sql.Date(input.readFixed64());
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
+#### Snippet
+```java
+    @Override
+    public Class<?> typeClass() {
+        return java.sql.Date.class;
+    }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
+#### Snippet
+```java
+ * Custom {@link java.sql.Date} delegate
+ */
+public class SqlDateDelegate implements Delegate<java.sql.Date> {
+    @Override
+    public WireFormat.FieldType getFieldType() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
+#### Snippet
+```java
+
+    @Override
+    public void writeTo(Output output, int number, java.sql.Date value, boolean repeated) throws IOException {
+        output.writeFixed64(number, value.getTime(), repeated);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3588,88 +3624,52 @@ public class QuickStartRequestBean2 implements java.io.Serializable {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.dubbo.common.constants` is unnecessary and can be removed
-in `dubbo-registry-extensions/dubbo-registry-nameservice/src/main/java/org/apache/dubbo/registry/nameservice/NameServiceRegistry.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/QuickStartRespBean.java`
 #### Snippet
 ```java
-    public void doSubscribe(URL url, NotifyListener listener) {
-        if (Objects.equals(url.getCategory(),
-            org.apache.dubbo.common.constants.RegistryConstants.CONFIGURATORS_CATEGORY)) {
-            return;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeTo(Output output, int number, java.sql.Date value, boolean repeated) throws IOException {
-        output.writeFixed64(number, value.getTime(), repeated);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
-#### Snippet
-```java
-
-    @Override
-    public java.sql.Date readFrom(Input input) throws IOException {
-        return new java.sql.Date(input.readFixed64());
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
-#### Snippet
-```java
-    @Override
-    public java.sql.Date readFrom(Input input) throws IOException {
-        return new java.sql.Date(input.readFixed64());
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
-#### Snippet
-```java
- * Custom {@link java.sql.Date} delegate
+ * quick star demo response bean.
  */
-public class SqlDateDelegate implements Delegate<java.sql.Date> {
-    @Override
-    public WireFormat.FieldType getFieldType() {
+public class QuickStartRespBean implements java.io.Serializable {
+
+    private static final long serialVersionUID = 7598240511561924368L;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `dubbo-serialization-extensions/dubbo-serialization-protostuff/src/main/java/org/apache/dubbo/common/serialize/protostuff/delegate/SqlDateDelegate.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/responses/BaseResponse.java`
 #### Snippet
 ```java
-    @Override
-    public Class<?> typeClass() {
-        return java.sql.Date.class;
-    }
-}
+ * BaseResponse.
+ */
+public class BaseResponse<T> implements java.io.Serializable {
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-api/src/main/java/org/apache/dubbo/apidocs/examples/params/QuickStartRequestBase.java`
+#### Snippet
+```java
+ * @date 2021/1/26 15:24
+ */
+public class QuickStartRequestBase<E, T> implements java.io.Serializable {
+
+    private static final long serialVersionUID = 373497393757790262L;
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractExchangeGroup()` of an abstract class should not be declared 'public'
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
+Constructor `AbstractRedisClient()` of an abstract class should not be declared 'public'
+in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/support/AbstractRedisClient.java`
 #### Snippet
 ```java
-    protected final ExchangeHandlerDispatcher dispatcher = new ExchangeHandlerDispatcher();
+    private JedisPoolConfig config;
 
-    public AbstractExchangeGroup(URL url) {
-        if (url == null) {
-            throw new IllegalArgumentException("url == null");
+    public AbstractRedisClient(URL url) {
+        this.url = url;
+        config = new JedisPoolConfig();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -3685,15 +3685,15 @@ in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractKryoFactory()` of an abstract class should not be declared 'public'
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/AbstractKryoFactory.java`
+Constructor `AbstractExchangeGroup()` of an abstract class should not be declared 'public'
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
 #### Snippet
 ```java
-    private volatile boolean kryoCreated;
+    protected final ExchangeHandlerDispatcher dispatcher = new ExchangeHandlerDispatcher();
 
-    public AbstractKryoFactory() {
-        super(true, true);
-    }
+    public AbstractExchangeGroup(URL url) {
+        if (url == null) {
+            throw new IllegalArgumentException("url == null");
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -3709,38 +3709,26 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRedisClient()` of an abstract class should not be declared 'public'
-in `dubbo-remoting-extensions/dubbo-remoting-redis/src/main/java/org/apache/dubbo/remoting/redis/support/AbstractRedisClient.java`
+Constructor `AbstractKryoFactory()` of an abstract class should not be declared 'public'
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/utils/AbstractKryoFactory.java`
 #### Snippet
 ```java
-    private JedisPoolConfig config;
+    private volatile boolean kryoCreated;
 
-    public AbstractRedisClient(URL url) {
-        this.url = url;
-        config = new JedisPoolConfig();
+    public AbstractKryoFactory() {
+        super(true, true);
+    }
 ```
 
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
+in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/dubbo/registry/polaris/PolarisRegistry.java`
 #### Snippet
 ```java
-        public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-            for (MessageExt messageExt : msgs) {
-                rocketMQProtocolServer.getExecutorService().submit(new Runnable() {
-                    @Override
-                    public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/FileGroup.java`
-#### Snippet
-```java
-        String path = url.getAbsolutePath();
-        file = new File(path);
-        checkModifiedFuture = scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
+    public void doUnsubscribe(URL url, NotifyListener listener) {
+        LOGGER.info(String.format("[polaris] unsubscribe service: %s", url.toString()));
+        taskScheduler.submitWatchTask(new Runnable() {
             @Override
             public void run() {
 ```
@@ -3771,11 +3759,11 @@ in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/FileExchangeGroup.java`
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/FileGroup.java`
 #### Snippet
 ```java
-            throw new IllegalStateException("The group file not exists. file: " + path);
-        }
+        String path = url.getAbsolutePath();
+        file = new File(path);
         checkModifiedFuture = scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
@@ -3783,24 +3771,12 @@ in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/FileExchangeGroup.java`
 #### Snippet
 ```java
-        serverFactoryBean.getServiceFactory().getConfigurations().add(new URLHashMethodNameSoapActionServiceConfiguration());
-        server = serverFactoryBean.create();
-        return new Runnable() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `dubbo-rpc-extensions/dubbo-rpc-rmi/src/main/java/org/apache/dubbo/rpc/protocol/rmi/RmiProtocol.java`
-#### Snippet
-```java
-        RmiServiceExporter rmiServiceExporter = createExporter(impl, type, url, false);
-        RmiServiceExporter genericServiceExporter = createExporter(impl, GenericService.class, url, true);
-        return new Runnable() {
+            throw new IllegalStateException("The group file not exists. file: " + path);
+        }
+        checkModifiedFuture = scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
 ```
@@ -3819,17 +3795,137 @@ in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/pr
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `dubbo-registry-extensions/dubbo-registry-polaris/src/main/java/org/apache/dubbo/registry/polaris/PolarisRegistry.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
 #### Snippet
 ```java
-    public void doUnsubscribe(URL url, NotifyListener listener) {
-        LOGGER.info(String.format("[polaris] unsubscribe service: %s", url.toString()));
-        taskScheduler.submitWatchTask(new Runnable() {
+        public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+            for (MessageExt messageExt : msgs) {
+                rocketMQProtocolServer.getExecutorService().submit(new Runnable() {
+                    @Override
+                    public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `dubbo-rpc-extensions/dubbo-rpc-rmi/src/main/java/org/apache/dubbo/rpc/protocol/rmi/RmiProtocol.java`
+#### Snippet
+```java
+        RmiServiceExporter rmiServiceExporter = createExporter(impl, type, url, false);
+        RmiServiceExporter genericServiceExporter = createExporter(impl, GenericService.class, url, true);
+        return new Runnable() {
+            @Override
+            public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
+#### Snippet
+```java
+        serverFactoryBean.getServiceFactory().getConfigurations().add(new URLHashMethodNameSoapActionServiceConfiguration());
+        server = serverFactoryBean.create();
+        return new Runnable() {
             @Override
             public void run() {
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `cls`
+in `dubbo-serialization-extensions/dubbo-serialization-avro/src/main/java/org/apache/dubbo/common/serialize/avro/AvroObjectInput.java`
+#### Snippet
+```java
+        //Map interface class change to HashMap implement
+        if (cls == Map.class) {
+            cls = (Class<T>) HashMap.class;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `url`
+in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/protocol/hessian/HessianProtocol.java`
+#### Snippet
+```java
+        if (isGeneric) {
+            RpcContext.getContext().setAttachment(GENERIC_KEY, generic);
+            url = url.setPath(url.getPath() + "/" + GENERIC_KEY);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
+#### Snippet
+```java
+    protected int getErrorCode(Throwable e) {
+        if (e instanceof RemoteAccessException) {
+            e = e.getCause();
+        }
+        if (e != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `th`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectOutput.java`
+#### Snippet
+```java
+    public void writeThrowable(Object th) throws IOException {
+        if (th instanceof Throwable && !ProtobufUtils.isSupported(th.getClass())) {
+            th = ProtobufUtils.convertToThrowableProto((Throwable) th);
+        }
+        writer.write(ProtobufUtils.serializeJson(th));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `data`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectOutput.java`
+#### Snippet
+```java
+    public void writeEvent(Object data) throws IOException {
+        if (data == HEARTBEAT_EVENT) {
+            data = MOCK_HEARTBEAT_EVENT;
+        }
+        writeUTF((String) data);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `obj`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufObjectOutput.java`
+#### Snippet
+```java
+    public void writeThrowable(Object obj) throws IOException {
+        if (obj instanceof Throwable && !(obj instanceof MessageLite)) {
+            obj = ProtobufUtils.convertToThrowableProto((Throwable) obj);
+        }
+        ProtobufUtils.serialize(obj, os);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `data`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufObjectOutput.java`
+#### Snippet
+```java
+    public void writeEvent(Object data) throws IOException {
+        if (data == HEARTBEAT_EVENT) {
+            data = MOCK_HEARTBEAT_EVENT;
+        }
+        writeUTF((String) data);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `dubbo-rpc-extensions/dubbo-rpc-rmi/src/main/java/org/apache/dubbo/rpc/protocol/rmi/RmiProtocol.java`
+#### Snippet
+```java
+    protected int getErrorCode(Throwable e) {
+        if (e instanceof RemoteAccessException) {
+            e = e.getCause();
+        }
+        if (e != null && e.getCause() != null) {
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `param`
 in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
@@ -3867,30 +3963,6 @@ in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/co
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `cls`
-in `dubbo-serialization-extensions/dubbo-serialization-avro/src/main/java/org/apache/dubbo/common/serialize/avro/AvroObjectInput.java`
-#### Snippet
-```java
-        //Map interface class change to HashMap implement
-        if (cls == Map.class) {
-            cls = (Class<T>) HashMap.class;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
-#### Snippet
-```java
-    protected int getErrorCode(Throwable e) {
-        if (e instanceof Fault) {
-            e = e.getCause();
-        }
-        if (e instanceof SocketTimeoutException) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `url`
 in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
 #### Snippet
@@ -3904,14 +3976,14 @@ in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `e`
-in `dubbo-rpc-extensions/dubbo-rpc-http/src/main/java/org/apache/dubbo/rpc/protocol/http/HttpProtocol.java`
+in `dubbo-rpc-extensions/dubbo-rpc-webservice/src/main/java/org/apache/dubbo/rpc/protocol/webservice/WebServiceProtocol.java`
 #### Snippet
 ```java
     protected int getErrorCode(Throwable e) {
-        if (e instanceof RemoteAccessException) {
+        if (e instanceof Fault) {
             e = e.getCause();
         }
-        if (e != null) {
+        if (e instanceof SocketTimeoutException) {
 ```
 
 ### AssignmentToMethodParameter
@@ -3950,353 +4022,29 @@ in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/ut
             fieldList.addAll(Arrays.asList(classz.getDeclaredFields()));
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `dubbo-rpc-extensions/dubbo-rpc-rmi/src/main/java/org/apache/dubbo/rpc/protocol/rmi/RmiProtocol.java`
-#### Snippet
-```java
-    protected int getErrorCode(Throwable e) {
-        if (e instanceof RemoteAccessException) {
-            e = e.getCause();
-        }
-        if (e != null && e.getCause() != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/protocol/hessian/HessianProtocol.java`
-#### Snippet
-```java
-        if (isGeneric) {
-            RpcContext.getContext().setAttachment(GENERIC_KEY, generic);
-            url = url.setPath(url.getPath() + "/" + GENERIC_KEY);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `data`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufObjectOutput.java`
-#### Snippet
-```java
-    public void writeEvent(Object data) throws IOException {
-        if (data == HEARTBEAT_EVENT) {
-            data = MOCK_HEARTBEAT_EVENT;
-        }
-        writeUTF((String) data);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `obj`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufObjectOutput.java`
-#### Snippet
-```java
-    public void writeThrowable(Object obj) throws IOException {
-        if (obj instanceof Throwable && !(obj instanceof MessageLite)) {
-            obj = ProtobufUtils.convertToThrowableProto((Throwable) obj);
-        }
-        ProtobufUtils.serialize(obj, os);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `th`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectOutput.java`
-#### Snippet
-```java
-    public void writeThrowable(Object th) throws IOException {
-        if (th instanceof Throwable && !ProtobufUtils.isSupported(th.getClass())) {
-            th = ProtobufUtils.convertToThrowableProto((Throwable) th);
-        }
-        writer.write(ProtobufUtils.serializeJson(th));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `data`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/GenericProtobufJsonObjectOutput.java`
-#### Snippet
-```java
-    public void writeEvent(Object data) throws IOException {
-        if (data == HEARTBEAT_EVENT) {
-            data = MOCK_HEARTBEAT_EVENT;
-        }
-        writeUTF((String) data);
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/handler/UnknownTypeHandler.java`
 #### Snippet
 ```java
-    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
-    public CompletableFuture<Map> demoApi6() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Integer", responseClassDescription = "Integer")
-    public CompletableFuture<Integer> demoApi11() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
-    public CompletableFuture<List> demoApi10() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Object", responseClassDescription = "Object")
-    public CompletableFuture<Object> demoApi8() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "many generics", responseClassDescription = "many generics")
-    public CompletableFuture<List<List<String>>> demoApi12() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
-    public CompletableFuture<List<Object>> demoApi9() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
-    public CompletableFuture<Map<Object, Object>> demoApi7() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
-    public Map demoApi6() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
-    public List<Object> demoApi9() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
-    public Map<Object, Object> demoApi7() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @Override
-    public String demoApi3(String param1) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Object", responseClassDescription = "Object")
-    public Object demoApi8() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
-    public List demoApi10() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQChannel.java`
-#### Snippet
-```java
-    @Override
-    public ChannelHandler getChannelHandler() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-
-    public RemotingServer getRemotingServer() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
-#### Snippet
-```java
-    @Override
-    public Map<String, Object> getAttributes() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
-#### Snippet
-```java
-            return param;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
-#### Snippet
-```java
-                    if (timeout < System.currentTimeMillis()) {
-                        logger.warn(String.format("message timeoute time is %d invocation is %s ", timeout, inv));
-                        return null;
-                    }
-                    Invoker<?> invoker = exporterMap.get(topic).getInvoker();
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
-#### Snippet
-```java
-    protected Client connect(URL url) throws RemotingException {
-        if (servers.containsKey(url)) {
-            return null;
-        }
-        ExchangeClient client = clients.get(url);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/AbstractGroup.java`
-#### Snippet
-```java
-    protected Client connect(URL url) throws RemotingException {
-        if (servers.containsKey(url)) {
-            return null;
-        }
-        Client client = clients.get(url);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-metadata-report-extensions/dubbo-metadata-report-consul/src/main/java/org/apache/dubbo/metadata/store/consul/ConsulMetadataReport.java`
-#### Snippet
-```java
-                return value.getValue().getValue();
+                }
             }
             return null;
-        } catch (Throwable t) {
-            logger.error("Failed to get " + identifier + " from consul , cause: " + t.getMessage(), t);
+        } catch (Exception e) {
+            return null;
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyClient.java`
+in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/handler/UnknownTypeHandler.java`
 #### Snippet
 ```java
-        Connection<?> c = connection;
-        if (c == null || !c.isOpen()) {
+            return null;
+        } catch (Exception e) {
             return null;
         }
-        return GrizzlyChannel.getOrAddChannel(c, getUrl(), this);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyChannel.java`
-#### Snippet
-```java
-    static GrizzlyChannel getOrAddChannel(Connection<?> connection, URL url, ChannelHandler handler) {
-        if (connection == null) {
-            return null;
-        }
-        GrizzlyChannel ret = ATTRIBUTE.get(connection);
+    }
 ```
 
 ### ReturnNull
@@ -4325,38 +4073,62 @@ in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/h
 
 ### ReturnNull
 Return of `null`
-in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/handler/UnknownTypeHandler.java`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalDateTimeHandle.java`
 #### Snippet
 ```java
-                }
-            }
-            return null;
-        } catch (Exception e) {
-            return null;
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/handler/UnknownTypeHandler.java`
-#### Snippet
-```java
-            return null;
-        } catch (Exception e) {
-            return null;
+            // ignore
         }
+        return null;
     }
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/filter/AdminMockFilter.java`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/YearHandle.java`
 #### Snippet
 ```java
-    private Object[] solveParams(Object[] arguments) {
-        if (Objects.isNull(arguments)) {
-            return null;
+            // ignore
         }
-        Object[] params = new Object[arguments.length];
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/DurationHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/OffsetTimeHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZonedDateTimeHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -4373,278 +4145,194 @@ in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/f
 
 ### ReturnNull
 Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyBackedChannelBuffer.java`
+in `dubbo-mock-extensions/dubbo-mock-admin/src/main/java/org/apache/dubbo/mock/filter/AdminMockFilter.java`
 #### Snippet
 ```java
-    @Override
-    public ChannelBufferFactory factory() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyChannel.java`
-#### Snippet
-```java
-    static QuicNettyChannel getOrAddChannel(Channel ch, URL url, ChannelHandler handler) {
-        if (ch == null) {
+    private Object[] solveParams(Object[] arguments) {
+        if (Objects.isNull(arguments)) {
             return null;
         }
+        Object[] params = new Object[arguments.length];
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/InstantHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZoneIdHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalDateHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/MonthDayHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalTimeHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/PeriodHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/YearMonthHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZoneOffsetHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/OffsetDateTimeHandle.java`
+#### Snippet
+```java
+            // ignore
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaChannel.java`
 #### Snippet
 ```java
-    public static ParameterizedType makeParameterizedType(String typeName) {
-        if (typeName.indexOf(GENERIC_START_SYMBOL) == -1) {
+    static MinaChannel getOrAddChannel(IoSession session, URL url, ChannelHandler handler) {
+        if (session == null) {
             return null;
         }
-        try {
+        MinaChannel ret = (MinaChannel) session.getAttribute(CHANNEL_KEY);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaServer.java`
 #### Snippet
 ```java
-        } catch (ClassNotFoundException e) {
-            LOG.warn("Exception getting generics in completabilefuture", e);
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaClient.java`
+#### Snippet
+```java
+        IoSession s = session;
+        if (s == null || !s.isConnected()) {
             return null;
         }
-    }
+        return MinaChannel.getOrAddChannel(s, getUrl(), this);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/support/AbstractGroup.java`
 #### Snippet
 ```java
-        } catch (ClassNotFoundException e) {
-            LOG.warn("Exception getting generics in completabilefuture", e);
+    protected Client connect(URL url) throws RemotingException {
+        if (servers.containsKey(url)) {
             return null;
         }
-    }
+        Client client = clients.get(url);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+in `dubbo-remoting-extensions/dubbo-remoting-p2p/src/main/java/org/apache/dubbo/remoting/p2p/exchange/support/AbstractExchangeGroup.java`
 #### Snippet
 ```java
-            LOG.warn("The depth of bean has exceeded 10 layers, the deeper layer will be ignored! " +
-                "Please modify the parameter structure or check whether there is circular reference in bean!");
+    protected Client connect(URL url) throws RemotingException {
+        if (servers.containsKey(url)) {
             return null;
         }
-        processCount++;
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
-#### Snippet
-```java
-            return 0;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyClient.java`
-#### Snippet
-```java
-        Channel c = this.schannel;
-        if (c == null) {
-            return null;
-        }
-        return QuicNettyChannel.getOrAddChannel(c, getUrl(), this);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/KryoObjectInput.java`
-#### Snippet
-```java
-            int len = input.readInt();
-            if (len < 0) {
-                return null;
-            } else if (len == 0) {
-                return new byte[]{};
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/optimized/KryoObjectInput2.java`
-#### Snippet
-```java
-            int len = input.readInt();
-            if (len < 0) {
-                return null;
-            } else if (len == 0) {
-                return new byte[]{};
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
-    public CompletableFuture<List> demoApi10() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
-    public CompletableFuture<Map> demoApi6() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
-    public CompletableFuture<List<Object>> demoApi9() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "many generics", responseClassDescription = "many generics")
-    public CompletableFuture<List<List<String>>> demoApi12() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Integer", responseClassDescription = "Integer")
-    public CompletableFuture<Integer> demoApi11() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
-    public CompletableFuture<Map<Object, Object>> demoApi7() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Object", responseClassDescription = "Object")
-    public CompletableFuture<Object> demoApi8() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
-    public List<Object> demoApi9() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
-    public Map demoApi6() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @Override
-    public String demoApi3(String prarm1) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
-    public Map<Object, Object> demoApi7() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "Object", responseClassDescription = "Object")
-    public Object demoApi8() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
-#### Snippet
-```java
-    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
-    public List demoApi10() {
-        return null;
-    }
-
+        ExchangeClient client = clients.get(url);
 ```
 
 ### ReturnNull
@@ -4685,13 +4373,169 @@ in `dubbo-rpc-extensions/dubbo-rpc-hessian/src/main/java/org/apache/dubbo/rpc/pr
 
 ### ReturnNull
 Return of `null`
-in `dubbo-cluster-extensions/dubbo-cluster-specify-address-dubbo3/src/main/java/org/apache/dubbo/rpc/cluster/specifyaddress/UserSpecifiedAddressRouter.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-        }
-
+    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
+    public List demoApi10() {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
+#### Snippet
+```java
+    @Override
+    public String demoApi3(String prarm1) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
+    public Map demoApi6() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Object", responseClassDescription = "Object")
+    public Object demoApi8() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
+    public List<Object> demoApi9() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
+    public Map<Object, Object> demoApi7() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Integer", responseClassDescription = "Integer")
+    public CompletableFuture<Integer> demoApi11() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
+    public CompletableFuture<List<Object>> demoApi9() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Object", responseClassDescription = "Object")
+    public CompletableFuture<Object> demoApi8() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
+    public CompletableFuture<List> demoApi10() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
+    public CompletableFuture<Map> demoApi6() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "many generics", responseClassDescription = "many generics")
+    public CompletableFuture<List<List<String>>> demoApi12() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider-sca/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
+    public CompletableFuture<Map<Object, Object>> demoApi7() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-rpc-extensions/dubbo-rpc-native-thrift/src/main/java/org/apache/dubbo/rpc/protocol/nativethrift/ThriftProtocol.java`
+#### Snippet
+```java
+                } else {
+                    // if server is starting, return and do nothing here
+                    return null;
+                }
 
 ```
 
@@ -4709,23 +4553,11 @@ in `dubbo-rpc-extensions/dubbo-rpc-native-thrift/src/main/java/org/apache/dubbo/
 
 ### ReturnNull
 Return of `null`
-in `dubbo-rpc-extensions/dubbo-rpc-native-thrift/src/main/java/org/apache/dubbo/rpc/protocol/nativethrift/ThriftProtocol.java`
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyBackedChannelBuffer.java`
 #### Snippet
 ```java
-                } else {
-                    // if server is starting, return and do nothing here
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaServer.java`
-#### Snippet
-```java
-            }
-        }
+    @Override
+    public ChannelBufferFactory factory() {
         return null;
     }
 
@@ -4733,38 +4565,14 @@ in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo
 
 ### ReturnNull
 Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaChannel.java`
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyChannel.java`
 #### Snippet
 ```java
-    static MinaChannel getOrAddChannel(IoSession session, URL url, ChannelHandler handler) {
-        if (session == null) {
+    static QuicNettyChannel getOrAddChannel(Channel ch, URL url, ChannelHandler handler) {
+        if (ch == null) {
             return null;
         }
-        MinaChannel ret = (MinaChannel) session.getAttribute(CHANNEL_KEY);
-```
 
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-mina/src/main/java/org/apache/dubbo/remoting/transport/mina/MinaClient.java`
-#### Snippet
-```java
-        IoSession s = session;
-        if (s == null || !s.isConnected()) {
-            return null;
-        }
-        return MinaChannel.getOrAddChannel(s, getUrl(), this);
-```
-
-### ReturnNull
-Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/support/AbstractEtcdClient.java`
-#### Snippet
-```java
-        ConcurrentMap<ChildListener, WatcherListener> listeners = childListeners.get(path);
-        if (listeners == null) {
-            return null;
-        }
-        return listeners.computeIfAbsent(listener, k -> createChildWatcherListener(path, k));
 ```
 
 ### ReturnNull
@@ -4781,23 +4589,23 @@ in `dubbo-serialization-extensions/dubbo-serialization-fst/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClient.java`
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyClient.java`
 #### Snippet
 ```java
-            }
-
+        Channel c = this.schannel;
+        if (c == null) {
             return null;
         }
-
+        return QuicNettyChannel.getOrAddChannel(c, getUrl(), this);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQChannel.java`
 #### Snippet
 ```java
-
-    public static Object convertEmptyToNull(Empty empty) {
+    @Override
+    public ChannelHandler getChannelHandler() {
         return null;
     }
 
@@ -4805,26 +4613,38 @@ in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/or
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalDateTimeHandle.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
 #### Snippet
 ```java
-            // ignore
-        }
+
+    public RemotingServer getRemotingServer() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZonedDateTimeHandle.java`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocolServer.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @Override
+    public Map<String, Object> getAttributes() {
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
+#### Snippet
+```java
+                    if (timeout < System.currentTimeMillis()) {
+                        logger.warn(String.format("message timeoute time is %d invocation is %s ", timeout, inv));
+                        return null;
+                    }
+                    Invoker<?> invoker = exporterMap.get(topic).getInvoker();
 ```
 
 ### ReturnNull
@@ -4841,146 +4661,266 @@ in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/or
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/InstantHandle.java`
+in `dubbo-serialization-extensions/dubbo-serialization-protobuf/src/main/java/org/apache/dubbo/common/serialize/protobuf/support/ProtobufUtils.java`
 #### Snippet
 ```java
-            // ignore
-        }
+
+    public static Object convertEmptyToNull(Empty empty) {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/YearHandle.java`
+in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyClient.java`
 #### Snippet
 ```java
-            // ignore
+        Connection<?> c = connection;
+        if (c == null || !c.isOpen()) {
+            return null;
         }
-        return null;
-    }
-}
+        return GrizzlyChannel.getOrAddChannel(c, getUrl(), this);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/DurationHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/core/DubboApiDocsAnnotationScanner.java`
 #### Snippet
 ```java
-            // ignore
+            return param;
         }
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalDateHandle.java`
+in `dubbo-remoting-extensions/dubbo-remoting-grizzly/src/main/java/org/apache/dubbo/remoting/transport/grizzly/GrizzlyChannel.java`
 #### Snippet
 ```java
-            // ignore
+    static GrizzlyChannel getOrAddChannel(Connection<?> connection, URL url, ChannelHandler handler) {
+        if (connection == null) {
+            return null;
         }
-        return null;
-    }
-}
+        GrizzlyChannel ret = ATTRIBUTE.get(connection);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZoneIdHandle.java`
+in `dubbo-metadata-report-extensions/dubbo-metadata-report-consul/src/main/java/org/apache/dubbo/metadata/store/consul/ConsulMetadataReport.java`
 #### Snippet
 ```java
-            // ignore
-        }
-        return null;
-    }
-}
+                return value.getValue().getValue();
+            }
+            return null;
+        } catch (Throwable t) {
+            logger.error("Failed to get " + identifier + " from consul , cause: " + t.getMessage(), t);
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/PeriodHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "Object", responseClassDescription = "Object")
+    public Object demoApi8() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/OffsetTimeHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @Override
+    public String demoApi3(String param1) {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/LocalTimeHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
+    public List<Object> demoApi9() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/MonthDayHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
+    public List demoApi10() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/OffsetDateTimeHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
+    public Map demoApi6() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/ZoneOffsetHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/SyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
+    public Map<Object, Object> demoApi7() {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `dubbo-serialization-extensions/dubbo-serialization-native-hession/src/main/java/org/apache/dubbo/serialize/hessian/serializer/java8/YearMonthHandle.java`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
 #### Snippet
 ```java
-            // ignore
-        }
+    @ApiDoc(value = "Map generic with Object", responseClassDescription = "Map generic with Object")
+    public CompletableFuture<Map<Object, Object>> demoApi7() {
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Integer", responseClassDescription = "Integer")
+    public CompletableFuture<Integer> demoApi11() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "List without generics", responseClassDescription = "List without generics")
+    public CompletableFuture<List> demoApi10() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "List generic with Object", responseClassDescription = "List generic with Object")
+    public CompletableFuture<List<Object>> demoApi9() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Map without generics", responseClassDescription = "Map without generics")
+    public CompletableFuture<Map> demoApi6() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "Object", responseClassDescription = "Object")
+    public CompletableFuture<Object> demoApi8() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-examples/examples-provider/src/main/java/org/apache/dubbo/apidocs/examples/api/impl/AsyncDemoImpl.java`
+#### Snippet
+```java
+    @ApiDoc(value = "many generics", responseClassDescription = "many generics")
+    public CompletableFuture<List<List<String>>> demoApi12() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/KryoObjectInput.java`
+#### Snippet
+```java
+            int len = input.readInt();
+            if (len < 0) {
+                return null;
+            } else if (len == 0) {
+                return new byte[]{};
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/support/AbstractEtcdClient.java`
+#### Snippet
+```java
+        ConcurrentMap<ChildListener, WatcherListener> listeners = childListeners.get(path);
+        if (listeners == null) {
+            return null;
+        }
+        return listeners.computeIfAbsent(listener, k -> createChildWatcherListener(path, k));
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-serialization-extensions/dubbo-serialization-kryo/src/main/java/org/apache/dubbo/common/serialize/kryo/optimized/KryoObjectInput2.java`
+#### Snippet
+```java
+            int len = input.readInt();
+            if (len < 0) {
+                return null;
+            } else if (len == 0) {
+                return new byte[]{};
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubbo/remoting/etcd/jetcd/JEtcdClient.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -5007,7 +4947,91 @@ in `dubbo-remoting-extensions/dubbo-remoting-etcd3/src/main/java/org/apache/dubb
 
 ```
 
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+        } catch (ClassNotFoundException e) {
+            LOG.warn("Exception getting generics in completabilefuture", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+    public static ParameterizedType makeParameterizedType(String typeName) {
+        if (typeName.indexOf(GENERIC_START_SYMBOL) == -1) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+        } catch (ClassNotFoundException e) {
+            LOG.warn("Exception getting generics in completabilefuture", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+            return 0;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dubbo-api-docs/dubbo-api-docs-core/src/main/java/org/apache/dubbo/apidocs/utils/ClassTypeUtil.java`
+#### Snippet
+```java
+            LOG.warn("The depth of bean has exceeded 10 layers, the deeper layer will be ignored! " +
+                "Please modify the parameter structure or check whether there is circular reference in bean!");
+            return null;
+        }
+        processCount++;
+```
+
 ## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `res` is redundant
+in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyChannel.java`
+#### Snippet
+```java
+    public InetSocketAddress getLocalAddress() {
+        int port = this.getUrl().getPort();
+        InetSocketAddress res = new InetSocketAddress(port);
+        return res;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `tasks` is redundant
+in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/dubbo/rpc/cluster/support/BroadcastCluster1Invoker.java`
+#### Snippet
+```java
+
+    private List<Callable<BroadcastResult>> getCallables(List<Invoker<T>> invokers, Invocation invocation) {
+        List<Callable<BroadcastResult>> tasks = invokers.stream().map(it -> (Callable<BroadcastResult>) () -> {
+            BroadcastResult br = new BroadcastResult(it.getUrl().getIp(), it.getUrl().getPort());
+            Result result = null;
+```
+
 ### UnnecessaryLocalVariable
 Local variable `rocketMQProtocolServer` is redundant
 in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/rocketmq/RocketMQProtocol.java`
@@ -5030,30 +5054,6 @@ in `dubbo-rpc-extensions/dubbo-rpc-rocketmq/src/main/java/org/apache/dubbo/rpc/r
             RocketMQInvoker<T> rocketMQInvoker = new RocketMQInvoker<>(type, url, rocketMQProtocolServer);
             return rocketMQInvoker;
         } catch (Exception e) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `tasks` is redundant
-in `dubbo-cluster-extensions/dubbo-cluster-broadcast-1/src/main/java/org/apache/dubbo/rpc/cluster/support/BroadcastCluster1Invoker.java`
-#### Snippet
-```java
-
-    private List<Callable<BroadcastResult>> getCallables(List<Invoker<T>> invokers, Invocation invocation) {
-        List<Callable<BroadcastResult>> tasks = invokers.stream().map(it -> (Callable<BroadcastResult>) () -> {
-            BroadcastResult br = new BroadcastResult(it.getUrl().getIp(), it.getUrl().getPort());
-            Result result = null;
-```
-
-### UnnecessaryLocalVariable
-Local variable `res` is redundant
-in `dubbo-remoting-extensions/dubbo-remoting-quic/src/main/java/org/apache/dubbo/remoting/transport/quic/QuicNettyChannel.java`
-#### Snippet
-```java
-    public InetSocketAddress getLocalAddress() {
-        int port = this.getUrl().getPort();
-        InetSocketAddress res = new InetSocketAddress(port);
-        return res;
-    }
 ```
 
 ## RuleId[id=BusyWait]
