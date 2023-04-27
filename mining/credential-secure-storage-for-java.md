@@ -71,7 +71,7 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdv
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-08-13-07.829.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-09-49-56.991.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -89,54 +89,6 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
 ```java
         }
 
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedTokenPairStore.java`
-#### Snippet
-```java
-    protected StoredTokenPair create(String username, char[] secret) {
-        // not used
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedTokenPairStore.java`
-#### Snippet
-```java
-        // no token found
-        if (accessToken == null && refreshToken == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedTokenPairStore.java`
-#### Snippet
-```java
-        // no token found
-        if (accessToken == null && refreshToken == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedTokenPairStore.java`
-#### Snippet
-```java
-    protected StoredTokenPair create(String username, char[] secret) {
-        // not used
         return null;
     }
 
@@ -168,25 +120,49 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredMan
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedTokenPairStore.java`
 #### Snippet
 ```java
-            public SecretStore<StoredTokenPair> getSecureNonPersistentStore() {
-                logger.warn("Do not have any secure non-persistent stores available.");
-                return null;
-            }
-        };
+        // no token found
+        if (accessToken == null && refreshToken == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedTokenPairStore.java`
 #### Snippet
 ```java
-        }
-
+    protected StoredTokenPair create(String username, char[] secret) {
+        // not used
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedTokenPairStore.java`
+#### Snippet
+```java
+    protected StoredTokenPair create(String username, char[] secret) {
+        // not used
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedTokenPairStore.java`
+#### Snippet
+```java
+        // no token found
+        if (accessToken == null && refreshToken == null) {
+            return null;
+        }
 
 ```
 
@@ -207,6 +183,18 @@ Return of `null`
 in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
 #### Snippet
 ```java
+            public SecretStore<StoredTokenPair> getSecureNonPersistentStore() {
+                logger.warn("Do not have any secure non-persistent stores available.");
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
+#### Snippet
+```java
             public SecretStore<StoredCredential> getSecureNonPersistentStore() {
                 logger.warn("Do not have any secure non-persistent stores available.");
                 return null;
@@ -216,7 +204,7 @@ in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
+in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
 #### Snippet
 ```java
         }
@@ -234,6 +222,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
 
     private static GnomeKeyringLibrary getGnomeKeyringLibrary() {
         return isGnomeKeyringLibraryAvailable() ? GnomeKeyringLibrary.INSTANCE : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
 
 ```
@@ -267,45 +267,45 @@ Return of `null`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
-#### Snippet
-```java
 
     private static LibSecretLibrary getLibSecretLibrary() {
         return isLibSecretLibraryAvailable() ? LibSecretLibrary.INSTANCE : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
 
 ```
@@ -325,18 +325,6 @@ in `src/main/java/com/microsoft/credentialstorage/model/ClearableValue.java`
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`metaData.size() > 0` can be replaced with '!metaData.isEmpty()'
-in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityBackedTokenStore.java`
-#### Snippet
-```java
-
-        final StoredToken result;
-        if (metaData.size() > 0) {
-            final String typeName = (String) metaData.get(ACCOUNT_METADATA);
-            final String secret = (String) metaData.get(PASSWORD);
-```
-
-### SizeReplaceableByIsEmpty
 `accessTokenMetaData.size() > 0` can be replaced with '!accessTokenMetaData.isEmpty()'
 in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityBackedTokenPairStore.java`
 #### Snippet
@@ -346,6 +334,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
         if (accessTokenMetaData.size() > 0) {
             accessToken = ((String) accessTokenMetaData.get(PASSWORD)).toCharArray();
         } else {
+```
+
+### SizeReplaceableByIsEmpty
+`metaData.size() > 0` can be replaced with '!metaData.isEmpty()'
+in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityBackedTokenStore.java`
+#### Snippet
+```java
+
+        final StoredToken result;
+        if (metaData.size() > 0) {
+            final String typeName = (String) metaData.get(ACCOUNT_METADATA);
+            final String secret = (String) metaData.get(PASSWORD);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -423,15 +423,15 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
 ```
 
 ### DataFlowIssue
-Method invocation `secret_item_get_attributes` may produce `NullPointerException`
+Method invocation `secret_password_lookup_sync` may produce `NullPointerException`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
 #### Snippet
 ```java
-    private static <T> T getStoredSecret(final GLibLibrary.GList listItem, final BiFunction<String, char[], T> mapper) {
-        // get attributes for secret item
-        final Pointer attributesHashTable = INSTANCE.secret_item_get_attributes(listItem.data);
-
         try {
+            final PointerByReference error = new PointerByReference();
+            pPassword = INSTANCE.secret_password_lookup_sync(
+                    SCHEMA,
+                    null,
 ```
 
 ### DataFlowIssue
@@ -447,30 +447,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret
 ```
 
 ### DataFlowIssue
-Method invocation `secret_password_lookup_sync` may produce `NullPointerException`
+Method invocation `secret_item_get_attributes` may produce `NullPointerException`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
 #### Snippet
 ```java
+    private static <T> T getStoredSecret(final GLibLibrary.GList listItem, final BiFunction<String, char[], T> mapper) {
+        // get attributes for secret item
+        final Pointer attributesHashTable = INSTANCE.secret_item_get_attributes(listItem.data);
+
         try {
-            final PointerByReference error = new PointerByReference();
-            pPassword = INSTANCE.secret_password_lookup_sync(
-                    SCHEMA,
-                    null,
 ```
 
 ## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityCliStore.java`
-#### Snippet
-```java
-            boolean parsingAttributes = false;
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (parsingAttributes) {
-                    parseAttributeLine(line, result);
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityCliStore.java`
@@ -481,6 +469,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
                 sb.append(System.getProperty("line.separator"));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/KeychainSecurityCliStore.java`
+#### Snippet
+```java
+            boolean parsingAttributes = false;
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (parsingAttributes) {
+                    parseAttributeLine(line, result);
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -497,18 +497,6 @@ in `src/main/java/com/microsoft/credentialstorage/StorageProvider.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CredAdvapi32.CREDENTIAL`
-in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredManagerBackedSecureStore.java`
-#### Snippet
-```java
-    }
-
-    protected <T> T readSecret(final String key, final Function<CredAdvapi32.CREDENTIAL, T> mapper) {
-        T cred = null;
-
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
 #### Snippet
@@ -518,6 +506,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
     protected <T> T readSecret(final String key, final BiFunction<String, char[], T> mapper) {
         if (INSTANCE != null && SCHEMA != null) {
             final Pointer searchAttributes = GLibLibrary.INSTANCE.g_array_new(0, 0, GNOME_KEYRING_ATTRIBUTE_SIZE);
+```
+
+### BoundedWildcard
+Can generalize to `? super CredAdvapi32.CREDENTIAL`
+in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredManagerBackedSecureStore.java`
+#### Snippet
+```java
+    }
+
+    protected <T> T readSecret(final String key, final Function<CredAdvapi32.CREDENTIAL, T> mapper) {
+        T cred = null;
+
 ```
 
 ### BoundedWildcard
@@ -539,9 +539,9 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
 ```java
     }
 
-    private static void parseMetadataLine(final String line, final Map<String, Object> destination) {
-        final Matcher matcher = MetadataLinePattern.matcher(line);
-        if (matcher.matches()) {
+    private static void parseAttributeLine(final String line, final Map<String, Object> destination) {
+        final String template = "Undefined transition '%1$s' from %2$s.";
+        final StringBuilder key = new StringBuilder();
 ```
 
 ### BoundedWildcard
@@ -551,8 +551,8 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
 ```java
     }
 
-    private static void parseAttributeLine(final String line, final Map<String, Object> destination) {
-        final String template = "Undefined transition '%1$s' from %2$s.";
-        final StringBuilder key = new StringBuilder();
+    private static void parseMetadataLine(final String line, final Map<String, Object> destination) {
+        final Matcher matcher = MetadataLinePattern.matcher(line);
+        if (matcher.matches()) {
 ```
 
