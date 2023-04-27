@@ -43,7 +43,7 @@ I found 463 bad smells with 24 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
-## RuleId[ruleID=UnnecessaryModifier]
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
 in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
@@ -56,7 +56,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
     /** BigInteger Zero */
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `PropertyDescriptors` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/beanutils2/PropertyDescriptors.java`
@@ -129,7 +129,7 @@ public class MethodUtils {
     /**
 ```
 
-## RuleId[ruleID=SuspiciousSystemArraycopy]
+## RuleId[id=SuspiciousSystemArraycopy]
 ### SuspiciousSystemArraycopy
 `indexedProperty` is not of an array type
 in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
@@ -154,7 +154,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
                 set(name, indexedProperty);
 ```
 
-## RuleId[ruleID=ClassGetClass]
+## RuleId[id=ClassGetClass]
 ### ClassGetClass
 'getClass()' is called on Class instance
 in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
@@ -167,7 +167,7 @@ in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
 
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `firstEx` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
@@ -204,7 +204,7 @@ in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
             final Method method = internalGetMethod(interface1, methodName, parameterCount);
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `LOG` from instance context
 in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
@@ -217,7 +217,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
         return LOG;
 ```
 
-## RuleId[ruleID=RefusedBequest]
+## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -230,7 +230,7 @@ in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
         if (fast) {
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'instance' in a Serializable class
 in `src/main/java/org/apache/commons/beanutils2/WrapDynaBean.java`
@@ -255,7 +255,7 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaClass.java`
     /**
 ```
 
-## RuleId[ruleID=MismatchedJavadocCode]
+## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return set but the return type is array
 in `src/main/java/org/apache/commons/beanutils2/DynaClass.java`
@@ -304,7 +304,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
     @Override
 ```
 
-## RuleId[ruleID=StringBufferReplaceableByString]
+## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder buffer` can be replaced with 'String'
 in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
@@ -317,7 +317,7 @@ in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
         buffer.append("[UseDefault=");
 ```
 
-## RuleId[ruleID=FinalStaticMethod]
+## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
@@ -330,7 +330,7 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
         if (parameterType.isAssignableFrom(parameterization)) {
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
@@ -391,7 +391,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
             sb.append(')');
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -440,7 +440,7 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
         InvocationTargetException, NoSuchMethodException {
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `abstract protected`
 in `src/main/java/org/apache/commons/beanutils2/locale/BaseLocaleConverter.java`
@@ -453,7 +453,7 @@ in `src/main/java/org/apache/commons/beanutils2/locale/BaseLocaleConverter.java`
 
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `src/main/java/org/apache/commons/beanutils2/sql/ResultSetDynaClass.java`
@@ -502,7 +502,7 @@ in `src/main/java/org/apache/commons/beanutils2/sql/RowSetDynaClass.java`
         this.lowerCase = lowerCase;
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `Map.isEmpty()` is ignored
 in `src/main/java/org/apache/commons/beanutils2/ContextClassLoaderLocal.java`
@@ -527,7 +527,7 @@ in `src/main/java/org/apache/commons/beanutils2/ContextClassLoaderLocal.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
+## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Unnecessary boxing
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleConverter.java`
@@ -542,26 +542,14 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleCon
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
 #### Snippet
 ```java
-            if (readMethod != null) {
-                final Object[] subscript = new Object[1];
-                subscript[0] = Integer.valueOf(index);
-                try {
-                    return invokeMethod(readMethod,bean, subscript);
-```
+    private static final Float FLOAT_ZERO = Float.valueOf((float) 0.0);
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            if (writeMethod != null) {
-                final Object[] subscript = new Object[2];
-                subscript[0] = Integer.valueOf(index);
-                subscript[1] = value;
-                try {
+    private static final Double DOUBLE_ZERO = Double.valueOf(0.0);
+
+    private static final Character CHARACTER_ZERO = Character.valueOf((char) 0);
 ```
 
 ### UnnecessaryBoxing
@@ -574,30 +562,6 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
     private static final Float FLOAT_ZERO = Float.valueOf((float) 0.0);
 
     private static final Double DOUBLE_ZERO = Double.valueOf(0.0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
-#### Snippet
-```java
-public class BasicDynaBean implements DynaBean, Serializable {
-
-    private static final Short SHORT_ZERO = Short.valueOf((short) 0);
-
-    private static final Long LONG_ZERO = Long.valueOf(0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
-#### Snippet
-```java
-    private static final Float FLOAT_ZERO = Float.valueOf((float) 0.0);
-
-    private static final Double DOUBLE_ZERO = Double.valueOf(0.0);
-
-    private static final Character CHARACTER_ZERO = Character.valueOf((char) 0);
 ```
 
 ### UnnecessaryBoxing
@@ -622,6 +586,18 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
     private static final Long LONG_ZERO = Long.valueOf(0);
 
     private static final Integer INTEGER_ZERO = Integer.valueOf(0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
+#### Snippet
+```java
+public class BasicDynaBean implements DynaBean, Serializable {
+
+    private static final Short SHORT_ZERO = Short.valueOf((short) 0);
+
+    private static final Long LONG_ZERO = Long.valueOf(0);
 ```
 
 ### UnnecessaryBoxing
@@ -650,18 +626,6 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
-#### Snippet
-```java
-
-        // now returns property Short
-        return Short.valueOf(parsed.shortValue());
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConverter.java`
 #### Snippet
 ```java
@@ -674,14 +638,38 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConv
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            if (writeMethod != null) {
+                final Object[] subscript = new Object[2];
+                subscript[0] = Integer.valueOf(index);
+                subscript[1] = value;
+                try {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            if (readMethod != null) {
+                final Object[] subscript = new Object[1];
+                subscript[0] = Integer.valueOf(index);
+                try {
+                    return invokeMethod(readMethod,bean, subscript);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
 #### Snippet
 ```java
 
-    private static final Integer ZERO = Integer.valueOf(0);
-    private static final Character SPACE = Character.valueOf(' ');
+        // now returns property Short
+        return Short.valueOf(parsed.shortValue());
+    }
 
-    /**
 ```
 
 ### UnnecessaryBoxing
@@ -698,98 +686,50 @@ public class ConvertUtilsBean {
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
 #### Snippet
 ```java
-        final Map<Class<? extends Object>, Function<?, ?>> defTransformers = new HashMap<>();
-        defTransformers.put(Boolean.TYPE, input -> Boolean.valueOf(input.toString()));
-        defTransformers.put(Character.TYPE, input -> Character.valueOf(input.toString().charAt(0)));
-        defTransformers.put(Byte.TYPE, input -> Byte.valueOf(input.toString()));
-        defTransformers.put(Short.TYPE, input -> Short.valueOf(input.toString()));
+
+    private static final Integer ZERO = Integer.valueOf(0);
+    private static final Character SPACE = Character.valueOf(' ');
+
+    /**
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
-    protected static final Character  Character_SPACE = Character.valueOf(' ');
-    /** Byte Zero */
-    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
-    /** Short Zero */
-    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
+
+    private static final Integer ZERO = Integer.valueOf(0);
+    private static final Integer ONE  = Integer.valueOf(1);
+
+    private String pattern;
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
-    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
-    /** Integer Zero */
-    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
-    /** Long Zero */
-    protected static final Long       Long_ZERO       = Long.valueOf(0);
+        // Handle Date --> Long
+        if (value instanceof Date && Long.class.equals(targetType)) {
+            return targetType.cast(Long.valueOf(((Date)value).getTime()));
+        }
+
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
-    protected static final Long       Long_ZERO       = Long.valueOf(0);
-    /** Float Zero */
-    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
-    /** Double Zero */
-    protected static final Double     Double_ZERO     = Double.valueOf((byte)0);
-```
+        // Handle Calendar --> Long
+        if (value instanceof Calendar  && Long.class.equals(targetType)) {
+            return targetType.cast(Long.valueOf(((Calendar)value).getTime().getTime()));
+        }
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
-    /** Long Zero */
-    protected static final Long       Long_ZERO       = Long.valueOf(0);
-    /** Float Zero */
-    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
-    /** Double Zero */
-    protected static final Double     Double_ZERO     = Double.valueOf((byte)0);
-
-    static final LazyDynaBean[] EMPTY_ARRAY = {};
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
-    /** Short Zero */
-    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
-    /** Integer Zero */
-    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected static final BigDecimal BigDecimal_ZERO = new BigDecimal("0");
-    /** Character Space */
-    protected static final Character  Character_SPACE = Character.valueOf(' ');
-    /** Byte Zero */
-    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
 ```
 
 ### UnnecessaryBoxing
@@ -869,47 +809,23 @@ Unnecessary boxing
 in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
-
-    private static final Integer ZERO = Integer.valueOf(0);
-    private static final Integer ONE  = Integer.valueOf(1);
-
-    private String pattern;
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
-#### Snippet
-```java
-        // Handle Date --> Long
-        if (value instanceof Date && Long.class.equals(targetType)) {
-            return targetType.cast(Long.valueOf(((Date)value).getTime()));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
-#### Snippet
-```java
-        // Handle Calendar --> Long
-        if (value instanceof Calendar  && Long.class.equals(targetType)) {
-            return targetType.cast(Long.valueOf(((Calendar)value).getTime().getTime()));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
-#### Snippet
-```java
 public abstract class NumberConverter<N extends Number> extends AbstractConverter<N> {
 
     private static final Integer ZERO = Integer.valueOf(0);
     private static final Integer ONE  = Integer.valueOf(1);
 
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+#### Snippet
+```java
+        final Map<Class<? extends Object>, Function<?, ?>> defTransformers = new HashMap<>();
+        defTransformers.put(Boolean.TYPE, input -> Boolean.valueOf(input.toString()));
+        defTransformers.put(Character.TYPE, input -> Character.valueOf(input.toString().charAt(0)));
+        defTransformers.put(Byte.TYPE, input -> Byte.valueOf(input.toString()));
+        defTransformers.put(Short.TYPE, input -> Short.valueOf(input.toString()));
 ```
 
 ### UnnecessaryBoxing
@@ -922,6 +838,90 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/IntegerLocaleC
         return Integer.valueOf(parsed.intValue()); // unlike superclass it will return proper Integer
     }
 }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
+    /** Double Zero */
+    protected static final Double     Double_ZERO     = Double.valueOf((byte)0);
+
+    static final LazyDynaBean[] EMPTY_ARRAY = {};
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
+    /** Long Zero */
+    protected static final Long       Long_ZERO       = Long.valueOf(0);
+    /** Float Zero */
+    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Long       Long_ZERO       = Long.valueOf(0);
+    /** Float Zero */
+    protected static final Float      Float_ZERO      = Float.valueOf((byte)0);
+    /** Double Zero */
+    protected static final Double     Double_ZERO     = Double.valueOf((byte)0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
+    /** Short Zero */
+    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
+    /** Integer Zero */
+    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
+    /** Integer Zero */
+    protected static final Integer    Integer_ZERO    = Integer.valueOf(0);
+    /** Long Zero */
+    protected static final Long       Long_ZERO       = Long.valueOf(0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final Character  Character_SPACE = Character.valueOf(' ');
+    /** Byte Zero */
+    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
+    /** Short Zero */
+    protected static final Short      Short_ZERO      = Short.valueOf((short)0);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected static final BigDecimal BigDecimal_ZERO = new BigDecimal("0");
+    /** Character Space */
+    protected static final Character  Character_SPACE = Character.valueOf(' ');
+    /** Byte Zero */
+    protected static final Byte       Byte_ZERO       = Byte.valueOf((byte)0);
 ```
 
 ### UnnecessaryBoxing
@@ -960,7 +960,7 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/DoubleLocaleCo
         return (Double) result;
 ```
 
-## RuleId[ruleID=SynchronizeOnNonFinalField]
+## RuleId[id=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -969,8 +969,20 @@ in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
             }
         } else {
             synchronized (map) {
-                map.clear();
+                map.putAll(in);
             }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+            return map.containsValue(value);
+        }
+        synchronized (map) {
+            return map.containsValue(value);
+        }
 ```
 
 ### SynchronizeOnNonFinalField
@@ -990,54 +1002,6 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-            return map.size();
-        }
-        synchronized (map) {
-            return map.size();
-        }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-            return map.containsValue(value);
-        }
-        synchronized (map) {
-            return map.containsValue(value);
-        }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-                }
-            }
-            synchronized (map) {
-                return get(map).removeAll(o);
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-                }
-            }
-            synchronized (map) {
-                return get(map).remove(o);
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
                 }
             } else {
                 synchronized (map) {
@@ -1050,10 +1014,34 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-                return get(map).hashCode();
+            return map.get(key);
+        }
+        synchronized (map) {
+            return map.get(key);
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).contains(o);
             }
             synchronized (map) {
-                return get(map).hashCode();
+                return get(map).contains(o);
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).toArray();
+            }
+            synchronized (map) {
+                return get(map).toArray();
             }
 ```
 
@@ -1074,6 +1062,114 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
+            return map.isEmpty();
+        }
+        synchronized (map) {
+            return map.isEmpty();
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).equals(o);
+            }
+            synchronized (map) {
+                return get(map).equals(o);
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).hashCode();
+            }
+            synchronized (map) {
+                return get(map).hashCode();
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).size();
+            }
+            synchronized (map) {
+                return get(map).size();
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+            return map.size();
+        }
+        synchronized (map) {
+            return map.size();
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+            return map.containsKey(key);
+        }
+        synchronized (map) {
+            return map.containsKey(key);
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                return get(map).isEmpty();
+            }
+            synchronized (map) {
+                return get(map).isEmpty();
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+                }
+            }
+            synchronized (map) {
+                return get(map).removeAll(o);
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+            }
+        } else {
+            synchronized (map) {
+                map.clear();
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `map`
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
                 }
             }
             synchronized (map) {
@@ -1086,10 +1182,10 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-                return get(map).isEmpty();
+                }
             }
             synchronized (map) {
-                return get(map).isEmpty();
+                return get(map).remove(o);
             }
 ```
 
@@ -1110,35 +1206,11 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-                return get(map).toArray(o);
-            }
-            synchronized (map) {
-                return get(map).toArray(o);
-            }
-```
 
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-            return map.containsKey(key);
         }
         synchronized (map) {
-            return map.containsKey(key);
-        }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-            return map.get(key);
-        }
-        synchronized (map) {
-            return map.get(key);
-        }
+            if (mo.size() != map.size()) {
+                return false;
 ```
 
 ### SynchronizeOnNonFinalField
@@ -1158,30 +1230,6 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-                return get(map).toArray();
-            }
-            synchronized (map) {
-                return get(map).toArray();
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-
-        }
-        synchronized (map) {
-            if (mo.size() != map.size()) {
-                return false;
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
                 return get(map).containsAll(o);
             }
             synchronized (map) {
@@ -1194,62 +1242,14 @@ Synchronization on a non-final field `map`
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-            return map.isEmpty();
-        }
-        synchronized (map) {
-            return map.isEmpty();
-        }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-            }
-        } else {
-            synchronized (map) {
-                map.putAll(in);
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-                return get(map).equals(o);
+                return get(map).toArray(o);
             }
             synchronized (map) {
-                return get(map).equals(o);
+                return get(map).toArray(o);
             }
 ```
 
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-                return get(map).contains(o);
-            }
-            synchronized (map) {
-                return get(map).contains(o);
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `map`
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-                return get(map).size();
-            }
-            synchronized (map) {
-                return get(map).size();
-            }
-```
-
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
@@ -1274,19 +1274,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-        if (value instanceof Long) {
-            final Long longObj = (Long) value;
-            return toDate(targetType, longObj.longValue());
-        }
-
-```
-
+## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
@@ -1301,6 +1289,18 @@ in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.jav
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
+#### Snippet
+```java
+        if (value instanceof Long) {
+            final Long longObj = (Long) value;
+            return toDate(targetType, longObj.longValue());
+        }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
@@ -1311,7 +1311,7 @@ in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `containsValue()` only delegates to its super method
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
@@ -1324,7 +1324,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
         return super.containsValue(value);
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
+## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleConverter.java`
@@ -1333,18 +1333,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleCon
      * Builds instances of {@link ByteLocaleConverter}.
      */
     public static class Builder extends DecimalLocaleConverter.Builder<Builder, Float> {
-
-        @Override
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
-#### Snippet
-```java
-     * Builds instances of {@link SqlTimeLocaleConverter}.
-     */
-    public static class Builder extends DateLocaleConverter.Builder<Builder, Time> {
 
         @Override
 ```
@@ -1363,14 +1351,14 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/StringLocaleCo
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
+in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
 #### Snippet
 ```java
-     * Builds instances of {@link ByteLocaleConverter}.
+     * Builds instances of {@link SqlTimeLocaleConverter}.
      */
-    public static class Builder extends DecimalLocaleConverter.Builder<Builder, Short> {
+    public static class Builder extends DateLocaleConverter.Builder<Builder, Time> {
 
-        /**
+        @Override
 ```
 
 ### ClassNameSameAsAncestorName
@@ -1387,6 +1375,18 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConv
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
+#### Snippet
+```java
+     * Builds instances of {@link ByteLocaleConverter}.
+     */
+    public static class Builder extends DecimalLocaleConverter.Builder<Builder, Short> {
+
+        /**
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/DateLocaleConverter.java`
 #### Snippet
 ```java
@@ -1395,6 +1395,18 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/DateLocaleConv
     public static class Builder<B extends Builder<B, D>, D extends Date> extends BaseLocaleConverter.Builder<B, D> {
 
         /** Should the date conversion be lenient? */
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigIntegerLocaleConverter.java`
+#### Snippet
+```java
+     * Builds instances of {@link BigIntegerLocaleConverter}.
+     */
+    public static class Builder extends DecimalLocaleConverter.Builder<Builder, BigInteger> {
+
+        @Override
 ```
 
 ### ClassNameSameAsAncestorName
@@ -1411,12 +1423,12 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigIntegerLocaleConverter.java`
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/IntegerLocaleConverter.java`
 #### Snippet
 ```java
-     * Builds instances of {@link BigIntegerLocaleConverter}.
+     * Builds instances of {@link ByteLocaleConverter}.
      */
-    public static class Builder extends DecimalLocaleConverter.Builder<Builder, BigInteger> {
+    public static class Builder extends DecimalLocaleConverter.Builder<Builder, Integer> {
 
         @Override
 ```
@@ -1429,18 +1441,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigDecimalLoca
      * Builds instances of {@link BigDecimalLocaleConverter}.
      */
     public static class Builder extends DecimalLocaleConverter.Builder<Builder, BigDecimal> {
-
-        @Override
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/IntegerLocaleConverter.java`
-#### Snippet
-```java
-     * Builds instances of {@link ByteLocaleConverter}.
-     */
-    public static class Builder extends DecimalLocaleConverter.Builder<Builder, Integer> {
 
         @Override
 ```
@@ -1471,18 +1471,6 @@ in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlDateLoc
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/DecimalLocaleConverter.java`
-#### Snippet
-```java
-     * @param <T> The Number type.
-     */
-    public static class Builder<B extends Builder<B, T>, T extends Number> extends BaseLocaleConverter.Builder<B, T> {
-
-        /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/ByteLocaleConverter.java`
 #### Snippet
 ```java
@@ -1505,7 +1493,19 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/DoubleLocaleCo
         @Override
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/DecimalLocaleConverter.java`
+#### Snippet
+```java
+     * @param <T> The Number type.
+     */
+    public static class Builder<B extends Builder<B, T>, T extends Number> extends BaseLocaleConverter.Builder<B, T> {
+
+        /**
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.time` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/beanutils2/converters/OffsetDateTimeConverter.java`
@@ -1516,6 +1516,18 @@ in `src/main/java/org/apache/commons/beanutils2/converters/OffsetDateTimeConvert
  * @see java.time.OffsetDateTime
  */
 public final class OffsetDateTimeConverter extends DateTimeConverter<OffsetDateTime> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/converters/ZoneIdConverter.java`
+#### Snippet
+```java
+ *
+ * @since 2.0
+ * @see java.time.ZoneId
+ */
+public final class ZoneIdConverter extends AbstractConverter<ZoneId> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1540,42 +1552,6 @@ in `src/main/java/org/apache/commons/beanutils2/converters/OffsetTimeConverter.j
  * @see java.time.OffsetTime
  */
 public final class OffsetTimeConverter extends AbstractConverter<OffsetTime> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/converters/ZoneIdConverter.java`
-#### Snippet
-```java
- *
- * @since 2.0
- * @see java.time.ZoneId
- */
-public final class ZoneIdConverter extends AbstractConverter<ZoneId> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/BeanPropertyValueChangeConsumer.java`
-#### Snippet
-```java
- * @param <V> The property value type.
- *
- * @see org.apache.commons.beanutils2.PropertyUtils
- * @see java.util.function.Consumer
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/BeanPropertyValueChangeConsumer.java`
-#### Snippet
-```java
- *
- * @see org.apache.commons.beanutils2.PropertyUtils
- * @see java.util.function.Consumer
- */
-public class BeanPropertyValueChangeConsumer<T, V> implements Consumer<T> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1604,6 +1580,30 @@ public class BeanPropertyValueEqualsPredicate<T, V> implements Predicate<T> {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/BeanPropertyValueChangeConsumer.java`
+#### Snippet
+```java
+ * @param <V> The property value type.
+ *
+ * @see org.apache.commons.beanutils2.PropertyUtils
+ * @see java.util.function.Consumer
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/BeanPropertyValueChangeConsumer.java`
+#### Snippet
+```java
+ *
+ * @see org.apache.commons.beanutils2.PropertyUtils
+ * @see java.util.function.Consumer
+ */
+public class BeanPropertyValueChangeConsumer<T, V> implements Consumer<T> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleConverter.java`
 #### Snippet
 ```java
@@ -1611,42 +1611,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/FloatLocaleCon
  * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a
  * {@link java.math.BigDecimal} object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion
  * error occurs.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
-#### Snippet
-```java
-    protected Time parse(final Object value, final String pattern) throws ParseException {
-        // MUST cast to java.util.Date to avoid a CCE.
-        return new Time(((java.util.Date) super.parse(value, pattern)).getTime());
-    }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
-#### Snippet
-```java
-/**
- * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a
- * {@link java.sql.Time} object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error
- * occurs.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
-#### Snippet
-```java
-/**
- * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a
- * {@link java.sql.Time} object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error
- * occurs.
  */
 ```
 
@@ -1675,15 +1639,39 @@ public class StringLocaleConverter extends BaseLocaleConverter<String> {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/DynaProperty.java`
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
 #### Snippet
 ```java
-    /**
-     * Checks this instance against the specified Object for equality. Overrides the
-     * default reference test for equality provided by {@link java.lang.Object#equals(Object)}
-     * @param obj The object to compare to
-     * @return {@code true} if object is a dyna property with the same name
+/**
+ * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a
+ * {@link java.sql.Time} object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error
+ * occurs.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
+#### Snippet
+```java
+/**
+ * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a
+ * {@link java.sql.Time} object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error
+ * occurs.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimeLocaleConverter.java`
+#### Snippet
+```java
+    protected Time parse(final Object value, final String pattern) throws ParseException {
+        // MUST cast to java.util.Date to avoid a CCE.
+        return new Time(((java.util.Date) super.parse(value, pattern)).getTime());
+    }
+}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1723,75 +1711,75 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleConvertUtilsBean.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/DynaProperty.java`
 #### Snippet
 ```java
-        final Object value = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
-        if (!value.getClass().isArray()) {
-            if (!(value instanceof java.util.List)) {
-                throw new IllegalArgumentException("Property '" + name +
-                        "' is not indexed on bean class '" + bean.getClass() + "'");
+    /**
+     * Checks this instance against the specified Object for equality. Overrides the
+     * default reference test for equality provided by {@link java.lang.Object#equals(Object)}
+     * @param obj The object to compare to
+     * @return {@code true} if object is a dyna property with the same name
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
 #### Snippet
 ```java
-            }
-            //get the List's value
-            return ((java.util.List<?>) value).get(index);
-        }
-        //get the array's value
+            date = new Date(((Long) value).longValue());
+        } else if (value instanceof LocalDateTime) {
+            date = java.sql.Timestamp.valueOf(((LocalDateTime) value));
+        } else if (value instanceof LocalDate) {
+            date = java.sql.Date.valueOf(((LocalDate) value));
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
 #### Snippet
 ```java
-        final Object invokeResult = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
-        /* test and fetch from the map */
-        if (invokeResult instanceof java.util.Map) {
-          final java.util.Map<String, Object> map = toPropertyMap(invokeResult);
-          map.put(key, value);
+
+        // java.sql.Time
+        if (type.equals(java.sql.Time.class)) {
+            try {
+                return type.cast(java.sql.Time.valueOf(value));
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
 #### Snippet
 ```java
-        /* test and fetch from the map */
-        if (invokeResult instanceof java.util.Map) {
-          final java.util.Map<String, Object> map = toPropertyMap(invokeResult);
-          map.put(key, value);
-        }
+        if (type.equals(java.sql.Time.class)) {
+            try {
+                return type.cast(java.sql.Time.valueOf(value));
+            } catch (final IllegalArgumentException e) {
+                throw new ConversionException(
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
 #### Snippet
 ```java
-        final Object invokeResult = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
-        /* test and fetch from the map */
-        if (invokeResult instanceof java.util.Map) {
-          result = ((java.util.Map<?, ?>)invokeResult).get(key);
-        }
+
+        // java.sql.Timestamp
+        if (type.equals(java.sql.Timestamp.class)) {
+            try {
+                return type.cast(java.sql.Timestamp.valueOf(value));
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
 #### Snippet
 ```java
-        /* test and fetch from the map */
-        if (invokeResult instanceof java.util.Map) {
-          result = ((java.util.Map<?, ?>)invokeResult).get(key);
-        }
-        }
+        if (type.equals(java.sql.Timestamp.class)) {
+            try {
+                return type.cast(java.sql.Timestamp.valueOf(value));
+            } catch (final IllegalArgumentException e) {
+                throw new ConversionException(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1879,66 +1867,6 @@ in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.jav
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-            date = new Date(((Long) value).longValue());
-        } else if (value instanceof LocalDateTime) {
-            date = java.sql.Timestamp.valueOf(((LocalDateTime) value));
-        } else if (value instanceof LocalDate) {
-            date = java.sql.Date.valueOf(((LocalDate) value));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-
-        // java.sql.Time
-        if (type.equals(java.sql.Time.class)) {
-            try {
-                return type.cast(java.sql.Time.valueOf(value));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-        if (type.equals(java.sql.Time.class)) {
-            try {
-                return type.cast(java.sql.Time.valueOf(value));
-            } catch (final IllegalArgumentException e) {
-                throw new ConversionException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-
-        // java.sql.Timestamp
-        if (type.equals(java.sql.Timestamp.class)) {
-            try {
-                return type.cast(java.sql.Timestamp.valueOf(value));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-        if (type.equals(java.sql.Timestamp.class)) {
-            try {
-                return type.cast(java.sql.Timestamp.valueOf(value));
-            } catch (final IllegalArgumentException e) {
-                throw new ConversionException(
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
 #### Snippet
@@ -1975,6 +1903,90 @@ public final class YearMonthConverter extends AbstractConverter<YearMonth> {
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        final Object invokeResult = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
+        /* test and fetch from the map */
+        if (invokeResult instanceof java.util.Map) {
+          final java.util.Map<String, Object> map = toPropertyMap(invokeResult);
+          map.put(key, value);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        /* test and fetch from the map */
+        if (invokeResult instanceof java.util.Map) {
+          final java.util.Map<String, Object> map = toPropertyMap(invokeResult);
+          map.put(key, value);
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        final Object invokeResult = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
+        /* test and fetch from the map */
+        if (invokeResult instanceof java.util.Map) {
+          result = ((java.util.Map<?, ?>)invokeResult).get(key);
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        /* test and fetch from the map */
+        if (invokeResult instanceof java.util.Map) {
+          result = ((java.util.Map<?, ?>)invokeResult).get(key);
+        }
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        final Object value = invokeMethod(readMethod, bean, BeanUtils.EMPTY_OBJECT_ARRAY);
+        if (!value.getClass().isArray()) {
+            if (!(value instanceof java.util.List)) {
+                throw new IllegalArgumentException("Property '" + name +
+                        "' is not indexed on bean class '" + bean.getClass() + "'");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            }
+            //get the List's value
+            return ((java.util.List<?>) value).get(index);
+        }
+        //get the array's value
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConverter.java`
+#### Snippet
+```java
+/**
+ * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Long}
+ * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
+ */
+public class LongLocaleConverter extends DecimalLocaleConverter<Long> {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
 #### Snippet
@@ -1996,54 +2008,6 @@ in `src/main/java/org/apache/commons/beanutils2/converters/ZonedDateTimeConverte
  * @see java.time.ZonedDateTime
  */
 public final class ZonedDateTimeConverter extends DateTimeConverter<ZonedDateTime> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConverter.java`
-#### Snippet
-```java
-/**
- * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Long}
- * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
- */
-public class LongLocaleConverter extends DecimalLocaleConverter<Long> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
-#### Snippet
-```java
-        registerArrayConverter(Class.class,          new ClassConverter(),         throwException, defaultArraySize);
-        registerArrayConverter(Enum.class,           new EnumConverter(),          throwException, defaultArraySize);
-        registerArrayConverter(java.util.Date.class, new DateConverter(),          throwException, defaultArraySize);
-        registerArrayConverter(Calendar.class,       new CalendarConverter(),      throwException, defaultArraySize);
-        registerArrayConverter(File.class,           new FileConverter(),          throwException, defaultArraySize);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
-#### Snippet
-```java
-        registerArrayConverter(File.class,           new FileConverter(),          throwException, defaultArraySize);
-        registerArrayConverter(Path.class,           new PathConverter(),          throwException, defaultArraySize);
-        registerArrayConverter(java.sql.Date.class,  new SqlDateConverter(),       throwException, defaultArraySize);
-        registerArrayConverter(java.sql.Time.class,  new SqlTimeConverter(),       throwException, defaultArraySize);
-        registerArrayConverter(Timestamp.class,      new SqlTimestampConverter(),  throwException, defaultArraySize);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
-#### Snippet
-```java
-        registerArrayConverter(Path.class,           new PathConverter(),          throwException, defaultArraySize);
-        registerArrayConverter(java.sql.Date.class,  new SqlDateConverter(),       throwException, defaultArraySize);
-        registerArrayConverter(java.sql.Time.class,  new SqlTimeConverter(),       throwException, defaultArraySize);
-        registerArrayConverter(Timestamp.class,      new SqlTimestampConverter(),  throwException, defaultArraySize);
-        registerArrayConverter(URL.class,            new URLConverter(),           throwException, defaultArraySize);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2083,27 +2047,39 @@ in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/converters/LocalTimeConverter.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
 #### Snippet
 ```java
- *
- * @since 2.0
- * @see java.time.LocalTime
- */
-public final class LocalTimeConverter extends AbstractConverter<LocalTime> {
+        registerArrayConverter(Class.class,          new ClassConverter(),         throwException, defaultArraySize);
+        registerArrayConverter(Enum.class,           new EnumConverter(),          throwException, defaultArraySize);
+        registerArrayConverter(java.util.Date.class, new DateConverter(),          throwException, defaultArraySize);
+        registerArrayConverter(Calendar.class,       new CalendarConverter(),      throwException, defaultArraySize);
+        registerArrayConverter(File.class,           new FileConverter(),          throwException, defaultArraySize);
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/DefaultBeanIntrospector.java`
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
 #### Snippet
 ```java
+        registerArrayConverter(File.class,           new FileConverter(),          throwException, defaultArraySize);
+        registerArrayConverter(Path.class,           new PathConverter(),          throwException, defaultArraySize);
+        registerArrayConverter(java.sql.Date.class,  new SqlDateConverter(),       throwException, defaultArraySize);
+        registerArrayConverter(java.sql.Time.class,  new SqlTimeConverter(),       throwException, defaultArraySize);
+        registerArrayConverter(Timestamp.class,      new SqlTimestampConverter(),  throwException, defaultArraySize);
+```
 
-    /** Constant for arguments types of a method that expects a list argument. */
-    private static final Class<?>[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
-
-    /** For logging. Each subclass gets its own log instance. */
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
+#### Snippet
+```java
+        registerArrayConverter(Path.class,           new PathConverter(),          throwException, defaultArraySize);
+        registerArrayConverter(java.sql.Date.class,  new SqlDateConverter(),       throwException, defaultArraySize);
+        registerArrayConverter(java.sql.Time.class,  new SqlTimeConverter(),       throwException, defaultArraySize);
+        registerArrayConverter(Timestamp.class,      new SqlTimestampConverter(),  throwException, defaultArraySize);
+        registerArrayConverter(URL.class,            new URLConverter(),           throwException, defaultArraySize);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2176,6 +2152,30 @@ in `src/main/java/org/apache/commons/beanutils2/converters/LocalDateTimeConverte
  * @see java.time.LocalDateTime
  */
 public final class LocalDateTimeConverter extends DateTimeConverter<LocalDateTime> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/DefaultBeanIntrospector.java`
+#### Snippet
+```java
+
+    /** Constant for arguments types of a method that expects a list argument. */
+    private static final Class<?>[] LIST_CLASS_PARAMETER = new Class[] { java.util.List.class };
+
+    /** For logging. Each subclass gets its own log instance. */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/converters/LocalTimeConverter.java`
+#### Snippet
+```java
+ *
+ * @since 2.0
+ * @see java.time.LocalTime
+ */
+public final class LocalTimeConverter extends AbstractConverter<LocalTime> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2299,30 +2299,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigIntegerLoca
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
-#### Snippet
-```java
-     * @return null if matching accessible constructor can not be found.
-     * @see Class#getConstructor
-     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
-     */
-    public static <T> Constructor<T> getAccessibleConstructor(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
-#### Snippet
-```java
-     * @return null if matching accessible constructor can not be found
-     * @see Class#getConstructor
-     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
-     */
-    public static <T> Constructor<T> getAccessibleConstructor(
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.time` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/beanutils2/converters/DurationConverter.java`
 #### Snippet
@@ -2335,15 +2311,15 @@ public final class DurationConverter extends AbstractConverter<Duration> {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.beans` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/IntegerLocaleConverter.java`
 #### Snippet
 ```java
- * <p>where {@code <strong>Property</strong>} must be replaced
- * by the name of the property.
- * @see java.beans.PropertyDescriptor
- *
+/**
+ * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Integer}
+ * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
  */
+public class IntegerLocaleConverter extends DecimalLocaleConverter<Integer> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2371,15 +2347,15 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigDecimalLoca
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/IntegerLocaleConverter.java`
+Qualifier `java.beans` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
 #### Snippet
 ```java
-/**
- * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Integer}
- * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
+ * <p>where {@code <strong>Property</strong>} must be replaced
+ * by the name of the property.
+ * @see java.beans.PropertyDescriptor
+ *
  */
-public class IntegerLocaleConverter extends DecimalLocaleConverter<Integer> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2416,6 +2392,30 @@ in `src/main/java/org/apache/commons/beanutils2/sql/converters/locale/SqlTimesta
         return new Timestamp(((java.util.Date) super.parse(value, pattern)).getTime());
     }
 }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
+#### Snippet
+```java
+     * @return null if matching accessible constructor can not be found.
+     * @see Class#getConstructor
+     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
+     */
+    public static <T> Constructor<T> getAccessibleConstructor(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
+#### Snippet
+```java
+     * @return null if matching accessible constructor can not be found
+     * @see Class#getConstructor
+     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
+     */
+    public static <T> Constructor<T> getAccessibleConstructor(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2504,18 +2504,6 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/DoubleLocaleConverter.java`
-#### Snippet
-```java
-/**
- * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Double}
- * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
- */
-public class DoubleLocaleConverter extends DecimalLocaleConverter<Double> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/ByteLocaleConverter.java`
 #### Snippet
 ```java
@@ -2524,6 +2512,18 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/ByteLocaleConv
  * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
  */
 public class ByteLocaleConverter extends DecimalLocaleConverter<Byte> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.beanutils2` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/DoubleLocaleConverter.java`
+#### Snippet
+```java
+/**
+ * Standard {@link org.apache.commons.beanutils2.locale.LocaleConverter} implementation that converts an incoming locale-sensitive String into a {@link Double}
+ * object, optionally using a default value or throwing a {@link org.apache.commons.beanutils2.ConversionException} if a conversion error occurs.
+ */
+public class DoubleLocaleConverter extends DecimalLocaleConverter<Double> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2550,7 +2550,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
 
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
@@ -2563,7 +2563,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `BaseDynaBeanMapDecorator()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/beanutils2/BaseDynaBeanMapDecorator.java`
@@ -2653,18 +2653,6 @@ Constructor `NumberConverter()` of an abstract class should not be declared 'pub
 in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 #### Snippet
 ```java
-     * @param defaultValue The default value to be returned
-     */
-    public NumberConverter(final boolean allowDecimals, final N defaultValue) {
-        this.allowDecimals = allowDecimals;
-        setDefaultValue(defaultValue);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `NumberConverter()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
-#### Snippet
-```java
      * @param allowDecimals Indicates whether decimals are allowed
      */
     public NumberConverter(final boolean allowDecimals) {
@@ -2672,7 +2660,19 @@ in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
     }
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+### NonProtectedConstructorInAbstractClass
+Constructor `NumberConverter()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
+#### Snippet
+```java
+     * @param defaultValue The default value to be returned
+     */
+    public NumberConverter(final boolean allowDecimals, final N defaultValue) {
+        this.allowDecimals = allowDecimals;
+        setDefaultValue(defaultValue);
+```
+
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `expected` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -2709,7 +2709,7 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
     /**
 ```
 
-## RuleId[ruleID=EmptyMethod]
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 The method is empty
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
@@ -2722,7 +2722,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
     }
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `name`
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
@@ -2736,39 +2736,39 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `propertyName`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
 #### Snippet
 ```java
-            final String name = resolver.getProperty(propertyName);
-            if (name == null || name.isEmpty()) {
-                propertyName = resolver.getKey(propertyName);
-            }
         }
+
+        value = convertArray(value);
+
+        // Missing Value
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
 #### Snippet
 ```java
 
-        // Isolate the name
-        name = resolver.getProperty(name);
-
-        // Request the specified indexed property value
+        // Trim any matching '{' and '}' delimiters
+        value = toTrim(value);
+        if (value.startsWith("{") && value.endsWith("}")) {
+            value = value.substring(1, value.length() - 1);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
 #### Snippet
 ```java
+        value = toTrim(value);
+        if (value.startsWith("{") && value.endsWith("}")) {
+            value = value.substring(1, value.length() - 1);
+        }
 
-        // Isolate the name
-        name = resolver.getProperty(name);
-
-        // Request the specified indexed property value
 ```
 
 ### AssignmentToMethodParameter
@@ -2776,7 +2776,7 @@ Assignment to method parameter `bean`
 in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-                         "' on bean class '" + bean.getClass() + "'");
+                        "' on bean class '" + bean.getClass() + "'");
             }
             bean = nestedBean;
             name = resolver.remove(name);
@@ -2791,6 +2791,30 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
             }
             bean = nestedBean;
             name = resolver.remove(name);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Remove any subscript from the final name value
+        name = resolver.getProperty(name);
+
+        // Treat WrapDynaBean as special case - may be a write-only property
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        // (see Jira issue# BEANUTILS-61)
+        if (bean instanceof WrapDynaBean) {
+            bean = ((WrapDynaBean)bean).getInstance();
         }
 
 ```
@@ -2804,7 +2828,127 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
         // Isolate the name
         name = resolver.getProperty(name);
 
-        // Request the specified indexed property value
+        // Set the specified indexed property value
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+                        "' on bean class '" + bean.getClass() + "'");
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Remove any subscript from the final name value
+        name = resolver.getProperty(name);
+
+        // Treat WrapDynaBean as special case - may be a read-only property
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        // (see Jira issue# BEANUTILS-61)
+        if (bean instanceof WrapDynaBean) {
+            bean = ((WrapDynaBean)bean).getInstance();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+                        "' on bean class '" + bean.getClass() + "'");
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Remove any subscript from the final name value
+        name = resolver.getProperty(name);
+
+        // Look up and return this property from our cache
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+                        "' on bean class '" + bean.getClass() + "'");
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Remove any subscript from the final name value
+        name = resolver.getProperty(name);
+
+        // Special handling for DynaBeans
 ```
 
 ### AssignmentToMethodParameter
@@ -2880,135 +3024,15 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bean`
+Assignment to method parameter `propertyName`
 in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-                        "' on bean class '" + bean.getClass() + "'");
+            final String name = resolver.getProperty(propertyName);
+            if (name == null || name.isEmpty()) {
+                propertyName = resolver.getKey(propertyName);
             }
-            bean = nestedBean;
-            name = resolver.remove(name);
         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Remove any subscript from the final name value
-        name = resolver.getProperty(name);
-
-        // Look up and return this property from our cache
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bean`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-                        "' on bean class '" + bean.getClass() + "'");
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Remove any subscript from the final name value
-        name = resolver.getProperty(name);
-
-        // Treat WrapDynaBean as special case - may be a read-only property
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
-#### Snippet
-```java
-        }
-
-        value = convertArray(value);
-
-        // Missing Value
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bean`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        // (see Jira issue# BEANUTILS-61)
-        if (bean instanceof WrapDynaBean) {
-            bean = ((WrapDynaBean)bean).getInstance();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bean`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-                        "' on bean class '" + bean.getClass() + "'");
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Remove any subscript from the final name value
-        name = resolver.getProperty(name);
-
-        // Special handling for DynaBeans
 ```
 
 ### AssignmentToMethodParameter
@@ -3020,55 +3044,7 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
         // Isolate the name
         name = resolver.getProperty(name);
 
-        // Set the specified indexed property value
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bean`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-                        "' on bean class '" + bean.getClass() + "'");
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            }
-            bean = nestedBean;
-            name = resolver.remove(name);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Remove any subscript from the final name value
-        name = resolver.getProperty(name);
-
-        // Treat WrapDynaBean as special case - may be a write-only property
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bean`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        // (see Jira issue# BEANUTILS-61)
-        if (bean instanceof WrapDynaBean) {
-            bean = ((WrapDynaBean)bean).getInstance();
-        }
-
+        // Request the specified indexed property value
 ```
 
 ### AssignmentToMethodParameter
@@ -3084,27 +3060,51 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
+Assignment to method parameter `bean`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-
-        // Trim any matching '{' and '}' delimiters
-        value = toTrim(value);
-        if (value.startsWith("{") && value.endsWith("}")) {
-            value = value.substring(1, value.length() - 1);
+                         "' on bean class '" + bean.getClass() + "'");
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
+        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-        value = toTrim(value);
-        if (value.startsWith("{") && value.endsWith("}")) {
-            value = value.substring(1, value.length() - 1);
+            }
+            bean = nestedBean;
+            name = resolver.remove(name);
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Isolate the name
+        name = resolver.getProperty(name);
+
+        // Request the specified indexed property value
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Isolate the name
+        name = resolver.getProperty(name);
+
+        // Request the specified indexed property value
 ```
 
 ### AssignmentToMethodParameter
@@ -3161,30 +3161,6 @@ in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
 #### Snippet
 ```java
 
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
-#### Snippet
-```java
-
-        if (parameterTypes == null) {
-            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
-#### Snippet
-```java
-
         if (null == args) {
             args = BeanUtils.EMPTY_OBJECT_ARRAY;
         }
@@ -3225,6 +3201,30 @@ in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
             args = BeanUtils.EMPTY_OBJECT_ARRAY;
         }
         final int arguments = args.length;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
+#### Snippet
+```java
+
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameterTypes`
+in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
+#### Snippet
+```java
+
+        if (parameterTypes == null) {
+            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -3237,6 +3237,30 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaClass.java`
             dynaBeanClass = BasicDynaBean.class;
         }
         setDynaBeanClass(dynaBeanClass);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameterTypes`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+
+        if (parameterTypes == null) {
+            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
+        }
+        if (args == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+        }
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -3312,6 +3336,66 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            InvocationTargetException {
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+        final int arguments = args.length;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            InvocationTargetException {
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameterTypes`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+
+        if (parameterTypes == null) {
+            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            InvocationTargetException {
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameterTypes`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+
+        if (parameterTypes == null) {
+            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
+        }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `parameterTypes`
 in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
@@ -3336,30 +3420,6 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-        final int arguments = args.length;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-        final int arguments = args.length;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `paramTypes`
 in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
@@ -3368,78 +3428,6 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
             if (paramTypes == null) {
                 paramTypes = BeanUtils.EMPTY_CLASS_ARRAY;
             }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-
-        if (parameterTypes == null) {
-            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-
-        if (parameterTypes == null) {
-            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
-        }
-        if (args == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-        }
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        if (args == null) {
-            args = BeanUtils.EMPTY_OBJECT_ARRAY;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-
-        if (parameterTypes == null) {
-            parameterTypes = BeanUtils.EMPTY_CLASS_ARRAY;
-        }
 
 ```
 
@@ -3453,6 +3441,30 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
         for (; clazz != null; clazz = clazz.getSuperclass()) {
 
             // Check the implemented interfaces of the parent class
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            InvocationTargetException {
+        if (args == null) {
+            args = BeanUtils.EMPTY_OBJECT_ARRAY;
+        }
+        final int arguments = args.length;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+                    return;
+                }
+                name = resolver.remove(name);
+            } catch (final NoSuchMethodException e) {
+                return; // Skip this property setter
 ```
 
 ### AssignmentToMethodParameter
@@ -3491,22 +3503,10 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
                 getPropertyUtils().setSimpleProperty(target, propName, value);
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-                    return;
-                }
-                name = resolver.remove(name);
-            } catch (final NoSuchMethodException e) {
-                return; // Skip this property setter
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
+## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-26-01-23-10.694.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-09-56-52.993.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3516,7 +3516,7 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-26-01-23-10.694.
           </tbody>
 ```
 
-## RuleId[ruleID=InstanceofCatchParameter]
+## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `src/main/java/org/apache/commons/beanutils2/locale/BaseLocaleConverter.java`
@@ -3529,19 +3529,7 @@ in `src/main/java/org/apache/commons/beanutils2/locale/BaseLocaleConverter.java`
             }
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/BaseDynaBeanMapDecorator.java`
-#### Snippet
-```java
-     */
-    private String toString(final Object obj) {
-        return obj == null ? null : obj.toString();
-    }
-
-```
-
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/BeanIntrospectionData.java`
@@ -3550,6 +3538,18 @@ in `src/main/java/org/apache/commons/beanutils2/BeanIntrospectionData.java`
             }
         }
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/BaseDynaBeanMapDecorator.java`
+#### Snippet
+```java
+     */
+    private String toString(final Object obj) {
+        return obj == null ? null : obj.toString();
     }
 
 ```
@@ -3619,6 +3619,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
 #### Snippet
 ```java
+    protected Object getDefault(final Class<?> type) {
+        if (type.equals(String.class)) {
+            return null;
+        }
+        return defaultValue;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
+#### Snippet
+```java
     protected Object convertArray(final Object value) {
         if (value == null) {
             return null;
@@ -3652,14 +3664,38 @@ in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
+in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
 #### Snippet
 ```java
     protected Object getDefault(final Class<?> type) {
         if (type.equals(String.class)) {
             return null;
         }
-        return defaultValue;
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
+#### Snippet
+```java
+        final Object defaultValue = super.getDefault(type);
+        if (defaultValue == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
+#### Snippet
+```java
+            return SHORT_ZERO;
+        }
+        return null;
+
+    }
 ```
 
 ### ReturnNull
@@ -3671,6 +3707,30 @@ in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
         if (name == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+    Map getMappedPropertyDescriptors(final Object bean) {
+        if (bean == null) {
+            return null;
+        }
+        return getMappedPropertyDescriptors(bean.getClass());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            return descriptor.getPropertyEditorClass();
+        }
+        return null;
+    }
 
 ```
 
@@ -3715,68 +3775,8 @@ Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-    Map getMappedPropertyDescriptors(final Object bean) {
-        if (bean == null) {
-            return null;
-        }
-        return getMappedPropertyDescriptors(bean.getClass());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
     Map<Class<?>, Map> getMappedPropertyDescriptors(final Class<?> beanClass) {
         if (beanClass == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            return descriptor.getPropertyEditorClass();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
-#### Snippet
-```java
-            return SHORT_ZERO;
-        }
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
-#### Snippet
-```java
-    protected Object getDefault(final Class<?> type) {
-        if (type.equals(String.class)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/converters/ArrayConverter.java`
-#### Snippet
-```java
-        final Object defaultValue = super.getDefault(type);
-        if (defaultValue == null) {
             return null;
         }
 
@@ -3832,6 +3832,18 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/DateLocaleConv
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/ContextClassLoaderLocal.java`
+#### Snippet
+```java
+     */
+    protected T initialValue() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 #### Snippet
 ```java
@@ -3839,6 +3851,54 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
         }
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+        // Property doesn't exist
+        if (!isDynaProperty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+                        type.getName() + "' for '" + name + "' ", ex);
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+     */
+    protected Object createNumberProperty(final String name, final Class<?> type) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected Object createProperty(final String name, final Class<?> type) {
+        if (type == null) {
+            return null;
+        }
 
 ```
 
@@ -3880,11 +3940,11 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
 #### Snippet
 ```java
-    protected Object createProperty(final String name, final Class<?> type) {
-        if (type == null) {
+            throws IntrospectionException {
+        if (methodName == null) {
             return null;
         }
 
@@ -3892,37 +3952,49 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
 #### Snippet
 ```java
-                        type.getName() + "' for '" + name + "' ", ex);
+                return classLoader.loadClass(name);
+            } catch (final ClassNotFoundException e) {
+                return null;
             }
-            return null;
         }
-    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
 #### Snippet
 ```java
-        // Property doesn't exist
-        if (!isDynaProperty(name)) {
-            return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-     */
-    protected Object createNumberProperty(final String name, final Class<?> type) {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+        private Method get() {
+            if (methodRef == null) {
+                return null;
+            }
+            Method m = methodRef.get();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+                                           throws IntrospectionException {
+        if (methodName == null) {
+            return null;
+        }
 
 ```
 
@@ -3988,73 +4060,37 @@ in `src/main/java/org/apache/commons/beanutils2/ConstructorUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/ContextClassLoaderLocal.java`
+in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
 #### Snippet
 ```java
-     */
-    protected T initialValue() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-        private Method get() {
-            if (methodRef == null) {
-                return null;
-            }
-            Method m = methodRef.get();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-                                           throws IntrospectionException {
-        if (methodName == null) {
+    public String getKey(final String expression) {
+        if (expression == null || expression.isEmpty()) {
             return null;
         }
-
+        for (int i = 0; i < expression.length(); i++) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
 #### Snippet
 ```java
-                return classLoader.loadClass(name);
-            } catch (final ClassNotFoundException e) {
+            final char c = expression.charAt(i);
+            if (c == NESTED || c == INDEXED_START) {
                 return null;
             }
-        }
+            if (c == MAPPED_START) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
 #### Snippet
 ```java
-            throws IntrospectionException {
-        if (methodName == null) {
-            return null;
+            }
         }
+        return null;
+    }
 
 ```
 
@@ -4096,34 +4132,70 @@ in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
 ```java
-    public String getKey(final String expression) {
-        if (expression == null || expression.isEmpty()) {
+        // Make sure we have a method to check
+        if (method == null) {
             return null;
         }
-        for (int i = 0; i < expression.length(); i++) {
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
 ```java
-            final char c = expression.charAt(i);
-            if (c == NESTED || c == INDEXED_START) {
-                return null;
-            }
-            if (c == MAPPED_START) {
+        // If the requested method is not public we cannot call it
+        if (!Modifier.isPublic(method.getModifiers())) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            return method;
+        } catch (final NoSuchMethodException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+        // Make sure we have a method to check
+        if (method == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
+#### Snippet
+```java
+            LOG.debug("Not a known primitive wrapper class: " + wrapperType);
         }
         return null;
     }
@@ -4171,107 +4243,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
 #### Snippet
 ```java
-        // Make sure we have a method to check
-        if (method == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-        // If the requested method is not public we cannot call it
-        if (!Modifier.isPublic(method.getModifiers())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-        // Make sure we have a method to check
-        if (method == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            return method;
-        } catch (final NoSuchMethodException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
-            LOG.debug("Not a known primitive wrapper class: " + wrapperType);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
-#### Snippet
-```java
 
         // We did not find anything
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-        final Object value = getPropertyUtils().getProperty(bean, name);
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Collection) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-        }
-        if (value instanceof Collection) {
-            return ((Collection<?>) value).stream().map(item -> item != null ? getConvertUtils().convert(item) : null).toArray(String[]::new);
-        }
-        if (!value.getClass().isArray()) {
 ```
 
 ### ReturnNull
@@ -4300,6 +4276,30 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+        final Object value = getPropertyUtils().getProperty(bean, name);
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof Collection) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+        }
+        if (value instanceof Collection) {
+            return ((Collection<?>) value).stream().map(item -> item != null ? getConvertUtils().convert(item) : null).toArray(String[]::new);
+        }
+        if (!value.getClass().isArray()) {
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
 #### Snippet
 ```java
@@ -4310,7 +4310,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `calendar` is redundant
 in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
@@ -4344,32 +4344,20 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
             // The new map is used as properties map
             Map<String, Object> temp = getMap().getClass().newInstance();
             newMap = temp;
-        } catch(final Exception ex) {
+        } catch (final Exception ex) {
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
+## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-    public V put(final K key, final V value) {
+    public void putAll(final Map<? extends K, ? extends V> in) {
         if (fast) {
             synchronized (this) {
-                final Map<K, V> temp = cloneMap(map);
-                final V result = temp.put(key, value);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-    public void clear() {
-        if (fast) {
-            synchronized (this) {
-                map = createMap();
-            }
+                final Map<K, V> temp =  cloneMap(map);
+                temp.putAll(in);
 ```
 
 ### SynchronizeOnThis
@@ -4389,30 +4377,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-        public boolean removeAll(final Collection<?> o) {
-            if (fast) {
-                synchronized (WeakFastHashMap.this) {
-                    final Map<K, V> temp = cloneMap(map);
-                    final boolean r = get(temp).removeAll(o);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
-        public boolean remove(final Object o) {
-            if (fast) {
-                synchronized (WeakFastHashMap.this) {
-                    final Map<K, V> temp = cloneMap(map);
-                    final boolean r = get(temp).remove(o);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
-#### Snippet
-```java
         public void clear() {
             if (fast) {
                 synchronized (WeakFastHashMap.this) {
@@ -4425,11 +4389,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-        public boolean retainAll(final Collection<?> o) {
+        public boolean removeAll(final Collection<?> o) {
             if (fast) {
                 synchronized (WeakFastHashMap.this) {
                     final Map<K, V> temp = cloneMap(map);
-                    final boolean r = get(temp).retainAll(o);
+                    final boolean r = get(temp).removeAll(o);
 ```
 
 ### SynchronizeOnThis
@@ -4449,26 +4413,50 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-    public void putAll(final Map<? extends K, ? extends V> in) {
+    public void clear() {
         if (fast) {
             synchronized (this) {
-                final Map<K, V> temp =  cloneMap(map);
-                temp.putAll(in);
+                map = createMap();
+            }
 ```
 
-## RuleId[ruleID=TypeParameterExtendsObject]
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `src/main/java/org/apache/commons/beanutils2/BaseDynaBeanMapDecorator.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public void putAll(final Map<? extends K, ? extends Object> map) {
-        if (isReadOnly()) {
-            throw new UnsupportedOperationException("Map is read only");
+        public boolean retainAll(final Collection<?> o) {
+            if (fast) {
+                synchronized (WeakFastHashMap.this) {
+                    final Map<K, V> temp = cloneMap(map);
+                    final boolean r = get(temp).retainAll(o);
 ```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+        public boolean remove(final Object o) {
+            if (fast) {
+                synchronized (WeakFastHashMap.this) {
+                    final Map<K, V> temp = cloneMap(map);
+                    final boolean r = get(temp).remove(o);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
+#### Snippet
+```java
+    public V put(final K key, final V value) {
+        if (fast) {
+            synchronized (this) {
+                final Map<K, V> temp = cloneMap(map);
+                final V result = temp.put(key, value);
+```
+
+## RuleId[id=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `src/main/java/org/apache/commons/beanutils2/BeanUtils.java`
@@ -4483,14 +4471,14 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtils.java`
 
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+in `src/main/java/org/apache/commons/beanutils2/BaseDynaBeanMapDecorator.java`
 #### Snippet
 ```java
-
-
-    private final transient HashMap<String, Class<? extends Object>> types = new HashMap<>();
-
-    /**
+     */
+    @Override
+    public void putAll(final Map<? extends K, ? extends Object> map) {
+        if (isReadOnly()) {
+            throw new UnsupportedOperationException("Map is read only");
 ```
 
 ### TypeParameterExtendsObject
@@ -4515,18 +4503,6 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
         final Map<Class<? extends Object>, Function<?, ?>> defTransformers = new HashMap<>();
         defTransformers.put(Boolean.TYPE, input -> Boolean.valueOf(input.toString()));
         defTransformers.put(Character.TYPE, input -> Character.valueOf(input.toString().charAt(0)));
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
-#### Snippet
-```java
-        }
-
-        Class<? extends Object> beanClass = null;
-        try {
-            beanClass = bean.getClass();
 ```
 
 ### TypeParameterExtendsObject
@@ -4570,18 +4546,6 @@ Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 #### Snippet
 ```java
-
-        Object newBean = null;
-        final Class<? extends Object> beanClass = bean.getClass(); // Cannot throw Exception
-        try {
-            newBean = beanClass.newInstance();
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
-#### Snippet
-```java
         try {
             if (value != null) {
                 final Class<? extends Object>[] paramTypes = method.getParameterTypes();
@@ -4599,6 +4563,42 @@ in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
                     final Class<? extends Object> paramType = paramTypes[0];
                     if (!paramType.isAssignableFrom(value.getClass())) {
                         value = convertType(paramType, value);
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+#### Snippet
+```java
+        }
+
+        Class<? extends Object> beanClass = null;
+        try {
+            beanClass = bean.getClass();
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+#### Snippet
+```java
+
+
+    private final transient HashMap<String, Class<? extends Object>> types = new HashMap<>();
+
+    /**
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+#### Snippet
+```java
+
+        Object newBean = null;
+        final Class<? extends Object> beanClass = bean.getClass(); // Cannot throw Exception
+        try {
+            newBean = beanClass.newInstance();
 ```
 
 ### TypeParameterExtendsObject
@@ -4625,7 +4625,7 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
             final String name = entry.getKey();
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `results` initializer `null` is redundant
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -4667,8 +4667,8 @@ Variable `newValue` initializer `null` is redundant
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
 #### Snippet
 ```java
-     */
-    protected Object convert(final Class<?> type, final int index, final Object value) {
+        }
+
         Object newValue = null;
 
         if (type.isArray() && index < 0) { // Scalar value into array
@@ -4679,8 +4679,8 @@ Variable `newValue` initializer `null` is redundant
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
 #### Snippet
 ```java
-        }
-
+     */
+    protected Object convert(final Class<?> type, final int index, final Object value) {
         Object newValue = null;
 
         if (type.isArray() && index < 0) { // Scalar value into array
@@ -4711,114 +4711,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtilsBean.java`
 ```
 
 ### UnusedAssignment
-Variable `key` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Identify the key of the requested individual property
-        String key  = null;
-        try {
-            key = resolver.getKey(name);
-```
-
-### UnusedAssignment
-Variable `index` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Identify the index of the requested individual property
-        int index = -1;
-        try {
-            index = resolver.getIndex(name);
-```
-
-### UnusedAssignment
-Variable `nestedBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        while (resolver.hasNested(name)) {
-            final String next = resolver.next(name);
-            Object nestedBean = null;
-            if (bean instanceof Map) {
-                nestedBean = getPropertyOfMapBean((Map<?, ?>)bean, next);
-```
-
-### UnusedAssignment
-Variable `key` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Identify the key of the requested individual property
-        String key  = null;
-        try {
-            key = resolver.getKey(name);
-```
-
-### UnusedAssignment
-Variable `nestedBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        while (resolver.hasNested(name)) {
-            final String next = resolver.next(name);
-            Object nestedBean = null;
-            if (bean instanceof Map) {
-                nestedBean = getPropertyOfMapBean((Map<?, ?>) bean, next);
-```
-
-### UnusedAssignment
-Variable `nestedBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        while (resolver.hasNested(name)) {
-            final String next = resolver.next(name);
-            Object nestedBean = null;
-            try {
-                nestedBean = getProperty(bean, next);
-```
-
-### UnusedAssignment
-Variable `index` initializer `-1` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-
-        // Identify the index of the requested individual property
-        int index = -1;
-        try {
-            index = resolver.getIndex(name);
-```
-
-### UnusedAssignment
-Variable `nestedBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-        while (resolver.hasNested(name)) {
-            final String next = resolver.next(name);
-            Object nestedBean = null;
-            try {
-                nestedBean = getProperty(bean, next);
-```
-
-### UnusedAssignment
-Variable `typeName` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
-#### Snippet
-```java
-     */
-    String toString(final Class<?> type) {
-        String typeName = null;
-        if (type == null) {
-            typeName = "null";
-```
-
-### UnusedAssignment
 Variable `cex` initializer `null` is redundant
 in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
 #### Snippet
@@ -4831,51 +4723,15 @@ in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.jav
 ```
 
 ### UnusedAssignment
-Variable `format` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/sql/converters/SqlTimeConverter.java`
-#### Snippet
-```java
-    @Override
-    protected DateFormat getFormat(final Locale locale, final TimeZone timeZone) {
-        DateFormat format = null;
-        if (locale == null) {
-            format = DateFormat.getTimeInstance(DateFormat.SHORT);
-```
-
-### UnusedAssignment
-Variable `calendar` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-        // java.util.Calendar
-        if (type.equals(Calendar.class)) {
-            Calendar calendar = null;
-            if (locale == null && timeZone == null) {
-                calendar = Calendar.getInstance();
-```
-
-### UnusedAssignment
-Variable `calendar` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
-#### Snippet
-```java
-        // Parse the Date/Time
-        if (useLocaleFormat) {
-            Calendar calendar = null;
-            if (patterns != null && patterns.length > 0) {
-                calendar = parse(sourceType, targetType, stringValue);
-```
-
-### UnusedAssignment
-Variable `format` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
+Variable `typeName` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/converters/AbstractConverter.java`
 #### Snippet
 ```java
      */
-    protected DateFormat getFormat(final Locale locale, final TimeZone timeZone) {
-        DateFormat format = null;
-        if (locale == null) {
-            format = DateFormat.getDateInstance(DateFormat.SHORT);
+    String toString(final Class<?> type) {
+        String typeName = null;
+        if (type == null) {
+            typeName = "null";
 ```
 
 ### UnusedAssignment
@@ -4900,6 +4756,54 @@ in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.jav
             DateFormat format = null;
             if (patterns != null && patterns.length > 0) {
                 format = getFormat(patterns[0]);
+```
+
+### UnusedAssignment
+Variable `calendar` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
+#### Snippet
+```java
+        // java.util.Calendar
+        if (type.equals(Calendar.class)) {
+            Calendar calendar = null;
+            if (locale == null && timeZone == null) {
+                calendar = Calendar.getInstance();
+```
+
+### UnusedAssignment
+Variable `format` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
+#### Snippet
+```java
+     */
+    protected DateFormat getFormat(final Locale locale, final TimeZone timeZone) {
+        DateFormat format = null;
+        if (locale == null) {
+            format = DateFormat.getDateInstance(DateFormat.SHORT);
+```
+
+### UnusedAssignment
+Variable `calendar` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/converters/DateTimeConverter.java`
+#### Snippet
+```java
+        // Parse the Date/Time
+        if (useLocaleFormat) {
+            Calendar calendar = null;
+            if (patterns != null && patterns.length > 0) {
+                calendar = parse(sourceType, targetType, stringValue);
+```
+
+### UnusedAssignment
+Variable `format` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/sql/converters/SqlTimeConverter.java`
+#### Snippet
+```java
+    @Override
+    protected DateFormat getFormat(final Locale locale, final TimeZone timeZone) {
+        DateFormat format = null;
+        if (locale == null) {
+            format = DateFormat.getTimeInstance(DateFormat.SHORT);
 ```
 
 ### UnusedAssignment
@@ -4932,6 +4836,18 @@ in `src/main/java/org/apache/commons/beanutils2/WrapDynaBean.java`
 #### Snippet
 ```java
     @Override
+    public Object get(final String name) {
+        Object value = null;
+        try {
+            value = getPropertyUtils().getSimpleProperty(instance, name);
+```
+
+### UnusedAssignment
+Variable `value` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/WrapDynaBean.java`
+#### Snippet
+```java
+    @Override
     public Object get(final String name, final int index) {
         Object value = null;
         try {
@@ -4951,27 +4867,99 @@ in `src/main/java/org/apache/commons/beanutils2/WrapDynaBean.java`
 ```
 
 ### UnusedAssignment
-Variable `value` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/WrapDynaBean.java`
+Variable `nestedBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-    @Override
-    public Object get(final String name) {
-        Object value = null;
-        try {
-            value = getPropertyUtils().getSimpleProperty(instance, name);
+        while (resolver.hasNested(name)) {
+            final String next = resolver.next(name);
+            Object nestedBean = null;
+            try {
+                nestedBean = getProperty(bean, next);
 ```
 
 ### UnusedAssignment
-Variable `beanInfo` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/DefaultBeanIntrospector.java`
+Variable `index` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
 #### Snippet
 ```java
-    @Override
-    public void introspect(final IntrospectionContext icontext) {
-        BeanInfo beanInfo = null;
+
+        // Identify the index of the requested individual property
+        int index = -1;
         try {
-            beanInfo = Introspector.getBeanInfo(icontext.getTargetClass());
+            index = resolver.getIndex(name);
+```
+
+### UnusedAssignment
+Variable `nestedBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        while (resolver.hasNested(name)) {
+            final String next = resolver.next(name);
+            Object nestedBean = null;
+            try {
+                nestedBean = getProperty(bean, next);
+```
+
+### UnusedAssignment
+Variable `nestedBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        while (resolver.hasNested(name)) {
+            final String next = resolver.next(name);
+            Object nestedBean = null;
+            if (bean instanceof Map) {
+                nestedBean = getPropertyOfMapBean((Map<?, ?>) bean, next);
+```
+
+### UnusedAssignment
+Variable `key` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Identify the key of the requested individual property
+        String key  = null;
+        try {
+            key = resolver.getKey(name);
+```
+
+### UnusedAssignment
+Variable `nestedBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+        while (resolver.hasNested(name)) {
+            final String next = resolver.next(name);
+            Object nestedBean = null;
+            if (bean instanceof Map) {
+                nestedBean = getPropertyOfMapBean((Map<?, ?>)bean, next);
+```
+
+### UnusedAssignment
+Variable `key` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Identify the key of the requested individual property
+        String key  = null;
+        try {
+            key = resolver.getKey(name);
+```
+
+### UnusedAssignment
+Variable `index` initializer `-1` is redundant
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+
+        // Identify the index of the requested individual property
+        int index = -1;
+        try {
+            index = resolver.getIndex(name);
 ```
 
 ### UnusedAssignment
@@ -4987,15 +4975,15 @@ in `src/main/java/org/apache/commons/beanutils2/sql/RowSetDynaClass.java`
 ```
 
 ### UnusedAssignment
-Variable `newBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+Variable `beanInfo` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/DefaultBeanIntrospector.java`
 #### Snippet
 ```java
-        }
-
-        Object newBean = null;
-        final Class<? extends Object> beanClass = bean.getClass(); // Cannot throw Exception
+    @Override
+    public void introspect(final IntrospectionContext icontext) {
+        BeanInfo beanInfo = null;
         try {
+            beanInfo = Introspector.getBeanInfo(icontext.getTargetClass());
 ```
 
 ### UnusedAssignment
@@ -5008,66 +4996,6 @@ in `src/main/java/org/apache/commons/beanutils2/sql/converters/SqlTimestampConve
         DateFormat format = null;
         if (locale == null) {
             format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-```
-
-### UnusedAssignment
-Variable `mappedProperty` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected Object createMappedProperty(final String name, final Class<?> type) {
-        // Create the mapped object
-        Object mappedProperty = null;
-
-        if ((type == null) || type.isInterface()) {
-```
-
-### UnusedAssignment
-Variable `indexedProperty` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
-#### Snippet
-```java
-    protected Object createIndexedProperty(final String name, final Class<?> type) {
-        // Create the indexed object
-        Object indexedProperty = null;
-
-        if (type == null) {
-```
-
-### UnusedAssignment
-Variable `paramTypes` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-                            className + " could not be reconstructed - class reference has gone");
-                }
-                Class<?>[] paramTypes = null;
-                if (writeParamClassNames != null) {
-                    paramTypes = new Class[2];
-```
-
-### UnusedAssignment
-Variable `mappedWriteMethod` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-        // search the mapped get and set methods
-        Method mappedReadMethod;
-        Method mappedWriteMethod = null;
-        mappedReadMethod =
-            getMethod(beanClass, mappedGetterName, STRING_CLASS_PARAMETER);
-```
-
-### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
-#### Snippet
-```java
-    protected String convertToString(final Object value) {
-
-        String result = null;
-        if (useLocaleFormat && value instanceof Number) {
-            final NumberFormat format = getFormat();
 ```
 
 ### UnusedAssignment
@@ -5095,6 +5023,78 @@ in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
 ```
 
 ### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/converters/NumberConverter.java`
+#### Snippet
+```java
+    protected String convertToString(final Object value) {
+
+        String result = null;
+        if (useLocaleFormat && value instanceof Number) {
+            final NumberFormat format = getFormat();
+```
+
+### UnusedAssignment
+Variable `newBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
+#### Snippet
+```java
+        }
+
+        Object newBean = null;
+        final Class<? extends Object> beanClass = bean.getClass(); // Cannot throw Exception
+        try {
+```
+
+### UnusedAssignment
+Variable `mappedProperty` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected Object createMappedProperty(final String name, final Class<?> type) {
+        // Create the mapped object
+        Object mappedProperty = null;
+
+        if ((type == null) || type.isInterface()) {
+```
+
+### UnusedAssignment
+Variable `indexedProperty` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/LazyDynaBean.java`
+#### Snippet
+```java
+    protected Object createIndexedProperty(final String name, final Class<?> type) {
+        // Create the indexed object
+        Object indexedProperty = null;
+
+        if (type == null) {
+```
+
+### UnusedAssignment
+Variable `mappedWriteMethod` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+        // search the mapped get and set methods
+        Method mappedReadMethod;
+        Method mappedWriteMethod = null;
+        mappedReadMethod =
+            getMethod(beanClass, mappedGetterName, STRING_CLASS_PARAMETER);
+```
+
+### UnusedAssignment
+Variable `paramTypes` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+                            className + " could not be reconstructed - class reference has gone");
+                }
+                Class<?>[] paramTypes = null;
+                if (writeParamClassNames != null) {
+                    paramTypes = new Class[2];
+```
+
+### UnusedAssignment
 Variable `index` initializer `0` is redundant
 in `src/main/java/org/apache/commons/beanutils2/expression/DefaultResolver.java`
 #### Snippet
@@ -5116,78 +5116,6 @@ in `src/main/java/org/apache/commons/beanutils2/MethodUtils.java`
         float myCost = Float.MAX_VALUE;
         for (final Method method2 : methods) {
             if (method2.getName().equals(methodName)) {
-```
-
-### UnusedAssignment
-Variable `type` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-        // Declare local variables we will require
-        final String propName = resolver.getProperty(name); // Simple name of target property
-        Class<?> type = null;                         // Java type of target property
-        final int index  = resolver.getIndex(name);         // Indexed subscript value (if any)
-        final String key = resolver.getKey(name);           // Mapped key value (if any)
-```
-
-### UnusedAssignment
-Variable `descriptor` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-            type = dynaPropertyType(dynaProperty, value);
-        } else {
-            PropertyDescriptor descriptor = null;
-            try {
-                descriptor =
-```
-
-### UnusedAssignment
-Variable `type` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-        // Declare local variables we will require
-        final String propName = resolver.getProperty(name); // Simple name of target property
-        Class<?> type = null;                         // Java type of target property
-        final int index  = resolver.getIndex(name);         // Indexed subscript value (if any)
-        final String key = resolver.getKey(name);           // Mapped key value (if any)
-```
-
-### UnusedAssignment
-Variable `descriptor` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-            type = Array.get(target, index).getClass();
-        } else {
-            PropertyDescriptor descriptor = null;
-            try {
-                descriptor =
-```
-
-### UnusedAssignment
-Variable `newValue` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-
-        // Convert the specified value to the required type
-        Object newValue = null;
-        if (type.isArray() && index < 0) { // Scalar value into array
-            if (value == null) {
-```
-
-### UnusedAssignment
-Variable `newBean` initializer `null` is redundant
-in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
-#### Snippet
-```java
-            LOG.debug("Cloning bean: " + bean.getClass().getName());
-        }
-        Object newBean = null;
-        if (bean instanceof DynaBean) {
-            newBean = ((DynaBean) bean).getDynaClass().newInstance();
 ```
 
 ### UnusedAssignment
@@ -5251,6 +5179,78 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaList.java`
 ```
 
 ### UnusedAssignment
+Variable `type` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+        // Declare local variables we will require
+        final String propName = resolver.getProperty(name); // Simple name of target property
+        Class<?> type = null;                         // Java type of target property
+        final int index  = resolver.getIndex(name);         // Indexed subscript value (if any)
+        final String key = resolver.getKey(name);           // Mapped key value (if any)
+```
+
+### UnusedAssignment
+Variable `descriptor` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+            type = Array.get(target, index).getClass();
+        } else {
+            PropertyDescriptor descriptor = null;
+            try {
+                descriptor =
+```
+
+### UnusedAssignment
+Variable `newValue` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+
+        // Convert the specified value to the required type
+        Object newValue = null;
+        if (type.isArray() && index < 0) { // Scalar value into array
+            if (value == null) {
+```
+
+### UnusedAssignment
+Variable `type` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+        // Declare local variables we will require
+        final String propName = resolver.getProperty(name); // Simple name of target property
+        Class<?> type = null;                         // Java type of target property
+        final int index  = resolver.getIndex(name);         // Indexed subscript value (if any)
+        final String key = resolver.getKey(name);           // Mapped key value (if any)
+```
+
+### UnusedAssignment
+Variable `descriptor` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+            type = dynaPropertyType(dynaProperty, value);
+        } else {
+            PropertyDescriptor descriptor = null;
+            try {
+                descriptor =
+```
+
+### UnusedAssignment
+Variable `newBean` initializer `null` is redundant
+in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
+#### Snippet
+```java
+            LOG.debug("Cloning bean: " + bean.getClass().getName());
+        }
+        Object newBean = null;
+        if (bean instanceof DynaBean) {
+            newBean = ((DynaBean) bean).getDynaClass().newInstance();
+```
+
+### UnusedAssignment
 Variable `newMap` initializer `null` is redundant
 in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
 #### Snippet
@@ -5262,7 +5262,7 @@ in `src/main/java/org/apache/commons/beanutils2/LazyDynaMap.java`
             final
 ```
 
-## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
 in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
@@ -5275,19 +5275,7 @@ in `src/main/java/org/apache/commons/beanutils2/WeakFastHashMap.java`
                 return true;
 ```
 
-## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `parTypes != null` is always `true`
-in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
-#### Snippet
-```java
-            final StringBuilder expectedString = new StringBuilder();
-            final Class<?>[] parTypes = method.getParameterTypes();
-            if (parTypes != null) {
-                for (int i = 0; i < parTypes.length; i++) {
-                    if (i > 0) {
-```
-
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `value` is always 'null'
 in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
@@ -5298,30 +5286,6 @@ in `src/main/java/org/apache/commons/beanutils2/BasicDynaBean.java`
             return value;
         }
 
-```
-
-### ConstantValue
-Condition `result == null || result instanceof Short` is always `true`
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
-#### Snippet
-```java
-        final Object result = super.parse(value, pattern);
-
-        if (result == null || result instanceof Short) {
-            return (Short) result;
-        }
-```
-
-### ConstantValue
-Condition `result instanceof Short` is always `true` when reached
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
-#### Snippet
-```java
-        final Object result = super.parse(value, pattern);
-
-        if (result == null || result instanceof Short) {
-            return (Short) result;
-        }
 ```
 
 ### ConstantValue
@@ -5349,6 +5313,42 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConv
 ```
 
 ### ConstantValue
+Condition `parTypes != null` is always `true`
+in `src/main/java/org/apache/commons/beanutils2/PropertyUtilsBean.java`
+#### Snippet
+```java
+            final StringBuilder expectedString = new StringBuilder();
+            final Class<?>[] parTypes = method.getParameterTypes();
+            if (parTypes != null) {
+                for (int i = 0; i < parTypes.length; i++) {
+                    if (i > 0) {
+```
+
+### ConstantValue
+Condition `result == null || result instanceof Short` is always `true`
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
+#### Snippet
+```java
+        final Object result = super.parse(value, pattern);
+
+        if (result == null || result instanceof Short) {
+            return (Short) result;
+        }
+```
+
+### ConstantValue
+Condition `result instanceof Short` is always `true` when reached
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
+#### Snippet
+```java
+        final Object result = super.parse(value, pattern);
+
+        if (result == null || result instanceof Short) {
+            return (Short) result;
+        }
+```
+
+### ConstantValue
 Value `converter` is always 'null'
 in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
 #### Snippet
@@ -5358,18 +5358,6 @@ in `src/main/java/org/apache/commons/beanutils2/ConvertUtilsBean.java`
                 LOG.trace("  Using converter " + converter);
             }
             return sConverter.convert(String.class, value);
-```
-
-### ConstantValue
-Condition `paramTypes != null` is always `true`
-in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
-#### Snippet
-```java
-            if (value != null) {
-                final Class<? extends Object>[] paramTypes = method.getParameterTypes();
-                if (paramTypes != null && paramTypes.length > 0) {
-                    final Class<? extends Object> paramType = paramTypes[0];
-                    if (!paramType.isAssignableFrom(value.getClass())) {
 ```
 
 ### ConstantValue
@@ -5397,39 +5385,15 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigIntegerLoca
 ```
 
 ### ConstantValue
-Condition `propertyName == null` is always `false`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+Condition `paramTypes != null` is always `true`
+in `src/main/java/org/apache/commons/beanutils2/BeanMap.java`
 #### Snippet
 ```java
-        super(propertyName, null, null);
-
-        if (propertyName == null || propertyName.isEmpty()) {
-            throw new IntrospectionException("bad property name: " +
-                    propertyName);
-```
-
-### ConstantValue
-Condition `propertyName == null` is always `false`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-        super(propertyName, mappedGetter, mappedSetter);
-
-        if (propertyName == null || propertyName.isEmpty()) {
-            throw new IntrospectionException("bad property name: " +
-                    propertyName);
-```
-
-### ConstantValue
-Condition `propertyName == null` is always `false`
-in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
-#### Snippet
-```java
-        super(propertyName, null, null);
-
-        if (propertyName == null || propertyName.isEmpty()) {
-            throw new IntrospectionException("bad property name: " +
-                    propertyName + " on class: " + beanClass.getClass().getName());
+            if (value != null) {
+                final Class<? extends Object>[] paramTypes = method.getParameterTypes();
+                if (paramTypes != null && paramTypes.length > 0) {
+                    final Class<? extends Object> paramType = paramTypes[0];
+                    if (!paramType.isAssignableFrom(value.getClass())) {
 ```
 
 ### ConstantValue
@@ -5457,6 +5421,42 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/BigDecimalLoca
 ```
 
 ### ConstantValue
+Condition `propertyName == null` is always `false`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+        super(propertyName, null, null);
+
+        if (propertyName == null || propertyName.isEmpty()) {
+            throw new IntrospectionException("bad property name: " +
+                    propertyName + " on class: " + beanClass.getClass().getName());
+```
+
+### ConstantValue
+Condition `propertyName == null` is always `false`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+        super(propertyName, null, null);
+
+        if (propertyName == null || propertyName.isEmpty()) {
+            throw new IntrospectionException("bad property name: " +
+                    propertyName);
+```
+
+### ConstantValue
+Condition `propertyName == null` is always `false`
+in `src/main/java/org/apache/commons/beanutils2/MappedPropertyDescriptor.java`
+#### Snippet
+```java
+        super(propertyName, mappedGetter, mappedSetter);
+
+        if (propertyName == null || propertyName.isEmpty()) {
+            throw new IntrospectionException("bad property name: " +
+                    propertyName);
+```
+
+### ConstantValue
 Condition `result instanceof Long` is always `false`
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/DoubleLocaleConverter.java`
 #### Snippet
@@ -5480,7 +5480,19 @@ in `src/main/java/org/apache/commons/beanutils2/BeanUtilsBean.java`
 
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
+## RuleId[id=MethodOverridesStaticMethod]
+### MethodOverridesStaticMethod
+Method `setProperty()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
+#### Snippet
+```java
+     * @see LocaleBeanUtilsBean#setProperty(Object, String, Object)
+     */
+    public static void setProperty(final Object bean, final String name, final Object value)
+            throws IllegalAccessException, InvocationTargetException {
+        LocaleBeanUtilsBean.getLocaleBeanUtilsInstance().setProperty(bean, name, value);
+```
+
 ### MethodOverridesStaticMethod
 Method `getIndexedProperty()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
@@ -5494,13 +5506,25 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 ```
 
 ### MethodOverridesStaticMethod
-Method `getProperty()` tries to override a static method of a superclass
+Method `getSimpleProperty()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 #### Snippet
 ```java
-     * @see LocaleBeanUtilsBean#getProperty(Object, String)
+     * @see LocaleBeanUtilsBean#getSimpleProperty(Object, String)
      */
-    public static String getProperty(final Object bean, final String name)
+    public static String getSimpleProperty(final Object bean, final String name)
+            throws IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException {
+```
+
+### MethodOverridesStaticMethod
+Method `getMappedProperty()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
+#### Snippet
+```java
+     * @see LocaleBeanUtilsBean#getMappedProperty(Object, String)
+     */
+    public static String getMappedProperty(final Object bean, final String name)
             throws IllegalAccessException, InvocationTargetException,
             NoSuchMethodException {
 ```
@@ -5518,37 +5542,13 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 ```
 
 ### MethodOverridesStaticMethod
-Method `getSimpleProperty()` tries to override a static method of a superclass
+Method `getProperty()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 #### Snippet
 ```java
-     * @see LocaleBeanUtilsBean#getSimpleProperty(Object, String)
+     * @see LocaleBeanUtilsBean#getProperty(Object, String)
      */
-    public static String getSimpleProperty(final Object bean, final String name)
-            throws IllegalAccessException, InvocationTargetException,
-            NoSuchMethodException {
-```
-
-### MethodOverridesStaticMethod
-Method `getIndexedProperty()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
-#### Snippet
-```java
-     * @see LocaleBeanUtilsBean#getIndexedProperty(Object, String, int)
-     */
-    public static String getIndexedProperty(final Object bean,
-                                            final String name, final int index)
-            throws IllegalAccessException, InvocationTargetException,
-```
-
-### MethodOverridesStaticMethod
-Method `getMappedProperty()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
-#### Snippet
-```java
-     * @see LocaleBeanUtilsBean#getMappedProperty(Object, String)
-     */
-    public static String getMappedProperty(final Object bean, final String name)
+    public static String getProperty(final Object bean, final String name)
             throws IllegalAccessException, InvocationTargetException,
             NoSuchMethodException {
 ```
@@ -5566,18 +5566,30 @@ in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 ```
 
 ### MethodOverridesStaticMethod
-Method `setProperty()` tries to override a static method of a superclass
+Method `getIndexedProperty()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/beanutils2/locale/LocaleBeanUtils.java`
 #### Snippet
 ```java
-     * @see LocaleBeanUtilsBean#setProperty(Object, String, Object)
+     * @see LocaleBeanUtilsBean#getIndexedProperty(Object, String, int)
      */
-    public static void setProperty(final Object bean, final String name, final Object value)
-            throws IllegalAccessException, InvocationTargetException {
-        LocaleBeanUtilsBean.getLocaleBeanUtilsInstance().setProperty(bean, name, value);
+    public static String getIndexedProperty(final Object bean,
+                                            final String name, final int index)
+            throws IllegalAccessException, InvocationTargetException,
 ```
 
-## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
+## RuleId[id=CastCanBeRemovedNarrowingVariableType]
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'result' to 'Long'
+in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConverter.java`
+#### Snippet
+```java
+
+        if (result == null || result instanceof Long) {
+            return (Long) result;
+        }
+
+```
+
 ### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'result' to 'Short'
 in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleConverter.java`
@@ -5600,18 +5612,6 @@ in `src/main/java/org/apache/commons/beanutils2/locale/converters/ShortLocaleCon
         final Number parsed = (Number) result;
         if (parsed.longValue() != parsed.shortValue()) {
             throw new ConversionException("Supplied number is not of type Short: " + parsed.longValue());
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'result' to 'Long'
-in `src/main/java/org/apache/commons/beanutils2/locale/converters/LongLocaleConverter.java`
-#### Snippet
-```java
-
-        if (result == null || result instanceof Long) {
-            return (Long) result;
-        }
-
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
