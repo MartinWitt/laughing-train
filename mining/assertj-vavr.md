@@ -45,7 +45,7 @@ in `src/main/java/org/assertj/vavr/api/VavrAssumptions.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-11-09-40.927.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-01-54-57.123.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -121,18 +121,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractSeqAssert.java`
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/OptionShouldBePresent.java`
-#### Snippet
-```java
-     *
-     * @return a error message factory.
-     * @throws java.lang.NullPointerException if option is null.
-     */
-    static OptionShouldBePresent shouldBePresent() {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/OptionShouldBeEmpty.java`
 #### Snippet
@@ -142,30 +130,6 @@ in `src/main/java/org/assertj/vavr/api/OptionShouldBeEmpty.java`
  * Build error message when an {@link io.vavr.control.Option} should be empty.
  *
  * @author Grzegorz Piwowarek
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryShouldContainInstanceOf.java`
-#### Snippet
-```java
-
-    /**
-     * Indicates that a value should be present in {@link io.vavr.control.Try}.
-     *
-     * @param value Try to be checked.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryShouldContainInstanceOf.java`
-#### Snippet
-```java
-     * @param value Try to be checked.
-     * @return an error message factory.
-     * @throws java.lang.NullPointerException if Try is null.
-     */
-    static TryShouldContainInstanceOf shouldContainInstanceOf(Object value, Class<?> clazz) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -187,9 +151,9 @@ in `src/main/java/org/assertj/vavr/api/OptionShouldContain.java`
 ```java
 
     /**
-     * Indicates that the provided {@link io.vavr.control.Option} does not contain the provided argument (judging by reference
-     * equality).
+     * Indicates that the provided {@link io.vavr.control.Option} does not contain the provided argument.
      *
+     * @param <VALUE>       the type of the value contained in the {@link Option}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -199,9 +163,45 @@ in `src/main/java/org/assertj/vavr/api/OptionShouldContain.java`
 ```java
 
     /**
-     * Indicates that the provided {@link io.vavr.control.Option} does not contain the provided argument.
+     * Indicates that the provided {@link io.vavr.control.Option} does not contain the provided argument (judging by reference
+     * equality).
      *
-     * @param <VALUE>       the type of the value contained in the {@link Option}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/TryAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.control.Try}.
+ *
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/TryAssert.java`
+#### Snippet
+```java
+ * Assertions for {@link io.vavr.control.Try}.
+ *
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
+ * @author Grzegorz Piwowarek
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/OptionShouldBePresent.java`
+#### Snippet
+```java
+     *
+     * @return a error message factory.
+     * @throws java.lang.NullPointerException if option is null.
+     */
+    static OptionShouldBePresent shouldBePresent() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -230,50 +230,26 @@ in `src/main/java/org/assertj/vavr/api/OptionShouldContainInstanceOf.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryAssert.java`
+in `src/main/java/org/assertj/vavr/api/TryShouldContainInstanceOf.java`
 #### Snippet
 ```java
 
-/**
- * Assertions for {@link io.vavr.control.Try}.
- *
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
+    /**
+     * Indicates that a value should be present in {@link io.vavr.control.Try}.
+     *
+     * @param value Try to be checked.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryAssert.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/TryShouldContainInstanceOf.java`
 #### Snippet
 ```java
- * Assertions for {@link io.vavr.control.Try}.
- *
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
- * @author Grzegorz Piwowarek
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/OptionAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link io.vavr.control.Option}.
- *
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/OptionAssert.java`
-#### Snippet
-```java
- * Assertions for {@link io.vavr.control.Option}.
- *
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
- * @author Grzegorz Piwowarek
- */
+     * @param value Try to be checked.
+     * @return an error message factory.
+     * @throws java.lang.NullPointerException if Try is null.
+     */
+    static TryShouldContainInstanceOf shouldContainInstanceOf(Object value, Class<?> clazz) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -309,6 +285,30 @@ in `src/main/java/org/assertj/vavr/api/EitherAssert.java`
  * @param <LEFT>  type of the value on the left contained in the {@link io.vavr.control.Either}.
  * @param <RIGHT> type of the value on the right contained in the {@link io.vavr.control.Either}.
  * @author Alex Dukhno
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/OptionAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.control.Option}.
+ *
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/OptionAssert.java`
+#### Snippet
+```java
+ * Assertions for {@link io.vavr.control.Option}.
+ *
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
+ * @author Grzegorz Piwowarek
  */
 ```
 
@@ -326,30 +326,6 @@ in `src/main/java/org/assertj/vavr/api/MultimapAssert.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
-#### Snippet
-```java
-
-    /**
-     * Indicates that an {@link io.vavr.control.Try} is empty so it doesn't contain the expected value.
-     *
-     * @param expectedValue the value we expect to be in an {@link Try}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
-#### Snippet
-```java
-
-    /**
-     * Indicates that the provided {@link io.vavr.control.Try} does not contain the provided argument (judging by reference
-     * equality).
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/EitherShouldContain.java`
 #### Snippet
 ```java
@@ -358,18 +334,6 @@ in `src/main/java/org/assertj/vavr/api/EitherShouldContain.java`
      * Indicates that the provided {@link io.vavr.control.Either} does not contain the provided argument on expected side.
      *
      * @param either   the {@link io.vavr.control.Either} which contains a value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
-#### Snippet
-```java
-
-    /**
-     * Indicates that the provided {@link io.vavr.control.Try} does not contain the provided argument.
-     *
-     * @param <VALUE>       the type of the value contained in the {@link Try}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -494,26 +458,38 @@ in `src/main/java/org/assertj/vavr/api/TryShouldBeSuccess.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/EitherShouldContainInstanceOf.java`
+in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
 #### Snippet
 ```java
 
     /**
-     * Indicates that a value should be present in a left-sided {@link io.vavr.control.Either}.
+     * Indicates that the provided {@link io.vavr.control.Try} does not contain the provided argument (judging by reference
+     * equality).
      *
-     * @param value         Either to be checked.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/EitherShouldContainInstanceOf.java`
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
 #### Snippet
 ```java
-     * @param expectedClazz expected class of a left value
-     * @return an error message factory.
-     * @throws java.lang.NullPointerException if either is null.
-     */
-    static EitherShouldContainInstanceOf shouldContainOnLeftInstanceOf(Object value,
+
+    /**
+     * Indicates that the provided {@link io.vavr.control.Try} does not contain the provided argument.
+     *
+     * @param <VALUE>       the type of the value contained in the {@link Try}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/TryShouldContain.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates that an {@link io.vavr.control.Try} is empty so it doesn't contain the expected value.
+     *
+     * @param expectedValue the value we expect to be in an {@link Try}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -541,6 +517,30 @@ in `src/main/java/org/assertj/vavr/api/EitherShouldContainInstanceOf.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/EitherShouldContainInstanceOf.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates that a value should be present in a left-sided {@link io.vavr.control.Either}.
+     *
+     * @param value         Either to be checked.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/EitherShouldContainInstanceOf.java`
+#### Snippet
+```java
+     * @param expectedClazz expected class of a left value
+     * @return an error message factory.
+     * @throws java.lang.NullPointerException if either is null.
+     */
+    static EitherShouldContainInstanceOf shouldContainOnLeftInstanceOf(Object value,
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.collection` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/SeqShouldHaveAtIndex.java`
 #### Snippet
@@ -559,33 +559,9 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 ```java
 
     /**
-     * Verifies that the actual {@link io.vavr.control.Either} contains a left-sided value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-    /**
-     * Verifies that the actual {@link io.vavr.control.Either} contains a left-sided value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * assertThat(Either.right("something")).hasLeftValueSatisfying(it -&gt; {});</code></pre>
+     * Verifies that the actual {@link io.vavr.control.Either} contains the instance given as an argument as the right value.
      *
-     * @param requirement to further assert on the left-sided object contained inside the {@link io.vavr.control.Either}.
-     * @return this assertion object.
-     */
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -593,31 +569,7 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 #### Snippet
 ```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Right}
-     * and contains the given value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Right}
-     * and contains the given value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * and contains the given value.
+     * Verifies that the actual {@link io.vavr.control.Either} contains the instance given as an argument as the right value.
      *
      * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
      * @return this assertion object.
@@ -655,30 +607,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 ```java
 
     /**
-     * Verifies that the actual {@link io.vavr.control.Either} contains the instance given as an argument as the right value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Either} contains the instance given as an argument as the right value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-
-    /**
      * Verifies that the actual right-sided {@link io.vavr.control.Either} contains a value that is an instance of the argument.
      *
      * @param clazz the expected class of the value inside the right-sided {@link io.vavr.control.Either}.
@@ -692,42 +620,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
      * Verifies that the actual right-sided {@link io.vavr.control.Either} contains a value that is an instance of the argument.
      *
      * @param clazz the expected class of the value inside the right-sided {@link io.vavr.control.Either}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Left}
-     * and contains the given value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Left}
-     * and contains the given value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * and contains the given value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
      * @return this assertion object.
      */
 ```
@@ -775,6 +667,78 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 ```java
 
     /**
+     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Left}
+     * and contains the given value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Left}
+     * and contains the given value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * and contains the given value.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Right}
+     * and contains the given value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Either} is {@link io.vavr.control.Either.Right}
+     * and contains the given value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * and contains the given value.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+
+    /**
      * Verifies that the actual {@link io.vavr.control.Either} contains the instance given as an argument as the left value.
      *
      * @param expectedValue the expected value inside the {@link io.vavr.control.Either}.
@@ -794,14 +758,98 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Either} contains a left-sided value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+    /**
+     * Verifies that the actual {@link io.vavr.control.Either} contains a left-sided value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * assertThat(Either.right("something")).hasLeftValueSatisfying(it -&gt; {});</code></pre>
+     *
+     * @param requirement to further assert on the left-sided object contained inside the {@link io.vavr.control.Either}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.vavr.api` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+     * @param <U> the type of a value contained in {@link Option}.
+     * @param mapper the {@link Function} to use in the {@link Option#map(Function) map} operation.
+     * @return a new {@link org.assertj.vavr.api.AbstractOptionAssert} for assertions chaining on the map of the Option.
+     * @throws AssertionError if the actual {@link Option} is null.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that there is a value present in the actual {@link io.vavr.control.Option}.
+     * Verifies that the actual {@link io.vavr.control.Option} contains the given value.
      *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual {@link io.vavr.control.Option} contains the given value.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
      * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Option} contains the instance given as an argument.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual {@link io.vavr.control.Option} contains the instance given as an argument.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
+     * @return this assertion object.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -826,6 +874,30 @@ in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
      * Verifies that the actual {@link io.vavr.control.Option} is empty.
      *
      * @return this assertion object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.control.Option}.
+ *
+ * @param <SELF>  the "self" type of this assertion class.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+ *
+ * @param <SELF>  the "self" type of this assertion class.
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
+ * @author Grzegorz Piwowarek
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -870,154 +942,10 @@ in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
 #### Snippet
 ```java
 
-/**
- * Assertions for {@link io.vavr.control.Option}.
- *
- * @param <SELF>  the "self" type of this assertion class.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF>  the "self" type of this assertion class.
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Option}.
- * @author Grzegorz Piwowarek
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.vavr.api` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-     * @param <U> the type of a value contained in {@link Option}.
-     * @param mapper the {@link Function} to use in the {@link Option#map(Function) map} operation.
-     * @return a new {@link org.assertj.vavr.api.AbstractOptionAssert} for assertions chaining on the map of the Option.
-     * @throws AssertionError if the actual {@link Option} is null.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-
     /**
-     * Verifies that the actual {@link io.vavr.control.Option} contains the instance given as an argument.
+     * Verifies that there is a value present in the actual {@link io.vavr.control.Option}.
      *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Option} contains the instance given as an argument.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
      * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Option} contains the given value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Option} contains the given value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Option}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.Multimap}.
-     *
-     * @param <KEY>   key type of the {@link Multimap}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.Set}.
-     *
-     * @param <VALUE> the type of elements contained by <code> actual {@link Set}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.Map}.
-     *
-     * @param <KEY>   key type of the {@link Map}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Validation}.
-     *
-     * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.List}.
-     *
-     * @param <VALUE> the type of elements contained by <code>actual {@link List}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Option}.
-     *
-     * @param <VALUE> the type of a value contained by <code>actual {@link Option}</code>.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1045,15 +973,75 @@ in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/ValidationAssert.java`
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
 #### Snippet
 ```java
 
-/**
- * Assertions for {@link io.vavr.control.Validation}.
- *
- * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
+    /**
+     * Creates assertion for {@link io.vavr.collection.Multimap}.
+     *
+     * @param <KEY>   key type of the {@link Multimap}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Option}.
+     *
+     * @param <VALUE> the type of a value contained by <code>actual {@link Option}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Validation}.
+     *
+     * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.List}.
+     *
+     * @param <VALUE> the type of elements contained by <code>actual {@link List}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.Set}.
+     *
+     * @param <VALUE> the type of elements contained by <code> actual {@link Set}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/soft/StandardSoftVavrAssertionsProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.Map}.
+     *
+     * @param <KEY>   key type of the {@link Map}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1135,6 +1123,42 @@ in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 ```java
 
     /**
+     * Verifies that the actual @{@link io.vavr.control.Try} fails with specific message.
+     *
+     * @param exceptionMessage the expected exception message.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Try} contains a value that is an instance of the argument.
+     *
+     * @param clazz the expected class of the value inside the {@link io.vavr.control.Try}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual {@link io.vavr.control.Try} contains a value that is an instance of the argument.
+     *
+     * @param clazz the expected class of the value inside the {@link io.vavr.control.Try}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
      * Verifies that the actual {@link io.vavr.control.Try} contains a value and gives this value to the given
      * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
      * containing object, as further requirement(s) for the value.
@@ -1170,162 +1194,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
      * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Try}.
-     * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Try} is null or empty.
-     * @throws NullPointerException if the given condition is {@code null}.
-     * @throws AssertionError       if the actual value does not satisfy the given condition.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-    /**
-     * Use field/property by field/property comparison (including inherited fields/properties) instead of relying on
-     * actual type A <code>equals</code> method to compare the {@link io.vavr.control.Try} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link org.assertj.core.api.Assertions#setAllowExtractingPrivateFields(boolean)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains the instance given as an argument.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Try} contains the instance given as an argument.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the {@link io.vavr.control.Try}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Try} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the {@link io.vavr.control.Try}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-    /**
-     * Use given custom comparator instead of relying on actual type A <code>equals</code> method to compare the
-     * {@link io.vavr.control.Try} value's object for incoming assertion checks.
-     *
-     * @param customComparator the comparator to use for incoming assertion checks.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link io.vavr.control.Try}.
- *
- * @param <SELF>  the "self" type of this assertion class.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF>  the "self" type of this assertion class.
- * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
- * @author Grzegorz Piwowarek
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains the given value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual {@link io.vavr.control.Try} contains the given value.
-     *
-     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
-     *
-     * @param condition the given condition.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
-     *
-     * @param condition the given condition.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-     * @param condition the given condition.
      * @return this assertion object.
      * @throws AssertionError       if the actual {@link io.vavr.control.Try} is null or empty.
      * @throws NullPointerException if the given condition is {@code null}.
@@ -1373,23 +1241,11 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
-
     /**
-     * Verifies that the actual {@link io.vavr.control.Try} is a failed {code Try}.
+     * Use given custom comparator instead of relying on actual type A <code>equals</code> method to compare the
+     * {@link io.vavr.control.Try} value's object for incoming assertion checks.
      *
-     * @return this assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual @{@link io.vavr.control.Try} fails with specific message.
-     *
-     * @param exceptionMessage the expected exception message.
+     * @param customComparator the comparator to use for incoming assertion checks.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1410,10 +1266,46 @@ in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
 
+/**
+ * Assertions for {@link io.vavr.control.Try}.
+ *
+ * @param <SELF>  the "self" type of this assertion class.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+ *
+ * @param <SELF>  the "self" type of this assertion class.
+ * @param <VALUE> type of the value contained in the {@link io.vavr.control.Try}.
+ * @author Grzegorz Piwowarek
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
     /**
-     * Verifies that the actual {@link io.vavr.control.Try} is a succeeded {code Try}.
+     * Verifies that the actual {@link io.vavr.control.Try} contains the instance given as an argument.
      *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual {@link io.vavr.control.Try} contains the instance given as an argument.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
      * @return this assertion object.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1478,50 +1370,218 @@ in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
+     * Verifies that the actual {@link io.vavr.control.Try} contains the given value.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual {@link io.vavr.control.Try} contains the given value.
+     *
+     * @param expectedValue the expected value inside the {@link io.vavr.control.Try}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Try} is a succeeded {code Try}.
+     *
+     * @return this assertion object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+    /**
+     * Use field/property by field/property comparison (including inherited fields/properties) instead of relying on
+     * actual type A <code>equals</code> method to compare the {@link io.vavr.control.Try} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link org.assertj.core.api.Assertions#setAllowExtractingPrivateFields(boolean)}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Try} is a failed {code Try}.
+     *
+     * @return this assertion object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
      *
      * @param condition the given condition.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
+     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
      *
      * @param condition the given condition.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
 ```java
      * @param condition the given condition.
      * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Try} is null or empty.
      * @throws NullPointerException if the given condition is {@code null}.
      * @throws AssertionError       if the actual value does not satisfy the given condition.
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+in `src/main/java/org/assertj/vavr/api/ValidationAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.control.Validation}.
+ *
+ * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/MapAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.collection.Map}.
+ *
+ * @param <KEY>  key type of the {@link Map}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains the instance given as an argument.
+     * Creates assertion for {@link io.vavr.collection.Map}.
      *
-     * @param expectedErrorValue the expected value inside the {@link io.vavr.control.Validation}.
+     * @param <KEY>   key type of the {@link Map}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.Set}.
+     *
+     * @param <VALUE> the type of elements contained by <code> actual {@link Set}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Try}.
+     *
+     * @param <VALUE> the type of a value contained by <code>actual {@link Try}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.List}.
+     *
+     * @param <VALUE> the type of elements contained by <code>actual {@link List}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Either}.
+     *
+     * @param <LEFT>  the type of a value contained on left by <code>actual {@link Either}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.collection` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.collection.Multimap}.
+     *
+     * @param <KEY>   key type of the {@link Multimap}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Option}.
+     *
+     * @param <VALUE> the type of a value contained by <code>actual {@link Option}</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
+#### Snippet
+```java
+
+    /**
+     * Creates assertion for {@link io.vavr.control.Validation}.
+     *
+     * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1529,11 +1589,59 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
-     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains the instance given as an argument.
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} is valid.
      *
-     * @param expectedErrorValue the expected value inside the {@link io.vavr.control.Validation}.
      * @return this assertion object.
-     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} is invalid.
+     *
+     * @return this assertion object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for {@link io.vavr.control.Validation}.
+ *
+ * @param <SELF>    the "self" type of this assertion class.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+ *
+ * @param <SELF>    the "self" type of this assertion class.
+ * @param <INVALID> type of the value in the case of the invalid {@link io.vavr.control.Validation}.
+ * @param <VALID>   type of the value in the case of the valid {@link io.vavr.control.Validation}.
+ * @author Michał Chmielarz
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+ * @param <SELF>    the "self" type of this assertion class.
+ * @param <INVALID> type of the value in the case of the invalid {@link io.vavr.control.Validation}.
+ * @param <VALID>   type of the value in the case of the valid {@link io.vavr.control.Validation}.
+ * @author Michał Chmielarz
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1577,47 +1685,11 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
-
     /**
-     * Revert to standard comparison for incoming assertion {@link io.vavr.control.Validation} value checks.
-     * <p>
-     * This method should be used to disable a custom comparison strategy set by calling
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Validation} is valid.
-     *
-     * @return this assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the invalid {@link io.vavr.control.Validation}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the invalid {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     */
+     * Use field/property by field/property comparison (including inherited fields/properties) instead of relying on
+     * actual type A <code>equals</code> method to compare the {@link io.vavr.control.Validation} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link org.assertj.core.api.Assertions#setAllowExtractingPrivateFields(boolean)}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1661,11 +1733,203 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
+
     /**
-     * Use given custom comparator instead of relying on actual type A <code>equals</code> method to compare the
-     * {@link io.vavr.control.Validation} value's object for incoming assertion checks.
+     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
      *
-     * @param customComparator the comparator to use for incoming assertion checks.
+     * @param clazz the expected class of the value inside the invalid {@link io.vavr.control.Validation}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
+     *
+     * @param clazz the expected class of the value inside the invalid {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
+     * @throws NullPointerException if the given requirement is {@code null}.
+     * @throws AssertionError       if the actual value does not satisfy the given requirement.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains a valid value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains a valid value and gives this value to the given
+     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
+     * containing object, as further requirement(s) for the value.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * containing object, as further requirement(s) for the value.
+     *
+     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or invalid.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or invalid.
+     * @throws NullPointerException if the given requirement is {@code null}.
+     * @throws AssertionError       if the actual value does not satisfy the given requirement.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual valid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
+     *
+     * @param clazz the expected class of the value inside the valid {@link io.vavr.control.Validation}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual valid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
+     *
+     * @param clazz the expected class of the value inside the valid {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains the instance given as an argument.
+     *
+     * @param expectedErrorValue the expected value inside the {@link io.vavr.control.Validation}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * Verifies that the actual invalid {@link io.vavr.control.Validation} contains the instance given as an argument.
+     *
+     * @param expectedErrorValue the expected value inside the {@link io.vavr.control.Validation}.
+     * @return this assertion object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
+     *
+     * @param condition the given condition.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
+     *
+     * @param condition the given condition.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.vavr.control` is unnecessary and can be removed
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+#### Snippet
+```java
+     * @param condition the given condition.
+     * @return this assertion object.
+     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
+     * @throws NullPointerException if the given condition is {@code null}.
+     * @throws AssertionError       if the actual value does not satisfy the given condition.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1709,131 +1973,11 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
-
     /**
-     * Verifies that the actual {@link io.vavr.control.Validation} is invalid.
+     * Use given custom comparator instead of relying on actual type A <code>equals</code> method to compare the
+     * {@link io.vavr.control.Validation} value's object for incoming assertion checks.
      *
-     * @return this assertion object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains a valid value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-    /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains a valid value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * containing object, as further requirement(s) for the value.
-     *
-     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or invalid.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or invalid.
-     * @throws NullPointerException if the given requirement is {@code null}.
-     * @throws AssertionError       if the actual value does not satisfy the given requirement.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual valid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the valid {@link io.vavr.control.Validation}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * Verifies that the actual valid {@link io.vavr.control.Validation} contains a value that is an instance of the argument.
-     *
-     * @param clazz the expected class of the value inside the valid {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-    /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value and gives this value to the given
-     * {@link java.util.function.Consumer} for further assertions. Should be used as a way of deeper asserting on the
-     * containing object, as further requirement(s) for the value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * containing object, as further requirement(s) for the value.
-     *
-     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-     * @param requirement to further assert on the object contained inside the {@link io.vavr.control.Validation}.
-     * @return this assertion object.
-     * @throws AssertionError       if the actual {@link io.vavr.control.Validation} is null or valid.
-     * @throws NullPointerException if the given requirement is {@code null}.
-     * @throws AssertionError       if the actual value does not satisfy the given requirement.
+     * @param customComparator the comparator to use for incoming assertion checks.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1865,155 +2009,11 @@ Qualifier `io.vavr.control` is unnecessary and can be removed
 in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
-    /**
-     * Use field/property by field/property comparison (including inherited fields/properties) instead of relying on
-     * actual type A <code>equals</code> method to compare the {@link io.vavr.control.Validation} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link org.assertj.core.api.Assertions#setAllowExtractingPrivateFields(boolean)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link io.vavr.control.Validation}.
- *
- * @param <SELF>    the "self" type of this assertion class.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
- *
- * @param <SELF>    the "self" type of this assertion class.
- * @param <INVALID> type of the value in the case of the invalid {@link io.vavr.control.Validation}.
- * @param <VALID>   type of the value in the case of the valid {@link io.vavr.control.Validation}.
- * @author Michał Chmielarz
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
-#### Snippet
-```java
- * @param <SELF>    the "self" type of this assertion class.
- * @param <INVALID> type of the value in the case of the invalid {@link io.vavr.control.Validation}.
- * @param <VALID>   type of the value in the case of the valid {@link io.vavr.control.Validation}.
- * @author Michał Chmielarz
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/MapAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for {@link io.vavr.collection.Map}.
- *
- * @param <KEY>  key type of the {@link Map}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
 
     /**
-     * Creates assertion for {@link io.vavr.collection.Multimap}.
-     *
-     * @param <KEY>   key type of the {@link Multimap}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Validation}.
-     *
-     * @param <INVALID> type of the value in the case of the invalid {@link Validation}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Try}.
-     *
-     * @param <VALUE> the type of a value contained by <code>actual {@link Try}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.List}.
-     *
-     * @param <VALUE> the type of elements contained by <code>actual {@link List}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.Map}.
-     *
-     * @param <KEY>   key type of the {@link Map}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Either}.
-     *
-     * @param <LEFT>  the type of a value contained on left by <code>actual {@link Either}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.collection` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.collection.Set}.
-     *
-     * @param <VALUE> the type of elements contained by <code> actual {@link Set}</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.vavr.control` is unnecessary and can be removed
-in `src/main/java/org/assertj/vavr/api/VavrAssertions.java`
-#### Snippet
-```java
-
-    /**
-     * Creates assertion for {@link io.vavr.control.Option}.
-     *
-     * @param <VALUE> the type of a value contained by <code>actual {@link Option}</code>.
+     * Revert to standard comparison for incoming assertion {@link io.vavr.control.Validation} value checks.
+     * <p>
+     * This method should be used to disable a custom comparison strategy set by calling
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2054,18 +2054,6 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super LEFT`
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * @return this assertion object.
-     */
-    public SELF hasLeftValueSatisfying(Consumer<LEFT> requirement) {
-        assertIsLeft();
-        requirement.accept(actual.getLeft());
-```
-
-### BoundedWildcard
 Can generalize to `? super RIGHT`
 in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 #### Snippet
@@ -2075,6 +2063,18 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
     public SELF hasRightValueSatisfying(Consumer<RIGHT> requirement) {
         assertIsRight();
         requirement.accept(actual.get());
+```
+
+### BoundedWildcard
+Can generalize to `? super LEFT`
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * @return this assertion object.
+     */
+    public SELF hasLeftValueSatisfying(Consumer<LEFT> requirement) {
+        assertIsLeft();
+        requirement.accept(actual.getLeft());
 ```
 
 ### BoundedWildcard
@@ -2162,6 +2162,54 @@ in `src/main/java/org/assertj/vavr/api/VavrAssumptions.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super V`
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+     * @throws NullPointerException if values vararg is {@code null}
+     */
+    public <K, V> void assertContainsValues(AssertionInfo info, Multimap<K, V> actual,
+                                            @SuppressWarnings("unchecked") V... values) {
+        assertNotNull(info, actual);
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+    }
+
+    private static <V> Predicate<V> valuePresentIn(Traversable<V> elements) {
+        return elements::contains;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+    }
+
+    private static <K> Predicate<K> keyPresentIn(Set<K> elements) {
+        return elements::contains;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+    }
+
+    private static <V> Predicate<V> valueNotPresentIn(Traversable<V> elements) {
+        return not(valuePresentIn(elements));
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super K`
 in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 #### Snippet
@@ -2198,54 +2246,6 @@ in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-     * @throws NullPointerException if values vararg is {@code null}
-     */
-    public <K, V> void assertDoesNotContainValues(AssertionInfo info, Multimap<K, V> actual,
-                                                  @SuppressWarnings("unchecked") V... values) {
-        assertNotNull(info, actual);
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-    }
-
-    private static <V> Predicate<V> valueNotPresentIn(Traversable<V> elements) {
-        return not(valuePresentIn(elements));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-    }
-
-    private static <V> Predicate<V> valuePresentIn(Traversable<V> elements) {
-        return elements::contains;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-    }
-
-    private static <K> Predicate<K> keyPresentIn(Set<K> elements) {
-        return elements::contains;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 #### Snippet
@@ -2264,8 +2264,8 @@ in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 ```java
      * @throws NullPointerException if values vararg is {@code null}
      */
-    public <K, V> void assertContainsValues(AssertionInfo info, Multimap<K, V> actual,
-                                            @SuppressWarnings("unchecked") V... values) {
+    public <K, V> void assertDoesNotContainValues(AssertionInfo info, Multimap<K, V> actual,
+                                                  @SuppressWarnings("unchecked") V... values) {
         assertNotNull(info, actual);
 ```
 
@@ -2291,18 +2291,6 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
     public <K, V> void assertDoesNotContainValues(AssertionInfo info, Map<K, V> actual,
                                                   @SuppressWarnings("unchecked") V... values) {
         assertNotNull(info, actual);
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `src/main/java/org/assertj/vavr/internal/Maps.java`
-#### Snippet
-```java
-    }
-
-    private static <V> Predicate<V> valueNotPresentIn(Seq<V> elements) {
-        return not(valuePresentIn(elements));
-    }
 ```
 
 ### BoundedWildcard
@@ -2346,11 +2334,11 @@ Can generalize to `? super K`
 in `src/main/java/org/assertj/vavr/internal/Maps.java`
 #### Snippet
 ```java
-    }
-
-    private static <K> Predicate<K> keyNotPresentIn(Set<K> elements) {
-        return not(keyPresentIn(elements));
-    }
+     * @throws AssertionError           if the given {@code Map} contains the given keys
+     */
+    public <K, V> void assertDoesNotContainKeys(AssertionInfo info, Map<K, V> actual,
+                                                @SuppressWarnings("unchecked") K... keys) {
+        doCommonContainsCheck(info, actual, keys);
 ```
 
 ### BoundedWildcard
@@ -2358,11 +2346,23 @@ Can generalize to `? super K`
 in `src/main/java/org/assertj/vavr/internal/Maps.java`
 #### Snippet
 ```java
-     * @throws AssertionError           if the given {@code Map} contains the given keys
-     */
-    public <K, V> void assertDoesNotContainKeys(AssertionInfo info, Map<K, V> actual,
-                                                @SuppressWarnings("unchecked") K... keys) {
-        doCommonContainsCheck(info, actual, keys);
+    }
+
+    public <K, V> void assertContainsAnyOf(AssertionInfo info, Map<K, V> actual,
+                                           Tuple2<K, V>[] entries) {
+        doCommonContainsCheck(info, actual, entries);
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `src/main/java/org/assertj/vavr/internal/Maps.java`
+#### Snippet
+```java
+    }
+
+    public <K, V> void assertContainsAnyOf(AssertionInfo info, Map<K, V> actual,
+                                           Tuple2<K, V>[] entries) {
+        doCommonContainsCheck(info, actual, entries);
 ```
 
 ### BoundedWildcard
@@ -2384,9 +2384,9 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
 ```java
     }
 
-    public <K, V> void assertContainsAnyOf(AssertionInfo info, Map<K, V> actual,
-                                           Tuple2<K, V>[] entries) {
-        doCommonContainsCheck(info, actual, entries);
+    private static <K> Predicate<K> keyNotPresentIn(Set<K> elements) {
+        return not(keyPresentIn(elements));
+    }
 ```
 
 ### BoundedWildcard
@@ -2396,9 +2396,9 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
 ```java
     }
 
-    public <K, V> void assertContainsAnyOf(AssertionInfo info, Map<K, V> actual,
-                                           Tuple2<K, V>[] entries) {
-        doCommonContainsCheck(info, actual, entries);
+    private static <V> Predicate<V> valueNotPresentIn(Seq<V> elements) {
+        return not(valuePresentIn(elements));
+    }
 ```
 
 ## RuleId[id=RedundantSuppression]
