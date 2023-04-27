@@ -197,18 +197,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyFalsified.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
-#### Snippet
-```java
-          public Object apply(GenerationEnvironment cmdData) {
-            performCommand(safeGenerate(cmdData, cmdGen), cmdData, indent + "  ");
-            return null;
-          }
-        });
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/CounterExampleImpl.java`
 #### Snippet
 ```java
@@ -221,14 +209,26 @@ in `src/main/java/org/jetbrains/jetCheck/CounterExampleImpl.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
+#### Snippet
+```java
+          public Object apply(GenerationEnvironment cmdData) {
+            performCommand(safeGenerate(cmdData, cmdGen), cmdData, indent + "  ");
+            return null;
+          }
+        });
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
-    return distribution.isValidValue(value)
-            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
-            : fail == null ? null : fail.get();
-  }
 
+  private ShrinkStep divisionLoop(int value) {
+    if (value == 0) return null;
+    int divided = value / 2;
+    return tryInt(divided, () -> divisionLoop(divided), null);
 ```
 
 ### ReturnNull
@@ -248,17 +248,17 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
+    return distribution.isValidValue(value)
+            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+            : fail == null ? null : fail.get();
+  }
 
-  private ShrinkStep divisionLoop(int value) {
-    if (value == 0) return null;
-    int divided = value / 2;
-    return tryInt(divided, () -> divisionLoop(divided), null);
 ```
 
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-06-55-15.589.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-03-14-44.322.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -369,15 +369,15 @@ in `src/main/java/org/jetbrains/jetCheck/ShrinkStep.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
+Can generalize to `? extends CustomizedNode`
+in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
 #### Snippet
 ```java
-  private final Consumer<String> logConsumer;
 
-  private Scenario(@NotNull ImperativeCommand cmd, @NotNull GenerationEnvironment data, Consumer<String> logConsumer) {
-    this.logConsumer = logConsumer;
-    try {
+  @Nullable
+  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
+    Collections.sort(delayed);
+
 ```
 
 ### BoundedWildcard
@@ -393,27 +393,15 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CustomizedNode`
-in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
+Can generalize to `? super String`
+in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 #### Snippet
 ```java
+  private final Consumer<String> logConsumer;
 
-  @Nullable
-  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
-    Collections.sort(delayed);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShrinkStep`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
-#### Snippet
-```java
-  }
-
-  private ShrinkStep tryInt(int value, @NotNull Supplier<ShrinkStep> success, @Nullable Supplier<ShrinkStep> fail) {
-    return distribution.isValidValue(value)
-            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+  private Scenario(@NotNull ImperativeCommand cmd, @NotNull GenerationEnvironment data, Consumer<String> logConsumer) {
+    this.logConsumer = logConsumer;
+    try {
 ```
 
 ### BoundedWildcard
@@ -429,15 +417,15 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/jetbrains/jetCheck/Generator.java`
+Can generalize to `? extends ShrinkStep`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
-
-  /** A generator that returns one of the given values with equal probability */
-  public static <T> Generator<T> sampledFrom(List<T> values) {
-    return anyOf(values.stream().map(Generator::constant).collect(Collectors.toList()));
   }
+
+  private ShrinkStep tryInt(int value, @NotNull Supplier<ShrinkStep> success, @Nullable Supplier<ShrinkStep> fail) {
+    return distribution.isValidValue(value)
+            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
 ```
 
 ### BoundedWildcard
@@ -450,6 +438,18 @@ in `src/main/java/org/jetbrains/jetCheck/Generator.java`
   private static <T> List<T> generateList(Generator<T> itemGenerator, GenerationEnvironment data, int size) {
     ((AbstractDataStructure) data).changeKind(StructureKind.LIST);
     List<T> list = new ArrayList<>(size);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/jetbrains/jetCheck/Generator.java`
+#### Snippet
+```java
+
+  /** A generator that returns one of the given values with equal probability */
+  public static <T> Generator<T> sampledFrom(List<T> values) {
+    return anyOf(values.stream().map(Generator::constant).collect(Collectors.toList()));
+  }
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -467,13 +467,13 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `serializedData` is always 'null'
+Value `silent` is always 'false'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
 ```java
-      }
-
-      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    public Parameters printRawData() {
+      if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
     }
 
 ```
@@ -509,19 +509,19 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 ```java
       }
 
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
 
 ### ConstantValue
-Value `silent` is always 'false'
+Value `serializedData` is always 'null'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
 ```java
-    public Parameters printRawData() {
-      if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
+      }
+
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
