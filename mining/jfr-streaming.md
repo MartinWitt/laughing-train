@@ -19,18 +19,6 @@ I found 22 bad smells with 2 repairable:
 | UnnecessaryCallToStringValueOf | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
-#### Snippet
-```java
-
-    private byte[] buffer;
-    private int index = 0;
-    private boolean EOF = false;
-    // There is a recording id and an id you get from the recording for the stream.
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
 #### Snippet
@@ -40,6 +28,18 @@ in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
     private boolean EOF = false;
     // There is a recording id and an id you get from the recording for the stream.
     // streamId is the id for the stream.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
+#### Snippet
+```java
+
+    private byte[] buffer;
+    private int index = 0;
+    private boolean EOF = false;
+    // There is a recording id and an id you get from the recording for the stream.
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -221,27 +221,15 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-    // {0} is the state the code is trying to transition to.
-    // {1} are the states that the instance could be in for a valid transition.
-    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
-
-    /**
-```
-
-### MissortedModifiers
 Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-    }
 
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
+
 ```
 
 ### MissortedModifiers
@@ -261,11 +249,23 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
+    }
 
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
+```
 
+### MissortedModifiers
+Missorted modifiers `final static`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+    // {0} is the state the code is trying to transition to.
+    // {1} are the states that the instance could be in for a valid transition.
+    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
+
+    /**
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
