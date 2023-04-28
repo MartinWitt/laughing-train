@@ -59,18 +59,6 @@ class DataSerializer {
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'recheckingIteration' is still used
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Parameters recheckingIteration(long seed, int sizeHint) {
-      return withForcedIterationCount(1).withSeed(seed).withSizeHint(whatever -> sizeHint);
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'withSeed' is still used
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -80,6 +68,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters withSeed(long seed) {
       if (serializedData != null) {
         System.err.println("withSeed ignored, because 'rechecking' is used");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'recheckingIteration' is still used
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Parameters recheckingIteration(long seed, int sizeHint) {
+      return withForcedIterationCount(1).withSeed(seed).withSizeHint(whatever -> sizeHint);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -224,11 +224,11 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
+    return distribution.isValidValue(value)
+            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+            : fail == null ? null : fail.get();
+  }
 
-  private ShrinkStep divisionLoop(int value) {
-    if (value == 0) return null;
-    int divided = value / 2;
-    return tryInt(divided, () -> divisionLoop(divided), null);
 ```
 
 ### ReturnNull
@@ -248,17 +248,17 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
-    return distribution.isValidValue(value)
-            ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
-            : fail == null ? null : fail.get();
-  }
 
+  private ShrinkStep divisionLoop(int value) {
+    if (value == 0) return null;
+    int divided = value / 2;
+    return tryInt(divided, () -> divisionLoop(divided), null);
 ```
 
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-03-14-44.322.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-19-14-14.630.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -405,18 +405,6 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StructureNode`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
-#### Snippet
-```java
-
-  @Nullable
-  private ShrinkStep tryReplacing(List<StructureNode> candidates, int index) {
-    if (index < candidates.size()) {
-      StructureNode replacement = candidates.get(index);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ShrinkStep`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
@@ -426,6 +414,18 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
   private ShrinkStep tryInt(int value, @NotNull Supplier<ShrinkStep> success, @Nullable Supplier<ShrinkStep> fail) {
     return distribution.isValidValue(value)
             ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
+```
+
+### BoundedWildcard
+Can generalize to `? extends StructureNode`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+#### Snippet
+```java
+
+  @Nullable
+  private ShrinkStep tryReplacing(List<StructureNode> candidates, int index) {
+    if (index < candidates.size()) {
+      StructureNode replacement = candidates.get(index);
 ```
 
 ### BoundedWildcard
@@ -479,6 +479,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 ```
 
 ### ConstantValue
+Value `serializedData` is always 'null'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+      }
+
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    }
+
+```
+
+### ConstantValue
 Value `printValues` is always 'false'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -510,18 +522,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
       }
 
       return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
-    }
-
-```
-
-### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
