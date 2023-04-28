@@ -287,51 +287,15 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CryptographicSer
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
 #### Snippet
 ```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    if(allowCustomCredentials && allowProfileIdFromServer) {
-      String profileRef = myParametersService.tryGetParameter(Constants.CREDENTIALS_PROFILE_ID);
-      final boolean profileWasDefined = !StringUtil.isEmptyOrSpaces(profileRef);
-      UserCredentials profileCredentials = null;
-      if(!profileWasDefined) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    if(allowProfileIdFromServer) {
-      String credentialsRef = myParametersService.tryGetConfigParameter(Constants.CREDENTIALS_PROFILE_ID);
-      if (StringUtil.isEmptyOrSpaces(credentialsRef)) {
-        credentialsRef = DEFAULT_PROFILE;
-      }
+            resultStr.append("out: ");
+            for (String line : outLines) {
+              if (!StringUtil.isEmpty(line)) {
+                resultStr.append(line);
+              }
 ```
 
 ### StaticCallOnSubclass
@@ -363,6 +327,54 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
+    if(allowCustomCredentials && allowProfileIdFromServer) {
+      String profileRef = myParametersService.tryGetParameter(Constants.CREDENTIALS_PROFILE_ID);
+      final boolean profileWasDefined = !StringUtil.isEmptyOrSpaces(profileRef);
+      UserCredentials profileCredentials = null;
+      if(!profileWasDefined) {
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+    if(allowProfileIdFromServer) {
+      String credentialsRef = myParametersService.tryGetConfigParameter(Constants.CREDENTIALS_PROFILE_ID);
+      if (StringUtil.isEmptyOrSpaces(credentialsRef)) {
+        credentialsRef = DEFAULT_PROFILE;
+      }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
+
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
+
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
 
     userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
     if(StringUtil.isEmptyOrSpaces(userName)) {
@@ -383,18 +395,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsS
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
-#### Snippet
-```java
-            resultStr.append("out: ");
-            for (String line : outLines) {
-              if (!StringUtil.isEmpty(line)) {
-                resultStr.append(line);
-              }
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
@@ -404,18 +404,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
         if (StringUtil.isEmptyOrSpaces(propertyValue)) {
           continue;
         }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ProfileParametersServiceImpl.java`
-#### Snippet
-```java
-    myProfiles.clear();
-    final String credentialsDirectoryStr = myAgentParametersService.tryGetConfigParameter(jetbrains.buildServer.runAs.common.Constants.CREDENTIALS_DIRECTORY);
-    if(StringUtil.isEmptyOrSpaces(credentialsDirectoryStr)) {
-      LOG.error("Configuration parameter \"" + Constants.CREDENTIALS_DIRECTORY + "\" was not defined");
-      return;
 ```
 
 ### StaticCallOnSubclass
@@ -464,6 +452,18 @@ in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeEx
           if (StringUtil.isEmpty(password)) {
             result.add(new InvalidProperty(RunAsBean.Shared.getRunAsPasswordKey(), "The password must be specified."));
           }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ProfileParametersServiceImpl.java`
+#### Snippet
+```java
+    myProfiles.clear();
+    final String credentialsDirectoryStr = myAgentParametersService.tryGetConfigParameter(jetbrains.buildServer.runAs.common.Constants.CREDENTIALS_DIRECTORY);
+    if(StringUtil.isEmptyOrSpaces(credentialsDirectoryStr)) {
+      LOG.error("Configuration parameter \"" + Constants.CREDENTIALS_DIRECTORY + "\" was not defined");
+      return;
 ```
 
 ### StaticCallOnSubclass
@@ -775,18 +775,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ShGenerator.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AccessControlList`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
-#### Snippet
-```java
-  public AccessControlListProviderImpl(
-    @NotNull final PathsService pathsService,
-    @NotNull final TextParser<AccessControlList> fileAccessParser,
-    @NotNull final AgentParametersService agentParametersService,
-    @NotNull final ProfileParametersService profileParametersService) {
-```
-
-### BoundedWildcard
 Can generalize to `? super AccessControlEntry`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
 #### Snippet
@@ -796,6 +784,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlLis
   private void appendAcl(final List<AccessControlEntry> aceList, final String agentAclStr) {
     if (!StringUtil.isEmptyOrSpaces(agentAclStr)) {
       for (AccessControlEntry ace : myFileAccessParser.parse(agentAclStr)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AccessControlList`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
+#### Snippet
+```java
+  public AccessControlListProviderImpl(
+    @NotNull final PathsService pathsService,
+    @NotNull final TextParser<AccessControlList> fileAccessParser,
+    @NotNull final AgentParametersService agentParametersService,
+    @NotNull final ProfileParametersService profileParametersService) {
 ```
 
 ### BoundedWildcard
@@ -840,18 +840,6 @@ Missorted modifiers `final @NotNull`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
-
-  private void protectProperty(
-    final @NotNull AgentRunningBuild runningBuild,
-    final String propertyValue) {
-    if (myIsHidingOfPropertyIsNotSupported) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
     }
 
     private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
@@ -864,11 +852,11 @@ Missorted modifiers `final @NotNull`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
-    }
 
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+  private void protectProperty(
+    final @NotNull AgentRunningBuild runningBuild,
+    final String propertyValue) {
+    if (myIsHidingOfPropertyIsNotSupported) {
 ```
 
 ### MissortedModifiers
@@ -881,6 +869,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
   private void protectProperties(final @NotNull AgentRunningBuild runningBuild) {
     myProfileParametersService.load();
     final Set<String> propertySets = myProfileParametersService.getProfiles();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
+      try {
+        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
 ```
 
 ### MissortedModifiers
@@ -1120,7 +1120,7 @@ import jetbrains.buildServer.runAs.common.Constants;
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-07-34-43.307.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-13-12-38.001.html`
 #### Snippet
 ```java
               <td>0</td>
