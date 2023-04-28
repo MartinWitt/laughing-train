@@ -1,7 +1,7 @@
 # rejoiner 
  
 # Bad smells
-I found 67 bad smells with 8 repairable:
+I found 66 bad smells with 8 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 12 | false |
@@ -25,7 +25,6 @@ I found 67 bad smells with 8 repairable:
 | RedundantFieldInitialization | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ConstantValue | 1 | false |
 | UnstableApiUsage | 1 | false |
@@ -44,15 +43,15 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserve
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `QueryResponseToProtoJson` has only 'static' members, and lacks a 'private' constructor
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/QueryResponseToProtoJson.java`
+Class `ProtoToMap` has only 'static' members, and lacks a 'private' constructor
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
 #### Snippet
 ```java
 
-/** Converts a QueryResponse json map into a protobuf {@link Struct} object. */
-public final class QueryResponseToProtoJson {
+/** Creates a Map based on a Message, while maintaining the field name case. */
+public final class ProtoToMap {
 
-  /** Converts a json map into a protobuf {@link Struct} object. */
+  private static final Converter<String, String> UNDERSCORE_TO_CAMEL =
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -68,15 +67,15 @@ public final class ExecutionResultToProtoAsync {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProtoToMap` has only 'static' members, and lacks a 'private' constructor
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
+Class `QueryResponseToProtoJson` has only 'static' members, and lacks a 'private' constructor
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/QueryResponseToProtoJson.java`
 #### Snippet
 ```java
 
-/** Creates a Map based on a Message, while maintaining the field name case. */
-public final class ProtoToMap {
+/** Converts a QueryResponse json map into a protobuf {@link Struct} object. */
+public final class QueryResponseToProtoJson {
 
-  private static final Converter<String, String> UNDERSCORE_TO_CAMEL =
+  /** Converts a json map into a protobuf {@link Struct} object. */
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -119,6 +118,30 @@ in `rejoiner/src/main/java/com/google/api/graphql/execution/GuavaListenableFutur
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
+Argument `UNDERSCORE_TO_CAMEL.convert(field.getName())` might be null
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
+#### Snippet
+```java
+            (field, value) ->
+                variablesBuilder.put(
+                    UNDERSCORE_TO_CAMEL.convert(field.getName()), mapValues(field, value)));
+    return variablesBuilder.build();
+  }
+```
+
+### DataFlowIssue
+Method invocation `getFieldDefinitions` may produce `NullPointerException`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
+#### Snippet
+```java
+    public GraphQLObjectType apply(GraphQLObjectType input) {
+      ImmutableList.Builder<GraphQLFieldDefinition> remainingFields = ImmutableList.builder();
+      for (GraphQLFieldDefinition field : input.getFieldDefinitions()) {
+        if (!fieldNameToRemove.equals(field.getName())) {
+          remainingFields.add(field);
+```
+
+### DataFlowIssue
 Method invocation `getFieldDefinitions` may produce `NullPointerException`
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
 #### Snippet
@@ -143,18 +166,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getFieldDefinitions` may produce `NullPointerException`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
-#### Snippet
-```java
-    public GraphQLObjectType apply(GraphQLObjectType input) {
-      ImmutableList.Builder<GraphQLFieldDefinition> remainingFields = ImmutableList.builder();
-      for (GraphQLFieldDefinition field : input.getFieldDefinitions()) {
-        if (!fieldNameToRemove.equals(field.getName())) {
-          remainingFields.add(field);
-```
-
-### DataFlowIssue
 Method invocation `apply` may produce `NullPointerException`
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
@@ -164,18 +175,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReade
       return function().apply(environment);
     }
 
-```
-
-### DataFlowIssue
-Argument `UNDERSCORE_TO_CAMEL.convert(field.getName())` might be null
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
-#### Snippet
-```java
-            (field, value) ->
-                variablesBuilder.put(
-                    UNDERSCORE_TO_CAMEL.convert(field.getName()), mapValues(field, value)));
-    return variablesBuilder.build();
-  }
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -209,7 +208,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/DynamicProtoUtil.java`
 #### Snippet
 ```java
-      return responseData.toByteString();
+      return ProtoToMap.messageToMap(message);
     } catch (DescriptorValidationException | InvalidProtocolBufferException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
@@ -221,7 +220,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/DynamicProtoUtil.java`
 #### Snippet
 ```java
-      return ProtoToMap.messageToMap(message);
+      return responseData.toByteString();
     } catch (DescriptorValidationException | InvalidProtocolBufferException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
@@ -260,9 +259,9 @@ in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/SchemaModule.ja
 #### Snippet
 ```java
 
-  /** Uses the fields and methods on the module itself. */
-  public SchemaModule() {
-    schemaDefinition = this;
+  /** Uses the fields and methods on the given schema definition. */
+  public SchemaModule(Object schemaDefinition) {
+    this.schemaDefinition = schemaDefinition;
     schemaOptions = SchemaOptions.defaultOptions();
 ```
 
@@ -272,9 +271,9 @@ in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/SchemaModule.ja
 #### Snippet
 ```java
 
-  /** Uses the fields and methods on the given schema definition. */
-  public SchemaModule(Object schemaDefinition) {
-    this.schemaDefinition = schemaDefinition;
+  /** Uses the fields and methods on the module itself. */
+  public SchemaModule() {
+    schemaDefinition = this;
     schemaOptions = SchemaOptions.defaultOptions();
 ```
 
@@ -292,18 +291,6 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserve
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (9 lines)
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-              try {
-                return null;
-                //                      return graphQLFieldDefinition
-                //                              .getDataFetcher()
-                //                              .get(
-```
-
-### CommentedOutCode
 Commented out code (38 lines)
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoToGql.java`
 #### Snippet
@@ -313,6 +300,18 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoToGql.java`
     //    Optional<GraphQLFieldDefinition> relayId =
     //        descriptor.getFields().stream()
     //            .filter(field -> field.getOptions().hasExtension(RelayOptionsProto.relayOptions))
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
+#### Snippet
+```java
+              try {
+                return null;
+                //                      return graphQLFieldDefinition
+                //                              .getDataFetcher()
+                //                              .get(
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -331,18 +330,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/GqlInputConverter.jav
 ## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaBundle.java`
-#### Snippet
-```java
-    Map<String, ? extends Function<String, Object>> nodeDataFetchers =
-        nodeDataFetchers().stream()
-            .collect(Collectors.toMap(e -> e.getClassName(), Function.identity()));
-
-    GraphQLObjectType.Builder queryType = newObject().name("QueryType").fields(queryFields());
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/StructUtil.java`
 #### Snippet
 ```java
@@ -351,6 +338,18 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/StructUtil.java`
                 entry -> entry.getKey(),
                 entry -> {
                   Value value = entry.getValue();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaBundle.java`
+#### Snippet
+```java
+    Map<String, ? extends Function<String, Object>> nodeDataFetchers =
+        nodeDataFetchers().stream()
+            .collect(Collectors.toMap(e -> e.getClassName(), Function.identity()));
+
+    GraphQLObjectType.Builder queryType = newObject().name("QueryType").fields(queryFields());
 ```
 
 ### Convert2MethodRef
@@ -410,18 +409,6 @@ Assignment to method parameter `fullName`
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/DescriptorSet.java`
 #### Snippet
 ```java
-  private static Optional<String> appendMessage(
-      DescriptorProtos.DescriptorProto message, List<Integer> path, String fullName) {
-    fullName += appendNameComponent(message.getName());
-    return path.size() > 2
-        ? append(message, path.subList(2, path.size()), fullName)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fullName`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/DescriptorSet.java`
-#### Snippet
-```java
   private static String appendEnum(
       DescriptorProtos.EnumDescriptorProto enumDescriptor, List<Integer> path, String fullName) {
     fullName += appendNameComponent(enumDescriptor.getName());
@@ -441,6 +428,18 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/DescriptorSet.java`
     return fullName;
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `fullName`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/DescriptorSet.java`
+#### Snippet
+```java
+  private static Optional<String> appendMessage(
+      DescriptorProtos.DescriptorProto message, List<Integer> path, String fullName) {
+    fullName += appendNameComponent(message.getName());
+    return path.size() > 2
+        ? append(message, path.subList(2, path.size()), fullName)
+```
+
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'schema' in a Serializable class
@@ -454,20 +453,19 @@ in `examples/schema/src/main/java/com/google/api/graphql/schema/GraphQlServlet.j
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-14-54-48.625.html`
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoScalars.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+                    return ByteString.copyFromUtf8(((StringValue) input).getValue());
+                  }
+                  return null;
+                }
+              })
 ```
 
-## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoDataFetcher.java`
@@ -477,18 +475,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoDataFetcher.java
     if (source == null) {
       return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-  protected Function<DataFetchingEnvironment, Object> handleParameter(
-      Method method, int parameterIndex) {
-    return null;
-  }
 
 ```
 
@@ -509,23 +495,23 @@ Return of `null`
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
 ```java
+  protected Function<DataFetchingEnvironment, Object> handleParameter(
+      Method method, int parameterIndex) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
+#### Snippet
+```java
               // TODO: Don't hardcode the arguments structure.
               try {
                 return null;
                 //                      return graphQLFieldDefinition
                 //                              .getDataFetcher()
-```
-
-### ReturnNull
-Return of `null`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoScalars.java`
-#### Snippet
-```java
-                    return ByteString.copyFromUtf8(((StringValue) input).getValue());
-                  }
-                  return null;
-                }
-              })
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -550,8 +536,8 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/DynamicProtoUtil.jav
       // TODO: Support multiple FileDescriptors in FileDescriptorSet
       FileDescriptor fileDescriptor =
           FileDescriptor.buildFrom(fileDescriptorSet.getFileList().get(0), new FileDescriptor[] {});
-
-      Descriptor messageType = fileDescriptor.findMessageTypeByName(operationName + "Response");
+      Descriptor messageType = fileDescriptor.findMessageTypeByName(operationName + "Request");
+      Message message = DynamicMessage.parseFrom(messageType, encodedRequest);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -562,69 +548,21 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/DynamicProtoUtil.jav
       // TODO: Support multiple FileDescriptors in FileDescriptorSet
       FileDescriptor fileDescriptor =
           FileDescriptor.buildFrom(fileDescriptorSet.getFileList().get(0), new FileDescriptor[] {});
-      Descriptor messageType = fileDescriptor.findMessageTypeByName(operationName + "Request");
-      Message message = DynamicMessage.parseFrom(messageType, encodedRequest);
+
+      Descriptor messageType = fileDescriptor.findMessageTypeByName(operationName + "Response");
 ```
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `schema/common/src/main/java/com/google/api/graphql/schema/FuturesConverter.java`
+Can generalize to `? extends ExecutionResult`
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/execution/ExecutionResultToProtoAsync.java`
 #### Snippet
 ```java
-
-  /** Converts an {@see ApiFuture} to a {@see ListenableFuture}. */
-  public static <T> ListenableFuture<T> apiFutureToListenableFuture(final ApiFuture<T> apiFuture) {
-    SettableFuture<T> settableFuture = SettableFuture.create();
-    ApiFutures.addCallback(
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaBundle`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaBundle.java`
-#### Snippet
-```java
-  }
-
-  public static SchemaBundle combine(Collection<SchemaBundle> schemaBundles) {
-    Builder builder = SchemaBundle.builder();
-    SchemaOptions.Builder schemaOptionsBuilder = SchemaOptions.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/SchemaProviderModule.java`
-#### Snippet
-```java
-
-    @Inject
-    public SchemaImpl(@Annotations.SchemaBundles Provider<Set<SchemaBundle>> schemaBundles) {
-      this.schemaBundleProviders = schemaBundles;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-  }
-
-  protected void addQueryList(List<GraphQLFieldDefinition> queries) {
-    allQueriesInModule.addAll(queries);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-  }
-
-  protected void addMutationList(List<GraphQLFieldDefinition> mutations) {
-    allMutationsInModule.addAll(mutations);
-  }
+   */
+  public static <T extends Message> CompletableFuture<T> toProtoMessage(
+      T message, CompletableFuture<ExecutionResult> executionResultCompletableFuture) {
+    return executionResultCompletableFuture.thenApply(
+        executionResult ->
 ```
 
 ### BoundedWildcard
@@ -640,15 +578,51 @@ in `rejoiner-grpc/src/main/java/com/google/api/graphql/execution/ExecutionResult
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExecutionResult`
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/execution/ExecutionResultToProtoAsync.java`
+Can generalize to `? extends T`
+in `schema/common/src/main/java/com/google/api/graphql/schema/FuturesConverter.java`
 #### Snippet
 ```java
-   */
-  public static <T extends Message> CompletableFuture<T> toProtoMessage(
-      T message, CompletableFuture<ExecutionResult> executionResultCompletableFuture) {
-    return executionResultCompletableFuture.thenApply(
-        executionResult ->
+
+  /** Converts an {@see ApiFuture} to a {@see ListenableFuture}. */
+  public static <T> ListenableFuture<T> apiFutureToListenableFuture(final ApiFuture<T> apiFuture) {
+    SettableFuture<T> settableFuture = SettableFuture.create();
+    ApiFutures.addCallback(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/SchemaProviderModule.java`
+#### Snippet
+```java
+
+    @Inject
+    public SchemaImpl(@Annotations.SchemaBundles Provider<Set<SchemaBundle>> schemaBundles) {
+      this.schemaBundleProviders = schemaBundles;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FragmentDefinition`
+in `rejoiner/src/main/java/com/google/api/graphql/grpc/SelectorToFieldMask.java`
+#### Snippet
+```java
+      Selection<?> node,
+      Descriptor descriptor,
+      Map<String, FragmentDefinition> fragmentsByName) {
+    ImmutableSet.Builder<String> builder = ImmutableSet.builder();
+    if (node instanceof Field) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaBundle`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaBundle.java`
+#### Snippet
+```java
+  }
+
+  public static SchemaBundle combine(Collection<SchemaBundle> schemaBundles) {
+    Builder builder = SchemaBundle.builder();
+    SchemaOptions.Builder schemaOptionsBuilder = SchemaOptions.builder();
 ```
 
 ### BoundedWildcard
@@ -700,18 +674,90 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoRegistry.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FragmentDefinition`
-in `rejoiner/src/main/java/com/google/api/graphql/grpc/SelectorToFieldMask.java`
+Can generalize to `? extends GraphQLFieldDefinition`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
 ```java
-      Selection<?> node,
-      Descriptor descriptor,
-      Map<String, FragmentDefinition> fragmentsByName) {
-    ImmutableSet.Builder<String> builder = ImmutableSet.builder();
-    if (node instanceof Field) {
+  }
+
+  protected void addMutationList(List<GraphQLFieldDefinition> mutations) {
+    allMutationsInModule.addAll(mutations);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLFieldDefinition`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
+#### Snippet
+```java
+  }
+
+  protected void addQueryList(List<GraphQLFieldDefinition> queries) {
+    allQueriesInModule.addAll(queries);
+  }
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `FieldDefinition` has no concrete subclass
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/FieldDefinition.java`
+#### Snippet
+```java
+/** A GraphQL field definition with it's data fetcher. */
+@AutoValue
+public abstract class FieldDefinition<T> {
+  abstract String parentTypeName();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ProtoExecutionResult` has no concrete subclass
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/execution/ProtoExecutionResult.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+public abstract class ProtoExecutionResult<T extends Message> {
+
+  static <T extends Message> ProtoExecutionResult<T> create(
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RejoinerStreamingContext` has no concrete subclass
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/RejoinerStreamingContext.java`
+#### Snippet
+```java
+
+@AutoValue
+public abstract class RejoinerStreamingContext<T> {
+
+  private final CountDownLatch countDownLatch = new CountDownLatch(1);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GrpcSchemaModule` has no concrete subclass
+in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GrpcSchemaModule.java`
+#### Snippet
+```java
+
+/** SchemaModule that generates queries and mutations for gRPC clients. */
+public abstract class GrpcSchemaModule extends SchemaModule {
+
+  protected ImmutableList<GraphQLFieldDefinition> serviceToFields(
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GraphQlStreamObserver` has no concrete subclass
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserver.java`
+#### Snippet
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+public abstract class GraphQlStreamObserver<T extends Message, R extends Message>
+    implements StreamObserver<T> {
+
+```
+
 ### AbstractClassNeverImplemented
 Abstract class `SchemaOptions` has no concrete subclass
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaOptions.java`
@@ -761,42 +807,6 @@ public abstract class SchemaBundle {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ProtoExecutionResult` has no concrete subclass
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/execution/ProtoExecutionResult.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-public abstract class ProtoExecutionResult<T extends Message> {
-
-  static <T extends Message> ProtoExecutionResult<T> create(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RejoinerStreamingContext` has no concrete subclass
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/RejoinerStreamingContext.java`
-#### Snippet
-```java
-
-@AutoValue
-public abstract class RejoinerStreamingContext<T> {
-
-  private final CountDownLatch countDownLatch = new CountDownLatch(1);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GraphQlStreamObserver` has no concrete subclass
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserver.java`
-#### Snippet
-```java
-import java.util.concurrent.atomic.AtomicInteger;
-
-public abstract class GraphQlStreamObserver<T extends Message, R extends Message>
-    implements StreamObserver<T> {
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `MethodMetadata` has no concrete subclass
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
@@ -806,30 +816,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReade
   abstract static class MethodMetadata {
     @Nullable
     abstract Function<DataFetchingEnvironment, ?> function();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `FieldDefinition` has no concrete subclass
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/FieldDefinition.java`
-#### Snippet
-```java
-/** A GraphQL field definition with it's data fetcher. */
-@AutoValue
-public abstract class FieldDefinition<T> {
-  abstract String parentTypeName();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GrpcSchemaModule` has no concrete subclass
-in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GrpcSchemaModule.java`
-#### Snippet
-```java
-
-/** SchemaModule that generates queries and mutations for gRPC clients. */
-public abstract class GrpcSchemaModule extends SchemaModule {
-
-  protected ImmutableList<GraphQLFieldDefinition> serviceToFields(
 ```
 
 ## RuleId[id=ConstantValue]
