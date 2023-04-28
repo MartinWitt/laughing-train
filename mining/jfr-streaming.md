@@ -233,15 +233,15 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
+Missorted modifiers `final static`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
+    // {0} is the state the code is trying to transition to.
+    // {1} are the states that the instance could be in for a valid transition.
+    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
 
-    private volatile long id = -1;
+    /**
 ```
 
 ### MissortedModifiers
@@ -257,15 +257,15 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
+Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-    // {0} is the state the code is trying to transition to.
-    // {1} are the states that the instance could be in for a valid transition.
-    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
 
-    /**
+    private volatile long id = -1;
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
