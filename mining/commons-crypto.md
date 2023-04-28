@@ -571,6 +571,30 @@ in `src/main/java/org/apache/commons/crypto/OsInfo.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
+#### Snippet
+```java
+        // TODO Find a better way to do this later.
+        if (isDebug()) {
+            System.out.println(String.format(format, args));
+            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
+                ((Throwable) args[0]).printStackTrace(System.out);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
+#### Snippet
+```java
+            System.out.println(String.format(format, args));
+            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
+                ((Throwable) args[0]).printStackTrace(System.out);
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/crypto/Crypto.java`
 #### Snippet
 ```java
@@ -598,18 +622,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
-    private static void info(final String format, final Object... args) {
-        // TODO Find a better way to do this later.
-        System.out.println(String.format(format, args));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
         // TODO Find a better way to do this later.
         if (Boolean.getBoolean(KEY_DEBUG)) {
             System.out.println(String.format(Objects.toString(format), args));
@@ -619,26 +631,14 @@ in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
+    private static void info(final String format, final Object... args) {
         // TODO Find a better way to do this later.
-        if (isDebug()) {
-            System.out.println(String.format(format, args));
-            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
-                ((Throwable) args[0]).printStackTrace(System.out);
-```
+        System.out.println(String.format(format, args));
+    }
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
-#### Snippet
-```java
-            System.out.println(String.format(format, args));
-            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
-                ((Throwable) args[0]).printStackTrace(System.out);
-            }
-        }
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -667,18 +667,6 @@ in `src/main/java/org/apache/commons/crypto/OsInfo.java`
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/output/StreamOutput.java`
-#### Snippet
-```java
-    /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.output.Output#write(ByteBuffer)}.
-     * Writes a sequence of bytes to this output from the given buffer.
-     *
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.crypto.stream.input` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
@@ -710,8 +698,8 @@ in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#read(ByteBuffer)}.
-     * Reads a sequence of bytes from input into the given buffer.
+     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
+     * over and discards {@code n} bytes of data from this input stream.
      *
 ```
 
@@ -722,8 +710,8 @@ in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
-     * over and discards {@code n} bytes of data from this input stream.
+     * {@link org.apache.commons.crypto.stream.input.Input#read(ByteBuffer)}.
+     * Reads a sequence of bytes from input into the given buffer.
      *
 ```
 
@@ -752,26 +740,14 @@ in `src/main/java/org/apache/commons/crypto/stream/input/StreamInput.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
+Qualifier `org.apache.commons.crypto.stream.output` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/output/StreamOutput.java`
 #### Snippet
 ```java
-
     /**
-     * Overrides the {@link java.io.OutputStream#write(byte[], int, int)}.
-     * Encryption is buffer based. If there is enough room in {@link #inBuffer},
-     * then write to this buffer. If {@link #inBuffer} is full, then do
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides the {@link java.io.OutputStream#write(byte[])}. Writes the
-     * specified byte to this output stream.
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.output.Output#write(ByteBuffer)}.
+     * Writes a sequence of bytes to this output from the given buffer.
      *
 ```
 
@@ -789,13 +765,37 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides the {@link java.io.OutputStream#write(byte[])}. Writes the
+     * specified byte to this output stream.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/CryptoOutputStream.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides the {@link java.io.OutputStream#write(byte[], int, int)}.
+     * Encryption is buffer based. If there is enough room in {@link #inBuffer},
+     * then write to this buffer. If {@link #inBuffer} is full, then do
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
 #### Snippet
 ```java
 
     /**
-     * Overrides the {@link java.io.InputStream#skip(long)}. Skips over and
-     * discards {@code n} bytes of data from this input stream.
+     * Overrides the {@link java.io.InputStream#read()}. Reads the next byte of
+     * data from the input stream.
      *
 ```
 
@@ -812,18 +812,6 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
-#### Snippet
-```java
-
-    /**
-     * Overrides the {@link java.io.InputStream#read()}. Reads the next byte of
-     * data from the input stream.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.channels` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
 #### Snippet
@@ -832,6 +820,18 @@ in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
      * Overrides the
      * {@link java.nio.channels.ReadableByteChannel#read(ByteBuffer)}. Reads a
      * sequence of bytes from this channel into the given buffer.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/crypto/stream/CryptoInputStream.java`
+#### Snippet
+```java
+
+    /**
+     * Overrides the {@link java.io.InputStream#skip(long)}. Skips over and
+     * discards {@code n} bytes of data from this input stream.
      *
 ```
 
@@ -926,9 +926,9 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
-     * over and discards {@code n} bytes of data from this input stream.
-     *
+     * {@link org.apache.commons.crypto.stream.input.Input#read(long, byte[], int, int)}
+     * . Reads up to {@code len} bytes of data from the input stream into
+     * an array of bytes. An attempt is made to read as many as {@code len}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -937,10 +937,10 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 #### Snippet
 ```java
     /**
-     * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#read(long, byte[], int, int)}
-     * . Reads up to {@code len} bytes of data from the input stream into
-     * an array of bytes. An attempt is made to read as many as {@code len}
+     * Constructs the
+     * {@link org.apache.commons.crypto.stream.input.ChannelInput}.
+     *
+     * @param channel the ReadableByteChannel object.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -962,9 +962,9 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 ```java
     /**
      * Overrides the
-     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
-     * the given offset from the start of the stream. The next read() will be
-     * from that location.
+     * {@link org.apache.commons.crypto.stream.input.Input#skip(long)}. Skips
+     * over and discards {@code n} bytes of data from this input stream.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -973,10 +973,10 @@ in `src/main/java/org/apache/commons/crypto/stream/input/ChannelInput.java`
 #### Snippet
 ```java
     /**
-     * Constructs the
-     * {@link org.apache.commons.crypto.stream.input.ChannelInput}.
-     *
-     * @param channel the ReadableByteChannel object.
+     * Overrides the
+     * {@link org.apache.commons.crypto.stream.input.Input#seek(long)}. Seeks to
+     * the given offset from the start of the stream. The next read() will be
+     * from that location.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1042,18 +1042,6 @@ in `src/main/java/org/apache/commons/crypto/stream/PositionedCryptoInputStream.j
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `pos` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
-#### Snippet
-```java
-    private final byte[] reservoir = new byte[RESERVOIR_LENGTH];
-
-    private int pos = reservoir.length;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `stream` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
 #### Snippet
@@ -1063,6 +1051,18 @@ in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
     private transient FileInputStream stream;
 
     private final byte[] reservoir = new byte[RESERVOIR_LENGTH];
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pos` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/crypto/random/OsCryptoRandom.java`
+#### Snippet
+```java
+    private final byte[] reservoir = new byte[RESERVOIR_LENGTH];
+
+    private int pos = reservoir.length;
+
+    /**
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
@@ -1154,7 +1154,7 @@ in `src/main/java/org/apache/commons/crypto/stream/CtrCryptoInputStream.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-22-17-43.331.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-17-38-17.987.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1302,6 +1302,18 @@ in `src/main/java/org/apache/commons/crypto/jna/OpenSslJnaCryptoRandom.java`
 ## RuleId[id=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
+in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
+#### Snippet
+```java
+        // TODO Find a better way to do this later.
+        if (isDebug()) {
+            System.out.println(String.format(format, args));
+            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
+                ((Throwable) args[0]).printStackTrace(System.out);
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
 in `src/main/java/org/apache/commons/crypto/Crypto.java`
 #### Snippet
 ```java
@@ -1310,18 +1322,6 @@ in `src/main/java/org/apache/commons/crypto/Crypto.java`
           System.out.println(String.format(format, args));
         }
     }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
-#### Snippet
-```java
-    private static void info(final String format, final Object... args) {
-        // TODO Find a better way to do this later.
-        System.out.println(String.format(format, args));
-    }
-
 ```
 
 ### RedundantStringFormatCall
@@ -1338,14 +1338,14 @@ in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `src/main/java/org/apache/commons/crypto/NativeCodeLoader.java`
+in `src/main/java/org/apache/commons/crypto/jna/OpenSslJna.java`
 #### Snippet
 ```java
+    private static void info(final String format, final Object... args) {
         // TODO Find a better way to do this later.
-        if (isDebug()) {
-            System.out.println(String.format(format, args));
-            if (args != null && args.length > 0 && args[0] instanceof Throwable) {
-                ((Throwable) args[0]).printStackTrace(System.out);
+        System.out.println(String.format(format, args));
+    }
+
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
