@@ -186,11 +186,11 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
+        }
+
+        reportPath = reportPath.replace('/', '|').replace("\\", "|");
+        if (reportPath.startsWith("|")) {
+          reportPath = reportPath.substring(1);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -198,11 +198,11 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-        }
-
-        reportPath = reportPath.replace('/', '|').replace("\\", "|");
-        if (reportPath.startsWith("|")) {
-          reportPath = reportPath.substring(1);
+      case MEMBER:
+      case ACCESSOR:
+        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
+      default:
+        return "_unknown_/_unknown_";
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -287,30 +287,6 @@ Obsolete collection type `Stack` used
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-  private String myCurrentResource;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-  private String myCurrentResource;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
   }
 
   private final Stack<String> myMessageInspectionId = new Stack<String>();
@@ -328,6 +304,30 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
   private final Stack<String> myMessageInspectionId = new Stack<String>();
   private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
   private String myCurrentTarget;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+
+  private final Stack<String> myMessageInspectionId = new Stack<String>();
+  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
+  private String myCurrentTarget;
+  private String myCurrentResource;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+
+  private final Stack<String> myMessageInspectionId = new Stack<String>();
+  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
+  private String myCurrentTarget;
+  private String myCurrentResource;
 ```
 
 ### ObsoleteCollection
