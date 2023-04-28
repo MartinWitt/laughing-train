@@ -42,18 +42,6 @@ I found 355 bad smells with 61 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
-  }
-
-  static enum StatusState {
-    @SerializedName("pending")
-    Pending("pending"),
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/GitHubApiFactory.java`
 #### Snippet
@@ -90,27 +78,15 @@ public interface GitHubApiFactory {
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+Modifier `static` is redundant for inner enums
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
 ```java
+  }
 
-public interface DefaultStatusMessages {
-  public final String BUILD_QUEUED = "TeamCity build queued";
-  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
-  public final String BUILD_STARTED = "TeamCity build started";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
-#### Snippet
-```java
-
-public interface DefaultStatusMessages {
-  public final String BUILD_QUEUED = "TeamCity build queued";
-  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
-  public final String BUILD_STARTED = "TeamCity build started";
+  static enum StatusState {
+    @SerializedName("pending")
+    Pending("pending"),
 ```
 
 ### UnnecessaryModifier
@@ -142,11 +118,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
-  public final String BUILD_QUEUED = "TeamCity build queued";
   public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
   public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
   public final String BUILD_FAILED = "TeamCity build failed";
+  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
 ```
 
 ### UnnecessaryModifier
@@ -154,35 +130,11 @@ Modifier `final` is redundant for interface fields
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
-  public final String BUILD_QUEUED = "TeamCity build queued";
   public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
   public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
   public final String BUILD_FAILED = "TeamCity build failed";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
-#### Snippet
-```java
-  public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
   public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
-#### Snippet
-```java
-  public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
-  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -214,11 +166,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
-  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
-  public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
   public final String BUILD_FAILED = "TeamCity build failed";
   public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -226,11 +178,59 @@ Modifier `final` is redundant for interface fields
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
+  public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
+  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
+
+public interface DefaultStatusMessages {
+  public final String BUILD_QUEUED = "TeamCity build queued";
+  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
+  public final String BUILD_STARTED = "TeamCity build started";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
+
+public interface DefaultStatusMessages {
+  public final String BUILD_QUEUED = "TeamCity build queued";
+  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
+  public final String BUILD_STARTED = "TeamCity build started";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
+  public final String BUILD_QUEUED = "TeamCity build queued";
   public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
   public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
   public final String BUILD_FAILED = "TeamCity build failed";
-  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
+  public final String BUILD_QUEUED = "TeamCity build queued";
+  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
+  public final String BUILD_STARTED = "TeamCity build started";
+  public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
 ```
 
 ### UnnecessaryModifier
@@ -250,11 +250,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
 #### Snippet
 ```java
+  boolean isPublishingForVcsRoot(VcsRoot vcsRoot);
 
-  @Nullable
-  default public String getServerVersion(@NotNull String url) {
-    return null;
-  }
+  public boolean isEventSupported(Event event, final SBuildType buildType, final Map<String, String> params);
+
+  boolean isTestConnectionSupported();
 ```
 
 ### UnnecessaryModifier
@@ -262,11 +262,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
 #### Snippet
 ```java
-  boolean isPublishingForVcsRoot(VcsRoot vcsRoot);
 
-  public boolean isEventSupported(Event event, final SBuildType buildType, final Map<String, String> params);
-
-  boolean isTestConnectionSupported();
+  @Nullable
+  default public String getServerVersion(@NotNull String url) {
+    return null;
+  }
 ```
 
 ## RuleId[id=FieldMayBeStatic]
@@ -387,6 +387,18 @@ Lambda can be replaced with method reference
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
 #### Snippet
 ```java
+                   },
+                   e -> {
+                     exceptionRef.set(e);
+                   }
+      );
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
           exceptionRef.set(new IOException(getErrorMessage(response, null)));
         },
         e -> exceptionRef.set(e));
@@ -416,18 +428,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
         e -> exceptionRef.set(e));
     });
 
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-                   },
-                   e -> {
-                     exceptionRef.set(e);
-                   }
-      );
 ```
 
 ### Convert2MethodRef
@@ -472,11 +472,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
 
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
+  // Captures the following groups: (organization) (project) (repository)
 ```
 
 ### RegExpRedundantEscape
@@ -484,11 +484,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
 
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
+  // Captures the following groups: (organization) (project) (repository)
 ```
 
 ### RegExpRedundantEscape
@@ -496,11 +496,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
 
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
+  // Captures the following groups: (organization) (project) (repository)
 ```
 
 ### RegExpRedundantEscape
@@ -508,35 +508,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
+
   // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
-
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
-
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (organization) (project) (repository)
-  // Example: / (organization) / (project) / (repository)
-  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
-
-  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
 ```
 
 ### RegExpRedundantEscape
@@ -640,11 +616,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
   // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
 ```
 
 ### RegExpRedundantEscape
@@ -652,11 +628,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
   // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
 ```
 
 ### RegExpRedundantEscape
@@ -664,11 +640,11 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
   // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
 ```
 
 ### RegExpRedundantEscape
@@ -676,11 +652,35 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
   // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
+  // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
+  // Captures the following groups: (organization) (project) (repository)
+  // Example: / (organization) / (project) / (repository)
+  private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
+
+  private static final String[] TFS_HOSTED_DOMAINS = new String[]{"visualstudio.com", "dev.azure.com"};
 ```
 
 ### RegExpRedundantEscape
@@ -842,18 +842,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```
 
 ### SizeReplaceableByIsEmpty
-`iterations.value.size() == 0` can be replaced with 'iterations.value.isEmpty()'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
-
-              IterationsList iterations = processGetResponse(response, IterationsList.class);
-              if (iterations == null || iterations.value == null || iterations.value.size() == 0) {
-                LOG.debug("No iterations are available in repository " + info);
-                return;
-```
-
-### SizeReplaceableByIsEmpty
 `commits.value.size() == 0` can be replaced with 'commits.value.isEmpty()'
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
@@ -866,15 +854,15 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```
 
 ### SizeReplaceableByIsEmpty
-`myReviews.size() > 0` can be replaced with '!myReviews.isEmpty()'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/SwarmClient.java`
+`iterations.value.size() == 0` can be replaced with 'iterations.value.isEmpty()'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
 ```java
-          }
-        }
-        if (myReviews.size() > 0) {
-          info(String.format("Found Perforce Swarm reviews %s for %s", myReviews, myDebugInfo));
-        }
+
+              IterationsList iterations = processGetResponse(response, IterationsList.class);
+              if (iterations == null || iterations.value == null || iterations.value.size() == 0) {
+                LOG.debug("No iterations are available in repository " + info);
+                return;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -886,6 +874,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/Swa
         }
         if (myTestRunIds.size() > 0) {
           info(String.format("Found Perforce Swarm testruns %s for %s", myTestRunIds, myDebugInfo));
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`myReviews.size() > 0` can be replaced with '!myReviews.isEmpty()'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/SwarmClient.java`
+#### Snippet
+```java
+          }
+        }
+        if (myReviews.size() > 0) {
+          info(String.format("Found Perforce Swarm reviews %s for %s", myReviews, myDebugInfo));
         }
 ```
 
@@ -1028,7 +1028,7 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ## RuleId[id=SetReplaceableByEnumSet]
 ### SetReplaceableByEnumSet
 `HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
 #### Snippet
 ```java
   }};
@@ -1036,18 +1036,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
     add(Event.QUEUED);
     add(Event.REMOVED_FROM_QUEUE);
-```
-
-### SetReplaceableByEnumSet
-`HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
-#### Snippet
-```java
-
-  private String myDefaultApiUrl = DEFAULT_API_URL;
-  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
-    add(Event.STARTED);
-    add(Event.FINISHED);
 ```
 
 ### SetReplaceableByEnumSet
@@ -1064,7 +1052,19 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### SetReplaceableByEnumSet
 `HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
+#### Snippet
+```java
+
+  private String myDefaultApiUrl = DEFAULT_API_URL;
+  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
+    add(Event.STARTED);
+    add(Event.FINISHED);
+```
+
+### SetReplaceableByEnumSet
+`HashSet` can be replaced with 'EnumSet'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
 #### Snippet
 ```java
   }};
@@ -1115,6 +1115,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
 #### Snippet
 ```java
+  }};
+
+  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
+    add(Event.QUEUED);
+    add(Event.REMOVED_FROM_QUEUE);
+```
+
+### SetReplaceableByEnumSet
+`HashSet` can be replaced with 'EnumSet'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
+#### Snippet
+```java
   static final GitRepositoryParser VCS_URL_PARSER = new GitRepositoryParser();
 
   private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
@@ -1124,38 +1136,14 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### SetReplaceableByEnumSet
 `HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
 #### Snippet
 ```java
   }};
-
-  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
-    add(Event.QUEUED);
-    add(Event.REMOVED_FROM_QUEUE);
-```
-
-### SetReplaceableByEnumSet
-`HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
-#### Snippet
-```java
-  }};
-
-  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
-    add(Event.QUEUED);
-    add(Event.REMOVED_FROM_QUEUE);
-```
-
-### SetReplaceableByEnumSet
-`HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
-#### Snippet
-```java
-  @NotNull private final SecurityContext mySecurityContext;
-
+  private GerritClient myGerritClient;
   private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
-    add(Event.STARTED);
     add(Event.FINISHED);
+  }};
 ```
 
 ### SetReplaceableByEnumSet
@@ -1172,14 +1160,26 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/com
 
 ### SetReplaceableByEnumSet
 `HashSet` can be replaced with 'EnumSet'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+#### Snippet
+```java
+  @NotNull private final SecurityContext mySecurityContext;
+
+  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
+    add(Event.STARTED);
+    add(Event.FINISHED);
+```
+
+### SetReplaceableByEnumSet
+`HashSet` can be replaced with 'EnumSet'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
 #### Snippet
 ```java
   }};
-  private GerritClient myGerritClient;
-  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
-    add(Event.FINISHED);
-  }};
+
+  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
+    add(Event.QUEUED);
+    add(Event.REMOVED_FROM_QUEUE);
 ```
 
 ### SetReplaceableByEnumSet
@@ -1257,63 +1257,27 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-  private static class TimestampedServerVersion {
-    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
-    final private String myServerVersion;
-    final private long myTimestamp;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-
-  private static class TimestampedServerVersion {
-    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
-    final private String myServerVersion;
-    final private long myTimestamp;
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
-    final private String myServerVersion;
-    final private long myTimestamp;
-
-    TimestampedServerVersion(@NotNull String version) {
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
 #### Snippet
 ```java
   @NotNull
   @Override
   public Map<OAuthConnectionDescriptor, Boolean> getOAuthConnections(final @NotNull SProject project, final @NotNull SUser user) {
-    return Collections.emptyMap();
-  }
+    final List<OAuthConnectionDescriptor> tfsConnections = myOauthConnectionsManager.getAvailableConnectionsOfType(project, TfsAuthProvider.TYPE);
+    final Map<OAuthConnectionDescriptor, Boolean> connections = new LinkedHashMap<OAuthConnectionDescriptor, Boolean>();
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
 #### Snippet
 ```java
   @NotNull
   @Override
   public Map<OAuthConnectionDescriptor, Boolean> getOAuthConnections(final @NotNull SProject project, final @NotNull SUser user) {
-    return Collections.emptyMap();
-  }
+    final List<OAuthConnectionDescriptor> tfsConnections = myOauthConnectionsManager.getAvailableConnectionsOfType(project, TfsAuthProvider.TYPE);
+    final Map<OAuthConnectionDescriptor, Boolean> connections = new LinkedHashMap<OAuthConnectionDescriptor, Boolean>();
 ```
 
 ### MissortedModifiers
@@ -1353,27 +1317,63 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+Missorted modifiers `final private`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
 #### Snippet
 ```java
-  @NotNull
-  @Override
-  public Map<OAuthConnectionDescriptor, Boolean> getOAuthConnections(final @NotNull SProject project, final @NotNull SUser user) {
-    final List<OAuthConnectionDescriptor> tfsConnections = myOauthConnectionsManager.getAvailableConnectionsOfType(project, TfsAuthProvider.TYPE);
-    final Map<OAuthConnectionDescriptor, Boolean> connections = new LinkedHashMap<OAuthConnectionDescriptor, Boolean>();
+    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
+    final private String myServerVersion;
+    final private long myTimestamp;
+
+    TimestampedServerVersion(@NotNull String version) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
 #### Snippet
 ```java
   @NotNull
   @Override
   public Map<OAuthConnectionDescriptor, Boolean> getOAuthConnections(final @NotNull SProject project, final @NotNull SUser user) {
-    final List<OAuthConnectionDescriptor> tfsConnections = myOauthConnectionsManager.getAvailableConnectionsOfType(project, TfsAuthProvider.TYPE);
-    final Map<OAuthConnectionDescriptor, Boolean> connections = new LinkedHashMap<OAuthConnectionDescriptor, Boolean>();
+    return Collections.emptyMap();
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<OAuthConnectionDescriptor, Boolean> getOAuthConnections(final @NotNull SProject project, final @NotNull SUser user) {
+    return Collections.emptyMap();
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+
+  private static class TimestampedServerVersion {
+    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
+    final private String myServerVersion;
+    final private long myTimestamp;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+  private static class TimestampedServerVersion {
+    final static long EXPIRATION_TIME_MS = TimeUnit.DAYS.toMillis(1);
+    final private String myServerVersion;
+    final private long myTimestamp;
+
 ```
 
 ### MissortedModifiers
@@ -1465,11 +1465,11 @@ Missorted modifiers `final static`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
+public class CommitStatusPublisherListener extends BuildServerAdapter implements ChangesCollectionCondition {
 
   final static String PUBLISHING_ENABLED_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabled";
   final static String CSP_FOR_BUILD_TYPE_CONFIGURATION_FLAG_TTL_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabledForBuildCache.ttl";
   final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
-  final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
 ```
 
 ### MissortedModifiers
@@ -1477,10 +1477,22 @@ Missorted modifiers `final static`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
+  final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
+  final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
   final static String LOCKS_STRIPES = "teamcity.commitStatusPublisher.locks.stripes";
 
   private final static int LOCKS_STRIPES_DEFAULT = 1000;
-  private final static int MAX_LAST_EVENTS_TO_REMEMBER = 1000;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
+#### Snippet
+```java
+  final static String CSP_FOR_BUILD_TYPE_CONFIGURATION_FLAG_TTL_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabledForBuildCache.ttl";
+  final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
+  final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
+  final static String LOCKS_STRIPES = "teamcity.commitStatusPublisher.locks.stripes";
 
 ```
 
@@ -1501,11 +1513,11 @@ Missorted modifiers `final static`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
+
+  final static String PUBLISHING_ENABLED_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabled";
   final static String CSP_FOR_BUILD_TYPE_CONFIGURATION_FLAG_TTL_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabledForBuildCache.ttl";
   final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
   final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
-  final static String LOCKS_STRIPES = "teamcity.commitStatusPublisher.locks.stripes";
-
 ```
 
 ### MissortedModifiers
@@ -1513,11 +1525,11 @@ Missorted modifiers `final static`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
-  final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
-  final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
   final static String LOCKS_STRIPES = "teamcity.commitStatusPublisher.locks.stripes";
 
   private final static int LOCKS_STRIPES_DEFAULT = 1000;
+  private final static int MAX_LAST_EVENTS_TO_REMEMBER = 1000;
+
 ```
 
 ### MissortedModifiers
@@ -1530,18 +1542,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
   final static String CHECK_STATUS_BEFORE_PUBLISHING = "teamcity.commitStatusPubliser.checkStatus.enabled";
   final static String LOCKS_STRIPES = "teamcity.commitStatusPublisher.locks.stripes";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
-#### Snippet
-```java
-public class CommitStatusPublisherListener extends BuildServerAdapter implements ChangesCollectionCondition {
-
-  final static String PUBLISHING_ENABLED_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabled";
-  final static String CSP_FOR_BUILD_TYPE_CONFIGURATION_FLAG_TTL_PROPERTY_NAME = "teamcity.commitStatusPublisher.enabledForBuildCache.ttl";
-  final static String QUEUE_PAUSER_SYSTEM_PROPERTY = "teamcity.plugin.queuePauser.queue.enabled";
 ```
 
 ## RuleId[id=UnnecessaryBoxing]
@@ -1678,43 +1678,43 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
     final Exception ex;
     if ((ex = exceptionRef.get()) != null) {
       if (ex instanceof IOException) {
-        throw (IOException) ex;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-
-    final Exception ex;
-    if ((ex = exceptionRef.get()) != null) {
-      if (ex instanceof IOException) {
-        throw (IOException) ex;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-
-    final Exception ex;
-    if ((ex = exceptionRef.get()) != null) {
-      if (ex instanceof IOException) {
-        throw (IOException) ex;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-
-    final Exception ex;
-    if ((ex = exceptionRef.get()) != null) {
-      if (ex instanceof IOException) {
         throw (IOException)ex;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+
+    final Exception ex;
+    if ((ex = exceptionRef.get()) != null) {
+      if (ex instanceof IOException) {
+        throw (IOException) ex;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+
+    final Exception ex;
+    if ((ex = exceptionRef.get()) != null) {
+      if (ex instanceof IOException) {
+        throw (IOException) ex;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+
+    final Exception ex;
+    if ((ex = exceptionRef.get()) != null) {
+      if (ex instanceof IOException) {
+        throw (IOException) ex;
 ```
 
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
@@ -1784,6 +1784,30 @@ Statement lambda can be replaced with expression lambda
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
 ```java
+
+    try {
+      IOGuard.allowNetworkCall(() -> {
+        HttpHelper.get(url, getCredentials(params),
+                       Collections.singletonMap("Accept", "application/json"), BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT,
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
+
+    try {
+      IOGuard.allowNetworkCall(() -> {
+        HttpHelper.get(url, getCredentials(params),
+                       Collections.singletonMap("Accept", "application/json"), BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT,
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
       final String url = MessageFormat.format(COMMIT_STATUS_URL_FORMAT,
         info.getServer(), info.getProject(), info.getRepository(), commitId);
       IOGuard.allowNetworkCall(() -> {
@@ -1793,38 +1817,26 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
 #### Snippet
 ```java
-
-    try {
-      IOGuard.allowNetworkCall(() -> {
-        HttpHelper.get(url, getCredentials(params),
-                       Collections.singletonMap("Accept", "application/json"), BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT,
+    final AtomicReference<Exception> exceptionRef = new AtomicReference<>();
+    final AtomicReference<T> resultRef = new AtomicReference<>();
+    IOGuard.allowNetworkCall(() -> {
+      myClient.get(uri, authenticationCredentials(), defaultHeaders(),
+                   success -> {
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
 #### Snippet
 ```java
-
-    try {
-      IOGuard.allowNetworkCall(() -> {
-        HttpHelper.get(url, getCredentials(params),
-                       Collections.singletonMap("Accept", "application/json"), BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT,
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
-#### Snippet
-```java
-    };
-    try {
-      IOGuard.allowNetworkCall(() -> {
-        HttpHelper.get(url, credentials, headers,
-                       BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT, trustStore(), processor);
+                     exceptionRef.set(new IOException(getErrorMessage(error, additionalComment)));
+                   },
+                   e -> {
+                     exceptionRef.set(e);
+                   }
 ```
 
 ### CodeBlock2Expr
@@ -1865,26 +1877,14 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
 #### Snippet
 ```java
-    final AtomicReference<Exception> exceptionRef = new AtomicReference<>();
-    final AtomicReference<T> resultRef = new AtomicReference<>();
-    IOGuard.allowNetworkCall(() -> {
-      myClient.get(uri, authenticationCredentials(), defaultHeaders(),
-                   success -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-                     exceptionRef.set(new IOException(getErrorMessage(error, additionalComment)));
-                   },
-                   e -> {
-                     exceptionRef.set(e);
-                   }
+    };
+    try {
+      IOGuard.allowNetworkCall(() -> {
+        HttpHelper.get(url, credentials, headers,
+                       BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT, trustStore(), processor);
 ```
 
 ### CodeBlock2Expr
@@ -1904,9 +1904,9 @@ Statement lambda can be replaced with expression lambda
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
-      }
+      AdditionalTaskInfo additionalTaskInfo = new AdditionalTaskInfo(promotion, comment, commentAuthor);
 
-      runAsync(() -> runForEveryPublisher(eventType, build), () -> { eventProcessed(eventType); });
+      runAsync(() -> runForEveryPublisher(eventType, promotion, additionalTaskInfo), () -> { eventProcessed(eventType); });
     }
 
 ```
@@ -1928,9 +1928,9 @@ Statement lambda can be replaced with expression lambda
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
-      AdditionalTaskInfo additionalTaskInfo = new AdditionalTaskInfo(promotion, comment, commentAuthor);
+      }
 
-      runAsync(() -> runForEveryPublisher(eventType, promotion, additionalTaskInfo), () -> { eventProcessed(eventType); });
+      runAsync(() -> runForEveryPublisher(eventType, build), () -> { eventProcessed(eventType); });
     }
 
 ```
@@ -1989,7 +1989,7 @@ Constructor `AuthTypeAwareSettings()` of an abstract class should not be declare
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/AuthTypeAwareSettings.java`
 #### Snippet
 ```java
-  protected final OAuthConnectionsManager myOAuthConnectionsManager;
+  private final SecurityContext mySecurityContext;
 
   public AuthTypeAwareSettings(@NotNull PluginDescriptor descriptor,
                                @NotNull WebLinks links,
@@ -2075,6 +2075,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CommitStatusPublisherSettings`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+#### Snippet
+```java
+ * Settings for TFS Git commit status publisher.
+ */
+public class TfsPublisherSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
+
+  private final OAuthConnectionsManager myOauthConnectionsManager;
+```
+
+### RedundantImplements
+Redundant interface declaration `CommitStatusPublisherSettings`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
 #### Snippet
 ```java
@@ -2087,14 +2099,14 @@ public class BitbucketCloudSettings extends AuthTypeAwareSettings implements Com
 
 ### RedundantImplements
 Redundant interface declaration `CommitStatusPublisherSettings`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubSettings.java`
 #### Snippet
 ```java
- * Settings for TFS Git commit status publisher.
- */
-public class TfsPublisherSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
+import org.jetbrains.annotations.Nullable;
 
-  private final OAuthConnectionsManager myOauthConnectionsManager;
+public class GitHubSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
+
+  private final ChangeStatusUpdater myUpdater;
 ```
 
 ### RedundantImplements
@@ -2107,18 +2119,6 @@ import static jetbrains.buildServer.commitPublisher.LoggerUtil.LOG;
 public class GerritClientImpl extends GerritClientBase implements GerritClient {
 
   private final ExtensionHolder myExtensionHolder;
-```
-
-### RedundantImplements
-Redundant interface declaration `CommitStatusPublisherSettings`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubSettings.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class GitHubSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
-
-  private final ChangeStatusUpdater myUpdater;
 ```
 
 ### RedundantImplements
@@ -2146,15 +2146,27 @@ public class StashSettings extends AuthTypeAwareSettings implements CommitStatus
 ```
 
 ### RedundantImplements
-Redundant interface declaration `StatusData`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+Redundant interface declaration `CommitStatusPublisherSettings`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
 #### Snippet
 ```java
-  }
+import static jetbrains.buildServer.ssh.ServerSshKeyManager.TEAMCITY_SSH_KEY_PROP;
 
-  private class SBuildData extends BaseBuildData implements StatusData {
+public class GerritSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
 
-    private final SBuild myBuild;
+  private final ExtensionHolder myExtensionHolder;
+```
+
+### RedundantImplements
+Redundant interface declaration `CommitStatusPublisherSettings`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+#### Snippet
+```java
+import static jetbrains.buildServer.commitPublisher.BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT;
+
+public class SpaceSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
+
+  static final String CHANGES_FIELD = "changes";
 ```
 
 ### RedundantImplements
@@ -2164,7 +2176,7 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```java
   }
 
-  private class CoreApiEndpoint extends BaseBitbucketEndpoint implements BitbucketEndpoint {
+  private class BuildApiEndpoint extends BaseBitbucketEndpoint implements BitbucketEndpoint {
 
     @Override
 ```
@@ -2176,7 +2188,7 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```java
   }
 
-  private class BuildApiEndpoint extends BaseBitbucketEndpoint implements BitbucketEndpoint {
+  private class CoreApiEndpoint extends BaseBitbucketEndpoint implements BitbucketEndpoint {
 
     @Override
 ```
@@ -2194,27 +2206,15 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ```
 
 ### RedundantImplements
-Redundant interface declaration `CommitStatusPublisherSettings`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+Redundant interface declaration `StatusData`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
 ```java
-import static jetbrains.buildServer.commitPublisher.BaseCommitStatusPublisher.DEFAULT_CONNECTION_TIMEOUT;
+  }
 
-public class SpaceSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
+  private class SBuildData extends BaseBuildData implements StatusData {
 
-  static final String CHANGES_FIELD = "changes";
-```
-
-### RedundantImplements
-Redundant interface declaration `CommitStatusPublisherSettings`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
-#### Snippet
-```java
-import static jetbrains.buildServer.ssh.ServerSshKeyManager.TEAMCITY_SSH_KEY_PROP;
-
-public class GerritSettings extends BasePublisherSettings implements CommitStatusPublisherSettings {
-
-  private final ExtensionHolder myExtensionHolder;
+    private final SBuild myBuild;
 ```
 
 ### RedundantImplements
@@ -2245,6 +2245,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/GitRepositoryParser.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherManager.java`
 #### Snippet
 ```java
@@ -2265,282 +2277,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
       return null;
     return settings.createPublisher(buildType, buildFeatureId, params);
   }
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/GitRepositoryParser.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
-#### Snippet
-```java
-    String publisherId = request.getParameter(Constants.PUBLISHER_ID_PARAM);
-    if (publisherId == null)
-      return null;
-
-    String projectId = request.getParameter("projectId");
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
-#### Snippet
-```java
-    CommitStatusPublisherSettings settings = myPublisherManager.findSettings(publisherId);
-    if (settings == null)
-      return null;
-
-    String settingsUrl = settings.getEditSettingsUrl();
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
-#### Snippet
-```java
-    if (Constants.TEST_CONNECTION_YES.equals(request.getParameter(Constants.TEST_CONNECTION_PARAM))) {
-      processTestConnectionRequest(request, response, settings, params);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
-#### Snippet
-```java
-      request.getRequestDispatcher(settingsUrl).include(request, response);
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  protected String retrieveServerVersion(@NotNull String url) throws PublisherException {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  public Map<String, String> getDefaultParameters() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-        return version.get();
-      }
-      return null;
-    }
-    if (v != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-      return v;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable GitLabReceiveCommitStatus commitStatus) {
-    if(commitStatus == null) {
-      return null;
-    }
-    Event event = getTriggeredEvent(commitStatus);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    final GitLabMergeRequest mergeRequest = getMergeRequest(credentials, repository, mergeRequestNumber);
-    if (mergeRequest == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    if ("jetbrains.git".equals(root.getVcsName())) {
-      String url = root.getProperty("url");
-      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url, pathPrefix);
-    } else {
-      return null;
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url, pathPrefix);
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable GitLabReceiveCommitStatus commitStatus) {
-    if(commitStatus == null) {
-      return null;
-    }
-    Event event = getTriggeredEvent(commitStatus);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    if (commitStatus.status == null) {
-      LOG.warn("No GitLab build status is provided. Related event can not be calculated");
-      return null;
-    }
-    GitlabBuildStatus status = GitlabBuildStatus.getByName(commitStatus.status);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    if (status == null) {
-      LOG.warn("Unknown GitLab build status \"" + commitStatus.status + "\". Related event can not be calculated");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-    switch (status) {
-      case CANCELED:
-        return (commitStatus.description != null && commitStatus.description.contains(DefaultStatusMessages.BUILD_REMOVED_FROM_QUEUE)) ? Event.REMOVED_FROM_QUEUE : null;
-      case PENDING:
-        return Event.QUEUED;
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-        return Event.QUEUED;
-      case RUNNING:
-        return (commitStatus.description != null && commitStatus.description.contains(DefaultStatusMessages.BUILD_STARTED))? Event.STARTED : null;
-      case SUCCESS:
-      case FAILED:
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-      case SUCCESS:
-      case FAILED:
-        return null;
-      default:
-        LOG.warn("No event is assosiated with GitLab build status \"" + status + "\". Related event can not be defined");
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
-#### Snippet
-```java
-        LOG.warn("No event is assosiated with GitLab build status \"" + status + "\". Related event can not be defined");
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, BitbucketCloudCommitBuildStatus buildStatus) {
-    if (buildStatus == null) {
-      return null;
-    }
-    Event event = getTriggeredEvent(buildStatus);
 ```
 
 ### ReturnNull
@@ -2632,6 +2368,18 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudPublisher.java`
 #### Snippet
 ```java
+  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, BitbucketCloudCommitBuildStatus buildStatus) {
+    if (buildStatus == null) {
+      return null;
+    }
+    Event event = getTriggeredEvent(buildStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudPublisher.java`
+#### Snippet
+```java
       String str = response.getContent();
       if (str == null) {
         return null;
@@ -2689,35 +2437,251 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
+#### Snippet
+```java
+    String publisherId = request.getParameter(Constants.PUBLISHER_ID_PARAM);
+    if (publisherId == null)
+      return null;
+
+    String projectId = request.getParameter("projectId");
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
+#### Snippet
+```java
+    CommitStatusPublisherSettings settings = myPublisherManager.findSettings(publisherId);
+    if (settings == null)
+      return null;
+
+    String settingsUrl = settings.getEditSettingsUrl();
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
+#### Snippet
+```java
+    if (Constants.TEST_CONNECTION_YES.equals(request.getParameter(Constants.TEST_CONNECTION_PARAM))) {
+      processTestConnectionRequest(request, response, settings, params);
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
+#### Snippet
+```java
+      request.getRequestDispatcher(settingsUrl).include(request, response);
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+  RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable GitLabReceiveCommitStatus commitStatus) {
+    if(commitStatus == null) {
+      return null;
+    }
+    Event event = getTriggeredEvent(commitStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable GitLabReceiveCommitStatus commitStatus) {
+    if(commitStatus == null) {
+      return null;
+    }
+    Event event = getTriggeredEvent(commitStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+    if (commitStatus.status == null) {
+      LOG.warn("No GitLab build status is provided. Related event can not be calculated");
+      return null;
+    }
+    GitlabBuildStatus status = GitlabBuildStatus.getByName(commitStatus.status);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+    if (status == null) {
+      LOG.warn("Unknown GitLab build status \"" + commitStatus.status + "\". Related event can not be calculated");
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+    switch (status) {
+      case CANCELED:
+        return (commitStatus.description != null && commitStatus.description.contains(DefaultStatusMessages.BUILD_REMOVED_FROM_QUEUE)) ? Event.REMOVED_FROM_QUEUE : null;
+      case PENDING:
+        return Event.QUEUED;
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+        return Event.QUEUED;
+      case RUNNING:
+        return (commitStatus.description != null && commitStatus.description.contains(DefaultStatusMessages.BUILD_STARTED))? Event.STARTED : null;
+      case SUCCESS:
+      case FAILED:
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+      case SUCCESS:
+      case FAILED:
+        return null;
+      default:
+        LOG.warn("No event is assosiated with GitLab build status \"" + status + "\". Related event can not be defined");
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+        LOG.warn("No event is assosiated with GitLab build status \"" + status + "\". Related event can not be defined");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
 #### Snippet
 ```java
     if ("jetbrains.git".equals(root.getVcsName())) {
       String url = root.getProperty("url");
-      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url);
-    }
-    if ("mercurial".equals(root.getVcsName())) {
+      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url, pathPrefix);
+    } else {
+      return null;
 ```
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
 #### Snippet
 ```java
-    if ("mercurial".equals(root.getVcsName())) {
-      String url = root.getProperty("repositoryPath");
-      return url == null ? null : parseMercurialRepository(url);
+      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url, pathPrefix);
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+    final GitLabMergeRequest mergeRequest = getMergeRequest(credentials, repository, mergeRequestNumber);
+    if (mergeRequest == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabPublisher.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  protected String retrieveServerVersion(@NotNull String url) throws PublisherException {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+        return version.get();
+      }
+      return null;
+    }
+    if (v != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+      return v;
     }
     return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
 #### Snippet
 ```java
-      return url == null ? null : parseMercurialRepository(url);
-    }
+  @Nullable
+  public Map<String, String> getDefaultParameters() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BasePublisherSettings.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
     return null;
   }
 
@@ -2773,11 +2737,35 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BaseCommitStatusPublisher.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
 #### Snippet
 ```java
-  @Override
-  public RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @NotNull BuildRevision revision) throws PublisherException {
+    if ("jetbrains.git".equals(root.getVcsName())) {
+      String url = root.getProperty("url");
+      return url == null ? null : VCS_URL_PARSER.parseRepositoryUrl(url);
+    }
+    if ("mercurial".equals(root.getVcsName())) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
+#### Snippet
+```java
+    if ("mercurial".equals(root.getVcsName())) {
+      String url = root.getProperty("repositoryPath");
+      return url == null ? null : parseMercurialRepository(url);
+    }
+    return null;
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudRepositoryParser.java`
+#### Snippet
+```java
+      return url == null ? null : parseMercurialRepository(url);
+    }
     return null;
   }
 
@@ -2809,6 +2797,30 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/BaseCommitStatusPublisher.java`
+#### Snippet
+```java
+  @Override
+  public RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @NotNull BuildRevision revision) throws PublisherException {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubSettings.java`
+#### Snippet
+```java
+      return result;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusesCache.java`
 #### Snippet
 ```java
@@ -2833,14 +2845,14 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/data/CommitStatus.java`
 #### Snippet
 ```java
-      return result;
-    }
-    return null;
-  }
-
+  @Nullable
+  private static String truncateStringValueWithDotsAtEnd(@Nullable final String str, final int maxLength) {
+    if (str == null) return null;
+    if (str.length() > maxLength) {
+      return str.substring(0, maxLength - 2) + "\u2026";
 ```
 
 ### ReturnNull
@@ -2953,59 +2965,11 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/web
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/data/CommitStatus.java`
-#### Snippet
-```java
-  @Nullable
-  private static String truncateStringValueWithDotsAtEnd(@Nullable final String str, final int maxLength) {
-    if (str == null) return null;
-    if (str.length() > maxLength) {
-      return str.substring(0, maxLength - 2) + "\u2026";
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  public CommitStatusPublisher createPublisher(@NotNull SBuildType buildType, @NotNull String buildFeatureId, @NotNull Map<String, String> params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  public String getEditSettingsUrl() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
 #### Snippet
 ```java
   @Nullable
   public PropertiesProcessor getParametersProcessor(@NotNull BuildTypeIdentity buildTypeOrTemplate) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
     return null;
   }
 
@@ -3037,6 +3001,42 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  public CommitStatusPublisher createPublisher(@NotNull SBuildType buildType, @NotNull String buildFeatureId, @NotNull Map<String, String> params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  public String getEditSettingsUrl() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DummyPublisherSettings.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/SwarmClientManager.java`
 #### Snippet
 ```java
@@ -3057,42 +3057,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/Swa
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
-    if (!TfsConstants.GIT_VCS_ROOT.equals(root.getVcsName())) {
-      LOG.warn("No revisions were found to update TFS Git commit status. Please check you have Git VCS roots in the build configuration");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
-
-  protected StatusState getBuildStatusForRemovedBuild(AdditionalTaskInfo additionalTaskInfo) {
-    return additionalTaskInfo.isBuildManuallyRemoved() ? StatusState.Failed : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
-
-  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable CommitStatus commitStatus) {
-    if (commitStatus == null) return null;
-    Event event = getTriggeredEvent(commitStatus);
-    boolean isSameBuildType = StringUtil.areEqual(getBuildName(removedBuild.getBuildPromotion()), commitStatus.context.name);
 ```
 
 ### ReturnNull
@@ -3172,18 +3136,6 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
 ```java
-      throw new PublisherException(message, e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
-#### Snippet
-```java
   @Nullable
   RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable CommitStatus commitStatus) {
     if (commitStatus == null) return null;
@@ -3196,10 +3148,58 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
 #### Snippet
 ```java
+
+  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable CommitStatus commitStatus) {
+    if (commitStatus == null) return null;
+    Event event = getTriggeredEvent(commitStatus);
+    boolean isSameBuildType = StringUtil.areEqual(getBuildName(removedBuild.getBuildPromotion()), commitStatus.context.name);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
+
+  protected StatusState getBuildStatusForRemovedBuild(AdditionalTaskInfo additionalTaskInfo) {
+    return additionalTaskInfo.isBuildManuallyRemoved() ? StatusState.Failed : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
+      throw new PublisherException(message, e);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
   private static HttpCredentials getCredentials(Map<String, String> params) {
     final String accessToken = params.get(TfsConstants.ACCESS_TOKEN);
     return accessToken != null ? new UsernamePasswordCredentials(StringUtil.EMPTY, accessToken) : null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsStatusPublisher.java`
+#### Snippet
+```java
+    if (!TfsConstants.GIT_VCS_ROOT.equals(root.getVcsName())) {
+      LOG.warn("No revisions were found to update TFS Git commit status. Please check you have Git VCS roots in the build configuration");
+      return null;
+    }
 
 ```
 
@@ -3217,78 +3217,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/Swa
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-      final String hash = resolveCommitHash(version, repo, null, myContext);
-      if (isHashInvalid(hash, version, revision.getRoot(), myContext)) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-      if (combinedCommitStatus.statuses == null || combinedCommitStatus.statuses.isEmpty()) {
-        LOG.debug(String.format("No statuses received from GitHub for repository \"%s/%s\" hash %s", repo.owner(), repo.repositoryName(), hash));
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-
-  private GitHubChangeState getBuildStatusForRemovedBuild(AdditionalTaskInfo additionalTaskInfo) {
-    return additionalTaskInfo.isBuildManuallyRemoved() ? GitHubChangeState.Failure : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-                                                buildContext, publisher.getServerUrl(), e, LOG);
-        }
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-      final String hash = resolveCommitHash(version, repo, null, myContext);
-      if (isHashInvalid(hash, version, revision.getRoot(), myContext)) {
-        return null;
-      }
-      final int perPage = 30;
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
-#### Snippet
-```java
-        totalStatuses = combinedCommitStatus.total_count != null ? combinedCommitStatus.total_count : 0;
-      } while (totalStatuses > page * perPage);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/upsource/UpsourcePublisher.java`
 #### Snippet
 ```java
@@ -3297,6 +3225,66 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
     return (username != null && password != null) ? new UsernamePasswordCredentials(username, password) : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+
+    final String pullRequestId = getPullRequestId(repoName, branchName);
+    if (pullRequestId == null) return null;
+
+    //  /repos/:owner/:repo/pulls/:number
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+      return head.sha;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+    if (!matcher.matches()) {
+      LOG.debug("Branch " + branchName + " for repo " + repoName + " does not look like pull request");
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+#### Snippet
+```java
+    if (pullRequestId == null) {
+      LOG.debug("Branch " + branchName + " for repo " + repoName + " does not contain pull request id");
+      return null;
+    }
+    return pullRequestId;
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpacePublisher.java`
+#### Snippet
+```java
+      myProblems.reportProblem("Commit Status Publisher has failed to obtain a token from JetBrains Space for VCS root " + vcsRootName,
+                               this, description, null, e, LOG);
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -3388,18 +3376,6 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpacePublisher.java`
 #### Snippet
 ```java
-      myProblems.reportProblem("Commit Status Publisher has failed to obtain a token from JetBrains Space for VCS root " + vcsRootName,
-                               this, description, null, e, LOG);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpacePublisher.java`
-#### Snippet
-```java
   RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable SpaceBuildStatusInfo commitStatus) {
     if (commitStatus == null) {
       return null;
@@ -3421,11 +3397,59 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/web
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
 #### Snippet
 ```java
-    if (!matcher.matches()) {
-      LOG.debug("Branch " + branchName + " for repo " + repoName + " does not look like pull request");
+
+  private GitHubChangeState getBuildStatusForRemovedBuild(AdditionalTaskInfo additionalTaskInfo) {
+    return additionalTaskInfo.isBuildManuallyRemoved() ? GitHubChangeState.Failure : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
+#### Snippet
+```java
+      final String hash = resolveCommitHash(version, repo, null, myContext);
+      if (isHashInvalid(hash, version, revision.getRoot(), myContext)) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
+#### Snippet
+```java
+      if (combinedCommitStatus.statuses == null || combinedCommitStatus.statuses.isEmpty()) {
+        LOG.debug(String.format("No statuses received from GitHub for repository \"%s/%s\" hash %s", repo.owner(), repo.repositoryName(), hash));
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
+#### Snippet
+```java
+      final String hash = resolveCommitHash(version, repo, null, myContext);
+      if (isHashInvalid(hash, version, revision.getRoot(), myContext)) {
+        return null;
+      }
+      final int perPage = 30;
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
+#### Snippet
+```java
+        totalStatuses = combinedCommitStatus.total_count != null ? combinedCommitStatus.total_count : 0;
+      } while (totalStatuses > page * perPage);
       return null;
     }
 
@@ -3433,38 +3457,266 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/ChangeStatusUpdater.java`
 #### Snippet
 ```java
-    if (pullRequestId == null) {
-      LOG.debug("Branch " + branchName + " for repo " + repoName + " does not contain pull request id");
+                                                buildContext, publisher.getServerUrl(), e, LOG);
+        }
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  default HttpCredentials getCredentials(@Nullable VcsRoot root, @NotNull Map<String, String> params) throws PublisherException {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  default Map<String, Object> checkHealth(@NotNull SBuildType buildType, @NotNull Map<String, String> params) {
+   return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
+#### Snippet
+```java
+  @Nullable
+  default public String getServerVersion(@NotNull String url) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+#### Snippet
+```java
+    String connectionId = params.get(Constants.SPACE_CONNECTION_ID);
+    if (connectionId == null)
       return null;
-    }
-    return pullRequestId;
+    OAuthConnectionDescriptor connectionDescriptor = myOAuthConnectionManager.findConnectionById(buildType.getProject(), connectionId);
+    if (connectionDescriptor == null) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
 #### Snippet
 ```java
-
-    final String pullRequestId = getPullRequestId(repoName, branchName);
-    if (pullRequestId == null) return null;
-
-    //  /repos/:owner/:repo/pulls/:number
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/api/impl/GitHubApiImpl.java`
-#### Snippet
-```java
-      return head.sha;
+      return healthItemData;
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/AuthTypeAwareSettings.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+    if (commitStatus.state == null) {
+      LOG.warn("No GitHub build status is provided. Related event can not be calculated");
+      return null;
+    }
+    GitHubChangeState gitHubChangeState = GitHubChangeState.getByState(commitStatus.state);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+    if (gitHubChangeState == null) {
+      LOG.warn("Unknown GitHub build status \"" + commitStatus.state + "\". Related event can not be calculated");
+      return null;
+    }
+    switch (gitHubChangeState) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+        if (description == null) {
+          LOG.info("Can not define exact event for \"Pending\" GitHub build status, because there is no description for status");
+          return null;
+        }
+        if (description.contains(DefaultStatusMessages.BUILD_STARTED)) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+      case Error:
+      case Failure:
+        return null;  // these statuses do not affect on further behaviour
+      default:
+        LOG.warn("No event is assosiated with GitHub build status \"" + gitHubChangeState + "\". Related event can not be defined");
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+        LOG.warn("No event is assosiated with GitHub build status \"" + gitHubChangeState + "\". Related event can not be defined");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+  RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable CommitStatus commitStatus) {
+    if (commitStatus == null) {
+      return null;
+    }
+    Event triggeredEvent = getTriggeredEvent(commitStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+      params = getParams(buildPromotion);
+    } catch (GitHubContextResolveException e) {
+      return null;
+    }
+    ChangeStatusUpdater.Handler handler = myUpdater.getHandler(revision.getRoot(), params, this);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+    if (!revision.getRoot().getVcsName().equals("jetbrains.git")) {
+      LOG.warn("No revisions were found to request GitHub status. Please check you have Git VCS roots in the build configuration");
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+    final String context = params.get(Constants.GITHUB_CONTEXT);
+    if (context == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+    if (build != null) {
+      String value = build.getParametersProvider().get(Constants.GITHUB_CUSTOM_CONTEXT_BUILD_PARAM);
+      if (value == null) return null;
+
+      if (isRemovedFromQueue(build) && ReferencesResolverUtil.mayContainReference(value)) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+
+    String value = myBuildType.getParameters().get(Constants.GITHUB_CUSTOM_CONTEXT_BUILD_PARAM);
+    if (value == null) return null;
+
+    if(ReferencesResolverUtil.mayContainReference(value)) {
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
+#### Snippet
+```java
+  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable CommitStatus commitStatus) {
+    if (commitStatus == null) {
+      return null;
+    }
+    Event triggeredEvent = getTriggeredEvent(commitStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+#### Snippet
+```java
+      } catch (PublisherException ex) {
+        myProblems.reportProblem("Commit Status Publisher has failed to prepare a request", StashPublisher.this, buildDescription, null, ex, LOG);
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+#### Snippet
+```java
+        if (url == null) {
+          LOG.debug("No endpoint URL is provided to get pull requests for revision " + revision.getRevision());
+          return null;
+        }
+        LoggerUtil.logRequest(getId(), HttpMethod.GET, url, null);
 ```
 
 ### ReturnNull
@@ -3477,42 +3729,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
       return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-      do {
-        statuses = doLoadStatuses(baseEndpointUrl, processor, start, size, buildDescription, data);
-        if (statuses == null || statuses.values == null || statuses.values.isEmpty()) return null;
-        Optional<DeprecatedJsonStashBuildStatuses.Status> desiredStatusOp = statuses.values.stream()
-                                                                                           .filter(status -> data.getKey().equals(status.key))
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-      } while (!statuses.isLastPage);
-
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable JsonStashBuildStatus buildStatus) {
-    if (buildStatus == null) {
-      return null;
-    }
-    Event event = getTriggeredEvent(buildStatus);
 ```
 
 ### ReturnNull
@@ -3604,35 +3820,23 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
 ```java
+    @Override
+    protected String getPullRequestEndpointUrl(BuildRevision revision) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+#### Snippet
+```java
     private JsonStashBuildStatus convertToActualStatus(@Nullable DeprecatedJsonStashBuildStatuses.Status status) {
       if (status == null) {
         return null;
       }
       return new JsonStashBuildStatus(status);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-      } catch (PublisherException ex) {
-        myProblems.reportProblem("Commit Status Publisher has failed to prepare a request", StashPublisher.this, buildDescription, null, ex, LOG);
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-        if (url == null) {
-          LOG.debug("No endpoint URL is provided to get pull requests for revision " + revision.getRevision());
-          return null;
-        }
-        LoggerUtil.logRequest(getId(), HttpMethod.GET, url, null);
 ```
 
 ### ReturnNull
@@ -3724,6 +3928,18 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
 ```java
+  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable JsonStashBuildStatus buildStatus) {
+    if (buildStatus == null) {
+      return null;
+    }
+    Event event = getTriggeredEvent(buildStatus);
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+#### Snippet
+```java
   RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable JsonStashBuildStatus buildStatus) {
     if (buildStatus == null) {
       return null;
@@ -3736,248 +3952,20 @@ Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
 ```java
-    @Override
-    protected String getPullRequestEndpointUrl(BuildRevision revision) {
-      return null;
-    }
-
+      do {
+        statuses = doLoadStatuses(baseEndpointUrl, processor, start, size, buildDescription, data);
+        if (statuses == null || statuses.values == null || statuses.values.isEmpty()) return null;
+        Optional<DeprecatedJsonStashBuildStatuses.Status> desiredStatusOp = statuses.values.stream()
+                                                                                           .filter(status -> data.getKey().equals(status.key))
 ```
 
 ### ReturnNull
 Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
 ```java
-    String connectionId = params.get(Constants.SPACE_CONNECTION_ID);
-    if (connectionId == null)
-      return null;
-    OAuthConnectionDescriptor connectionDescriptor = myOAuthConnectionManager.findConnectionById(buildType.getProject(), connectionId);
-    if (connectionDescriptor == null) {
-```
+      } while (!statuses.isLastPage);
 
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
-#### Snippet
-```java
-      return healthItemData;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  default public String getServerVersion(@NotNull String url) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  default HttpCredentials getCredentials(@Nullable VcsRoot root, @NotNull Map<String, String> params) throws PublisherException {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherSettings.java`
-#### Snippet
-```java
-  @Nullable
-  default Map<String, Object> checkHealth(@NotNull SBuildType buildType, @NotNull Map<String, String> params) {
-   return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-    if (commitStatus.state == null) {
-      LOG.warn("No GitHub build status is provided. Related event can not be calculated");
-      return null;
-    }
-    GitHubChangeState gitHubChangeState = GitHubChangeState.getByState(commitStatus.state);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-    if (gitHubChangeState == null) {
-      LOG.warn("Unknown GitHub build status \"" + commitStatus.state + "\". Related event can not be calculated");
-      return null;
-    }
-    switch (gitHubChangeState) {
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-        if (description == null) {
-          LOG.info("Can not define exact event for \"Pending\" GitHub build status, because there is no description for status");
-          return null;
-        }
-        if (description.contains(DefaultStatusMessages.BUILD_STARTED)) {
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-      case Error:
-      case Failure:
-        return null;  // these statuses do not affect on further behaviour
-      default:
-        LOG.warn("No event is assosiated with GitHub build status \"" + gitHubChangeState + "\". Related event can not be defined");
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-        LOG.warn("No event is assosiated with GitHub build status \"" + gitHubChangeState + "\". Related event can not be defined");
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatusForRemovedBuild(@NotNull SQueuedBuild removedBuild, @Nullable CommitStatus commitStatus) {
-    if (commitStatus == null) {
-      return null;
-    }
-    Event triggeredEvent = getTriggeredEvent(commitStatus);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-  RevisionStatus getRevisionStatus(@NotNull BuildPromotion buildPromotion, @Nullable CommitStatus commitStatus) {
-    if (commitStatus == null) {
-      return null;
-    }
-    Event triggeredEvent = getTriggeredEvent(commitStatus);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-      params = getParams(buildPromotion);
-    } catch (GitHubContextResolveException e) {
-      return null;
-    }
-    ChangeStatusUpdater.Handler handler = myUpdater.getHandler(revision.getRoot(), params, this);
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-    if (!revision.getRoot().getVcsName().equals("jetbrains.git")) {
-      LOG.warn("No revisions were found to request GitHub status. Please check you have Git VCS roots in the build configuration");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-    final String context = params.get(Constants.GITHUB_CONTEXT);
-    if (context == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-    if (build != null) {
-      String value = build.getParametersProvider().get(Constants.GITHUB_CUSTOM_CONTEXT_BUILD_PARAM);
-      if (value == null) return null;
-
-      if (isRemovedFromQueue(build) && ReferencesResolverUtil.mayContainReference(value)) {
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/github/GitHubPublisher.java`
-#### Snippet
-```java
-
-    String value = myBuildType.getParameters().get(Constants.GITHUB_CUSTOM_CONTEXT_BUILD_PARAM);
-    if (value == null) return null;
-
-    if(ReferencesResolverUtil.mayContainReference(value)) {
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritSettings.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> transformParameters(@NotNull Map<String, String> params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/AuthTypeAwareSettings.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabSettings.java`
-#### Snippet
-```java
-    final String token = params.get(Constants.GITLAB_TOKEN);
-    if (token == null) {
       return null;
     }
 
@@ -4009,6 +3997,30 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### ReturnNull
 Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gitlab/GitlabSettings.java`
+#### Snippet
+```java
+    final String token = params.get(Constants.GITLAB_TOKEN);
+    if (token == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
+#### Snippet
+```java
+    private SBuild getBuild(final PerformingTask task) {
+      Long buildId = task.getLongArg1();
+      if (buildId == null) return null;
+
+      return myBuildsManager.findBuildInstanceById(buildId);
+```
+
+### ReturnNull
+Return of `null`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
 #### Snippet
 ```java
@@ -4029,18 +4041,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherListener.java`
-#### Snippet
-```java
-    private SBuild getBuild(final PerformingTask task) {
-      Long buildId = task.getLongArg1();
-      if (buildId == null) return null;
-
-      return myBuildsManager.findBuildInstanceById(buildId);
 ```
 
 ### ReturnNull
@@ -4084,7 +4084,7 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
 #### Snippet
 ```java
   }};
@@ -4092,18 +4092,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
     add(Event.QUEUED);
     add(Event.REMOVED_FROM_QUEUE);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
-#### Snippet
-```java
-
-  private String myDefaultApiUrl = DEFAULT_API_URL;
-  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
-    add(Event.STARTED);
-    add(Event.FINISHED);
 ```
 
 ### DoubleBraceInitialization
@@ -4120,7 +4108,19 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### DoubleBraceInitialization
 Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsPublisherSettings.java`
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
+#### Snippet
+```java
+
+  private String myDefaultApiUrl = DEFAULT_API_URL;
+  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
+    add(Event.STARTED);
+    add(Event.FINISHED);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudSettings.java`
 #### Snippet
 ```java
   }};
@@ -4171,11 +4171,11 @@ Double brace initialization
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
 #### Snippet
 ```java
-  static final GitRepositoryParser VCS_URL_PARSER = new GitRepositoryParser();
+  }};
 
-  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
-    add(Event.STARTED);
-    add(Event.FINISHED);
+  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
+    add(Event.QUEUED);
+    add(Event.REMOVED_FROM_QUEUE);
 ```
 
 ### DoubleBraceInitialization
@@ -4183,47 +4183,11 @@ Double brace initialization
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
 #### Snippet
 ```java
-  }};
-
-  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
-    add(Event.QUEUED);
-    add(Event.REMOVED_FROM_QUEUE);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
-#### Snippet
-```java
-  }};
-
-  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
-    add(Event.QUEUED);
-    add(Event.REMOVED_FROM_QUEUE);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
-#### Snippet
-```java
-  @NotNull private final SecurityContext mySecurityContext;
+  static final GitRepositoryParser VCS_URL_PARSER = new GitRepositoryParser();
 
   private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
     add(Event.STARTED);
     add(Event.FINISHED);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/commitPublisher/SwarmPublisherSettings.java`
-#### Snippet
-```java
-  public static final String PARAM_CREATE_SWARM_TEST = "createSwarmTest";
-
-  private static final Set<CommitStatusPublisher.Event> ourSupportedEvents = new HashSet<CommitStatusPublisher.Event>() {{
-    add(CommitStatusPublisher.Event.QUEUED);
-    add(CommitStatusPublisher.Event.REMOVED_FROM_QUEUE);
 ```
 
 ### DoubleBraceInitialization
@@ -4248,6 +4212,42 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
     add(Event.FINISHED);
   }};
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/swarm/commitPublisher/SwarmPublisherSettings.java`
+#### Snippet
+```java
+  public static final String PARAM_CREATE_SWARM_TEST = "createSwarmTest";
+
+  private static final Set<CommitStatusPublisher.Event> ourSupportedEvents = new HashSet<CommitStatusPublisher.Event>() {{
+    add(CommitStatusPublisher.Event.QUEUED);
+    add(CommitStatusPublisher.Event.REMOVED_FROM_QUEUE);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+#### Snippet
+```java
+  @NotNull private final SecurityContext mySecurityContext;
+
+  private static final Set<Event> mySupportedEvents = new HashSet<Event>() {{
+    add(Event.STARTED);
+    add(Event.FINISHED);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/space/SpaceSettings.java`
+#### Snippet
+```java
+  }};
+
+  private static final Set<Event> mySupportedEventsWithQueued = new HashSet<Event>() {{
+    add(Event.QUEUED);
+    add(Event.REMOVED_FROM_QUEUE);
 ```
 
 ### DoubleBraceInitialization
@@ -4301,18 +4301,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `buildTypeOrTemplate` is always 'null'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
-#### Snippet
-```java
-      return ((SBuildType)buildTypeOrTemplate).getVcsRootInstanceForParent(sVcsRoot);
-    } else {
-      return new VcsRootResolvingWrapper(getValueResolver(buildTypeOrTemplate), sVcsRoot);
-    }
-  }
-```
-
-### ConstantValue
 Condition `statuses.size == null` is always `false`
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/bitbucketCloud/BitbucketCloudPublisher.java`
 #### Snippet
@@ -4322,6 +4310,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
         shouldContinue = (statuses.size == null || result.size() < statuses.size) &&
                          result.size() < statusesThreshold &&
                          statuses.values.stream().noneMatch(status -> buildTypeId.equals(status.key));
+```
+
+### ConstantValue
+Value `buildTypeOrTemplate` is always 'null'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/PublisherSettingsController.java`
+#### Snippet
+```java
+      return ((SBuildType)buildTypeOrTemplate).getVcsRootInstanceForParent(sVcsRoot);
+    } else {
+      return new VcsRootResolvingWrapper(getValueResolver(buildTypeOrTemplate), sVcsRoot);
+    }
+  }
 ```
 
 ### ConstantValue
