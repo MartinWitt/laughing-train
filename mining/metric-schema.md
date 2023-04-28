@@ -34,11 +34,11 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-            String namespaceName,
+            String namespace,
             String metricName,
             Optional<String> libraryName,
             MetricDefinition definition,
-            MetricNamespace metricNamespace,
+            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -46,11 +46,11 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-            String namespace,
+            String namespaceName,
             String metricName,
             Optional<String> libraryName,
             MetricDefinition definition,
-            MetricNamespace metricNamespace) {
+            MetricNamespace metricNamespace,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -156,7 +156,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -168,7 +168,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -176,43 +176,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
                             "" + getProject().getGroup() + ':' + getProject().getName()));
 
     @InputFile
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `CompileMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class CompileMetricSchemaTask extends DefaultTask {
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GenerateMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class GenerateMetricSchemaTask extends DefaultTask {
-    private final Property<String> libraryName =
-            getProject().getObjects().property(String.class).value(defaultLibraryName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
-#### Snippet
-```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
-
-    private static final Predicate<String> LIBRARY_NAME =
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -230,7 +193,7 @@ public final class ProviderUtils {
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
     }
@@ -242,7 +205,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
     }
@@ -269,6 +232,18 @@ Can generalize to `? extends Directory`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
+
+    private static void configureIdea(
+            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
+        project.getPluginManager().withPlugin("idea", _plugin -> {
+            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
     private static void createManifestTask(
             Project project,
             Provider<Directory> metricSchemaDir,
@@ -288,16 +263,41 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `GenerateMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
 #### Snippet
 ```java
 
-    private static void configureIdea(
-            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
-        project.getPluginManager().withPlugin("idea", _plugin -> {
-            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
+@CacheableTask
+public abstract class GenerateMetricSchemaTask extends DefaultTask {
+    private final Property<String> libraryName =
+            getProject().getObjects().property(String.class).value(defaultLibraryName());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CompileMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class CompileMetricSchemaTask extends DefaultTask {
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JavaGeneratorArgs` has no concrete subclass
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+#### Snippet
+```java
+        jdkOnly = true,
+        get = {"get*", "is*"})
+public abstract class JavaGeneratorArgs {
+
+    private static final Predicate<String> LIBRARY_NAME =
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -352,18 +352,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/Implementa
 ```
 
 ### UnstableApiUsage
-'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
-#### Snippet
-```java
-    static String anyToUpperUnderscore(String input) {
-        Preconditions.checkNotNull(input, "Input string is required");
-        return escapeIfNecessary(splitter.splitToStream(input)
-                .map(segment -> CaseFormats.estimate(segment)
-                        .orElse(CaseFormat.LOWER_CAMEL)
-```
-
-### UnstableApiUsage
 'com.google.common.io.MoreFiles' is marked unstable with @Beta
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
 #### Snippet
@@ -409,6 +397,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
             MoreFiles.deleteRecursively(outputPath, RecursiveDeleteOption.ALLOW_INSECURE);
         } catch (IOException e) {
             throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
+```
+
+### UnstableApiUsage
+'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
+#### Snippet
+```java
+    static String anyToUpperUnderscore(String input) {
+        Preconditions.checkNotNull(input, "Input string is required");
+        return escapeIfNecessary(splitter.splitToStream(input)
+                .map(segment -> CaseFormats.estimate(segment)
+                        .orElse(CaseFormat.LOWER_CAMEL)
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
