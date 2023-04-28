@@ -153,20 +153,19 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
       ZonedDateTime evaluationDateTime) {
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ForwardingModelResolver()` of an abstract class should not be declared 'public'
-in `src/main/java/com/google/fhir/cql/beam/ForwardingModelResolver.java`
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
 #### Snippet
 ```java
-  private final ModelResolver resolver;
-
-  public ForwardingModelResolver(ModelResolver resolver) {
-    this.resolver = resolver;
-  }
+    IParser parser = fhirContext.newJsonParser();
+    jsonResource.forEach(
+        element -> {
+          bundle.addEntry().setResource((Resource) parser.parseResource(element));
+        });
 ```
 
-## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/com/google/fhir/cql/beam/CachingModelResolver.java`
@@ -179,16 +178,17 @@ in `src/main/java/com/google/fhir/cql/beam/CachingModelResolver.java`
   }
 ```
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `ForwardingModelResolver()` of an abstract class should not be declared 'public'
+in `src/main/java/com/google/fhir/cql/beam/ForwardingModelResolver.java`
 #### Snippet
 ```java
-    IParser parser = fhirContext.newJsonParser();
-    jsonResource.forEach(
-        element -> {
-          bundle.addEntry().setResource((Resource) parser.parseResource(element));
-        });
+  private final ModelResolver resolver;
+
+  public ForwardingModelResolver(ModelResolver resolver) {
+    this.resolver = resolver;
+  }
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
