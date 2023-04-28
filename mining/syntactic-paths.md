@@ -11,11 +11,11 @@ Return of `null`
 in `syntactic-paths/src/main/java/com/palantir/util/syntacticpath/Path.java`
 #### Snippet
 ```java
-            return ROOT_PATH;
-        } else {
+
+        if (normal.segments.isEmpty()) {
             return null;
         }
-    }
+
 ```
 
 ### ReturnNull
@@ -23,11 +23,11 @@ Return of `null`
 in `syntactic-paths/src/main/java/com/palantir/util/syntacticpath/Path.java`
 #### Snippet
 ```java
-
-        if (normal.segments.isEmpty()) {
+            return ROOT_PATH;
+        } else {
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
