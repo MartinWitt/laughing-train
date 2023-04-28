@@ -9,8 +9,8 @@ I found 15 bad smells with 2 repairable:
 | RedundantFieldInitialization | 2 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
+| DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[id=RedundantFieldInitialization]
@@ -41,7 +41,7 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-06-56-40.685.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-15-00-22.827.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -64,19 +64,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 	}
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `setTopic` may produce `NullPointerException`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/impl/DaprMessageHandler.java`
-#### Snippet
-```java
-	private void publishEvent(Message<?> message) {
-		DaprProtos.PublishEventRequest.Builder builder = daprMessageConverter.fromMessage(message);
-		builder.setTopic(topic);
-		builder.setPubsubName(pubsubName);
-		daprStub.publishEvent(builder.build(), createDaprStreamObserver());
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.grpc` is unnecessary and can be removed
@@ -88,6 +75,19 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 		 *  on the {@link io.grpc.ManagedChannelBuilder}.
 		 */
 		private String compression;
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `setTopic` may produce `NullPointerException`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/impl/DaprMessageHandler.java`
+#### Snippet
+```java
+	private void publishEvent(Message<?> message) {
+		DaprProtos.PublishEventRequest.Builder builder = daprMessageConverter.fromMessage(message);
+		builder.setTopic(topic);
+		builder.setPubsubName(pubsubName);
+		daprStub.publishEvent(builder.build(), createDaprStreamObserver());
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -117,18 +117,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Sensor`
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
-#### Snippet
-```java
-	}
-
-	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
-		return group
-				.reduce(new Accumulator(0, 0),
-```
-
-### BoundedWildcard
 Can generalize to `? extends DaprStubCustomizer`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
@@ -150,6 +138,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
 		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
 		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Sensor`
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+#### Snippet
+```java
+	}
+
+	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
+		return group
+				.reduce(new Accumulator(0, 0),
 ```
 
 ## RuleId[id=CodeBlock2Expr]
