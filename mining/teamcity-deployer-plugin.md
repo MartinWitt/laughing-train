@@ -82,18 +82,6 @@ public class CargoRunnerConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DeployerRunnerConstants` has only 'static' members, and lacks a 'private' constructor
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
-#### Snippet
-```java
- * Date: 24.03.12 - 17:09
- */
-public class DeployerRunnerConstants {
-  public static final String SSH_RUN_TYPE = "ssh-deploy-runner";
-  public static final String SMB_RUN_TYPE = "smb-deploy-runner";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SMBRunnerConstants` has only 'static' members, and lacks a 'private' constructor
 in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SMBRunnerConstants.java`
 #### Snippet
@@ -115,6 +103,18 @@ import java.io.InputStream;
 public class ScpExecUtil {
 
   public static int checkScpAck(InputStream in) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DeployerRunnerConstants` has only 'static' members, and lacks a 'private' constructor
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
+#### Snippet
+```java
+ * Date: 24.03.12 - 17:09
+ */
+public class DeployerRunnerConstants {
+  public static final String SSH_RUN_TYPE = "ssh-deploy-runner";
+  public static final String SMB_RUN_TYPE = "smb-deploy-runner";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -215,15 +215,15 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/Dep
 ```
 
 ### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
 #### Snippet
 ```java
+      }
 
-  public String getSessionString() {
-    return (StringUtil.isNotEmpty(myRemotePath) ? "[" + myRemotePath + "] on " : "") + "host [" + myHost + ":" + myPort + "]";
-  }
-
+      if (!StringUtil.isEmpty(myPort)) {
+        configuration.setProperty(ServletPropertySet.PORT, myPort);
+      }
 ```
 
 ### StaticCallOnSubclass
@@ -268,22 +268,22 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 #### Snippet
 ```java
 
+  public String getSessionString() {
+    return (StringUtil.isNotEmpty(myRemotePath) ? "[" + myRemotePath + "] on " : "") + "host [" + myHost + ":" + myPort + "]";
+  }
+
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
+#### Snippet
+```java
+
     try {
       jsch.addIdentity(key.getName(), key.getPrivateKey(), null, StringUtil.isNotEmpty(password) ? password.getBytes("UTF-8") : new byte[0]);
     } catch (UnsupportedEncodingException e) {
       myLog.error("Wrong encoding name", e);
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
-#### Snippet
-```java
-      }
-
-      if (!StringUtil.isEmpty(myPort)) {
-        configuration.setProperty(ServletPropertySet.PORT, myPort);
-      }
 ```
 
 ### StaticCallOnSubclass
@@ -643,6 +643,30 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 ```
 
 ### SizeReplaceableByIsEmpty
+`existingPrefix.length() > 0` can be replaced with '!existingPrefix.isEmpty()'
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+    final Stack<String> toCreate = new Stack<>();
+
+    while (existingPrefix.length() > 0 && !diskShare.folderExists(existingPrefix)) {
+      final int endIndex = existingPrefix.lastIndexOf('\\');
+      if (endIndex > -1) {
+```
+
+### SizeReplaceableByIsEmpty
+`existingPrefix.length() > 0` can be replaced with '!existingPrefix.isEmpty()'
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+
+    while (!toCreate.empty()) {
+      existingPrefix = (existingPrefix.length() > 0 ? existingPrefix + "\\" : "") + toCreate.pop();
+      diskShare.mkdir(existingPrefix);
+    }
+```
+
+### SizeReplaceableByIsEmpty
 `prefixPath.length() > 0` can be replaced with '!prefixPath.isEmpty()'
 in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
 #### Snippet
@@ -679,30 +703,6 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
 ```
 
 ### SizeReplaceableByIsEmpty
-`existingPrefix.length() > 0` can be replaced with '!existingPrefix.isEmpty()'
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-    final Stack<String> toCreate = new Stack<>();
-
-    while (existingPrefix.length() > 0 && !diskShare.folderExists(existingPrefix)) {
-      final int endIndex = existingPrefix.lastIndexOf('\\');
-      if (endIndex > -1) {
-```
-
-### SizeReplaceableByIsEmpty
-`existingPrefix.length() > 0` can be replaced with '!existingPrefix.isEmpty()'
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-
-    while (!toCreate.empty()) {
-      existingPrefix = (existingPrefix.length() > 0 ? existingPrefix + "\\" : "") + toCreate.pop();
-      diskShare.mkdir(existingPrefix);
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `encodedPath.length() > 0` can be replaced with '!encodedPath.isEmpty()'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/FtpBuildProcessAdapter.java`
 #### Snippet
@@ -727,19 +727,6 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/Ftp
     return sb.toString();
 ```
 
-## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/DataChannelProtection.java`
-#### Snippet
-```java
-
-  public String getCodeAsString() {
-    return "" + code;
-  }
-
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -751,6 +738,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
       throw new IOException("Remote system responded with error: " + sb.toString());
     } else {
       final int available = in.available();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
+#### Snippet
+```java
+    }
+    if (cause != e) {
+      sb.append("\n, root cause is ").append(cause.toString());
+    }
+    return sb.toString();
 ```
 
 ### UnnecessaryToStringCall
@@ -777,16 +776,17 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
   }
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
+## RuleId[id=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/DataChannelProtection.java`
 #### Snippet
 ```java
-    }
-    if (cause != e) {
-      sb.append("\n, root cause is ").append(cause.toString());
-    }
-    return sb.toString();
+
+  public String getCodeAsString() {
+    return "" + code;
+  }
+
 ```
 
 ## RuleId[id=SetReplaceableByEnumSet]
@@ -1356,18 +1356,6 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseDeployerRunner()` of an abstract class should not be declared 'public'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/base/BaseDeployerRunner.java`
-#### Snippet
-```java
-  protected final ExtensionHolder myExtensionHolder;
-
-  public BaseDeployerRunner(@NotNull final ExtensionHolder extensionHolder) {
-    myExtensionHolder = extensionHolder;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SyncBuildProcessAdapter()` of an abstract class should not be declared 'public'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/SyncBuildProcessAdapter.java`
 #### Snippet
@@ -1377,6 +1365,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/SyncB
   public SyncBuildProcessAdapter(@NotNull final BuildProgressLogger logger) {
     myLogger = logger;
     hasFinished = false;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseDeployerRunner()` of an abstract class should not be declared 'public'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/base/BaseDeployerRunner.java`
+#### Snippet
+```java
+  protected final ExtensionHolder myExtensionHolder;
+
+  public BaseDeployerRunner(@NotNull final ExtensionHolder extensionHolder) {
+    myExtensionHolder = extensionHolder;
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1407,18 +1407,6 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
-#### Snippet
-```java
-  private String myRemotePath;
-  private final String myDefaultKeyPath = System.getProperty("user.home") + "/.ssh/id_rsa";
-  private static volatile boolean ourJschConfigInitialized = false;
-
-  public SSHSessionProvider(@NotNull final BuildRunnerContext context,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
 #### Snippet
 ```java
@@ -1427,6 +1415,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo
   private boolean myUseHttps = false;
 
   public CargoBuildProcessAdapter(@NotNull String target,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
+#### Snippet
+```java
+  private String myRemotePath;
+  private final String myDefaultKeyPath = System.getProperty("user.home") + "/.ssh/id_rsa";
+  private static volatile boolean ourJschConfigInitialized = false;
+
+  public SSHSessionProvider(@NotNull final BuildRunnerContext context,
 ```
 
 ### RedundantFieldInitialization
@@ -1469,7 +1469,7 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/F
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-22-56-54.886.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-21-12-15.000.html`
 #### Snippet
 ```java
               <td>0</td>
