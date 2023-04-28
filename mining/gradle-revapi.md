@@ -170,18 +170,6 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends FileCollection`
-in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
-#### Snippet
-```java
-    }
-
-    private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
-        return property.get().filter(File::isFile).getFiles().stream()
-                .map(FileArchive::new)
-```
-
-### BoundedWildcard
 Can generalize to `? extends Throwable`
 in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
 #### Snippet
@@ -217,6 +205,18 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
         return GradleUtils.memoisedProvider(
 ```
 
+### BoundedWildcard
+Can generalize to `? extends FileCollection`
+in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
+#### Snippet
+```java
+    }
+
+    private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
+        return property.get().filter(File::isFile).getFiles().stream()
+                .map(FileArchive::new)
+```
+
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `AnalysisResult` has no concrete subclass
@@ -228,18 +228,6 @@ in `src/main/java/com/palantir/gradle/revapi/AnalysisResult.java`
 public abstract class AnalysisResult {
     public abstract String code();
     // Using @Nullable instead of Optionals as freemarker templating does not not support Optionals
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutablePerProjectAcceptedBreaks.class)
-abstract class PerProjectAcceptedBreaks {
-    @JsonValue
-    @Value.NaturalOrder
 ```
 
 ### AbstractClassNeverImplemented
@@ -255,18 +243,6 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `GradleRevapiConfig` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 #### Snippet
@@ -276,6 +252,30 @@ in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 public abstract class GradleRevapiConfig {
     @Value.NaturalOrder
     protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutablePerProjectAcceptedBreaks.class)
+abstract class PerProjectAcceptedBreaks {
+    @JsonValue
+    @Value.NaturalOrder
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutableStyle
+abstract class RevapiConfig {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
+
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
