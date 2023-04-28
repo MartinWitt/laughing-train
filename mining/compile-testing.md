@@ -49,11 +49,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
-
-  /** The clause in the fluent API for further tests on successful compilations without warnings. */
-  public interface CleanCompilationClause
-      extends CompilationWithNotesClause<CleanCompilationClause>,
-          ChainingClause<GeneratedPredicateClause<CleanCompilationClause>> {}
+   * @param T the clause type returned by {@link ChainingClause#and()}
+   */
+  public interface FileClause<T> extends ChainingClause<T> {
+    @CanIgnoreReturnValue
+    LineClause<T> in(JavaFileObject file);
 ```
 
 ### UnnecessaryModifier
@@ -75,9 +75,9 @@ in `src/main/java/com/google/testing/compile/CompileTester.java`
 ```java
    * @param T the non-generic clause type implementing this interface
    */
-  public interface SuccessfulFileClause<T> extends ChainingClause<GeneratedPredicateClause<T>> {
+  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
+
     /**
-     * Checks that the contents of the generated file match the contents of the specified
 ```
 
 ### UnnecessaryModifier
@@ -90,6 +90,66 @@ in `src/main/java/com/google/testing/compile/CompileTester.java`
   public interface CompilationWithNotesClause<T> {
     /**
      * Checks that a note exists that contains the given fragment in the
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+
+  /** The clause in the fluent API for further tests on unsuccessful compilations. */
+  public interface UnsuccessfulCompilationClause
+      extends CompilationWithWarningsClause<UnsuccessfulCompilationClause> {
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+
+  /** The clause in the fluent API for further tests on successful compilations. */
+  public interface SuccessfulCompilationClause
+      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
+          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+
+  /** The clause in the fluent API for further tests on successful compilations without warnings. */
+  public interface CleanCompilationClause
+      extends CompilationWithNotesClause<CleanCompilationClause>,
+          ChainingClause<GeneratedPredicateClause<CleanCompilationClause>> {}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface SuccessfulFileClause<T> extends ChainingClause<GeneratedPredicateClause<T>> {
+    /**
+     * Checks that the contents of the generated file match the contents of the specified
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the clause type returned by {@link ChainingClause#and()}
+   */
+  public interface ColumnClause<T> extends ChainingClause<T> {
+    @CanIgnoreReturnValue
+    ChainingClause<T> atColumn(long columnNumber);
 ```
 
 ### UnnecessaryModifier
@@ -116,66 +176,6 @@ in `src/main/java/com/google/testing/compile/CompileTester.java`
   }
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-
-  /** The clause in the fluent API for further tests on unsuccessful compilations. */
-  public interface UnsuccessfulCompilationClause
-      extends CompilationWithWarningsClause<UnsuccessfulCompilationClause> {
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the clause type returned by {@link ChainingClause#and()}
-   */
-  public interface ColumnClause<T> extends ChainingClause<T> {
-    @CanIgnoreReturnValue
-    ChainingClause<T> atColumn(long columnNumber);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-
-  /** The clause in the fluent API for further tests on successful compilations. */
-  public interface SuccessfulCompilationClause
-      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
-          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the clause type returned by {@link ChainingClause#and()}
-   */
-  public interface FileClause<T> extends ChainingClause<T> {
-    @CanIgnoreReturnValue
-    LineClause<T> in(JavaFileObject file);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
-
-    /**
-```
-
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `MoreTrees` has only 'static' members, and lacks a 'private' constructor
@@ -190,18 +190,6 @@ final class MoreTrees {
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Casting `actual` to `Name` will produce `ClassCastException` for any non-null value
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-        boolean eq =
-            (expected instanceof Name)
-                ? namesEqual((Name) expected, (Name) actual)
-                : Objects.equals(expected, actual);
-        if (!eq) {
-```
-
 ### DataFlowIssue
 Argument `StandardSystemProperty.PATH_SEPARATOR.value()` might be null
 in `src/main/java/com/google/testing/compile/Compiler.java`
@@ -227,6 +215,18 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
 ```
 
 ### DataFlowIssue
+Casting `actual` to `Name` will produce `ClassCastException` for any non-null value
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+        boolean eq =
+            (expected instanceof Name)
+                ? namesEqual((Name) expected, (Name) actual)
+                : Objects.equals(expected, actual);
+        if (!eq) {
+```
+
+### DataFlowIssue
 Unboxing of `index` may produce `NullPointerException`
 in `src/main/java/com/google/testing/compile/CompilationSubject.java`
 #### Snippet
@@ -236,6 +236,19 @@ in `src/main/java/com/google/testing/compile/CompilationSubject.java`
               .map(index -> index + 1) // to 1-based line numbers
               .collect(toImmutableSet());
       checkArgument(
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'withClasspathFrom' is still used
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public final Compiler withClasspathFrom(ClassLoader classloader) {
+    return copy(
+        processors(),
 ```
 
 ## RuleId[id=OptionalContainsCollection]
@@ -285,19 +298,6 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
   public abstract Optional<ImmutableList<File>> classPath();
 
   /**
-```
-
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'withClasspathFrom' is still used
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public final Compiler withClasspathFrom(ClassLoader classloader) {
-    return copy(
-        processors(),
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -465,18 +465,6 @@ in `src/main/java/com/google/testing/compile/CompilationSubject.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `MethodSignature` has no concrete subclass
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class MethodSignature {
-    abstract String name();
-    abstract ImmutableList<Equivalence.Wrapper<TypeMirror>> parameterTypes();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Compiler` has no concrete subclass
 in `src/main/java/com/google/testing/compile/Compiler.java`
 #### Snippet
@@ -486,6 +474,18 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
 public abstract class Compiler {
 
   /** Returns the {@code javac} compiler. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MethodSignature` has no concrete subclass
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class MethodSignature {
+    abstract String name();
+    abstract ImmutableList<Equivalence.Wrapper<TypeMirror>> parameterTypes();
 ```
 
 ### AbstractClassNeverImplemented
@@ -502,30 +502,6 @@ in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'classPath'
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-      ImmutableList<Processor> processors,
-      ImmutableList<String> options,
-      Optional<ImmutableList<File>> classPath,
-      Optional<ImmutableList<File>> annotationProcessorPath) {
-    return new AutoValue_Compiler(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'annotationProcessorPath'
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-      ImmutableList<String> options,
-      Optional<ImmutableList<File>> classPath,
-      Optional<ImmutableList<File>> annotationProcessorPath) {
-    return new AutoValue_Compiler(
-        javaCompiler(), processors, options, classPath, annotationProcessorPath);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'data'
 in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
 #### Snippet
@@ -535,6 +511,18 @@ in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
     private Optional<ByteSource> data = Optional.empty();
 
     InMemoryJavaFileObject(URI uri) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'identifier'
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+    private final Tree.Kind kindSought;
+
+    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
+      this.kindSought = kindSought;
+      this.identifier = identifier;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -562,18 +550,6 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'identifier'
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-    private final Tree.Kind kindSought;
-
-    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
-      this.kindSought = kindSought;
-      this.identifier = identifier;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'ret'
 in `src/main/java/com/google/testing/compile/MoreTrees.java`
 #### Snippet
@@ -583,6 +559,18 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
     private Optional<TreePath> absentIfNull(Optional<TreePath> ret) {
       return (ret != null) ? ret : Optional.empty();
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'identifier'
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+  /** A {@link TreePathScanner} to power the subtree searches in this class */
+  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
+    private final Optional<String> identifier;
+    private final Tree.Kind kindSought;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -598,15 +586,27 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'identifier'
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
+`Optional`> used as type for parameter 'classPath'
+in `src/main/java/com/google/testing/compile/Compiler.java`
 #### Snippet
 ```java
-  /** A {@link TreePathScanner} to power the subtree searches in this class */
-  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
-    private final Optional<String> identifier;
-    private final Tree.Kind kindSought;
+      ImmutableList<Processor> processors,
+      ImmutableList<String> options,
+      Optional<ImmutableList<File>> classPath,
+      Optional<ImmutableList<File>> annotationProcessorPath) {
+    return new AutoValue_Compiler(
+```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'annotationProcessorPath'
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+      ImmutableList<String> options,
+      Optional<ImmutableList<File>> classPath,
+      Optional<ImmutableList<File>> annotationProcessorPath) {
+    return new AutoValue_Compiler(
+        javaCompiler(), processors, options, classPath, annotationProcessorPath);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -675,18 +675,6 @@ in `src/main/java/com/google/testing/compile/CompilationRule.java`
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Function() can be replaced with lambda
-in `src/main/java/com/google/testing/compile/TypeEnumerator.java`
-#### Snippet
-```java
-      Set<String> typeDeclSet = firstNonNull(scan(reference.getTypeDecls(), v), ImmutableSet.of());
-      return FluentIterable.from(typeDeclSet)
-          .transform(new Function<String, String>() {
-            @Override public String apply(String typeName) {
-              return packageName.isEmpty() ? typeName :
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
 in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
 #### Snippet
 ```java
@@ -695,6 +683,18 @@ in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
         .transform(new Function<Tree, String>() {
           @Override public String apply(Tree t) {
             return t.accept(BREADCRUMB_VISITOR, null);
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/main/java/com/google/testing/compile/TypeEnumerator.java`
+#### Snippet
+```java
+      Set<String> typeDeclSet = firstNonNull(scan(reference.getTypeDecls(), v), ImmutableSet.of());
+      return FluentIterable.from(typeDeclSet)
+          .transform(new Function<String, String>() {
+            @Override public String apply(String typeName) {
+              return packageName.isEmpty() ? typeName :
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
@@ -726,7 +726,7 @@ in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-21-05-31.012.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-22-02-12.397.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -789,27 +789,39 @@ in `src/main/java/com/google/testing/compile/TypeEnumerator.java`
 ```
 
 ### ConstantValue
-Condition `expected instanceof JavaFileObject && actual instanceof JavaFileObject` is always `false`
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+Value `p` is always 'true'
+in `src/main/java/com/google/testing/compile/Parser.java`
 #### Snippet
 ```java
-      } else if (expected instanceof LineMap && actual instanceof LineMap) {
-        return; // we don't require lines to match exactly
-      } else if (expected instanceof JavaFileObject && actual instanceof JavaFileObject) {
-        return; // these will never be equal unless the inputs are identical
-      } else {
+        @Override
+        public Boolean scan(Tree tree, Boolean p) {
+          return isTrue(p) ? p : super.scan(tree, p);
+        }
+
 ```
 
 ### ConstantValue
-Condition `actual instanceof JavaFileObject` is always `false` when reached
+Value `p` is always 'false'
+in `src/main/java/com/google/testing/compile/Parser.java`
+#### Snippet
+```java
+        @Override
+        public Boolean scan(Tree tree, Boolean p) {
+          return isTrue(p) ? p : super.scan(tree, p);
+        }
+
+```
+
+### ConstantValue
+Condition `expected != null` is always `true` when reached
 in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 #### Snippet
 ```java
-      } else if (expected instanceof LineMap && actual instanceof LineMap) {
-        return; // we don't require lines to match exactly
-      } else if (expected instanceof JavaFileObject && actual instanceof JavaFileObject) {
-        return; // these will never be equal unless the inputs are identical
-      } else {
+      } else if (expected != null && actual == null) {
+        diffBuilder.addExtraExpectedNode(expectedPathPlus(expected));
+      } else if (actual != null && expected != null) {
+        pushPathAndAccept(expected, actual);
+      }
 ```
 
 ### ConstantValue
@@ -837,38 +849,26 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 ```
 
 ### ConstantValue
-Condition `expected != null` is always `true` when reached
+Condition `expected instanceof JavaFileObject && actual instanceof JavaFileObject` is always `false`
 in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 #### Snippet
 ```java
-      } else if (expected != null && actual == null) {
-        diffBuilder.addExtraExpectedNode(expectedPathPlus(expected));
-      } else if (actual != null && expected != null) {
-        pushPathAndAccept(expected, actual);
-      }
+      } else if (expected instanceof LineMap && actual instanceof LineMap) {
+        return; // we don't require lines to match exactly
+      } else if (expected instanceof JavaFileObject && actual instanceof JavaFileObject) {
+        return; // these will never be equal unless the inputs are identical
+      } else {
 ```
 
 ### ConstantValue
-Value `p` is always 'true'
-in `src/main/java/com/google/testing/compile/Parser.java`
+Condition `actual instanceof JavaFileObject` is always `false` when reached
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 #### Snippet
 ```java
-        @Override
-        public Boolean scan(Tree tree, Boolean p) {
-          return isTrue(p) ? p : super.scan(tree, p);
-        }
-
-```
-
-### ConstantValue
-Value `p` is always 'false'
-in `src/main/java/com/google/testing/compile/Parser.java`
-#### Snippet
-```java
-        @Override
-        public Boolean scan(Tree tree, Boolean p) {
-          return isTrue(p) ? p : super.scan(tree, p);
-        }
-
+      } else if (expected instanceof LineMap && actual instanceof LineMap) {
+        return; // we don't require lines to match exactly
+      } else if (expected instanceof JavaFileObject && actual instanceof JavaFileObject) {
+        return; // these will never be equal unless the inputs are identical
+      } else {
 ```
 
