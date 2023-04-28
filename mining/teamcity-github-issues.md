@@ -63,6 +63,19 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         // oauth token
 ```
 
+## RuleId[id=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> getDefaultProperties() {
+    return new HashMap<String, String>() {{
+      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
+      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -112,19 +125,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:\\.git)`
@@ -139,18 +139,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
-```
-
 ### BoundedWildcard
 Can generalize to `? extends SBuildType`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
@@ -173,6 +161,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
     return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
 ```
 
 ### BoundedWildcard
