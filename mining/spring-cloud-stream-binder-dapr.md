@@ -1,18 +1,31 @@
 # spring-cloud-stream-binder-dapr 
  
 # Bad smells
-I found 14 bad smells with 2 repairable:
+I found 15 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 4 | false |
 | IgnoreResultOfCall | 3 | false |
 | RedundantFieldInitialization | 2 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
+#### Snippet
+```java
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DaprSampleApplication.class);
+	private int i = 0;
+
+	@Bean
+```
+
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
@@ -25,16 +38,17 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 		SpringApplication.run(DaprSampleApplication.class, args);
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-06-56-40.685.html`
 #### Snippet
 ```java
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(DaprSampleApplication.class);
-	private int i = 0;
-
-	@Bean
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -103,6 +117,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Sensor`
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+#### Snippet
+```java
+	}
+
+	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
+		return group
+				.reduce(new Accumulator(0, 0),
+```
+
+### BoundedWildcard
 Can generalize to `? extends DaprStubCustomizer`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
@@ -124,18 +150,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
 		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
 		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sensor`
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
-#### Snippet
-```java
-	}
-
-	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
-		return group
-				.reduce(new Accumulator(0, 0),
 ```
 
 ## RuleId[id=CodeBlock2Expr]
