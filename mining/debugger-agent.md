@@ -32,30 +32,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DebuggerAgent` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/DebuggerAgent.java`
-#### Snippet
-```java
-
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
-public class DebuggerAgent {
-  public static void premain(String args, Instrumentation instrumentation) {
-    // never instrument twice
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-
-@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
-public final class CaptureAgent {
-  private static Instrumentation ourInstrumentation;
-  private static final Set<Class> mySkipped = new HashSet<Class>();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CaptureStorage` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 #### Snippet
@@ -80,6 +56,30 @@ public class CollectionBreakpointStorage {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `DebuggerAgent` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/DebuggerAgent.java`
+#### Snippet
+```java
+
+@SuppressWarnings("UseOfSystemOutOrSystemErr")
+public class DebuggerAgent {
+  public static void premain(String args, Instrumentation instrumentation) {
+    // never instrument twice
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CaptureAgent` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+
+@SuppressWarnings({"UseOfSystemOutOrSystemErr", "CallToPrintStackTrace", "rawtypes"})
+public final class CaptureAgent {
+  private static Instrumentation ourInstrumentation;
+  private static final Set<Class> mySkipped = new HashSet<Class>();
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CollectionBreakpointInstrumentor` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
@@ -92,6 +92,18 @@ public class CollectionBreakpointInstrumentor {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
+#### Snippet
+```java
+            if (CaptureStorage.DEBUG) {
+              try {
+                FileOutputStream stream = new FileOutputStream("instrumented_" + className.replaceAll("/", "_") + ".class");
+                try {
+                  stream.write(bytes);
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
@@ -114,18 +126,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
         classNames.add(point.myClassName.replaceAll("/", "\\."));
       }
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
-#### Snippet
-```java
-            if (CaptureStorage.DEBUG) {
-              try {
-                FileOutputStream stream = new FileOutputStream("instrumented_" + className.replaceAll("/", "_") + ".class");
-                try {
-                  stream.write(bytes);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -184,18 +184,6 @@ Field initialization to `0` is redundant
 in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-
-    private class CaptureFieldsMethodVisitor extends MethodVisitor {
-      private int myAdditionalStackSpace = 0;
-
-      private CaptureFieldsMethodVisitor(int api, MethodVisitor methodVisitor) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
       private int myShouldCaptureVar;
       private int myAdditionalStackSpace = 0;
       private int myNumberOfAdditionalLocalVars = 0;
@@ -213,6 +201,18 @@ in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumento
       private int myAdditionalStackSpace = 0;
       private int myNumberOfAdditionalLocalVars = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
+#### Snippet
+```java
+
+    private class CaptureFieldsMethodVisitor extends MethodVisitor {
+      private int myAdditionalStackSpace = 0;
+
+      private CaptureFieldsMethodVisitor(int api, MethodVisitor methodVisitor) {
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -255,6 +255,30 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
+#### Snippet
+```java
+  private static String wrapInString(CapturedStack stack, int limit) throws IOException {
+    if (stack == null) {
+      return null;
+    }
+    ByteArrayOutputStream bas = new ByteArrayOutputStream();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
+#### Snippet
+```java
+  private static Object[][] wrapInArray(CapturedStack stack, int limit) {
+    if (stack == null) {
+      return null;
+    }
+    List<StackTraceElement> stackTrace = getStackTrace(stack, limit);
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 #### Snippet
 ```java
@@ -279,26 +303,26 @@ in `src/main/java/com/intellij/rt/debugger/agent/CaptureAgent.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-  private static String wrapInString(CapturedStack stack, int limit) throws IOException {
-    if (stack == null) {
-      return null;
-    }
-    ByteArrayOutputStream bas = new ByteArrayOutputStream();
+                            byte[] classfileBuffer) {
+      if (className == null) {
+        return null;
+      }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CaptureStorage.java`
+in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
 #### Snippet
 ```java
-  private static Object[][] wrapInArray(CapturedStack stack, int limit) {
-    if (stack == null) {
+        }
+      }
       return null;
     }
-    List<StackTraceElement> stackTrace = getStackTrace(stack, limit);
+  }
 ```
 
 ### ReturnNull
@@ -335,30 +359,6 @@ in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumento
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
-                            byte[] classfileBuffer) {
-      if (className == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/intellij/rt/debugger/agent/CollectionBreakpointInstrumentor.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-  }
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
