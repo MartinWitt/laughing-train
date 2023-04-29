@@ -90,19 +90,6 @@ in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RuntimeSupport
             }
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `support/camel-k-catalog-model/src/main/java/org/apache/camel/k/catalog/model/Artifact.java`
-#### Snippet
-```java
-@JsonPropertyOrder({"groupId", "artifactId", "version"})
-public interface Artifact extends Comparable<Artifact> {
-    String getGroupId();;
-    String getArtifactId();
-    Optional<String> getVersion();
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.quarkus.dev.spi` is unnecessary, and can be replaced with an import
@@ -114,18 +101,6 @@ public class HotReplacementSetup implements io.quarkus.dev.spi.HotReplacementSet
     public void setupHotDeployment(io.quarkus.dev.spi.HotReplacementContext context) {
         //TODO: TBD
     }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
-in `camel-k-webhook/impl/src/generated/java/org/apache/camel/k/webhook/WebhookContextCustomizerConfigurer.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("unchecked")
-public class WebhookContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
-
-    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -201,6 +176,18 @@ in `camel-k-webhook/impl/src/generated/java/org/apache/camel/k/webhook/WebhookCo
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
+in `camel-k-webhook/impl/src/generated/java/org/apache/camel/k/webhook/WebhookContextCustomizerConfigurer.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings("unchecked")
+public class WebhookContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.camel.k.cron` is unnecessary and can be removed
 in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoaderInterceptorConfigurer.java`
 #### Snippet
@@ -222,6 +209,30 @@ in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoade
         org.apache.camel.k.cron.CronSourceLoaderInterceptor target = (org.apache.camel.k.cron.CronSourceLoaderInterceptor) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "overridablecomponents":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoaderInterceptorConfigurer.java`
+#### Snippet
+```java
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "overridablecomponents":
+        case "OverridableComponents": return java.lang.String.class;
+        case "runtime":
+        case "Runtime": return org.apache.camel.k.Runtime.class;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoaderInterceptorConfigurer.java`
+#### Snippet
+```java
+        case "Runtime": return org.apache.camel.k.Runtime.class;
+        case "timeruri":
+        case "TimerUri": return java.lang.String.class;
+        default: return null;
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -285,25 +296,13 @@ in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoade
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoaderInterceptorConfigurer.java`
+Qualifier `org.apache.camel.k` is unnecessary, and can be replaced with an import
+in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
 #### Snippet
 ```java
         switch (ignoreCase ? name.toLowerCase() : name) {
-        case "overridablecomponents":
-        case "OverridableComponents": return java.lang.String.class;
-        case "runtime":
-        case "Runtime": return org.apache.camel.k.Runtime.class;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoaderInterceptorConfigurer.java`
-#### Snippet
-```java
-        case "Runtime": return org.apache.camel.k.Runtime.class;
-        case "timeruri":
-        case "TimerUri": return java.lang.String.class;
+        case "sources":
+        case "Sources": return org.apache.camel.k.SourceDefinition[].class;
         default: return null;
         }
 ```
@@ -345,30 +344,6 @@ in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesC
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k.listener` is unnecessary and can be removed
-in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
-#### Snippet
-```java
-    @Override
-    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
-        org.apache.camel.k.listener.SourcesConfigurer target = (org.apache.camel.k.listener.SourcesConfigurer) obj;
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "sources":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k.listener` is unnecessary and can be removed
-in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
-#### Snippet
-```java
-    @Override
-    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
-        org.apache.camel.k.listener.SourcesConfigurer target = (org.apache.camel.k.listener.SourcesConfigurer) obj;
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "sources":
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
 in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
 #### Snippet
@@ -381,15 +356,63 @@ public class SourcesConfigurerConfigurer extends org.apache.camel.support.compon
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k` is unnecessary, and can be replaced with an import
+Qualifier `org.apache.camel.k.listener` is unnecessary and can be removed
 in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
 #### Snippet
 ```java
+    @Override
+    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
+        org.apache.camel.k.listener.SourcesConfigurer target = (org.apache.camel.k.listener.SourcesConfigurer) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "sources":
-        case "Sources": return org.apache.camel.k.SourceDefinition[].class;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.k.listener` is unnecessary and can be removed
+in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesConfigurerConfigurer.java`
+#### Snippet
+```java
+    @Override
+    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
+        org.apache.camel.k.listener.SourcesConfigurer target = (org.apache.camel.k.listener.SourcesConfigurer) obj;
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "sources":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "interceptors":
+        case "Interceptors": return java.lang.String.class;
+        case "propertynames":
+        case "PropertyNames": return java.lang.String.class;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+        case "Interceptors": return java.lang.String.class;
+        case "propertynames":
+        case "PropertyNames": return java.lang.String.class;
         default: return null;
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings("unchecked")
+public class SourceDefinitionConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
+
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -573,6 +596,18 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
+#### Snippet
+```java
+    @Override
+    public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
+        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
 #### Snippet
@@ -585,18 +620,6 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
-    @Override
-    public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
-        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "apiversion":
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
 #### Snippet
@@ -609,18 +632,6 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
-#### Snippet
-```java
-        case "Location": target.setLocation(property(camelContext, java.lang.String.class, value)); return true;
-        case "name":
-        case "Name": target.setName(property(camelContext, java.lang.String.class, value)); return true;
-        case "propertynames":
-        case "PropertyNames": target.setPropertyNames(property(camelContext, java.util.List.class, value)); return true;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
 in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
@@ -633,6 +644,30 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
+#### Snippet
+```java
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+        case "ApiVersion": target.setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
+        case "kind":
+        case "Kind": target.setKind(property(camelContext, java.lang.String.class, value)); return true;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+        case "Location": target.setLocation(property(camelContext, java.lang.String.class, value)); return true;
+        case "name":
+        case "Name": target.setName(property(camelContext, java.lang.String.class, value)); return true;
+        case "propertynames":
+        case "PropertyNames": target.setPropertyNames(property(camelContext, java.util.List.class, value)); return true;
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
 #### Snippet
@@ -642,6 +677,18 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
         case "PropertyNames": target.setPropertyNames(property(camelContext, java.util.List.class, value)); return true;
         case "type":
         case "Type": target.setType(property(camelContext, org.apache.camel.k.SourceType.class, value)); return true;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
+#### Snippet
+```java
+        case "ApiVersion": target.setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
+        case "kind":
+        case "Kind": target.setKind(property(camelContext, java.lang.String.class, value)); return true;
+        case "name":
+        case "Name": target.setName(property(camelContext, java.lang.String.class, value)); return true;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -661,59 +708,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
 ```java
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "apiversion":
-        case "ApiVersion": target.setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
-        case "kind":
-        case "Kind": target.setKind(property(camelContext, java.lang.String.class, value)); return true;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("unchecked")
-public class SourceDefinitionConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
-        case "ApiVersion": target.setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
-        case "kind":
-        case "Kind": target.setKind(property(camelContext, java.lang.String.class, value)); return true;
-        case "name":
-        case "Name": target.setName(property(camelContext, java.lang.String.class, value)); return true;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
         case "Kind": target.setKind(property(camelContext, java.lang.String.class, value)); return true;
         case "name":
         case "Name": target.setName(property(camelContext, java.lang.String.class, value)); return true;
         case "type":
         case "Type": target.setType(property(camelContext, org.apache.camel.component.knative.spi.Knative.Type.class, value)); return true;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
-#### Snippet
-```java
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "interceptors":
-        case "Interceptors": return java.lang.String.class;
-        case "propertynames":
-        case "PropertyNames": return java.lang.String.class;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -730,42 +729,6 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
-#### Snippet
-```java
-        case "Interceptors": return java.lang.String.class;
-        case "propertynames":
-        case "PropertyNames": return java.lang.String.class;
-        default: return null;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
-    @Override
-    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
-        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "apiversion":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
-    @Override
-    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
-        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
-        switch (ignoreCase ? name.toLowerCase() : name) {
-        case "apiversion":
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
 in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
 ```java
@@ -813,6 +776,30 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
+#### Snippet
+```java
+    @Override
+    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
+        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.camel.k.knative.customizer` is unnecessary and can be removed
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
+#### Snippet
+```java
+    @Override
+    public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
+        org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.camel.support.component` is unnecessary, and can be replaced with an import
 in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
@@ -822,6 +809,19 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 public class KnativeSinkBindingContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
     @Override
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `support/camel-k-catalog-model/src/main/java/org/apache/camel/k/catalog/model/Artifact.java`
+#### Snippet
+```java
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface Artifact extends Comparable<Artifact> {
+    String getGroupId();;
+    String getArtifactId();
+    Optional<String> getVersion();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -1250,6 +1250,30 @@ public class MasterContextCustomizer implements ContextCustomizer {
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
+Contents of collection `languagesExclusionList` are queried, but never updated
+in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/GenerateCatalogMojo.java`
+#### Snippet
+```java
+
+    @Parameter(property = "languages.exclusion.list")
+    private Set<String> languagesExclusionList;
+
+    @Parameter(property = "dsls.exclusion.list")
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `capabilitiesExclusionList` are queried, but never updated
+in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/GenerateCatalogMojo.java`
+#### Snippet
+```java
+
+    @Parameter(property = "capabilities.exclusion.list")
+    private Set<String> capabilitiesExclusionList;
+
+    // ********************
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `dslsExclusionList` are queried, but never updated
 in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/GenerateCatalogMojo.java`
 #### Snippet
@@ -1271,30 +1295,6 @@ in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/
     private Set<String> componentsExclusionList;
 
     @Parameter(property = "dataformats.exclusion.list")
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `capabilitiesExclusionList` are queried, but never updated
-in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/GenerateCatalogMojo.java`
-#### Snippet
-```java
-
-    @Parameter(property = "capabilities.exclusion.list")
-    private Set<String> capabilitiesExclusionList;
-
-    // ********************
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `languagesExclusionList` are queried, but never updated
-in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/GenerateCatalogMojo.java`
-#### Snippet
-```java
-
-    @Parameter(property = "languages.exclusion.list")
-    private Set<String> languagesExclusionList;
-
-    @Parameter(property = "dsls.exclusion.list")
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -1344,6 +1344,18 @@ in `camel-k-cron/impl/src/generated/java/org/apache/camel/k/cron/CronSourceLoade
         case "Runtime": return org.apache.camel.k.Runtime.class;
         case "timeruri":
         case "TimerUri": return java.lang.String.class;
+        default: return null;
+        }
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+        case "Interceptors": return java.lang.String.class;
+        case "propertynames":
+        case "PropertyNames": return java.lang.String.class;
         default: return null;
         }
 ```
@@ -1410,18 +1422,6 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
-#### Snippet
-```java
-        case "Interceptors": return java.lang.String.class;
-        case "propertynames":
-        case "PropertyNames": return java.lang.String.class;
-        default: return null;
-        }
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
 in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
 ```java
@@ -1447,7 +1447,7 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-18-23-54-49.298.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-21-06-56.194.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1458,6 +1458,18 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-18-23-54-49.298.
 ```
 
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `itests/camel-k-itests-knative-source-yaml/src/main/java/org/apache/camel/k/quarkus/it/knative/source/KnativeSourceApplication.java`
+#### Snippet
+```java
+        return Json.createArrayBuilder(
+            definitions.stream()
+                .map(d -> !d.getOutputs().isEmpty() ? d.getOutputs().get(d.getOutputs().size() -1 ) : null)
+                .filter(Objects::nonNull)
+                .filter(ToDefinition.class::isInstance)
+```
+
 ### ReturnNull
 Return of `null`
 in `itests/camel-k-itests-knative-source-js/src/main/java/org/apache/camel/k/quarkus/it/knative/source/KnativeSourceApplication.java`
@@ -1497,18 +1509,6 @@ in `itests/camel-k-itests-knative-source-xml/src/main/java/org/apache/camel/k/qu
 ### ReturnNull
 Return of `null`
 in `itests/camel-k-itests-knative-source-groovy/src/main/java/org/apache/camel/k/quarkus/it/knative/source/KnativeSourceApplication.java`
-#### Snippet
-```java
-        return Json.createArrayBuilder(
-            definitions.stream()
-                .map(d -> !d.getOutputs().isEmpty() ? d.getOutputs().get(d.getOutputs().size() -1 ) : null)
-                .filter(Objects::nonNull)
-                .filter(ToDefinition.class::isInstance)
-```
-
-### ReturnNull
-Return of `null`
-in `itests/camel-k-itests-knative-source-yaml/src/main/java/org/apache/camel/k/quarkus/it/knative/source/KnativeSourceApplication.java`
 #### Snippet
 ```java
         return Json.createArrayBuilder(
@@ -1572,7 +1572,7 @@ in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesC
 #### Snippet
 ```java
         case "sources":
-        case "Sources": return target.getSources();
+        case "Sources": return org.apache.camel.k.SourceDefinition[].class;
         default: return null;
         }
     }
@@ -1584,7 +1584,19 @@ in `camel-k-core/support/src/generated/java/org/apache/camel/k/listener/SourcesC
 #### Snippet
 ```java
         case "sources":
-        case "Sources": return org.apache.camel.k.SourceDefinition[].class;
+        case "Sources": return target.getSources();
+        default: return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+#### Snippet
+```java
+        case "propertynames":
+        case "PropertyNames": return java.lang.String.class;
         default: return null;
         }
     }
@@ -1616,11 +1628,11 @@ in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfi
 
 ### ReturnNull
 Return of `null`
-in `camel-k-core/api/src/generated/java/org/apache/camel/k/SourceDefinitionConfigurer.java`
+in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
 #### Snippet
 ```java
-        case "propertynames":
-        case "PropertyNames": return java.lang.String.class;
+        case "type":
+        case "Type": return org.apache.camel.component.knative.spi.Knative.Type.class;
         default: return null;
         }
     }
@@ -1633,18 +1645,6 @@ in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customize
 ```java
         case "type":
         case "Type": return target.getType();
-        default: return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `camel-k-knative/impl/src/generated/java/org/apache/camel/k/knative/customizer/KnativeSinkBindingContextCustomizerConfigurer.java`
-#### Snippet
-```java
-        case "type":
-        case "Type": return org.apache.camel.component.knative.spi.Knative.Type.class;
         default: return null;
         }
     }
@@ -1675,7 +1675,32 @@ in `itests/camel-k-itests-cron/src/main/java/org/apache/camel/k/quarkus/cron/dep
 }
 ```
 
+## RuleId[id=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
+Confusing argument `entries`, unclear if a varargs or non-varargs call is desired
+in `camel-k-core/api/src/main/java/org/apache/camel/k/Runtime.java`
+#### Snippet
+```java
+    default void setProperties(String key, String value, String... entries) {
+        setProperties(
+            mapOf(HashMap::new, key, value, entries)
+        );
+    }
+```
+
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super ReflectiveClassBuildItem`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/CoreProcessor.java`
+#### Snippet
+```java
+    @BuildStep
+    void registerStreamCachingClasses(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndex) {
+
+```
+
 ### BoundedWildcard
 Can generalize to `? extends T`
 in `support/camel-k-apt/src/main/java/org/apache/camel/k/tooling/apt/CamelProcessor.java`
@@ -1713,30 +1738,6 @@ in `support/camel-k-apt/src/main/java/org/apache/camel/k/tooling/apt/CamelProces
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `camel-k-runtime/runtime/src/main/java/org/apache/camel/k/quarkus/Application.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Optional<T> instance(Class<T> type) {
-        return container()
-            .map(container -> container.instance(type))
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/support/MavenSupport.java`
-#### Snippet
-```java
-    }
-
-    public static void getVersion(Class<?> clazz, String path, Consumer<String> consumer) {
-        consumer.accept(
-            MavenSupport.getVersion(clazz, path)
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `support/camel-k-test/src/main/java/org/apache/camel/k/test/AvailablePortFinder.java`
 #### Snippet
@@ -1761,111 +1762,27 @@ in `support/camel-k-test/src/main/java/org/apache/camel/k/test/AvailablePortFind
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ReflectiveClassBuildItem`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/CoreProcessor.java`
+Can generalize to `? super String`
+in `support/camel-k-maven-plugin/src/main/java/org/apache/camel/k/tooling/maven/support/MavenSupport.java`
 #### Snippet
 ```java
-    @BuildStep
-    void registerStreamCachingClasses(
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndex) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassInfo`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-            .collect(Collectors.toList());
     }
-    public static <T> Iterable<T> getAnnotated(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
-    }
+
+    public static void getVersion(Class<?> clazz, String path, Consumer<String> consumer) {
+        consumer.accept(
+            MavenSupport.getVersion(clazz, path)
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+in `camel-k-runtime/runtime/src/main/java/org/apache/camel/k/quarkus/Application.java`
 #### Snippet
 ```java
-            .collect(Collectors.toList());
     }
-    public static <T> Iterable<T> getAnnotated(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
-    }
-```
 
-### BoundedWildcard
-Can generalize to `? super ClassInfo`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownSubclasses(DotName.createSimple(name));
-    }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, name)).map(mapper);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownSubclasses(DotName.createSimple(name));
-    }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, name)).map(mapper);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassInfo`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownSubclasses(type);
-    }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, type)).map(mapper);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownSubclasses(type);
-    }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, type)).map(mapper);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassInfo`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
-    }
-    public static <T> Stream<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownImplementors(view, type)).map(mapper);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
-#### Snippet
-```java
-        return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
-    }
-    public static <T> Stream<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownImplementors(view, type)).map(mapper);
-    }
+    public static <T> Optional<T> instance(Class<T> type) {
+        return container()
+            .map(container -> container.instance(type))
 ```
 
 ### BoundedWildcard
@@ -1897,10 +1814,10 @@ Can generalize to `? super ClassInfo`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return getAnnotated(view, DotName.createSimple(name));
+            .collect(Collectors.toList());
     }
-    public static <T> Stream<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, name)).map(mapper);
+    public static <T> Iterable<T> getAnnotated(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
     }
 ```
 
@@ -1909,10 +1826,10 @@ Can generalize to `? extends T`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return getAnnotated(view, DotName.createSimple(name));
+            .collect(Collectors.toList());
     }
-    public static <T> Stream<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, name)).map(mapper);
+    public static <T> Iterable<T> getAnnotated(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
     }
 ```
 
@@ -1921,9 +1838,33 @@ Can generalize to `? super ClassInfo`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
+        return view.getAllKnownImplementors(type);
     }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownImplementors(view, type)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return view.getAllKnownImplementors(type);
+    }
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownImplementors(view, type)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassInfo`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return view.getAllKnownSubclasses(type);
+    }
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
         return stream(getAllKnownSubclasses(view, type)).map(mapper);
     }
 ```
@@ -1933,9 +1874,9 @@ Can generalize to `? extends T`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
+        return view.getAllKnownSubclasses(type);
     }
-    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
         return stream(getAllKnownSubclasses(view, type)).map(mapper);
     }
 ```
@@ -1969,9 +1910,57 @@ Can generalize to `? super ClassInfo`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return view.getAllKnownImplementors(type);
+        return view.getAllKnownSubclasses(DotName.createSimple(name));
     }
-    public static <T> Stream<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, name)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return view.getAllKnownSubclasses(DotName.createSimple(name));
+    }
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, name)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassInfo`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return getAnnotated(view, DotName.createSimple(name));
+    }
+    public static <T> Stream<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, name)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return getAnnotated(view, DotName.createSimple(name));
+    }
+    public static <T> Stream<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, name)).map(mapper);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassInfo`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
+#### Snippet
+```java
+        return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
+    }
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
         return stream(getAllKnownImplementors(view, type)).map(mapper);
     }
 ```
@@ -1981,71 +1970,35 @@ Can generalize to `? extends T`
 in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
-        return view.getAllKnownImplementors(type);
+        return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
     }
-    public static <T> Stream<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
         return stream(getAllKnownImplementors(view, type)).map(mapper);
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Reader`
-in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+Can generalize to `? super ClassInfo`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
+        return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
     }
-
-    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
-        return new RouteBuilder() {
-            @Override
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, type)).map(mapper);
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RouteBuilder`
-in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+Can generalize to `? extends T`
+in `camel-k-core/deployment/src/main/java/org/apache/camel/k/core/quarkus/deployment/support/DeploymentSupport.java`
 #### Snippet
 ```java
+        return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
     }
-
-    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
-        return new RouteBuilder() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
-#### Snippet
-```java
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, type)).map(mapper);
     }
-
-    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
-        return new RouteBuilder() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super RouteBuilder`
-in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
-#### Snippet
-```java
-    }
-
-    public static RoutesBuilder route(ThrowingConsumer<RouteBuilder, Exception> consumer) {
-        return new RouteBuilder() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
-#### Snippet
-```java
-    }
-
-    public static RoutesBuilder route(ThrowingConsumer<RouteBuilder, Exception> consumer) {
-        return new RouteBuilder() {
-            @Override
 ```
 
 ### BoundedWildcard
@@ -2085,6 +2038,66 @@ in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.
 ```
 
 ### BoundedWildcard
+Can generalize to `? super RouteBuilder`
+in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+#### Snippet
+```java
+    }
+
+    public static RoutesBuilder route(ThrowingConsumer<RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+#### Snippet
+```java
+    }
+
+    public static RoutesBuilder route(ThrowingConsumer<RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? super Reader`
+in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+#### Snippet
+```java
+    }
+
+    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? super RouteBuilder`
+in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+#### Snippet
+```java
+    }
+
+    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
+#### Snippet
+```java
+    }
+
+    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+```
+
+### BoundedWildcard
 Can generalize to `? super EndpointRouteBuilder`
 in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.java`
 #### Snippet
@@ -2106,19 +2119,6 @@ in `camel-k-core/support/src/main/java/org/apache/camel/k/support/RouteBuilders.
     public static EndpointRouteBuilder endpoint(ThrowingConsumer<EndpointRouteBuilder, Exception> consumer) {
         return new EndpointRouteBuilder() {
             @Override
-```
-
-## RuleId[id=NullArgumentToVariableArgMethod]
-### NullArgumentToVariableArgMethod
-Confusing argument `entries`, unclear if a varargs or non-varargs call is desired
-in `camel-k-core/api/src/main/java/org/apache/camel/k/Runtime.java`
-#### Snippet
-```java
-    default void setProperties(String key, String value, String... entries) {
-        setProperties(
-            mapOf(HashMap::new, key, value, entries)
-        );
-    }
 ```
 
 ## RuleId[id=ConstantValue]
