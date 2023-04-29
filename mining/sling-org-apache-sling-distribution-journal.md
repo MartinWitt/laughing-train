@@ -1,7 +1,7 @@
 # sling-org-apache-sling-distribution-journal 
  
 # Bad smells
-I found 68 bad smells with 1 repairable:
+I found 67 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 16 | false |
@@ -18,7 +18,6 @@ I found 68 bad smells with 1 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | WaitNotInLoop | 1 | false |
@@ -101,18 +100,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/LocalStore.ja
 ```
 
 ### DataFlowIssue
-Unboxing of `pkgNode.getValueMap().get("jcr:created", Long.class)` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/distribution/journal/binary/jcr/PackageCleaner.java`
-#### Snippet
-```java
-    private int cleanNode(Resource pkgNode)
-            throws PersistenceException {
-        long createdTime  = pkgNode.getValueMap().get("jcr:created", Long.class);
-        if (createdTime < deleteOlderThanTime) {
-            LOG.info("removing package={}, created={} < deleteTime={}", pkgNode.getName(), createdTime, deleteOlderThanTime);
-```
-
-### DataFlowIssue
 Unboxing of `queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class)` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
 #### Snippet
@@ -122,6 +109,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFac
         long recordTimestamp = queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(recordTimestamp);
+```
+
+### DataFlowIssue
+Unboxing of `pkgNode.getValueMap().get("jcr:created", Long.class)` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/distribution/journal/binary/jcr/PackageCleaner.java`
+#### Snippet
+```java
+    private int cleanNode(Resource pkgNode)
+            throws PersistenceException {
+        long createdTime  = pkgNode.getValueMap().get("jcr:created", Long.class);
+        if (createdTime < deleteOlderThanTime) {
+            LOG.info("removing package={}, created={} < deleteTime={}", pkgNode.getName(), createdTime, deleteOlderThanTime);
 ```
 
 ### DataFlowIssue
@@ -175,18 +174,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `reg` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
-#### Snippet
-```java
-public class DistributedEventNotifierManager implements TopologyEventListener, Runnable {
-
-    private ServiceRegistration<TopologyChangeHandler> reg;
-
-    private BundleContext context;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `notifier` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
@@ -199,15 +186,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `topics` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
+Field `reg` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
 ```java
+public class DistributedEventNotifierManager implements TopologyEventListener, Runnable {
 
-    @Reference
-    private Topics topics;
+    private ServiceRegistration<TopologyChangeHandler> reg;
 
-    private volatile PackageStatusWatcher watcher;
+    private BundleContext context;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -220,6 +207,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/Stagin
     private MessagingProvider messagingProvider;
 
     @Reference
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `topics` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
+#### Snippet
+```java
+
+    @Reference
+    private Topics topics;
+
+    private volatile PackageStatusWatcher watcher;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -259,6 +258,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `backoffRetry` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
+#### Snippet
+```java
+    private static final Logger LOG = LoggerFactory.getLogger(JournalAvailableChecker.class);
+    
+    private ExponentialBackOff backoffRetry;
+    
+    @Reference
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `metrics` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
 #### Snippet
@@ -280,18 +291,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
     JournalAvailableServiceMarker marker;
 
     @Activate
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `backoffRetry` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(JournalAvailableChecker.class);
-    
-    private ExponentialBackOff backoffRetry;
-    
-    @Reference
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -426,19 +425,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
     private int skippedCounter = 0;
 
     public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-09-35-53.527.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=InstanceofCatchParameter]
@@ -616,15 +602,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDi
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClearCommand`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
+Can generalize to `? extends T`
+in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
 #### Snippet
 ```java
-            DistributionMetricsService distributionMetricsService,
-            DiscoveryService discoveryService,
-            Consumer<ClearCommand> commandSender) {
-        this.messagingProvider = messagingProvider;
-        this.packageTopic = packageTopic;
+    }
+
+    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
+        Set<T> retained = new HashSet<>(newSet);
+        retained.retainAll(oldSet);
 ```
 
 ### BoundedWildcard
@@ -640,27 +626,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
+Can generalize to `? super ClearCommand`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
 #### Snippet
 ```java
-    }
-
-    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
-        Set<T> retained = new HashSet<>(newSet);
-        retained.retainAll(oldSet);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
-#### Snippet
-```java
-    }
-
-    private void queued(FullMessage<PackageMessage> fullMessage) {
-        long offset = fullMessage.getInfo().getOffset();
-        PackageMessage message = fullMessage.getMessage();
+            DistributionMetricsService distributionMetricsService,
+            DiscoveryService discoveryService,
+            Consumer<ClearCommand> commandSender) {
+        this.messagingProvider = messagingProvider;
+        this.packageTopic = packageTopic;
 ```
 
 ### BoundedWildcard
@@ -673,6 +647,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
     public void queued(List<FullMessage<PackageMessage>> fullMessages) {
         fullMessages.forEach(this::queued);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
+#### Snippet
+```java
+    }
+
+    private void queued(FullMessage<PackageMessage> fullMessage) {
+        long offset = fullMessage.getInfo().getOffset();
+        PackageMessage message = fullMessage.getMessage();
 ```
 
 ### BoundedWildcard
@@ -737,18 +723,6 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueueCache
 
 ### BoundedWildcard
 Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
-#### Snippet
-```java
-    }
-
-    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
-        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/DistributionSubscriber.java`
 #### Snippet
 ```java
@@ -757,6 +731,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/Distribu
     private void processQueueItem(FullMessage<PackageMessage> item)
             throws PersistenceException, LoginException, DistributionException, ImportPostProcessException {
         MessageInfo info = item.getInfo();
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
+#### Snippet
+```java
+    }
+
+    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
+        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
+    }
 ```
 
 ### BoundedWildcard
