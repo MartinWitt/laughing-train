@@ -16,42 +16,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
-        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
-        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
-        System.out.format("using `%s` for the release date%n", releaseDate);
-
-        try {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
-            if (Files.exists(targetFile)) {
-                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
-            } else {
-                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-            } else {
-                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
-                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
-                Files.move(sourceFile, targetFile);
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
             throws IOException {
         final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
         System.out.format("writing release information to `%s`%n", releaseXmlFile);
@@ -100,11 +64,47 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
+            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
+            if (Files.exists(targetFile)) {
+                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+                Files.move(sourceFile, targetFile);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
             throw new IllegalStateException(message);
         }
         System.out.format("moving changelog directory `%s` to `%s`%n", unreleasedDirectory, releaseDirectory);
         Files.move(unreleasedDirectory, releaseDirectory);
         Files.createDirectories(unreleasedDirectory);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
+        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
+        System.out.format("using `%s` for the release date%n", releaseDate);
+
+        try {
 ```
 
 ### SystemOutErr
@@ -146,7 +146,7 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/Ch
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-19-01-20.710.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-18-23-05.121.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -242,30 +242,6 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWriter.java`
-#### Snippet
-```java
-        final String padding = StringUtils.repeat(" ", rootElementName.length() + 2);
-        return xml
-                .replace("?><!--", "?>" + LS + "<!--")
-                .replace("--><", "-->" + LS + "<")
-                .replaceFirst(
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWriter.java`
-#### Snippet
-```java
-        return xml
-                .replace("?><!--", "?>" + LS + "<!--")
-                .replace("--><", "-->" + LS + "<")
-                .replaceFirst(
-                        '<' + rootElementName + " (.+>" + LS + ")",
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
 #### Snippet
@@ -287,6 +263,30 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
             if (!date.matches(datePattern)) {
                 throw XmlReader.failureAtXmlNode(element, "`date` doesn't match with the `%s` pattern: `%s`", datePattern, date);
             }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWriter.java`
+#### Snippet
+```java
+        final String padding = StringUtils.repeat(" ", rootElementName.length() + 2);
+        return xml
+                .replace("?><!--", "?>" + LS + "<!--")
+                .replace("--><", "-->" + LS + "<")
+                .replaceFirst(
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWriter.java`
+#### Snippet
+```java
+        return xml
+                .replace("?><!--", "?>" + LS + "<!--")
+                .replace("--><", "-->" + LS + "<")
+                .replaceFirst(
+                        '<' + rootElementName + " (.+>" + LS + ")",
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
