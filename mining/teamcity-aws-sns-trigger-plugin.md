@@ -8,9 +8,9 @@ I found 7 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 | MissortedModifiers | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
+| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
@@ -63,19 +63,6 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
             .orElseThrow(() -> new IllegalStateException("Comparator returned null for list of messages. This should never happen"));
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
-#### Snippet
-```java
-    @TestOnly
-    public void setLogger(Logger newLogger) {
-        LOG = newLogger;
-    }
-
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
@@ -100,5 +87,18 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
   public BaseAwsConnectionController(@NotNull final SBuildServer server) {
     super(server);
   }
+```
+
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
+#### Snippet
+```java
+    @TestOnly
+    public void setLogger(Logger newLogger) {
+        LOG = newLogger;
+    }
+
 ```
 
