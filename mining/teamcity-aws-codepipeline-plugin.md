@@ -62,14 +62,14 @@ in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/co
 
 ### StaticCallOnSubclass
 Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
 #### Snippet
 ```java
-    final AWSException awse = new AWSException(e);
-    final String details = awse.getDetails();
-    if (StringUtil.isNotEmpty(details)) LOG.error(details);
-    LOG.error(awse.getMessage(), awse);
 
+    final String details = e.getDetails();
+    if (StringUtil.isNotEmpty(details)) {
+      LOG.error(details);
+      build.getBuildLogger().error(details);
 ```
 
 ### StaticCallOnSubclass
@@ -82,18 +82,6 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     FileUtil.createParentDirs(dest);
     try {
       FileUtil.copy(artifactFile, dest);
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-
-    final String details = e.getDetails();
-    if (StringUtil.isNotEmpty(details)) {
-      LOG.error(details);
-      build.getBuildLogger().error(details);
 ```
 
 ### StaticCallOnSubclass
@@ -117,6 +105,18 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     final String checkoutDir = FileUtil.toSystemIndependentName(build.getCheckoutDirectory().getAbsolutePath());
     return FileUtil.toSystemIndependentName(message).replace(checkoutDir + "/", StringUtil.EMPTY).replace(checkoutDir, StringUtil.EMPTY);
   }
+
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+#### Snippet
+```java
+    final AWSException awse = new AWSException(e);
+    final String details = awse.getDetails();
+    if (StringUtil.isNotEmpty(details)) LOG.error(details);
+    LOG.error(awse.getMessage(), awse);
 
 ```
 
