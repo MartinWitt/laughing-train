@@ -1,16 +1,28 @@
 # eclipse-collections-kata 
  
 # Bad smells
-I found 38 bad smells with 1 repairable:
+I found 28 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UNUSED_IMPORT | 23 | false |
+| UNUSED_IMPORT | 15 | false |
 | FieldMayBeStatic | 8 | false |
 | ReturnNull | 2 | false |
-| Convert2MethodRef | 2 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-23-47-24.800.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -34,19 +46,6 @@ in `pet-kata/src/main/java/org/eclipse/collections/petkata/PetType.java`
         return null;
     }
 }
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-17-33-07.825.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=FieldMayBeStatic]
@@ -99,18 +98,6 @@ class MinMaxPrimitivesPlain
 ```
 
 ### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-class MinMaxPrimitivesPlain
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
 Field `falseValue` may be 'static'
 in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
 #### Snippet
@@ -123,15 +110,15 @@ in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandf
 ```
 
 ### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+Field `trueValue` may be 'static'
+in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
 #### Snippet
 ```java
+class MinMaxPrimitivesPlain
 {
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-    private final Byte maxbyteValue = Byte.MAX_VALUE;
+    private final boolean trueValue = true;
+    private final boolean falseValue = false;
+    private final byte minbyteValue = Byte.MIN_VALUE;
 ```
 
 ### FieldMayBeStatic
@@ -144,6 +131,18 @@ class MinMaxPrimitivesBoxed
     private final Boolean trueValue = true;
     private final Boolean falseValue = false;
     private final Byte minbyteValue = Byte.MIN_VALUE;
+```
+
+### FieldMayBeStatic
+Field `falseValue` may be 'static'
+in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+#### Snippet
+```java
+{
+    private final Boolean trueValue = true;
+    private final Boolean falseValue = false;
+    private final Byte minbyteValue = Byte.MIN_VALUE;
+    private final Byte maxbyteValue = Byte.MAX_VALUE;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -174,30 +173,6 @@ in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
 
 ## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.RichIterable;`
-in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
-#### Snippet
-```java
-import java.util.stream.IntStream;
-
-import org.eclipse.collections.api.RichIterable;
-import org.eclipse.collections.api.bag.Bag;
-import org.eclipse.collections.api.list.ImmutableList;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.RichIterable;`
-in `candy-kata-solutions/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
-#### Snippet
-```java
-import java.util.stream.IntStream;
-
-import org.eclipse.collections.api.RichIterable;
-import org.eclipse.collections.api.bag.Bag;
-import org.eclipse.collections.api.list.ImmutableList;
-```
-
-### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.list.mutable.FastList;`
 in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
 #### Snippet
@@ -207,30 +182,6 @@ import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.list.mutable.FastList;
 import org.junit.jupiter.api.Assertions;
 
-```
-
-### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.block.function.Function;`
-in `company-kata/src/main/java/org/eclipse/collections/companykata/Customer.java`
-#### Snippet
-```java
-package org.eclipse.collections.companykata;
-
-import org.eclipse.collections.api.block.function.Function;
-import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.impl.block.function.AddFunction;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.list.MutableList;`
-in `company-kata/src/main/java/org/eclipse/collections/companykata/Customer.java`
-#### Snippet
-```java
-
-import org.eclipse.collections.api.block.function.Function;
-import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.impl.block.function.AddFunction;
-import org.eclipse.collections.impl.utility.ListIterate;
 ```
 
 ### UNUSED_IMPORT
@@ -255,30 +206,6 @@ import org.eclipse.collections.impl.utility.ListIterate;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.block.function.Function;`
-in `company-kata/src/main/java/org/eclipse/collections/companykata/LineItem.java`
-#### Snippet
-```java
-package org.eclipse.collections.companykata;
-
-import org.eclipse.collections.api.block.function.Function;
-
-/**
-```
-
-### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.block.function.Function;`
-in `company-kata/src/main/java/org/eclipse/collections/companykata/Supplier.java`
-#### Snippet
-```java
-package org.eclipse.collections.companykata;
-
-import org.eclipse.collections.api.block.function.Function;
-
-/**
 ```
 
 ### UNUSED_IMPORT
@@ -390,18 +317,6 @@ import org.eclipse.collections.impl.utility.ListIterate;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.block.function.Function;`
-in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/LineItem.java`
-#### Snippet
-```java
-package org.eclipse.collections.companykata;
-
-import org.eclipse.collections.api.block.function.Function;
-
-/**
-```
-
-### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.block.function.AddFunction;`
 in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/Order.java`
 #### Snippet
@@ -426,18 +341,6 @@ import org.eclipse.collections.impl.factory.SortedBags;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import org.eclipse.collections.api.block.function.Function;`
-in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/Supplier.java`
-#### Snippet
-```java
-package org.eclipse.collections.companykata;
-
-import org.eclipse.collections.api.block.function.Function;
-
-/**
-```
-
-### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.utility.ArrayIterate;`
 in `pet-kata/src/main/java/org/eclipse/collections/petkata/PetType.java`
 #### Snippet
@@ -447,30 +350,5 @@ package org.eclipse.collections.petkata;
 import org.eclipse.collections.impl.utility.ArrayIterate;
 
 public enum PetType
-```
-
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
-#### Snippet
-```java
-    public MutableList<Pet> getPetsByAge(int age)
-    {
-        return this.petsByAge.getIfAbsent(age, () -> Lists.mutable.empty());
-    }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
-#### Snippet
-```java
-    public MutableList<Pet> getPetsByAge(int age)
-    {
-        return this.petsByAge.getIfAbsent(age, () -> Lists.mutable.empty());
-    }
-
 ```
 
