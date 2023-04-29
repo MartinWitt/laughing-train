@@ -8,18 +8,6 @@ I found 6 bad smells with 0 repairable:
 | OptionalUsedAsFieldOrParameterType | 2 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'strongParentReference'
-in `refreshable/src/main/java/com/palantir/refreshable/DefaultRefreshable.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unused")
-    private final Optional<?> strongParentReference;
-
-    DefaultRefreshable(T current) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'strongParentReference'
 in `refreshable/src/main/java/com/palantir/refreshable/DefaultRefreshable.java`
 #### Snippet
@@ -29,6 +17,18 @@ in `refreshable/src/main/java/com/palantir/refreshable/DefaultRefreshable.java`
     private DefaultRefreshable(T current, Optional<?> strongParentReference, RootSubscriberTracker tracker) {
         this.current = current;
         this.strongParentReference = strongParentReference;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'strongParentReference'
+in `refreshable/src/main/java/com/palantir/refreshable/DefaultRefreshable.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unused")
+    private final Optional<?> strongParentReference;
+
+    DefaultRefreshable(T current) {
 ```
 
 ## RuleId[id=BoundedWildcard]
