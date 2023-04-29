@@ -43,8 +43,8 @@ I found 395 bad smells with 138 repairable:
 | LoopStatementsThatDontLoop | 1 | false |
 | EmptyStatementBody | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
-| FinalStaticMethod | 1 | false |
 | TrivialStringConcatenation | 1 | false |
+| FinalStaticMethod | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | RedundantExplicitClose | 1 | false |
 | UnstableTypeUsedInSignature | 1 | false |
@@ -58,14 +58,110 @@ I found 395 bad smells with 138 repairable:
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+in `core/src/main/java/org/apache/airavata/mft/core/api/Connector.java`
 #### Snippet
 ```java
-    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
 
-    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
-    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
-    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
+public interface Connector {
+    public void init(String resourceServiceHost, int resourceServicePort,
+                     String secretServiceHost, int secretServicePort) throws Exception;
+    public void destroy();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingStreamingConnector.java`
+#### Snippet
+```java
+
+public interface OutgoingStreamingConnector extends BasicConnector {
+    public OutputStream fetchOutputStream() throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingChunkedConnector.java`
+#### Snippet
+```java
+public interface OutgoingChunkedConnector extends BasicConnector {
+    public void uploadChunk(int chunkId, long startByte, long endByte, String uploadFile) throws Exception;
+    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingChunkedConnector.java`
+#### Snippet
+```java
+
+public interface OutgoingChunkedConnector extends BasicConnector {
+    public void uploadChunk(int chunkId, long startByte, long endByte, String uploadFile) throws Exception;
+    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/Connector.java`
+#### Snippet
+```java
+    public void init(String resourceServiceHost, int resourceServicePort,
+                     String secretServiceHost, int secretServicePort) throws Exception;
+    public void destroy();
+    void startStream(AuthToken authToken, String resourceId, String credentialToken, ConnectorContext context) throws Exception;
+    void startStream(AuthToken authToken, String resourceId, String childResourcePath, String credentialToken, ConnectorContext context) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingStreamingConnector.java`
+#### Snippet
+```java
+
+public interface IncomingStreamingConnector extends BasicConnector {
+    public InputStream fetchInputStream() throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
+#### Snippet
+```java
+
+public interface BasicConnector {
+    public void init(ConnectorConfig connectorConfig) throws Exception;
+    public void complete() throws Exception;
+    public void failed() throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
+#### Snippet
+```java
+public interface BasicConnector {
+    public void init(ConnectorConfig connectorConfig) throws Exception;
+    public void complete() throws Exception;
+    public void failed() throws Exception;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
+#### Snippet
+```java
+    public void init(ConnectorConfig connectorConfig) throws Exception;
+    public void complete() throws Exception;
+    public void failed() throws Exception;
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -73,71 +169,35 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
+    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
+    public boolean updateSCPStorage(SCPStorageUpdateRequest request) throws Exception;
+    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
+
+    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+
+    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
+    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
+    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
+    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
 
     public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
     public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
     public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
-    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
-    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
-    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
-
-    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
-    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
-    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
-
-    public S3StorageListResponse listS3Storage(S3StorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
-    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
-    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
-    public boolean updateSCPStorage(SCPStorageUpdateRequest request) throws Exception;
-    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-
-    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
-    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
-    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
-    public boolean updateBoxStorage(BoxStorageUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
-
-    public FTPStorageListResponse listFTPStorage(FTPStorageListRequest request) throws Exception;
-    Optional<FTPStorage> getFTPStorage(FTPStorageGetRequest request) throws Exception;
-    FTPStorage createFTPStorage(FTPStorageCreateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -150,18 +210,6 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
     public boolean updateBoxStorage(BoxStorageUpdateRequest request) throws Exception;
     public boolean deleteBoxStorage(BoxStorageDeleteRequest request) throws Exception;
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
-    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
-    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
-    public boolean updateBoxStorage(BoxStorageUpdateRequest request) throws Exception;
-    public boolean deleteBoxStorage(BoxStorageDeleteRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -181,11 +229,11 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
-    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
-    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
-    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
+    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
 
+    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
+    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
+    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -193,59 +241,11 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
+
     public void init();
     public void destroy();
     public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
     public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
-    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
-    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
-    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
-    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
-    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
-    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
-    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
-    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
-    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
-
-    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
-    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
-    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
-    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
-    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
-
-    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -265,23 +265,11 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
-    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
-    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
-    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
+    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
+    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
+    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
 
     public S3StorageListResponse listS3Storage(S3StorageListRequest request) throws Exception;
-    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
-    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
-    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -290,10 +278,10 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
 #### Snippet
 ```java
 
-    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
-    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
-    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
-    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
+    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
+    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
+    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
+    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -301,35 +289,11 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
-    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
-    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
-    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    boolean deleteSwiftStorage(SwiftStorageDeleteRequest request) throws Exception;
-
-    public ODataStorageListResponse listODataStorage(ODataStorageListRequest request) throws Exception;
-    Optional<ODataStorage> getODataStorage(ODataStorageGetRequest request) throws Exception;
-    ODataStorage createODataStorage(ODataStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-public interface ResourceBackend {
-
     public void init();
     public void destroy();
     public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
+    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
+    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -337,11 +301,11 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
-    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
     public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
     public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
     public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
+
+    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -361,215 +325,23 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-    public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
-    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
-    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
-    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
-    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
-    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
-    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
-
-    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteBoxStorage(BoxStorageDeleteRequest request) throws Exception;
-
-    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
-    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
-    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
-    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
-    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
-    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
-    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
-
-    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
-    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
-    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
-    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
-    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
-
-    public FTPStorageListResponse listFTPStorage(FTPStorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
-    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
-    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
-    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-
-    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
-    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
-    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
-    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-
-    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
-    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
-    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
-    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-
-    public void init();
-    public void destroy();
-    public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
-    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public S3StorageListResponse listS3Storage(S3StorageListRequest request) throws Exception;
-    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
-    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
-    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
-    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
-    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
-    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
-    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
-    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
-    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
-    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
-    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
-    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
-    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
-    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
-    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
-    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
-    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
-    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
-    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
-
-    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
-    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
-    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
-    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
-    public boolean updateSCPStorage(SCPStorageUpdateRequest request) throws Exception;
-    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
-
-    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
-#### Snippet
-```java
     public void destroy();
     public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
     public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
     public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
     public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
+    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
+    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
+    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
+
 ```
 
 ### UnnecessaryModifier
@@ -589,6 +361,174 @@ Modifier `public` is redundant for interface members
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
+
+    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
+    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
+    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
+    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
+    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
+    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
+    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
+    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
+    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
+    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
+
+    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
+    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
+    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
+    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
+    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+public interface ResourceBackend {
+
+    public void init();
+    public void destroy();
+    public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteBoxStorage(BoxStorageDeleteRequest request) throws Exception;
+
+    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
+    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
+    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
+    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
+    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
+    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
+    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
+    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
+    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
+    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
+    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
+    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
+    public boolean deleteAzureStorage(AzureStorageDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
+    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
+    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
+    public boolean updateBoxStorage(BoxStorageUpdateRequest request) throws Exception;
+    public boolean deleteBoxStorage(BoxStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+
+    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
+    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
+    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
+    public boolean updateBoxStorage(BoxStorageUpdateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
+    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
+    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
+    public boolean updateSCPStorage(SCPStorageUpdateRequest request) throws Exception;
+    public boolean deleteSCPStorage(SCPStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
+    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
+    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
+    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
+
+    public FTPStorageListResponse listFTPStorage(FTPStorageListRequest request) throws Exception;
+    Optional<FTPStorage> getFTPStorage(FTPStorageGetRequest request) throws Exception;
+    FTPStorage createFTPStorage(FTPStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
     public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
     public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
     public boolean updateSCPStorage(SCPStorageUpdateRequest request) throws Exception;
@@ -598,14 +538,170 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/MetadataCollector.java`
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
 #### Snippet
 ```java
-     * @throws Exception if the resource id is not a File Resource type or the resource can't be fetched from the resource service
-     */
-    public ResourceMetadata getResourceMetadata(String resourcePath, boolean recursiveSearch) throws Exception;
 
-    /**
+    public AzureStorageListResponse listAzureStorage(AzureStorageListRequest request) throws Exception;
+    public Optional<AzureStorage> getAzureStorage(AzureStorageGetRequest request) throws Exception;
+    public AzureStorage createAzureStorage(AzureStorageCreateRequest request) throws Exception;
+    public boolean updateAzureStorage(AzureStorageUpdateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
+    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
+    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
+    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
+    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public LocalStorageListResponse listLocalStorage(LocalStorageListRequest request) throws Exception;
+    public Optional<LocalStorage> getLocalStorage(LocalStorageGetRequest request) throws Exception;
+    public LocalStorage createLocalStorage(LocalStorageCreateRequest request) throws Exception;
+    public boolean updateLocalStorage(LocalStorageUpdateRequest request) throws Exception;
+    public boolean deleteLocalStorage(LocalStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
+    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
+    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
+
+    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
+    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
+    public SCPStorageListResponse listSCPStorage(SCPStorageListRequest request) throws Exception;
+    public Optional<SCPStorage> getSCPStorage(SCPStorageGetRequest request) throws Exception;
+    public SCPStorage createSCPStorage(SCPStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public SecretForStorage getSecretForStorage(SecretForStorageGetRequest request) throws Exception;
+    public SecretForStorage registerSecretForStorage(SecretForStorage request) throws Exception;
+    public boolean deleteSecretForStorage(SecretForStorageDeleteRequest request) throws Exception;
+    public StorageListResponse searchStorages(StorageSearchRequest request) throws Exception;
+    public StorageListResponse listStorage(StorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
+
+    public BoxStorageListResponse listBoxStorage(BoxStorageListRequest request) throws Exception;
+    public Optional<BoxStorage> getBoxStorage(BoxStorageGetRequest request) throws Exception;
+    public BoxStorage createBoxStorage(BoxStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
+
+    public DropboxStorageListResponse listDropboxStorage(DropboxStorageListRequest request) throws Exception;
+    public Optional<DropboxStorage> getDropboxStorage(DropboxStorageGetRequest request) throws Exception;
+    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public S3StorageListResponse listS3Storage(S3StorageListRequest request) throws Exception;
+    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
+    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
+    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
+    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    boolean deleteSwiftStorage(SwiftStorageDeleteRequest request) throws Exception;
+
+    public ODataStorageListResponse listODataStorage(ODataStorageListRequest request) throws Exception;
+    Optional<ODataStorage> getODataStorage(ODataStorageGetRequest request) throws Exception;
+    ODataStorage createODataStorage(ODataStorageCreateRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public DropboxStorage createDropboxStorage(DropboxStorageCreateRequest request) throws Exception;
+    public boolean updateDropboxStorage(DropboxStorageUpdateRequest request) throws Exception;
+    public boolean deleteDropboxStorage(DropboxStorageDeleteRequest request) throws Exception;
+
+    public FTPStorageListResponse listFTPStorage(FTPStorageListRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
+    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
+    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
+    public boolean deleteS3Storage(S3StorageDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+    public GCSStorageListResponse listGCSStorage(GCSStorageListRequest request) throws Exception;
+    public Optional<GCSStorage> getGCSStorage(GCSStorageGetRequest request) throws Exception;
+    public GCSStorage createGCSStorage(GCSStorageCreateRequest request) throws Exception;
+    public boolean updateGCSStorage(GCSStorageUpdateRequest request) throws Exception;
+    public boolean deleteGCSStorage(GCSStorageDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/ResourceBackend.java`
+#### Snippet
+```java
+
+    public S3StorageListResponse listS3Storage(S3StorageListRequest request) throws Exception;
+    public Optional<S3Storage> getS3Storage(S3StorageGetRequest request) throws Exception;
+    public S3Storage createS3Storage(S3StorageCreateRequest request) throws Exception;
+    public boolean updateS3Storage(S3StorageUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -634,194 +730,14 @@ in `core/src/main/java/org/apache/airavata/mft/core/api/MetadataCollector.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingChunkedConnector.java`
+in `core/src/main/java/org/apache/airavata/mft/core/api/MetadataCollector.java`
 #### Snippet
 ```java
-public interface IncomingChunkedConnector extends BasicConnector {
-    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception;
-    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception;
-}
+     * @throws Exception if the resource id is not a File Resource type or the resource can't be fetched from the resource service
+     */
+    public ResourceMetadata getResourceMetadata(String resourcePath, boolean recursiveSearch) throws Exception;
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingChunkedConnector.java`
-#### Snippet
-```java
-
-public interface IncomingChunkedConnector extends BasicConnector {
-    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception;
-    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception;
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingChunkedConnector.java`
-#### Snippet
-```java
-
-public interface OutgoingChunkedConnector extends BasicConnector {
-    public void uploadChunk(int chunkId, long startByte, long endByte, String uploadFile) throws Exception;
-    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception;
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingChunkedConnector.java`
-#### Snippet
-```java
-public interface OutgoingChunkedConnector extends BasicConnector {
-    public void uploadChunk(int chunkId, long startByte, long endByte, String uploadFile) throws Exception;
-    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingStreamingConnector.java`
-#### Snippet
-```java
-
-public interface IncomingStreamingConnector extends BasicConnector {
-    public InputStream fetchInputStream() throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/OutgoingStreamingConnector.java`
-#### Snippet
-```java
-
-public interface OutgoingStreamingConnector extends BasicConnector {
-    public OutputStream fetchOutputStream() throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-
-    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
-    public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
-    public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
-    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-
-    public void init();
-    public void destroy();
-
-    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
-    public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
-    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
-
-    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-
-    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
-    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
-    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
-    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
-
-    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
-    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
-    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-public interface SecretBackend {
-
-    public void init();
-    public void destroy();
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
-    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
-    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
-    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
-    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
-    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
-    public boolean deleteGCSSecret(GCSSecretDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public void destroy();
-
-    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
-    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
-    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
-    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
-    public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
-
-    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -841,59 +757,11 @@ Modifier `public` is redundant for interface members
 in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
-
-    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
-    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
-    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
-    public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-
-    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
-    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
-    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
-    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public Optional<DropboxSecret> getDropboxSecret(DropboxSecretGetRequest request) throws Exception;
-    public DropboxSecret createDropboxSecret(DropboxSecretCreateRequest request) throws Exception;
-    public boolean updateDropboxSecret(DropboxSecretUpdateRequest request) throws Exception;
-    public boolean deleteDropboxSecret(DropboxSecretDeleteRequest request) throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-
-    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
-    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
-    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
-    public boolean deleteGCSSecret(GCSSecretDeleteRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
     public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
     public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
     public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
 
+    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -901,35 +769,11 @@ Modifier `public` is redundant for interface members
 in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
-    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
-    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
-    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
-    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
-    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
-    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
     public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
-    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
-    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
-
-    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
+    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
+    public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
+    public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -942,30 +786,6 @@ in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/
     public Optional<DropboxSecret> getDropboxSecret(DropboxSecretGetRequest request) throws Exception;
     public DropboxSecret createDropboxSecret(DropboxSecretCreateRequest request) throws Exception;
     public boolean updateDropboxSecret(DropboxSecretUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
-
-    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
-    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
-    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
-#### Snippet
-```java
-    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
-    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
-    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
-
-    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -985,11 +805,131 @@ Modifier `public` is redundant for interface members
 in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
+    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
+    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
+    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
     public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
+    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
+    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
+    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+
+    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
+    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
+    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
+    public boolean deleteGCSSecret(GCSSecretDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
 
     public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
     public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
     public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
+    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+
+    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
+    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
+    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
+    public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+
+    public void init();
+    public void destroy();
+
+    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
+    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
+    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
+
+    public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+public interface SecretBackend {
+
+    public void init();
+    public void destroy();
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
+    public AzureSecret createAzureSecret(AzureSecretCreateRequest request) throws Exception;
+    public boolean updateAzureSecret(AzureSecretUpdateRequest request) throws Exception;
+    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+
+    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
+    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
+    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
+    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
+    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
+    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
+
+    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
@@ -1009,6 +949,54 @@ Modifier `public` is redundant for interface members
 in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
+    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
+    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
+    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
+    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
+    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
+    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
+    public boolean deleteGCSSecret(GCSSecretDeleteRequest request) throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public void destroy();
+
+    public Optional<SCPSecret> getSCPSecret(SCPSecretGetRequest request) throws Exception;
+    public SCPSecret createSCPSecret(SCPSecretCreateRequest request);
+    public boolean updateSCPSecret(SCPSecretUpdateRequest request);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
+    public BoxSecret createBoxSecret(BoxSecretCreateRequest request) throws Exception;
+    public boolean updateBoxSecret(BoxSecretUpdateRequest request) throws Exception;
+    public boolean deleteBoxSecret(BoxSecretDeleteRequest request) throws Exception;
+
+    public Optional<AzureSecret> getAzureSecret(AzureSecretGetRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
+#### Snippet
+```java
     public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
 
     public Optional<BoxSecret> getBoxSecret(BoxSecretGetRequest request) throws Exception;
@@ -1018,62 +1006,74 @@ in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/Connector.java`
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
+    public Optional<DropboxSecret> getDropboxSecret(DropboxSecretGetRequest request) throws Exception;
+    public DropboxSecret createDropboxSecret(DropboxSecretCreateRequest request) throws Exception;
+    public boolean updateDropboxSecret(DropboxSecretUpdateRequest request) throws Exception;
+    public boolean deleteDropboxSecret(DropboxSecretDeleteRequest request) throws Exception;
 
-public interface Connector {
-    public void init(String resourceServiceHost, int resourceServicePort,
-                     String secretServiceHost, int secretServicePort) throws Exception;
-    public void destroy();
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/Connector.java`
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
-    public void init(String resourceServiceHost, int resourceServicePort,
-                     String secretServiceHost, int secretServicePort) throws Exception;
-    public void destroy();
-    void startStream(AuthToken authToken, String resourceId, String credentialToken, ConnectorContext context) throws Exception;
-    void startStream(AuthToken authToken, String resourceId, String childResourcePath, String credentialToken, ConnectorContext context) throws Exception;
+    public boolean deleteAzureSecret(AzureSecretDeleteRequest request) throws Exception;
+
+    public Optional<GCSSecret> getGCSSecret(GCSSecretGetRequest request) throws Exception;
+    public GCSSecret createGCSSecret(GCSSecretCreateRequest request) throws Exception;
+    public boolean updateGCSSecret(GCSSecretUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
+    public boolean deleteSCPSecret(SCPSecretDeleteRequest request);
 
-public interface BasicConnector {
-    public void init(ConnectorConfig connectorConfig) throws Exception;
-    public void complete() throws Exception;
-    public void failed() throws Exception;
+    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
+    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
+    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/backend/SecretBackend.java`
 #### Snippet
 ```java
-    public void init(ConnectorConfig connectorConfig) throws Exception;
-    public void complete() throws Exception;
-    public void failed() throws Exception;
+
+    public Optional<S3Secret> getS3Secret(S3SecretGetRequest request) throws Exception;
+    public S3Secret createS3Secret(S3SecretCreateRequest request) throws Exception;
+    public boolean updateS3Secret(S3SecretUpdateRequest request) throws Exception;
+    public boolean deleteS3Secret(S3SecretDeleteRequest request) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingChunkedConnector.java`
+#### Snippet
+```java
+
+public interface IncomingChunkedConnector extends BasicConnector {
+    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception;
+    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/airavata/mft/core/api/IncomingChunkedConnector.java`
+#### Snippet
+```java
+public interface IncomingChunkedConnector extends BasicConnector {
+    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception;
+    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception;
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/airavata/mft/core/api/BasicConnector.java`
-#### Snippet
-```java
-public interface BasicConnector {
-    public void init(ConnectorConfig connectorConfig) throws Exception;
-    public void complete() throws Exception;
-    public void failed() throws Exception;
-}
 ```
 
 ## RuleId[id=LoopStatementsThatDontLoop]
@@ -1089,6 +1089,31 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
             if (c != 'C') {
 ```
 
+## RuleId[id=DoubleCheckedLocking]
+### DoubleCheckedLocking
+Double-checked locking
+in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
+#### Snippet
+```java
+
+    public static synchronized S3Util getInstance() {
+        if (instance == null) {
+            synchronized (S3Util.class) {
+                if (instance == null) {
+```
+
+### DoubleCheckedLocking
+Double-checked locking
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
+#### Snippet
+```java
+
+    public static synchronized SwiftUtil getInstance() {
+        if (instance == null) {
+            synchronized (SwiftUtil.class) {
+                if (instance == null) {
+```
+
 ## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
 `if` statement has empty body
@@ -1102,78 +1127,161 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
         }
 ```
 
-## RuleId[id=DoubleCheckedLocking]
-### DoubleCheckedLocking
-Double-checked locking
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (49 lines)
+in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPSender.java`
 #### Snippet
 ```java
+        logger.info("Starting FTP sender stream for transfer {}", context.getTransferId());
 
-    public static synchronized SwiftUtil getInstance() {
-        if (instance == null) {
-            synchronized (SwiftUtil.class) {
-                if (instance == null) {
+        /*
+        checkInitialized();
+
 ```
 
-### DoubleCheckedLocking
-Double-checked locking
+### CommentedOutCode
+Commented out code (49 lines)
+in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPReceiver.java`
+#### Snippet
+```java
+        logger.info("Starting FTP receiver stream for transfer {}", context.getTransferId());
+
+        /*
+        checkInitialized();
+
+```
+
+### CommentedOutCode
+Commented out code (40 lines)
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalSender.java`
+#### Snippet
+```java
+        checkInitialized();
+
+        /*ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
+        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
+                .setResourceId(resourceId).build());
+```
+
+### CommentedOutCode
+Commented out code (22 lines)
+in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxReceiver.java`
+#### Snippet
+```java
+        logger.info("Starting Box Receiver stream for transfer {}", context.getTransferId());
+
+        /*
+        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
+        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
 in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
 #### Snippet
 ```java
+                + s3Storage.getEndpoint() + s3Storage.getRegion();
 
-    public static synchronized S3Util getInstance() {
-        if (instance == null) {
-            synchronized (S3Util.class) {
-                if (instance == null) {
+        /*MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(longSt.getBytes());
+        byte[] digest = md.digest();
 ```
 
-## RuleId[id=EmptyFinallyBlock]
-### EmptyFinallyBlock
-Empty `finally` block
+### CommentedOutCode
+Commented out code (19 lines)
+in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxSender.java`
+#### Snippet
+```java
+        logger.info("Starting Dropbox Sender stream for transfer {}", context.getTransferId());
+        logger.info("Content length for transfer {} {}", context.getTransferId(), context.getMetadata().getResourceSize());
+        /*
+        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
+        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
 #### Snippet
 ```java
 
-
         } finally {
             //logger.info("Deleting key " + consulEntryKey);
             //mftConsulClient.getKvClient().deleteKey(consulEntryKey); // Due to bug in consul https://github.com/hashicorp/consul/issues/571
-```
-
-### EmptyFinallyBlock
-Empty `finally` block
-in `controller/src/main/java/org/apache/airavata/mft/controller/MFTController.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.error("Errored while processing live agent cache key {}", agentId, e);
-            } finally {
-
-            }
-```
-
-### EmptyFinallyBlock
-Empty `finally` block
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
-#### Snippet
-```java
-            }
-            return resourceBuilder.build();
-        } finally{
-            //swiftApi.close();
         }
 ```
 
-### EmptyFinallyBlock
-Empty `finally` block
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+### CommentedOutCode
+Commented out code (3 lines)
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+                segments, new HashMap<>());
+
+        //if (swiftApi != null) {
+        //    swiftApi.close();
+        //}
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
+#### Snippet
+```java
+    @Override
+    public void complete() throws Exception {
+        //if (swiftApi != null) {
+        //    swiftApi.close();
+        //}
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxSender.java`
+#### Snippet
+```java
+    public void startStream(AuthToken authToken, String resourceId, String credentialToken, ConnectorContext context) throws Exception {
+
+        /*
+        logger.info("Starting Box Sender stream for transfer {}", context.getTransferId());
+        logger.debug("Content length for transfer {} {}", context.getTransferId(), context.getMetadata().getResourceSize());
+```
+
+### CommentedOutCode
+Commented out code (42 lines)
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalReceiver.java`
+#### Snippet
+```java
+        logger.info("Starting local receiver stream for transfer {}", context.getTransferId());
+
+        /*
+        checkInitialized();
+
+```
+
+### CommentedOutCode
+Commented out code (46 lines)
+in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxReceiver.java`
 #### Snippet
 ```java
 
-            return swiftObject != null;
-        } finally {
-            //swiftApi.close();
-        }
+        logger.info("Starting Dropbox Receiver stream for transfer {}", context.getTransferId());
+        /*
+        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
+        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/EC2AgentSpawner.java`
+#### Snippet
+```java
+                        .build();
+
+                /*logger.info("Creating AMI for MFT Agent");
+                CreateImageRequest createImageRequest = new CreateImageRequest().withName("mft-agent")
+                    .withDescription("AMI For MFT Agent").withInstanceId(instanceId).withNoReboot(true)
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -1213,161 +1321,53 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/MFTController.ja
                         logger.error("Invalid status key {}", key);
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (46 lines)
-in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxReceiver.java`
-#### Snippet
-```java
-
-        logger.info("Starting Dropbox Receiver stream for transfer {}", context.getTransferId());
-        /*
-        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
-        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
-```
-
-### CommentedOutCode
-Commented out code (19 lines)
-in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxSender.java`
-#### Snippet
-```java
-        logger.info("Starting Dropbox Sender stream for transfer {}", context.getTransferId());
-        logger.info("Content length for transfer {} {}", context.getTransferId(), context.getMetadata().getResourceSize());
-        /*
-        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
-        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
-```
-
-### CommentedOutCode
-Commented out code (22 lines)
-in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxReceiver.java`
-#### Snippet
-```java
-        logger.info("Starting Box Receiver stream for transfer {}", context.getTransferId());
-
-        /*
-        ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
-        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
-#### Snippet
-```java
-                segments, new HashMap<>());
-
-        //if (swiftApi != null) {
-        //    swiftApi.close();
-        //}
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
+## RuleId[id=EmptyFinallyBlock]
+### EmptyFinallyBlock
+Empty `finally` block
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
 #### Snippet
 ```java
 
+
         } finally {
             //logger.info("Deleting key " + consulEntryKey);
             //mftConsulClient.getKvClient().deleteKey(consulEntryKey); // Due to bug in consul https://github.com/hashicorp/consul/issues/571
+```
+
+### EmptyFinallyBlock
+Empty `finally` block
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+#### Snippet
+```java
+
+            return swiftObject != null;
+        } finally {
+            //swiftApi.close();
         }
 ```
 
-### CommentedOutCode
-Commented out code (49 lines)
-in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPReceiver.java`
+### EmptyFinallyBlock
+Empty `finally` block
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
 #### Snippet
 ```java
-        logger.info("Starting FTP receiver stream for transfer {}", context.getTransferId());
-
-        /*
-        checkInitialized();
-
+            }
+            return resourceBuilder.build();
+        } finally{
+            //swiftApi.close();
+        }
 ```
 
-### CommentedOutCode
-Commented out code (40 lines)
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalSender.java`
+### EmptyFinallyBlock
+Empty `finally` block
+in `controller/src/main/java/org/apache/airavata/mft/controller/MFTController.java`
 #### Snippet
 ```java
-        checkInitialized();
+            } catch (Exception e) {
+                logger.error("Errored while processing live agent cache key {}", agentId, e);
+            } finally {
 
-        /*ResourceServiceClient resourceClient = ResourceServiceClientBuilder.buildClient(resourceServiceHost, resourceServicePort);
-        GenericResource resource = resourceClient.get().getGenericResource(GenericResourceGetRequest.newBuilder()
-                .setResourceId(resourceId).build());
-```
-
-### CommentedOutCode
-Commented out code (42 lines)
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalReceiver.java`
-#### Snippet
-```java
-        logger.info("Starting local receiver stream for transfer {}", context.getTransferId());
-
-        /*
-        checkInitialized();
-
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxSender.java`
-#### Snippet
-```java
-    public void startStream(AuthToken authToken, String resourceId, String credentialToken, ConnectorContext context) throws Exception {
-
-        /*
-        logger.info("Starting Box Sender stream for transfer {}", context.getTransferId());
-        logger.debug("Content length for transfer {} {}", context.getTransferId(), context.getMetadata().getResourceSize());
-```
-
-### CommentedOutCode
-Commented out code (49 lines)
-in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPSender.java`
-#### Snippet
-```java
-        logger.info("Starting FTP sender stream for transfer {}", context.getTransferId());
-
-        /*
-        checkInitialized();
-
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-    @Override
-    public void complete() throws Exception {
-        //if (swiftApi != null) {
-        //    swiftApi.close();
-        //}
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
-#### Snippet
-```java
-                + s3Storage.getEndpoint() + s3Storage.getRegion();
-
-        /*MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(longSt.getBytes());
-        byte[] digest = md.digest();
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/EC2AgentSpawner.java`
-#### Snippet
-```java
-                        .build();
-
-                /*logger.info("Creating AMI for MFT Agent");
-                CreateImageRequest createImageRequest = new CreateImageRequest().withName("mft-agent")
-                    .withDescription("AMI For MFT Agent").withInstanceId(instanceId).withNoReboot(true)
+            }
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -1445,19 +1445,6 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/AgentOrc
                         }
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/TransportClassLoader.java`
-#### Snippet
-```java
-    }
-
-    public static final Map<String, byte[]> unzipRecursively(final ByteArrayOutputStream baos) {
-        final Map<String, byte[]> result = new HashMap<String, byte[]>();
-        try(final ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(baos.toByteArray()))) {
-```
-
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -1469,6 +1456,19 @@ in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulC
             kvClient.putValue(AGENTS_PENDING_TRANSFER_COUNT_PATH + agentId, transferCount + "");
         } catch (Exception e) {
             logger.error("Failed update pending transfer count {} in consul for agent {}. But Continuing the execution",
+```
+
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/TransportClassLoader.java`
+#### Snippet
+```java
+    }
+
+    public static final Map<String, byte[]> unzipRecursively(final ByteArrayOutputStream baos) {
+        final Map<String, byte[]> result = new HashMap<String, byte[]>();
+        try(final ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(baos.toByteArray()))) {
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -1559,27 +1559,15 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
-#### Snippet
-```java
-                    downloader.downloadChunk(chunkIdx, startPos, endPos, tempFile);
-                    uploader.uploadChunk(chunkIdx, startPos, endPos, tempFile);
-                    new File(tempFile).delete();
-                }
-                return chunkIdx;
-```
-
-### IgnoreResultOfCall
 Result of `FileInputStream.skip()` is ignored
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
 #### Snippet
 ```java
-        byte[] buf = new byte[buffLen];
+        FileInputStream from = new FileInputStream(new File(this.resourcePath));
 
         from.skip(startByte);
 
-        long fileSize = endByte - startByte + 1;
+        return new BufferedInputStream(from, Math.min(16 * 1024 * 1024,(int) (endByte - startByte)));
 ```
 
 ### IgnoreResultOfCall
@@ -1596,14 +1584,26 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
 
 ### IgnoreResultOfCall
 Result of `FileInputStream.skip()` is ignored
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
 #### Snippet
 ```java
-        FileInputStream from = new FileInputStream(new File(this.resourcePath));
+        byte[] buf = new byte[buffLen];
 
         from.skip(startByte);
 
-        return new BufferedInputStream(from, Math.min(16 * 1024 * 1024,(int) (endByte - startByte)));
+        long fileSize = endByte - startByte + 1;
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
+#### Snippet
+```java
+                    downloader.downloadChunk(chunkIdx, startPos, endPos, tempFile);
+                    uploader.uploadChunk(chunkIdx, startPos, endPos, tempFile);
+                    new File(tempFile).delete();
+                }
+                return chunkIdx;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -2294,14 +2294,14 @@ public class S3Util {
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
 #### Snippet
 ```java
-                    int n;
-                    byte[] buffer = new byte[128 * 1024];
-                    for (count = 0L; -1 != (n = inputStream.read(buffer)); count += (long) n) {
-                        outputStream.write(buffer, 0, n);
-                        countAtomic.set(count);
+                int read = 0;
+                long totalRead = bis.skip(startByte);
+                while ((read = bis.read(buffer, 0, Math.min(buffLen, (int) (endByte - totalRead)))) > 0) {
+                    bos.write(buffer, 0, read);
+                    totalRead += read;
 ```
 
 ### NestedAssignment
@@ -2318,14 +2318,14 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
 
 ### NestedAssignment
 Result of assignment expression used
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
 #### Snippet
 ```java
-                int read = 0;
-                long totalRead = bis.skip(startByte);
-                while ((read = bis.read(buffer, 0, Math.min(buffLen, (int) (endByte - totalRead)))) > 0) {
-                    bos.write(buffer, 0, read);
-                    totalRead += read;
+                    int n;
+                    byte[] buffer = new byte[128 * 1024];
+                    for (count = 0L; -1 != (n = inputStream.read(buffer)); count += (long) n) {
+                        outputStream.write(buffer, 0, n);
+                        countAtomic.set(count);
 ```
 
 ### NestedAssignment
@@ -2341,54 +2341,6 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/Transpor
 ```
 
 ## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/SwiftStorageHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(resource);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Swift storage with id " + request.getStorageId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/BoxServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(resource);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Box storage with id " + request.getStorageId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
-#### Snippet
-```java
-
-    private void acceptRPCRequests() {
-        rpcCacheListener = newValues -> {
-            newValues.values().forEach(value -> {
-                Optional<String> decodedValue = value.getValueAsString();
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
-#### Snippet
-```java
-    private void acceptTransferRequests() {
-
-        transferCacheListener = newValues -> {
-            newValues.values().forEach(value -> {
-                Optional<byte[]> decodedValue = value.getValueAsBytes();
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/SCPServiceHandler.java`
@@ -2415,110 +2367,14 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/BoxServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Box Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/ODataServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No OData Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/DropboxServiceHandler.java`
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/SwiftStorageHandler.java`
 #### Snippet
 ```java
                 responseObserver.onNext(resource);
                 responseObserver.onCompleted();
             }, () -> {
                 responseObserver.onError(Status.INTERNAL
-                        .withDescription("No dropbox storage with id " + request.getStorageId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/DropboxServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Dropbox Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/SCPServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No SCP Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/GCSServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No GCS Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/LocalServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(resource);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Local storage with id " + request.getStorageId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/S3ServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No S3 Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/SwiftServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Swift Secret with id " + request.getSecretId())
+                        .withDescription("No Swift storage with id " + request.getStorageId())
 ```
 
 ### CodeBlock2Expr
@@ -2535,18 +2391,6 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/AzureServiceHandler.java`
-#### Snippet
-```java
-                responseObserver.onNext(secret);
-                responseObserver.onCompleted();
-            }, () -> {
-                responseObserver.onError(Status.INTERNAL
-                        .withDescription("No Azure Secret with id " + request.getSecretId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/AzureServiceHandler.java`
 #### Snippet
 ```java
@@ -2555,6 +2399,42 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
             }, () -> {
                 responseObserver.onError(Status.INTERNAL
                         .withDescription("No Azure storage with id " + request.getStorageId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/GCSServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(resource);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No GCS storage with id " + request.getStorageId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/LocalServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(resource);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No Local storage with id " + request.getStorageId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/DropboxServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(resource);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No dropbox storage with id " + request.getStorageId())
 ```
 
 ### CodeBlock2Expr
@@ -2571,14 +2451,134 @@ in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/SyncRPCCli
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/GCSServiceHandler.java`
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/BoxServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No Box Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/S3ServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No S3 Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/SCPServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No SCP Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/AzureServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No Azure Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/SwiftServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No Swift Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/GCSServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No GCS Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/ODataServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No OData Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
+#### Snippet
+```java
+    private void acceptTransferRequests() {
+
+        transferCacheListener = newValues -> {
+            newValues.values().forEach(value -> {
+                Optional<byte[]> decodedValue = value.getValueAsBytes();
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
+#### Snippet
+```java
+
+    private void acceptRPCRequests() {
+        rpcCacheListener = newValues -> {
+            newValues.values().forEach(value -> {
+                Optional<String> decodedValue = value.getValueAsString();
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/handler/DropboxServiceHandler.java`
+#### Snippet
+```java
+                responseObserver.onNext(secret);
+                responseObserver.onCompleted();
+            }, () -> {
+                responseObserver.onError(Status.INTERNAL
+                        .withDescription("No Dropbox Secret with id " + request.getSecretId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/handler/BoxServiceHandler.java`
 #### Snippet
 ```java
                 responseObserver.onNext(resource);
                 responseObserver.onCompleted();
             }, () -> {
                 responseObserver.onError(Status.INTERNAL
-                        .withDescription("No GCS storage with id " + request.getStorageId())
+                        .withDescription("No Box storage with id " + request.getStorageId())
 ```
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2633,138 +2633,6 @@ in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/sw
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPMetadataCollector.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(SCPMetadataCollector.class);
-
-    boolean initialized = false;
-    private SCPStorage scpStorage;
-    private SCPSecret scpSecret;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/azure-transport/src/main/java/org/apache/airavata/mft/transport/azure/AzureMetadataCollector.java`
-#### Snippet
-```java
-public class AzureMetadataCollector implements MetadataCollector {
-
-    boolean initialized = false;
-
-    private AzureStorage azureStorage;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxMetadataCollector.java`
-#### Snippet
-```java
-    private DropboxSecret dropboxSecret;
-
-    boolean initialized = false;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPMetadataCollector.java`
-#### Snippet
-```java
-
-    private static final Logger logger = LoggerFactory.getLogger(FTPMetadataCollector.class);
-    private boolean initialized = false;
-    private FTPStorage ftpStorage;
-    private FTPSecret ftpSecret;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalMetadataCollector.java`
-#### Snippet
-```java
-    private String secretServiceHost;
-    private int secretServicePort;
-    boolean initialized = false;
-
-    private LocalStorage localStorage;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
-#### Snippet
-```java
-
-public class SwiftMetadataCollector implements MetadataCollector {
-    boolean initialized = false;
-    private SwiftStorage swiftStorage;
-    private SwiftSecret swiftSecret;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxMetadataCollector.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(BoxMetadataCollector.class);
-
-    boolean initialized = false;
-
-    private BoxStorage boxStorage;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3MetadataCollector.java`
-#### Snippet
-```java
-public class S3MetadataCollector implements MetadataCollector {
-
-    boolean initialized = false;
-    private S3Storage s3Storage;
-    private S3Secret s3Secret;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
-#### Snippet
-```java
-    int readPoint = 0;
-
-    boolean barrierPassed = false;
-
-    private long processedBytes = 0L;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
-#### Snippet
-```java
-    boolean readBuffer1 = true;
-    boolean doneWrite = false;
-    int readPoint = 0;
-
-    boolean barrierPassed = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
-#### Snippet
-```java
-    increases the count for writes
-     */
-    private int buf1Remain = 0;
-    private int buf2Remain = 0;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0L` is redundant
 in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
 #### Snippet
@@ -2793,11 +2661,47 @@ Field initialization to `0` is redundant
 in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
 #### Snippet
 ```java
+    increases the count for writes
+     */
+    private int buf1Remain = 0;
+    private int buf2Remain = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
+#### Snippet
+```java
      */
     private int buf1Remain = 0;
     private int buf2Remain = 0;
 
     private ReentrantLock buffer1Lock = new ReentrantLock();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
+#### Snippet
+```java
+    int readPoint = 0;
+
+    boolean barrierPassed = false;
+
+    private long processedBytes = 0L;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/org/apache/airavata/mft/core/DoubleStreamingBuffer.java`
+#### Snippet
+```java
+    boolean readBuffer1 = true;
+    boolean doneWrite = false;
+    int readPoint = 0;
+
+    boolean barrierPassed = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2810,6 +2714,102 @@ in `core/src/main/java/org/apache/airavata/mft/core/CircularStreamingBuffer.java
     private boolean osClosed = false;
     private Semaphore readSem = new Semaphore(0);
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPMetadataCollector.java`
+#### Snippet
+```java
+
+    private static final Logger logger = LoggerFactory.getLogger(FTPMetadataCollector.class);
+    private boolean initialized = false;
+    private FTPStorage ftpStorage;
+    private FTPSecret ftpSecret;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPMetadataCollector.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(SCPMetadataCollector.class);
+
+    boolean initialized = false;
+    private SCPStorage scpStorage;
+    private SCPSecret scpSecret;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxMetadataCollector.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(BoxMetadataCollector.class);
+
+    boolean initialized = false;
+
+    private BoxStorage boxStorage;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3MetadataCollector.java`
+#### Snippet
+```java
+public class S3MetadataCollector implements MetadataCollector {
+
+    boolean initialized = false;
+    private S3Storage s3Storage;
+    private S3Secret s3Secret;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxMetadataCollector.java`
+#### Snippet
+```java
+    private DropboxSecret dropboxSecret;
+
+    boolean initialized = false;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/azure-transport/src/main/java/org/apache/airavata/mft/transport/azure/AzureMetadataCollector.java`
+#### Snippet
+```java
+public class AzureMetadataCollector implements MetadataCollector {
+
+    boolean initialized = false;
+
+    private AzureStorage azureStorage;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+#### Snippet
+```java
+
+public class SwiftMetadataCollector implements MetadataCollector {
+    boolean initialized = false;
+    private SwiftStorage swiftStorage;
+    private SwiftSecret swiftSecret;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalMetadataCollector.java`
+#### Snippet
+```java
+    private String secretServiceHost;
+    private int secretServicePort;
+    boolean initialized = false;
+
+    private LocalStorage localStorage;
 ```
 
 ### RedundantFieldInitialization
@@ -2840,7 +2840,7 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer sb` may be declared as 'StringBuilder'
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
 #### Snippet
 ```java
 
@@ -2852,7 +2852,7 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer sb` may be declared as 'StringBuilder'
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
 #### Snippet
 ```java
 
@@ -2865,14 +2865,14 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
+in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
 #### Snippet
 ```java
-    public static synchronized SwiftUtil getInstance() {
+    public static synchronized S3Util getInstance() {
         if (instance == null) {
-            synchronized (SwiftUtil.class) {
+            synchronized (S3Util.class) {
                 if (instance == null) {
-                    instance = new SwiftUtil();
+                    instance = new S3Util();
 ```
 
 ### SynchronizeOnThis
@@ -2889,32 +2889,20 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/Transpor
 
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
-in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
 #### Snippet
 ```java
-    public static synchronized S3Util getInstance() {
+    public static synchronized SwiftUtil getInstance() {
         if (instance == null) {
-            synchronized (S3Util.class) {
+            synchronized (SwiftUtil.class) {
                 if (instance == null) {
-                    instance = new S3Util();
+                    instance = new SwiftUtil();
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPMetadataCollector.java`
-#### Snippet
-```java
-            @Override
-            public char[] getResponse(String prompt, boolean echo) {
-                return new char[0];
-            }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/SSHProvider.java`
 #### Snippet
 ```java
             @Override
@@ -2934,6 +2922,18 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/Transpor
                         new URL[]{},
                         this.getClass().getClassLoader(),
                         Paths.get(transportDirectory, transportName + "-transport-bin.zip")));
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/SSHProvider.java`
+#### Snippet
+```java
+            @Override
+            public char[] getResponse(String prompt, boolean echo) {
+                return new char[0];
+            }
+
 ```
 
 ## RuleId[id=UnstableTypeUsedInSignature]
@@ -2963,54 +2963,6 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 ```
 
 ### UnusedAssignment
-Variable `tempDataDir` initializer `"/tmp"` is redundant
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
-#### Snippet
-```java
-    private final ExecutorService monitorPool;
-
-    private String tempDataDir = "/tmp";
-    private final int chunkedSize;
-    private final boolean doChunkStreaming;
-```
-
-### UnusedAssignment
-Variable `builder` initializer `null` is redundant
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
-#### Snippet
-```java
-                decodedValue.ifPresent(reqBytes -> {
-                    mftConsulClient.getKvClient().deleteKey(value.getKey());
-                    AgentTransferRequest.Builder builder = null;
-                    try {
-                        builder = AgentTransferRequest.newBuilder().mergeFrom(reqBytes);
-```
-
-### UnusedAssignment
-Variable `bufSize` initializer `0` is redundant
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
-#### Snippet
-```java
-
-        while (true) {
-            int bufSize = 0;
-
-            if (buffLen < fileSize) {
-```
-
-### UnusedAssignment
-Variable `read` initializer `0` is redundant
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
-#### Snippet
-```java
-                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(downloadFile))) {
-                byte[] buffer = new byte[buffLen];
-                int read = 0;
-                long totalRead = bis.skip(startByte);
-                while ((read = bis.read(buffer, 0, Math.min(buffLen, (int) (endByte - totalRead)))) > 0) {
-```
-
-### UnusedAssignment
 Variable `boxFile` initializer `null` is redundant
 in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/BoxMetadataCollector.java`
 #### Snippet
@@ -3032,6 +2984,30 @@ in `transport/box-transport/src/main/java/org/apache/airavata/mft/transport/box/
                 boxFolderInfo = boxFolder.getInfo();
                 isFile = false;
             } catch (BoxAPIException ex) {
+```
+
+### UnusedAssignment
+Variable `read` initializer `0` is redundant
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
+#### Snippet
+```java
+                 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(downloadFile))) {
+                byte[] buffer = new byte[buffLen];
+                int read = 0;
+                long totalRead = bis.skip(startByte);
+                while ((read = bis.read(buffer, 0, Math.min(buffLen, (int) (endByte - totalRead)))) > 0) {
+```
+
+### UnusedAssignment
+Variable `bufSize` initializer `0` is redundant
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
+#### Snippet
+```java
+
+        while (true) {
+            int bufSize = 0;
+
+            if (buffLen < fileSize) {
 ```
 
 ### UnusedAssignment
@@ -3058,6 +3034,30 @@ in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.
         try {
 ```
 
+### UnusedAssignment
+Variable `tempDataDir` initializer `"/tmp"` is redundant
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.java`
+#### Snippet
+```java
+    private final ExecutorService monitorPool;
+
+    private String tempDataDir = "/tmp";
+    private final int chunkedSize;
+    private final boolean doChunkStreaming;
+```
+
+### UnusedAssignment
+Variable `builder` initializer `null` is redundant
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/ingress/ConsulIngressHandler.java`
+#### Snippet
+```java
+                decodedValue.ifPresent(reqBytes -> {
+                    mftConsulClient.getKvClient().deleteKey(value.getKey());
+                    AgentTransferRequest.Builder builder = null;
+                    try {
+                        builder = AgentTransferRequest.newBuilder().mergeFrom(reqBytes);
+```
+
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -3069,6 +3069,18 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/MFTController.ja
                                             .newBuilder().mergeFrom(v.getValueAsBytes().get()).build();
                                     mftConsulClient.commandTransferToAgent(agentId, scheduledTransfer, transferRequest);
 
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
+#### Snippet
+```java
+        Optional<Value> value = kvClient.getValue(TRANSFER_PROCESSED_PATH + transferId);
+        if (value.isPresent()) {
+            return Optional.of(TransferApiRequest.newBuilder().mergeFrom(value.get().getValueAsBytes().get()).build());
+        } else {
+            return Optional.empty();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3131,19 +3143,31 @@ in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulC
 
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `session == null` is always `false`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
 #### Snippet
 ```java
-        Optional<Value> value = kvClient.getValue(TRANSFER_PROCESSED_PATH + transferId);
-        if (value.isPresent()) {
-            return Optional.of(TransferApiRequest.newBuilder().mergeFrom(value.get().getValueAsBytes().get()).build());
-        } else {
-            return Optional.empty();
+                scpSecret.getPassphrase().equals("")? null : scpSecret.getPassphrase().getBytes());
+
+        if (session == null) {
+            logger.error("Session can not be null. Make sure that SCP Receiver is properly initialized");
+            throw new Exception("Session can not be null. Make sure that SCP Receiver is properly initialized");
 ```
 
-## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `session == null` is always `false`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
+#### Snippet
+```java
+                scpSecret.getPassphrase().equals("")? null : scpSecret.getPassphrase().getBytes());
+
+        if (session == null) {
+            logger.error("Session can not be null. Make sure that SCP Receiver is properly initialized");
+            throw new Exception("Session can not be null. Make sure that SCP Receiver is properly initialized");
+```
+
 ### ConstantValue
 Condition `ptimestamp` is always `true`
 in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
@@ -3168,30 +3192,6 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
             // The access time should be sent here,
 ```
 
-### ConstantValue
-Condition `session == null` is always `false`
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
-#### Snippet
-```java
-                scpSecret.getPassphrase().equals("")? null : scpSecret.getPassphrase().getBytes());
-
-        if (session == null) {
-            logger.error("Session can not be null. Make sure that SCP Receiver is properly initialized");
-            throw new Exception("Session can not be null. Make sure that SCP Receiver is properly initialized");
-```
-
-### ConstantValue
-Condition `session == null` is always `false`
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
-#### Snippet
-```java
-                scpSecret.getPassphrase().equals("")? null : scpSecret.getPassphrase().getBytes());
-
-        if (session == null) {
-            logger.error("Session can not be null. Make sure that SCP Receiver is properly initialized");
-            throw new Exception("Session can not be null. Make sure that SCP Receiver is properly initialized");
-```
-
 ## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `SPAWNER_MAX_IDLE_SECONDS` may be 'static'
@@ -3207,6 +3207,66 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/AgentOrc
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `SecretServiceClientBuilder` has only 'static' members, and lacks a 'private' constructor
+in `services/secret-service/client/src/main/java/org/apache/airavata/mft/secret/client/SecretServiceClientBuilder.java`
+#### Snippet
+```java
+import io.grpc.ManagedChannelBuilder;
+
+public class SecretServiceClientBuilder {
+
+    public static SecretServiceClient buildClient(String hostName, int port) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FTPTransportUtil` has only 'static' members, and lacks a 'private' constructor
+in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPTransportUtil.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+class FTPTransportUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(FTPTransportUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LocalConfigs` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
+#### Snippet
+```java
+    }
+
+    public static final class LocalConfigs {
+        public LocalConfigs() {
+        }
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SecretServiceApplication` has only 'static' members, and lacks a 'private' constructor
+in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/SecretServiceApplication.java`
+#### Snippet
+```java
+@EntityScan(basePackages = {"org.apache.airavata.mft.secret.server.backend.sql.entity"})
+@PropertySource(value = "classpath:secret-service-application.properties")
+public class SecretServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SecretServiceApplication.class, args);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ApiServiceApplication` has only 'static' members, and lacks a 'private' constructor
+in `api/service/src/main/java/org/apache/airavata/mft/api/ApiServiceApplication.java`
+#### Snippet
+```java
+@ComponentScan(basePackages = {"org.apache.airavata.mft"})
+@PropertySource(value = "classpath:api-service-application.properties")
+public class ApiServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(ApiServiceApplication.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AgentUtil` has only 'static' members, and lacks a 'private' constructor
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/AgentUtil.java`
 #### Snippet
@@ -3216,6 +3276,18 @@ import java.util.function.Consumer;
 public final class AgentUtil {
     @FunctionalInterface
     public interface ThrowingBiConsumer<T, U, E extends Exception> {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StandaloneServiceApplication` has only 'static' members, and lacks a 'private' constructor
+in `standalone-service/src/main/java/org/apache/airavata/mft/standalone/server/StandaloneServiceApplication.java`
+#### Snippet
+```java
+		"org.apache.airavata.mft.secret.server.backend.sql.repository"})
+@Import(org.apache.airavata.mft.api.AppConfig.class)
+public class StandaloneServiceApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(StandaloneServiceApplication.class, args);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3243,6 +3315,18 @@ public final class ConnectorResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `GCSUtil` has only 'static' members, and lacks a 'private' constructor
+in `transport/gcp-transport/src/main/java/org/apache/airavata/mft/transport/gcp/GCSUtil.java`
+#### Snippet
+```java
+import java.util.Base64;
+
+public class GCSUtil {
+    static PrivateKey getPrivateKey(String privateKeyContent) throws Exception {
+        privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ResourceServiceApplication` has only 'static' members, and lacks a 'private' constructor
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/ResourceServiceApplication.java`
 #### Snippet
@@ -3252,18 +3336,6 @@ in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resou
 public class ResourceServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ResourceServiceApplication.class, args);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SCPTransportUtil` has only 'static' members, and lacks a 'private' constructor
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPTransportUtil.java`
-#### Snippet
-```java
-import java.util.UUID;
-
-public class SCPTransportUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(SCPTransportUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3291,87 +3363,15 @@ public class StorageServiceClientBuilder {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ApiServiceApplication` has only 'static' members, and lacks a 'private' constructor
-in `api/service/src/main/java/org/apache/airavata/mft/api/ApiServiceApplication.java`
+Class `SCPTransportUtil` has only 'static' members, and lacks a 'private' constructor
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPTransportUtil.java`
 #### Snippet
 ```java
-@ComponentScan(basePackages = {"org.apache.airavata.mft"})
-@PropertySource(value = "classpath:api-service-application.properties")
-public class ApiServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ApiServiceApplication.class);
-```
+import java.util.UUID;
 
-### UtilityClassWithoutPrivateConstructor
-Class `SecretServiceClientBuilder` has only 'static' members, and lacks a 'private' constructor
-in `services/secret-service/client/src/main/java/org/apache/airavata/mft/secret/client/SecretServiceClientBuilder.java`
-#### Snippet
-```java
-import io.grpc.ManagedChannelBuilder;
+public class SCPTransportUtil {
 
-public class SecretServiceClientBuilder {
-
-    public static SecretServiceClient buildClient(String hostName, int port) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GCSUtil` has only 'static' members, and lacks a 'private' constructor
-in `transport/gcp-transport/src/main/java/org/apache/airavata/mft/transport/gcp/GCSUtil.java`
-#### Snippet
-```java
-import java.util.Base64;
-
-public class GCSUtil {
-    static PrivateKey getPrivateKey(String privateKeyContent) throws Exception {
-        privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SecretServiceApplication` has only 'static' members, and lacks a 'private' constructor
-in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/server/SecretServiceApplication.java`
-#### Snippet
-```java
-@EntityScan(basePackages = {"org.apache.airavata.mft.secret.server.backend.sql.entity"})
-@PropertySource(value = "classpath:secret-service-application.properties")
-public class SecretServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(SecretServiceApplication.class, args);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LocalConfigs` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
-#### Snippet
-```java
-    }
-
-    public static final class LocalConfigs {
-        public LocalConfigs() {
-        }
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StandaloneServiceApplication` has only 'static' members, and lacks a 'private' constructor
-in `standalone-service/src/main/java/org/apache/airavata/mft/standalone/server/StandaloneServiceApplication.java`
-#### Snippet
-```java
-		"org.apache.airavata.mft.secret.server.backend.sql.repository"})
-@Import(org.apache.airavata.mft.api.AppConfig.class)
-public class StandaloneServiceApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(StandaloneServiceApplication.class, args);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FTPTransportUtil` has only 'static' members, and lacks a 'private' constructor
-in `transport/ftp-transport/src/main/java/org/apache/airavata/mft/transport/ftp/FTPTransportUtil.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-class FTPTransportUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(FTPTransportUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(SCPTransportUtil.class);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -3388,6 +3388,18 @@ in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/LimitInputStream.java`
+#### Snippet
+```java
+    public void close() throws IOException {
+        if (!this.open.getAndSet(false)) {
+            ;
+        }
+    }
+```
+
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/sql/entity/ResolveStorageEntity.java`
@@ -3436,18 +3448,6 @@ in `services/secret-service/server/src/main/java/org/apache/airavata/mft/secret/
 
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/LimitInputStream.java`
-#### Snippet
-```java
-    public void close() throws IOException {
-        if (!this.open.getAndSet(false)) {
-            ;
-        }
-    }
-```
-
 ## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains array `byte[]`
@@ -3476,7 +3476,7 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/MFTController.ja
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
 #### Snippet
 ```java
             while (c != '\n');
@@ -3488,7 +3488,7 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
 #### Snippet
 ```java
             }
@@ -3500,7 +3500,7 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
 #### Snippet
 ```java
             while (c != '\n');
@@ -3512,7 +3512,7 @@ in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPIncomingConnector.java`
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPOutgoingConnector.java`
 #### Snippet
 ```java
             }
@@ -3532,30 +3532,6 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.
                     String tempFile = tempDataDir + File.separator + UUID.randomUUID().toString() + "-" + chunkIdx;
                     downloader.downloadChunk(chunkIdx, startPos, endPos, tempFile);
                     uploader.uploadChunk(chunkIdx, startPos, endPos, tempFile);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
-#### Snippet
-```java
-            String asStr = mapper.writeValueAsString(transferState);
-            if (agentRequestId == null) {
-                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + UUID.randomUUID().toString(), asStr);
-            } else {
-                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + agentRequestId + "/" + UUID.randomUUID().toString(), asStr);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
-#### Snippet
-```java
-                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + UUID.randomUUID().toString(), asStr);
-            } else {
-                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + agentRequestId + "/" + UUID.randomUUID().toString(), asStr);
-            }
-            logger.info("Saved transfer status " + asStr);
 ```
 
 ### UnnecessaryToStringCall
@@ -3580,6 +3556,30 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/EC2Agent
                     keyName = keyNamePrefix + UUID.randomUUID().toString();
                     CreateKeyPairRequest createKeyPairRequest = new CreateKeyPairRequest();
 
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
+#### Snippet
+```java
+            String asStr = mapper.writeValueAsString(transferState);
+            if (agentRequestId == null) {
+                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + UUID.randomUUID().toString(), asStr);
+            } else {
+                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + agentRequestId + "/" + UUID.randomUUID().toString(), asStr);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
+#### Snippet
+```java
+                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + UUID.randomUUID().toString(), asStr);
+            } else {
+                kvClient.putValue(TRANSFER_STATE_PATH + transferId + "/" + agentRequestId + "/" + UUID.randomUUID().toString(), asStr);
+            }
+            logger.info("Saved transfer status " + asStr);
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -3621,18 +3621,6 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/AgentOrc
 ```
 
 ## RuleId[id=SwitchStatementWithConfusingDeclaration]
-### SwitchStatementWithConfusingDeclaration
-Local variable `storages` declared in one 'switch' branch and used in another
-in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/sql/SQLResourceBackend.java`
-#### Snippet
-```java
-                break;
-            case STORAGENAME:
-                List<ResolveStorageEntity> storages = resolveStorageRepository.getByStorageName(request.getStorageName());
-                storages.forEach(st -> {
-                    StorageListEntry.Builder entry = StorageListEntry.newBuilder();
-```
-
 ### SwitchStatementWithConfusingDeclaration
 Local variable `requestStr` declared in one 'switch' branch and used in another
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/rpc/RPCParser.java`
@@ -3681,6 +3669,18 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/rpc/RPCParser.java
                 if (metadataCollectorOptional.isPresent()) {
 ```
 
+### SwitchStatementWithConfusingDeclaration
+Local variable `storages` declared in one 'switch' branch and used in another
+in `services/resource-service/server/src/main/java/org/apache/airavata/mft/resource/server/backend/sql/SQLResourceBackend.java`
+#### Snippet
+```java
+                break;
+            case STORAGENAME:
+                List<ResolveStorageEntity> storages = resolveStorageRepository.getByStorageName(request.getStorageName());
+                storages.forEach(st -> {
+                    StorageListEntry.Builder entry = StorageListEntry.newBuilder();
+```
+
 ## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
@@ -3721,18 +3721,6 @@ in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
 
 ## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
-#### Snippet
-```java
-    public double getDoubleTransportProperty(String key, double defaultValue){
-
-        if (this.transportConfig.containsKey(key)) return Double.valueOf(this.transportConfig.get(key).toString());
-
-        return defaultValue;
-```
-
-### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
 #### Snippet
@@ -3740,6 +3728,18 @@ in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
     public int getIntTransportProperty(String key, int defaultValue){
 
         if (this.transportConfig.containsKey(key)) return Integer.valueOf(this.transportConfig.get(key).toString());
+
+        return defaultValue;
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `core/src/main/java/org/apache/airavata/mft/core/api/ConnectorConfig.java`
+#### Snippet
+```java
+    public double getDoubleTransportProperty(String key, double defaultValue){
+
+        if (this.transportConfig.containsKey(key)) return Double.valueOf(this.transportConfig.get(key).toString());
 
         return defaultValue;
 ```
@@ -3796,102 +3796,6 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/transport/Transpor
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
-#### Snippet
-```java
-public class AppConfig {
-
-    @org.springframework.beans.factory.annotation.Value("${consul.host}")
-    String consulHost;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
-#### Snippet
-```java
-    Integer consulPort;
-
-    @org.springframework.beans.factory.annotation.Value("${agent.transport.directory}")
-    String transportDirectory;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
-#### Snippet
-```java
-    String consulHost;
-
-    @org.springframework.beans.factory.annotation.Value("${consul.port}")
-    Integer consulPort;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
-#### Snippet
-```java
-    private Integer agentHttpPort;
-
-    @org.springframework.beans.factory.annotation.Value("${agent.https.enabled}")
-    private boolean agentHttpsEnabled;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
-#### Snippet
-```java
-    private String agentHost;
-
-    @org.springframework.beans.factory.annotation.Value("${agent.http.port}")
-    private Integer agentHttpPort;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(MFTAgent.class);
-
-    @org.springframework.beans.factory.annotation.Value("${agent.id}")
-    private String agentId;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
-#### Snippet
-```java
-    private String agentId;
-
-    @org.springframework.beans.factory.annotation.Value("${agent.host}")
-    private String agentHost;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPTransportUtil.java`
-#### Snippet
-```java
-            jsch.addIdentity(UUID.randomUUID().toString(), pvtKey, pubKey, passphrase);
-
-            Properties config = new java.util.Properties();
-            config.put("StrictHostKeyChecking", "no");
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.dropbox.core.v2.files` is unnecessary, and can be replaced with an import
 in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/dropbox/DropboxMetadataCollector.java`
 #### Snippet
@@ -4001,67 +3905,19 @@ in `transport/dropbox-transport/src/main/java/org/apache/airavata/mft/transport/
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
-#### Snippet
-```java
-    private String resourceServiceHost;
-
-    @org.springframework.beans.factory.annotation.Value("${resource.service.port}")
-    private int resourceServicePort;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
-#### Snippet
-```java
-public class AppConfig {
-
-    @org.springframework.beans.factory.annotation.Value("${consul.host}")
-    String consulHost;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
-#### Snippet
-```java
-    private int resourceServicePort;
-
-    @org.springframework.beans.factory.annotation.Value("${secret.service.host}")
-    private String secretServiceHost;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
-#### Snippet
-```java
-    private String secretServiceHost;
-
-    @org.springframework.beans.factory.annotation.Value("${secret.service.port}")
-    private int secretServicePort;
-    @Bean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
 #### Snippet
 ```java
     Integer consulPort;
 
-    @org.springframework.beans.factory.annotation.Value("${resource.service.host}")
-    private String resourceServiceHost;
+    @org.springframework.beans.factory.annotation.Value("${agent.transport.directory}")
+    String transportDirectory;
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
 #### Snippet
 ```java
     String consulHost;
@@ -4073,25 +3929,109 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/AppConfig.java`
 #### Snippet
 ```java
-    private int chunkedSize;
+public class AppConfig {
 
-    @org.springframework.beans.factory.annotation.Value("${agent.chunk.streaming.enabled}")
-    private boolean doChunkStream;
+    @org.springframework.beans.factory.annotation.Value("${consul.host}")
+    String consulHost;
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
+in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
 #### Snippet
 ```java
-    private boolean doChunkStream;
+    private String secretServiceHost;
 
-    @org.springframework.beans.factory.annotation.Value("${agent.temp.data.dir}")
-    private String tempDataDir = "/tmp";
+    @org.springframework.beans.factory.annotation.Value("${secret.service.port}")
+    private int secretServicePort;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+#### Snippet
+```java
+    private SyncRPCClient agentRPCClient;
+
+    @org.springframework.beans.factory.annotation.Value("${resource.service.host}")
+    private String resourceServiceHost;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+#### Snippet
+```java
+    private String resourceServiceHost;
+
+    @org.springframework.beans.factory.annotation.Value("${resource.service.port}")
+    private int resourceServicePort;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+#### Snippet
+```java
+    private int resourceServicePort;
+
+    @org.springframework.beans.factory.annotation.Value("${secret.service.host}")
+    private String secretServiceHost;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
+#### Snippet
+```java
+    private String agentHost;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.http.port}")
+    private Integer agentHttpPort;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(MFTAgent.class);
+
+    @org.springframework.beans.factory.annotation.Value("${agent.id}")
+    private String agentId;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
+#### Snippet
+```java
+    private Integer agentHttpPort;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.https.enabled}")
+    private boolean agentHttpsEnabled;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/MFTAgent.java`
+#### Snippet
+```java
+    private String agentId;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.host}")
+    private String agentHost;
 
 ```
 
@@ -4112,10 +4052,10 @@ Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
 #### Snippet
 ```java
-    private int concurrentChunkedThreads;
+    private String tempDataDir = "/tmp";
 
-    @org.springframework.beans.factory.annotation.Value("${agent.chunk.size}")
-    private int chunkedSize;
+    @org.springframework.beans.factory.annotation.Value("${agent.id}")
+    private String agentId;
 
 ```
 
@@ -4136,11 +4076,47 @@ Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can
 in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
 #### Snippet
 ```java
+    private boolean doChunkStream;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.temp.data.dir}")
     private String tempDataDir = "/tmp";
 
-    @org.springframework.beans.factory.annotation.Value("${agent.id}")
-    private String agentId;
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
+#### Snippet
+```java
+    private int chunkedSize;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.chunk.streaming.enabled}")
+    private boolean doChunkStream;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransferOrchestrator.java`
+#### Snippet
+```java
+    private int concurrentChunkedThreads;
+
+    @org.springframework.beans.factory.annotation.Value("${agent.chunk.size}")
+    private int chunkedSize;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
+#### Snippet
+```java
+        File targetFile = new File(downloadFile);
+
+        java.nio.file.Files.copy(
+                inputStream,
+                targetFile.toPath(),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4180,32 +4156,20 @@ public class AppConfig {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `transport/scp-transport/src/main/java/org/apache/airavata/mft/transport/scp/SCPTransportUtil.java`
 #### Snippet
 ```java
-        File targetFile = new File(downloadFile);
+            jsch.addIdentity(UUID.randomUUID().toString(), pvtKey, pubKey, passphrase);
 
-        java.nio.file.Files.copy(
-                inputStream,
-                targetFile.toPath(),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
-#### Snippet
-```java
-    private String resourceServiceHost;
-
-    @org.springframework.beans.factory.annotation.Value("${resource.service.port}")
-    private int resourceServicePort;
+            Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
 #### Snippet
 ```java
     private int resourceServicePort;
@@ -4217,10 +4181,46 @@ in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
 #### Snippet
 ```java
-    private SyncRPCClient agentRPCClient;
+    String consulHost;
+
+    @org.springframework.beans.factory.annotation.Value("${consul.port}")
+    Integer consulPort;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
+#### Snippet
+```java
+    private String resourceServiceHost;
+
+    @org.springframework.beans.factory.annotation.Value("${resource.service.port}")
+    private int resourceServicePort;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
+#### Snippet
+```java
+    private String secretServiceHost;
+
+    @org.springframework.beans.factory.annotation.Value("${secret.service.port}")
+    private int secretServicePort;
+    @Bean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
+#### Snippet
+```java
+    Integer consulPort;
 
     @org.springframework.beans.factory.annotation.Value("${resource.service.host}")
     private String resourceServiceHost;
@@ -4229,13 +4229,13 @@ in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.beans.factory.annotation` is unnecessary, and can be replaced with an import
-in `api/service/src/main/java/org/apache/airavata/mft/api/handler/MFTApiHandler.java`
+in `controller/src/main/java/org/apache/airavata/mft/controller/AppConfig.java`
 #### Snippet
 ```java
-    private String secretServiceHost;
+public class AppConfig {
 
-    @org.springframework.beans.factory.annotation.Value("${secret.service.port}")
-    private int secretServicePort;
+    @org.springframework.beans.factory.annotation.Value("${consul.host}")
+    String consulHost;
 
 ```
 
@@ -4304,6 +4304,30 @@ in `controller/src/main/java/org/apache/airavata/mft/controller/spawner/SSHProvi
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
+Local variable `longSt` is redundant
+in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
+#### Snippet
+```java
+
+    private String getSecretKey(S3Secret s3Secret, S3Storage s3Storage) throws NoSuchAlgorithmException {
+        String longSt =  s3Secret.getAccessKey()
+                + s3Secret.getSecretKey()
+                + s3Secret.getSessionToken()
+```
+
+### UnnecessaryLocalVariable
+Local variable `map` is redundant
+in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
+#### Snippet
+```java
+
+    private ThreadLocal<Map<String, AmazonS3>> s3ClientCache = ThreadLocal.withInitial(() -> {
+        Map<String, AmazonS3> map = new HashMap<>();
+        return map;
+    });
+```
+
+### UnnecessaryLocalVariable
 Local variable `map` is redundant
 in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
 #### Snippet
@@ -4328,18 +4352,6 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `sortedStates` is redundant
-in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
-#### Snippet
-```java
-            allStates.add(transferState);
-        }
-        List<TransferState> sortedStates = allStates.stream().sorted((o1, o2) ->
-                (o1.getUpdateTimeMils() - o2.getUpdateTimeMils()) < 0 ? -1 :
-                        (o1.getUpdateTimeMils() - o2.getUpdateTimeMils()) == 0 ? 0 : 1).collect(Collectors.toList());
-```
-
-### UnnecessaryLocalVariable
 Local variable `lastStatusOp` is redundant
 in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
 #### Snippet
@@ -4352,27 +4364,15 @@ in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulC
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `longSt` is redundant
-in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
+Local variable `sortedStates` is redundant
+in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulClient.java`
 #### Snippet
 ```java
-
-    private String getSecretKey(S3Secret s3Secret, S3Storage s3Storage) throws NoSuchAlgorithmException {
-        String longSt =  s3Secret.getAccessKey()
-                + s3Secret.getSecretKey()
-                + s3Secret.getSessionToken()
-```
-
-### UnnecessaryLocalVariable
-Local variable `map` is redundant
-in `transport/s3-transport/src/main/java/org/apache/airavata/mft/transport/s3/S3Util.java`
-#### Snippet
-```java
-
-    private ThreadLocal<Map<String, AmazonS3>> s3ClientCache = ThreadLocal.withInitial(() -> {
-        Map<String, AmazonS3> map = new HashMap<>();
-        return map;
-    });
+            allStates.add(transferState);
+        }
+        List<TransferState> sortedStates = allStates.stream().sorted((o1, o2) ->
+                (o1.getUpdateTimeMils() - o2.getUpdateTimeMils()) < 0 ? -1 :
+                        (o1.getUpdateTimeMils() - o2.getUpdateTimeMils()) == 0 ? 0 : 1).collect(Collectors.toList());
 ```
 
 ## RuleId[id=BusyWait]
@@ -4389,6 +4389,30 @@ in `agent/service/src/main/java/org/apache/airavata/mft/agent/TransportMediator.
 ```
 
 ## RuleId[id=RedundantFileCreation]
+### RedundantFileCreation
+`new File` is redundant
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
+#### Snippet
+```java
+    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception {
+
+        FileInputStream from = new FileInputStream(new File(this.resourcePath));
+
+        from.skip(startByte);
+```
+
+### RedundantFileCreation
+`new File` is redundant
+in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
+#### Snippet
+```java
+
+
+        FileOutputStream outputStream = new FileOutputStream(new File(this.resourcePath));
+
+        byte[] buffer = new byte[1024];
+```
+
 ### RedundantFileCreation
 `new File` is redundant
 in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
@@ -4415,18 +4439,6 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
 
 ### RedundantFileCreation
 `new File` is redundant
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalOutgoingChunkedConnector.java`
-#### Snippet
-```java
-
-
-        FileOutputStream outputStream = new FileOutputStream(new File(this.resourcePath));
-
-        byte[] buffer = new byte[1024];
-```
-
-### RedundantFileCreation
-`new File` is redundant
 in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingStreamingConnector.java`
 #### Snippet
 ```java
@@ -4437,41 +4449,89 @@ in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/lo
         return from;
 ```
 
-### RedundantFileCreation
-`new File` is redundant
-in `transport/local-transport/src/main/java/org/apache/airavata/mft/transport/local/LocalIncomingChunkedConnector.java`
-#### Snippet
-```java
-    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception {
-
-        FileInputStream from = new FileInputStream(new File(this.resourcePath));
-
-        from.skip(startByte);
-```
-
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
+'put(java.lang.String, org.jclouds.io.Payload)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
 #### Snippet
 ```java
-// https://jclouds.apache.org/guides/openstack/
-public class SwiftUtil {
-    private ThreadLocal<Map<String, SwiftApi>> swiftApiCache = ThreadLocal.withInitial(() -> {
-        Map<String, SwiftApi> map = new HashMap<>();
-        return map;
+    @Override
+    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception {
+        String etag = objectApi.put(resourcePath + chunkId, new InputStreamPayload(inputStream));
+        Segment segment = Segment.builder().etag(etag)
+                .path(resourcePath + chunkId)
+```
+
+### UnstableApiUsage
+'getObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+        SwiftSecret swiftSecret = cc.getSecret().getSwift();
+        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
+        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+        staticLargeObjectApi = swiftApi.getStaticLargeObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+    }
+```
+
+### UnstableApiUsage
+'getStaticLargeObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
+        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+        staticLargeObjectApi = swiftApi.getStaticLargeObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+    }
+
+```
+
+### UnstableApiUsage
+'org.jclouds.openstack.swift.v1.features.ObjectApi' is marked unstable with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+
+    private SwiftApi swiftApi;
+    private ObjectApi objectApi;
+    private StaticLargeObjectApi staticLargeObjectApi;
+    private String resourcePath;
 ```
 
 ### UnstableApiUsage
 'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
 #### Snippet
 ```java
-public class SwiftUtil {
-    private ThreadLocal<Map<String, SwiftApi>> swiftApiCache = ThreadLocal.withInitial(() -> {
-        Map<String, SwiftApi> map = new HashMap<>();
-        return map;
-    });
+    private static final Logger logger = LoggerFactory.getLogger(SwiftOutgoingConnector.class);
+
+    private SwiftApi swiftApi;
+    private ObjectApi objectApi;
+    private StaticLargeObjectApi staticLargeObjectApi;
+```
+
+### UnstableApiUsage
+'org.jclouds.openstack.swift.v1.features.StaticLargeObjectApi' is marked unstable with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+    private SwiftApi swiftApi;
+    private ObjectApi objectApi;
+    private StaticLargeObjectApi staticLargeObjectApi;
+    private String resourcePath;
+
+```
+
+### UnstableApiUsage
+'replaceManifest(java.lang.String, java.util.List, java.util.Map)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.StaticLargeObjectApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+#### Snippet
+```java
+        }
+
+        String etag = staticLargeObjectApi.replaceManifest(resourcePath,
+                segments, new HashMap<>());
+
 ```
 
 ### UnstableApiUsage
@@ -4523,87 +4583,75 @@ in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/sw
 ```
 
 ### UnstableApiUsage
-'getObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
 #### Snippet
 ```java
-        SwiftSecret swiftSecret = cc.getSecret().getSwift();
-        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
-        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-        staticLargeObjectApi = swiftApi.getStaticLargeObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-    }
-```
-
-### UnstableApiUsage
-'getStaticLargeObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
-#### Snippet
-```java
-        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
-        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-        staticLargeObjectApi = swiftApi.getStaticLargeObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-    }
-
+// https://jclouds.apache.org/guides/openstack/
+public class SwiftUtil {
+    private ThreadLocal<Map<String, SwiftApi>> swiftApiCache = ThreadLocal.withInitial(() -> {
+        Map<String, SwiftApi> map = new HashMap<>();
+        return map;
 ```
 
 ### UnstableApiUsage
 'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftUtil.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(SwiftOutgoingConnector.class);
-
-    private SwiftApi swiftApi;
-    private ObjectApi objectApi;
-    private StaticLargeObjectApi staticLargeObjectApi;
+public class SwiftUtil {
+    private ThreadLocal<Map<String, SwiftApi>> swiftApiCache = ThreadLocal.withInitial(() -> {
+        Map<String, SwiftApi> map = new HashMap<>();
+        return map;
+    });
 ```
 
 ### UnstableApiUsage
-'put(java.lang.String, org.jclouds.io.Payload)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
 #### Snippet
 ```java
-    @Override
-    public void uploadChunk(int chunkId, long startByte, long endByte, InputStream inputStream) throws Exception {
-        String etag = objectApi.put(resourcePath + chunkId, new InputStreamPayload(inputStream));
-        Segment segment = Segment.builder().etag(etag)
-                .path(resourcePath + chunkId)
-```
+        checkInitialized();
 
-### UnstableApiUsage
-'replaceManifest(java.lang.String, java.util.List, java.util.Map)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.StaticLargeObjectApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
-#### Snippet
-```java
-        }
+        SwiftApi swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
 
-        String etag = staticLargeObjectApi.replaceManifest(resourcePath,
-                segments, new HashMap<>());
-
+        try {
 ```
 
 ### UnstableApiUsage
 'org.jclouds.openstack.swift.v1.features.ObjectApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
 #### Snippet
 ```java
 
-    private SwiftApi swiftApi;
-    private ObjectApi objectApi;
-    private StaticLargeObjectApi staticLargeObjectApi;
-    private String resourcePath;
+        try {
+            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+
+            SwiftObject swiftObject = objectApi.get(resourcePath);
 ```
 
 ### UnstableApiUsage
-'org.jclouds.openstack.swift.v1.features.StaticLargeObjectApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftOutgoingConnector.java`
+'getObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
 #### Snippet
 ```java
-    private SwiftApi swiftApi;
-    private ObjectApi objectApi;
-    private StaticLargeObjectApi staticLargeObjectApi;
-    private String resourcePath;
 
+        try {
+            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+
+            SwiftObject swiftObject = objectApi.get(resourcePath);
+```
+
+### UnstableApiUsage
+'get(java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+#### Snippet
+```java
+            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+
+            SwiftObject swiftObject = objectApi.get(resourcePath);
+
+            return swiftObject != null;
 ```
 
 ### UnstableApiUsage
@@ -4692,50 +4740,62 @@ in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/sw
 
 ### UnstableApiUsage
 'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
 #### Snippet
 ```java
-        checkInitialized();
+    private static final Logger logger = LoggerFactory.getLogger(SwiftIncomingConnector.class);
 
-        SwiftApi swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
+    private SwiftApi swiftApi;
+    private ObjectApi objectApi;
+    private String resourcePath;
+```
 
-        try {
+### UnstableApiUsage
+'get(java.lang.String, org.jclouds.http.options.GetOptions)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
+#### Snippet
+```java
+    @Override
+    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception {
+        SwiftObject swiftObject = objectApi.get(
+                resourcePath,
+                GetOptions.Builder.range(startByte, endByte));
 ```
 
 ### UnstableApiUsage
 'org.jclouds.openstack.swift.v1.features.ObjectApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
 #### Snippet
 ```java
 
-        try {
-            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+    private SwiftApi swiftApi;
+    private ObjectApi objectApi;
+    private String resourcePath;
 
-            SwiftObject swiftObject = objectApi.get(resourcePath);
+```
+
+### UnstableApiUsage
+'get(java.lang.String, org.jclouds.http.options.GetOptions)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
+#### Snippet
+```java
+    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception {
+
+        SwiftObject swiftObject = objectApi.get(
+                resourcePath,
+                GetOptions.Builder.range(startByte, endByte));
 ```
 
 ### UnstableApiUsage
 'getObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
+in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
 #### Snippet
 ```java
+        SwiftSecret swiftSecret = cc.getSecret().getSwift();
+        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
+        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
+    }
 
-        try {
-            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-
-            SwiftObject swiftObject = objectApi.get(resourcePath);
-```
-
-### UnstableApiUsage
-'get(java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftMetadataCollector.java`
-#### Snippet
-```java
-            ObjectApi objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-
-            SwiftObject swiftObject = objectApi.get(resourcePath);
-
-            return swiftObject != null;
 ```
 
 ### UnstableApiUsage
@@ -4784,65 +4844,5 @@ in `common/common-clients/src/main/java/org/apache/airavata/mft/admin/MFTConsulC
         this.client = Consul.builder().withHostAndPort(HostAndPort.fromParts(host, port)).build();
         this.kvClient = client.keyValueClient();
         this.sessionClient = client.sessionClient();
-```
-
-### UnstableApiUsage
-'org.jclouds.openstack.swift.v1.SwiftApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(SwiftIncomingConnector.class);
-
-    private SwiftApi swiftApi;
-    private ObjectApi objectApi;
-    private String resourcePath;
-```
-
-### UnstableApiUsage
-'get(java.lang.String, org.jclouds.http.options.GetOptions)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-    @Override
-    public void downloadChunk(int chunkId, long startByte, long endByte, String downloadFile) throws Exception {
-        SwiftObject swiftObject = objectApi.get(
-                resourcePath,
-                GetOptions.Builder.range(startByte, endByte));
-```
-
-### UnstableApiUsage
-'get(java.lang.String, org.jclouds.http.options.GetOptions)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.features.ObjectApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-    public InputStream downloadChunk(int chunkId, long startByte, long endByte) throws Exception {
-
-        SwiftObject swiftObject = objectApi.get(
-                resourcePath,
-                GetOptions.Builder.range(startByte, endByte));
-```
-
-### UnstableApiUsage
-'org.jclouds.openstack.swift.v1.features.ObjectApi' is marked unstable with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-
-    private SwiftApi swiftApi;
-    private ObjectApi objectApi;
-    private String resourcePath;
-
-```
-
-### UnstableApiUsage
-'getObjectApi(java.lang.String, java.lang.String)' is declared in unstable interface 'org.jclouds.openstack.swift.v1.SwiftApi' marked with @Beta
-in `transport/swift-transport/src/main/java/org/apache/airavata/mft/transport/swift/SwiftIncomingConnector.java`
-#### Snippet
-```java
-        SwiftSecret swiftSecret = cc.getSecret().getSwift();
-        swiftApi = SwiftUtil.getInstance().leaseSwiftApi(swiftSecret);
-        objectApi = swiftApi.getObjectApi(swiftStorage.getRegion(), swiftStorage.getContainer());
-    }
-
 ```
 
