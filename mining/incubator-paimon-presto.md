@@ -1,7 +1,7 @@
 # incubator-paimon-presto 
  
 # Bad smells
-I found 22 bad smells with 6 repairable:
+I found 21 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalContainsCollection | 5 | false |
@@ -10,7 +10,6 @@ I found 22 bad smells with 6 repairable:
 | UtilityClassWithoutPrivateConstructor | 3 | true |
 | NonProtectedConstructorInAbstractClass | 3 | true |
 | RedundantFieldInitialization | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -41,18 +40,6 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'projectedColumns'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-    private final byte[] serializedTable;
-    private final TupleDomain<PrestoColumnHandle> filter;
-    private final Optional<List<ColumnHandle>> projectedColumns;
-
-    private Table lazyTable;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'projectedColumns'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
 #### Snippet
@@ -64,19 +51,19 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
                 schemaName, tableName, serializedTable, filter, projectedColumns);
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'projectedColumns'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
 #### Snippet
 ```java
-            serializedTable = InstantiationUtil.serializeObject(catalog.getTable(tablePath));
-        } catch (Catalog.TableNotExistException e) {
-            return null;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    private final byte[] serializedTable;
+    private final TupleDomain<PrestoColumnHandle> filter;
+    private final Optional<List<ColumnHandle>> projectedColumns;
+
+    private Table lazyTable;
 ```
 
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
@@ -91,6 +78,18 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.j
 
 ### ReturnNull
 Return of `null`
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
+#### Snippet
+```java
+            serializedTable = InstantiationUtil.serializeObject(catalog.getTable(tablePath));
+        } catch (Catalog.TableNotExistException e) {
+            return null;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+```
+
+### ReturnNull
+Return of `null`
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSourceBase.java`
 #### Snippet
 ```java
@@ -99,19 +98,6 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSource
             return null;
         }
         InternalRow row;
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-03-10-14.320.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -207,18 +193,6 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
 #### Snippet
 ```java
-    private final byte[] serializedTable;
-    private final TupleDomain<PrestoColumnHandle> filter;
-    private final Optional<List<ColumnHandle>> projectedColumns;
-
-    private Table lazyTable;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
     }
 
     public PrestoTableHandle copy(Optional<List<ColumnHandle>> projectedColumns) {
@@ -236,6 +210,18 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
     public Optional<List<ColumnHandle>> getProjectedColumns() {
         return projectedColumns;
     }
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
+#### Snippet
+```java
+    private final byte[] serializedTable;
+    private final TupleDomain<PrestoColumnHandle> filter;
+    private final Optional<List<ColumnHandle>> projectedColumns;
+
+    private Table lazyTable;
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
