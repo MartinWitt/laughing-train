@@ -1,7 +1,7 @@
 # teamcity-vault-vcs 
  
 # Bad smells
-I found 120 bad smells with 18 repairable:
+I found 121 bad smells with 18 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | StringBufferReplaceableByString | 19 | false |
@@ -18,8 +18,8 @@ I found 120 bad smells with 18 repairable:
 | DataFlowIssue | 3 | false |
 | BoundedWildcard | 3 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
-| StringBufferReplaceableByStringBuilder | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| StringBufferReplaceableByStringBuilder | 2 | false |
 | MagicConstant | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | CommentedOutCode | 1 | false |
@@ -34,6 +34,7 @@ I found 120 bad smells with 18 repairable:
 | Anonymous2MethodRef | 1 | false |
 | Convert2Lambda | 1 | false |
 | EmptyMethod | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -240,58 +241,46 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCo
 #### Snippet
 ```java
 
-  @NotNull
-  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
-    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
-#### Snippet
-```java
-  @NotNull
-  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
-    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
-
-    for (RawChangeInfo rawChangeInfo : myConnection.getFolderHistory(myTargetPath, myFromVersion, myToVersion)) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
-#### Snippet
-```java
-  @NotNull
-  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
-    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
-
-    for (RawChangeInfo rawChangeInfo : myConnection.getFolderHistory(myTargetPath, myFromVersion, myToVersion)) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
-#### Snippet
-```java
-  }
-
-  private void processRawChangeInfo(@NotNull Stack<ChangeInfo> changes, @NotNull RawChangeInfo rawChangeInfo) throws VcsException {
-
-    final String repoPath = VaultUtil.getFullRepoPathWithCommonPart(rawChangeInfo.getPath(), myTargetPath);
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
-#### Snippet
-```java
-
   private void addFolderContent(@NotNull String historyFolderPath,
                                 @NotNull Stack<ChangeInfo> changes,
                                 @Nullable String actionString,
                                 @NotNull ModificationInfo mi) throws VcsException {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
+    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
+#### Snippet
+```java
+  @NotNull
+  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
+    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
+
+    for (RawChangeInfo rawChangeInfo : myConnection.getFolderHistory(myTargetPath, myFromVersion, myToVersion)) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
+#### Snippet
+```java
+  @NotNull
+  private Stack<ChangeInfo> buildChangesStack() throws VcsException {
+    final Stack<ChangeInfo> changes = new Stack<ChangeInfo>();
+
+    for (RawChangeInfo rawChangeInfo : myConnection.getFolderHistory(myTargetPath, myFromVersion, myToVersion)) {
 ```
 
 ### ObsoleteCollection
@@ -304,6 +293,18 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCo
   private void pushChange(Stack<ChangeInfo> changes, String actionString, ModificationInfo mi, String path, VcsChangeInfo.Type type) {
     if (ROOT.equals(path)) return;
 
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
+#### Snippet
+```java
+  }
+
+  private void processRawChangeInfo(@NotNull Stack<ChangeInfo> changes, @NotNull RawChangeInfo rawChangeInfo) throws VcsException {
+
+    final String repoPath = VaultUtil.getFullRepoPathWithCommonPart(rawChangeInfo.getPath(), myTargetPath);
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -409,7 +410,7 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
 #### Snippet
 ```java
-      targetPath = targetPath.substring(0, targetPath.length() - 1);
+      targetPath = StringUtil.EMPTY;
     }
     return (targetPath.length() == 0 ? "" : targetPath + "/") + path;
   }
@@ -421,7 +422,7 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.jav
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
 #### Snippet
 ```java
-      targetPath = StringUtil.EMPTY;
+      targetPath = targetPath.substring(0, targetPath.length() - 1);
     }
     return (targetPath.length() == 0 ? "" : targetPath + "/") + path;
   }
@@ -458,42 +459,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-    LOG.debug("MemoryFileSystem create folder: " + path);
-    if (containsNode(path)) {
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
-    } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
-#### Snippet
-```java
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
-    } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
-    }
-  }
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
-#### Snippet
-```java
-  public void writeFile(String path) {
-    LOG.debug("MemoryFileSystem write file: " + path);
-    Assert.assertFalse(myImpl.add(path, true, false), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
-  }
-
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
-#### Snippet
-```java
     LOG.debug("MemoryFileSystem create file: " + path);
     if (containsFile(path)) {
       throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
@@ -515,14 +480,38 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-  private void fail(Exception e)
-    throws VcsException {
-    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
-    LOG.warn(message, e);
-    if (myStrict)
+  public void writeFile(String path) {
+    LOG.debug("MemoryFileSystem write file: " + path);
+    Assert.assertFalse(myImpl.add(path, true, false), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
+  }
+
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
+#### Snippet
+```java
+    LOG.debug("MemoryFileSystem create folder: " + path);
+    if (containsNode(path)) {
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+    } else {
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
+#### Snippet
+```java
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+    } else {
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+    }
+  }
 ```
 
 ### StringBufferReplaceableByString
@@ -679,6 +668,18 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
         throw new VcsException((new StringBuilder()).append("Unexpected error: No version for ").append(path).append(" prepared").toString());
       final File content = provider.getFile(path, version);
       builder.changeOrCreateBinaryFile(new File(path), version, new FileInputStream(content), content.length());
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+#### Snippet
+```java
+  private void fail(Exception e)
+    throws VcsException {
+    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
+    LOG.warn(message, e);
+    if (myStrict)
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -1074,11 +1075,35 @@ Field initialization to `false` is redundant
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
+    Map<String, Edge> children = new TreeMap<String, Edge>();
+    boolean isFile = false;
+    boolean isNew = false;
+    boolean marker = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
     boolean isFile = false;
     boolean isNew = false;
     boolean marker = false;
 
     Edge findEdge(String value) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
+#### Snippet
+```java
+    Edge parent = null;
+    Map<String, Edge> children = new TreeMap<String, Edge>();
+    boolean isFile = false;
+    boolean isNew = false;
+    boolean marker = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1093,55 +1118,7 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
     boolean isFile = false;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-    Map<String, Edge> children = new TreeMap<String, Edge>();
-    boolean isFile = false;
-    boolean isNew = false;
-    boolean marker = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-    Edge parent = null;
-    Map<String, Edge> children = new TreeMap<String, Edge>();
-    boolean isFile = false;
-    boolean isNew = false;
-    boolean marker = false;
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `targetPath`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
-#### Snippet
-```java
-  @NotNull
-  public static String getFullPath(@NotNull String path, @NotNull String targetPath) {
-    targetPath = targetPath.replace('\\', '/');
-    if (targetPath.endsWith("/")) {
-      targetPath = targetPath.substring(0, targetPath.length() - 1);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `targetPath`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
-#### Snippet
-```java
-    targetPath = targetPath.replace('\\', '/');
-    if (targetPath.endsWith("/")) {
-      targetPath = targetPath.substring(0, targetPath.length() - 1);
-    }
-    return (targetPath.length() == 0 ? "" : targetPath + "/") + path;
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `targetPath`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
@@ -1191,15 +1168,39 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
+Assignment to method parameter `targetPath`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
 #### Snippet
 ```java
+  @NotNull
+  public static String getFullPath(@NotNull String path, @NotNull String targetPath) {
+    targetPath = targetPath.replace('\\', '/');
+    if (targetPath.endsWith("/")) {
+      targetPath = targetPath.substring(0, targetPath.length() - 1);
+```
 
-  private boolean isBranchedPath(@NotNull String path) {
-    path = VaultUtil.getPathFromRepoPath(path);
+### AssignmentToMethodParameter
+Assignment to method parameter `targetPath`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
+#### Snippet
+```java
+    targetPath = targetPath.replace('\\', '/');
+    if (targetPath.endsWith("/")) {
+      targetPath = targetPath.substring(0, targetPath.length() - 1);
+    }
+    return (targetPath.length() == 0 ? "" : targetPath + "/") + path;
+```
 
-    for (final String s : myBranchedPaths) {
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+#### Snippet
+```java
+  private void fail(String message)
+    throws VcsException {
+    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
+    LOG.warn(message);
+    if (myStrict)
 ```
 
 ### AssignmentToMethodParameter
@@ -1227,15 +1228,15 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHist
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+Assignment to method parameter `path`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCollector.java`
 #### Snippet
 ```java
-  private void fail(String message)
-    throws VcsException {
-    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
-    LOG.warn(message);
-    if (myStrict)
+
+  private boolean isBranchedPath(@NotNull String path) {
+    path = VaultUtil.getPathFromRepoPath(path);
+
+    for (final String s : myBranchedPaths) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1248,6 +1249,19 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
       node = node.addEdge(components[i]).to;
     }
     node.marker = true;
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-17-13-44.497.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -1265,6 +1279,18 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/Te
 
 ### ReturnNull
 Return of `null`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
+#### Snippet
+```java
+
+    if (StringUtil.isNotEmpty(targetPath)) {
+      return relativePath.startsWith(targetPath) ? relativePath.substring(targetPath.length() + 1) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/DisposableVaultConnection.java`
 #### Snippet
 ```java
@@ -1277,13 +1303,49 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/Di
 
 ### ReturnNull
 Return of `null`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultUtil.java`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
 #### Snippet
 ```java
-
-    if (StringUtil.isNotEmpty(targetPath)) {
-      return relativePath.startsWith(targetPath) ? relativePath.substring(targetPath.length() + 1) : null;
+      return matcher.group(1);
     }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
+#### Snippet
+```java
+  @Nullable
+  public Map<String, String> convertToVcsRootProperties(@NotNull final VcsUrl vcsUrl) throws VcsException {
+    if (vcsUrl.getCredentials() == null) return null;
+
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
+#### Snippet
+```java
+      throw new VcsException(t.getMessage(), t);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
+#### Snippet
+```java
+      return matcher.group(1);
+    }
+    return null;
+  }
 
 ```
 
@@ -1328,18 +1390,6 @@ Return of `null`
 in `vault-connection/src/jetbrains/buildServer/buildTriggers/vcs/vault/impl/VaultConnectionImpl.java`
 #### Snippet
 ```java
-        final RawChangeInfo.RawChangeInfoType type = RawChangeInfo.RawChangeInfoType.getType(VaultHistoryType.GetHistoryTypeName(source.get_HistItemType()));
-
-        if (type == RawChangeInfo.RawChangeInfoType.NOT_CHANGED) return null;
-
-        final String name = source.get_Name();
-```
-
-### ReturnNull
-Return of `null`
-in `vault-connection/src/jetbrains/buildServer/buildTriggers/vcs/vault/impl/VaultConnectionImpl.java`
-#### Snippet
-```java
       }
     }
     return null;
@@ -1373,50 +1423,14 @@ in `vault-connection/src/jetbrains/buildServer/buildTriggers/vcs/vault/impl/Vaul
 
 ### ReturnNull
 Return of `null`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
+in `vault-connection/src/jetbrains/buildServer/buildTriggers/vcs/vault/impl/VaultConnectionImpl.java`
 #### Snippet
 ```java
-      return matcher.group(1);
-    }
-    return null;
-  }
+        final RawChangeInfo.RawChangeInfoType type = RawChangeInfo.RawChangeInfoType.getType(VaultHistoryType.GetHistoryTypeName(source.get_HistItemType()));
 
-```
+        if (type == RawChangeInfo.RawChangeInfoType.NOT_CHANGED) return null;
 
-### ReturnNull
-Return of `null`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
-#### Snippet
-```java
-      return matcher.group(1);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
-#### Snippet
-```java
-  @Nullable
-  public Map<String, String> convertToVcsRootProperties(@NotNull final VcsUrl vcsUrl) throws VcsException {
-    if (vcsUrl.getCredentials() == null) return null;
-
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultVcsSupport.java`
-#### Snippet
-```java
-      throw new VcsException(t.getMessage(), t);
-    }
-    return null;
-  }
-
+        final String name = source.get_Name();
 ```
 
 ### ReturnNull
@@ -1455,31 +1469,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer suffix` may be declared as 'StringBuilder'
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-    final String[] components = newPath.split("/");
-    String path = newPath;
-    final StringBuffer suffix = new StringBuffer();  
-    for (int i = components.length - 1; i > 0 ; --i) {
-      if (myPathMap.containsKey(path)) {
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer path` may be declared as 'StringBuilder'
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
-#### Snippet
-```java
-
-  private String getTreeNodePath(@NotNull Node node) {
-    final StringBuffer path = new StringBuffer(node.getName());
-    do {
-      node = node.getParent();
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `histPath` is redundant
@@ -1503,5 +1492,30 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCo
         final String histPath = misc2;
         final String currPath = myPathHistory.getNewPath(histPath);
         if (skipBranchedPath(currPath, rawChangeInfo)) return;
+```
+
+## RuleId[id=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer suffix` may be declared as 'StringBuilder'
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+    final String[] components = newPath.split("/");
+    String path = newPath;
+    final StringBuffer suffix = new StringBuffer();  
+    for (int i = components.length - 1; i > 0 ; --i) {
+      if (myPathMap.containsKey(path)) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer path` may be declared as 'StringBuilder'
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultPathHistory.java`
+#### Snippet
+```java
+
+  private String getTreeNodePath(@NotNull Node node) {
+    final StringBuffer path = new StringBuffer(node.getName());
+    do {
+      node = node.getParent();
 ```
 
