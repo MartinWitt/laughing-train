@@ -16,50 +16,14 @@ I found 27 bad smells with 0 repairable:
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-
-    protected String principalId;
-    protected Map<Privilege, PrivilegeItem> persistedPrivilegesMap = null;
-    private boolean aceExists;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
 #### Snippet
 ```java
 
     @OSGiService
     public GetAcl getAcl = null;
 
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-
-    @OSGiService
-    public GetAce getAce = null;
-
-    @OSGiService
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-
-    @OSGiService
-    protected List<RestrictionProvider> restrictionProviders = null;
-
-    @OSGiService
+    public Collection<PrincipalPrivilege> getPrincipals() throws RepositoryException {
 ```
 
 ### RedundantFieldInitialization
@@ -88,18 +52,6 @@ in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
-#### Snippet
-```java
-
-    @OSGiService
-    public GetAcl getAcl = null;
-
-    public Collection<PrincipalPrivilege> getPrincipals() throws RepositoryException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `src/main/java/org/apache/sling/starter/access/models/AccessFormPage.java`
 #### Snippet
 ```java
@@ -108,6 +60,54 @@ public abstract class AccessFormPage {
     protected PrivilegesInfo privilegesInfo = null;
 
     @ScriptVariable
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+
+    @OSGiService
+    public GetAce getAce = null;
+
+    @OSGiService
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+
+    @OSGiService
+    public GetAcl getAcl = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+
+    @OSGiService
+    protected List<RestrictionProvider> restrictionProviders = null;
+
+    @OSGiService
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+
+    protected String principalId;
+    protected Map<Privilege, PrivilegeItem> persistedPrivilegesMap = null;
+    private boolean aceExists;
+
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -123,7 +123,32 @@ in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
         builder.append(name);
 ```
 
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+            }
+        }
+        return supportedPrivileges == null ? new Privilege[0] : supportedPrivileges;
+    }
+
+```
+
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getPrincipalManager` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
+#### Snippet
+```java
+
+            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
+            PrincipalManager principalManager = ((JackrabbitSession)jcrSession).getPrincipalManager();
+            JsonObject acl = getAcl.getAcl(jcrSession, resource.getPath());
+            for (Entry<String, JsonValue> entry : acl.entrySet()) {
+```
+
 ### DataFlowIssue
 Argument `jcrSession` might be null
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
@@ -134,30 +159,6 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
         Map<Privilege, String> privilegeToLongestPath = AceUtils.getPrivilegeLongestPathMap(jcrSession);
         Privilege[] supported = getSupportedOrRegisteredPrivileges(jcrSession, resource.getPath());
         for (Privilege privilege : supported) {
-```
-
-### DataFlowIssue
-Argument `jcrSession` might be null
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-        try {
-            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-            supportedPrivileges = getSupportedOrRegisteredPrivileges(jcrSession,
-                    PATH_REPOSITORY.equals(acePath) ? null : acePath );
-        } catch (RepositoryException e) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-        } catch (RepositoryException e) {
-            //ignore
-            supportedPrivileges = null;
-        }
-        if (supportedPrivileges != null) {
 ```
 
 ### DataFlowIssue
@@ -197,28 +198,27 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getPrincipalManager` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
-#### Snippet
-```java
-
-            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-            PrincipalManager principalManager = ((JackrabbitSession)jcrSession).getPrincipalManager();
-            JsonObject acl = getAcl.getAcl(jcrSession, resource.getPath());
-            for (Entry<String, JsonValue> entry : acl.entrySet()) {
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+Argument `jcrSession` might be null
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-            }
-        }
-        return supportedPrivileges == null ? new Privilege[0] : supportedPrivileges;
-    }
+        try {
+            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
+            supportedPrivileges = getSupportedOrRegisteredPrivileges(jcrSession,
+                    PATH_REPOSITORY.equals(acePath) ? null : acePath );
+        } catch (RepositoryException e) {
+```
 
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+        } catch (RepositoryException e) {
+            //ignore
+            supportedPrivileges = null;
+        }
+        if (supportedPrivileges != null) {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -249,27 +249,15 @@ in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends RestrictionDefinition`
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+Can generalize to `? super Privilege`
+in `src/main/java/org/apache/sling/starter/access/models/AceUtils.java`
 #### Snippet
 ```java
-     * @return a map where the key is the restriction name and the value is the restriction definition
+     * calculate the instance with the greatest depth.
      */
-    protected Map<String, RestrictionDefinition> toSrMap(Set<RestrictionDefinition> supportedRestrictions) {
-        Map<String, RestrictionDefinition> srMap = new HashMap<>();
-        for (RestrictionDefinition restrictionDefinition : supportedRestrictions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestrictionDefinition`
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-     */
-    protected void populateEntriesForMissingMandatoryRestrictions(List<RestrictionItem> list,
-            Set<RestrictionDefinition> supportedRestrictions) {
-        if (supportedRestrictions != null) {
-            for (RestrictionDefinition rd : supportedRestrictions) {
+    private static void toLongestPath(String prefix, Privilege parentPrivilege, Map<Privilege, String> privilegeToLongestPath) {
+        Privilege[] declaredAggregatePrivileges = parentPrivilege.getDeclaredAggregatePrivileges();
+        for (Privilege privilege : declaredAggregatePrivileges) {
 ```
 
 ### BoundedWildcard
@@ -289,6 +277,18 @@ Can generalize to `? extends RestrictionDefinition`
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
+     */
+    protected void populateEntriesForMissingMandatoryRestrictions(List<RestrictionItem> list,
+            Set<RestrictionDefinition> supportedRestrictions) {
+        if (supportedRestrictions != null) {
+            for (RestrictionDefinition rd : supportedRestrictions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RestrictionDefinition`
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
     protected Map<String, String[]> populateEntriesFromPreviousFailedPost(Map<String, List<RestrictionItem>> allowMap,
             Map<String, List<RestrictionItem>> denyMap,
             Map<String, RestrictionDefinition> srMap) {
@@ -297,15 +297,15 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Privilege`
-in `src/main/java/org/apache/sling/starter/access/models/AceUtils.java`
+Can generalize to `? extends RestrictionDefinition`
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-     * calculate the instance with the greatest depth.
+     * @return a map where the key is the restriction name and the value is the restriction definition
      */
-    private static void toLongestPath(String prefix, Privilege parentPrivilege, Map<Privilege, String> privilegeToLongestPath) {
-        Privilege[] declaredAggregatePrivileges = parentPrivilege.getDeclaredAggregatePrivileges();
-        for (Privilege privilege : declaredAggregatePrivileges) {
+    protected Map<String, RestrictionDefinition> toSrMap(Set<RestrictionDefinition> supportedRestrictions) {
+        Map<String, RestrictionDefinition> srMap = new HashMap<>();
+        for (RestrictionDefinition restrictionDefinition : supportedRestrictions) {
 ```
 
 ## RuleId[id=UnusedAssignment]
