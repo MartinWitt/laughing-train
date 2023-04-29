@@ -27,8 +27,8 @@ I found 1134 bad smells with 122 repairable:
 | ConditionCoveredByFurtherCondition | 11 | false |
 | UnnecessaryUnboxing | 10 | false |
 | NestedAssignment | 8 | false |
-| ZeroLengthArrayInitialization | 8 | false |
 | SynchronizeOnThis | 8 | false |
+| ZeroLengthArrayInitialization | 8 | false |
 | CatchMayIgnoreException | 8 | false |
 | UnnecessaryLocalVariable | 8 | true |
 | NonFinalFieldOfException | 7 | false |
@@ -47,8 +47,8 @@ I found 1134 bad smells with 122 repairable:
 | CStyleArrayDeclaration | 3 | false |
 | RedundantArrayCreation | 3 | true |
 | StringOperationCanBeSimplified | 3 | false |
-| NonSerializableFieldInSerializableClass | 3 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 3 | false |
+| NonSerializableFieldInSerializableClass | 3 | false |
 | Convert2Lambda | 3 | false |
 | WhileCanBeForeach | 2 | false |
 | DuplicateBranchesInSwitch | 2 | false |
@@ -60,8 +60,8 @@ I found 1134 bad smells with 122 repairable:
 | TextLabelInSwitchStatement | 2 | false |
 | IOResource | 2 | false |
 | RedundantOperationOnEmptyContainer | 2 | false |
-| MethodOverloadsParentMethod | 2 | false |
 | DeprecatedIsStillUsed | 2 | false |
+| MethodOverloadsParentMethod | 2 | false |
 | UnnecessaryToStringCall | 2 | true |
 | UnnecessaryInitCause | 2 | false |
 | CovariantEquals | 2 | false |
@@ -87,15 +87,15 @@ I found 1134 bad smells with 122 repairable:
 | AssignmentToCatchBlockParameter | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Class\[paramTypes.size()\]'
-in `core/src/main/java/org/apache/commons/jelly/tags/core/NewTag.java`
+Call to `toArray()` with pre-sized array argument 'new DynaProperty\[propList.size()\]'
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
 #### Snippet
 ```java
-            } else {
-                Object[] values = paramValues.toArray();
-                Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
-                object = ConstructorUtils.invokeConstructor(theClass,values,types);
-                paramTypes.clear();
+        // Convert the list of properties into array
+        props =
+            (DynaProperty[]) propList.toArray(
+                new DynaProperty[propList.size()]);
+
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -112,6 +112,18 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/InvokeTag.java`
 
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Class\[paramTypes.size()\]'
+in `core/src/main/java/org/apache/commons/jelly/tags/core/NewTag.java`
+#### Snippet
+```java
+            } else {
+                Object[] values = paramValues.toArray();
+                Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
+                object = ConstructorUtils.invokeConstructor(theClass,values,types);
+                paramTypes.clear();
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Class\[paramTypes.size()\]'
 in `core/src/main/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java`
 #### Snippet
 ```java
@@ -122,29 +134,209 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java`
             Object result = method.invoke( null, values );
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new DynaProperty\[propList.size()\]'
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
-#### Snippet
-```java
-        // Convert the list of properties into array
-        props =
-            (DynaProperty[]) propList.toArray(
-                new DynaProperty[propList.size()]);
-
-```
-
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/commons/jelly/Script.java`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/TaskSource.java`
 #### Snippet
 ```java
-     * representation of the script to be used.
+     * @return the Ant object which may be an Ant Task or nested element
      */
-    public Script compile() throws JellyException;
+    public Object getTaskObject() throws JellyTagException;
 
-    /** Evaluates the body of a tag */
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/TaskSource.java`
+#### Snippet
+```java
+     * Allows nested tags to set a property on the task object of this tag
+     */
+    public void setTaskProperty(String name, Object value) throws JellyTagException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ConsumerTag.java`
+#### Snippet
+```java
+     * Sets the JMS messageListener used to consume JMS messages
+     */
+    public void setMessageListener(MessageListener messageListener);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ConnectionContext.java`
+#### Snippet
+```java
+public interface ConnectionContext {
+
+    public Messenger getConnection() throws JellyTagException, JMSException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/SQLExecutionTag.java`
+#### Snippet
+```java
+     * @param value PreparedStatement parameter value
+     */
+    public void addSQLParameter(Object value);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
+#### Snippet
+```java
+     * @return the column names as an array of <code>String</code> objects
+     */
+    public String[] getColumnNames();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
+#### Snippet
+```java
+     * @return the number of rows in the result
+     */
+    public int getRowCount();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
+#### Snippet
+```java
+     * @return the result rows as an array of <code>Object[]</code> objects
+     */
+    public Object[][] getRowsByIndex();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
+#### Snippet
+```java
+     * row setting
+     */
+    public boolean isLimitedByMaxRows();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
+#### Snippet
+```java
+     * @return the result rows as an array of <code>SortedMap</code> objects
+     */
+    public SortedMap[] getRows();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ContainerTag.java`
+#### Snippet
+```java
+     * If the constraints are null they are ignored
+     */
+    public void addChild(Component component, Object constraints) throws JellyTagException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @return All of the variables from the JellyContext
+     */
+    public Map runScript( String url, Map params, XMLOutput output ) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @throws Exception if the script raises some kind of exception while processing
+     */
+    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @throws Exception if the script raises some kind of exception while processing
+     */
+    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @throws Exception if the script raises some kind of exception while processing
+     */
+    public Map runScript( String url, Map params ) throws Exception;
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @throws Exception if the script raises some kind of exception while processing
+     */
+    public Map runScript( String url, Map params, OutputStream out ) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
+#### Snippet
+```java
+     * @throws Exception if the script raises some kind of exception while processing
+     */
+    public Map runNamedScript( String name, Map params ) throws Exception;
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -161,13 +353,37 @@ in `core/src/main/java/org/apache/commons/jelly/Script.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/commons/jelly/Script.java`
+#### Snippet
+```java
+     * representation of the script to be used.
+     */
+    public Script compile() throws JellyException;
+
+    /** Evaluates the body of a tag */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/Tag.java`
 #### Snippet
 ```java
-     * @return the body of the tag
+     * Sets the context in which the tag will be run
      */
-    public Script getBody();
+    public void setContext(JellyContext context) throws JellyTagException;
 
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/commons/jelly/Tag.java`
+#### Snippet
+```java
+     * @return
+     */
+    public TagLibrary getTagLib();
+    
     /**
 ```
 
@@ -188,9 +404,9 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/Tag.java`
 #### Snippet
 ```java
-     * Sets the body of the tag
+     * @param tagLibrary
      */
-    public void setBody(Script body);
+    public void setTagLib(TagLibrary tagLibrary);
 
     /**
 ```
@@ -200,9 +416,21 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/Tag.java`
 #### Snippet
 ```java
-     * @param tagLibrary
+     * Evaluates this tag after all the tags properties have been initialized.
      */
-    public void setTagLib(TagLibrary tagLibrary);
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/commons/jelly/Tag.java`
+#### Snippet
+```java
+     * @return the body of the tag
+     */
+    public Script getBody();
 
     /**
 ```
@@ -224,42 +452,6 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/Tag.java`
 #### Snippet
 ```java
-     * @return
-     */
-    public TagLibrary getTagLib();
-    
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/commons/jelly/Tag.java`
-#### Snippet
-```java
-     * Evaluates this tag after all the tags properties have been initialized.
-     */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/commons/jelly/Tag.java`
-#### Snippet
-```java
-     * @return the parent of this tag
-     */
-    public Tag getParent();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/commons/jelly/Tag.java`
-#### Snippet
-```java
      * Gets the context in which the tag will be run
      */
     public JellyContext getContext();
@@ -272,9 +464,21 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/Tag.java`
 #### Snippet
 ```java
-     * Sets the context in which the tag will be run
+     * Sets the body of the tag
      */
-    public void setContext(JellyContext context) throws JellyTagException;
+    public void setBody(Script body);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/commons/jelly/Tag.java`
+#### Snippet
+```java
+     * @return the parent of this tag
+     */
+    public Tag getParent();
 
     /**
 ```
@@ -391,9 +595,9 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
 #### Snippet
 ```java
-     * coercing the result to be an Iterator.
+     * coercing the result to be a boolean.
      */
-    public Iterator evaluateAsIterator(JellyContext context);
+    public boolean evaluateAsBoolean(JellyContext context);
 
     /**
 ```
@@ -403,9 +607,21 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
 #### Snippet
 ```java
-     * coercing the result to be a boolean.
+     * and returns the result
      */
-    public boolean evaluateAsBoolean(JellyContext context);
+    public Object evaluate(JellyContext context);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
+#### Snippet
+```java
+     * coercing the result to be an Iterator.
+     */
+    public Iterator evaluateAsIterator(JellyContext context);
 
     /**
 ```
@@ -427,18 +643,6 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
 #### Snippet
 ```java
-     * @return the textual representation of this expression
-     */
-    public String getExpressionText();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
-#### Snippet
-```java
      * actual underlying value object.
      */
     public Object evaluateRecurse(JellyContext context);
@@ -451,9 +655,9 @@ Modifier `public` is redundant for interface members
 in `core/src/main/java/org/apache/commons/jelly/expression/Expression.java`
 #### Snippet
 ```java
-     * and returns the result
+     * @return the textual representation of this expression
      */
-    public Object evaluate(JellyContext context);
+    public String getExpressionText();
 
     /**
 ```
@@ -468,210 +672,6 @@ in `core/src/main/java/org/apache/commons/jelly/expression/ExpressionFactory.jav
     public Expression createExpression(String text) throws JellyException;
 
 }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ContainerTag.java`
-#### Snippet
-```java
-     * If the constraints are null they are ignored
-     */
-    public void addChild(Component component, Object constraints) throws JellyTagException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/TaskSource.java`
-#### Snippet
-```java
-     * @return the Ant object which may be an Ant Task or nested element
-     */
-    public Object getTaskObject() throws JellyTagException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/TaskSource.java`
-#### Snippet
-```java
-     * Allows nested tags to set a property on the task object of this tag
-     */
-    public void setTaskProperty(String name, Object value) throws JellyTagException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @throws Exception if the script raises some kind of exception while processing
-     */
-    public Map runScript( String url, Map params ) throws Exception;
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @throws Exception if the script raises some kind of exception while processing
-     */
-    public Map runScript( String url, Map params, OutputStream out ) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @throws Exception if the script raises some kind of exception while processing
-     */
-    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @throws Exception if the script raises some kind of exception while processing
-     */
-    public Map runNamedScript( String name, Map params ) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @throws Exception if the script raises some kind of exception while processing
-     */
-    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyService.java`
-#### Snippet
-```java
-     * @return All of the variables from the JellyContext
-     */
-    public Map runScript( String url, Map params, XMLOutput output ) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/SQLExecutionTag.java`
-#### Snippet
-```java
-     * @param value PreparedStatement parameter value
-     */
-    public void addSQLParameter(Object value);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
-#### Snippet
-```java
-     * @return the number of rows in the result
-     */
-    public int getRowCount();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
-#### Snippet
-```java
-     * row setting
-     */
-    public boolean isLimitedByMaxRows();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
-#### Snippet
-```java
-     * @return the column names as an array of <code>String</code> objects
-     */
-    public String[] getColumnNames();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
-#### Snippet
-```java
-     * @return the result rows as an array of <code>SortedMap</code> objects
-     */
-    public SortedMap[] getRows();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/Result.java`
-#### Snippet
-```java
-     * @return the result rows as an array of <code>Object[]</code> objects
-     */
-    public Object[][] getRowsByIndex();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ConsumerTag.java`
-#### Snippet
-```java
-     * Sets the JMS messageListener used to consume JMS messages
-     */
-    public void setMessageListener(MessageListener messageListener);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ConnectionContext.java`
-#### Snippet
-```java
-public interface ConnectionContext {
-
-    public Messenger getConnection() throws JellyTagException, JMSException;
-}
-
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -712,31 +712,44 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
             }
 ```
 
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of parameter `ch`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     * @throws SAXException The application may raise an exception.
+     */
+    public void comment(char ch[], int start, int length) throws SAXException {
+        if (lexicalHandler != null) {
+            lexicalHandler.comment(ch, start, length);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `buffer`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * @throws SAXException if a parsing error is to be reported
+     */
+    public void characters(char buffer[], int start, int length)
+        throws SAXException {
+        textBuffer.append(buffer, start, length);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `buffer`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * @throws SAXException if a parsing error is to be reported
+     */
+    public void ignorableWhitespace(char buffer[], int start, int len)
+        throws SAXException {
+        ; // No processing required
+```
+
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `jellyProperties` from instance context
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-    protected synchronized Properties getJellyProperties() {
-        if (jellyProperties == null) {
-            jellyProperties = new Properties();
-
-            InputStream in = null;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `factory` from instance context
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-            try {
-                if (factory == null) {
-                    factory = SAXParserFactory.newInstance();
-                }
-                factory.setNamespaceAware(true);
-```
-
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `_logSink` from instance context
 in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JettyHttpServerTag.java`
@@ -761,114 +774,41 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Threa
 
 ```
 
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of parameter `ch`
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @throws SAXException The application may raise an exception.
-     */
-    public void comment(char ch[], int start, int length) throws SAXException {
-        if (lexicalHandler != null) {
-            lexicalHandler.comment(ch, start, length);
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `buffer`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `factory` from instance context
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-     * @throws SAXException if a parsing error is to be reported
-     */
-    public void ignorableWhitespace(char buffer[], int start, int len)
-        throws SAXException {
-        ; // No processing required
+            try {
+                if (factory == null) {
+                    factory = SAXParserFactory.newInstance();
+                }
+                factory.setNamespaceAware(true);
 ```
 
-### CStyleArrayDeclaration
-C-style array declaration of parameter `buffer`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `jellyProperties` from instance context
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-     * @throws SAXException if a parsing error is to be reported
-     */
-    public void characters(char buffer[], int start, int length)
-        throws SAXException {
-        textBuffer.append(buffer, start, length);
+    protected synchronized Properties getJellyProperties() {
+        if (jellyProperties == null) {
+            jellyProperties = new Properties();
+
+            InputStream in = null;
 ```
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (4 lines)
-in `core/src/main/java/org/apache/commons/jelly/impl/ScriptBlock.java`
+Commented out code (2 lines)
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-    /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-/*
-        for (int i = 0, size = scripts.length; i < size; i++) {
-            Script script = scripts[i];
-```
-
-### CommentedOutCode
-Commented out code (15 lines)
-in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
-#### Snippet
-```java
-        log.info( "Looking up service name: " + name );
-
-/*
-        ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
-
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `jelly-tags/ojb/src/main/java/org/apache/commons/jelly/tags/ojb/OjbTagLibrary.java`
-#### Snippet
-```java
-        registerTag("broker", BrokerTag.class);
-        registerTag("store", StoreTag.class);
-        //registerTag("delete", DeleteTag.class);
-        //registerTag("query", QueryTag.class);
-        //registerTag("transaction", TransactionTag.class);
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    public Expression createExpression(String text) throws JellyException {
-/*
-
-        org.apache.commons.jexl.Expression expr =
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-                                attributeName,
-                                attributeValue);
-//                        Expression expression =
-//                            taglib.createExpression(
-//                                getExpressionFactory(),
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-                String attributeValue = list.getValue(i);
-                Expression expression = createExpression(script, null, attributeValue);
-//                Expression expression = CompositeExpression.parse(
-//                        attributeValue, getExpressionFactory()
-//                    );
+        registerFieldEditorTag("fontFieldEditor", FontFieldEditor.class);
+        registerFieldEditorTag("integerFieldEditor", IntegerFieldEditor.class);
+        //registerFieldEditorTag("radioGroupFieldEditor", RadioGroupFieldEditor.class);
+        //registerFieldEditorTag("stringButtonFieldEditor", StringButtonFieldEditor.class);
+        registerFieldEditorTag("stringFieldEditor", StringFieldEditor.class);
 ```
 
 ### CommentedOutCode
@@ -1040,27 +980,27 @@ in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/MessageTag.ja
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Commented out code (3 lines)
+in `jelly-tags/ojb/src/main/java/org/apache/commons/jelly/tags/ojb/OjbTagLibrary.java`
 #### Snippet
 ```java
-        registerFieldEditorTag("fontFieldEditor", FontFieldEditor.class);
-        registerFieldEditorTag("integerFieldEditor", IntegerFieldEditor.class);
-        //registerFieldEditorTag("radioGroupFieldEditor", RadioGroupFieldEditor.class);
-        //registerFieldEditorTag("stringButtonFieldEditor", StringButtonFieldEditor.class);
-        registerFieldEditorTag("stringFieldEditor", StringFieldEditor.class);
+        registerTag("broker", BrokerTag.class);
+        registerTag("store", StoreTag.class);
+        //registerTag("delete", DeleteTag.class);
+        //registerTag("query", QueryTag.class);
+        //registerTag("transaction", TransactionTag.class);
 ```
 
 ### CommentedOutCode
-Commented out code (13 lines)
-in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java`
+Commented out code (17 lines)
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/AssertValidTag.java`
 #### Snippet
 ```java
-    }
+
 
 /*
-
-    // the following code doesn't work - it seems that
+    public AssertValidTag() {
+        setErrorHandler(
 ```
 
 ### CommentedOutCode
@@ -1076,18 +1016,258 @@ in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/B
 ```
 
 ### CommentedOutCode
-Commented out code (17 lines)
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/AssertValidTag.java`
+Commented out code (13 lines)
+in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java`
 #### Snippet
 ```java
-
+    }
 
 /*
-    public AssertValidTag() {
-        setErrorHandler(
+
+    // the following code doesn't work - it seems that
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `core/src/main/java/org/apache/commons/jelly/impl/ScriptBlock.java`
+#### Snippet
+```java
+    /** Evaluates the body of a tag */
+    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+/*
+        for (int i = 0, size = scripts.length; i < size; i++) {
+            Script script = scripts[i];
+```
+
+### CommentedOutCode
+Commented out code (15 lines)
+in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
+#### Snippet
+```java
+        log.info( "Looking up service name: " + name );
+
+/*
+        ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
+
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    public Expression createExpression(String text) throws JellyException {
+/*
+
+        org.apache.commons.jexl.Expression expr =
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+                String attributeValue = list.getValue(i);
+                Expression expression = createExpression(script, null, attributeValue);
+//                Expression expression = CompositeExpression.parse(
+//                        attributeValue, getExpressionFactory()
+//                    );
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+                                attributeName,
+                                attributeValue);
+//                        Expression expression =
+//                            taglib.createExpression(
+//                                getExpressionFactory(),
 ```
 
 ## RuleId[id=ObsoleteCollection]
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/PropsHandler.java`
+#### Snippet
+```java
+     *  @return A <code>Hashtable</code> of all user properties.
+     */
+    Hashtable getUserProperties();
+    
+    /** Copy all of the user properties to the other <code>Project</code>.
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/PropsHandler.java`
+#### Snippet
+```java
+     *  @return A <code>Hashtable</code> of all properties.
+     */
+    Hashtable getProperties();
+
+    /** Retrieve a <code>Hashtable</code> of all user properties.
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
+#### Snippet
+```java
+     *  @return A <code>Hashtable</code> of all properties.
+     */
+    public Hashtable getProperties() {
+        Hashtable h = new Hashtable();
+        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
+#### Snippet
+```java
+     */
+    public Hashtable getProperties() {
+        Hashtable h = new Hashtable();
+        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
+            String name = (String) i.next();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
+#### Snippet
+```java
+     */
+    public Hashtable getProperties() {
+        Hashtable h = new Hashtable();
+        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
+            String name = (String) i.next();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     * @see PropsHandler#getProperties()
+     */
+    public Hashtable getProperties() {
+        return new Hashtable(this.properties);
+    }
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     */
+    public Hashtable getProperties() {
+        return new Hashtable(this.properties);
+    }
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     */
+    public void copyInheritedProperties(Project other) {
+        Hashtable inheritedProps = this.getInheritedProperties();
+        
+        Enumeration e = inheritedProps.keys();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     */
+    public void copyUserProperties(Project other) {
+        Hashtable userProps = this.getUserProperties();
+        Hashtable inheritedProps = this.getInheritedProperties();
+        
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+    public void copyUserProperties(Project other) {
+        Hashtable userProps = this.getUserProperties();
+        Hashtable inheritedProps = this.getInheritedProperties();
+        
+        Enumeration e = userProps.keys();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+    }
+    
+    public Hashtable getInheritedProperties() {
+        return new Hashtable(this.inheritedProperties);
+    }
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+    
+    public Hashtable getInheritedProperties() {
+        return new Hashtable(this.inheritedProperties);
+    }
+    
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     * @see PropsHandler#getUserProperties()
+     */
+    public Hashtable getUserProperties() {
+        return new Hashtable(this.userProperties);
+    }
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+     */
+    public Hashtable getUserProperties() {
+        return new Hashtable(this.userProperties);
+    }
+    
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibrary.java`
+#### Snippet
+```java
+
+    /** Synchronized map of tag names to bean classes */
+    private Map beanTypes = new Hashtable();
+
+    /** Synchronized map of tag names to invoke methods */
+```
+
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
 in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibrary.java`
@@ -1102,14 +1282,26 @@ in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibr
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
+#### Snippet
+```java
+        // lets check that this is a thread-safe map
+        if ( ! (tagNamespacesMap instanceof Hashtable) ) {
+            tagNamespacesMap = new Hashtable( tagNamespacesMap );
+        }
+        this.tagNamespacesMap = tagNamespacesMap;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
 #### Snippet
 ```java
 
-    /** Synchronized map of tag names to bean classes */
-    private Map beanTypes = new Hashtable();
+    /** The attribute expressions that are created */
+    protected Map attributes = new Hashtable();
 
-    /** Synchronized map of tag names to invoke methods */
+    /** the optional namespaces Map of prefix to URI of this single Tag */
 ```
 
 ### ObsoleteCollection
@@ -1150,30 +1342,6 @@ in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
-in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
-#### Snippet
-```java
-
-    /** The attribute expressions that are created */
-    protected Map attributes = new Hashtable();
-
-    /** the optional namespaces Map of prefix to URI of this single Tag */
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
-#### Snippet
-```java
-        // lets check that this is a thread-safe map
-        if ( ! (tagNamespacesMap instanceof Hashtable) ) {
-            tagNamespacesMap = new Hashtable( tagNamespacesMap );
-        }
-        this.tagNamespacesMap = tagNamespacesMap;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
 in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java`
 #### Snippet
 ```java
@@ -1182,186 +1350,6 @@ in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression
         Map uris = new Hashtable(namespaceContext.size());
         for (Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/PropsHandler.java`
-#### Snippet
-```java
-     *  @return A <code>Hashtable</code> of all properties.
-     */
-    Hashtable getProperties();
-
-    /** Retrieve a <code>Hashtable</code> of all user properties.
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/PropsHandler.java`
-#### Snippet
-```java
-     *  @return A <code>Hashtable</code> of all user properties.
-     */
-    Hashtable getUserProperties();
-    
-    /** Copy all of the user properties to the other <code>Project</code>.
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
-#### Snippet
-```java
-     *  @return A <code>Hashtable</code> of all properties.
-     */
-    public Hashtable getProperties() {
-        Hashtable h = new Hashtable();
-        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
-#### Snippet
-```java
-     */
-    public Hashtable getProperties() {
-        Hashtable h = new Hashtable();
-        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
-            String name = (String) i.next();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
-#### Snippet
-```java
-     */
-    public Hashtable getProperties() {
-        Hashtable h = new Hashtable();
-        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
-            String name = (String) i.next();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     */
-    public void copyInheritedProperties(Project other) {
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-        Enumeration e = inheritedProps.keys();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     * @see PropsHandler#getUserProperties()
-     */
-    public Hashtable getUserProperties() {
-        return new Hashtable(this.userProperties);
-    }
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     */
-    public Hashtable getUserProperties() {
-        return new Hashtable(this.userProperties);
-    }
-    
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-    }
-    
-    public Hashtable getInheritedProperties() {
-        return new Hashtable(this.inheritedProperties);
-    }
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-    
-    public Hashtable getInheritedProperties() {
-        return new Hashtable(this.inheritedProperties);
-    }
-    
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     */
-    public void copyUserProperties(Project other) {
-        Hashtable userProps = this.getUserProperties();
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-    public void copyUserProperties(Project other) {
-        Hashtable userProps = this.getUserProperties();
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-        Enumeration e = userProps.keys();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     * @see PropsHandler#getProperties()
-     */
-    public Hashtable getProperties() {
-        return new Hashtable(this.properties);
-    }
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-     */
-    public Hashtable getProperties() {
-        return new Hashtable(this.properties);
-    }
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-
-    /** Tag libraries found so far */
-    private Map taglibs = new Hashtable();
-
-    /** synchronized access to the variables in scope */
 ```
 
 ### ObsoleteCollection
@@ -1376,20 +1364,19 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
     /** The parent context */
 ```
 
-## RuleId[id=RedundantArrayCreation]
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-        cmdLineOptions.addOption("awt", false, "Wether to run in the AWT thread.");
-        cmdLineOptions.addOption("swing", false, "Synonym of \"-awt\".");
-        List builtinOptionNames = Arrays.asList(new String[]{
-            "-o","-script","-h","--help","-v","--version","-awt","-swing"});
-        
-        // -D options will be added to the system properties
+
+    /** Tag libraries found so far */
+    private Map taglibs = new Hashtable();
+
+    /** synchronized access to the variables in scope */
 ```
 
+## RuleId[id=RedundantArrayCreation]
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
 in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
@@ -1414,53 +1401,17 @@ in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
                 } catch (NoSuchMethodException nsme) {
 ```
 
-## RuleId[id=ObjectNotify]
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/NotifyTag.java`
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
 #### Snippet
 ```java
-            mutex.notifyAll();
-        } else {
-            mutex.notify();
-        }
-    }
-```
-
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                    }
-                } catch (InterruptedException ex) {
-                    notify();
-                    throw ex;
-                }
-```
-
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-    public synchronized void release() {
-        inuse_ = false;
-        notify();
-    }
-
-```
-
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                inuse_ = true;
-            } catch (InterruptedException ex) {
-                notify();
-                throw ex;
-            }
+        cmdLineOptions.addOption("awt", false, "Wether to run in the AWT thread.");
+        cmdLineOptions.addOption("swing", false, "Synonym of \"-awt\".");
+        List builtinOptionNames = Arrays.asList(new String[]{
+            "-o","-script","-h","--help","-v","--version","-awt","-swing"});
+        
+        // -D options will be added to the system properties
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -1490,17 +1441,90 @@ in `core/src/main/java/org/apache/commons/jelly/expression/CompositeExpression.j
                                                         case('\''):
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`l.size() == 0` can be replaced with 'l.isEmpty()'
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+## RuleId[id=ObjectNotify]
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/NotifyTag.java`
 #### Snippet
 ```java
-                if(value instanceof List) {
-                    List l = (List) value;
-                    if (l.size() == 0)
-                        value=null;
-                    else
+            mutex.notifyAll();
+        } else {
+            mutex.notify();
+        }
+    }
+```
+
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+    public synchronized void release() {
+        inuse_ = false;
+        notify();
+    }
+
+```
+
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+                inuse_ = true;
+            } catch (InterruptedException ex) {
+                notify();
+                throw ex;
+            }
+```
+
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+                    }
+                } catch (InterruptedException ex) {
+                    notify();
+                    throw ex;
+                }
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`filesets.size() > 0` can be replaced with '!filesets.isEmpty()'
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileScanner.java`
+#### Snippet
+```java
+
+    public boolean hasFiles() {
+        return filesets.size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`getParameters().size() > 0` can be replaced with '!getParameters().isEmpty()'
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+#### Snippet
+```java
+     */
+    protected void setParameters(HttpMethod method) throws MalformedURLException {
+        if (getParameters().size() > 0) {
+            NameValuePair[] parameters = (NameValuePair[]) getParameters().
+                toArray(new NameValuePair[0]);
+```
+
+### SizeReplaceableByIsEmpty
+`guarantee.length()==0` can be replaced with 'guarantee.isEmpty()'
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
+#### Snippet
+```java
+            data=data.get("transport-guarantee");
+            String guarantee = data.toString(false,true).toUpperCase();
+            if (guarantee==null || guarantee.length()==0 ||
+                "NONE".equals(guarantee))
+                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1525,6 +1549,210 @@ in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropert
         if (tagName.length() > 0) {
             createMethodName = "create"
                 + tagName.substring(0,1).toUpperCase()
+```
+
+### SizeReplaceableByIsEmpty
+`l.size() == 0` can be replaced with 'l.isEmpty()'
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+#### Snippet
+```java
+                if(value instanceof List) {
+                    List l = (List) value;
+                    if (l.size() == 0)
+                        value=null;
+                    else
+```
+
+### SizeReplaceableByIsEmpty
+`language.length() == 0` can be replaced with 'language.isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+        }
+
+        if ((language == null) || (language.length() == 0)) {
+            throw new IllegalArgumentException("Missing language");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`country.length() > 0` can be replaced with '!country.isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+            else
+                ret = new Locale(language, "");
+        } else if (country.length() > 0) {
+            if (variant != null)
+                ret = new Locale(language, country, variant);
+```
+
+### SizeReplaceableByIsEmpty
+`text.length() > 0` can be replaced with '!text.isEmpty()'
+in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/JellyStylesheet.java`
+#### Snippet
+```java
+                public void run(Node node) throws Exception {
+                    String text = node.getStringValue();
+                    if ( text != null && text.length() > 0 ) {
+                        getOutput().write( text );
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`bodyContent.length() > 0` can be replaced with '!bodyContent.isEmpty()'
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ParamTag.java`
+#### Snippet
+```java
+            if (bodyContent != null) {
+                bodyContent = bodyContent.trim();
+                if (bodyContent.length() > 0) {
+                    paramValue = bodyContent;
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`sqlStatement.trim().length() == 0` can be replaced with 'sqlStatement.trim().isEmpty()'
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
+#### Snippet
+```java
+            sqlStatement = getBodyText();
+        }
+        if (sqlStatement == null || sqlStatement.trim().length() == 0) {
+            throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`parameters.size() > 0` can be replaced with '!parameters.isEmpty()'
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
+#### Snippet
+```java
+     */
+    protected boolean hasParameters() {
+        return parameters != null && parameters.size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`sqlStatement.trim().length() == 0` can be replaced with 'sqlStatement.trim().isEmpty()'
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
+#### Snippet
+```java
+                sqlStatement = getBodyText();
+            }
+            if (sqlStatement == null || sqlStatement.trim().length() == 0) {
+                throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() == 0` can be replaced with 'message.isEmpty()'
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileExistsTag.java`
+#### Snippet
+```java
+    {
+        String message = getBodyText();
+        if (message == null || message.length() == 0)
+        {
+            message = "File does not exist.";
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() == 0` can be replaced with 'message.isEmpty()'
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileNotFoundTag.java`
+#### Snippet
+```java
+    {
+        String message = getBodyText();
+        if (message == null || message.length() == 0)
+        {
+            message = "File exists.";
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() == 0` can be replaced with 'message.isEmpty()'
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileContainsTag.java`
+#### Snippet
+```java
+        }
+        String message = getBodyText();
+        if (message == null || message.length() == 0)
+        {
+            message = "File does not contain '" + match + "'";
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() == 0` can be replaced with 'message.isEmpty()'
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTagSupport.java`
+#### Snippet
+```java
+     */
+    protected void fail(String message, String detail) throws JellyAssertionFailedError {
+        if (message == null || message.length() == 0) {
+            fail(detail);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`componentName.length() == 0` can be replaced with 'componentName.isEmpty()'
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+		Component comp = getComponent();
+        String componentName = (comp!=null) ? comp.getName() : null;
+        if (comp!=null && (componentName == null || componentName.length() == 0))
+            componentName = getComponent().toString();
+        return "ComponentTag with bean " + componentName;
+```
+
+### SizeReplaceableByIsEmpty
+`getText().length() == 0` can be replaced with 'getText().isEmpty()'
+in `jelly-tags/regexp/src/main/java/org/apache/commons/jelly/tags/regexp/RegexpTag.java`
+#### Snippet
+```java
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        // Check required properties
+        if (getText() == null || getText().length() == 0)
+            throw new MissingAttributeException("text must be provided");
+
+```
+
+### SizeReplaceableByIsEmpty
+`var.length() == 0` can be replaced with 'var.isEmpty()'
+in `jelly-tags/regexp/src/main/java/org/apache/commons/jelly/tags/regexp/RegexpTag.java`
+#### Snippet
+```java
+            throw new MissingAttributeException("expr must be provided");
+
+        if (var == null || var.length() == 0)
+            throw new MissingAttributeException("var must be provided");
+
+```
+
+### SizeReplaceableByIsEmpty
+`publicID.length() > 0` can be replaced with '!publicID.isEmpty()'
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
+#### Snippet
+```java
+
+        String publicID = e.getPublicId();
+        if ( publicID != null && publicID.length() > 0 ) {
+            attributes.addAttribute( uri, "publicID", "publicID", type, publicID );
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`systemID.length() > 0` can be replaced with '!systemID.isEmpty()'
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
+#### Snippet
+```java
+        }
+        String systemID = e.getSystemId();
+        if ( systemID != null && systemID.length() > 0 ) {
+            attributes.addAttribute( uri, "systemID", "systemID", type, systemID );
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1612,18 +1840,6 @@ in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression
 ```
 
 ### SizeReplaceableByIsEmpty
-`componentName.length() == 0` can be replaced with 'componentName.isEmpty()'
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
-#### Snippet
-```java
-		Component comp = getComponent();
-        String componentName = (comp!=null) ? comp.getName() : null;
-        if (comp!=null && (componentName == null || componentName.length() == 0))
-            componentName = getComponent().toString();
-        return "ComponentTag with bean " + componentName;
-```
-
-### SizeReplaceableByIsEmpty
 `attributeName.length() == 0` can be replaced with 'attributeName.isEmpty()'
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
@@ -1633,222 +1849,6 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
                         if (attributeName.length() == 0)
                         	continue;
                         String attributeValue = list.getValue(i);
-```
-
-### SizeReplaceableByIsEmpty
-`filesets.size() > 0` can be replaced with '!filesets.isEmpty()'
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileScanner.java`
-#### Snippet
-```java
-
-    public boolean hasFiles() {
-        return filesets.size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`guarantee.length()==0` can be replaced with 'guarantee.isEmpty()'
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
-#### Snippet
-```java
-            data=data.get("transport-guarantee");
-            String guarantee = data.toString(false,true).toUpperCase();
-            if (guarantee==null || guarantee.length()==0 ||
-                "NONE".equals(guarantee))
-                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
-```
-
-### SizeReplaceableByIsEmpty
-`getParameters().size() > 0` can be replaced with '!getParameters().isEmpty()'
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-     */
-    protected void setParameters(HttpMethod method) throws MalformedURLException {
-        if (getParameters().size() > 0) {
-            NameValuePair[] parameters = (NameValuePair[]) getParameters().
-                toArray(new NameValuePair[0]);
-```
-
-### SizeReplaceableByIsEmpty
-`bodyContent.length() > 0` can be replaced with '!bodyContent.isEmpty()'
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ParamTag.java`
-#### Snippet
-```java
-            if (bodyContent != null) {
-                bodyContent = bodyContent.trim();
-                if (bodyContent.length() > 0) {
-                    paramValue = bodyContent;
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`sqlStatement.trim().length() == 0` can be replaced with 'sqlStatement.trim().isEmpty()'
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
-#### Snippet
-```java
-            sqlStatement = getBodyText();
-        }
-        if (sqlStatement == null || sqlStatement.trim().length() == 0) {
-            throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`parameters.size() > 0` can be replaced with '!parameters.isEmpty()'
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
-#### Snippet
-```java
-     */
-    protected boolean hasParameters() {
-        return parameters != null && parameters.size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`sqlStatement.trim().length() == 0` can be replaced with 'sqlStatement.trim().isEmpty()'
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
-#### Snippet
-```java
-                sqlStatement = getBodyText();
-            }
-            if (sqlStatement == null || sqlStatement.trim().length() == 0) {
-                throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`text.length() > 0` can be replaced with '!text.isEmpty()'
-in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/JellyStylesheet.java`
-#### Snippet
-```java
-                public void run(Node node) throws Exception {
-                    String text = node.getStringValue();
-                    if ( text != null && text.length() > 0 ) {
-                        getOutput().write( text );
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`language.length() == 0` can be replaced with 'language.isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-        }
-
-        if ((language == null) || (language.length() == 0)) {
-            throw new IllegalArgumentException("Missing language");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`country.length() > 0` can be replaced with '!country.isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-            else
-                ret = new Locale(language, "");
-        } else if (country.length() > 0) {
-            if (variant != null)
-                ret = new Locale(language, country, variant);
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() == 0` can be replaced with 'message.isEmpty()'
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileExistsTag.java`
-#### Snippet
-```java
-    {
-        String message = getBodyText();
-        if (message == null || message.length() == 0)
-        {
-            message = "File does not exist.";
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() == 0` can be replaced with 'message.isEmpty()'
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileNotFoundTag.java`
-#### Snippet
-```java
-    {
-        String message = getBodyText();
-        if (message == null || message.length() == 0)
-        {
-            message = "File exists.";
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() == 0` can be replaced with 'message.isEmpty()'
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileContainsTag.java`
-#### Snippet
-```java
-        }
-        String message = getBodyText();
-        if (message == null || message.length() == 0)
-        {
-            message = "File does not contain '" + match + "'";
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() == 0` can be replaced with 'message.isEmpty()'
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTagSupport.java`
-#### Snippet
-```java
-     */
-    protected void fail(String message, String detail) throws JellyAssertionFailedError {
-        if (message == null || message.length() == 0) {
-            fail(detail);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`getText().length() == 0` can be replaced with 'getText().isEmpty()'
-in `jelly-tags/regexp/src/main/java/org/apache/commons/jelly/tags/regexp/RegexpTag.java`
-#### Snippet
-```java
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        // Check required properties
-        if (getText() == null || getText().length() == 0)
-            throw new MissingAttributeException("text must be provided");
-
-```
-
-### SizeReplaceableByIsEmpty
-`var.length() == 0` can be replaced with 'var.isEmpty()'
-in `jelly-tags/regexp/src/main/java/org/apache/commons/jelly/tags/regexp/RegexpTag.java`
-#### Snippet
-```java
-            throw new MissingAttributeException("expr must be provided");
-
-        if (var == null || var.length() == 0)
-            throw new MissingAttributeException("var must be provided");
-
-```
-
-### SizeReplaceableByIsEmpty
-`publicID.length() > 0` can be replaced with '!publicID.isEmpty()'
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
-#### Snippet
-```java
-
-        String publicID = e.getPublicId();
-        if ( publicID != null && publicID.length() > 0 ) {
-            attributes.addAttribute( uri, "publicID", "publicID", type, publicID );
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`systemID.length() > 0` can be replaced with '!systemID.isEmpty()'
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
-#### Snippet
-```java
-        }
-        String systemID = e.getSystemId();
-        if ( systemID != null && systemID.length() > 0 ) {
-            attributes.addAttribute( uri, "systemID", "systemID", type, systemID );
-        }
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -1895,11 +1895,11 @@ Boolean constructor call
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
-      */
-    public void setAsString(boolean asString) {
-        this.asString = new Boolean(asString);
+        */
+    public void setSingle(boolean single) {
+        this.single = new Boolean(single);
     }
-
+    
 ```
 
 ### BooleanConstructor
@@ -1907,11 +1907,11 @@ Boolean constructor call
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
-        */
-    public void setSingle(boolean single) {
-        this.single = new Boolean(single);
+      */
+    public void setAsString(boolean asString) {
+        this.asString = new Boolean(asString);
     }
-    
+
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -1958,10 +1958,10 @@ in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/LocalizationC
 #### Snippet
 ```java
 
-    // the localization context's resource bundle
-    final private ResourceBundle bundle;
-
     // the localization context's locale
+    final private Locale locale;
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -1970,10 +1970,10 @@ in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/LocalizationC
 #### Snippet
 ```java
 
-    // the localization context's locale
-    final private Locale locale;
+    // the localization context's resource bundle
+    final private ResourceBundle bundle;
 
-    /**
+    // the localization context's locale
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
@@ -2127,6 +2127,30 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
+#### Snippet
+```java
+            if (obj != null) {
+                if (obj instanceof Integer) {
+                    maxRows = ((Integer) obj).intValue();
+                }
+                else if (obj instanceof String) {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
+#### Snippet
+```java
+            Field f = getClass().getField(field);
+            Integer rv = (Integer) f.get(this);
+            return rv.intValue();
+        } catch (SecurityException e) {
+            LOG.debug(e);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
 #### Snippet
 ```java
@@ -2149,43 +2173,7 @@ in `core/src/main/java/org/apache/commons/jelly/expression/ExpressionSupport.jav
         else if ( value instanceof String ) {
 ```
 
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
-#### Snippet
-```java
-            Field f = getClass().getField(field);
-            Integer rv = (Integer) f.get(this);
-            return rv.intValue();
-        } catch (SecurityException e) {
-            LOG.debug(e);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
-#### Snippet
-```java
-            if (obj != null) {
-                if (obj instanceof Integer) {
-                    maxRows = ((Integer) obj).intValue();
-                }
-                else if (obj instanceof String) {
-```
-
 ## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `core/src/main/java/org/apache/commons/jelly/tags/core/MuteTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
-        super.invokeBody(new MuteXMLOutput());
-    }
-
-```
-
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
@@ -2194,6 +2182,18 @@ in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport
 
     public SqlTagSupport() {
 		super.setEscapeText(false);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `core/src/main/java/org/apache/commons/jelly/tags/core/MuteTag.java`
+#### Snippet
+```java
+     */
+    public void doTag(XMLOutput output) throws JellyTagException {
+        super.invokeBody(new MuteXMLOutput());
     }
 
 ```
@@ -2923,18 +2923,6 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converter
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
-            int r;
-            while ( (r=in.read()) >= 0 ) {
-                w.write((char) r);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyResourceHttpHandler.java`
 #### Snippet
 ```java
@@ -2955,6 +2943,18 @@ in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityH
                 authenticator=_formAuthenticator=new FormAuthenticator();
             else if (SecurityConstraint.__BASIC_AUTH.equals(m))
                 authenticator=new BasicAuthenticator();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+
+        // Use locale from default I18N localization context, unless it is null
+        if ((locCtxt = BundleTag.getLocalizationContext(jc)) != null) {
+            if (locCtxt.getLocale() != null) {
+                if (format) {
 ```
 
 ### NestedAssignment
@@ -2983,14 +2983,14 @@ in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.
 
 ### NestedAssignment
 Result of assignment expression used
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileContainsTag.java`
 #### Snippet
 ```java
-
-        // Use locale from default I18N localization context, unless it is null
-        if ((locCtxt = BundleTag.getLocalizationContext(jc)) != null) {
-            if (locCtxt.getLocale() != null) {
-                if (format) {
+                    String line;
+                    boolean found = false;
+                    while ((line = br.readLine()) != null)
+                    {
+                        if (line.indexOf(match) != -1)
 ```
 
 ### NestedAssignment
@@ -3007,14 +3007,14 @@ in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.
 
 ### NestedAssignment
 Result of assignment expression used
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFileContainsTag.java`
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
-                    String line;
-                    boolean found = false;
-                    while ((line = br.readLine()) != null)
-                    {
-                        if (line.indexOf(match) != -1)
+            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
+            int r;
+            while ( (r=in.read()) >= 0 ) {
+                w.write((char) r);
+            }
 ```
 
 ## RuleId[id=ClassInitializerMayBeStatic]
@@ -3032,6 +3032,78 @@ in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JettyHttp
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `engine` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
+#### Snippet
+```java
+    private static final Log log = LogFactory.getLog(ScriptTag.class.getName() + ".evaluating");
+
+    private BSFEngine engine;
+    private BSFManager manager;
+    private String elementName;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `fileName` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
+#### Snippet
+```java
+    private BSFManager manager;
+    private String elementName;
+    private String fileName;
+    private int columnNumber;
+    private int lineNumber;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `text` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java`
+#### Snippet
+```java
+
+    /** The expression */
+    private String text;
+
+    /** The BSF Engine to evaluate expressions */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lineNumber` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
+#### Snippet
+```java
+    private String fileName;
+    private int columnNumber;
+    private int lineNumber;
+
+    public ScriptTag(BSFEngine engine, BSFManager manager) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `columnNumber` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
+#### Snippet
+```java
+    private String elementName;
+    private String fileName;
+    private int columnNumber;
+    private int lineNumber;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `propsHandler` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/GrantProject.java`
+#### Snippet
+```java
+
+    /** Properties delegate. */
+    private PropsHandler propsHandler;
+
+    // ------------------------------------------------------------
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `in` is accessed in both synchronized and unsynchronized contexts
 in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/StringInputStream.java`
 #### Snippet
@@ -3041,6 +3113,30 @@ in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/StringInput
     private StringReader in;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `cause` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+
+    /** the underlying cause of the exception */
+    private Throwable cause;
+
+    /** the Jelly file which caused the problem */
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `status` is accessed in both synchronized and unsynchronized contexts
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
+#### Snippet
+```java
+    public static final int KILLED = 5;
+
+    private int status = NONE;
+
+    /** On a status change to FAILURE an exception can be set */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3080,85 +3176,13 @@ in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `lineNumber` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
-#### Snippet
-```java
-    private String fileName;
-    private int columnNumber;
-    private int lineNumber;
-
-    public ScriptTag(BSFEngine engine, BSFManager manager) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `fileName` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
-#### Snippet
-```java
-    private BSFManager manager;
-    private String elementName;
-    private String fileName;
-    private int columnNumber;
-    private int lineNumber;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `columnNumber` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
-#### Snippet
-```java
-    private String elementName;
-    private String fileName;
-    private int columnNumber;
-    private int lineNumber;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `engine` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java`
-#### Snippet
-```java
-    private static final Log log = LogFactory.getLog(ScriptTag.class.getName() + ".evaluating");
-
-    private BSFEngine engine;
-    private BSFManager manager;
-    private String elementName;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `text` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java`
-#### Snippet
-```java
-
-    /** The expression */
-    private String text;
-
-    /** The BSF Engine to evaluate expressions */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `allowDtdToCallExternalEntities` is accessed in both synchronized and unsynchronized contexts
+Field `parser` is accessed in both synchronized and unsynchronized contexts
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-
-    /** Do we allow our doctype definitions to call out to external entities? */
-    private boolean allowDtdToCallExternalEntities = false;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `defaultNamespaceURI` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * class
+     * The SAXParser we will use to parse the input stream.
      */
-    private String defaultNamespaceURI = null;
+    protected SAXParser parser = null;
 
     /**
 ```
@@ -3176,18 +3200,6 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `parser` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * The SAXParser we will use to parse the input stream.
-     */
-    protected SAXParser parser = null;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `log` is accessed in both synchronized and unsynchronized contexts
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
@@ -3200,39 +3212,27 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `propsHandler` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/GrantProject.java`
+Field `defaultNamespaceURI` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
+     * class
+     */
+    private String defaultNamespaceURI = null;
 
-    /** Properties delegate. */
-    private PropsHandler propsHandler;
-
-    // ------------------------------------------------------------
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `cause` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+Field `allowDtdToCallExternalEntities` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
 
-    /** the underlying cause of the exception */
-    private Throwable cause;
+    /** Do we allow our doctype definitions to call out to external entities? */
+    private boolean allowDtdToCallExternalEntities = false;
 
-    /** the Jelly file which caused the problem */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `status` is accessed in both synchronized and unsynchronized contexts
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
-#### Snippet
-```java
-    public static final int KILLED = 5;
-
-    private int status = NONE;
-
-    /** On a status change to FAILURE an exception can be set */
+    /**
 ```
 
 ## RuleId[id=UseOfPropertiesAsHashtable]
@@ -3299,15 +3299,51 @@ in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/PutTag.java
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SortTag.java`
+Field initialization to `false` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/SessionTag.java`
+#### Snippet
+```java
+    private String _userAgent;
+    /** strict compliance */
+    private boolean _strictMode = false;
+
+    /** http client used to store state and execute requests */
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
 #### Snippet
 ```java
 
-    /** The list to sort */
-    private List list = null;
+    /** whether or not to follow redirects */
+    private boolean _followRedirects = false;
+    /** list of parameters as name value pairs */
+    private List _parameters;
+```
 
-    /** Xpath comparator for sorting */
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
+#### Snippet
+```java
+
+    /** Have we set a next object? */
+    private boolean nextObjectSet = false;
+
+    /** Return only directories? */
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
+#### Snippet
+```java
+
+    /** Return only directories? */
+    private boolean iterateDirectories = false;
+
+    public FileIterator(Project project,
 ```
 
 ### RedundantFieldInitialization
@@ -3320,6 +3356,18 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SortTag.java`
     private XPathComparator xpCmp = null;
 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SortTag.java`
+#### Snippet
+```java
+
+    /** The list to sort */
+    private List list = null;
+
+    /** Xpath comparator for sorting */
 ```
 
 ### RedundantFieldInitialization
@@ -3339,6 +3387,18 @@ Field initialization to `null` is redundant
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
+    private Boolean single = null;
+    
+    private Boolean asString = null;
+    
+    private String delimiter = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+#### Snippet
+```java
     private XPathComparator xpCmp = null;
 
     private Boolean single = null;
@@ -3351,23 +3411,11 @@ Field initialization to `null` is redundant
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
-    private Boolean single = null;
-    
     private Boolean asString = null;
     
     private String delimiter = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
-#### Snippet
-```java
-    private String delimiter = null;
 
     private String delim = null;
-
-    public SetTag() {
 ```
 
 ### RedundantFieldInitialization
@@ -3387,11 +3435,23 @@ Field initialization to `null` is redundant
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
-    private Boolean asString = null;
-    
     private String delimiter = null;
 
     private String delim = null;
+
+    public SetTag() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
+#### Snippet
+```java
+    private String name;
+    private Object arguments;
+    private List argList = null;
+    private String[] parameters;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3404,18 +3464,6 @@ in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeRawTa
     private String endpoint = null;
     private String soapAction;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
-#### Snippet
-```java
-
-    private String var;
-    private String endpoint = null;
-    private String namespace = null;
-    private String method = null;
 ```
 
 ### RedundantFieldInitialization
@@ -3443,375 +3491,111 @@ in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-    
-    /** Whether we have loaded the properties yet */
-    private boolean loadedProperties = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-     * whether or not to validate the Jelly script
-     */
-    private boolean validateXML = false;
-        
-    public Jelly() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
 #### Snippet
 ```java
-     * whether to override the default namespace
-     */
-    private String defaultNamespaceURI = null;
 
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
-#### Snippet
-```java
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    private boolean useContextClassLoader = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ThreadTag.java`
-#### Snippet
-```java
-public class ThreadTag extends TagSupport  {
-    /** Thread Name */
-    private String name = null;
-    /** the destination of output */
-    private XMLOutput xmlOutput;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/impl/Embedded.java`
-#### Snippet
-```java
-    Exception m_scriptCompilationException;
-    /** boolean value indicating whether the script has been successfully compiled or NOT */
-    boolean m_scriptCompiled = false;
-    /** ErrorMsg*/
-    private String m_errorMsg;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/UseBeanTag.java`
-#### Snippet
-```java
-     * @see #setIgnoreUnknownProperties(boolean)
-     */
-    private boolean ignoreUnknownProperties = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
-#### Snippet
-```java
-    
-    /** the url of the script when parsed */
-    private URL scriptURL = null;
-    
-    /** A synchronized WeakHashMap from the current Thread (key) to a Tag object (value).
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
-#### Snippet
-```java
-    // Attributes
-    //-------------------------------------------------------------------------
-    private Expression valueExpression = null;
-    private boolean fallThru = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    private Expression valueExpression = null;
-    private boolean fallThru = false;
-
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/DefaultTag.java`
-#### Snippet
-```java
-    // Attributes
-    //-------------------------------------------------------------------------
-    private boolean fallThru = false;
-
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
-#### Snippet
-```java
     private String var;
-    private String name;
-    private boolean omitXmlDeclaration = false;
-    private String outputMode = "xml";
-    private boolean prettyPrint;
+    private String endpoint = null;
+    private String namespace = null;
+    private String method = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+
+    /** mail message */
+    private Expression message      = null;
+
+    /** file attachment */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+
+    /** smtp server */
+    private Expression server       = null;
+
+    /** who to send the message as */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+
+    /** mail subject */
+    private Expression subject      = null;
+
+    /** mail message */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+
+    /** file attachment */
+    private File attachment     = null;
+
+    /** whether we should encode the XML body as text */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+
+    /** who to cc */
+    private Expression cc           = null;
+
+    /** mail subject */
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
 #### Snippet
 ```java
- */
-public class FileTag extends TagSupport {
-    private boolean doAppend = false;
-    private String var;
-    private String name;
-```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/BaseClassLoaderTag.java`
-#### Snippet
-```java
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    protected boolean useContextClassLoader = false;
+    /** whether we should encode the XML body as text */
+    private boolean encodeXML = false;
 
     /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/BaseClassLoaderTag.java`
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
 #### Snippet
 ```java
-     * <code>useContextClassLoader</code> variable.
-     */
-    protected ClassLoader classLoader = null;
 
-    /**
+    /** who to send the message as */
+    private Expression from         = null;
+
+    /** who to send to */
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    private boolean defaultEncountered = false;
-    private Expression on = null;
-    private Object value = null;
-
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    private boolean someCaseMatched = false;
-    private boolean fallingThru = false;
-    private boolean defaultEncountered = false;
-    private Expression on = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    private boolean someCaseMatched = false;
-    private boolean fallingThru = false;
-    private boolean defaultEncountered = false;
-    private Expression on = null;
-    private Object value = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    // Attributes
-    //-------------------------------------------------------------------------
-    private boolean someCaseMatched = false;
-    private boolean fallingThru = false;
-    private boolean defaultEncountered = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    private boolean fallingThru = false;
-    private boolean defaultEncountered = false;
-    private Expression on = null;
-    private Object value = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/util/NestedRuntimeException.java`
-#### Snippet
-```java
-     * this exception to be thrown.
-     */
-    private Throwable cause = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
 #### Snippet
 ```java
 
-    private Jelly jelly = null;
-    private JellyContext context = null;
-    private XMLOutput xmlOutput = null;
-    private StringWriter strOutput;
-```
+    /** who to send to */
+    private Expression to           = null;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
-#### Snippet
-```java
-    private Jelly jelly = null;
-    private JellyContext context = null;
-    private XMLOutput xmlOutput = null;
-    private StringWriter strOutput;
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
-#### Snippet
-```java
-    }
-
-    private Jelly jelly = null;
-    private JellyContext context = null;
-    private XMLOutput xmlOutput = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-public class DefaultNamespaceFilter extends XMLFilterImpl {
-
-    protected String uriDefault = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/xpath/XPathComparator.java`
-#### Snippet
-```java
-
-    /** The xpath to use to extract value from nodes to compare */
-    private XPath xpath = null;
-
-    /** Sort descending or ascending */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/xpath/XPathComparator.java`
-#### Snippet
-```java
-
-    /** Sort descending or ascending */
-    private boolean descending = false;
-
-    public XPathComparator() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
-#### Snippet
-```java
-    protected static CommandLineParser _instance = new CommandLineParser();
-    
-    private Options cmdLineOptions = null;
-
-    public static CommandLineParser getInstance() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
-#### Snippet
-```java
-    private class ExpressionSupportLocal extends ExpressionSupport {
-
-        protected Expression jexlExpression = null;
-        protected String text = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
-#### Snippet
-```java
-
-        protected Expression jexlExpression = null;
-        protected String text = null;
-
-        public ExpressionSupportLocal(Expression jexlExpression, String text) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/CardLayoutTag.java`
-#### Snippet
-```java
-public class CardLayoutTag extends LayoutTagSupport {
-    private int hgap;
-    private boolean hgapSet = false;
-    private int vgap;
-    private boolean vgapSet = false;
+    /** who to cc */
 ```
 
 ### RedundantFieldInitialization
@@ -3824,6 +3608,18 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/CardLayou
     private boolean vgapSet = false;
 
     protected LayoutManager createLayoutManager() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/CardLayoutTag.java`
+#### Snippet
+```java
+public class CardLayoutTag extends LayoutTagSupport {
+    private int hgap;
+    private boolean hgapSet = false;
+    private int vgap;
+    private boolean vgapSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3855,11 +3651,11 @@ Field initialization to `null` is redundant
 in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ConstraintTag.java`
 #### Snippet
 ```java
+
     protected Factory factory;
     protected String var = null;
     protected Object bean = null;
 
-        public static class HereFactory extends BeanFactory implements TagFactory {
 ```
 
 ### RedundantFieldInitialization
@@ -3867,23 +3663,11 @@ Field initialization to `null` is redundant
 in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ConstraintTag.java`
 #### Snippet
 ```java
-
     protected Factory factory;
     protected String var = null;
     protected Object bean = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EtchedBorderTag.java`
-#### Snippet
-```java
-
-    private int     etchType  = -1;
-    private Color   highlight = null;
-    private Color   shadow    = null;
-
+        public static class HereFactory extends BeanFactory implements TagFactory {
 ```
 
 ### RedundantFieldInitialization
@@ -3896,6 +3680,18 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EtchedBor
     private Color   shadow    = null;
 
     // Tag interface
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EtchedBorderTag.java`
+#### Snippet
+```java
+
+    private int     etchType  = -1;
+    private Color   highlight = null;
+    private Color   shadow    = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3927,11 +3723,35 @@ Field initialization to `false` is redundant
 in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
 #### Snippet
 ```java
+    private boolean gridheightSet = false;
     private boolean weightxSet = false;
     private boolean weightySet = false;
     private boolean ipadxSet = false;
     private boolean ipadySet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
+#### Snippet
+```java
+    private boolean gridwidthSet = false;
+    private boolean gridheightSet = false;
+    private boolean weightxSet = false;
+    private boolean weightySet = false;
+    private boolean ipadxSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
+#### Snippet
+```java
+    private boolean weightySet = false;
+    private boolean ipadxSet = false;
+    private boolean ipadySet = false;
     private boolean anchorSet = false;
+    private boolean fillSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3956,6 +3776,18 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/Grid
     private boolean anchorSet = false;
     private boolean fillSet = false;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
+#### Snippet
+```java
+    private boolean gridxSet = false;
+    private boolean gridySet = false;
+    private boolean gridwidthSet = false;
+    private boolean gridheightSet = false;
+    private boolean weightxSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3975,59 +3807,11 @@ Field initialization to `false` is redundant
 in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
 #### Snippet
 ```java
-    private boolean gridxSet = false;
-    private boolean gridySet = false;
-    private boolean gridwidthSet = false;
-    private boolean gridheightSet = false;
     private boolean weightxSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
-#### Snippet
-```java
-    private boolean gridwidthSet = false;
-    private boolean gridheightSet = false;
-    private boolean weightxSet = false;
-    private boolean weightySet = false;
-    private boolean ipadxSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
-#### Snippet
-```java
-    private boolean gridySet = false;
-    private boolean gridwidthSet = false;
-    private boolean gridheightSet = false;
-    private boolean weightxSet = false;
-    private boolean weightySet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
-#### Snippet
-```java
-    private boolean gridheightSet = false;
-    private boolean weightxSet = false;
-    private boolean weightySet = false;
-    private boolean ipadxSet = false;
-    private boolean ipadySet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
-#### Snippet
-```java
     private boolean weightySet = false;
     private boolean ipadxSet = false;
     private boolean ipadySet = false;
     private boolean anchorSet = false;
-    private boolean fillSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -4043,147 +3827,15 @@ public class GridBagConstraintBean extends GridBagConstraints {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * The SAXParserFactory that is created the first time we need it.
-     */
-    protected static SAXParserFactory factory = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/impl/GridBagConstraintBean.java`
 #### Snippet
 ```java
-
-    /** Do we allow our doctype definitions to call out to external entities? */
-    private boolean allowDtdToCallExternalEntities = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    protected boolean useContextClassLoader = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * warnings, errors, or fatal errors occur.
-     */
-    protected ErrorHandler errorHandler = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * The XMLReader used to parse digester rules.
-     */
-    protected XMLReader reader = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * class
-     */
-    private String defaultNamespaceURI = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * Do we want to use a validating parser?
-     */
-    protected boolean validating = false;
-
-    /** Flag to indicate if this object has been configured */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * The SAXParser we will use to parse the input stream.
-     */
-    protected SAXParser parser = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * <code>useContextClassLoader</code> variable.
-     */
-    protected ClassLoader classLoader = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     * The Locator associated with our parser.
-     */
-    protected Locator locator = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
-#### Snippet
-```java
-
-    /** Return only directories? */
-    private boolean iterateDirectories = false;
-
-    public FileIterator(Project project,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
-#### Snippet
-```java
-
-    /** Have we set a next object? */
-    private boolean nextObjectSet = false;
-
-    /** Return only directories? */
+    private boolean gridySet = false;
+    private boolean gridwidthSet = false;
+    private boolean gridheightSet = false;
+    private boolean weightxSet = false;
+    private boolean weightySet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -4196,162 +3848,6 @@ public class JellyServiceImpl implements JellyService, Configurable {
     private boolean m_configured = false;
     private Map m_scripts = new HashMap();
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-
-    /** whether or not to follow redirects */
-    private boolean _followRedirects = false;
-    /** list of parameters as name value pairs */
-    private List _parameters;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/SessionTag.java`
-#### Snippet
-```java
-    private String _userAgent;
-    /** strict compliance */
-    private boolean _strictMode = false;
-
-    /** http client used to store state and execute requests */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** whether we should encode the XML body as text */
-    private boolean encodeXML = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** mail subject */
-    private Expression subject      = null;
-
-    /** mail message */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** who to send to */
-    private Expression to           = null;
-
-    /** who to cc */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** smtp server */
-    private Expression server       = null;
-
-    /** who to send the message as */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** who to send the message as */
-    private Expression from         = null;
-
-    /** who to send to */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** mail message */
-    private Expression message      = null;
-
-    /** file attachment */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** file attachment */
-    private File attachment     = null;
-
-    /** whether we should encode the XML body as text */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-
-    /** who to cc */
-    private Expression cc           = null;
-
-    /** mail subject */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
-#### Snippet
-```java
-    private String name;
-    private Object arguments;
-    private List argList = null;
-    private String[] parameters;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    protected boolean useContextClassLoader = false;
-
-    /** The root URL context (where scripts are located from) */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-
-    /** Should we cache Tag instances, per thread, to reduce object construction overhead? */
-    private boolean cacheTags = false;
-    
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -4380,6 +3876,18 @@ public abstract class UseMutexTag extends TagSupport {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/MutexTag.java`
+#### Snippet
+```java
+public class MutexTag extends TagSupport {
+    /** The variable name of the mutex */
+    private String var = null;
+
+    /** Create and set the mutex */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/UseThreadTag.java`
 #### Snippet
 ```java
@@ -4388,6 +3896,18 @@ public abstract class UseThreadTag extends TagSupport {
     private Thread thread = null;
     /** Threads can be grouped and acted on as a set */
     private List threadGroup = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/WaitForTag.java`
+#### Snippet
+```java
+    private int status = RunnableStatus.NONE;
+    private JellyThread thread = null;
+    private List group = null;
+    private long onlyWait = -1;
+
 ```
 
 ### RedundantFieldInitialization
@@ -4404,18 +3924,6 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/UseTh
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
-#### Snippet
-```java
-
-    /** On a status change to FAILURE an exception can be set */
-    private Exception exception = null;
-
-    public RunnableStatus() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/WaitForTag.java`
 #### Snippet
 ```java
@@ -4428,26 +3936,14 @@ public class WaitForTag extends TagSupport {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/WaitForTag.java`
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
 #### Snippet
 ```java
-    private int status = RunnableStatus.NONE;
-    private JellyThread thread = null;
-    private List group = null;
-    private long onlyWait = -1;
 
-```
+    /** On a status change to FAILURE an exception can be set */
+    private Exception exception = null;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/MutexTag.java`
-#### Snippet
-```java
-public class MutexTag extends TagSupport {
-    /** The variable name of the mutex */
-    private String var = null;
-
-    /** Create and set the mutex */
+    public RunnableStatus() {
 ```
 
 ### RedundantFieldInitialization
@@ -4499,6 +3995,18 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Jelly
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+#### Snippet
+```java
+
+    /** Variable to place the thread into */
+    private String var = null;
+    /** Thread Name */
+    private String name = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
 #### Snippet
@@ -4508,6 +4016,30 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Threa
     private boolean daemon = false;
     /** the destination of output */
     private XMLOutput xmlOutput;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+#### Snippet
+```java
+    private String var = null;
+    /** Thread Name */
+    private String name = null;
+    /** Thread priority, defaults to Thread.NORM_PRIORITY */
+    private int priority = Thread.NORM_PRIORITY;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+#### Snippet
+```java
+
+    /** The current thread number. Used for default thread naming */
+    private static int threadNumber = 0;
+
+    /** Variable to place the thread into */
 ```
 
 ### RedundantFieldInitialization
@@ -4524,50 +4056,14 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Threa
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
 #### Snippet
 ```java
 
-    /** Variable to place the thread into */
-    private String var = null;
-    /** Thread Name */
-    private String name = null;
-```
+    private ArrayList propList = new ArrayList();
+    private DynaProperty[] props = null;
+    private DynaClass dynaClass = null;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
-#### Snippet
-```java
-
-    /** The current thread number. Used for default thread naming */
-    private static int threadNumber = 0;
-
-    /** Variable to place the thread into */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
-#### Snippet
-```java
-    private String var = null;
-    /** Thread Name */
-    private String name = null;
-    /** Thread priority, defaults to Thread.NORM_PRIORITY */
-    private int priority = Thread.NORM_PRIORITY;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jelly-tags/xmlunit/src/main/java/org/apache/commons/jelly/tags/xmlunit/AssertDocumentsEqualTag.java`
-#### Snippet
-```java
-     * <code>false</code> whitespace differences are detected.
-     */
-    private boolean ignoreWhitespace = false;
-
-    public void doTag(XMLOutput output) throws JellyTagException {
 ```
 
 ### RedundantFieldInitialization
@@ -4583,15 +4079,519 @@ in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/Dyn
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jelly-tags/xmlunit/src/main/java/org/apache/commons/jelly/tags/xmlunit/AssertDocumentsEqualTag.java`
+#### Snippet
+```java
+     * {@code false} whitespace differences are detected.
+     */
+    private boolean ignoreWhitespace = false;
+
+    public void doTag(XMLOutput output) throws JellyTagException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
+#### Snippet
+```java
+     * for instantiating new objects?  Default is {@code false}.
+     */
+    private boolean useContextClassLoader = false;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+#### Snippet
+```java
+    
+    /** Whether we have loaded the properties yet */
+    private boolean loadedProperties = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+#### Snippet
+```java
+     * whether or not to validate the Jelly script
+     */
+    private boolean validateXML = false;
+        
+    public Jelly() {
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+#### Snippet
+```java
+     * whether to override the default namespace
+     */
+    private String defaultNamespaceURI = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/impl/Embedded.java`
+#### Snippet
+```java
+    Exception m_scriptCompilationException;
+    /** boolean value indicating whether the script has been successfully compiled or NOT */
+    boolean m_scriptCompiled = false;
+    /** ErrorMsg*/
+    private String m_errorMsg;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ThreadTag.java`
+#### Snippet
+```java
+public class ThreadTag extends TagSupport  {
+    /** Thread Name */
+    private String name = null;
+    /** the destination of output */
+    private XMLOutput xmlOutput;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
+#### Snippet
+```java
+    
+    /** the url of the script when parsed */
+    private URL scriptURL = null;
+    
+    /** A synchronized WeakHashMap from the current Thread (key) to a Tag object (value).
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/UseBeanTag.java`
+#### Snippet
+```java
+     * @see #setIgnoreUnknownProperties(boolean)
+     */
+    private boolean ignoreUnknownProperties = false;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
+#### Snippet
+```java
+    private String var;
+    private String name;
+    private boolean omitXmlDeclaration = false;
+    private String outputMode = "xml";
+    private boolean prettyPrint;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
+#### Snippet
+```java
+ */
+public class FileTag extends TagSupport {
+    private boolean doAppend = false;
+    private String var;
+    private String name;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/DefaultTag.java`
+#### Snippet
+```java
+    // Attributes
+    //-------------------------------------------------------------------------
+    private boolean fallThru = false;
+
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    private Expression valueExpression = null;
+    private boolean fallThru = false;
+
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
+#### Snippet
+```java
+    // Attributes
+    //-------------------------------------------------------------------------
+    private Expression valueExpression = null;
+    private boolean fallThru = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/BaseClassLoaderTag.java`
+#### Snippet
+```java
+     * <code>useContextClassLoader</code> variable.
+     */
+    protected ClassLoader classLoader = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/BaseClassLoaderTag.java`
+#### Snippet
+```java
+     * for instantiating new objects?  Default is {@code false}.
+     */
+    protected boolean useContextClassLoader = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    private boolean someCaseMatched = false;
+    private boolean fallingThru = false;
+    private boolean defaultEncountered = false;
+    private Expression on = null;
+    private Object value = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    // Attributes
+    //-------------------------------------------------------------------------
+    private boolean someCaseMatched = false;
+    private boolean fallingThru = false;
+    private boolean defaultEncountered = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    private boolean someCaseMatched = false;
+    private boolean fallingThru = false;
+    private boolean defaultEncountered = false;
+    private Expression on = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    private boolean fallingThru = false;
+    private boolean defaultEncountered = false;
+    private Expression on = null;
+    private Object value = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    private boolean defaultEncountered = false;
+    private Expression on = null;
+    private Object value = null;
+
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
+#### Snippet
+```java
+    }
+
+    private Jelly jelly = null;
+    private JellyContext context = null;
+    private XMLOutput xmlOutput = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
+#### Snippet
+```java
+    private Jelly jelly = null;
+    private JellyContext context = null;
+    private XMLOutput xmlOutput = null;
+    private StringWriter strOutput;
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/test/BaseJellyTest.java`
 #### Snippet
 ```java
 
-    private ArrayList propList = new ArrayList();
-    private DynaProperty[] props = null;
-    private DynaClass dynaClass = null;
+    private Jelly jelly = null;
+    private JellyContext context = null;
+    private XMLOutput xmlOutput = null;
+    private StringWriter strOutput;
+```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/util/NestedRuntimeException.java`
+#### Snippet
+```java
+     * this exception to be thrown.
+     */
+    private Throwable cause = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+public class DefaultNamespaceFilter extends XMLFilterImpl {
+
+    protected String uriDefault = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/xpath/XPathComparator.java`
+#### Snippet
+```java
+
+    /** Sort descending or ascending */
+    private boolean descending = false;
+
+    public XPathComparator() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/xpath/XPathComparator.java`
+#### Snippet
+```java
+
+    /** The xpath to use to extract value from nodes to compare */
+    private XPath xpath = null;
+
+    /** Sort descending or ascending */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
+#### Snippet
+```java
+    protected static CommandLineParser _instance = new CommandLineParser();
+    
+    private Options cmdLineOptions = null;
+
+    public static CommandLineParser getInstance() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
+#### Snippet
+```java
+    private class ExpressionSupportLocal extends ExpressionSupport {
+
+        protected Expression jexlExpression = null;
+        protected String text = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
+#### Snippet
+```java
+
+        protected Expression jexlExpression = null;
+        protected String text = null;
+
+        public ExpressionSupportLocal(Expression jexlExpression, String text) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
+#### Snippet
+```java
+     * for instantiating new objects?  Default is {@code false}.
+     */
+    protected boolean useContextClassLoader = false;
+
+    /** The root URL context (where scripts are located from) */
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
+#### Snippet
+```java
+
+    /** Should we cache Tag instances, per thread, to reduce object construction overhead? */
+    private boolean cacheTags = false;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * for instantiating new objects?  Default is {@code false}.
+     */
+    protected boolean useContextClassLoader = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * The SAXParser we will use to parse the input stream.
+     */
+    protected SAXParser parser = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * Do we want to use a validating parser?
+     */
+    protected boolean validating = false;
+
+    /** Flag to indicate if this object has been configured */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * class
+     */
+    private String defaultNamespaceURI = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * The XMLReader used to parse digester rules.
+     */
+    protected XMLReader reader = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * <code>useContextClassLoader</code> variable.
+     */
+    protected ClassLoader classLoader = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * warnings, errors, or fatal errors occur.
+     */
+    protected ErrorHandler errorHandler = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * The SAXParserFactory that is created the first time we need it.
+     */
+    protected static SAXParserFactory factory = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     * The Locator associated with our parser.
+     */
+    protected Locator locator = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+
+    /** Do we allow our doctype definitions to call out to external entities? */
+    private boolean allowDtdToCallExternalEntities = false;
+
+    /**
 ```
 
 ## RuleId[id=RedundantImplements]
@@ -4610,7 +4610,7 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-08-32-35.517.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-23-59-04.881.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4621,30 +4621,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-08-32-35.517.
 ```
 
 ## RuleId[id=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-	            return null;
-        	} else {
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-        			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
-```
-
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
 in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
@@ -4667,6 +4643,30 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Threa
                     if (e instanceof RuntimeException) {
                         throw (RuntimeException) e;
                     }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+	            return null;
+        	} else {
+        		if (e instanceof RuntimeException)
+        			throw (RuntimeException)e;
+        		if (e instanceof IllegalStateException)
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+        		if (e instanceof RuntimeException)
+        			throw (RuntimeException)e;
+        		if (e instanceof IllegalStateException)
+        			throw (IllegalStateException )e;
+            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
 ```
 
 ## RuleId[id=TextLabelInSwitchStatement]
@@ -4694,152 +4694,92 @@ in `core/src/main/java/org/apache/commons/jelly/expression/CompositeExpression.j
                                                     c = text.charAt(cur);
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+## RuleId[id=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `missingAttribute` of exception class
+in `core/src/main/java/org/apache/commons/jelly/MissingAttributeException.java`
 #### Snippet
 ```java
-        if (getParameters().size() > 0) {
-            NameValuePair[] parameters = (NameValuePair[]) getParameters().
-                toArray(new NameValuePair[0]);
-            method.setQueryString(parameters);
-        }
+public class MissingAttributeException extends JellyTagException {
+
+    private String missingAttribute;
+    
+    // ### we may wish to implement a localized message for this error
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+### NonFinalFieldOfException
+Non-final field `elementName` of exception class
+in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
-            // Project argument.
-            try {
-                ctor = type.getConstructor(new Class[0]);
-                noArg = true;
-            }
+
+    /** the tag name which caused the problem */
+    private String elementName;
+
+    /** the line number in the script of the error */
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+### NonFinalFieldOfException
+Non-final field `fileName` of exception class
+in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
 
-            if (noArg) {
-                dataType = createDataType(ctor, new Object[0], name, "no-arg constructor");
-            }
-            else {
+    /** the Jelly file which caused the problem */
+    private String fileName;
+
+    /** the tag name which caused the problem */
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+### NonFinalFieldOfException
+Non-final field `cause` of exception class
+in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
+    
+    /** the underlying cause of the exception */
+    private Throwable cause;
 
-        //should just be able to return SortedMap[] object
-        return (SortedMap []) rowMap.toArray(new SortedMap[0]);
-    }
-
+    /** the Jelly file which caused the problem */
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+### NonFinalFieldOfException
+Non-final field `lineNumber` of exception class
+in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
 
-        //should just be able to return Object[][] object
-        return (Object [][])rowByIndex.toArray(new Object[0][0]);
-    }
-
+    /** the line number in the script of the error */
+    private int lineNumber = -1;
+    
+    /** the column number in the script of the error */
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+### NonFinalFieldOfException
+Non-final field `columnNumber` of exception class
+in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
-
-        //should just be able to return Object[][] object
-        return (Object [][])rowByIndex.toArray(new Object[0][0]);
-    }
-
+    
+    /** the column number in the script of the error */
+    private int columnNumber = -1;
+    
+    public JellyException() {
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+### NonFinalFieldOfException
+Non-final field `cause` of exception class
+in `core/src/main/java/org/apache/commons/jelly/util/NestedRuntimeException.java`
 #### Snippet
 ```java
+     * this exception to be thrown.
+     */
+    private Throwable cause = null;
 
-        //should just be able to return SortedMap[] object
-        return (SortedMap []) rowMap.toArray(new SortedMap[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
-#### Snippet
-```java
-        }
-        else {
-            return new Object[0];
-        }
-    }
+    /**
 ```
 
 ## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-        }
-        // Create and return a new parser
-        synchronized (this) {
-            try {
-                if (factory == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-    public boolean attempt(long msecs) throws InterruptedException {
-        if (Thread.interrupted()) throw new InterruptedException();
-        synchronized (this) {
-            if (!inuse_) {
-                inuse_ = true;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                try {
-                    for (; ;) {
-                        wait(waitTime);
-                        if (!inuse_) {
-                            inuse_ = true;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                    }
-                } catch (InterruptedException ex) {
-                    notify();
-                    throw ex;
-                }
-```
-
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
@@ -4888,426 +4828,162 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex
             }
 ```
 
-## RuleId[id=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `missingAttribute` of exception class
-in `core/src/main/java/org/apache/commons/jelly/MissingAttributeException.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
 #### Snippet
 ```java
-public class MissingAttributeException extends JellyTagException {
-
-    private String missingAttribute;
-    
-    // ### we may wish to implement a localized message for this error
+    public boolean attempt(long msecs) throws InterruptedException {
+        if (Thread.interrupted()) throw new InterruptedException();
+        synchronized (this) {
+            if (!inuse_) {
+                inuse_ = true;
 ```
 
-### NonFinalFieldOfException
-Non-final field `cause` of exception class
-in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
 #### Snippet
 ```java
-    
-    /** the underlying cause of the exception */
-    private Throwable cause;
-
-    /** the Jelly file which caused the problem */
+                try {
+                    for (; ;) {
+                        wait(waitTime);
+                        if (!inuse_) {
+                            inuse_ = true;
 ```
 
-### NonFinalFieldOfException
-Non-final field `elementName` of exception class
-in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
 #### Snippet
 ```java
-
-    /** the tag name which caused the problem */
-    private String elementName;
-
-    /** the line number in the script of the error */
+                    }
+                } catch (InterruptedException ex) {
+                    notify();
+                    throw ex;
+                }
 ```
 
-### NonFinalFieldOfException
-Non-final field `fileName` of exception class
-in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-
-    /** the Jelly file which caused the problem */
-    private String fileName;
-
-    /** the tag name which caused the problem */
+        }
+        // Create and return a new parser
+        synchronized (this) {
+            try {
+                if (factory == null) {
 ```
 
-### NonFinalFieldOfException
-Non-final field `lineNumber` of exception class
-in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
 #### Snippet
 ```java
-
-    /** the line number in the script of the error */
-    private int lineNumber = -1;
-    
-    /** the column number in the script of the error */
+        if (getParameters().size() > 0) {
+            NameValuePair[] parameters = (NameValuePair[]) getParameters().
+                toArray(new NameValuePair[0]);
+            method.setQueryString(parameters);
+        }
 ```
 
-### NonFinalFieldOfException
-Non-final field `columnNumber` of exception class
-in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
 #### Snippet
 ```java
-    
-    /** the column number in the script of the error */
-    private int columnNumber = -1;
-    
-    public JellyException() {
+            // Project argument.
+            try {
+                ctor = type.getConstructor(new Class[0]);
+                noArg = true;
+            }
 ```
 
-### NonFinalFieldOfException
-Non-final field `cause` of exception class
-in `core/src/main/java/org/apache/commons/jelly/util/NestedRuntimeException.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
 #### Snippet
 ```java
-     * this exception to be thrown.
-     */
-    private Throwable cause = null;
 
-    /**
+            if (noArg) {
+                dataType = createDataType(ctor, new Object[0], name, "no-arg constructor");
+            }
+            else {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
+#### Snippet
+```java
+        }
+        else {
+            return new Object[0];
+        }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+#### Snippet
+```java
+
+        //should just be able to return SortedMap[] object
+        return (SortedMap []) rowMap.toArray(new SortedMap[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+#### Snippet
+```java
+
+        //should just be able to return Object[][] object
+        return (Object [][])rowByIndex.toArray(new Object[0][0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+#### Snippet
+```java
+
+        //should just be able to return Object[][] object
+        return (Object [][])rowByIndex.toArray(new Object[0][0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+#### Snippet
+```java
+
+        //should just be able to return SortedMap[] object
+        return (SortedMap []) rowMap.toArray(new SortedMap[0]);
+    }
+
 ```
 
 ## RuleId[id=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ExprTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Object xpathContext = getXPathContext();
-
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/IfTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (select == null) {
-            throw new MissingAttributeException( "select" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SortTag.java`
-#### Snippet
-```java
-    private XPathComparator xpCmp = null;
-
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (xpCmp == null) {
-            throw new MissingAttributeException( "xpCmp" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/CopyOfTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Object xpathContext = getXPathContext();
-
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (getVar() == null) {
-            throw new MissingAttributeException("The var attribute cannot be null");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/DoctypeTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (name == null) {
-            throw new MissingAttributeException( "name" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ReplaceNamespaceTag.java`
-#### Snippet
-```java
-    //  Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        final String fromURI = (fromNamespace != null) ? fromNamespace : "";
-        final String toURI = (toNamespace != null) ? toNamespace : "";
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (var == null) {
-            throw new MissingAttributeException( "var" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
-#### Snippet
-```java
-     * @throws MissingAttributeException Thrown when required attributes are missing
-     */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        if (null == this.getXslt()) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeRawTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException
-    {
-        if (endpoint == null)
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (endpoint == null) {
-            throw new MissingAttributeException("endpoint");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/Tag.java`
-#### Snippet
-```java
-     * Evaluates this tag after all the tags properties have been initialized.
-     */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
-
-    /**
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        invokeBody(output);
-
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/IfTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (test != null) {
-            if (test.evaluateAsBoolean(context)) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/RemoveTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (var != null) {
-            context.removeVariable( var.evaluateAsString(context) );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/NewTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        ArgTag parentArg = null;
-        if ( var == null ) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/InvokeTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( null == methodName) {
-            throw new MissingAttributeException( "method" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
-#### Snippet
-```java
-    }
-
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if(null == this.valueExpression) {
-            throw new MissingAttributeException("value");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/IncludeTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        if (uri == null && file == null) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/BreakTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws BreakException, JellyTagException {
-        boolean broken = false;
-        if (test == null || test.evaluateAsBoolean(context)) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/WhileTag.java`
-#### Snippet
-```java
-     * @throws RuntimeException for anything else
-     */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (test != null) {
-            try {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ParseTag.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/MenuManagerTag.java`
 #### Snippet
 ```java
      */
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 
-        String text = getText();
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SetPropertiesTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Map attributes = getAttributes();
-        Object bean = attributes.remove( "object" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
-#### Snippet
-```java
-    }
-
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        this.defaultEncountered = false;
-        this.someCaseMatched = false;
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
-#### Snippet
-```java
-
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        if (log.isDebugEnabled()) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/TitledBorderTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( title == null) {
-            throw new MissingAttributeException("title");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EmptyBorderTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( left == -1) {
-            throw new MissingAttributeException("left");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EtchedBorderTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if( highlight != null && shadow == null ) {
-            throw new MissingAttributeException("shadow must be supplied when highlight is supplied");
 ```
 
 ### DuplicateThrows
@@ -5320,6 +4996,90 @@ in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.jav
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         String text = getBodyText();
 
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
+#### Snippet
+```java
+      */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+
+        Map attributes = getAttributes();
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ContributionItemTag.java`
+#### Snippet
+```java
+      */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+
+        super.doTag(output);
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/DoubleClickListenerTag.java`
+#### Snippet
+```java
+     */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+        if (var == null) {
+            throw new MissingAttributeException("var");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/SelectionChangedListenerTag.java`
+#### Snippet
+```java
+     */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+        if (var == null) {
+            throw new MissingAttributeException("var");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/window/ApplicationWindowTag.java`
+#### Snippet
+```java
+     */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+        Map attributes = getAttributes();
+        Object parent = attributes.remove("parent");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/preference/FieldEditorTag.java`
+#### Snippet
+```java
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        PreferencePageTag tag = (PreferencePageTag) findAncestorWithClass(PreferencePageTag.class);
+        if (tag == null) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/SetPropertyTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (name == null) {
+            throw new MissingAttributeException("name");
 ```
 
 ### DuplicateThrows
@@ -5348,67 +5108,151 @@ in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyReso
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/SetPropertyTag.java`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        invokeBody(output);
+
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SortTag.java`
+#### Snippet
+```java
+    private XPathComparator xpCmp = null;
+
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (xpCmp == null) {
+            throw new MissingAttributeException( "xpCmp" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/IfTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (select == null) {
+            throw new MissingAttributeException( "select" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ExprTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        Object xpathContext = getXPathContext();
+
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (getVar() == null) {
+            throw new MissingAttributeException("The var attribute cannot be null");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ReplaceNamespaceTag.java`
+#### Snippet
+```java
+    //  Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final String fromURI = (fromNamespace != null) ? fromNamespace : "";
+        final String toURI = (toNamespace != null) ? toNamespace : "";
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/DoctypeTag.java`
 #### Snippet
 ```java
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
-            throw new MissingAttributeException("name");
+            throw new MissingAttributeException( "name" );
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/FileTag.java`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
 #### Snippet
 ```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        boolean available = false;
+     * @throws MissingAttributeException Thrown when required attributes are missing
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
+        if (null == this.getXslt()) {
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/TokenizeTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( this.var == null )
-        {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/CopyOfTag.java`
 #### Snippet
 ```java
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (var == null) {
-            throw new MissingAttributeException("var");
+        Object xpathContext = getXPathContext();
+
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/ReplaceTag.java`
+in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/MarshallTag.java`
 #### Snippet
 ```java
-    // Tag interface
-    //-------------------------------------------------------------------------
+    }
+    
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        // check required properties
-        if (oldChar != null) {
+        if (packages == null) {
+            throw new MissingAttributeException( "packages" );
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultSetTag.java`
+in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/UnmarshallTag.java`
+#### Snippet
+```java
+    }
+    
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (packages == null) {
+            throw new MissingAttributeException( "packages" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/GeneratorTag.java`
+#### Snippet
+```java
+    }
+    
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    
+        if (schemaUrl == null) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
     // Tag interface
@@ -5420,14 +5264,26 @@ in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultSetTag.
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/StyleTag.java`
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
 #### Snippet
 ```java
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Stylesheet stylesheet = getStylesheet();
-        if (stylesheet == null) {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( var == null ) {
+            throw new MissingAttributeException( "var" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+
+        if ( var == null ) {
 ```
 
 ### DuplicateThrows
@@ -5492,6 +5348,30 @@ in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/ServerTag.jav
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/StyleTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        Stylesheet stylesheet = getStylesheet();
+        if (stylesheet == null) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultSetTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (var == null) {
+            throw new MissingAttributeException( "var" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.java`
 #### Snippet
 ```java
@@ -5504,62 +5384,74 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.ja
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/MarshallTag.java`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/FileTag.java`
 #### Snippet
 ```java
-    }
-    
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (packages == null) {
-            throw new MissingAttributeException( "packages" );
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        boolean available = false;
+
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/UnmarshallTag.java`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/TokenizeTag.java`
 #### Snippet
 ```java
-    }
-    
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (packages == null) {
-            throw new MissingAttributeException( "packages" );
+    //-------------------------------------------------------------------------
+
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( this.var == null )
+        {
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/GeneratorTag.java`
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeRawTag.java`
 #### Snippet
 ```java
-    }
-    
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-    
-        if (schemaUrl == null) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/MenuManagerTag.java`
-#### Snippet
-```java
-     */
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        Map attributes = getAttributes();
+        throws MissingAttributeException, JellyTagException
+    {
+        if (endpoint == null)
 ```
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/SelectionChangedListenerTag.java`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
 #### Snippet
 ```java
-     */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/ReplaceTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        // check required properties
+        if (oldChar != null) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (endpoint == null) {
+            throw new MissingAttributeException("endpoint");
 ```
 
 ### DuplicateThrows
@@ -5576,66 +5468,6 @@ in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/DoubleClickListenerTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-        if (var == null) {
-            throw new MissingAttributeException("var");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ContributionItemTag.java`
-#### Snippet
-```java
-      */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        super.doTag(output);
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
-#### Snippet
-```java
-      */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        Map attributes = getAttributes();
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/window/ApplicationWindowTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-        Map attributes = getAttributes();
-        Object parent = attributes.remove("parent");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/preference/FieldEditorTag.java`
-#### Snippet
-```java
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        PreferencePageTag tag = (PreferencePageTag) findAncestorWithClass(PreferencePageTag.class);
-        if (tag == null) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTag.java`
 #### Snippet
 ```java
@@ -5648,18 +5480,6 @@ in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTag
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/InvokeTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( script == null ) {
-            throw new MissingAttributeException("script");
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/RunTag.java`
 #### Snippet
 ```java
@@ -5668,6 +5488,54 @@ in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/RunTag.ja
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Test test = getTest();
         if ( test == null ) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/TitledBorderTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( title == null) {
+            throw new MissingAttributeException("title");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EmptyBorderTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( left == -1) {
+            throw new MissingAttributeException("left");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/EtchedBorderTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if( highlight != null && shadow == null ) {
+            throw new MissingAttributeException("shadow must be supplied when highlight is supplied");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/InvokeTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( script == null ) {
+            throw new MissingAttributeException("script");
 ```
 
 ### DuplicateThrows
@@ -5720,30 +5588,6 @@ in `jelly-tags/regexp/src/main/java/org/apache/commons/jelly/tags/regexp/RegexpT
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        if ( var == null ) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( var == null ) {
-            throw new MissingAttributeException( "var" );
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynabeanTag.java`
 #### Snippet
 ```java
@@ -5752,18 +5596,6 @@ in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/Dyn
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (dynaClass == null) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java`
-#### Snippet
-```java
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag (XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        // Check that this tag is used inside the body of
 ```
 
 ### DuplicateThrows
@@ -5780,6 +5612,18 @@ in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/Dyn
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag (XMLOutput output) throws MissingAttributeException, JellyTagException {
+
+        // Check that this tag is used inside the body of
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
 #### Snippet
 ```java
@@ -5792,6 +5636,18 @@ in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/Ver
 
 ### DuplicateThrows
 There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/Tag.java`
+#### Snippet
+```java
+     * Evaluates this tag after all the tags properties have been initialized.
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
+
+    /**
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
 in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
 #### Snippet
 ```java
@@ -5800,6 +5656,150 @@ in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/Val
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( verifier == null ) {
             throw new MissingAttributeException("verifier");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/IfTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (test != null) {
+            if (test.evaluateAsBoolean(context)) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/RemoveTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (var != null) {
+            context.removeVariable( var.evaluateAsString(context) );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/InvokeTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( null == methodName) {
+            throw new MissingAttributeException( "method" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/IncludeTag.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+
+        if (uri == null && file == null) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/NewTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        ArgTag parentArg = null;
+        if ( var == null ) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/BreakTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws BreakException, JellyTagException {
+        boolean broken = false;
+        if (test == null || test.evaluateAsBoolean(context)) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/CaseTag.java`
+#### Snippet
+```java
+    }
+
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if(null == this.valueExpression) {
+            throw new MissingAttributeException("value");
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/WhileTag.java`
+#### Snippet
+```java
+     * @throws RuntimeException for anything else
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (test != null) {
+            try {
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SetPropertiesTag.java`
+#### Snippet
+```java
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        Map attributes = getAttributes();
+        Object bean = attributes.remove( "object" );
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ParseTag.java`
+#### Snippet
+```java
+     */
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
+
+        String text = getText();
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/SwitchTag.java`
+#### Snippet
+```java
+    }
+
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        this.defaultEncountered = false;
+        this.someCaseMatched = false;
+```
+
+### DuplicateThrows
+There is a more general exception, 'org.apache.commons.jelly.JellyTagException', in the throws list already.
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
+#### Snippet
+```java
+
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+
+        if (log.isDebugEnabled()) {
 ```
 
 ## RuleId[id=CastConflictsWithInstanceof]
@@ -5817,6 +5817,162 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/wizard/Wi
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `window` initializer `null` is redundant
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceLayoutDataTag.java`
+#### Snippet
+```java
+    protected void processBean(String var, Object bean) throws JellyTagException {
+        Widget parent = getParentWidget();
+        Window window = null;
+        if (parent == null) {
+            window = getParentWindow();
+```
+
+### UnusedAssignment
+Variable `httpMethod` initializer `null` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/BodyTag.java`
+#### Snippet
+```java
+            HttpTagSupport.class);
+
+        HttpMethod httpMethod = null;
+        try {
+            httpMethod = httpTag.getHttpMethod();
+```
+
+### UnusedAssignment
+Variable `client` initializer `null` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+#### Snippet
+```java
+    private HttpClient getHttpClient() {
+        SessionTag session = getSessionTag();
+        HttpClient client = null;
+        if (session != null) {
+            client = session.getHttpClient();
+```
+
+### UnusedAssignment
+Variable `header` initializer `null` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+#### Snippet
+```java
+        urlMethod.setFollowRedirects(isFollowRedirects());
+        // add request headers
+        NameValuePair header = null;
+        for (int index = 0; index < getRequestHeaders().size(); index++) {
+            header = (NameValuePair) getRequestHeaders().get(index);
+```
+
+### UnusedAssignment
+Variable `urlMethod` initializer `null` is redundant
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+#### Snippet
+```java
+        // track request execution
+        long start = System.currentTimeMillis();
+        HttpMethod urlMethod = null;
+        try {
+            urlMethod = getConfiguredHttpMethod();
+```
+
+### UnusedAssignment
+Variable `iterateDirectories` initializer `false` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
+#### Snippet
+```java
+
+    /** Return only directories? */
+    private boolean iterateDirectories = false;
+
+    public FileIterator(Project project,
+```
+
+### UnusedAssignment
+Variable `script` initializer `null` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/JellyTask.java`
+#### Snippet
+```java
+        XMLParser parser = new XMLParser();
+
+        Script script = null;
+        try {
+            parser.setContext(getJellyContext());
+```
+
+### UnusedAssignment
+Variable `document` initializer `null` is redundant
+in `jelly-tags/html/src/main/java/org/apache/commons/jelly/tags/html/ParseTag.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("The var attribute cannot be null");
+        }
+        Document document = null;
+        if (html == null) {
+            String text = getText();
+```
+
+### UnusedAssignment
+Variable `node` initializer `null` is redundant
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
+#### Snippet
+```java
+        XmlParser xmlParser = new XmlParser(false);
+
+        XmlParser.Node node = null;
+        try {
+            node = xmlParser.parse(inputSource);
+```
+
+### UnusedAssignment
+Variable `currNode` initializer `null` is redundant
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
+#### Snippet
+```java
+
+        Iterator iter=node.iterator();
+        XmlParser.Node currNode = null;
+        while (iter.hasNext())
+        {
+```
+
+### UnusedAssignment
+Variable `theClass` initializer `null` is redundant
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
+#### Snippet
+```java
+        }
+
+        Class theClass = null;
+        try {
+            theClass = ClassLoaderUtils.loadClass(className, classLoader, getContext().getUseContextClassLoader(), getClass());
+```
+
+### UnusedAssignment
+Variable `o` initializer `null` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+        }
+
+        Object o = null;
+        try {
+            o = taskType.newInstance();
+```
+
+### UnusedAssignment
+Variable `task` initializer `null` is redundant
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+        }
+
+        Task task = null;
+        if ( o instanceof Task ) {
+            task = (Task) o;
+```
+
+### UnusedAssignment
 Variable `document` initializer `null` is redundant
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTag.java`
 #### Snippet
@@ -5826,6 +5982,54 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTag.java
         Document document = null;
         Object xmlObj = this.getXml();
 
+```
+
+### UnusedAssignment
+Variable `tag` initializer `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+                if (script instanceof TagScript) {
+
+                    Tag tag = null;
+                    try {
+                        tag = ((TagScript) script).getTag(getContext());
+```
+
+### UnusedAssignment
+Variable `xmlReader` initializer `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+     */
+    protected XMLReader createXMLReader() throws SAXException {
+        XMLReader xmlReader = null;
+        Object xmlReaderSourceObj = this.getXml();
+        // if no xml source specified then get from body
+```
+
+### UnusedAssignment
+Variable `xmlInputSource` initializer `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+     */
+    protected InputSource getXMLInputSource() {
+        InputSource xmlInputSource = null;
+        Object xmlInputSourceObj = this.getXml();
+        // if no xml source specified then get from tag body
+```
+
+### UnusedAssignment
+Variable `xmlInputSource` initializer `null` is redundant
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+     */
+    protected InputSource getInputSourceFromObj(Object sourceObj ) {
+        InputSource xmlInputSource = null;
+        if (sourceObj instanceof Document) {
+            SAXSource saxSource = new DocumentSource((Document) sourceObj);
 ```
 
 ### UnusedAssignment
@@ -5865,51 +6069,399 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 ```
 
 ### UnusedAssignment
-Variable `xmlInputSource` initializer `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+Variable `timeZone` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java`
 #### Snippet
 ```java
      */
-    protected InputSource getInputSourceFromObj(Object sourceObj ) {
-        InputSource xmlInputSource = null;
-        if (sourceObj instanceof Document) {
-            SAXSource saxSource = new DocumentSource((Document) sourceObj);
+    public void doTag(XMLOutput output) throws JellyTagException {
+        TimeZone timeZone = null;
+
+        Object valueInput = null;
 ```
 
 ### UnusedAssignment
-Variable `xmlReader` initializer `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+Variable `theClass` initializer `null` is redundant
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
+#### Snippet
+```java
+        reader.setXMLIntrospector(getIntrospector());
+
+        Class theClass = null;
+        try {
+            theClass = getClassLoader().loadClass( rootClass );
+```
+
+### UnusedAssignment
+Variable `value` initializer `null` is redundant
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
+#### Snippet
+```java
+        }
+
+        Object value = null;
+        if ( uri != null ) {
+            invokeBody(output);
+```
+
+### UnusedAssignment
+Variable `parent` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/ParamTag.java`
 #### Snippet
 ```java
      */
-    protected XMLReader createXMLReader() throws SAXException {
-        XMLReader xmlReader = null;
-        Object xmlReaderSourceObj = this.getXml();
-        // if no xml source specified then get from body
+    public void doTag(XMLOutput output) throws JellyTagException {
+        MessageTag parent = null;
+        Tag t = findAncestorWithClass(this, MessageTag.class);
+        if (t != null) {
 ```
 
 ### UnusedAssignment
-Variable `tag` initializer `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+Variable `valueInput` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/ParamTag.java`
 #### Snippet
 ```java
-                if (script instanceof TagScript) {
+        }
 
-                    Tag tag = null;
-                    try {
-                        tag = ((TagScript) script).getTag(getContext());
+        Object valueInput = null;
+        if (this.value != null) {
+            valueInput = this.value.evaluate(context);
 ```
 
 ### UnusedAssignment
-Variable `xmlInputSource` initializer `null` is redundant
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+Variable `theClass` initializer `null` is redundant
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+#### Snippet
+```java
+        else {
+            // lets try load the class of this name
+            Class theClass = null;
+            try {
+                theClass = Thread.currentThread().getContextClassLoader().loadClass( name );
+```
+
+### UnusedAssignment
+Variable `object` initializer `null` is redundant
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+#### Snippet
+```java
+            }
+
+            Object object = null;
+            try {
+                object = theClass.newInstance();
+```
+
+### UnusedAssignment
+Variable `keyInput` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/MessageTag.java`
+#### Snippet
+```java
+    public void doTag(XMLOutput output) throws JellyTagException {
+
+        Object keyInput = null;
+        if (this.key != null) {
+            keyInput = this.key.evaluate(context);
+```
+
+### UnusedAssignment
+Variable `destination` initializer `null` is redundant
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/SubscribeTag.java`
+#### Snippet
+```java
+
+
+        Destination destination = null;
+        try {
+            destination = getDestination();
+```
+
+### UnusedAssignment
+Variable `destination` initializer `null` is redundant
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/DestinationTag.java`
+#### Snippet
+```java
+        }
+
+        Destination destination = null;
+        try {
+            Messenger messenger = messengerTag.getConnection();
+```
+
+### UnusedAssignment
+Variable `locCtxt` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+    Locale[] avail) {
+
+        LocalizationContext locCtxt = null;
+
+        // Get formatting locale from enclosing <fmt:bundle>
+```
+
+### UnusedAssignment
+Variable `locale` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
 #### Snippet
 ```java
      */
-    protected InputSource getXMLInputSource() {
-        InputSource xmlInputSource = null;
-        Object xmlInputSourceObj = this.getXml();
-        // if no xml source specified then get from tag body
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Locale locale = null;
+
+        Object valueInput = null;
+```
+
+### UnusedAssignment
+Variable `ret` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+    public static Locale parseLocale(String locale, String variant) {
+
+        Locale ret = null;
+        String language = locale;
+        String country = null;
+```
+
+### UnusedAssignment
+Variable `index` initializer `-1` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+        String language = locale;
+        String country = null;
+        int index = -1;
+
+        if (((index = locale.indexOf(HYPHEN)) > -1)
+```
+
+### UnusedAssignment
+Variable `message` initializer `null` is redundant
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ReceiveTag.java`
+#### Snippet
+```java
+        invokeBody(output);
+
+        Message message = null;
+        try {
+            Destination destination = getDestination();
+```
+
+### UnusedAssignment
+Variable `locCtxt` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
+#### Snippet
+```java
+     */
+    public static LocalizationContext getLocalizationContext(JellyContext jc) {
+        LocalizationContext locCtxt = null;
+
+        Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
+```
+
+### UnusedAssignment
+Variable `bundle` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
+#### Snippet
+```java
+    String basename) {
+        LocalizationContext locCtxt = null;
+        ResourceBundle bundle = null;
+
+        if ((basename == null) || basename.equals("")) {
+```
+
+### UnusedAssignment
+Variable `formatted` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+            DateFormat.getAvailableLocales());
+
+        String formatted = null;
+        if (locale != null) {
+            DateFormat formatter = createFormatter(locale);
+```
+
+### UnusedAssignment
+Variable `tz` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+
+            // Set time zone
+            TimeZone tz = null;
+            if ((etimeZone instanceof String)
+            && ((String) etimeZone).equals("")) {
+```
+
+### UnusedAssignment
+Variable `formatter` initializer `null` is redundant
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+
+    private DateFormat createFormatter(Locale loc) throws JellyTagException {
+        DateFormat formatter = null;
+
+        if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
+```
+
+### UnusedAssignment
+Variable `dataSource` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
+#### Snippet
+```java
+    static DataSource getDataSource(Object rawDataSource, JellyContext pc)
+        throws JellyTagException {
+        DataSource dataSource = null;
+
+        if (rawDataSource == null) {
+```
+
+### UnusedAssignment
+Variable `sqlStatement` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
+#### Snippet
+```java
+         * otherwise use the body as the statement.
+         */
+        String sqlStatement = null;
+        if (sql != null) {
+            sqlStatement = sql;
+```
+
+### UnusedAssignment
+Variable `result` initializer `0` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
+#### Snippet
+```java
+
+        Statement statement = null;
+        int result = 0;
+        try {
+            if ( hasParameters() ) {
+```
+
+### UnusedAssignment
+The value `true` assigned to `finished` is never used
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/TransactionTag.java`
+#### Snippet
+```java
+        try {
+            invokeBody(output);
+            finished = true;
+        }
+        catch (Exception e) {
+```
+
+### UnusedAssignment
+Variable `conn` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
+#### Snippet
+```java
+    protected Connection getConnection() throws JellyTagException, SQLException {
+        // Fix: Add all other mechanisms
+        Connection conn = null;
+        isPartOfTransaction = false;
+
+```
+
+### UnusedAssignment
+Variable `ds` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SetDataSourceTag.java`
+#### Snippet
+```java
+
+    public void doTag(XMLOutput output) throws JellyTagException {
+        DataSource ds = null;
+
+        if (dataSource != null) {
+```
+
+### UnusedAssignment
+Variable `conn` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceWrapper.java`
+#### Snippet
+```java
+     */
+    public Connection getConnection() throws SQLException {
+        Connection conn = null;
+        if (userName != null) {
+            if (log.isDebugEnabled()) {
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
+#### Snippet
+```java
+        }
+
+        Result result = null;
+        String sqlStatement = null;
+
+```
+
+### UnusedAssignment
+Variable `point` initializer `null` is redundant
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+     */
+    protected void setSize(Control control, Object size) {
+        Point point = null;
+        if (size != null) {
+            if (size instanceof Point) {
+```
+
+### UnusedAssignment
+Variable `rgb` initializer `null` is redundant
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+        Color color = null;
+        if (colorValue != null) {
+            RGB rgb = null;
+            if (color instanceof Color) {
+                color = (Color) colorValue;
+```
+
+### UnusedAssignment
+Variable `image` initializer `null` is redundant
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
+#### Snippet
+```java
+        }
+
+        Image image = null;
+
+        if (getSrc() != null) {
+```
+
+### UnusedAssignment
+Variable `colorValue` initializer `0` is redundant
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException(usageText);
+        }
+        int colorValue = 0;
+        try {
+            colorValue = Integer.parseInt(value.substring(1), 16);
+```
+
+### UnusedAssignment
+Variable `is` initializer `null` is redundant
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
+#### Snippet
+```java
+            throw new JellyTagException("This tag must define a 'file' or 'uri' attribute");
+        }
+        InputStream is = null;
+        if (file != null) {
+            File f = new File(file);
 ```
 
 ### UnusedAssignment
@@ -5925,6 +6477,54 @@ in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeRawTa
 ```
 
 ### UnusedAssignment
+Variable `in` initializer `null` is redundant
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
+#### Snippet
+```java
+        }
+        
+        InputStream in = null;
+        if (file != null) {
+            if (! file.exists()) {
+```
+
+### UnusedAssignment
+Variable `reader` initializer `null` is redundant
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
+#### Snippet
+```java
+        }
+
+        Reader reader = null;
+        if (encoding != null) {
+            try {
+```
+
+### UnusedAssignment
+Variable `text` initializer `null` is redundant
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
+#### Snippet
+```java
+        }
+
+        String text = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `answer` initializer `null` is redundant
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/ReplaceTag.java`
+#### Snippet
+```java
+
+        // get either the value or the body of the tag
+        Object answer = null;
+        if ( value != null ) {
+            answer = value.evaluateAsString(context);
+```
+
+### UnusedAssignment
 Variable `answer` initializer `null` is redundant
 in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
 #### Snippet
@@ -5937,15 +6537,219 @@ in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.j
 ```
 
 ### UnusedAssignment
+Variable `eachGrammar` initializer `null` is redundant
+in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
+#### Snippet
+```java
+
+        Iterator grammarIter = this.grammars.iterator();
+        String eachGrammar = null;
+
+        String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
+```
+
+### UnusedAssignment
+Variable `grammar` initializer `null` is redundant
+in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
+#### Snippet
+```java
+
+        String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
+        File grammar = null;
+
+        while ( grammarIter.hasNext() )
+```
+
+### UnusedAssignment
+Variable `genFile` initializer `null` is redundant
+in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
+#### Snippet
+```java
+        }
+
+        File genFile = null;
+
+        if ( "".equals( packageName ) )
+```
+
+### UnusedAssignment
+Variable `messageBody` initializer `null` is redundant
+in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
+#### Snippet
+```java
+        }
+
+        String messageBody = null;
+        if (this.message != null) {
+            messageBody = this.message.evaluate(context).toString();
+```
+
+### UnusedAssignment
+Variable `throwableClass` initializer `null` is redundant
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
+#### Snippet
+```java
+        }
+
+        Class throwableClass = null;
+        try {
+            throwableClass = getClassLoader().loadClass(expected);
+```
+
+### UnusedAssignment
+Variable `throwableClass` initializer `null` is redundant
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Class throwableClass = null;
+        try {
+             throwableClass = getThrowableClass();
+```
+
+### UnusedAssignment
+Variable `colorValue` initializer `0` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/ColorConverter.java`
+#### Snippet
+```java
+                    throw new IllegalArgumentException(usageText);
+                }
+                int colorValue = 0;
+                try {
+                    colorValue = Integer.parseInt(s.substring(1), 16);
+```
+
+### UnusedAssignment
+Variable `newClassLoader` initializer `null` is redundant
+in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/ClassLoaderTag.java`
+#### Snippet
+```java
+        }
+
+        URLClassLoader newClassLoader = null;
+
+        try {
+```
+
+### UnusedAssignment
 Variable `theClass` initializer `null` is redundant
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
+in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/BeanTag.java`
 #### Snippet
 ```java
         }
 
         Class theClass = null;
         try {
-            theClass = ClassLoaderUtils.loadClass(className, classLoader, getContext().getUseContextClassLoader(), getClass());
+            ClassLoader classLoader = getClassLoader();
+```
+
+### UnusedAssignment
+Variable `url` initializer `null` is redundant
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+#### Snippet
+```java
+                String scriptName = config.getChild( "url" ).getValue();
+                // Try to load the script via file, then by URL, then by classloader
+                URL url = null;
+                File file = new File( scriptName );
+                if( file.exists() ) {
+```
+
+### UnusedAssignment
+The value `new URL( url )` assigned to `actualUrl` is never used
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+#### Snippet
+```java
+        URL actualUrl = null;
+        try {
+           actualUrl = new URL( url );
+        }
+        catch ( MalformedURLException x ) {
+```
+
+### UnusedAssignment
+Variable `answer` initializer `null` is redundant
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/SetTag.java`
+#### Snippet
+```java
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Object answer = null;
+        if ( value != null ) {
+            answer = value.evaluate(context);
+```
+
+### UnusedAssignment
+Variable `delta` initializer `null` is redundant
+in `jelly-tags/xmlunit/src/main/java/org/apache/commons/jelly/tags/xmlunit/AssertDocumentsEqualTag.java`
+#### Snippet
+```java
+            XMLUnit.setIgnoreWhitespace(ignoreWhitespace);
+
+            Diff delta = null;
+            try {
+                delta = new Diff(
+```
+
+### UnusedAssignment
+Variable `in` initializer `null` is redundant
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
+#### Snippet
+```java
+        }
+
+        InputStream in = null;
+        if ( uri != null ) {
+            in = context.getResourceAsStream( uri );
+```
+
+### UnusedAssignment
+Variable `verifier` initializer `null` is redundant
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
+#### Snippet
+```java
+        }
+
+        Verifier verifier = null;
+        try {
+            Schema schema = null;
+```
+
+### UnusedAssignment
+Variable `schema` initializer `null` is redundant
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
+#### Snippet
+```java
+        Verifier verifier = null;
+        try {
+            Schema schema = null;
+            if (systemId != null) {
+                schema = getFactory().compileSchema(in, systemId);
+```
+
+### UnusedAssignment
+Variable `valid` initializer `false` is redundant
+in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
+#### Snippet
+```java
+            throw new MissingAttributeException("verifier");
+        }
+        boolean valid = false;
+
+        // evaluate the body using the current Verifier
+```
+
+### UnusedAssignment
+The value `qname` assigned to `localName` is never used
+in `core/src/main/java/org/apache/commons/jelly/impl/StaticTag.java`
+#### Snippet
+```java
+        // FIXME This just doesn't seem right or work...
+        if (qname == null || !qname.endsWith(localName)) {
+            localName = qname;
+        }
+    }
 ```
 
 ### UnusedAssignment
@@ -5970,18 +6774,6 @@ in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
         InputStream is = null;
     
         String userDir = System.getProperty("user.home");
-```
-
-### UnusedAssignment
-The value `qname` assigned to `localName` is never used
-in `core/src/main/java/org/apache/commons/jelly/impl/StaticTag.java`
-#### Snippet
-```java
-        // FIXME This just doesn't seem right or work...
-        if (qname == null || !qname.endsWith(localName)) {
-            localName = qname;
-        }
-    }
 ```
 
 ### UnusedAssignment
@@ -6141,18 +6933,6 @@ in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFa
 ```
 
 ### UnusedAssignment
-Variable `text` initializer `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
-#### Snippet
-```java
-
-        protected Expression jexlExpression = null;
-        protected String text = null;
-
-        public ExpressionSupportLocal(Expression jexlExpression, String text) {
-```
-
-### UnusedAssignment
 Variable `jexlExpression` initializer `null` is redundant
 in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
 #### Snippet
@@ -6162,6 +6942,18 @@ in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFa
         Expression jexlExpression = null;
         try {
             // this method really does throw Exception
+```
+
+### UnusedAssignment
+Variable `text` initializer `null` is redundant
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java`
+#### Snippet
+```java
+
+        protected Expression jexlExpression = null;
+        protected String text = null;
+
+        public ExpressionSupportLocal(Expression jexlExpression, String text) {
 ```
 
 ### UnusedAssignment
@@ -6189,627 +6981,15 @@ in `core/src/main/java/org/apache/commons/jelly/expression/CompositeExpression.j
 ```
 
 ### UnusedAssignment
-Variable `colorValue` initializer `0` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/ColorConverter.java`
-#### Snippet
-```java
-                    throw new IllegalArgumentException(usageText);
-                }
-                int colorValue = 0;
-                try {
-                    colorValue = Integer.parseInt(s.substring(1), 16);
-```
-
-### UnusedAssignment
-Variable `iterateDirectories` initializer `false` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/FileIterator.java`
-#### Snippet
-```java
-
-    /** Return only directories? */
-    private boolean iterateDirectories = false;
-
-    public FileIterator(Project project,
-```
-
-### UnusedAssignment
-Variable `node` initializer `null` is redundant
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
-#### Snippet
-```java
-        XmlParser xmlParser = new XmlParser(false);
-
-        XmlParser.Node node = null;
-        try {
-            node = xmlParser.parse(inputSource);
-```
-
-### UnusedAssignment
-Variable `currNode` initializer `null` is redundant
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
-#### Snippet
-```java
-
-        Iterator iter=node.iterator();
-        XmlParser.Node currNode = null;
-        while (iter.hasNext())
-        {
-```
-
-### UnusedAssignment
-Variable `is` initializer `null` is redundant
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
-#### Snippet
-```java
-            throw new JellyTagException("This tag must define a 'file' or 'uri' attribute");
-        }
-        InputStream is = null;
-        if (file != null) {
-            File f = new File(file);
-```
-
-### UnusedAssignment
 Variable `script` initializer `null` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/JellyTask.java`
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-        XMLParser parser = new XMLParser();
+        parser.setContext(this);
 
         Script script = null;
         try {
-            parser.setContext(getJellyContext());
-```
-
-### UnusedAssignment
-Variable `in` initializer `null` is redundant
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
-#### Snippet
-```java
-        }
-        
-        InputStream in = null;
-        if (file != null) {
-            if (! file.exists()) {
-```
-
-### UnusedAssignment
-Variable `reader` initializer `null` is redundant
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
-#### Snippet
-```java
-        }
-
-        Reader reader = null;
-        if (encoding != null) {
-            try {
-```
-
-### UnusedAssignment
-Variable `text` initializer `null` is redundant
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/LoadTextTag.java`
-#### Snippet
-```java
-        }
-
-        String text = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `answer` initializer `null` is redundant
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/ReplaceTag.java`
-#### Snippet
-```java
-
-        // get either the value or the body of the tag
-        Object answer = null;
-        if ( value != null ) {
-            answer = value.evaluateAsString(context);
-```
-
-### UnusedAssignment
-Variable `httpMethod` initializer `null` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/BodyTag.java`
-#### Snippet
-```java
-            HttpTagSupport.class);
-
-        HttpMethod httpMethod = null;
-        try {
-            httpMethod = httpTag.getHttpMethod();
-```
-
-### UnusedAssignment
-Variable `url` initializer `null` is redundant
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
-#### Snippet
-```java
-                String scriptName = config.getChild( "url" ).getValue();
-                // Try to load the script via file, then by URL, then by classloader
-                URL url = null;
-                File file = new File( scriptName );
-                if( file.exists() ) {
-```
-
-### UnusedAssignment
-The value `new URL( url )` assigned to `actualUrl` is never used
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
-#### Snippet
-```java
-        URL actualUrl = null;
-        try {
-           actualUrl = new URL( url );
-        }
-        catch ( MalformedURLException x ) {
-```
-
-### UnusedAssignment
-Variable `header` initializer `null` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-        urlMethod.setFollowRedirects(isFollowRedirects());
-        // add request headers
-        NameValuePair header = null;
-        for (int index = 0; index < getRequestHeaders().size(); index++) {
-            header = (NameValuePair) getRequestHeaders().get(index);
-```
-
-### UnusedAssignment
-Variable `urlMethod` initializer `null` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-        // track request execution
-        long start = System.currentTimeMillis();
-        HttpMethod urlMethod = null;
-        try {
-            urlMethod = getConfiguredHttpMethod();
-```
-
-### UnusedAssignment
-Variable `client` initializer `null` is redundant
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-    private HttpClient getHttpClient() {
-        SessionTag session = getSessionTag();
-        HttpClient client = null;
-        if (session != null) {
-            client = session.getHttpClient();
-```
-
-### UnusedAssignment
-Variable `messageBody` initializer `null` is redundant
-in `jelly-tags/email/src/main/java/org/apache/commons/jelly/tags/email/EmailTag.java`
-#### Snippet
-```java
-        }
-
-        String messageBody = null;
-        if (this.message != null) {
-            messageBody = this.message.evaluate(context).toString();
-```
-
-### UnusedAssignment
-Variable `o` initializer `null` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-        }
-
-        Object o = null;
-        try {
-            o = taskType.newInstance();
-```
-
-### UnusedAssignment
-Variable `task` initializer `null` is redundant
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-        }
-
-        Task task = null;
-        if ( o instanceof Task ) {
-            task = (Task) o;
-```
-
-### UnusedAssignment
-The value `true` assigned to `finished` is never used
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/TransactionTag.java`
-#### Snippet
-```java
-        try {
-            invokeBody(output);
-            finished = true;
-        }
-        catch (Exception e) {
-```
-
-### UnusedAssignment
-Variable `ds` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SetDataSourceTag.java`
-#### Snippet
-```java
-
-    public void doTag(XMLOutput output) throws JellyTagException {
-        DataSource ds = null;
-
-        if (dataSource != null) {
-```
-
-### UnusedAssignment
-Variable `dataSource` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
-#### Snippet
-```java
-    static DataSource getDataSource(Object rawDataSource, JellyContext pc)
-        throws JellyTagException {
-        DataSource dataSource = null;
-
-        if (rawDataSource == null) {
-```
-
-### UnusedAssignment
-Variable `sqlStatement` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
-#### Snippet
-```java
-         * otherwise use the body as the statement.
-         */
-        String sqlStatement = null;
-        if (sql != null) {
-            sqlStatement = sql;
-```
-
-### UnusedAssignment
-Variable `result` initializer `0` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
-#### Snippet
-```java
-
-        Statement statement = null;
-        int result = 0;
-        try {
-            if ( hasParameters() ) {
-```
-
-### UnusedAssignment
-Variable `conn` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
-#### Snippet
-```java
-    protected Connection getConnection() throws JellyTagException, SQLException {
-        // Fix: Add all other mechanisms
-        Connection conn = null;
-        isPartOfTransaction = false;
-
-```
-
-### UnusedAssignment
-Variable `conn` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceWrapper.java`
-#### Snippet
-```java
-     */
-    public Connection getConnection() throws SQLException {
-        Connection conn = null;
-        if (userName != null) {
-            if (log.isDebugEnabled()) {
-```
-
-### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/QueryTag.java`
-#### Snippet
-```java
-        }
-
-        Result result = null;
-        String sqlStatement = null;
-
-```
-
-### UnusedAssignment
-Variable `document` initializer `null` is redundant
-in `jelly-tags/html/src/main/java/org/apache/commons/jelly/tags/html/ParseTag.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("The var attribute cannot be null");
-        }
-        Document document = null;
-        if (html == null) {
-            String text = getText();
-```
-
-### UnusedAssignment
-Variable `destination` initializer `null` is redundant
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/SubscribeTag.java`
-#### Snippet
-```java
-
-
-        Destination destination = null;
-        try {
-            destination = getDestination();
-```
-
-### UnusedAssignment
-Variable `destination` initializer `null` is redundant
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/DestinationTag.java`
-#### Snippet
-```java
-        }
-
-        Destination destination = null;
-        try {
-            Messenger messenger = messengerTag.getConnection();
-```
-
-### UnusedAssignment
-Variable `message` initializer `null` is redundant
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/ReceiveTag.java`
-#### Snippet
-```java
-        invokeBody(output);
-
-        Message message = null;
-        try {
-            Destination destination = getDestination();
-```
-
-### UnusedAssignment
-Variable `timeZone` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
-        TimeZone timeZone = null;
-
-        Object valueInput = null;
-```
-
-### UnusedAssignment
-Variable `parent` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/ParamTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
-        MessageTag parent = null;
-        Tag t = findAncestorWithClass(this, MessageTag.class);
-        if (t != null) {
-```
-
-### UnusedAssignment
-Variable `valueInput` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/ParamTag.java`
-#### Snippet
-```java
-        }
-
-        Object valueInput = null;
-        if (this.value != null) {
-            valueInput = this.value.evaluate(context);
-```
-
-### UnusedAssignment
-Variable `locCtxt` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-     */
-    public static LocalizationContext getLocalizationContext(JellyContext jc) {
-        LocalizationContext locCtxt = null;
-
-        Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
-```
-
-### UnusedAssignment
-Variable `bundle` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-    String basename) {
-        LocalizationContext locCtxt = null;
-        ResourceBundle bundle = null;
-
-        if ((basename == null) || basename.equals("")) {
-```
-
-### UnusedAssignment
-Variable `keyInput` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/MessageTag.java`
-#### Snippet
-```java
-    public void doTag(XMLOutput output) throws JellyTagException {
-
-        Object keyInput = null;
-        if (this.key != null) {
-            keyInput = this.key.evaluate(context);
-```
-
-### UnusedAssignment
-Variable `formatted` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-            DateFormat.getAvailableLocales());
-
-        String formatted = null;
-        if (locale != null) {
-            DateFormat formatter = createFormatter(locale);
-```
-
-### UnusedAssignment
-Variable `tz` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-
-            // Set time zone
-            TimeZone tz = null;
-            if ((etimeZone instanceof String)
-            && ((String) etimeZone).equals("")) {
-```
-
-### UnusedAssignment
-Variable `formatter` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-
-    private DateFormat createFormatter(Locale loc) throws JellyTagException {
-        DateFormat formatter = null;
-
-        if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
-```
-
-### UnusedAssignment
-Variable `image` initializer `null` is redundant
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
-#### Snippet
-```java
-        }
-
-        Image image = null;
-
-        if (getSrc() != null) {
-```
-
-### UnusedAssignment
-Variable `ret` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-    public static Locale parseLocale(String locale, String variant) {
-
-        Locale ret = null;
-        String language = locale;
-        String country = null;
-```
-
-### UnusedAssignment
-Variable `index` initializer `-1` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-        String language = locale;
-        String country = null;
-        int index = -1;
-
-        if (((index = locale.indexOf(HYPHEN)) > -1)
-```
-
-### UnusedAssignment
-Variable `locale` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Locale locale = null;
-
-        Object valueInput = null;
-```
-
-### UnusedAssignment
-Variable `locCtxt` initializer `null` is redundant
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-    Locale[] avail) {
-
-        LocalizationContext locCtxt = null;
-
-        // Get formatting locale from enclosing <fmt:bundle>
-```
-
-### UnusedAssignment
-Variable `point` initializer `null` is redundant
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-     */
-    protected void setSize(Control control, Object size) {
-        Point point = null;
-        if (size != null) {
-            if (size instanceof Point) {
-```
-
-### UnusedAssignment
-Variable `rgb` initializer `null` is redundant
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-        Color color = null;
-        if (colorValue != null) {
-            RGB rgb = null;
-            if (color instanceof Color) {
-                color = (Color) colorValue;
-```
-
-### UnusedAssignment
-Variable `colorValue` initializer `0` is redundant
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException(usageText);
-        }
-        int colorValue = 0;
-        try {
-            colorValue = Integer.parseInt(value.substring(1), 16);
-```
-
-### UnusedAssignment
-Variable `window` initializer `null` is redundant
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceLayoutDataTag.java`
-#### Snippet
-```java
-    protected void processBean(String var, Object bean) throws JellyTagException {
-        Widget parent = getParentWidget();
-        Window window = null;
-        if (parent == null) {
-            window = getParentWindow();
-```
-
-### UnusedAssignment
-Variable `genFile` initializer `null` is redundant
-in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
-#### Snippet
-```java
-        }
-
-        File genFile = null;
-
-        if ( "".equals( packageName ) )
-```
-
-### UnusedAssignment
-Variable `eachGrammar` initializer `null` is redundant
-in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
-#### Snippet
-```java
-
-        Iterator grammarIter = this.grammars.iterator();
-        String eachGrammar = null;
-
-        String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
-```
-
-### UnusedAssignment
-Variable `grammar` initializer `null` is redundant
-in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
-#### Snippet
-```java
-
-        String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
-        File grammar = null;
-
-        while ( grammarIter.hasNext() )
+            script = parser.parse(url.toString());
 ```
 
 ### UnusedAssignment
@@ -6825,15 +7005,15 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 ```
 
 ### UnusedAssignment
-Variable `newJellyContextURL` initializer `null` is redundant
+Variable `url` initializer `null` is redundant
 in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-        Script script = compileScript(source);
-
-        URL newJellyContextURL = null;
+    public JellyContext runScript(String uri, XMLOutput output,
+                          boolean export, boolean inherit) throws JellyException {
+        URL url = null;
         try {
-            newJellyContextURL = getJellyContextURL(source);
+            url = getResource(uri);
 ```
 
 ### UnusedAssignment
@@ -6861,195 +7041,15 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 ```
 
 ### UnusedAssignment
-Variable `script` initializer `null` is redundant
+Variable `newJellyContextURL` initializer `null` is redundant
 in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-        parser.setContext(this);
+        Script script = compileScript(source);
 
-        Script script = null;
+        URL newJellyContextURL = null;
         try {
-            script = parser.parse(url.toString());
-```
-
-### UnusedAssignment
-Variable `url` initializer `null` is redundant
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-    public JellyContext runScript(String uri, XMLOutput output,
-                          boolean export, boolean inherit) throws JellyException {
-        URL url = null;
-        try {
-            url = getResource(uri);
-```
-
-### UnusedAssignment
-Variable `throwableClass` initializer `null` is redundant
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Class throwableClass = null;
-        try {
-             throwableClass = getThrowableClass();
-```
-
-### UnusedAssignment
-Variable `throwableClass` initializer `null` is redundant
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
-#### Snippet
-```java
-        }
-
-        Class throwableClass = null;
-        try {
-            throwableClass = getClassLoader().loadClass(expected);
-```
-
-### UnusedAssignment
-Variable `newClassLoader` initializer `null` is redundant
-in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/ClassLoaderTag.java`
-#### Snippet
-```java
-        }
-
-        URLClassLoader newClassLoader = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `theClass` initializer `null` is redundant
-in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/BeanTag.java`
-#### Snippet
-```java
-        }
-
-        Class theClass = null;
-        try {
-            ClassLoader classLoader = getClassLoader();
-```
-
-### UnusedAssignment
-Variable `theClass` initializer `null` is redundant
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
-#### Snippet
-```java
-        else {
-            // lets try load the class of this name
-            Class theClass = null;
-            try {
-                theClass = Thread.currentThread().getContextClassLoader().loadClass( name );
-```
-
-### UnusedAssignment
-Variable `object` initializer `null` is redundant
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
-#### Snippet
-```java
-            }
-
-            Object object = null;
-            try {
-                object = theClass.newInstance();
-```
-
-### UnusedAssignment
-Variable `theClass` initializer `null` is redundant
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
-#### Snippet
-```java
-        reader.setXMLIntrospector(getIntrospector());
-
-        Class theClass = null;
-        try {
-            theClass = getClassLoader().loadClass( rootClass );
-```
-
-### UnusedAssignment
-Variable `value` initializer `null` is redundant
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/ParseTag.java`
-#### Snippet
-```java
-        }
-
-        Object value = null;
-        if ( uri != null ) {
-            invokeBody(output);
-```
-
-### UnusedAssignment
-Variable `delta` initializer `null` is redundant
-in `jelly-tags/xmlunit/src/main/java/org/apache/commons/jelly/tags/xmlunit/AssertDocumentsEqualTag.java`
-#### Snippet
-```java
-            XMLUnit.setIgnoreWhitespace(ignoreWhitespace);
-
-            Diff delta = null;
-            try {
-                delta = new Diff(
-```
-
-### UnusedAssignment
-Variable `answer` initializer `null` is redundant
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/SetTag.java`
-#### Snippet
-```java
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Object answer = null;
-        if ( value != null ) {
-            answer = value.evaluate(context);
-```
-
-### UnusedAssignment
-Variable `in` initializer `null` is redundant
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
-#### Snippet
-```java
-        }
-
-        InputStream in = null;
-        if ( uri != null ) {
-            in = context.getResourceAsStream( uri );
-```
-
-### UnusedAssignment
-Variable `verifier` initializer `null` is redundant
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
-#### Snippet
-```java
-        }
-
-        Verifier verifier = null;
-        try {
-            Schema schema = null;
-```
-
-### UnusedAssignment
-Variable `schema` initializer `null` is redundant
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/VerifierTag.java`
-#### Snippet
-```java
-        Verifier verifier = null;
-        try {
-            Schema schema = null;
-            if (systemId != null) {
-                schema = getFactory().compileSchema(in, systemId);
-```
-
-### UnusedAssignment
-Variable `valid` initializer `false` is redundant
-in `jelly-tags/validate/src/main/java/org/apache/commons/jelly/tags/validate/ValidateTag.java`
-#### Snippet
-```java
-            throw new MissingAttributeException("verifier");
-        }
-        boolean valid = false;
-
-        // evaluate the body using the current Verifier
+            newJellyContextURL = getJellyContextURL(source);
 ```
 
 ## RuleId[id=IndexOfReplaceableByContains]
@@ -7067,6 +7067,42 @@ in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertFil
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Condition `constructor != null` is always `true`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/preference/FieldEditorTag.java`
+#### Snippet
+```java
+            Class[] types = { String.class, String.class, Composite.class };
+            Constructor constructor = theClass.getConstructor(types);
+            if (constructor != null) {
+                Object[] arguments = { name, labelText, parentComposite };
+                return constructor.newInstance(arguments);
+```
+
+### ConstantValue
+Condition `guarantee==null` is always `false`
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
+#### Snippet
+```java
+            data=data.get("transport-guarantee");
+            String guarantee = data.toString(false,true).toUpperCase();
+            if (guarantee==null || guarantee.length()==0 ||
+                "NONE".equals(guarantee))
+                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
+```
+
+### ConstantValue
+Condition `project == null` is always `false`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+    public Project getAntProject() {
+        Project project = AntTagLibrary.getProject(context);
+        if (project == null) {
+            throw new NullPointerException("No Ant Project object is available");
+        }
+```
+
+### ConstantValue
 Condition `l.size() == 0` is always `false`
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
@@ -7079,39 +7115,183 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 ```
 
 ### ConstantValue
-Condition `e instanceof IllegalStateException` is always `false`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+Condition `object == null` is always `false`
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
 #### Snippet
 ```java
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-        			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
+                return (NameMapper) object;
+            }
+            if ( object == null ) {
+                throw new ConversionException( "No NameMapper created for type: " + name );
+            }
 ```
 
 ### ConstantValue
-Condition `!firstTime` is always `false`
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
+Condition `language == null` is always `false`
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
 #### Snippet
 ```java
-                        // set first time up for the next iteration.
-                        if (firstTime) {
-                            firstTime = !firstTime;
-                        }
+        }
+
+        if ((language == null) || (language.length() == 0)) {
+            throw new IllegalArgumentException("Missing language");
+        }
+```
+
+### ConstantValue
+Value `bean` is always 'null'
+in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            throw new JellyTagException("Failed to register bean: " + bean, e);
+        }
+        finally {
+```
+
+### ConstantValue
+Condition `tag != null` is always `true` when reached
+in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/TemplateTag.java`
+#### Snippet
+```java
+
+        Rule rule = createRule(tag, output);
+        if ( rule != null && tag != null) {
+            rule.setMode( mode );
+            tag.addTemplate( rule );
+```
+
+### ConstantValue
+Condition `++aryCount > 4` is always `false`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
+#### Snippet
+```java
+                    paramString[aryCount] = params.substring(begin, index);
+                    begin = index + 1;
+                    if (++aryCount > 4) {
+                        throw new JellyTagException(Resources.getMessage("JDBC_PARAM_COUNT"));
                     }
 ```
 
 ### ConstantValue
-Value `firstTime` is always 'true'
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
+Condition `field == null` is always `false`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtHelper.java`
 #### Snippet
 ```java
-                        // set first time up for the next iteration.
-                        if (firstTime) {
-                            firstTime = !firstTime;
-                        }
-                    }
+        try {
+            Field field = constantClass.getField(text);
+            if (field == null) {
+                log.warn( "Unknown style code: " + text +" will be ignored");
+                return 0;
+```
+
+### ConstantValue
+Condition `constructor != null` is always `true`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+                Class[] types = { int.class };
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] arguments = { new Integer(style)};
+                    return constructor.newInstance(arguments);
+```
+
+### ConstantValue
+Condition `constructors != null` is always `true`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+                // lets try to find the constructor with 2 arguments with the 2nd argument being an int
+                Constructor[] constructors = theClass.getConstructors();
+                if (constructors != null) {
+                    for (int i = 0, size = constructors.length; i < size; i++) {
+                        Constructor constructor = constructors[i];
+```
+
+### ConstantValue
+Condition `color instanceof Color` is always `false`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+        if (colorValue != null) {
+            RGB rgb = null;
+            if (color instanceof Color) {
+                color = (Color) colorValue;
+            } else {
+```
+
+### ConstantValue
+Value `color` is always 'null'
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+        if (colorValue != null) {
+            RGB rgb = null;
+            if (color instanceof Color) {
+                color = (Color) colorValue;
+            } else {
+```
+
+### ConstantValue
+Condition `field != null` is always `true`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
+#### Snippet
+```java
+                    // lets first see if there's a field available
+                    Field field = theClass.getField(name);
+                    if (field != null) {
+                        if (value instanceof String) {
+                            value = ConvertUtils.convert((String) value, field.getType());
+```
+
+### ConstantValue
+Condition `constructor != null` is always `true`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+#### Snippet
+```java
+            try {
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] values = { new Integer(style)};
+                    return constructor.newInstance(values);
+```
+
+### ConstantValue
+Condition `!drawableParent` is always `false` when reached
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
+#### Snippet
+```java
+        final boolean drawableParent = drawable instanceof Drawable;
+
+        if (nullDrawable || !drawableParent) {
+            throw new JellyTagException(
+                "This tag must specify a Drawable attribute (ie. Image or Control)"
+```
+
+### ConstantValue
+Value `drawableParent` is always 'true'
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
+#### Snippet
+```java
+        final boolean drawableParent = drawable instanceof Drawable;
+
+        if (nullDrawable || !drawableParent) {
+            throw new JellyTagException(
+                "This tag must specify a Drawable attribute (ie. Image or Control)"
+```
+
+### ConstantValue
+Condition `is != null` is always `true`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
+#### Snippet
+```java
+        }
+        finally {
+            if (is != null) {
+                try {
+                    is.close();
 ```
 
 ### ConstantValue
@@ -7211,219 +7391,63 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converter
 ```
 
 ### ConstantValue
-Condition `guarantee==null` is always `false`
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/SecurityHandlerTag.java`
+Condition `props == null` is always `false`
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
 #### Snippet
 ```java
-            data=data.get("transport-guarantee");
-            String guarantee = data.toString(false,true).toUpperCase();
-            if (guarantee==null || guarantee.length()==0 ||
-                "NONE".equals(guarantee))
-                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
-```
+                new DynaProperty[propList.size()]);
 
-### ConstantValue
-Condition `is != null` is always `true`
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
-#### Snippet
-```java
-        }
-        finally {
-            if (is != null) {
-                try {
-                    is.close();
-```
-
-### ConstantValue
-Condition `project == null` is always `false`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-    public Project getAntProject() {
-        Project project = AntTagLibrary.getProject(context);
-        if (project == null) {
-            throw new NullPointerException("No Ant Project object is available");
+        if (props == null) {
+            throw new JellyTagException("No properties list");
         }
 ```
 
 ### ConstantValue
-Condition `++aryCount > 4` is always `false`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
+Condition `type.equals("Long")` is always `false`
+in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java`
 #### Snippet
 ```java
-                    paramString[aryCount] = params.substring(begin, index);
-                    begin = index + 1;
-                    if (++aryCount > 4) {
-                        throw new JellyTagException(Resources.getMessage("JDBC_PARAM_COUNT"));
+                propClass = Double.TYPE;
+            }
+            else if (type.equals("Long")) {
+                propClass = Long.TYPE;
+            }
+```
+
+### ConstantValue
+Condition `e instanceof IllegalStateException` is always `false`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+        		if (e instanceof RuntimeException)
+        			throw (RuntimeException)e;
+        		if (e instanceof IllegalStateException)
+        			throw (IllegalStateException )e;
+            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
+```
+
+### ConstantValue
+Condition `!firstTime` is always `false`
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
+#### Snippet
+```java
+                        // set first time up for the next iteration.
+                        if (firstTime) {
+                            firstTime = !firstTime;
+                        }
                     }
 ```
 
 ### ConstantValue
-Condition `tag != null` is always `true` when reached
-in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/TemplateTag.java`
+Value `firstTime` is always 'true'
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
 #### Snippet
 ```java
-
-        Rule rule = createRule(tag, output);
-        if ( rule != null && tag != null) {
-            rule.setMode( mode );
-            tag.addTemplate( rule );
-```
-
-### ConstantValue
-Value `bean` is always 'null'
-in `jelly-tags/jmx/src/main/java/org/apache/commons/jelly/tags/jmx/OperationTag.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            throw new JellyTagException("Failed to register bean: " + bean, e);
-        }
-        finally {
-```
-
-### ConstantValue
-Condition `field == null` is always `false`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtHelper.java`
-#### Snippet
-```java
-        try {
-            Field field = constantClass.getField(text);
-            if (field == null) {
-                log.warn( "Unknown style code: " + text +" will be ignored");
-                return 0;
-```
-
-### ConstantValue
-Condition `language == null` is always `false`
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-        }
-
-        if ((language == null) || (language.length() == 0)) {
-            throw new IllegalArgumentException("Missing language");
-        }
-```
-
-### ConstantValue
-Condition `!drawableParent` is always `false` when reached
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
-#### Snippet
-```java
-        final boolean drawableParent = drawable instanceof Drawable;
-
-        if (nullDrawable || !drawableParent) {
-            throw new JellyTagException(
-                "This tag must specify a Drawable attribute (ie. Image or Control)"
-```
-
-### ConstantValue
-Value `drawableParent` is always 'true'
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
-#### Snippet
-```java
-        final boolean drawableParent = drawable instanceof Drawable;
-
-        if (nullDrawable || !drawableParent) {
-            throw new JellyTagException(
-                "This tag must specify a Drawable attribute (ie. Image or Control)"
-```
-
-### ConstantValue
-Condition `constructor != null` is always `true`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
-#### Snippet
-```java
-            try {
-                Constructor constructor = theClass.getConstructor(types);
-                if (constructor != null) {
-                    Object[] values = { new Integer(style)};
-                    return constructor.newInstance(values);
-```
-
-### ConstantValue
-Condition `field != null` is always `true`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
-#### Snippet
-```java
-                    // lets first see if there's a field available
-                    Field field = theClass.getField(name);
-                    if (field != null) {
-                        if (value instanceof String) {
-                            value = ConvertUtils.convert((String) value, field.getType());
-```
-
-### ConstantValue
-Condition `color instanceof Color` is always `false`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-        if (colorValue != null) {
-            RGB rgb = null;
-            if (color instanceof Color) {
-                color = (Color) colorValue;
-            } else {
-```
-
-### ConstantValue
-Value `color` is always 'null'
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-        if (colorValue != null) {
-            RGB rgb = null;
-            if (color instanceof Color) {
-                color = (Color) colorValue;
-            } else {
-```
-
-### ConstantValue
-Condition `constructor != null` is always `true`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-                Class[] types = { int.class };
-                Constructor constructor = theClass.getConstructor(types);
-                if (constructor != null) {
-                    Object[] arguments = { new Integer(style)};
-                    return constructor.newInstance(arguments);
-```
-
-### ConstantValue
-Condition `constructors != null` is always `true`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-                // lets try to find the constructor with 2 arguments with the 2nd argument being an int
-                Constructor[] constructors = theClass.getConstructors();
-                if (constructors != null) {
-                    for (int i = 0, size = constructors.length; i < size; i++) {
-                        Constructor constructor = constructors[i];
-```
-
-### ConstantValue
-Condition `constructor != null` is always `true`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/preference/FieldEditorTag.java`
-#### Snippet
-```java
-            Class[] types = { String.class, String.class, Composite.class };
-            Constructor constructor = theClass.getConstructor(types);
-            if (constructor != null) {
-                Object[] arguments = { name, labelText, parentComposite };
-                return constructor.newInstance(arguments);
-```
-
-### ConstantValue
-Value `url` is always 'null'
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-
-        if (url == null) {
-            throw new JellyException("Could not find Jelly script: " + url);
-        }
-        return runScript(url, output, JellyContext.DEFAULT_EXPORT,
+                        // set first time up for the next iteration.
+                        if (firstTime) {
+                            firstTime = !firstTime;
+                        }
+                    }
 ```
 
 ### ConstantValue
@@ -7451,15 +7475,15 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 ```
 
 ### ConstantValue
-Value `rootURL` is always 'null'
+Value `url` is always 'null'
 in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-     */
-    public JellyContext() {
-        this.currentURL = rootURL;
-        init();
-    }
+
+        if (url == null) {
+            throw new JellyException("Could not find Jelly script: " + url);
+        }
+        return runScript(url, output, JellyContext.DEFAULT_EXPORT,
 ```
 
 ### ConstantValue
@@ -7475,39 +7499,15 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 ```
 
 ### ConstantValue
-Condition `object == null` is always `false`
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+Value `rootURL` is always 'null'
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-                return (NameMapper) object;
-            }
-            if ( object == null ) {
-                throw new ConversionException( "No NameMapper created for type: " + name );
-            }
-```
-
-### ConstantValue
-Condition `type.equals("Long")` is always `false`
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java`
-#### Snippet
-```java
-                propClass = Double.TYPE;
-            }
-            else if (type.equals("Long")) {
-                propClass = Long.TYPE;
-            }
-```
-
-### ConstantValue
-Condition `props == null` is always `false`
-in `jelly-tags/dynabean/src/main/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java`
-#### Snippet
-```java
-                new DynaProperty[propList.size()]);
-
-        if (props == null) {
-            throw new JellyTagException("No properties list");
-        }
+     */
+    public JellyContext() {
+        this.currentURL = rootURL;
+        init();
+    }
 ```
 
 ## RuleId[id=IOResource]
@@ -7562,27 +7562,15 @@ in `core/src/main/java/org/apache/commons/jelly/expression/CompositeExpression.j
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Resources` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/commons/jelly/tags/Resources.java`
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/Config.java`
 #### Snippet
 ```java
- * @author Shawn Bayern
+ * @version 1.1
  */
-public class Resources {
+public class Config {
 
-    //*********************************************************************
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassLoaderUtils` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/commons/jelly/util/ClassLoaderUtils.java`
-#### Snippet
-```java
- * A class to centralize the class loader management code.
- */
-public class ClassLoaderUtils {
-
-    /** log for debug etc output */
+    /*
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7610,18 +7598,54 @@ public class ResultSupport {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/Config.java`
+Class `Resources` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/commons/jelly/tags/Resources.java`
 #### Snippet
 ```java
- * @version 1.1
+ * @author Shawn Bayern
  */
-public class Config {
+public class Resources {
 
-    /*
+    //*********************************************************************
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassLoaderUtils` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/org/apache/commons/jelly/util/ClassLoaderUtils.java`
+#### Snippet
+```java
+ * A class to centralize the class loader management code.
+ */
+public class ClassLoaderUtils {
+
+    /** log for debug etc output */
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
+#### Snippet
+```java
+                    is.close();
+                } catch (IOException ioe) {
+                    ;
+                }   
+            }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableModel.java`
+#### Snippet
+```java
+            return tableColumns;
+        }
+    };
+
+
+```
+
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableModel.java`
@@ -7636,13 +7660,13 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/Exp
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableModel.java`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-            return tableColumns;
-        }
-    };
-
+     */
+    public void skippedEntity(String name) throws SAXException {
+        ; // No processing required
+    }
 
 ```
 
@@ -7670,31 +7694,175 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-     */
-    public void skippedEntity(String name) throws SAXException {
-        ; // No processing required
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
-#### Snippet
-```java
-                    is.close();
-                } catch (IOException ioe) {
-                    ;
-                }   
-            }
-```
-
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getDisplay` may produce `NullPointerException`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceImageTag.java`
+#### Snippet
+```java
+        }
+
+        Image image = new Image(parent.getDisplay(), getSrc());
+        if (window != null) {
+            setWindowImage(window, image);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+                try {
+                    ctor = type.getConstructor(new Class[] { Project.class });
+                    noArg = false;
+                } catch (NoSuchMethodException nsme) {
+                    log.info("datatype '" + name
+```
+
+### DataFlowIssue
+Argument `ctor` might be null
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+            }
+            else {
+                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
+            }
+            if (dataType != null && dataType instanceof DataType) {
+```
+
+### DataFlowIssue
+Argument `epattern` might be null
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+            if (pattern != null) {
+                try {
+                    ((SimpleDateFormat) formatter).applyPattern(epattern);
+                } catch (ClassCastException cce) {
+                    formatter = new SimpleDateFormat(epattern, locale);
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+        } else {
+            // no formatting locale available, use Date.toString()
+            formatted = date.toString();
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+        if (style != null) {
+            if (DEFAULT.equalsIgnoreCase(style)) {
+                ret = DateFormat.DEFAULT;
+            } else if (SHORT.equalsIgnoreCase(style)) {
+                ret = DateFormat.SHORT;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+                ret = DateFormat.SHORT;
+            } else if (MEDIUM.equalsIgnoreCase(style)) {
+                ret = DateFormat.MEDIUM;
+            } else if (LONG.equalsIgnoreCase(style)) {
+                ret = DateFormat.LONG;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ParamTag.java`
+#### Snippet
+```java
+        Object paramValue = value;
+        if (value != null) {
+            paramValue = value;
+        }
+        else {
+```
+
+### DataFlowIssue
+Method invocation `getConnection` may produce `NullPointerException`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/TransactionTag.java`
+#### Snippet
+```java
+
+        try {
+            conn = dataSource.getConnection();
+            origIsolation = conn.getTransactionIsolation();
+            if (origIsolation == Connection.TRANSACTION_NONE) {
+```
+
+### DataFlowIssue
+Method invocation `getConnection` may produce `NullPointerException`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
+#### Snippet
+```java
+            DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
+            try {
+                conn = dataSource.getConnection();
+            }
+            catch (Exception ex) {
+```
+
+### DataFlowIssue
+Condition `drawable instanceof Drawable` is redundant and can be replaced with a null check
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
+#### Snippet
+```java
+
+        final boolean nullDrawable = drawable == null;
+        final boolean drawableParent = drawable instanceof Drawable;
+
+        if (nullDrawable || !drawableParent) {
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/AvailableTag.java`
+#### Snippet
+```java
+                InputStream is = url.openStream();
+                available = (is != null);
+                is.close();
+            } catch (MalformedURLException e) {
+                throw new JellyTagException(e);
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertEqualsTag.java`
+#### Snippet
+```java
+            return;
+        }
+        if (actualValue != null && expectedValue.equals(actualValue)) {
+            return;
+        }
+```
+
+### DataFlowIssue
+Argument `p` might be null
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+                                Point.class);
+                    }
+                    component.setLocation(p);
+                    addIgnoreProperty("location");
+                }
+```
+
 ### DataFlowIssue
 Argument `Jelly.class.getResourceAsStream(name)` might be null
 in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
@@ -7737,7 +7905,7 @@ in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.j
 #### Snippet
 ```java
 
-    public Set entrySet() {
+    public Set keySet() {
         return null;
     }
 
@@ -7761,7 +7929,7 @@ in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.j
 #### Snippet
 ```java
 
-    public Set keySet() {
+    public Set entrySet() {
         return null;
     }
 
@@ -7792,15 +7960,15 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
 ```
 
 ### DataFlowIssue
-Argument `p` might be null
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+Variable is already assigned to this value
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-                                Point.class);
-                    }
-                    component.setLocation(p);
-                    addIgnoreProperty("location");
-                }
+     */
+    public JellyContext() {
+        this.currentURL = rootURL;
+        init();
+    }
 ```
 
 ### DataFlowIssue
@@ -7815,175 +7983,19 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
                     catch (Exception e) {
 ```
 
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/AvailableTag.java`
-#### Snippet
-```java
-                InputStream is = url.openStream();
-                available = (is != null);
-                is.close();
-            } catch (MalformedURLException e) {
-                throw new JellyTagException(e);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ParamTag.java`
-#### Snippet
-```java
-        Object paramValue = value;
-        if (value != null) {
-            paramValue = value;
-        }
-        else {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-                try {
-                    ctor = type.getConstructor(new Class[] { Project.class });
-                    noArg = false;
-                } catch (NoSuchMethodException nsme) {
-                    log.info("datatype '" + name
-```
-
-### DataFlowIssue
-Argument `ctor` might be null
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-            }
-            else {
-                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
-            }
-            if (dataType != null && dataType instanceof DataType) {
-```
-
-### DataFlowIssue
-Method invocation `getConnection` may produce `NullPointerException`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/TransactionTag.java`
-#### Snippet
-```java
-
-        try {
-            conn = dataSource.getConnection();
-            origIsolation = conn.getTransactionIsolation();
-            if (origIsolation == Connection.TRANSACTION_NONE) {
-```
-
-### DataFlowIssue
-Method invocation `getConnection` may produce `NullPointerException`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
-#### Snippet
-```java
-            DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
-            try {
-                conn = dataSource.getConnection();
-            }
-            catch (Exception ex) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-        if (style != null) {
-            if (DEFAULT.equalsIgnoreCase(style)) {
-                ret = DateFormat.DEFAULT;
-            } else if (SHORT.equalsIgnoreCase(style)) {
-                ret = DateFormat.SHORT;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-                ret = DateFormat.SHORT;
-            } else if (MEDIUM.equalsIgnoreCase(style)) {
-                ret = DateFormat.MEDIUM;
-            } else if (LONG.equalsIgnoreCase(style)) {
-                ret = DateFormat.LONG;
-```
-
-### DataFlowIssue
-Argument `epattern` might be null
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-            if (pattern != null) {
-                try {
-                    ((SimpleDateFormat) formatter).applyPattern(epattern);
-                } catch (ClassCastException cce) {
-                    formatter = new SimpleDateFormat(epattern, locale);
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-        } else {
-            // no formatting locale available, use Date.toString()
-            formatted = date.toString();
-        }
-
-```
-
-### DataFlowIssue
-Condition `drawable instanceof Drawable` is redundant and can be replaced with a null check
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
-#### Snippet
-```java
-
-        final boolean nullDrawable = drawable == null;
-        final boolean drawableParent = drawable instanceof Drawable;
-
-        if (nullDrawable || !drawableParent) {
-```
-
-### DataFlowIssue
-Method invocation `getDisplay` may produce `NullPointerException`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceImageTag.java`
-#### Snippet
-```java
-        }
-
-        Image image = new Image(parent.getDisplay(), getSrc());
-        if (window != null) {
-            setWindowImage(window, image);
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertEqualsTag.java`
-#### Snippet
-```java
-            return;
-        }
-        if (actualValue != null && expectedValue.equals(actualValue)) {
-            return;
-        }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-     */
-    public JellyContext() {
-        this.currentURL = rootURL;
-        init();
-    }
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+
+    protected int recognizeOption(String value) {
+        value = value.toString().toLowerCase();
+
+        if ("log".equals(value) || "log_option".equals(value)) {
+```
+
 ### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
@@ -8006,43 +8018,6 @@ in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
             System.err.println("");
             System.exit(1);
         }
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
-#### Snippet
-```java
-
-    protected int recognizeOption(String value) {
-        value = value.toString().toLowerCase();
-
-        if ("log".equals(value) || "log_option".equals(value)) {
-```
-
-## RuleId[id=MethodOverloadsParentMethod]
-### MethodOverloadsParentMethod
-Method `equals()` overloads a compatible method of a superclass, when overriding might have been intended
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
-#### Snippet
-```java
-    }
-
-    public synchronized boolean equals(RunnableStatus status) {
-        return status.get() == this.status;
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `equals()` overloads a compatible method of a superclass, when overriding might have been intended
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
-#### Snippet
-```java
-    }
-
-    public synchronized boolean equals(int status) {
-        return this.status == status;
-    }
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -8070,44 +8045,44 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 	}
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'context' in a Serializable class
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableModel.java`
+## RuleId[id=MethodOverloadsParentMethod]
+### MethodOverloadsParentMethod
+Method `equals()` overloads a compatible method of a superclass, when overriding might have been intended
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
 #### Snippet
 ```java
-public class ExpressionTableModel extends AbstractTableModel {
+    }
 
-    private JellyContext context;
-    private List rows = new ArrayList();
-    private MyTableColumnModel columnModel = new MyTableColumnModel();
+    public synchronized boolean equals(RunnableStatus status) {
+        return status.get() == this.status;
+    }
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_xmlOutput' in a Serializable class
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyResourceHttpHandler.java`
+### MethodOverloadsParentMethod
+Method `equals()` overloads a compatible method of a superclass, when overriding might have been intended
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/RunnableStatus.java`
 #### Snippet
 ```java
+    }
 
-    /** The place where to output the results of the tag body */
-    private XMLOutput _xmlOutput;
-
-    /** Creates a new instance of JellyResourceHttpHandler */
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'context' in a Serializable class
-in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java`
-#### Snippet
-```java
-    private static final Log log = LogFactory.getLog( JellyInterpreter.class );
-
-    private JellyContext context;
-
-    public JellyInterpreter() {
+    public synchronized boolean equals(int status) {
+        return this.status == status;
+    }
 ```
 
 ## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `getCause()` overrides synchronized method
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+    }
+
+    public Throwable getCause() {
+        return cause;
+    }
+```
+
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `getCause()` overrides synchronized method
 in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
@@ -8132,43 +8107,44 @@ in `core/src/main/java/org/apache/commons/jelly/util/NestedRuntimeException.java
     }
 ```
 
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getCause()` overrides synchronized method
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+## RuleId[id=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field '_xmlOutput' in a Serializable class
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyResourceHttpHandler.java`
 #### Snippet
 ```java
-    }
 
-    public Throwable getCause() {
-        return cause;
-    }
+    /** The place where to output the results of the tag body */
+    private XMLOutput _xmlOutput;
+
+    /** Creates a new instance of JellyResourceHttpHandler */
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'context' in a Serializable class
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableModel.java`
+#### Snippet
+```java
+public class ExpressionTableModel extends AbstractTableModel {
+
+    private JellyContext context;
+    private List rows = new ArrayList();
+    private MyTableColumnModel columnModel = new MyTableColumnModel();
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'context' in a Serializable class
+in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java`
+#### Snippet
+```java
+    private static final Log log = LogFactory.getLog( JellyInterpreter.class );
+
+    private JellyContext context;
+
+    public JellyInterpreter() {
 ```
 
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-            try {
-                in.close();
-            } catch (Exception e) {
-            }
-            throw new IllegalStateException("Resource \"" + name + "\" not found.");
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
-#### Snippet
-```java
-        }
-        finally {
-            try { newOutput.close(); } catch (IOException e) {}
-        }
-    }
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/AntJellyContext.java`
@@ -8179,18 +8155,6 @@ in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/AntJellyContext.j
             } catch (Exception ex) {
             }
             if (answerString == null && answer != null)
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
-#### Snippet
-```java
-                try {
-                    is.close();
-                } catch (IOException ioe) {
-                    ;
-                }   
 ```
 
 ### CatchMayIgnoreException
@@ -8219,14 +8183,14 @@ in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.jav
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/JellyThread.java`
+in `jelly-tags/util/src/main/java/org/apache/commons/jelly/tags/util/PropertiesTag.java`
 #### Snippet
 ```java
-                runningMutex.acquire();
-                break;
-            } catch (InterruptedException e) {
-            }
-        }
+                try {
+                    is.close();
+                } catch (IOException ioe) {
+                    ;
+                }   
 ```
 
 ### CatchMayIgnoreException
@@ -8239,6 +8203,42 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Jelly
             } catch (InterruptedException e) {
             }
         }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/JellyThread.java`
+#### Snippet
+```java
+                runningMutex.acquire();
+                break;
+            } catch (InterruptedException e) {
+            }
+        }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+#### Snippet
+```java
+            try {
+                in.close();
+            } catch (Exception e) {
+            }
+            throw new IllegalStateException("Resource \"" + name + "\" not found.");
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `core/src/main/java/org/apache/commons/jelly/tags/core/FileTag.java`
+#### Snippet
+```java
+        }
+        finally {
+            try { newOutput.close(); } catch (IOException e) {}
+        }
+    }
 ```
 
 ## RuleId[id=ProtectedMemberInFinalClass]
@@ -8281,6 +8281,30 @@ in `core/src/main/java/org/apache/commons/jelly/servlet/JellyServlet.java`
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
+Inner class `WizardDialogImpl` may be 'static'
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/wizard/WizardDialogTag.java`
+#### Snippet
+```java
+     * Provide a public method getWizard
+     */
+    class WizardDialogImpl extends WizardDialog {
+        public WizardDialogImpl(Shell parentShell, IWizard newWizard) {
+            super(parentShell, newWizard);
+```
+
+### InnerClassMayBeStatic
+Inner class `MyStringPart` may be 'static'
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/PartTag.java`
+#### Snippet
+```java
+     * Extend StringPart so that I can specify the content type (ex: text/plain)
+     */
+    private class MyStringPart extends StringPart {
+      String _contentType;
+      public MyStringPart(String name, String value, String contentType) {
+```
+
+### InnerClassMayBeStatic
 Inner class `TagBodyInputSource` may be 'static'
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
 #### Snippet
@@ -8304,28 +8328,161 @@ in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFa
         protected Expression jexlExpression = null;
 ```
 
-### InnerClassMayBeStatic
-Inner class `MyStringPart` may be 'static'
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/PartTag.java`
+## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java`
 #### Snippet
 ```java
-     * Extend StringPart so that I can specify the content type (ex: text/plain)
-     */
-    private class MyStringPart extends StringPart {
-      String _contentType;
-      public MyStringPart(String name, String value, String contentType) {
+        }
+        else if (valueInput instanceof String) {
+            if (((String) valueInput).trim().equals("")) {
+                timeZone = TimeZone.getTimeZone("GMT");
+            } else {
 ```
 
-### InnerClassMayBeStatic
-Inner class `WizardDialogImpl` may be 'static'
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/wizard/WizardDialogTag.java`
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/TimeZoneTag.java`
 #### Snippet
 ```java
-     * Provide a public method getWizard
-     */
-    class WizardDialogImpl extends WizardDialog {
-        public WizardDialogImpl(Shell parentShell, IWizard newWizard) {
-            super(parentShell, newWizard);
+        }
+        else if (valueInput instanceof String) {
+            if (((String) valueInput).trim().equals("")) {
+                timeZone = TimeZone.getTimeZone("GMT");
+            } else {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
+#### Snippet
+```java
+            locale = Locale.getDefault();
+        } else if (valueInput instanceof String) {
+            if (((String) valueInput).trim().equals("")) {
+                locale = Locale.getDefault();
+            } else {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
+#### Snippet
+```java
+            TimeZone tz = null;
+            if ((etimeZone instanceof String)
+            && ((String) etimeZone).equals("")) {
+                etimeZone = null;
+            }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
+#### Snippet
+```java
+        ResourceBundle bundle = null;
+
+        if ((basename == null) || basename.equals("")) {
+            return new LocalizationContext();
+        }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
+#### Snippet
+```java
+            call.setOperationName(new QName(namespace, method));
+
+            if ( username != null && !username.equals("") ) {
+                call.setUsername( username );
+                call.setPassword( password );
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
+#### Snippet
+```java
+        File genFile = null;
+
+        if ( "".equals( packageName ) )
+        {
+            genFile = new File( getOutputDir(),
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
+#### Snippet
+```java
+                input = input.trim();
+
+                if (defaultInput != null && input.trim().equals("")) {
+                    input = defaultInput;
+                }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+
+        private boolean isRootNodeDefaultNs(String prefix, String uri) {
+            return ("".equals(prefix) && "".equals(uri) && nsStack.size() == 1);
+        }
+
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+
+        private boolean isRootNodeDefaultNs(String prefix, String uri) {
+            return ("".equals(prefix) && "".equals(uri) && nsStack.size() == 1);
+        }
+
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+    throws SAXException {
+
+        if (uri.equals("")) {
+            super.startPrefixMapping(prefix,this.uriDefault);
+        } else {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+    throws SAXException {
+
+        if (uri.equals("")) {
+            super.startElement(this.uriDefault,localName,qName,atts);
+        } else {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+    public void endElement(String namespaceURI, String localName, String qName)
+    throws SAXException {
+        if (namespaceURI.equals("")) {
+            super.endElement(this.uriDefault,localName,qName);
+        } else {
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
@@ -8363,6 +8520,90 @@ in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/ScriptTag.jav
                     Object value = context.getVariable( name );
                     manager.declareBean( name, value, value.getClass() );
                 }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+
+    public synchronized void release() {
+        inuse_ = false;
+        notify();
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+        synchronized (this) {
+            try {
+                while (inuse_) wait();
+                inuse_ = true;
+            } catch (InterruptedException ex) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+            try {
+                while (inuse_) wait();
+                inuse_ = true;
+            } catch (InterruptedException ex) {
+                notify();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+        if (Thread.interrupted()) throw new InterruptedException();
+        synchronized (this) {
+            if (!inuse_) {
+                inuse_ = true;
+                return true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+        synchronized (this) {
+            if (!inuse_) {
+                inuse_ = true;
+                return true;
+            } else if (msecs <= 0)
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+                    for (; ;) {
+                        wait(waitTime);
+                        if (!inuse_) {
+                            inuse_ = true;
+                            return true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inuse_` accessed in synchronized context
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
+#### Snippet
+```java
+                        wait(waitTime);
+                        if (!inuse_) {
+                            inuse_ = true;
+                            return true;
+                        } else {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8593,247 +8834,6 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
             catch (Exception e) {
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-        if (Thread.interrupted()) throw new InterruptedException();
-        synchronized (this) {
-            if (!inuse_) {
-                inuse_ = true;
-                return true;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-        synchronized (this) {
-            if (!inuse_) {
-                inuse_ = true;
-                return true;
-            } else if (msecs <= 0)
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                    for (; ;) {
-                        wait(waitTime);
-                        if (!inuse_) {
-                            inuse_ = true;
-                            return true;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-                        wait(waitTime);
-                        if (!inuse_) {
-                            inuse_ = true;
-                            return true;
-                        } else {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-
-    public synchronized void release() {
-        inuse_ = false;
-        notify();
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-        synchronized (this) {
-            try {
-                while (inuse_) wait();
-                inuse_ = true;
-            } catch (InterruptedException ex) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inuse_` accessed in synchronized context
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Mutex.java`
-#### Snippet
-```java
-            try {
-                while (inuse_) wait();
-                inuse_ = true;
-            } catch (InterruptedException ex) {
-                notify();
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
-#### Snippet
-```java
-            call.setOperationName(new QName(namespace, method));
-
-            if ( username != null && !username.equals("") ) {
-                call.setUsername( username );
-                call.setPassword( password );
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-
-        private boolean isRootNodeDefaultNs(String prefix, String uri) {
-            return ("".equals(prefix) && "".equals(uri) && nsStack.size() == 1);
-        }
-
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-
-        private boolean isRootNodeDefaultNs(String prefix, String uri) {
-            return ("".equals(prefix) && "".equals(uri) && nsStack.size() == 1);
-        }
-
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-    throws SAXException {
-
-        if (uri.equals("")) {
-            super.startElement(this.uriDefault,localName,qName,atts);
-        } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-    public void endElement(String namespaceURI, String localName, String qName)
-    throws SAXException {
-        if (namespaceURI.equals("")) {
-            super.endElement(this.uriDefault,localName,qName);
-        } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-    throws SAXException {
-
-        if (uri.equals("")) {
-            super.startPrefixMapping(prefix,this.uriDefault);
-        } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
-#### Snippet
-```java
-                input = input.trim();
-
-                if (defaultInput != null && input.trim().equals("")) {
-                    input = defaultInput;
-                }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/TimeZoneTag.java`
-#### Snippet
-```java
-        }
-        else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().equals("")) {
-                timeZone = TimeZone.getTimeZone("GMT");
-            } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java`
-#### Snippet
-```java
-        }
-        else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().equals("")) {
-                timeZone = TimeZone.getTimeZone("GMT");
-            } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-        ResourceBundle bundle = null;
-
-        if ((basename == null) || basename.equals("")) {
-            return new LocalizationContext();
-        }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-            TimeZone tz = null;
-            if ((etimeZone instanceof String)
-            && ((String) etimeZone).equals("")) {
-                etimeZone = null;
-            }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/SetLocaleTag.java`
-#### Snippet
-```java
-            locale = Locale.getDefault();
-        } else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().equals("")) {
-                locale = Locale.getDefault();
-            } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
-#### Snippet
-```java
-        File genFile = null;
-
-        if ( "".equals( packageName ) )
-        {
-            genFile = new File( getOutputDir(),
-```
-
 ## RuleId[id=UnnecessaryInitCause]
 ### UnnecessaryInitCause
 Unnecessary `Throwable.initCause()` call
@@ -8865,6 +8865,18 @@ Unnecessary boxing
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
+        */
+    public void setSingle(boolean single) {
+        this.single = new Boolean(single);
+    }
+    
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+#### Snippet
+```java
       */
     public void setAsString(boolean asString) {
         this.asString = new Boolean(asString);
@@ -8874,14 +8886,122 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
 #### Snippet
 ```java
-        */
-    public void setSingle(boolean single) {
-        this.single = new Boolean(single);
-    }
-    
+            }
+            if (var != null) {
+                context.setVariable(var, new Integer(result));
+            }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTag.java`
+#### Snippet
+```java
+            && value instanceof String) {
+            int style = SwtHelper.parseStyle(SWT.class, (String) value);
+            return new Integer(style);
+        }
+        return super.convertValue(bean, name, value);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] arguments = { new Integer(style)};
+                    return constructor.newInstance(arguments);
+                }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+                        if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
+                            if (types[0].isAssignableFrom(parent.getClass())) {
+                                Object[] arguments = { parent, new Integer(style)};
+                                return constructor.newInstance(arguments);
+                            }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+#### Snippet
+```java
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] values = { new Integer(style)};
+                    return constructor.newInstance(values);
+                }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+#### Snippet
+```java
+                int style =
+                    SwtHelper.parseStyle(bean.getClass(), (String) value);
+                return new Integer(style);
+            }
+        }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
+#### Snippet
+```java
+        context.setVariable("columns", model.getColumnList());
+        context.setVariable("row", row);
+        context.setVariable("rowIndex", new Integer(rowIndex));
+        context.setVariable("columnIndex", new Integer(columnIndex));
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
+#### Snippet
+```java
+        context.setVariable("row", row);
+        context.setVariable("rowIndex", new Integer(rowIndex));
+        context.setVariable("columnIndex", new Integer(columnIndex));
+
+        // now lets invoke the expression
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+                result = result | recognizeOption(tok);
+            }
+            return new Integer(result);
+        }
+        return null;
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
+#### Snippet
+```java
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Byte(((Number)value).byteValue());
+                    } else {
+                        return inner.convert(klass,value);
 ```
 
 ### UnnecessaryBoxing
@@ -8892,30 +9012,6 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
                 public Object convert(Class klass, Object value) {
                     if(value instanceof Number) {
                         return new Integer(((Number)value).intValue());
-                    } else {
-                        return inner.convert(klass,value);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
-#### Snippet
-```java
-                public Object convert(Class klass, Object value) {
-                    if(value instanceof Number) {
-                        return new Short(((Number)value).shortValue());
-                    } else {
-                        return inner.convert(klass,value);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
-#### Snippet
-```java
-                public Object convert(Class klass, Object value) {
-                    if(value instanceof Number) {
-                        return new Double(((Number)value).doubleValue());
                     } else {
                         return inner.convert(klass,value);
 ```
@@ -8939,7 +9035,7 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
 ```java
                 public Object convert(Class klass, Object value) {
                     if(value instanceof Number) {
-                        return new Byte(((Number)value).byteValue());
+                        return new Long(((Number)value).longValue());
                     } else {
                         return inner.convert(klass,value);
 ```
@@ -8951,7 +9047,19 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
 ```java
                 public Object convert(Class klass, Object value) {
                     if(value instanceof Number) {
-                        return new Long(((Number)value).longValue());
+                        return new Double(((Number)value).doubleValue());
+                    } else {
+                        return inner.convert(klass,value);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
+#### Snippet
+```java
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Short(((Number)value).shortValue());
                     } else {
                         return inner.convert(klass,value);
 ```
@@ -9052,114 +9160,6 @@ in `core/src/main/java/org/apache/commons/jelly/tags/core/ForEachTag.java`
                             context.setVariable(varName, value);
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
-#### Snippet
-```java
-        context.setVariable("columns", model.getColumnList());
-        context.setVariable("row", row);
-        context.setVariable("rowIndex", new Integer(rowIndex));
-        context.setVariable("columnIndex", new Integer(columnIndex));
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
-#### Snippet
-```java
-        context.setVariable("row", row);
-        context.setVariable("rowIndex", new Integer(rowIndex));
-        context.setVariable("columnIndex", new Integer(columnIndex));
-
-        // now lets invoke the expression
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
-#### Snippet
-```java
-                result = result | recognizeOption(tok);
-            }
-            return new Integer(result);
-        }
-        return null;
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/UpdateTag.java`
-#### Snippet
-```java
-            }
-            if (var != null) {
-                context.setVariable(var, new Integer(result));
-            }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTag.java`
-#### Snippet
-```java
-            && value instanceof String) {
-            int style = SwtHelper.parseStyle(SWT.class, (String) value);
-            return new Integer(style);
-        }
-        return super.convertValue(bean, name, value);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
-#### Snippet
-```java
-                Constructor constructor = theClass.getConstructor(types);
-                if (constructor != null) {
-                    Object[] values = { new Integer(style)};
-                    return constructor.newInstance(values);
-                }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
-#### Snippet
-```java
-                int style =
-                    SwtHelper.parseStyle(bean.getClass(), (String) value);
-                return new Integer(style);
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-                Constructor constructor = theClass.getConstructor(types);
-                if (constructor != null) {
-                    Object[] arguments = { new Integer(style)};
-                    return constructor.newInstance(arguments);
-                }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-                        if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
-                            if (types[0].isAssignableFrom(parent.getClass())) {
-                                Object[] arguments = { parent, new Integer(style)};
-                                return constructor.newInstance(arguments);
-                            }
-```
-
 ## RuleId[id=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `registry`
@@ -9202,6 +9202,162 @@ in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+
+        logger.setMessageOutputLevel( org.apache.tools.ant.Project.MSG_INFO );
+        logger.setOutputPrintStream( System.out );
+        logger.setErrorPrintStream( System.err);
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+        logger.setMessageOutputLevel( org.apache.tools.ant.Project.MSG_INFO );
+        logger.setOutputPrintStream( System.out );
+        logger.setErrorPrintStream( System.err);
+
+        project.addBuildListener( logger );
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/JellyTask.java`
+#### Snippet
+```java
+    public XMLOutput getXMLOutput() throws IOException {
+        if (xmlOutput == null) {
+            xmlOutput = XMLOutput.createXMLOutput( System.out );
+        }
+        return xmlOutput;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+                // XXX: should we call execute() or perform()?
+                // according to org.apache.tools.ant.Main, redirect stdout and stderr
+                PrintStream initialOut = System.out;
+                PrintStream initialErr = System.err;
+                PrintStream newOut = new PrintStream(new DemuxOutputStream(project, false));
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+                // according to org.apache.tools.ant.Main, redirect stdout and stderr
+                PrintStream initialOut = System.out;
+                PrintStream initialErr = System.err;
+                PrintStream newOut = new PrintStream(new DemuxOutputStream(project, false));
+                PrintStream newErr = new PrintStream(new DemuxOutputStream(project, true));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/GeneratorTag.java`
+#### Snippet
+```java
+        generator.setTargetDirectory(getTargetDirectory());
+        
+        System.out.println("Target: " + getTargetDirectory());
+        
+        try
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/PointConverter.java`
+#### Snippet
+```java
+        }
+
+        System.out.println("Converting value: " + value + " into: " + answer);
+
+        return answer;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
+#### Snippet
+```java
+        }
+
+        System.out.println("Converting value: " + value + " into: " + answer);
+
+        return answer;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+        super.printStackTrace();
+        if (cause != null) {
+            System.out.println("Root cause");
+            cause.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyTestSuite.java`
+#### Snippet
+```java
+    public static TestSuite createTestSuite(URL script) throws Exception {
+        JellyContext context = new JellyContext(script);
+        XMLOutput output = XMLOutput.createXMLOutput(System.out);
+        context = context.runScript(script, output);
+        TestSuite answer = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+#### Snippet
+```java
+            // lets default to system.out
+            try {
+                xmlOutput = XMLOutput.createXMLOutput(System.out);
+            }
+            catch (UnsupportedEncodingException e) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
+#### Snippet
+```java
+        if (question != null) {
+            if (defaultInput != null) {
+                System.out.println(question + " [" + defaultInput + "]");
+            } else {
+                System.out.println(question);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
+#### Snippet
+```java
+                System.out.println(question + " [" + defaultInput + "]");
+            } else {
+                System.out.println(question);
+            }
+            // The prompt should be just before the user's input,
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
 #### Snippet
 ```java
@@ -9226,18 +9382,6 @@ in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ThreadTag.java`
-#### Snippet
-```java
-            // lets default to system.out
-            try {
-                xmlOutput = XMLOutput.createXMLOutput( System.out );
-            } catch (UnsupportedEncodingException e) {
-                throw new JellyTagException(e);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/org/apache/commons/jelly/impl/Embedded.java`
 #### Snippet
 ```java
@@ -9246,6 +9390,18 @@ in `core/src/main/java/org/apache/commons/jelly/impl/Embedded.java`
         XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
     /** Exception thrown during compilation of script*/
     Exception m_scriptCompilationException;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ThreadTag.java`
+#### Snippet
+```java
+            // lets default to system.out
+            try {
+                xmlOutput = XMLOutput.createXMLOutput( System.out );
+            } catch (UnsupportedEncodingException e) {
+                throw new JellyTagException(e);
 ```
 
 ### SystemOutErr
@@ -9308,173 +9464,17 @@ in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
             Jelly jelly = new Jelly();
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/task/JellyTask.java`
-#### Snippet
-```java
-    public XMLOutput getXMLOutput() throws IOException {
-        if (xmlOutput == null) {
-            xmlOutput = XMLOutput.createXMLOutput( System.out );
-        }
-        return xmlOutput;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-
-        logger.setMessageOutputLevel( org.apache.tools.ant.Project.MSG_INFO );
-        logger.setOutputPrintStream( System.out );
-        logger.setErrorPrintStream( System.err);
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-        logger.setMessageOutputLevel( org.apache.tools.ant.Project.MSG_INFO );
-        logger.setOutputPrintStream( System.out );
-        logger.setErrorPrintStream( System.err);
-
-        project.addBuildListener( logger );
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-                // XXX: should we call execute() or perform()?
-                // according to org.apache.tools.ant.Main, redirect stdout and stderr
-                PrintStream initialOut = System.out;
-                PrintStream initialErr = System.err;
-                PrintStream newOut = new PrintStream(new DemuxOutputStream(project, false));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-                // according to org.apache.tools.ant.Main, redirect stdout and stderr
-                PrintStream initialOut = System.out;
-                PrintStream initialErr = System.err;
-                PrintStream newOut = new PrintStream(new DemuxOutputStream(project, false));
-                PrintStream newErr = new PrintStream(new DemuxOutputStream(project, true));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
-#### Snippet
-```java
-        if (question != null) {
-            if (defaultInput != null) {
-                System.out.println(question + " [" + defaultInput + "]");
-            } else {
-                System.out.println(question);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/interaction/src/main/java/org/apache/commons/jelly/tags/interaction/AskTag.java`
-#### Snippet
-```java
-                System.out.println(question + " [" + defaultInput + "]");
-            } else {
-                System.out.println(question);
-            }
-            // The prompt should be just before the user's input,
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/PointConverter.java`
-#### Snippet
-```java
-        }
-
-        System.out.println("Converting value: " + value + " into: " + answer);
-
-        return answer;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
-#### Snippet
-```java
-        }
-
-        System.out.println("Converting value: " + value + " into: " + answer);
-
-        return answer;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/jaxme/src/main/java/org/apache/commons/jelly/tags/jaxme/GeneratorTag.java`
-#### Snippet
-```java
-        generator.setTargetDirectory(getTargetDirectory());
-        
-        System.out.println("Target: " + getTargetDirectory());
-        
-        try
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
-#### Snippet
-```java
-        super.printStackTrace();
-        if (cause != null) {
-            System.out.println("Root cause");
-            cause.printStackTrace();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyTestSuite.java`
-#### Snippet
-```java
-    public static TestSuite createTestSuite(URL script) throws Exception {
-        JellyContext context = new JellyContext(script);
-        XMLOutput output = XMLOutput.createXMLOutput(System.out);
-        context = context.runScript(script, output);
-        TestSuite answer = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
-#### Snippet
-```java
-            // lets default to system.out
-            try {
-                xmlOutput = XMLOutput.createXMLOutput(System.out);
-            }
-            catch (UnsupportedEncodingException e) {
-```
-
 ## RuleId[id=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-     *  SAXException if the reader cannot be instantiated
-     */
-    public XMLReader getReader() {
-        try {
-            return (getXMLReader());
+	 * @deprecated after v1.1, exceptions will never be suppressed
+	 */
+	public void setSuppressExpressionExceptions(boolean suppressExpressionExceptions) {
+		this.suppressExpressionExceptions = suppressExpressionExceptions;
+	}
 ```
 
 ### MissingDeprecatedAnnotation
@@ -9496,96 +9496,24 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 ```java
 	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
-	public void setSuppressExpressionExceptions(boolean suppressExpressionExceptions) {
-		this.suppressExpressionExceptions = suppressExpressionExceptions;
-	}
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-	 * @deprecated after v1.1, exceptions will never be suppressed
-	 */
 	public boolean isSuppressExpressionExceptions() {
 		return suppressExpressionExceptions;
 	}
 ```
 
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+     *  SAXException if the reader cannot be instantiated
+     */
+    public XMLReader getReader() {
+        try {
+            return (getXMLReader());
+```
+
 ## RuleId[id=ConditionCoveredByFurtherCondition]
-### ConditionCoveredByFurtherCondition
-Condition 'parentGbc != null' covered by subsequent condition 'parentGbc instanceof GridBagConstraintBean'
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
-#### Snippet
-```java
-                        parentGbcTag.getConstraints();
-
-                    if (parentGbc != null
-                        && parentGbc instanceof GridBagConstraintBean) {
-                        gbc.setBasedOn((GridBagConstraintBean) parentGbc);
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'dataType != null' covered by subsequent condition 'dataType instanceof DataType'
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
-            }
-            if (dataType != null && dataType instanceof DataType) {
-                ((DataType)dataType).setProject( getAntProject() );
-            }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'tmp != null' covered by subsequent condition 'tmp instanceof Locale'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-        Locale pref = null; {
-            Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
-            if (tmp != null && tmp instanceof Locale) {
-                pref = (Locale) tmp;
-            }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'tmp != null' covered by subsequent condition 'tmp instanceof Locale'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-            {
-                Object tmp = jellyContext.getVariable(Config.FMT_FALLBACK_LOCALE);
-                if (tmp != null && tmp instanceof Locale) {
-                    pref = (Locale) tmp;
-                }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'bundleInput != null' covered by subsequent condition 'bundleInput instanceof LocalizationContext'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/MessageTag.java`
-#### Snippet
-```java
-            bundleInput = this.bundle.evaluate(context);
-        }
-        if (bundleInput != null && bundleInput instanceof LocalizationContext) {
-            locCtxt = (LocalizationContext) bundleInput;
-        }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'valueInput != null' covered by subsequent condition 'valueInput instanceof Date'
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
-#### Snippet
-```java
-
-        Date date = null;
-        if (valueInput != null && valueInput instanceof Date) {
-            date = (Date) valueInput;
-        }
-```
-
 ### ConditionCoveredByFurtherCondition
 Condition 'window != null' covered by subsequent condition 'window instanceof ApplicationWindowImpl'
 in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceLayoutDataTag.java`
@@ -9646,677 +9574,497 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceWidg
                 }
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.dom4j` is unnecessary and can be removed
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+### ConditionCoveredByFurtherCondition
+Condition 'dataType != null' covered by subsequent condition 'dataType instanceof DataType'
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
 #### Snippet
 ```java
-    /** If set to true will only take the first element matching.
-        It then guarantees that the result is of type
-        {@link org.dom4j.Node} thereby making sure that, for example,
-        when an element is selected, one can directly call such methods
-        as setAttribute.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.dom4j` is unnecessary and can be removed
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
-#### Snippet
-```java
-
-/** A tag which defines a variable from an XPath expression.
-  * This function creates a variable of type {@link List} or {@link org.dom4j.Node}
-  * (for example {@link org.dom4j.Element} or {@link org.dom4j.Attribute}).
-  * Thus, the variable created from xml:set can be
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary, and can be replaced with an import
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
-#### Snippet
-```java
-            // @todo Jelly should have native support for URL and QName
-            // directly on properties
-            call.setTargetEndpointAddress(new java.net.URL(endpoint));
-            call.setOperationName(new QName(namespace, method));
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
-#### Snippet
-```java
-                Class[] args = method.getParameterTypes();
-                if (method.getName().equals(addMethodName)
-                      && java.lang.Void.TYPE.equals(method.getReturnType())
-                      && args.length == 1
-                      && !java.lang.String.class.equals(args[0])
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
-#### Snippet
-```java
-                      && java.lang.Void.TYPE.equals(method.getReturnType())
-                      && args.length == 1
-                      && !java.lang.String.class.equals(args[0])
-                      && !args[0].isArray()
-                      && !args[0].isPrimitive())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-    
-    private static String readBuildTimestampResource(String name) {
-        java.io.Reader in = null;
-        try {
-            java.io.StringWriter w = new java.io.StringWriter();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-        java.io.Reader in = null;
-        try {
-            java.io.StringWriter w = new java.io.StringWriter();
-            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
-            int r;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-        java.io.Reader in = null;
-        try {
-            java.io.StringWriter w = new java.io.StringWriter();
-            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
-            int r;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-        try {
-            java.io.StringWriter w = new java.io.StringWriter();
-            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
-            int r;
-            while ( (r=in.read()) >= 0 ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @param start The start position in the array.
-     * @param length The number of characters to read from the array.
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @see #ignorableWhitespace
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *            wrapping another exception.
-     * @see #ignorableWhitespace
-     * @see org.xml.sax.Locator
-     */
-    public void characters(char[] ch, int start, int length) throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @param prefix The prefix that was being mapped.
-     *  This is the empty string when a default mapping scope ends.
-     * @throws org.xml.sax.SAXException The client may throw
-     *            an exception during processing.
-     * @see #startPrefixMapping
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *        it is the external DTD subset, it will be the string
-     *        "[dtd]".
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *
-     * <p>The contents of the CDATA section will be reported through
-     * the regular {@link org.xml.sax.ContentHandler#characters
-     * characters} event; this event is intended only to report
-     * the boundary.</p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @param locator An object that can return the location of
-     *                any SAX document event.
-     * @see org.xml.sax.Locator
-     */
-    public void setDocumentLocator(Locator locator) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *  which has no prefix.
-     * @param uri The Namespace URI the prefix is mapped to.
-     * @throws org.xml.sax.SAXException The client may throw
-     *            an exception during processing.
-     * @see #endPrefixMapping
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * setDocumentLocator}).</p>
-     *
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @see #endDocument
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @param start The start position in the array.
-     * @param length The number of characters to read from the array.
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @see #characters
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *        there are no attributes, it shall be an empty
-     *        Attributes object.
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @see #endElement
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *            wrapping another exception.
-     * @see #endElement
-     * @see org.xml.sax.Attributes
-     */
-    public void startElement(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *
-     * <p>Note that skipped entities will be reported through the
-     * {@link org.xml.sax.ContentHandler#skippedEntity skippedEntity}
-     * event, which is part of the ContentHandler interface.</p>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * @param qName The qualified XML 1.0 name (with prefix), or the
-     *        empty string if qualified names are not available.
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * the start/endDocument events from ContentHandler and
-     * before the first
-     * {@link org.xml.sax.ContentHandler#startElement startElement}
-     * event.</p>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     *        none was supplied.  The data does not include any
-     *        whitespace separating it from the target.
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-     * input.</p>
-     *
-     * @throws org.xml.sax.SAXException Any SAX exception, possibly
-     *            wrapping another exception.
-     * @see #startDocument
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/tags/core/UseBeanTag.java`
-#### Snippet
-```java
- * A tag which instantiates an instance of the given class
- * and then sets the properties on the bean.
- * The class can be specified via a {@link java.lang.Class} instance or
- * a String which will be used to load the class using either the current
- * thread's context class loader or the class loader used to load this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ImportTag.java`
-#### Snippet
-```java
-                context.runScript(uri, output, true, isInherit() );
-            } else {
-                context.runScript(new java.io.File(file), output, true,
-                  isInherit());
+                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
+            }
+            if (dataType != null && dataType instanceof DataType) {
+                ((DataType)dataType).setProject( getAntProject() );
             }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+### ConditionCoveredByFurtherCondition
+Condition 'bundleInput != null' covered by subsequent condition 'bundleInput instanceof LocalizationContext'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/MessageTag.java`
 #### Snippet
 ```java
-     * @param arg0
-     * @param arg1
-     * @throws org.xml.sax.SAXException
-     */
-    public void startPrefixMapping(String arg0, String arg1)
+            bundleInput = this.bundle.evaluate(context);
+        }
+        if (bundleInput != null && bundleInput instanceof LocalizationContext) {
+            locCtxt = (LocalizationContext) bundleInput;
+        }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+### ConditionCoveredByFurtherCondition
+Condition 'valueInput != null' covered by subsequent condition 'valueInput instanceof Date'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java`
 #### Snippet
 ```java
-     * @param arg1
-     * @param arg2
-     * @throws org.xml.sax.SAXException
-     */
-    public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
+
+        Date date = null;
+        if (valueInput != null && valueInput instanceof Date) {
+            date = (Date) valueInput;
+        }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+### ConditionCoveredByFurtherCondition
+Condition 'tmp != null' covered by subsequent condition 'tmp instanceof Locale'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
 #### Snippet
 ```java
-     * @param arg1
-     * @param arg2
-     * @throws org.xml.sax.SAXException
-     */
-    public void characters(char[] arg0, int arg1, int arg2)
+        Locale pref = null; {
+            Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
+            if (tmp != null && tmp instanceof Locale) {
+                pref = (Locale) tmp;
+            }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+### ConditionCoveredByFurtherCondition
+Condition 'tmp != null' covered by subsequent condition 'tmp instanceof Locale'
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
 #### Snippet
 ```java
-     * @param arg2
-     * @param arg3
-     * @throws org.xml.sax.SAXException
-     */
-    public void startElement(
+            {
+                Object tmp = jellyContext.getVariable(Config.FMT_FALLBACK_LOCALE);
+                if (tmp != null && tmp instanceof Locale) {
+                    pref = (Locale) tmp;
+                }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+### ConditionCoveredByFurtherCondition
+Condition 'parentGbc != null' covered by subsequent condition 'parentGbc instanceof GridBagConstraintBean'
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
 #### Snippet
 ```java
-     * @param arg0
-     * @param arg1
-     * @throws org.xml.sax.SAXException
-     */
-    public void processingInstruction(String arg0, String arg1)
+                        parentGbcTag.getConstraints();
+
+                    if (parentGbc != null
+                        && parentGbc instanceof GridBagConstraintBean) {
+                        gbc.setBasedOn((GridBagConstraintBean) parentGbc);
 ```
 
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
-#### Snippet
-```java
-    /**
-     * @param arg0
-     * @throws org.xml.sax.SAXException
-     */
-    public void endPrefixMapping(String arg0) throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
 #### Snippet
 ```java
 
     /**
-     * @throws org.xml.sax.SAXException
-     */
-    public void endDocument() throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
-#### Snippet
-```java
-
-    /**
-     * @throws org.xml.sax.SAXException
-     */
-    public void startDocument() throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
-#### Snippet
-```java
-     * @param arg1
-     * @param arg2
-     * @throws org.xml.sax.SAXException
-     */
-    public void endElement(String arg0, String arg1, String arg2)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
-#### Snippet
-```java
-    /**
-     * @param arg0
-     * @throws org.xml.sax.SAXException
-     */
-    public void skippedEntity(String arg0) throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-     * @throws SAXException
-     */
-    public void startElement(java.lang.String uri,
-                             java.lang.String localName,
-                             java.lang.String qName,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-     */
-    public void startElement(java.lang.String uri,
-                             java.lang.String localName,
-                             java.lang.String qName,
-                             Attributes atts)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-    public void startElement(java.lang.String uri,
-                             java.lang.String localName,
-                             java.lang.String qName,
-                             Attributes atts)
-    throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-     * @throws SAXException
-     */
-    public void startPrefixMapping(java.lang.String prefix,
-                                   java.lang.String uri)
-    throws SAXException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
-#### Snippet
-```java
-     */
-    public void startPrefixMapping(java.lang.String prefix,
-                                   java.lang.String uri)
-    throws SAXException {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.cli` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
-#### Snippet
-```java
-
-        // parse the command line
-        Parser parser = new org.apache.commons.cli.GnuParser();
-        return parser.parse(cmdLineOptions, filterArgs);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
-#### Snippet
-```java
-            context.setVariable("commandLine", cmdLine);
-            if (runInSwingThread) {
-                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { public void run() {
-                    try {
-                        script.run(context, output);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
-#### Snippet
-```java
-
-    /**Creates a new buttonGroup.
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
-     */
-    protected Object newInstance(Class theClass, Map attributes,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
-#### Snippet
-```java
-
-    /**Creates a new buttonGroup.
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
-     */
-    protected Object newInstance(Class theClass, Map attributes,
+      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+      */
+    public void doTag(XMLOutput output)
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ContributionItemTag.java`
 #### Snippet
 ```java
 
-    /**Creates a new buttonGroup.
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
-     */
-    protected Object newInstance(Class theClass, Map attributes,
+    /**
+      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+      */
+    public void doTag(XMLOutput output)
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.tags.swing` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-     * pass through to the parent component tag.
-     * @throws JellyTagException
-     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
-     */
-    public void addChild(Component component, Object constraints) throws JellyTagException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.awt` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
-#### Snippet
-```java
-     * pass through to the parent component tag.
-     * @throws JellyTagException
-     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
-     */
-    public void addChild(Component component, Object constraints) throws JellyTagException {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-     * pass through to the parent component tag.
-     * @throws JellyTagException
-     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
-     */
-    public void addChild(Component component, Object constraints) throws JellyTagException {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-     * tag runs. This prevents us from keeping references to heavy Swing objects
-     * around for longer than they are needed.
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.beanutils` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-
-    /** Part of the Converter interface.
-     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
-     */
-    public Object convert(Class type, Object value) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
-#### Snippet
-```java
-
-    /** Part of the Converter interface.
-     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
-     */
-    public Object convert(Class type, Object value) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
 
-    /** Part of the Converter interface.
-     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
-     */
-    public Object convert(Class type, Object value) {
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-        ConvertUtils.register(
-            new DebugGraphicsConverter(),
-            java.lang.Integer.class);
-    }
-
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.awt` is unnecessary, and can be replaced with an import
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/SwingTagLibrary.java`
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
 #### Snippet
 ```java
-        ConvertUtils.register( new DimensionConverter(), Dimension.class );
-        ConvertUtils.register( new PointConverter(), Point.class );
-        ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
-    }
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10464,18 +10212,6 @@ in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/PropsHandler.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.tags.ant` is unnecessary and can be removed
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-import java.util.Properties;
-
-/** Implements the basic {@link org.apache.commons.jelly.tags.ant.PropsHandler} functionality
- *  against an existing map.
- * 
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.tools.ant` is unnecessary and can be removed
 in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
 #### Snippet
@@ -10488,75 +10224,63 @@ in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+Qualifier `org.apache.commons.jelly.tags.ant` is unnecessary and can be removed
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
 #### Snippet
 ```java
+import java.util.Properties;
 
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
-     */
-    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
+/** Implements the basic {@link org.apache.commons.jelly.tags.ant.PropsHandler} functionality
+ *  against an existing map.
+ * 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
 #### Snippet
 ```java
-
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
-     */
-    public Map runScript( String url, Map params ) throws Exception {
+                Class[] args = method.getParameterTypes();
+                if (method.getName().equals(addMethodName)
+                      && java.lang.Void.TYPE.equals(method.getReturnType())
+                      && args.length == 1
+                      && !java.lang.String.class.equals(args[0])
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
-     */
-    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
+                      && java.lang.Void.TYPE.equals(method.getReturnType())
+                      && args.length == 1
+                      && !java.lang.String.class.equals(args[0])
+                      && !args[0].isArray()
+                      && !args[0].isPrimitive())
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+Qualifier `org.dom4j` is unnecessary and can be removed
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
-
-    /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
-     */
-    public Map runNamedScript( String name, Map params ) throws Exception {
+    /** If set to true will only take the first element matching.
+        It then guarantees that the result is of type
+        {@link org.dom4j.Node} thereby making sure that, for example,
+        when an element is selected, one can directly call such methods
+        as setAttribute.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+Qualifier `org.dom4j` is unnecessary and can be removed
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
 #### Snippet
 ```java
 
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
-     */
-    public Map runScript( String url, Map params, OutputStream out ) throws Exception {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
-in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
-#### Snippet
-```java
-
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
-     */
-    public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
+/** A tag which defines a variable from an XPath expression.
+  * This function creates a variable of type {@link List} or {@link org.dom4j.Node}
+  * (for example {@link org.dom4j.Element} or {@link org.dom4j.Attribute}).
+  * Thus, the variable created from xml:set can be
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10645,18 +10369,6 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ColorTag.java
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(XMLOutput output) throws JellyTagException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
 in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.java`
 #### Snippet
 ```java
@@ -10689,6 +10401,18 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.ja
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
     public void handleEvent(Event event) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/FontTag.java`
+#### Snippet
+```java
+     * @param output {@link XMLOutput} reference
+     * @throws JellyTagException if an error occurs
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    public void doTag(final XMLOutput output) throws JellyTagException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10737,30 +10461,6 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTag.jav
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/FontTag.java`
-#### Snippet
-```java
-     * @param output {@link XMLOutput} reference
-     * @throws JellyTagException if an error occurs
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(final XMLOutput output) throws JellyTagException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
-#### Snippet
-```java
-     * @param output {@link XMLOutput} reference
-     * @throws JellyTagException if an error occurs
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(final XMLOutput output) throws JellyTagException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10824,63 +10524,15 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
-    protected Object convertValue(Object bean, String name, Object value)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
-     */
-    protected Object convertValue(Object bean, String name, Object value)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.tags.swt` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
-     */
-    protected Object createWidget(Class theClass, Widget parent, int style)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
-     */
-    protected Object createWidget(Class theClass, Widget parent, int style)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.swt.widgets` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
-     */
-    protected Object createWidget(Class theClass, Widget parent, int style)
+    public void doTag(XMLOutput output) throws JellyTagException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10920,6 +10572,78 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupp
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     */
+    protected Object convertValue(Object bean, String name, Object value)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     */
+    protected Object convertValue(Object bean, String name, Object value)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/GCTag.java`
+#### Snippet
+```java
+     * @param output {@link XMLOutput} reference
+     * @throws JellyTagException if an error occurs
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    public void doTag(final XMLOutput output) throws JellyTagException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.tags.swt` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
+     */
+    protected Object createWidget(Class theClass, Widget parent, int style)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
+     */
+    protected Object createWidget(Class theClass, Widget parent, int style)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.swt.widgets` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/MenuTag.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
+     */
+    protected Object createWidget(Class theClass, Widget parent, int style)
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.awt` is unnecessary, and can be replaced with an import
 in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
 #### Snippet
@@ -10948,42 +10672,6 @@ Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
 in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
 #### Snippet
 ```java
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                public Tag createTag(String name, Attributes attributes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
-#### Snippet
-```java
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                public Tag createTag(String name, Attributes attributes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
-#### Snippet
-```java
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                public Tag createTag(String name, Attributes attributes)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
-#### Snippet
-```java
               new TagFactory() {
                   /**
                    * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
@@ -11121,429 +10809,765 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
                 public Tag createTag(String name, Attributes attributes)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
+#### Snippet
+```java
+            new TagFactory() {
+                /**
+                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+                 */
+                public Tag createTag(String name, Attributes attributes)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
+#### Snippet
+```java
+            new TagFactory() {
+                /**
+                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+                 */
+                public Tag createTag(String name, Attributes attributes)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java`
+#### Snippet
+```java
+            new TagFactory() {
+                /**
+                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+                 */
+                public Tag createTag(String name, Attributes attributes)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary, and can be replaced with an import
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
+#### Snippet
+```java
+            // @todo Jelly should have native support for URL and QName
+            // directly on properties
+            call.setTargetEndpointAddress(new java.net.URL(endpoint));
+            call.setOperationName(new QName(namespace, method));
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.tags.swing` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+#### Snippet
+```java
+     * pass through to the parent component tag.
+     * @throws JellyTagException
+     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
+     */
+    public void addChild(Component component, Object constraints) throws JellyTagException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.awt` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+#### Snippet
+```java
+     * pass through to the parent component tag.
+     * @throws JellyTagException
+     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
+     */
+    public void addChild(Component component, Object constraints) throws JellyTagException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+#### Snippet
+```java
+     * pass through to the parent component tag.
+     * @throws JellyTagException
+     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
+     */
+    public void addChild(Component component, Object constraints) throws JellyTagException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+#### Snippet
+```java
+
+    /**Creates a new buttonGroup.
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
+     */
+    protected Object newInstance(Class theClass, Map attributes,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
+#### Snippet
+```java
+
+    /**Creates a new buttonGroup.
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
+     */
+    protected Object newInstance(Class theClass, Map attributes,
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ContributionItemTag.java`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ButtonGroupTag.java`
 #### Snippet
 ```java
 
-    /**
-      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-      */
-    public void doTag(XMLOutput output)
+    /**Creates a new buttonGroup.
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
+     */
+    protected Object newInstance(Class theClass, Map attributes,
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.jelly` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+     * tag runs. This prevents us from keeping references to heavy Swing objects
+     * around for longer than they are needed.
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    public void doTag(XMLOutput output) throws JellyTagException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.awt` is unnecessary, and can be replaced with an import
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/SwingTagLibrary.java`
+#### Snippet
+```java
+        ConvertUtils.register( new DimensionConverter(), Dimension.class );
+        ConvertUtils.register( new PointConverter(), Point.class );
+        ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.beanutils` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+
+    /** Part of the Converter interface.
+     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+     */
+    public Object convert(Class type, Object value) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+
+    /** Part of the Converter interface.
+     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+     */
+    public Object convert(Class type, Object value) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+
+    /** Part of the Converter interface.
+     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+     */
+    public Object convert(Class type, Object value) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+        ConvertUtils.register(
+            new DebugGraphicsConverter(),
+            java.lang.Integer.class);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+#### Snippet
+```java
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
+     */
+    public Map runScript( String url, Map params ) throws Exception {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
+#### Snippet
+```java
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
+     */
+    public Map runScript( String url, Map params, OutputStream out ) throws Exception {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
 #### Snippet
 ```java
 
     /**
-      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-      */
-    public void doTag(XMLOutput output)
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
+     */
+    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+
+    /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
+     */
+    public Map runNamedScript( String name, Map params ) throws Exception {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
+     */
+    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `org.apache.commons.jelly.avalon` is unnecessary and can be removed
+in `jelly-tags/avalon/src/main/java/org/apache/commons/jelly/avalon/JellyServiceImpl.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
+     */
+    public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+    
+    private static String readBuildTimestampResource(String name) {
+        java.io.Reader in = null;
+        try {
+            java.io.StringWriter w = new java.io.StringWriter();
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+        java.io.Reader in = null;
+        try {
+            java.io.StringWriter w = new java.io.StringWriter();
+            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
+            int r;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+        java.io.Reader in = null;
+        try {
+            java.io.StringWriter w = new java.io.StringWriter();
+            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
+            int r;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+        try {
+            java.io.StringWriter w = new java.io.StringWriter();
+            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
+            int r;
+            while ( (r=in.read()) >= 0 ) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     *        it is the external DTD subset, it will be the string
+     *        "[dtd]".
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     * @param start The start position in the array.
+     * @param length The number of characters to read from the array.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     * @see #ignorableWhitespace
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     *            wrapping another exception.
+     * @see #ignorableWhitespace
+     * @see org.xml.sax.Locator
+     */
+    public void characters(char[] ch, int start, int length) throws SAXException {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     * the start/endDocument events from ContentHandler and
+     * before the first
+     * {@link org.xml.sax.ContentHandler#startElement startElement}
+     * event.</p>
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     * @param qName The qualified XML 1.0 name (with prefix), or the
+     *        empty string if qualified names are not available.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     * setDocumentLocator}).</p>
+     *
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     * @see #endDocument
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     *        none was supplied.  The data does not include any
+     *        whitespace separating it from the target.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.jelly.impl` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
-#### Snippet
-```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     * input.</p>
+     *
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     * @see #startDocument
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.xml.sax` is unnecessary and can be removed
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
 #### Snippet
 ```java
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
+     *  which has no prefix.
+     * @param uri The Namespace URI the prefix is mapped to.
+     * @throws org.xml.sax.SAXException The client may throw
+     *            an exception during processing.
+     * @see #endPrefixMapping
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     * @param locator An object that can return the location of
+     *                any SAX document event.
+     * @see org.xml.sax.Locator
+     */
+    public void setDocumentLocator(Locator locator) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     * @param prefix The prefix that was being mapped.
+     *  This is the empty string when a default mapping scope ends.
+     * @throws org.xml.sax.SAXException The client may throw
+     *            an exception during processing.
+     * @see #startPrefixMapping
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     *
+     * <p>The contents of the CDATA section will be reported through
+     * the regular {@link org.xml.sax.ContentHandler#characters
+     * characters} event; this event is intended only to report
+     * the boundary.</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     * @param start The start position in the array.
+     * @param length The number of characters to read from the array.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     * @see #characters
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     *
+     * <p>Note that skipped entities will be reported through the
+     * {@link org.xml.sax.ContentHandler#skippedEntity skippedEntity}
+     * event, which is part of the ContentHandler interface.</p>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     *        there are no attributes, it shall be an empty
+     *        Attributes object.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
+     *            wrapping another exception.
+     * @see #endElement
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+     *            wrapping another exception.
+     * @see #endElement
+     * @see org.xml.sax.Attributes
+     */
+    public void startElement(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/tags/core/UseBeanTag.java`
+#### Snippet
+```java
+ * A tag which instantiates an instance of the given class
+ * and then sets the properties on the bean.
+ * The class can be specified via a {@link java.lang.Class} instance or
+ * a String which will be used to load the class using either the current
+ * thread's context class loader or the class loader used to load this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ImportTag.java`
+#### Snippet
+```java
+                context.runScript(uri, output, true, isInherit() );
+            } else {
+                context.runScript(new java.io.File(file), output, true,
+                  isInherit());
+            }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg0
+     * @param arg1
+     * @throws org.xml.sax.SAXException
+     */
+    public void processingInstruction(String arg0, String arg1)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg1
+     * @param arg2
+     * @throws org.xml.sax.SAXException
+     */
+    public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+    /**
+     * @param arg0
+     * @throws org.xml.sax.SAXException
+     */
+    public void endPrefixMapping(String arg0) throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg1
+     * @param arg2
+     * @throws org.xml.sax.SAXException
+     */
+    public void endElement(String arg0, String arg1, String arg2)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg2
+     * @param arg3
+     * @throws org.xml.sax.SAXException
+     */
+    public void startElement(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg0
+     * @param arg1
+     * @throws org.xml.sax.SAXException
+     */
+    public void startPrefixMapping(String arg0, String arg1)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+    /**
+     * @param arg0
+     * @throws org.xml.sax.SAXException
+     */
+    public void skippedEntity(String arg0) throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+
+    /**
+     * @throws org.xml.sax.SAXException
+     */
+    public void endDocument() throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+
+    /**
+     * @throws org.xml.sax.SAXException
+     */
+    public void startDocument() throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/util/SafeContentHandler.java`
+#### Snippet
+```java
+     * @param arg1
+     * @param arg2
+     * @throws org.xml.sax.SAXException
+     */
+    public void characters(char[] arg0, int arg1, int arg2)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+     * @throws SAXException
+     */
+    public void startPrefixMapping(java.lang.String prefix,
+                                   java.lang.String uri)
+    throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+     */
+    public void startPrefixMapping(java.lang.String prefix,
+                                   java.lang.String uri)
+    throws SAXException {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+     * @throws SAXException
+     */
+    public void startElement(java.lang.String uri,
+                             java.lang.String localName,
+                             java.lang.String qName,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+     */
+    public void startElement(java.lang.String uri,
+                             java.lang.String localName,
+                             java.lang.String qName,
+                             Attributes atts)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `core/src/main/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java`
+#### Snippet
+```java
+    public void startElement(java.lang.String uri,
+                             java.lang.String localName,
+                             java.lang.String qName,
+                             Attributes atts)
+    throws SAXException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.cli` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
+#### Snippet
+```java
+
+        // parse the command line
+        Parser parser = new org.apache.commons.cli.GnuParser();
+        return parser.parse(cmdLineOptions, filterArgs);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
+#### Snippet
+```java
+            context.setVariable("commandLine", cmdLine);
+            if (runInSwingThread) {
+                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { public void run() {
+                    try {
+                        script.run(context, output);
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+
+    public void printStackTrace() {
+        super.printStackTrace();
+        if (cause != null) {
+            System.out.println("Root cause");
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+        if (cause != null) {
+            System.out.println("Root cause");
+            cause.printStackTrace();
+        }
+    }
+```
+
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `jelly-tags/quartz/src/main/java/org/apache/commons/jelly/tags/quartz/QuartzTagSupport.java`
@@ -11597,6 +11621,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
 #### Snippet
 ```java
+            return w.toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            try {
+                in.close();
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
+#### Snippet
+```java
 
             if (cause == null) {
                 e.printStackTrace();
@@ -11614,18 +11650,6 @@ in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
                 cause.printStackTrace();
             }
         }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `core/src/main/java/org/apache/commons/jelly/Jelly.java`
-#### Snippet
-```java
-            return w.toString();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            try {
-                in.close();
 ```
 
 ### ThrowablePrintStackTrace
@@ -11664,30 +11688,6 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
         if (locator != null) {
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
-#### Snippet
-```java
-
-    public void printStackTrace() {
-        super.printStackTrace();
-        if (cause != null) {
-            System.out.println("Root cause");
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
-#### Snippet
-```java
-        if (cause != null) {
-            System.out.println("Root cause");
-            cause.printStackTrace();
-        }
-    }
-```
-
 ## RuleId[id=CovariantEquals]
 ### CovariantEquals
 `equals()` should take 'Object' as its argument
@@ -11715,6 +11715,18 @@ in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/Runna
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
+Constructor `HttpTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
+#### Snippet
+```java
+     * Creates a new instance of HttpTag
+     */
+    public HttpTagSupport() {
+        setParameters(new ArrayList());
+        setRequestHeaders(new ArrayList());
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `ParseTagSupport()` of an abstract class should not be declared 'public'
 in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTagSupport.java`
 #### Snippet
@@ -11734,6 +11746,102 @@ in `jelly-tags/log/src/main/java/org/apache/commons/jelly/tags/log/LogTagSupport
     private boolean encode;
 
     public LogTagSupport() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MessageOperationTag()` of an abstract class should not be declared 'public'
+in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/MessageOperationTag.java`
+#### Snippet
+```java
+    private String subject;
+
+    public MessageOperationTag() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SqlTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
+#### Snippet
+```java
+    // Constructor and initialization
+
+    public SqlTagSupport() {
+		super.setEscapeText(false);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LayoutTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
+#### Snippet
+```java
+    private String var;
+
+    public LayoutTagSupport(Class layoutClass) {
+        super(layoutClass);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AssertTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTagSupport.java`
+#### Snippet
+```java
+    private static String DEFAULT_MESSAGE = "assertion failed";
+    
+    public AssertTagSupport() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BorderTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/BorderTagSupport.java`
+#### Snippet
+```java
+    private String var;
+
+    public BorderTagSupport() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LayoutTagSupport()` of an abstract class should not be declared 'public'
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/LayoutTagSupport.java`
+#### Snippet
+```java
+    private String var;
+
+    public LayoutTagSupport() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TagLibrary()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+	 * @param allowUnknownTags whether unknown tags are allowed or an exception is raised
+	 */
+	public TagLibrary(boolean allowUnknownTags) {
+		super();
+		this.allowUnknownTags = allowUnknownTags;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TagLibrary()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+	 * Default Constructor
+	 */
+    public TagLibrary() {
     }
 
 ```
@@ -11760,30 +11868,6 @@ in `core/src/main/java/org/apache/commons/jelly/DynaBeanTagSupport.java`
     public DynaBeanTagSupport() {
     }
     
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TagLibrary()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-	 * Default Constructor
-	 */
-    public TagLibrary() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TagLibrary()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-	 * @param allowUnknownTags whether unknown tags are allowed or an exception is raised
-	 */
-	public TagLibrary(boolean allowUnknownTags) {
-		super();
-		this.allowUnknownTags = allowUnknownTags;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11822,91 +11906,31 @@ public abstract class BaseJellyTest extends TestCase {
     }
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `BorderTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/BorderTagSupport.java`
-#### Snippet
-```java
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LayoutTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/LayoutTagSupport.java`
-#### Snippet
-```java
-    private String var;
-
-    public LayoutTagSupport() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `HttpTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/http/src/main/java/org/apache/commons/jelly/tags/http/HttpTagSupport.java`
-#### Snippet
-```java
-     * Creates a new instance of HttpTag
-     */
-    public HttpTagSupport() {
-        setParameters(new ArrayList());
-        setRequestHeaders(new ArrayList());
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SqlTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/SqlTagSupport.java`
-#### Snippet
-```java
-    // Constructor and initialization
-
-    public SqlTagSupport() {
-		super.setEscapeText(false);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MessageOperationTag()` of an abstract class should not be declared 'public'
-in `jelly-tags/jms/src/main/java/org/apache/commons/jelly/tags/jms/MessageOperationTag.java`
-#### Snippet
-```java
-    private String subject;
-
-    public MessageOperationTag() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LayoutTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
-#### Snippet
-```java
-    private String var;
-
-    public LayoutTagSupport(Class layoutClass) {
-        super(layoutClass);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AssertTagSupport()` of an abstract class should not be declared 'public'
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertTagSupport.java`
-#### Snippet
-```java
-    private static String DEFAULT_MESSAGE = "assertion failed";
-    
-    public AssertTagSupport() {
-    }
-
-```
-
 ## RuleId[id=Anonymous2MethodRef]
+### Anonymous2MethodRef
+Anonymous new TagFactory() can be replaced with method reference
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFTagLibrary.java`
+#### Snippet
+```java
+        registerTagFactory(
+            "script",
+            new TagFactory() {
+                public Tag createTag(String name, Attributes attributes)
+                    throws JellyException {
+```
+
+### Anonymous2MethodRef
+Anonymous new TagFactory() can be replaced with method reference
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+        if ( answer == null ) {
+            answer = new TagScript(
+                new TagFactory() {
+                    public Tag createTag(String name, Attributes attributes) throws JellyException {
+                        return AntTagLibrary.this.createTag(name, attributes);
+```
+
 ### Anonymous2MethodRef
 Anonymous new TagFactory() can be replaced with method reference
 in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibrary.java`
@@ -11917,18 +11941,6 @@ in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTagLibr
         return new TagFactory() {
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return createBeanTag(name, attributes);
-```
-
-### Anonymous2MethodRef
-Anonymous new TagFactory() can be replaced with method reference
-in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
-#### Snippet
-```java
-
-        return new TagScript(
-            new TagFactory() {
-                public Tag createTag(String name, Attributes attributes) throws JellyException {
-                    return DynamicTagLibrary.this.createTag(name, attributes);
 ```
 
 ### Anonymous2MethodRef
@@ -11957,29 +11969,29 @@ in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/SwingTagL
 
 ### Anonymous2MethodRef
 Anonymous new TagFactory() can be replaced with method reference
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFTagLibrary.java`
+in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
 #### Snippet
 ```java
-        registerTagFactory(
-            "script",
-            new TagFactory() {
-                public Tag createTag(String name, Attributes attributes)
-                    throws JellyException {
-```
 
-### Anonymous2MethodRef
-Anonymous new TagFactory() can be replaced with method reference
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-        if ( answer == null ) {
-            answer = new TagScript(
-                new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws JellyException {
-                        return AntTagLibrary.this.createTag(name, attributes);
+        return new TagScript(
+            new TagFactory() {
+                public Tag createTag(String name, Attributes attributes) throws JellyException {
+                    return DynamicTagLibrary.this.createTag(name, attributes);
 ```
 
 ## RuleId[id=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
+#### Snippet
+```java
+
+        // set the target to run
+        thread.setTarget(new Runnable() {
+            public void run() {
+                try {
+```
+
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `core/src/main/java/org/apache/commons/jelly/tags/core/ThreadTag.java`
@@ -12004,18 +12016,6 @@ in `core/src/main/java/org/apache/commons/jelly/util/CommandLineParser.java`
                         script.run(context, output);
 ```
 
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/ThreadTag.java`
-#### Snippet
-```java
-
-        // set the target to run
-        thread.setTarget(new Runnable() {
-            public void run() {
-                try {
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `source`
@@ -12027,6 +12027,102 @@ in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/ParseTagSuppo
                 source = context.getResource(uri);
             }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rawDataSource`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
+#### Snippet
+```java
+
+        if (rawDataSource == null) {
+            rawDataSource = pc.getVariable("org.apache.commons.jelly.sql.DataSource");
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtHelper.java`
+#### Snippet
+```java
+        if (text != null) {
+            if (toUpperCase) {
+                text = text.toUpperCase();
+            }
+            StringTokenizer items = new StringTokenizer(text, ",");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/PointConverter.java`
+#### Snippet
+```java
+
+    protected int parseNumber(String text) {
+        text = text.trim();
+        return Integer.parseInt(text.trim());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
+#### Snippet
+```java
+
+    protected int parseNumber(String text) {
+        text = text.trim();
+        return Integer.parseInt(text.trim());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
+#### Snippet
+```java
+                return from;
+            }
+            from = from.getParent();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DimensionConverter.java`
+#### Snippet
+```java
+
+    protected int parseNumber(String text) {
+        text = text.trim();
+        return Integer.parseInt(text);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/PointConverter.java`
+#### Snippet
+```java
+
+    protected int parseNumber(String text) {
+        text = text.trim();
+        return Integer.parseInt(text);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+
+    protected int recognizeOption(String value) {
+        value = value.toString().toLowerCase();
+
+        if ("log".equals(value) || "log_option".equals(value)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -12042,15 +12138,15 @@ in `jelly-tags/memory/src/main/java/org/apache/commons/jelly/tags/memory/FreeMem
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
+Assignment to method parameter `localName`
+in `core/src/main/java/org/apache/commons/jelly/impl/StaticTag.java`
 #### Snippet
 ```java
-                }
-            }
-            from = from.getParent();
+        // FIXME This just doesn't seem right or work...
+        if (qname == null || !qname.endsWith(localName)) {
+            localName = qname;
         }
-        return null;
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -12066,27 +12162,15 @@ in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `localName`
-in `core/src/main/java/org/apache/commons/jelly/impl/StaticTag.java`
+Assignment to method parameter `from`
+in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
 #### Snippet
 ```java
-        // FIXME This just doesn't seem right or work...
-        if (qname == null || !qname.endsWith(localName)) {
-            localName = qname;
-        }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
-#### Snippet
-```java
-
-            if (prefix == null) {
-                prefix = "";
+                }
             }
-
+            from = from.getParent();
+        }
+        return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -12109,6 +12193,18 @@ in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
             }
             if (uri == null) {
                 uri = "";
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prefix`
+in `core/src/main/java/org/apache/commons/jelly/XMLOutput.java`
+#### Snippet
+```java
+
+            if (prefix == null) {
+                prefix = "";
             }
 
 ```
@@ -12174,54 +12270,6 @@ in `core/src/main/java/org/apache/commons/jelly/xpath/XPathComparator.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
-#### Snippet
-```java
-                return from;
-            }
-            from = from.getParent();
-        }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/PointConverter.java`
-#### Snippet
-```java
-
-    protected int parseNumber(String text) {
-        text = text.trim();
-        return Integer.parseInt(text);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DimensionConverter.java`
-#### Snippet
-```java
-
-    protected int parseNumber(String text) {
-        text = text.trim();
-        return Integer.parseInt(text);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
-#### Snippet
-```java
-
-    protected int recognizeOption(String value) {
-        value = value.toString().toLowerCase();
-
-        if ("log".equals(value) || "log_option".equals(value)) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `namespaceURI`
 in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
@@ -12233,55 +12281,43 @@ in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `rawDataSource`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
-#### Snippet
-```java
-
-        if (rawDataSource == null) {
-            rawDataSource = pc.getVariable("org.apache.commons.jelly.sql.DataSource");
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/SwtHelper.java`
-#### Snippet
-```java
-        if (text != null) {
-            if (toUpperCase) {
-                text = text.toUpperCase();
-            }
-            StringTokenizer items = new StringTokenizer(text, ",");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/PointConverter.java`
-#### Snippet
-```java
-
-    protected int parseNumber(String text) {
-        text = text.trim();
-        return Integer.parseInt(text.trim());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/converters/ColorConverter.java`
-#### Snippet
-```java
-
-    protected int parseNumber(String text) {
-        text = text.trim();
-        return Integer.parseInt(text.trim());
-    }
-```
-
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `s`
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+    // #### overload the printStackTrace methods...
+    public void printStackTrace(PrintWriter s) {
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `s`
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
+#### Snippet
+```java
+
+    public void printStackTrace(PrintStream s) {
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `mutex`
+in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/SynchronizeTag.java`
+#### Snippet
+```java
+    /** Synchronize on the mutex */
+    protected void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
+        synchronized (mutex) {
+            invokeBody(output);
+        }
+```
+
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `s`
 in `core/src/main/java/org/apache/commons/jelly/JellyException.java`
@@ -12318,1003 +12354,7 @@ in `core/src/main/java/org/apache/commons/jelly/util/TagUtils.java`
                 CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
 ```
 
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `s`
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
-#### Snippet
-```java
-
-    public void printStackTrace(PrintStream s) {
-        synchronized (s) {
-            super.printStackTrace(s);
-            if  (cause != null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `s`
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java`
-#### Snippet
-```java
-    // #### overload the printStackTrace methods...
-    public void printStackTrace(PrintWriter s) {
-        synchronized (s) {
-            super.printStackTrace(s);
-            if  (cause != null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `mutex`
-in `jelly-tags/threads/src/main/java/org/apache/commons/jelly/tags/threads/SynchronizeTag.java`
-#### Snippet
-```java
-    /** Synchronize on the mutex */
-    protected void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
-        synchronized (mutex) {
-            invokeBody(output);
-        }
-```
-
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/IfTag.java`
-#### Snippet
-```java
-            return tag.getXPathContext();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
-#### Snippet
-```java
-            return ((Node) value).getStringValue();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
-#### Snippet
-```java
-            List l = (List) value;
-            if (l.isEmpty())
-                return null;
-            else
-                return l.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
-#### Snippet
-```java
-            } else {
-                // do nothing
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
-#### Snippet
-```java
-                // pass if we don't have a systemId
-                if (null == href)
-                    return null;
-
-                // @todo
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
-#### Snippet
-```java
-        if ( key == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
-#### Snippet
-```java
-        if ( key == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
-#### Snippet
-```java
-        if ( key == null || value == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
-#### Snippet
-```java
-    protected Object[] getParamArray() {
-        if (params == null) {
-            return null;
-        }
-        if (params instanceof Object[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
-#### Snippet
-```java
-            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTag.java`
-#### Snippet
-```java
-            return tag.getBean();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTag.java`
-#### Snippet
-```java
-    protected Method findAddMethod(Class beanClass, Class valueClass) {
-        if (addMethodName == null) {
-            return null;
-        }
-        Class[] argTypes = { valueClass };
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
-#### Snippet
-```java
-    protected Method findCreateMethod(Class theClass) {
-        if (createMethodName == null) {
-            return null;
-        }
-        return MethodUtils.getAccessibleMethod(
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-    /** Allows derived tag libraries to use their own factory */
-    public ExpressionFactory getExpressionFactory() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-            return new TagScript( (TagFactory) value );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-            return factory.createTag(name, attributes);
-        }
-    	return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
-#### Snippet
-```java
-                        return new File( text );
-                    }
-                    return null;
-                }
-            },
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
-#### Snippet
-```java
-            from = from.getParent();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
-#### Snippet
-```java
-            from = from.getParent();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
-#### Snippet
-```java
-    public Script getDynamicTag(String name) {
-        Object result = templates.get(name);
-        return (result instanceof Script) ? (Script) result : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
-#### Snippet
-```java
-                e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
-#### Snippet
-```java
-            log.error("Could not find the class: " + className + " when trying to resolve URI: " + uri, e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
-#### Snippet
-```java
-        }
-        log.info( "Could not find any services for name: " + name );
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
-#### Snippet
-```java
-            return tagFactory.createTag(localName, getSaxAttributes());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/xpath/XPathTagSupport.java`
-#### Snippet
-```java
-            return tag.getXPathSource();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
-#### Snippet
-```java
-    private static Object convert(Class klass, Object value) throws JellyTagException {
-        if(null == value) {
-            return null;
-        } else if(!klass.isInstance(value)) {
-            Converter converter = (Converter)(converterMap.get(klass));
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/ExpressionSupport.java`
-#### Snippet
-```java
-            return value.toString();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-
-    public Set entrySet() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-
-    public Object remove(Object key) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-
-    public Collection values() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-        	if (context.isSuppressExpressionExceptions()) {
-	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-	            return null;
-        	} else {
-        		if (e instanceof RuntimeException)
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
-#### Snippet
-```java
-
-    public Set keySet() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
-#### Snippet
-```java
-    throws MissingAttributeException, ClassNotFoundException {
-        if (classObject == null) {
-            return null;
-        }
-        else {
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
-#### Snippet
-```java
-            from = from.getParent();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ActionTag.java`
-#### Snippet
-```java
-    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
-        if (classObject == null) {
-            return null;
-        }
-        else {
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
-#### Snippet
-```java
-    public Object evaluateValue(ExpressionTableModel model, Object row, int rowIndex, int columnIndex) {
-        if (value == null) {
-            return null;
-        }
-        // lets put the values in the context
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/PointConverter.java`
-#### Snippet
-```java
-            return new Point( x, y );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DimensionConverter.java`
-#### Snippet
-```java
-            return new Dimension( width, height );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
-#### Snippet
-```java
-    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
-        if (classObject == null) {
-            return null;
-        }
-        else {
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
-#### Snippet
-```java
-            return (Component) bean;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
-#### Snippet
-```java
-
-    protected Object getConstraint() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
-#### Snippet
-```java
-            return new Integer(result);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/ColorConverter.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java`
-#### Snippet
-```java
-            catch (Exception e) {
-                log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
-        if (stack == null) {
-            return (null);
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-        }
-        catch (EmptyStackException e) {
-            return (null);
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-    protected String getCurrentURI() {
-        URL url = this.getContext().getCurrentURL();
-        return (url != null) ? url.toString() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-                return script;
-            }
-            return null;
-        }
-        catch (Exception e) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-        catch (SAXException e) {
-            log.error("Cannot get XMLReader", e);
-            return (null);
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
-#### Snippet
-```java
-            catch (Exception e) {
-                log.error("XMLParser.getParser: ", e);
-                return (null);
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyResourceHttpHandler.java`
-#### Snippet
-```java
-          return sb.toString();
-        else
-          return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
-#### Snippet
-```java
-    public String getProperty(String name) {
-        if (name == null) {
-            return null;
-        }
-        Object value = this.context.getVariable(name);
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
-#### Snippet
-```java
-        Object value = this.context.getVariable(name);
-        if (value == null) {
-            return null;
-        }
-        else {
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-    public String getUserProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.userProperties.get(key);
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
-#### Snippet
-```java
-    public String getProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.properties.get(key);
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-            );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-                        return new Reference( text );
-                    }
-                    return null;
-                }
-            },
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
-#### Snippet
-```java
-                        return attr;
-                    }
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ite);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-
-        if (taskType == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
-#### Snippet
-```java
-            tag = tag.getParent();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
-#### Snippet
-```java
-
-        if (rawDataSource == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultSupport.java`
-#### Snippet
-```java
-            return new ResultImpl(resultSet, -1, -1);
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultSupport.java`
-#### Snippet
-```java
-            return new ResultImpl(resultSet, -1, maxRows);
-        } catch (SQLException ex) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
-#### Snippet
-```java
-    public SortedMap[] getRows() {
-        if (rowMap == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
-#### Snippet
-```java
-    public Object[][] getRowsByIndex() {
-        if (rowByIndex == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
-#### Snippet
-```java
-    public Object[][] getRowsByIndex() {
-        if (rowByIndex == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
-#### Snippet
-```java
-    public SortedMap[] getRows() {
-        if (rowMap == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/StylesheetTag.java`
-#### Snippet
-```java
-            return jellyStyle.getOutput();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
-#### Snippet
-```java
-        Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
-        if (obj == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ColorTag.java`
-#### Snippet
-```java
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
-#### Snippet
-```java
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.java`
-#### Snippet
-```java
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTag.java`
-#### Snippet
-```java
-            return (Layout) bean;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/FontTag.java`
-#### Snippet
-```java
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
-#### Snippet
-```java
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
-#### Snippet
-```java
-            return (Widget) bean;
-        }
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceLayoutDataTag.java`
@@ -13341,18 +12381,6 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceLayo
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceImageTag.java`
-#### Snippet
-```java
-            return tag.getWindow();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/MenuManagerTag.java`
 #### Snippet
 ```java
@@ -13365,34 +12393,22 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/MenuManag
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/SelectionChangedListenerTag.java`
+in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java`
 #### Snippet
 ```java
-            return tag.getViewer();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
-#### Snippet
-```java
-        }
-        if (generatedFileName == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/DoubleClickListenerTag.java`
-#### Snippet
-```java
+            catch (Exception e) {
+                log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+                return null;
             }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
+#### Snippet
+```java
+            return tag.getMenuManager();
         }
         return null;
     }
@@ -13413,10 +12429,34 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/Contribut
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ActionTag.java`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/JFaceImageTag.java`
 #### Snippet
 ```java
-            return tag.getMenuManager();
+            return tag.getWindow();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/DoubleClickListenerTag.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/SelectionChangedListenerTag.java`
+#### Snippet
+```java
+            return tag.getViewer();
         }
         return null;
     }
@@ -13485,6 +12525,942 @@ in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/wizard/Wi
 
 ### ReturnNull
 Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
+#### Snippet
+```java
+    public String getProperty(String name) {
+        if (name == null) {
+            return null;
+        }
+        Object value = this.context.getVariable(name);
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/JellyPropsHandler.java`
+#### Snippet
+```java
+        Object value = this.context.getVariable(name);
+        if (value == null) {
+            return null;
+        }
+        else {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+                        return new Reference( text );
+                    }
+                    return null;
+                }
+            },
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+            );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTagLibrary.java`
+#### Snippet
+```java
+                        return attr;
+                    }
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+    public String getProperty(String key) {
+        if (key == null) {
+            return null;
+        }
+        return (String) this.properties.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/DefaultPropsHandler.java`
+#### Snippet
+```java
+    public String getUserProperty(String key) {
+        if (key == null) {
+            return null;
+        }
+        return (String) this.userProperties.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/jetty/src/main/java/org/apache/commons/jelly/tags/jetty/JellyResourceHttpHandler.java`
+#### Snippet
+```java
+          return sb.toString();
+        else
+          return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
+#### Snippet
+```java
+        if ( key == null || value == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
+#### Snippet
+```java
+        if ( key == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/velocity/src/main/java/org/apache/commons/jelly/tags/velocity/JellyContextAdapter.java`
+#### Snippet
+```java
+        if ( key == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeandefTag.java`
+#### Snippet
+```java
+            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ite);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+            tag = tag.getParent();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/ant/src/main/java/org/apache/commons/jelly/tags/ant/AntTag.java`
+#### Snippet
+```java
+
+        if (taskType == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTag.java`
+#### Snippet
+```java
+    protected Method findAddMethod(Class beanClass, Class valueClass) {
+        if (addMethodName == null) {
+            return null;
+        }
+        Class[] argTypes = { valueClass };
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanTag.java`
+#### Snippet
+```java
+            return tag.getBean();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/bean/src/main/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java`
+#### Snippet
+```java
+    protected Method findCreateMethod(Class theClass) {
+        if (createMethodName == null) {
+            return null;
+        }
+        return MethodUtils.getAccessibleMethod(
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/IfTag.java`
+#### Snippet
+```java
+            return tag.getXPathContext();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+                // pass if we don't have a systemId
+                if (null == href)
+                    return null;
+
+                // @todo
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/TransformTag.java`
+#### Snippet
+```java
+            } else {
+                // do nothing
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+#### Snippet
+```java
+            List l = (List) value;
+            if (l.isEmpty())
+                return null;
+            else
+                return l.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/xml/src/main/java/org/apache/commons/jelly/tags/xml/SetTag.java`
+#### Snippet
+```java
+            return ((Node) value).getStringValue();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+#### Snippet
+```java
+                    }
+                    else if ( value == null ) {
+                        return null;
+                    }
+                    else {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/fmt/src/main/java/org/apache/commons/jelly/tags/fmt/BundleTag.java`
+#### Snippet
+```java
+        Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
+        if (obj == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/jsl/src/main/java/org/apache/commons/jelly/tags/jsl/StylesheetTag.java`
+#### Snippet
+```java
+            return jellyStyle.getOutput();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/DataSourceUtil.java`
+#### Snippet
+```java
+
+        if (rawDataSource == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultSupport.java`
+#### Snippet
+```java
+            return new ResultImpl(resultSet, -1, maxRows);
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultSupport.java`
+#### Snippet
+```java
+            return new ResultImpl(resultSet, -1, -1);
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+#### Snippet
+```java
+    public SortedMap[] getRows() {
+        if (rowMap == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/org/apache/commons/jelly/tags/sql/ResultImpl.java`
+#### Snippet
+```java
+    public Object[][] getRowsByIndex() {
+        if (rowByIndex == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ColorTag.java`
+#### Snippet
+```java
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+#### Snippet
+```java
+    public Object[][] getRowsByIndex() {
+        if (rowByIndex == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/sql/src/main/java/javax/servlet/jsp/jstl/sql/ResultImpl.java`
+#### Snippet
+```java
+    public SortedMap[] getRows() {
+        if (rowMap == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/OnEventTag.java`
+#### Snippet
+```java
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/FontTag.java`
+#### Snippet
+```java
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTag.java`
+#### Snippet
+```java
+            return (Layout) bean;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/WidgetTag.java`
+#### Snippet
+```java
+            return (Widget) bean;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/ImageTag.java`
+#### Snippet
+```java
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/LayoutTagSupport.java`
+#### Snippet
+```java
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/soap/src/main/java/org/apache/commons/jelly/tags/soap/InvokeTag.java`
+#### Snippet
+```java
+    protected Object[] getParamArray() {
+        if (params == null) {
+            return null;
+        }
+        if (params instanceof Object[]) {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/antlr/src/main/java/org/apache/commons/jelly/tags/antlr/AntlrTag.java`
+#### Snippet
+```java
+        }
+        if (generatedFileName == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
+#### Snippet
+```java
+        if (!Throwable.class.isAssignableFrom(throwableClass)) {
+            log.warn( "The class: " + expected + " is not an Exception class.");
+            return null;
+        }
+        return throwableClass;
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
+#### Snippet
+```java
+    throws MissingAttributeException, ClassNotFoundException {
+        if (classObject == null) {
+            return null;
+        }
+        else {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/GbcTag.java`
+#### Snippet
+```java
+            from = from.getParent();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ActionTag.java`
+#### Snippet
+```java
+    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
+        if (classObject == null) {
+            return null;
+        }
+        else {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+
+    protected Object getConstraint() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+            return (Component) bean;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/ComponentTag.java`
+#### Snippet
+```java
+    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
+        if (classObject == null) {
+            return null;
+        }
+        else {
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DimensionConverter.java`
+#### Snippet
+```java
+            return new Dimension( width, height );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/PointConverter.java`
+#### Snippet
+```java
+            return new Point( x, y );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/model/ExpressionTableColumn.java`
+#### Snippet
+```java
+    public Object evaluateValue(ExpressionTableModel model, Object row, int rowIndex, int columnIndex) {
+        if (value == null) {
+            return null;
+        }
+        // lets put the values in the context
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/DebugGraphicsConverter.java`
+#### Snippet
+```java
+            return new Integer(result);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/swing/src/main/java/org/apache/commons/jelly/tags/swing/converters/ColorConverter.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/BeanTag.java`
+#### Snippet
+```java
+     */
+    protected Method getInvokeMethod( Class theClass ) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpression.java`
+#### Snippet
+```java
+        catch (Exception e) {
+            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+            return new TagScript( (TagFactory) value );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+                        return new File( text );
+                    }
+                    return null;
+                }
+            },
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+    /** Allows derived tag libraries to use their own factory */
+    public ExpressionFactory getExpressionFactory() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagLibrary.java`
+#### Snippet
+```java
+            return factory.createTag(name, attributes);
+        }
+    	return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
+#### Snippet
+```java
+            log.error("Could not find the class: " + className + " when trying to resolve URI: " + uri, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
+#### Snippet
+```java
+                e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/DefaultTagLibraryResolver.java`
+#### Snippet
+```java
+        }
+        log.info( "Could not find any services for name: " + name );
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
+#### Snippet
+```java
+            from = from.getParent();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/TagSupport.java`
+#### Snippet
+```java
+            from = from.getParent();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/DynamicTagLibrary.java`
+#### Snippet
+```java
+    public Script getDynamicTag(String name) {
+        Object result = templates.get(name);
+        return (result instanceof Script) ? (Script) result : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/impl/TagScript.java`
+#### Snippet
+```java
+            return tagFactory.createTag(localName, getSaxAttributes());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/xpath/XPathTagSupport.java`
+#### Snippet
+```java
+            return tag.getXPathSource();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/tags/core/ArgTag.java`
+#### Snippet
+```java
+    private static Object convert(Class klass, Object value) throws JellyTagException {
+        if(null == value) {
+            return null;
+        } else if(!klass.isInstance(value)) {
+            Converter converter = (Converter)(converterMap.get(klass));
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/ExpressionSupport.java`
+#### Snippet
+```java
+            return value.toString();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+
+    public Set keySet() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+
+    public Object remove(Object key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+
+    public Collection values() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+        	if (context.isSuppressExpressionExceptions()) {
+	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
+	            return null;
+        	} else {
+        		if (e instanceof RuntimeException)
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java`
+#### Snippet
+```java
+
+    public Set entrySet() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
@@ -13512,31 +13488,19 @@ Return of `null`
 in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
+#### Snippet
+```java
             return scope.getVariable(name);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
-#### Snippet
-```java
-            log.debug("security exception accessing system properties", e);
         }
         return null;
     }
@@ -13557,65 +13521,89 @@ in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/junit/src/main/java/org/apache/commons/jelly/tags/junit/AssertThrowsTag.java`
+in `core/src/main/java/org/apache/commons/jelly/JellyContext.java`
 #### Snippet
 ```java
-        if (!Throwable.class.isAssignableFrom(throwableClass)) {
-            log.warn( "The class: " + expected + " is not an Exception class.");
-            return null;
+            log.debug("security exception accessing system properties", e);
         }
-        return throwableClass;
-```
-
-### ReturnNull
-Return of `null`
-in `jelly-tags/define/src/main/java/org/apache/commons/jelly/tags/define/BeanTag.java`
-#### Snippet
-```java
-     */
-    protected Method getInvokeMethod( Class theClass ) {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/betwixt/src/main/java/org/apache/commons/jelly/tags/betwixt/IntrospectorTag.java`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-                    }
-                    else if ( value == null ) {
-                        return null;
-                    }
-                    else {
+    protected String getCurrentURI() {
+        URL url = this.getContext().getCurrentURL();
+        return (url != null) ? url.toString() : null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `jelly-tags/beanshell/src/main/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpression.java`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
 #### Snippet
 ```java
-        catch (Exception e) {
-            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
+        if (stack == null) {
+            return (null);
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+        }
+        catch (EmptyStackException e) {
+            return (null);
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+            catch (Exception e) {
+                log.error("XMLParser.getParser: ", e);
+                return (null);
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+                return script;
+            }
             return null;
+        }
+        catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/commons/jelly/parser/XMLParser.java`
+#### Snippet
+```java
+        catch (SAXException e) {
+            log.error("Cannot get XMLReader", e);
+            return (null);
         }
     }
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `value` is redundant
-in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java`
-#### Snippet
-```java
-        String localName) {
-
-        Object value = context.getVariable(localName);
-
-        //log.debug( "Looking up XPath variable of name: " + localName + " value is: " + value );
-```
-
 ### UnnecessaryLocalVariable
 Local variable `answer` is redundant
 in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java`
@@ -13626,6 +13614,18 @@ in `jelly-tags/bsf/src/main/java/org/apache/commons/jelly/tags/bsf/BSFExpression
         BSFManager answer = new BSFManager();
         return answer;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `viewer` is redundant
+in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ViewerTag.java`
+#### Snippet
+```java
+        // now lets call the constructor with the parent
+        Widget parent = getParentWidget();
+        Viewer viewer = (Viewer) createWidget(theClass, parent, style);
+
+        return viewer;
 ```
 
 ### UnnecessaryLocalVariable
@@ -13677,15 +13677,15 @@ in `jelly-tags/swt/src/main/java/org/apache/commons/jelly/tags/swt/DialogTag.jav
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `viewer` is redundant
-in `jelly-tags/jface/src/main/java/org/apache/commons/jelly/tags/jface/ViewerTag.java`
+Local variable `value` is redundant
+in `core/src/main/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java`
 #### Snippet
 ```java
-        // now lets call the constructor with the parent
-        Widget parent = getParentWidget();
-        Viewer viewer = (Viewer) createWidget(theClass, parent, style);
+        String localName) {
 
-        return viewer;
+        Object value = context.getVariable(localName);
+
+        //log.debug( "Looking up XPath variable of name: " + localName + " value is: " + value );
 ```
 
 ### UnnecessaryLocalVariable
