@@ -40,10 +40,10 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
 
-            String deprecation = parameter.getDeprecated();
-            if (deprecation != null && deprecation.length() <= 0) {
-                deprecation = NO_REASON;
-            }
+        String deprecation = md.getDeprecated();
+        if (deprecation != null && deprecation.length() <= 0) {
+            deprecation = NO_REASON;
+        }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -52,10 +52,10 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
 
-        String deprecation = md.getDeprecated();
-        if (deprecation != null && deprecation.length() <= 0) {
-            deprecation = NO_REASON;
-        }
+            String deprecation = parameter.getDeprecated();
+            if (deprecation != null && deprecation.length() <= 0) {
+                deprecation = NO_REASON;
+            }
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -159,18 +159,6 @@ in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `projects` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-    private List<MavenProject> projects;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `settingsProfiles` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
@@ -180,6 +168,18 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
     private List<org.apache.maven.settings.Profile> settingsProfiles;
 
     // ----------------------------------------------------------------------
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `projects` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+    private List<MavenProject> projects;
+
+    /**
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -479,6 +479,78 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
 Can generalize to `? extends Profile`
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
@@ -488,78 +560,6 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
     private void writeProfilesDescription(StringBuilder sb, Map<String, Profile> profilesByIds, boolean active) {
         for (Profile p : profilesByIds.values()) {
             sb.append("  Profile Id: ").append(p.getId());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
