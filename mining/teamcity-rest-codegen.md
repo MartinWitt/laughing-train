@@ -34,6 +34,78 @@ Assignment to method parameter `name`
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
+    @Override
+    public String toModelName(String name) {
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // model name cannot use reserved keyword, e.g. return
+        if (isReservedWord(name)) {
+            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNamePrefix)) {
+            name = modelNamePrefix + "_" + name;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNameSuffix)) {
+            name = name + "_" + modelNameSuffix;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
 
         // input[] => input
         name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
@@ -111,78 +183,6 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
         name = name.replaceAll(" ", "_");
 
         return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-    @Override
-    public String toModelName(String name) {
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name cannot use reserved keyword, e.g. return
-        if (isReservedWord(name)) {
-            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNamePrefix)) {
-            name = modelNamePrefix + "_" + name;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNameSuffix)) {
-            name = name + "_" + modelNameSuffix;
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -466,114 +466,6 @@ in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[] => input
-        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-
-        // input[a][b] => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-        // input(a)(b) => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-        // input-name => input_name
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input-name => input_name
-        name = name.replaceAll("-", "_");
-
-        // input name and age => input_name_and_age
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input name and age => input_name_and_age
-        name = name.replaceAll(" ", "_");
-
-        return name;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
@@ -647,6 +539,114 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // input[] => input
+        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+
+        // input[a][b] => input_a_b
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // input[a][b] => input_a_b
+        name = name.replaceAll("\\[", "_");
+        name = name.replaceAll("\\]", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // input[a][b] => input_a_b
+        name = name.replaceAll("\\[", "_");
+        name = name.replaceAll("\\]", "");
+
+        // input(a)(b) => input_a_b
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // input(a)(b) => input_a_b
+        name = name.replaceAll("\\(", "_");
+        name = name.replaceAll("\\)", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // input(a)(b) => input_a_b
+        name = name.replaceAll("\\(", "_");
+        name = name.replaceAll("\\)", "");
+
+        // input-name => input_name
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // input-name => input_name
+        name = name.replaceAll("-", "_");
+
+        // input name and age => input_name_and_age
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        // input name and age => input_name_and_age
+        name = name.replaceAll(" ", "_");
+
+        return name;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 #### Snippet
 ```java
@@ -667,6 +667,18 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         if (name.matches("^\\d.*")) {
             name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
         }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+                //patch LocatorEntity description with a link to <model>.md
+                if (m.vendorExtensions.get("x-is-locator") != null) {
+                    newDescription = newDescription.replace(
+                            "Represents a locator string",
+                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -751,18 +763,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         name = name.replaceAll(" ", "_");
 
         return name;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-                //patch LocatorEntity description with a link to <model>.md
-                if (m.vendorExtensions.get("x-is-locator") != null) {
-                    newDescription = newDescription.replace(
-                            "Represents a locator string",
-                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
