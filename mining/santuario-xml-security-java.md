@@ -98,18 +98,6 @@ public class InboundXMLSec {
 
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
-in `src/main/java/org/apache/xml/security/stax/impl/InputProcessorChainImpl.java`
-#### Snippet
-```java
-public class InputProcessorChainImpl implements InputProcessorChain {
-
-    protected static final transient Logger LOG = LoggerFactory.getLogger(InputProcessorChainImpl.class);
-
-    private List<InputProcessor> inputProcessors;
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
 in `src/main/java/org/apache/xml/security/stax/impl/OutputProcessorChainImpl.java`
 #### Snippet
 ```java
@@ -122,26 +110,14 @@ public class OutputProcessorChainImpl implements OutputProcessorChain {
 
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
-in `src/main/java/org/apache/xml/security/stax/impl/util/SignerOutputStream.java`
+in `src/main/java/org/apache/xml/security/stax/impl/InputProcessorChainImpl.java`
 #### Snippet
 ```java
+public class InputProcessorChainImpl implements InputProcessorChain {
 
-    protected static final transient Logger LOG = LoggerFactory.getLogger(SignerOutputStream.class);
-    protected static final transient boolean isDebugEnabled = LOG.isDebugEnabled();
+    protected static final transient Logger LOG = LoggerFactory.getLogger(InputProcessorChainImpl.class);
 
-    private final SignatureAlgorithm signatureAlgorithm;
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `src/main/java/org/apache/xml/security/stax/impl/util/SignerOutputStream.java`
-#### Snippet
-```java
-public class SignerOutputStream extends OutputStream {
-
-    protected static final transient Logger LOG = LoggerFactory.getLogger(SignerOutputStream.class);
-    protected static final transient boolean isDebugEnabled = LOG.isDebugEnabled();
-
+    private List<InputProcessor> inputProcessors;
 ```
 
 ### UnnecessaryModifier
@@ -170,6 +146,30 @@ public class DigestOutputStream extends OutputStream {
 
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
+in `src/main/java/org/apache/xml/security/stax/impl/util/SignerOutputStream.java`
+#### Snippet
+```java
+public class SignerOutputStream extends OutputStream {
+
+    protected static final transient Logger LOG = LoggerFactory.getLogger(SignerOutputStream.class);
+    protected static final transient boolean isDebugEnabled = LOG.isDebugEnabled();
+
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `src/main/java/org/apache/xml/security/stax/impl/util/SignerOutputStream.java`
+#### Snippet
+```java
+
+    protected static final transient Logger LOG = LoggerFactory.getLogger(SignerOutputStream.class);
+    protected static final transient boolean isDebugEnabled = LOG.isDebugEnabled();
+
+    private final SignatureAlgorithm signatureAlgorithm;
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
 in `src/main/java/org/apache/xml/security/stax/impl/processor/input/LogInputProcessor.java`
 #### Snippet
 ```java
@@ -178,18 +178,6 @@ public class LogInputProcessor extends AbstractInputProcessor {
     private static final transient Logger LOG = LoggerFactory.getLogger(LogInputProcessor.class);
 
     public LogInputProcessor(XMLSecurityProperties securityProperties) {
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `src/main/java/org/apache/xml/security/stax/impl/processor/output/XMLSignatureOutputProcessor.java`
-#### Snippet
-```java
-public class XMLSignatureOutputProcessor extends AbstractSignatureOutputProcessor {
-
-    private static final transient Logger LOG = LoggerFactory.getLogger(XMLSignatureOutputProcessor.class);
-
-    public XMLSignatureOutputProcessor() throws XMLSecurityException {
 ```
 
 ### UnnecessaryModifier
@@ -206,14 +194,14 @@ public abstract class AbstractSignatureReferenceVerifyInputProcessor extends Abs
 
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
-in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
+in `src/main/java/org/apache/xml/security/stax/impl/processor/output/XMLSignatureOutputProcessor.java`
 #### Snippet
 ```java
-public abstract class AbstractSignatureOutputProcessor extends AbstractOutputProcessor {
+public class XMLSignatureOutputProcessor extends AbstractSignatureOutputProcessor {
 
-    private static final transient Logger LOG = LoggerFactory.getLogger(AbstractSignatureOutputProcessor.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(XMLSignatureOutputProcessor.class);
 
-    private final List<SignaturePartDef> signaturePartDefList = new ArrayList<>();
+    public XMLSignatureOutputProcessor() throws XMLSecurityException {
 ```
 
 ### UnnecessaryModifier
@@ -238,6 +226,18 @@ public class XMLEncryptedKeyInputHandler extends AbstractInputSecurityHeaderHand
     private static final transient Logger LOG = LoggerFactory.getLogger(XMLEncryptedKeyInputHandler.class);
 
     @Override
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
+#### Snippet
+```java
+public abstract class AbstractSignatureOutputProcessor extends AbstractOutputProcessor {
+
+    private static final transient Logger LOG = LoggerFactory.getLogger(AbstractSignatureOutputProcessor.class);
+
+    private final List<SignaturePartDef> signaturePartDefList = new ArrayList<>();
 ```
 
 ### UnnecessaryModifier
@@ -333,30 +333,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractSign
         String digestMethodAlgorithm = referenceType.getDigestMethod().getAlgorithm();
         String jceName = JCEAlgorithmMapper.translateURItoJCEID(digestMethodAlgorithm);
         String jceProvider = JCEAlgorithmMapper.getJCEProviderFromURI(digestMethodAlgorithm);
-        if (jceName == null) {
-            throw new XMLSecurityException("algorithms.NoSuchMap",
-```
-
-### StaticCallOnSubclass
-Static method `translateURItoJCEID()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
-#### Snippet
-```java
-            throws XMLSecurityException {
-
-        String jceName = JCEAlgorithmMapper.translateURItoJCEID(digestAlgorithm);
-        String jceProvider = JCEAlgorithmMapper.getJCEProviderFromURI(digestAlgorithm);
-        if (jceName == null) {
-```
-
-### StaticCallOnSubclass
-Static method `getJCEProviderFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
-#### Snippet
-```java
-
-        String jceName = JCEAlgorithmMapper.translateURItoJCEID(digestAlgorithm);
-        String jceProvider = JCEAlgorithmMapper.getJCEProviderFromURI(digestAlgorithm);
         if (jceName == null) {
             throw new XMLSecurityException("algorithms.NoSuchMap",
 ```
@@ -467,6 +443,30 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLEncrypted
                             int keyLength = JCEAlgorithmMapper.getKeyLengthFromURI(symmetricAlgorithmURI);
                             this.decryptedKey = XMLSecurityConstants.generateBytes(keyLength / 8);
                             return this.decryptedKey;
+```
+
+### StaticCallOnSubclass
+Static method `translateURItoJCEID()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
+#### Snippet
+```java
+            throws XMLSecurityException {
+
+        String jceName = JCEAlgorithmMapper.translateURItoJCEID(digestAlgorithm);
+        String jceProvider = JCEAlgorithmMapper.getJCEProviderFromURI(digestAlgorithm);
+        if (jceName == null) {
+```
+
+### StaticCallOnSubclass
+Static method `getJCEProviderFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSignatureOutputProcessor.java`
+#### Snippet
+```java
+
+        String jceName = JCEAlgorithmMapper.translateURItoJCEID(digestAlgorithm);
+        String jceProvider = JCEAlgorithmMapper.getJCEProviderFromURI(digestAlgorithm);
+        if (jceName == null) {
+            throw new XMLSecurityException("algorithms.NoSuchMap",
 ```
 
 ### StaticCallOnSubclass
@@ -608,10 +608,10 @@ Commented out code (2 lines)
 in `src/main/java/org/apache/xml/security/signature/Reference.java`
 #### Snippet
 ```java
-        // important: The ds:Reference must be added to the associated ds:Manifest
-        //            or ds:SignedInfo _before_ the this.resolverResult() is called.
-        // this.manifest.appendChild(this.constructionElement);
-        // this.manifest.appendChild(this.doc.createTextNode("\n"));
+            os.flush();
+
+            //this.getReferencedBytes(diOs);
+            //mda.update(data);
 
 ```
 
@@ -620,10 +620,10 @@ Commented out code (2 lines)
 in `src/main/java/org/apache/xml/security/signature/Reference.java`
 #### Snippet
 ```java
-            os.flush();
-
-            //this.getReferencedBytes(diOs);
-            //mda.update(data);
+        // important: The ds:Reference must be added to the associated ds:Manifest
+        //            or ds:SignedInfo _before_ the this.resolverResult() is called.
+        // this.manifest.appendChild(this.constructionElement);
+        // this.manifest.appendChild(this.doc.createTextNode("\n"));
 
 ```
 
@@ -816,14 +816,14 @@ in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverHt
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMExcC14NMethod.java`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
 #### Snippet
 ```java
-                                               CanonicalizationMethod.EXCLUSIVE,
-                                               prefix);
-        if (prefix == null || prefix.length() == 0) {
-            eElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns",
-                                 CanonicalizationMethod.EXCLUSIVE);
+     */
+    public static String getQNameString(String prefix, String localName) {
+        String qName = prefix == null || prefix.length() == 0
+                ? localName : prefix + ":" + localName;
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -840,14 +840,14 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
 
 ### SizeReplaceableByIsEmpty
 `prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMExcC14NMethod.java`
 #### Snippet
 ```java
-     */
-    public static String getQNameString(String prefix, String localName) {
-        String qName = prefix == null || prefix.length() == 0
-                ? localName : prefix + ":" + localName;
-
+                                               CanonicalizationMethod.EXCLUSIVE,
+                                               prefix);
+        if (prefix == null || prefix.length() == 0) {
+            eElem.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns",
+                                 CanonicalizationMethod.EXCLUSIVE);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -875,18 +875,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/Utils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`dsPrefix.length() == 0` can be replaced with 'dsPrefix.isEmpty()'
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyInfo.java`
-#### Snippet
-```java
-            (DOMUtils.getOwnerDocument(pNode), "KeyInfo",
-             XMLSignature.XMLNS, dsPrefix);
-        if (dsPrefix == null || dsPrefix.length() == 0) {
-            kiElem.setAttributeNS("http://www.w3.org/2000/xmlns/",
-                                  "xmlns", XMLSignature.XMLNS);
-```
-
-### SizeReplaceableByIsEmpty
 `uri.length() != 0` can be replaced with '!uri.isEmpty()'
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMURIDereferencer.java`
 #### Snippet
@@ -911,15 +899,15 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMURIDereferencer.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXPathFilter2Transform.java`
+`dsPrefix.length() == 0` can be replaced with 'dsPrefix.isEmpty()'
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyInfo.java`
 #### Snippet
 ```java
-            (XPathFilter2ParameterSpec)getParameterSpec();
-        String prefix = DOMUtils.getNSPrefix(context, Transform.XPATH2);
-        String qname = prefix == null || prefix.length() == 0
-                       ? "xmlns" : "xmlns:" + prefix;
-        @SuppressWarnings("unchecked")
+            (DOMUtils.getOwnerDocument(pNode), "KeyInfo",
+             XMLSignature.XMLNS, dsPrefix);
+        if (dsPrefix == null || dsPrefix.length() == 0) {
+            kiElem.setAttributeNS("http://www.w3.org/2000/xmlns/",
+                                  "xmlns", XMLSignature.XMLNS);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -948,6 +936,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 
 ### SizeReplaceableByIsEmpty
 `prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXPathFilter2Transform.java`
+#### Snippet
+```java
+            (XPathFilter2ParameterSpec)getParameterSpec();
+        String prefix = DOMUtils.getNSPrefix(context, Transform.XPATH2);
+        String qname = prefix == null || prefix.length() == 0
+                       ? "xmlns" : "xmlns:" + prefix;
+        @SuppressWarnings("unchecked")
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 #### Snippet
 ```java
@@ -971,6 +971,30 @@ in `src/main/java/org/apache/xml/security/c14n/helper/C14nHelper.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`description.length() > 0` can be replaced with '!description.isEmpty()'
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+                            element.getAttributeNS(null, "DESCRIPTION");
+
+                        if (description != null && description.length() > 0) {
+                            LOG.debug("Register Resolver: {}: {}", javaClass, description);
+                        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`description.length() > 0` can be replaced with '!description.isEmpty()'
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+                            element.getAttributeNS(null, "DESCRIPTION");
+
+                        if (description != null && description.length() > 0) {
+                            LOG.debug("Register Resolver: {}: {}", javaClass, description);
+                        } else {
+```
+
+### SizeReplaceableByIsEmpty
 `entries[i].uri.length() != 0` can be replaced with '!entries\[i\].uri.isEmpty()'
 in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
 #### Snippet
@@ -983,30 +1007,6 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTabl
 ```
 
 ### SizeReplaceableByIsEmpty
-`description.length() > 0` can be replaced with '!description.isEmpty()'
-in `src/main/java/org/apache/xml/security/Init.java`
-#### Snippet
-```java
-                            element.getAttributeNS(null, "DESCRIPTION");
-
-                        if (description != null && description.length() > 0) {
-                            LOG.debug("Register Resolver: {}: {}", javaClass, description);
-                        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`description.length() > 0` can be replaced with '!description.isEmpty()'
-in `src/main/java/org/apache/xml/security/Init.java`
-#### Snippet
-```java
-                            element.getAttributeNS(null, "DESCRIPTION");
-
-                        if (description != null && description.length() > 0) {
-                            LOG.debug("Register Resolver: {}: {}", javaClass, description);
-                        } else {
-```
-
-### SizeReplaceableByIsEmpty
 `output.length() == 0` can be replaced with 'output.isEmpty()'
 in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
 #### Snippet
@@ -1016,30 +1016,6 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java
             if (output.length() == 0) {
                 LOG.debug("\t\t\t\t" + input);
             } else {
-```
-
-### SizeReplaceableByIsEmpty
-`rpath.length() == 0` can be replaced with 'rpath.isEmpty()'
-in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
-#### Snippet
-```java
-                tquery = rquery;
-            } else {
-                if (rpath.length() == 0) {
-                    tpath = bpath;
-                    if (rquery != null) {
-```
-
-### SizeReplaceableByIsEmpty
-`bpath.length() == 0` can be replaced with 'bpath.isEmpty()'
-in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
-#### Snippet
-```java
-                        tpath = removeDotSegments(rpath);
-                    } else {
-                        if (bauthority != null && bpath.length() == 0) {
-                            tpath = "/" + rpath;
-                        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1067,6 +1043,30 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java
 ```
 
 ### SizeReplaceableByIsEmpty
+`rpath.length() == 0` can be replaced with 'rpath.isEmpty()'
+in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
+#### Snippet
+```java
+                tquery = rquery;
+            } else {
+                if (rpath.length() == 0) {
+                    tpath = bpath;
+                    if (rquery != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`bpath.length() == 0` can be replaced with 'bpath.isEmpty()'
+in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
+#### Snippet
+```java
+                        tpath = removeDotSegments(rpath);
+                    } else {
+                        if (bauthority != null && bpath.length() == 0) {
+                            tpath = "/" + rpath;
+                        } else {
+```
+
+### SizeReplaceableByIsEmpty
 `prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
@@ -1083,11 +1083,11 @@ in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
 #### Snippet
 ```java
-        String prefix = null;
-        if (element.getNamespaceURI() != null
-            && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
-            prefix = element.getPrefix();
-        } else {
+            String prefix = null;
+            if (element.getNamespaceURI() != null
+                && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
+                prefix = element.getPrefix();
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1095,11 +1095,11 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer2001
 in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
 #### Snippet
 ```java
-            String prefix = null;
-            if (element.getNamespaceURI() != null
-                && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
-                prefix = element.getPrefix();
-            } else {
+        String prefix = null;
+        if (element.getNamespaceURI() != null
+            && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
+            prefix = element.getPrefix();
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1127,6 +1127,18 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecNamespaceImpl.java`
+#### Snippet
+```java
+    @Override
+    public boolean isDefaultNamespaceDeclaration() {
+        return prefix.length() == 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `namespaceURI.length() == 0` can be replaced with 'namespaceURI.isEmpty()'
 in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
 #### Snippet
@@ -1148,18 +1160,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java
                 if (uri != null && uri.length() > 0) {
                     throw new XMLStreamException("Expected empty namespace, instead have '" + uri + "'.");
                 }
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecNamespaceImpl.java`
-#### Snippet
-```java
-    @Override
-    public boolean isDefaultNamespaceDeclaration() {
-        return prefix.length() == 0;
-    }
-
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1211,51 +1211,15 @@ in `src/main/java/org/apache/xml/security/utils/Signature11ElementProxy.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-        String ns;
-
-        if (prefix == null || prefix.length() == 0) {
-            throw new XMLSecurityException("defaultNamespaceCannotBeSetHere");
-        } else if ("xmlns".equals(prefix)) {
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-            result = doc.createElementNS(null, localName);
-        } else {
-            if (prefix == null || prefix.length() == 0) {
-                result = doc.createElementNS(namespace, localName);
-                result.setAttributeNS(Constants.NamespaceSpecNS, "xmlns", namespace);
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-            String baseName = this.getBaseNamespace();
-            String prefix = ElementProxy.getDefaultPrefix(baseName);
-            if (prefix == null || prefix.length() == 0) {
-                result = doc.createElementNS(namespace, localName);
-                result.setAttributeNS(Constants.NamespaceSpecNS, "xmlns", namespace);
-```
-
-### SizeReplaceableByIsEmpty
-`context.baseUri.length() > 0` can be replaced with '!context.baseUri.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
 
-        result.setMIMEType("text/xml");
-        if (context.baseUri != null && context.baseUri.length() > 0) {
-            result.setSourceURI(context.baseUri.concat(context.uriToResolve));
-        } else {
+        if (toXml) {
+            if (value.length() > 0 && value.charAt(0) == '#') {
+                value = '\\' + value;
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1271,39 +1235,15 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
+`xencPrefix.length() == 0` can be replaced with 'xencPrefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 #### Snippet
 ```java
+        }
 
-        if (toXml) {
-            if (value.length() > 0 && value.charAt(0) == '#') {
-                value = '\\' + value;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`baseURI.length() == 0` can be replaced with 'baseURI.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverLocalFilesystem.java`
-#### Snippet
-```java
-    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
-        URI newUri = null;
-        if (baseURI == null || baseURI.length() == 0) {
-            newUri = new URI(uri);
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`baseURI.length() == 0` can be replaced with 'baseURI.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
-#### Snippet
-```java
-    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
-        URI newUri = null;
-        if (baseURI == null || baseURI.length() == 0) {
-            newUri = new URI(uri);
-        } else {
+        if (xencPrefix == null || xencPrefix.length() == 0) {
+            return doc.createElementNS(EncryptionConstants.EncryptionSpecNS, elementName);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1331,18 +1271,6 @@ in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`xencPrefix.length() == 0` can be replaced with 'xencPrefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-        }
-
-        if (xencPrefix == null || xencPrefix.length() == 0) {
-            return doc.createElementNS(EncryptionConstants.EncryptionSpecNS, elementName);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `dsPrefix.length() == 0` can be replaced with 'dsPrefix.isEmpty()'
 in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 #### Snippet
@@ -1355,27 +1283,75 @@ in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`xmlnsDsPrefix.length() == 0` can be replaced with 'xmlnsDsPrefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+`baseURI.length() == 0` can be replaced with 'baseURI.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverLocalFilesystem.java`
 #### Snippet
 ```java
-
-        String xmlnsDsPrefix = getDefaultPrefix(Constants.SignatureSpecNS);
-        if (xmlnsDsPrefix == null || xmlnsDsPrefix.length() == 0) {
-            getElement().setAttributeNS(
-                Constants.NamespaceSpecNS, "xmlns", Constants.SignatureSpecNS
+    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
+        URI newUri = null;
+        if (baseURI == null || baseURI.length() == 0) {
+            newUri = new URI(uri);
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`xmlnsDsPrefix.length() == 0` can be replaced with 'xmlnsDsPrefix.isEmpty()'
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+`context.baseUri.length() > 0` can be replaced with '!context.baseUri.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
 #### Snippet
 ```java
 
-        String xmlnsDsPrefix = getDefaultPrefix(Constants.SignatureSpecNS);
-        if (xmlnsDsPrefix == null || xmlnsDsPrefix.length() == 0) {
-            getElement().setAttributeNS(
-                Constants.NamespaceSpecNS, "xmlns", Constants.SignatureSpecNS
+        result.setMIMEType("text/xml");
+        if (context.baseUri != null && context.baseUri.length() > 0) {
+            result.setSourceURI(context.baseUri.concat(context.uriToResolve));
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+        String ns;
+
+        if (prefix == null || prefix.length() == 0) {
+            throw new XMLSecurityException("defaultNamespaceCannotBeSetHere");
+        } else if ("xmlns".equals(prefix)) {
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+            String baseName = this.getBaseNamespace();
+            String prefix = ElementProxy.getDefaultPrefix(baseName);
+            if (prefix == null || prefix.length() == 0) {
+                result = doc.createElementNS(namespace, localName);
+                result.setAttributeNS(Constants.NamespaceSpecNS, "xmlns", namespace);
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+            result = doc.createElementNS(null, localName);
+        } else {
+            if (prefix == null || prefix.length() == 0) {
+                result = doc.createElementNS(namespace, localName);
+                result.setAttributeNS(Constants.NamespaceSpecNS, "xmlns", namespace);
+```
+
+### SizeReplaceableByIsEmpty
+`baseURI.length() == 0` can be replaced with 'baseURI.isEmpty()'
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
+#### Snippet
+```java
+    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
+        URI newUri = null;
+        if (baseURI == null || baseURI.length() == 0) {
+            newUri = new URI(uri);
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1388,6 +1364,30 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHm
             if (hmacLength != null && hmacLength.length() != 0) {
                 this.hmacOutputLength = new HMACOutputLength(Integer.parseInt(hmacLength));
             }
+```
+
+### SizeReplaceableByIsEmpty
+`xmlnsDsPrefix.length() == 0` can be replaced with 'xmlnsDsPrefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+#### Snippet
+```java
+
+        String xmlnsDsPrefix = getDefaultPrefix(Constants.SignatureSpecNS);
+        if (xmlnsDsPrefix == null || xmlnsDsPrefix.length() == 0) {
+            getElement().setAttributeNS(
+                Constants.NamespaceSpecNS, "xmlns", Constants.SignatureSpecNS
+```
+
+### SizeReplaceableByIsEmpty
+`xmlnsDsPrefix.length() == 0` can be replaced with 'xmlnsDsPrefix.isEmpty()'
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+#### Snippet
+```java
+
+        String xmlnsDsPrefix = getDefaultPrefix(Constants.SignatureSpecNS);
+        if (xmlnsDsPrefix == null || xmlnsDsPrefix.length() == 0) {
+            getElement().setAttributeNS(
+                Constants.NamespaceSpecNS, "xmlns", Constants.SignatureSpecNS
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1629,18 +1629,6 @@ in `src/main/java/org/apache/xml/security/utils/UnsyncByteArrayInputStream.java`
 ## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/xml/security/c14n/Canonicalizer.java`
-#### Snippet
-```java
-     * @throws InvalidCanonicalizerException
-     */
-    public static final Canonicalizer getInstance(String algorithmURI)
-        throws InvalidCanonicalizerException {
-        return new Canonicalizer(algorithmURI);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/org/apache/xml/security/Init.java`
 #### Snippet
 ```java
@@ -1649,6 +1637,18 @@ in `src/main/java/org/apache/xml/security/Init.java`
     public static final synchronized boolean isInitialized() {
         return Init.alreadyInitialized;
     }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/c14n/Canonicalizer.java`
+#### Snippet
+```java
+     * @throws InvalidCanonicalizerException
+     */
+    public static final Canonicalizer getInstance(String algorithmURI)
+        throws InvalidCanonicalizerException {
+        return new Canonicalizer(algorithmURI);
 ```
 
 ### FinalStaticMethod
@@ -1704,59 +1704,11 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/CanonicalizerBase
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-     * @throws Base64DecodingException
-     */
-    public static final void decode(byte[] base64Data, OutputStream os)
-        throws Base64DecodingException, IOException {
-        decode(base64Data, os, -1);
-```
+    }
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-     * @throws Base64DecodingException if there is a problem decoding the data
-     */
-    public static final byte[] decode(String encoded) throws Base64DecodingException {
-        if (encoded == null) {
-            return null;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-     * @return a <code>String</code> with encoded data
-     */
-    public static final String  encode(byte[] binaryData, int length) {
-        if (length < 4) {
-            length = Integer.MAX_VALUE;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-     * @throws Base64DecodingException
-     */
-    public static final BigInteger decodeBigIntegerFromText(Text text)
-        throws Base64DecodingException {
-        return new BigInteger(1, Base64.decode(text.getData()));
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-     * @throws Base64DecodingException
-     */
-    public static final BigInteger decodeBigIntegerFromElement(Element element)
-        throws Base64DecodingException {
-        return new BigInteger(1, Base64.decode(element));
+    protected static final boolean isPad(byte octet) {
+        return octet == PAD;
+    }
 ```
 
 ### FinalStaticMethod
@@ -1776,23 +1728,11 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-    }
-
-    protected static final boolean isWhiteSpace(byte octet) {
-        return octet == 0x20 || octet == 0xd || octet == 0xa || octet == 0x9;
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-    }
-
-    protected static final void decode(byte[] base64Data, OutputStream os, int len)
+     * @throws Base64DecodingException
+     */
+    public static final void decode(String base64Data, OutputStream os)
         throws Base64DecodingException, IOException {
-        // remove white spaces
+        byte[] bytes = new byte[base64Data.length()];
 ```
 
 ### FinalStaticMethod
@@ -1802,9 +1742,21 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
      * @throws Base64DecodingException
      */
-    public static final byte[] decode(BufferedReader reader)
-        throws IOException, Base64DecodingException {
+    public static final BigInteger decodeBigIntegerFromText(Text text)
+        throws Base64DecodingException {
+        return new BigInteger(1, Base64.decode(text.getData()));
+```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     * @return String with Base64 encoding
+     */
+    public static final String encode(BigInteger big) {
+        byte[] bytes = XMLUtils.getBytes(big, big.bitLength());
+        return XMLUtils.encodeToString(bytes);
 ```
 
 ### FinalStaticMethod
@@ -1826,6 +1778,18 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
      * @throws Base64DecodingException
      */
+    public static final void decode(byte[] base64Data, OutputStream os)
+        throws Base64DecodingException, IOException {
+        decode(base64Data, os, -1);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     * @throws Base64DecodingException
+     */
     public static final void decode(InputStream is, OutputStream os)
         throws Base64DecodingException, IOException {
         //byte[] decodedData = null;
@@ -1836,11 +1800,11 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-     * @return a byte array with <code>bitlen</code> bits of <code>big</code>
-     */
-    public static final byte[] encode(BigInteger big, int bitlen) {
+    }
 
-        //round bitlen
+    protected static final void decode(byte[] base64Data, OutputStream os, int len)
+        throws Base64DecodingException, IOException {
+        // remove white spaces
 ```
 
 ### FinalStaticMethod
@@ -1848,11 +1812,11 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-     *
+     * @return a <code>String</code> with encoded data
      */
-    public static final byte[] decode(byte[] base64) throws Base64DecodingException  {
-        return decodeInternal(base64, -1);
-    }
+    public static final String  encode(byte[] binaryData, int length) {
+        if (length < 4) {
+            length = Integer.MAX_VALUE;
 ```
 
 ### FinalStaticMethod
@@ -1862,9 +1826,9 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
      * @throws Base64DecodingException
      */
-    public static final byte[] decode(Element element) throws Base64DecodingException {
+    public static final byte[] decode(BufferedReader reader)
+        throws IOException, Base64DecodingException {
 
-        Node sibling = element.getFirstChild();
 ```
 
 ### FinalStaticMethod
@@ -1872,23 +1836,11 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-     * @return String with Base64 encoding
+     * @return the new length
      */
-    public static final String encode(BigInteger big) {
-        byte[] bytes = XMLUtils.getBytes(big, big.bitLength());
-        return XMLUtils.encodeToString(bytes);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-     * @return the <code>String</code> with encoded data
-     */
-    public static final String encode(byte[] binaryData) {
-        return XMLUtils.ignoreLineBreaks()
-            ? encode(binaryData, Integer.MAX_VALUE)
+    protected static final int removeWhiteSpace(byte[] data) {
+        if (data == null) {
+            return 0;
 ```
 
 ### FinalStaticMethod
@@ -1910,18 +1862,6 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
     }
 
-    protected static final byte[] decodeInternal(byte[] base64Data, int len)
-        throws Base64DecodingException {
-        // remove white spaces
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-    }
-
     protected static final int getBytesInternal(String s, byte[] result) {
         int length = s.length();
 
@@ -1932,11 +1872,23 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-     * @return the new length
+     * @throws Base64DecodingException if there is a problem decoding the data
      */
-    protected static final int removeWhiteSpace(byte[] data) {
-        if (data == null) {
-            return 0;
+    public static final byte[] decode(String encoded) throws Base64DecodingException {
+        if (encoded == null) {
+            return null;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     * @return the <code>String</code> with encoded data
+     */
+    public static final String encode(byte[] binaryData) {
+        return XMLUtils.ignoreLineBreaks()
+            ? encode(binaryData, Integer.MAX_VALUE)
 ```
 
 ### FinalStaticMethod
@@ -1946,9 +1898,21 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
      * @throws Base64DecodingException
      */
-    public static final void decode(String base64Data, OutputStream os)
-        throws Base64DecodingException, IOException {
-        byte[] bytes = new byte[base64Data.length()];
+    public static final BigInteger decodeBigIntegerFromElement(Element element)
+        throws Base64DecodingException {
+        return new BigInteger(1, Base64.decode(element));
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     * @return a byte array with <code>bitlen</code> bits of <code>big</code>
+     */
+    public static final byte[] encode(BigInteger big, int bitlen) {
+
+        //round bitlen
 ```
 
 ### FinalStaticMethod
@@ -1958,8 +1922,44 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
     }
 
-    protected static final boolean isPad(byte octet) {
-        return octet == PAD;
+    protected static final byte[] decodeInternal(byte[] base64Data, int len)
+        throws Base64DecodingException {
+        // remove white spaces
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     * @throws Base64DecodingException
+     */
+    public static final byte[] decode(Element element) throws Base64DecodingException {
+
+        Node sibling = element.getFirstChild();
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+     *
+     */
+    public static final byte[] decode(byte[] base64) throws Base64DecodingException  {
+        return decodeInternal(base64, -1);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+    }
+
+    protected static final boolean isWhiteSpace(byte octet) {
+        return octet == 0x20 || octet == 0xd || octet == 0xa || octet == 0x9;
     }
 ```
 
@@ -1978,6 +1978,30 @@ public abstract class AbstractEncryptEndingOutputProcessor extends AbstractBuffe
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends XMLStructure`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMStructure.java`
+#### Snippet
+```java
+        DOMCryptoContext context) throws MarshalException;
+
+    protected boolean equalsContent(List<XMLStructure> content, List<XMLStructure> otherContent) {
+        int size = content.size();
+        if (size != otherContent.size()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLStructure`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMStructure.java`
+#### Snippet
+```java
+        DOMCryptoContext context) throws MarshalException;
+
+    protected boolean equalsContent(List<XMLStructure> content, List<XMLStructure> otherContent) {
+        int size = content.size();
+        if (size != otherContent.size()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Node`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/Utils.java`
 #### Snippet
@@ -1987,30 +2011,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/Utils.java`
     static Set<Node> toNodeSet(Iterator<Node> i) {
         Set<Node> nodeSet = new HashSet<>();
         while (i.hasNext()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLStructure`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMStructure.java`
-#### Snippet
-```java
-        DOMCryptoContext context) throws MarshalException;
-
-    protected boolean equalsContent(List<XMLStructure> content, List<XMLStructure> otherContent) {
-        int size = content.size();
-        if (size != otherContent.size()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLStructure`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMStructure.java`
-#### Snippet
-```java
-        DOMCryptoContext context) throws MarshalException;
-
-    protected boolean equalsContent(List<XMLStructure> content, List<XMLStructure> otherContent) {
-        int size = content.size();
-        if (size != otherContent.size()) {
 ```
 
 ### BoundedWildcard
@@ -2110,15 +2110,15 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends XMLSecEvent`
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
+Can generalize to `? super XMLSecNamespace`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
 #### Snippet
 ```java
-        private final ArrayDeque<XMLSecEvent> xmlSecEventList;
 
-        public InternalReplayProcessor(XMLSecurityProperties securityProperties, ArrayDeque<XMLSecEvent> xmlSecEventList) {
-            super(securityProperties);
-            this.xmlSecEventList = xmlSecEventList;
+    @Override
+    public void getNamespacesFromCurrentScope(List<XMLSecNamespace> comparableNamespaceList) {
+        if (parentXMLSecStartELement != null) {
+            parentXMLSecStartELement.getNamespacesFromCurrentScope(comparableNamespaceList);
 ```
 
 ### BoundedWildcard
@@ -2134,18 +2134,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.
 ```
 
 ### BoundedWildcard
-Can generalize to `? super XMLSecNamespace`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void getNamespacesFromCurrentScope(List<XMLSecNamespace> comparableNamespaceList) {
-        if (parentXMLSecStartELement != null) {
-            parentXMLSecStartELement.getNamespacesFromCurrentScope(comparableNamespaceList);
-```
-
-### BoundedWildcard
 Can generalize to `? super XMLSecAttribute`
 in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
 #### Snippet
@@ -2155,6 +2143,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.
     public void getAttributesFromCurrentScope(List<XMLSecAttribute> comparableAttributeList) {
         comparableAttributeList.addAll(attributes);
         if (parentXMLSecStartELement != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLSecEvent`
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
+#### Snippet
+```java
+        private final ArrayDeque<XMLSecEvent> xmlSecEventList;
+
+        public InternalReplayProcessor(XMLSecurityProperties securityProperties, ArrayDeque<XMLSecEvent> xmlSecEventList) {
+            super(securityProperties);
+            this.xmlSecEventList = xmlSecEventList;
 ```
 
 ### BoundedWildcard
@@ -2218,6 +2218,42 @@ in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolver.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+     * @return the owner document
+     */
+    public static Document getOwnerDocument(Set<Node> xpathNodeSet) {
+        NullPointerException npe = null;
+        for (Node node : xpathNodeSet) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+     * @return nodes with the constrain
+     */
+    public static Set<Node> excludeNodeFromSet(Node signatureElement, Set<Node> inputSet) {
+        return inputSet.stream().filter((inputNode) ->
+                !XMLUtils.isDescendantOrSelf(signatureElement, inputNode)).collect(Collectors.toSet());
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("fallthrough")
+    private static void getSetRec(final Node rootNode, final Set<Node> result,
+                                final Node exclude, final boolean com) {
+        if (rootNode == exclude) {
+```
+
+### BoundedWildcard
 Can generalize to `? super DocumentBuilder`
 in `src/main/java/org/apache/xml/security/parser/XMLParserImpl.java`
 #### Snippet
@@ -2251,42 +2287,6 @@ in `src/main/java/org/apache/xml/security/signature/VerifiedReference.java`
     public VerifiedReference(boolean valid, String uri, List<VerifiedReference> manifestReferences) {
         this.valid = valid;
         this.uri = uri;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-     * @return the owner document
-     */
-    public static Document getOwnerDocument(Set<Node> xpathNodeSet) {
-        NullPointerException npe = null;
-        for (Node node : xpathNodeSet) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("fallthrough")
-    private static void getSetRec(final Node rootNode, final Set<Node> result,
-                                final Node exclude, final boolean com) {
-        if (rootNode == exclude) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-     * @return nodes with the constrain
-     */
-    public static Set<Node> excludeNodeFromSet(Node signatureElement, Set<Node> inputSet) {
-        return inputSet.stream().filter((inputNode) ->
-                !XMLUtils.isDescendantOrSelf(signatureElement, inputNode)).collect(Collectors.toSet());
 ```
 
 ### BoundedWildcard
@@ -2352,6 +2352,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Ca
 
 ### RedundantMethodOverride
 Method `getBaseNamespace()` is identical to its super method
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+#### Snippet
+```java
+     * @return URI of this element
+     */
+    public String getBaseNamespace() {
+        return Constants.SignatureSpecNS;
+    }
+```
+
+### RedundantMethodOverride
+Method `getBaseNamespace()` is identical to its super method
 in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
 #### Snippet
 ```java
@@ -2372,18 +2384,6 @@ in `src/main/java/org/apache/xml/security/signature/Reference.java`
             public String getBaseNamespace() {
                 return Constants.SignatureSpecNS;
             }
-```
-
-### RedundantMethodOverride
-Method `getBaseNamespace()` is identical to its super method
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
-#### Snippet
-```java
-     * @return URI of this element
-     */
-    public String getBaseNamespace() {
-        return Constants.SignatureSpecNS;
-    }
 ```
 
 ## RuleId[id=ThrowFromFinallyBlock]
@@ -2535,18 +2535,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractDecr
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentity.java`
-#### Snippet
-```java
-                public void close() throws IOException {
-                    //do not close the parent output stream!
-                    super.flush();
-                }
-            });
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformBase64Decode.java`
 #### Snippet
 ```java
@@ -2555,6 +2543,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformBase64D
                         super.flush();
                     }
                 },
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentity.java`
+#### Snippet
+```java
+                public void close() throws IOException {
+                    //do not close the parent output stream!
+                    super.flush();
+                }
+            });
 ```
 
 ### UnnecessarySuperQualifier
@@ -2598,9 +2598,9 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/xml/security/signature/SignedInfo.java`
 #### Snippet
 ```java
-    public boolean verify()
+    public boolean verify(boolean followManifests)
         throws MissingResourceFailureException, XMLSecurityException {
-        return super.verifyReferences(false);
+        return super.verifyReferences(followManifests);
     }
 
 ```
@@ -2610,11 +2610,23 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/xml/security/signature/SignedInfo.java`
 #### Snippet
 ```java
-    public boolean verify(boolean followManifests)
+    public boolean verify()
         throws MissingResourceFailureException, XMLSecurityException {
-        return super.verifyReferences(followManifests);
+        return super.verifyReferences(false);
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/xml/security/exceptions/XMLSecurityException.java`
+#### Snippet
+```java
+    public void printStackTrace() {
+        synchronized (System.err) {
+            super.printStackTrace(System.err);
+        }
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -2651,18 +2663,6 @@ in `src/main/java/org/apache/xml/security/exceptions/XMLSecurityException.java`
             message = message + "\nOriginal Exception was " + super.getCause().toString();
         }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/xml/security/exceptions/XMLSecurityException.java`
-#### Snippet
-```java
-    public void printStackTrace() {
-        synchronized (System.err) {
-            super.printStackTrace(System.err);
-        }
-    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -3041,18 +3041,6 @@ import java.security.spec.AlgorithmParameterSpec;
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/xml/security/stax/impl/InputProcessorChainImpl.java`
-#### Snippet
-```java
-                                      int startPos, List<InputProcessor> inputProcessors) {
-        this.inboundSecurityContext = inboundSecurityContext;
-        this.curPos = this.startPos = startPos;
-        this.documentContext = documentContextImpl;
-        this.inputProcessors = inputProcessors;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 #### Snippet
 ```java
@@ -3073,6 +3061,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/OutputProcessorChainImpl.jav
         this.curPos = this.startPos = startPos;
         documentContext = documentContextImpl;
         this.outputProcessors = outputProcessors;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/stax/impl/InputProcessorChainImpl.java`
+#### Snippet
+```java
+                                      int startPos, List<InputProcessor> inputProcessors) {
+        this.inboundSecurityContext = inboundSecurityContext;
+        this.curPos = this.startPos = startPos;
+        this.documentContext = documentContextImpl;
+        this.inputProcessors = inputProcessors;
 ```
 
 ### NestedAssignment
@@ -3134,18 +3134,6 @@ Result of assignment expression used
 in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
-
-        try (StringReader sr = new StringReader(string)) {
-            while ((i = sr.read()) > -1) {
-                if (i < 32) {
-                    sb.append('\\');
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
-#### Snippet
-```java
         int k;
 
         for (int j = 0; (k = string.indexOf("\\20", j)) >= 0; j = k + 3) {
@@ -3158,10 +3146,10 @@ Result of assignment expression used
 in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
-                char c;
 
-                while ((i = sr.read()) > -1) {
-                    c = (char) i;
+        try (StringReader sr = new StringReader(string)) {
+            while ((i = sr.read()) > -1) {
+                c = (char) i;
 
 ```
 
@@ -3182,10 +3170,34 @@ Result of assignment expression used
 in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
+
+        try (StringReader sr = new StringReader(string)) {
+            while ((i = sr.read()) > -1) {
+                if (i < 32) {
+                    sb.append('\\');
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
+#### Snippet
+```java
         int k;
 
         for (int j = 0; (k = str.indexOf(symbol, j)) >= 0; j = k + 1) {
             l += countQuotes(str, j, k);
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
+#### Snippet
+```java
+
+        try (StringReader sr = new StringReader(string)) {
+            while ((i = sr.read()) > -1) {
+                c = (char) i;
 
 ```
 
@@ -3206,59 +3218,11 @@ Result of assignment expression used
 in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
+                char c;
 
-        try (StringReader sr = new StringReader(string)) {
-            while ((i = sr.read()) > -1) {
-                c = (char) i;
+                while ((i = sr.read()) > -1) {
+                    c = (char) i;
 
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
-#### Snippet
-```java
-
-        try (StringReader sr = new StringReader(string)) {
-            while ((i = sr.read()) > -1) {
-                c = (char) i;
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
-#### Snippet
-```java
-                int summarized = 0;
-
-                while ((read = inputStream.read(buf)) >= 0) {
-                    baos.write(buf, 0, read);
-                    summarized += read;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        int read;
-        //the begin
-        while ((read = is.read()) > 0) {
-            byte readed = (byte)read;
-            if (isWhiteSpace(readed)) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-            }
-
-            if ((data[index++] = readed) == -1) {
-                //if found "no data" just return null
-                throw new Base64DecodingException("decoding.general");
 ```
 
 ### NestedAssignment
@@ -3283,6 +3247,30 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
         b4 = base64Alphabet[d4 = base64Data[dataIndex++]];
         if (b3 == -1 || b4 == -1) {
             //Check if they are PAD characters
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        int read;
+        //the begin
+        while ((read = is.read()) > 0) {
+            byte readed = (byte)read;
+            if (isWhiteSpace(readed)) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+            }
+
+            if ((data[index++] = readed) == -1) {
+                //if found "no data" just return null
+                throw new Base64DecodingException("decoding.general");
 ```
 
 ### NestedAssignment
@@ -3319,6 +3307,18 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
             while (null != (line = reader.readLine())) {
                 byte[] bytes = decode(line);
                 baos.write(bytes);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
+#### Snippet
+```java
+                int summarized = 0;
+
+                while ((read = inputStream.read(buf)) >= 0) {
+                    baos.write(buf, 0, read);
+                    summarized += read;
 ```
 
 ### NestedAssignment
@@ -3408,18 +3408,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/InputProcessorChainImpl.java
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `xmlInputFactory` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentity.java`
-#### Snippet
-```java
-
-    private static XMLOutputFactory xmlOutputFactory;
-    private static XMLInputFactory xmlInputFactory;
-    private OutputStream outputStream;
-    private XMLEventWriter xmlEventWriterForOutputStream;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `xmlOutputFactory` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentity.java`
 #### Snippet
@@ -3432,15 +3420,15 @@ public class TransformIdentity implements Transformer {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `properties` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/xml/security/stax/config/ConfigurationProperties.java`
+Field `xmlInputFactory` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentity.java`
 #### Snippet
 ```java
-public final class ConfigurationProperties {
 
-    private static Properties properties;
-    private static Class<?> callingClass;
-
+    private static XMLOutputFactory xmlOutputFactory;
+    private static XMLInputFactory xmlInputFactory;
+    private OutputStream outputStream;
+    private XMLEventWriter xmlEventWriterForOutputStream;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3456,6 +3444,18 @@ public final class ResourceResolverMapper {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `properties` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/xml/security/stax/config/ConfigurationProperties.java`
+#### Snippet
+```java
+public final class ConfigurationProperties {
+
+    private static Properties properties;
+    private static Class<?> callingClass;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `handlerClassMap` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/xml/security/stax/config/SecurityHeaderHandlerMapper.java`
 #### Snippet
@@ -3468,15 +3468,15 @@ public final class SecurityHeaderHandlerMapper {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `algorithmsClassMapOut` is accessed in both synchronized and unsynchronized contexts
+Field `algorithmsClassMapInOut` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/xml/security/stax/config/TransformerAlgorithmMapper.java`
 #### Snippet
 ```java
+public final class TransformerAlgorithmMapper {
+
     private static Map<String, Class<?>> algorithmsClassMapInOut;
     private static Map<String, Class<?>> algorithmsClassMapIn;
     private static Map<String, Class<?>> algorithmsClassMapOut;
-
-    private TransformerAlgorithmMapper() {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3492,15 +3492,15 @@ in `src/main/java/org/apache/xml/security/stax/config/TransformerAlgorithmMapper
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `algorithmsClassMapInOut` is accessed in both synchronized and unsynchronized contexts
+Field `algorithmsClassMapOut` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/xml/security/stax/config/TransformerAlgorithmMapper.java`
 #### Snippet
 ```java
-public final class TransformerAlgorithmMapper {
-
     private static Map<String, Class<?>> algorithmsClassMapInOut;
     private static Map<String, Class<?>> algorithmsClassMapIn;
     private static Map<String, Class<?>> algorithmsClassMapOut;
+
+    private TransformerAlgorithmMapper() {
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -3546,6 +3546,18 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 #### Snippet
 ```java
+    private SignedInfo si;
+    private Document ownerDoc = null;
+    private Element localSigElem = null;
+    private Element sigElem = null;
+    private boolean validationStatus;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
+#### Snippet
+```java
     private List<XMLObject> objects;
     private SignedInfo si;
     private Document ownerDoc = null;
@@ -3558,11 +3570,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 #### Snippet
 ```java
-    private Element sigElem = null;
-    private boolean validationStatus;
-    private boolean validated = false;
-    private KeySelectorResult ksr;
-    private Map<String, XMLStructure> signatureIdMap;
+        private String valueBase64;
+        private Element sigValueElem;
+        private boolean validated = false;
+        private boolean validationStatus;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3575,18 +3587,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
     private Element sigElem = null;
     private boolean validationStatus;
     private boolean validated = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
-#### Snippet
-```java
-    private SignedInfo si;
-    private Document ownerDoc = null;
-    private Element localSigElem = null;
-    private Element sigElem = null;
-    private boolean validationStatus;
 ```
 
 ### RedundantFieldInitialization
@@ -3594,11 +3594,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 #### Snippet
 ```java
-        private String valueBase64;
-        private Element sigValueElem;
-        private boolean validated = false;
-        private boolean validationStatus;
-
+    private Element sigElem = null;
+    private boolean validationStatus;
+    private boolean validated = false;
+    private KeySelectorResult ksr;
+    private Map<String, XMLStructure> signatureIdMap;
 ```
 
 ### RedundantFieldInitialization
@@ -3627,6 +3627,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+
+    /** Field alreadyInitialized */
+    private static boolean alreadyInitialized = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
 #### Snippet
 ```java
@@ -3650,15 +3662,15 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTabl
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/Init.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
 #### Snippet
 ```java
+    }
 
-    /** Field alreadyInitialized */
-    private static boolean alreadyInitialized = false;
-
-    /**
+    private int currentLevel = 0;
+    private int lastlevel = 0;
+    private XmlsStackElement cur;
 ```
 
 ### RedundantFieldInitialization
@@ -3686,18 +3698,6 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java`
-#### Snippet
-```java
-    }
-
-    private int currentLevel = 0;
-    private int lastlevel = 0;
-    private XmlsStackElement cur;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
 #### Snippet
@@ -3707,30 +3707,6 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer2001
     private boolean propagateDefaultNamespace = false;
 
     /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
-#### Snippet
-```java
-
-    private QName signaturePositionQName;
-    private boolean signaturePositionStart = false;
-    private AlgorithmParameterSpec algorithmParameterSpec;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
-#### Snippet
-```java
-    private Key signatureKey;
-    private X509Certificate[] signatureCerts;
-    private boolean addExcC14NInclusivePrefixes = false;
-    private List<SecurityTokenConstants.KeyIdentifier> signatureKeyIdentifiers = new ArrayList<>();
-    private String signatureKeyName;
 ```
 
 ### RedundantFieldInitialization
@@ -3750,6 +3726,18 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
 #### Snippet
 ```java
+    private Key signatureKey;
+    private X509Certificate[] signatureCerts;
+    private boolean addExcC14NInclusivePrefixes = false;
+    private List<SecurityTokenConstants.KeyIdentifier> signatureKeyIdentifiers = new ArrayList<>();
+    private String signatureKeyName;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
+#### Snippet
+```java
 
     private final List<InputProcessor> inputProcessorList = new ArrayList<>();
     private boolean skipDocumentEvents = false;
@@ -3759,14 +3747,14 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
+in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
 #### Snippet
 ```java
-    private NSContext namespaceContext = new NSContext(null);
-    private boolean endDocumentWritten = false;
-    private boolean haveToWriteEndElement = false;
-    private SecurePart signEntireRequestPart;
-    private SecurePart encryptEntireRequestPart;
+
+    private QName signaturePositionQName;
+    private boolean signaturePositionStart = false;
+    private AlgorithmParameterSpec algorithmParameterSpec;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3779,6 +3767,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java
     private boolean endDocumentWritten = false;
     private boolean haveToWriteEndElement = false;
     private SecurePart signEntireRequestPart;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
+#### Snippet
+```java
+    private NSContext namespaceContext = new NSContext(null);
+    private boolean endDocumentWritten = false;
+    private boolean haveToWriteEndElement = false;
+    private SecurePart signEntireRequestPart;
+    private SecurePart encryptEntireRequestPart;
 ```
 
 ### RedundantFieldInitialization
@@ -3810,11 +3810,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
 #### Snippet
 ```java
+    private InternalBufferProcessor internalBufferProcessor;
     private boolean signatureElementFound = false;
     private boolean encryptedDataElementFound = false;
     private boolean decryptOnly = false;
 
-    public XMLSecurityInputProcessor(XMLSecurityProperties securityProperties) {
 ```
 
 ### RedundantFieldInitialization
@@ -3822,11 +3822,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
 #### Snippet
 ```java
-    private InternalBufferProcessor internalBufferProcessor;
     private boolean signatureElementFound = false;
     private boolean encryptedDataElementFound = false;
     private boolean decryptOnly = false;
 
+    public XMLSecurityInputProcessor(XMLSecurityProperties securityProperties) {
 ```
 
 ### RedundantFieldInitialization
@@ -3915,18 +3915,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverXP
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/stax/securityEvent/AlgorithmSuiteSecurityEvent.java`
-#### Snippet
-```java
-
-    private int keyLength;
-    private boolean derivedKey = false;
-    private String algorithmURI;
-    private XMLSecurityConstants.AlgorithmUsage algorithmUsage;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315_Excl.java`
 #### Snippet
 ```java
@@ -3935,6 +3923,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Ca
     protected boolean propagateDefaultNamespace = false;
 
     public Canonicalizer20010315_Excl(boolean includeComments) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/xml/security/stax/securityEvent/AlgorithmSuiteSecurityEvent.java`
+#### Snippet
+```java
+
+    private int keyLength;
+    private boolean derivedKey = false;
+    private String algorithmURI;
+    private XMLSecurityConstants.AlgorithmUsage algorithmUsage;
 ```
 
 ### RedundantFieldInitialization
@@ -3951,18 +3951,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Ca
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/utils/I18n.java`
-#### Snippet
-```java
-
-    /** Field alreadyInitialized */
-    private static boolean alreadyInitialized = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 #### Snippet
 ```java
@@ -3975,14 +3963,26 @@ in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+in `src/main/java/org/apache/xml/security/utils/I18n.java`
 #### Snippet
 ```java
-     * to indicate that the References inside Manifests should be validated.
-     */
-    private boolean followManifestsDuringValidation = false;
 
-    private Element signatureValueElement;
+    /** Field alreadyInitialized */
+    private static boolean alreadyInitialized = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
+#### Snippet
+```java
+     *
+     */
+    private boolean excludeComments = false;
+
+    private boolean isNodeSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -4011,20 +4011,20 @@ in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
-     *
+     * to indicate that the References inside Manifests should be validated.
      */
-    private boolean excludeComments = false;
+    private boolean followManifestsDuringValidation = false;
 
-    private boolean isNodeSet = false;
+    private Element signatureValueElement;
 ```
 
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-06-07-22.807.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-04-58-33.911.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4049,7 +4049,7 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMURIDereferencer.java`
 
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverXPointer.java`
 #### Snippet
 ```java
         result.setMIMEType("text/xml");
@@ -4061,7 +4061,7 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
 
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverXPointer.java`
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
 #### Snippet
 ```java
         result.setMIMEType("text/xml");
@@ -4086,18 +4086,6 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 
 ## RuleId[id=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `uri` of exception class
-in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolverException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private String uri;
-
-    private String baseURI;
-```
-
-### NonFinalFieldOfException
 Non-final field `baseURI` of exception class
 in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolverException.java`
 #### Snippet
@@ -4107,6 +4095,18 @@ in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolverExcepti
     private String baseURI;
 
     /**
+```
+
+### NonFinalFieldOfException
+Non-final field `uri` of exception class
+in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolverException.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private String uri;
+
+    private String baseURI;
 ```
 
 ### NonFinalFieldOfException
@@ -4140,10 +4140,10 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentit
 #### Snippet
 ```java
 
-    protected static XMLOutputFactory getXmlOutputFactory() {
+    public static XMLInputFactory getXmlInputFactory() {
         synchronized(TransformIdentity.class) {
-            if (xmlOutputFactory == null) {
-                xmlOutputFactory = XMLOutputFactory.newInstance();
+            if (xmlInputFactory == null) {
+                xmlInputFactory = XMLInputFactory.newInstance();
 ```
 
 ### SynchronizeOnThis
@@ -4152,13 +4152,25 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/TransformIdentit
 #### Snippet
 ```java
 
-    public static XMLInputFactory getXmlInputFactory() {
+    protected static XMLOutputFactory getXmlOutputFactory() {
         synchronized(TransformIdentity.class) {
-            if (xmlInputFactory == null) {
-                xmlInputFactory = XMLInputFactory.newInstance();
+            if (xmlOutputFactory == null) {
+                xmlOutputFactory = XMLOutputFactory.newInstance();
 ```
 
 ## RuleId[id=CastConflictsWithInstanceof]
+### CastConflictsWithInstanceof
+Cast to 'DOMCryptoContext' type conflicts with preceding 'instanceof XMLSignContext' check
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
+#### Snippet
+```java
+                    }
+                    t.marshal(transformsElem, dsPrefix,
+                              (DOMCryptoContext)context);
+                    allTransforms.add(t);
+                    xi.updateOutputStream(os, true);
+```
+
 ### CastConflictsWithInstanceof
 Cast to 'DOMX509IssuerSerial' type conflicts with preceding 'instanceof X509IssuerSerial' check
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
@@ -4181,18 +4193,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
                         (javax.xml.crypto.dom.DOMStructure)object;
                     DOMUtils.appendChild(xdElem, domContent.getNode());
                 }
-```
-
-### CastConflictsWithInstanceof
-Cast to 'DOMCryptoContext' type conflicts with preceding 'instanceof XMLSignContext' check
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
-#### Snippet
-```java
-                    }
-                    t.marshal(transformsElem, dsPrefix,
-                              (DOMCryptoContext)context);
-                    allTransforms.add(t);
-                    xi.updateOutputStream(os, true);
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -4221,6 +4221,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheCanonicalizer.java`
 ```
 
 ### UnusedAssignment
+Variable `signingKey` initializer `null` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
+#### Snippet
+```java
+        }
+
+        Key signingKey = null;
+        try {
+            KeySelectorResult keySelectorResult = signContext.getKeySelector().select(ki,
+```
+
+### UnusedAssignment
 Variable `element` initializer `null` is redundant
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyInfoFactory.java`
 #### Snippet
@@ -4242,18 +4254,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXPathFilter2Transform.
             XPathType.Filter filter = null;
             if ("intersect".equals(filterVal)) {
                 filter = XPathType.Filter.INTERSECT;
-```
-
-### UnusedAssignment
-Variable `signingKey` initializer `null` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
-#### Snippet
-```java
-        }
-
-        Key signingKey = null;
-        try {
-            KeySelectorResult keySelectorResult = signContext.getKeySelector().select(ki,
 ```
 
 ### UnusedAssignment
@@ -4281,18 +4281,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 ```
 
 ### UnusedAssignment
-Variable `element` initializer `null` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignatureFactory.java`
-#### Snippet
-```java
-        node.normalize();
-
-        Element element = null;
-        if (node.getNodeType() == Node.DOCUMENT_NODE) {
-            element = ((Document) node).getDocumentElement();
-```
-
-### UnusedAssignment
 Variable `document` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/c14n/CanonicalizerSpi.java`
 #### Snippet
@@ -4302,6 +4290,30 @@ in `src/main/java/org/apache/xml/security/c14n/CanonicalizerSpi.java`
         Document document = null;
         try (java.io.InputStream bais = new ByteArrayInputStream(inputBytes)) {
             document = XMLUtils.read(bais, secureValidation);
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
+#### Snippet
+```java
+        throws XMLSignatureException
+    {
+        Data data = null;
+        if (appliedTransformData == null) {
+            data = dereference(signContext);
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
+#### Snippet
+```java
+        throws XMLSignatureException
+    {
+        Data data = null;
+
+        // use user-specified URIDereferencer if specified; otherwise use deflt
 ```
 
 ### UnusedAssignment
@@ -4341,27 +4353,15 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 ```
 
 ### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
+Variable `element` initializer `null` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignatureFactory.java`
 #### Snippet
 ```java
-        throws XMLSignatureException
-    {
-        Data data = null;
-        if (appliedTransformData == null) {
-            data = dereference(signContext);
-```
+        node.normalize();
 
-### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
-#### Snippet
-```java
-        throws XMLSignatureException
-    {
-        Data data = null;
-
-        // use user-specified URIDereferencer if specified; otherwise use deflt
+        Element element = null;
+        if (node.getNodeType() == Node.DOCUMENT_NODE) {
+            element = ((Document) node).getDocumentElement();
 ```
 
 ### UnusedAssignment
@@ -4381,11 +4381,11 @@ Variable `extraByte` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
 #### Snippet
 ```java
-            return;
-        }
-        byte extraByte = 0;
-        if (c < 0x800) {
-            // 0x00000080 - 0x000007FF
+                expanded = true;
+            }
+            byte extraByte = 0;
+            if (c < 0x800) {
+                // 0x00000080 - 0x000007FF
 ```
 
 ### UnusedAssignment
@@ -4405,11 +4405,11 @@ Variable `extraByte` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
 #### Snippet
 ```java
-                expanded = true;
-            }
-            byte extraByte = 0;
-            if (c < 0x800) {
-                // 0x00000080 - 0x000007FF
+            return;
+        }
+        byte extraByte = 0;
+        if (c < 0x800) {
+            // 0x00000080 - 0x000007FF
 ```
 
 ### UnusedAssignment
@@ -4434,6 +4434,42 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java
         XmlsStackElement e = null;
         if (size == -1) {
             parentRendered = true;
+```
+
+### UnusedAssignment
+Variable `prefix` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+#### Snippet
+```java
+            }
+
+            String prefix = null;
+            if (element.getNamespaceURI() != null
+                && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
+```
+
+### UnusedAssignment
+Variable `prefix` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+#### Snippet
+```java
+                    XMLNS, "", getNullNode(element.getOwnerDocument()));
+        }
+        String prefix = null;
+        if (element.getNamespaceURI() != null
+            && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
+```
+
+### UnusedAssignment
+Variable `doc` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+#### Snippet
+```java
+            return;
+        }
+        Document doc = null;
+        if (input.getSubNode() != null) {
+            doc = XMLUtils.getOwnerDocument(input.getSubNode());
 ```
 
 ### UnusedAssignment
@@ -4485,18 +4521,6 @@ in `src/main/java/org/apache/xml/security/keys/content/keyvalues/ECKeyValue.java
 ```
 
 ### UnusedAssignment
-Variable `x509data` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
-#### Snippet
-```java
-    ) throws KeyResolverException {
-
-        X509Data x509data = null;
-        try {
-            x509data = new X509Data(element, baseURI);
-```
-
-### UnusedAssignment
 Variable `keyResolverSpi` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolver.java`
 #### Snippet
@@ -4506,6 +4530,18 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolver.java`
         KeyResolverSpi keyResolverSpi = null;
         Exception ex = null;
         try {
+```
+
+### UnusedAssignment
+Variable `x509data` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
+#### Snippet
+```java
+    ) throws KeyResolverException {
+
+        X509Data x509data = null;
+        try {
+            x509data = new X509Data(element, baseURI);
 ```
 
 ### UnusedAssignment
@@ -4521,39 +4557,15 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyIn
 ```
 
 ### UnusedAssignment
-Variable `doc` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+Variable `currentNodeIsVisible` initializer `false` is redundant
+in `src/main/java/org/apache/xml/security/c14n/implementations/CanonicalizerBase.java`
 #### Snippet
 ```java
             return;
         }
-        Document doc = null;
-        if (input.getSubNode() != null) {
-            doc = XMLUtils.getOwnerDocument(input.getSubNode());
-```
-
-### UnusedAssignment
-Variable `prefix` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
-#### Snippet
-```java
-                    XMLNS, "", getNullNode(element.getOwnerDocument()));
-        }
-        String prefix = null;
-        if (element.getNamespaceURI() != null
-            && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
-```
-
-### UnusedAssignment
-Variable `prefix` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
-#### Snippet
-```java
-            }
-
-            String prefix = null;
-            if (element.getNamespaceURI() != null
-                && !(element.getPrefix() == null || element.getPrefix().length() == 0)) {
+        boolean currentNodeIsVisible = false;
+        NameSpaceSymbTable ns = new NameSpaceSymbTable();
+        if (currentNode != null && Node.ELEMENT_NODE == currentNode.getNodeType()) {
 ```
 
 ### UnusedAssignment
@@ -4569,18 +4581,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Retri
 ```
 
 ### UnusedAssignment
-Variable `currentNodeIsVisible` initializer `false` is redundant
-in `src/main/java/org/apache/xml/security/c14n/implementations/CanonicalizerBase.java`
-#### Snippet
-```java
-            return;
-        }
-        boolean currentNodeIsVisible = false;
-        NameSpaceSymbTable ns = new NameSpaceSymbTable();
-        if (currentNode != null && Node.ELEMENT_NODE == currentNode.getNodeType()) {
-```
-
-### UnusedAssignment
 Variable `size` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 #### Snippet
@@ -4593,18 +4593,6 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `tokenSecurityEvent` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
-#### Snippet
-```java
-        SecurityTokenConstants.TokenType tokenType = inboundSecurityToken.getTokenType();
-
-        TokenSecurityEvent tokenSecurityEvent = null;
-        if (SecurityTokenConstants.X509V1Token.equals(tokenType)
-                || SecurityTokenConstants.X509V3Token.equals(tokenType)
-```
-
-### UnusedAssignment
 Variable `read` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 #### Snippet
@@ -4614,6 +4602,18 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
         int read = 0;
         byte[] buf = new byte[4096];
         while ((read = inputStream.read(buf)) != -1) {
+```
+
+### UnusedAssignment
+Variable `tokenSecurityEvent` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
+#### Snippet
+```java
+        SecurityTokenConstants.TokenType tokenType = inboundSecurityToken.getTokenType();
+
+        TokenSecurityEvent tokenSecurityEvent = null;
+        if (SecurityTokenConstants.X509V1Token.equals(tokenType)
+                || SecurityTokenConstants.X509V3Token.equals(tokenType)
 ```
 
 ### UnusedAssignment
@@ -4773,30 +4773,6 @@ in `src/main/java/org/apache/xml/security/utils/JavaUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-     */
-    public static Element createElementForFamily(Document doc, String namespace, String localName) {
-        Element result = null;
-        String prefix = ElementProxy.getDefaultPrefix(namespace);
-
-```
-
-### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-    ) {
-        Document doc = getDocument();
-        Element result = null;
-        if (namespace == null) {
-            result = doc.createElementNS(null, localName);
-```
-
-### UnusedAssignment
 Variable `document` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 #### Snippet
@@ -4809,15 +4785,15 @@ in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 ```
 
 ### UnusedAssignment
-Variable `selectedElem` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
+Variable `i` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
-        Document doc = context.attr.getOwnerElement().getOwnerDocument();
+    static String changeWStoXML(String string) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        char c;
 
-        Node selectedElem = null;
-        if (context.uriToResolve.isEmpty()) {
-            /*
 ```
 
 ### UnusedAssignment
@@ -4830,18 +4806,6 @@ in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
         int i = 0;
 
         try (StringReader sr = new StringReader(string)) {
-```
-
-### UnusedAssignment
-Variable `i` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
-#### Snippet
-```java
-            StringBuilder sb = new StringBuilder();
-            try (StringReader sr = new StringReader(value.substring(1, value.length() - 1))) {
-                int i = 0;
-                char c;
-
 ```
 
 ### UnusedAssignment
@@ -4873,11 +4837,35 @@ Variable `i` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/utils/RFC2253Parser.java`
 #### Snippet
 ```java
-    static String changeWStoXML(String string) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int i = 0;
-        char c;
+            StringBuilder sb = new StringBuilder();
+            try (StringReader sr = new StringReader(value.substring(1, value.length() - 1))) {
+                int i = 0;
+                char c;
 
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+        Node startParent = null;
+        Node processedNode = null;
+        if (startNode != null) {
+            startParent = startNode.getParentNode();
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+        Node startParent = null;
+        Node processedNode = null;
+        Element foundElement = null;
+        if (startNode != null) {
 ```
 
 ### UnusedAssignment
@@ -4893,183 +4881,15 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
 ```
 
 ### UnusedAssignment
-Variable `newUri` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
+Variable `selectedElem` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
 #### Snippet
 ```java
+        Document doc = context.attr.getOwnerElement().getOwnerDocument();
 
-    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
-        URI newUri = null;
-        if (baseURI == null || baseURI.length() == 0) {
-            newUri = new URI(uri);
-```
-
-### UnusedAssignment
-Variable `read` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
-#### Snippet
-```java
-                InputStream inputStream = urlConnection.getInputStream()) {
-                byte[] buf = new byte[4096];
-                int read = 0;
-                int summarized = 0;
-
-```
-
-### UnusedAssignment
-Variable `b1` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        throws Base64DecodingException, IOException {
-        //byte[] decodedData = null;
-        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
-
-        int index = 0;
-```
-
-### UnusedAssignment
-Variable `b2` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        throws Base64DecodingException, IOException {
-        //byte[] decodedData = null;
-        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
-
-        int index = 0;
-```
-
-### UnusedAssignment
-Variable `b3` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        throws Base64DecodingException, IOException {
-        //byte[] decodedData = null;
-        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
-
-        int index = 0;
-```
-
-### UnusedAssignment
-Variable `b4` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        throws Base64DecodingException, IOException {
-        //byte[] decodedData = null;
-        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
-
-        int index = 0;
-```
-
-### UnusedAssignment
-The value changed at `index++` is never used
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-                data[index++] = readed;
-                if (index == 3) {
-                    data[index++] = (byte)is.read();
-                }
-                break;
-```
-
-### UnusedAssignment
-Variable `encodedData` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        int quartesPerLine = length / 4;
-        int numberLines = (numberQuartet - 1) / quartesPerLine;
-        char[] encodedData = null;
-
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-```
-
-### UnusedAssignment
-Variable `k` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-
-        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
-        int encodedIndex = 0;
-        int dataIndex = 0;
-```
-
-### UnusedAssignment
-Variable `l` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-
-        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
-        int encodedIndex = 0;
-        int dataIndex = 0;
-```
-
-### UnusedAssignment
-Variable `b1` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-
-        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
-        int encodedIndex = 0;
-        int dataIndex = 0;
-```
-
-### UnusedAssignment
-Variable `b2` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-
-        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
-        int encodedIndex = 0;
-        int dataIndex = 0;
-```
-
-### UnusedAssignment
-Variable `b3` initializer `0` is redundant
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        encodedData = new char[numberQuartet * 4 + numberLines * 2];
-
-        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
-        int encodedIndex = 0;
-        int dataIndex = 0;
-```
-
-### UnusedAssignment
-The value changed at `encodedIndex++` is never used
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-            encodedData[encodedIndex++] = lookUpBase64Alphabet[k << 4];
-            encodedData[encodedIndex++] = PAD;
-            encodedData[encodedIndex++] = PAD;
-        } else if (fewerThan24bits == SIXTEENBIT) {
-            b1 = binaryData[dataIndex];
-```
-
-### UnusedAssignment
-The value changed at `encodedIndex++` is never used
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-            encodedData[encodedIndex++] = lookUpBase64Alphabet[val2 | (k << 4)];
-            encodedData[encodedIndex++] = lookUpBase64Alphabet[l << 2];
-            encodedData[encodedIndex++] = PAD;
-        }
-
+        Node selectedElem = null;
+        if (context.uriToResolve.isEmpty()) {
+            /*
 ```
 
 ### UnusedAssignment
@@ -5197,6 +5017,66 @@ Variable `b1` initializer `0` is redundant
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
+        throws Base64DecodingException, IOException {
+        //byte[] decodedData = null;
+        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
+
+        int index = 0;
+```
+
+### UnusedAssignment
+Variable `b2` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        throws Base64DecodingException, IOException {
+        //byte[] decodedData = null;
+        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
+
+        int index = 0;
+```
+
+### UnusedAssignment
+Variable `b3` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        throws Base64DecodingException, IOException {
+        //byte[] decodedData = null;
+        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
+
+        int index = 0;
+```
+
+### UnusedAssignment
+Variable `b4` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        throws Base64DecodingException, IOException {
+        //byte[] decodedData = null;
+        byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
+
+        int index = 0;
+```
+
+### UnusedAssignment
+The value changed at `index++` is never used
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+                data[index++] = readed;
+                if (index == 3) {
+                    data[index++] = (byte)is.read();
+                }
+                break;
+```
+
+### UnusedAssignment
+Variable `b1` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
 
         //byte[] decodedData = null;
         byte b1 = 0, b2 = 0, b3 = 0, b4 = 0;
@@ -5265,6 +5145,102 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```
 
 ### UnusedAssignment
+Variable `encodedData` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        int quartesPerLine = length / 4;
+        int numberLines = (numberQuartet - 1) / quartesPerLine;
+        char[] encodedData = null;
+
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+```
+
+### UnusedAssignment
+Variable `k` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+        int encodedIndex = 0;
+        int dataIndex = 0;
+```
+
+### UnusedAssignment
+Variable `l` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+        int encodedIndex = 0;
+        int dataIndex = 0;
+```
+
+### UnusedAssignment
+Variable `b1` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+        int encodedIndex = 0;
+        int dataIndex = 0;
+```
+
+### UnusedAssignment
+Variable `b2` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+        int encodedIndex = 0;
+        int dataIndex = 0;
+```
+
+### UnusedAssignment
+Variable `b3` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+        encodedData = new char[numberQuartet * 4 + numberLines * 2];
+
+        byte k = 0, l = 0, b1 = 0, b2 = 0, b3 = 0;
+        int encodedIndex = 0;
+        int dataIndex = 0;
+```
+
+### UnusedAssignment
+The value changed at `encodedIndex++` is never used
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+            encodedData[encodedIndex++] = lookUpBase64Alphabet[k << 4];
+            encodedData[encodedIndex++] = PAD;
+            encodedData[encodedIndex++] = PAD;
+        } else if (fewerThan24bits == SIXTEENBIT) {
+            b1 = binaryData[dataIndex];
+```
+
+### UnusedAssignment
+The value changed at `encodedIndex++` is never used
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+            encodedData[encodedIndex++] = lookUpBase64Alphabet[val2 | (k << 4)];
+            encodedData[encodedIndex++] = lookUpBase64Alphabet[l << 2];
+            encodedData[encodedIndex++] = PAD;
+        }
+
+```
+
+### UnusedAssignment
 Variable `retBytes` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
@@ -5277,39 +5253,51 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```
 
 ### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Variable `result` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
 #### Snippet
 ```java
-
-        Node startParent = null;
-        Node processedNode = null;
-        Element foundElement = null;
-        if (startNode != null) {
+    ) {
+        Document doc = getDocument();
+        Element result = null;
+        if (namespace == null) {
+            result = doc.createElementNS(null, localName);
 ```
 
 ### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Variable `result` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
 #### Snippet
 ```java
+     */
+    public static Element createElementForFamily(Document doc, String namespace, String localName) {
+        Element result = null;
+        String prefix = ElementProxy.getDefaultPrefix(namespace);
 
-        Node startParent = null;
-        Node processedNode = null;
-        if (startNode != null) {
-            startParent = startNode.getParentNode();
 ```
 
 ### UnusedAssignment
-Variable `objectElem` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+Variable `read` initializer `0` is redundant
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
+#### Snippet
+```java
+                InputStream inputStream = urlConnection.getInputStream()) {
+                byte[] buf = new byte[4096];
+                int read = 0;
+                int summarized = 0;
+
+```
+
+### UnusedAssignment
+Variable `newUri` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverDirectHTTP.java`
 #### Snippet
 ```java
 
-        // If it exists use it, but it's not mandatory
-        Element objectElem = null;
-        if (keyInfoElem != null
-            && Constants.SignatureSpecNS.equals(keyInfoElem.getNamespaceURI())
+    private static URI getNewURI(String uri, String baseURI) throws URISyntaxException {
+        URI newUri = null;
+        if (baseURI == null || baseURI.length() == 0) {
+            newUri = new URI(uri);
 ```
 
 ### UnusedAssignment
@@ -5337,15 +5325,15 @@ in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
 ```
 
 ### UnusedAssignment
-Variable `output` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/signature/Reference.java`
+Variable `objectElem` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
-        try {
-            Transforms transforms = this.getTransforms();
-            XMLSignatureInput output = null;
 
-            if (transforms != null) {
+        // If it exists use it, but it's not mandatory
+        Element objectElem = null;
+        if (keyInfoElem != null
+            && Constants.SignatureSpecNS.equals(keyInfoElem.getNamespaceURI())
 ```
 
 ### UnusedAssignment
@@ -5358,6 +5346,18 @@ in `src/main/java/org/apache/xml/security/encryption/DocumentSerializer.java`
             Document contextDocument = null;
             if (Node.DOCUMENT_NODE == ctx.getNodeType()) {
                 contextDocument = (Document)ctx;
+```
+
+### UnusedAssignment
+Variable `output` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/signature/Reference.java`
+#### Snippet
+```java
+        try {
+            Transforms transforms = this.getTransforms();
+            XMLSignatureInput output = null;
+
+            if (transforms != null) {
 ```
 
 ### UnusedAssignment
@@ -5433,30 +5433,6 @@ in `src/main/java/org/apache/xml/security/transforms/implementations/TransformXP
 ```
 
 ### UnusedAssignment
-Variable `tmpType` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-                    this.type = null;
-                } else {
-                    URI tmpType = null;
-                    try {
-                        tmpType = new URI(type);
-```
-
-### UnusedAssignment
-Variable `encryptedBytes` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-        contextDocument = doc;
-
-        byte[] encryptedBytes = null;
-        Cipher c;
-
-```
-
-### UnusedAssignment
 Variable `list` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 #### Snippet
@@ -5469,87 +5445,15 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
+Variable `tmpType` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 #### Snippet
 ```java
-         */
-        EncryptedData newEncryptedData(Element element) throws XMLEncryptionException {
-            EncryptedData result = null;
-
-            NodeList dataElements =
-```
-
-### UnusedAssignment
-Variable `tmpAlgorithm` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-            public AgreementMethodImpl(String algorithm) {
-                agreementMethodInformation = new LinkedList<>();
-                URI tmpAlgorithm = null;
-                try {
-                    tmpAlgorithm = new URI(algorithm);
-```
-
-### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-    public EncryptedKey createEncryptedKey(int type, String value) throws XMLEncryptionException {
-        EncryptedKey result = null;
-        CipherData data = null;
-
-        if (CipherData.REFERENCE_TYPE == type) {
-```
-
-### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-         */
-        EncryptedKey newEncryptedKey(Element element) throws XMLEncryptionException {
-            EncryptedKey result = null;
-            NodeList dataElements =
-                element.getElementsByTagNameNS(
-```
-
-### UnusedAssignment
-Variable `tmpTarget` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-                    this.target = target;
+                    this.type = null;
                 } else {
-                    URI tmpTarget = null;
+                    URI tmpType = null;
                     try {
-                        tmpTarget = new URI(target);
-```
-
-### UnusedAssignment
-Variable `encryptedBytes` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-        }
-
-        byte[] encryptedBytes = null;
-
-        // Now create the working cipher if none was created already
-```
-
-### UnusedAssignment
-Variable `tmpEncoding` initializer `null` is redundant
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-                    this.encoding = null;
-                } else {
-                    URI tmpEncoding = null;
-                    try {
-                        tmpEncoding = new URI(encoding);
+                        tmpType = new URI(type);
 ```
 
 ### UnusedAssignment
@@ -5565,15 +5469,51 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 ```
 
 ### UnusedAssignment
-Variable `data` initializer `null` is redundant
+Variable `encryptedBytes` initializer `null` is redundant
 in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 #### Snippet
 ```java
-    public EncryptedData createEncryptedData(int type, String value) throws XMLEncryptionException {
-        EncryptedData result = null;
-        CipherData data = null;
+        contextDocument = doc;
 
-        if (CipherData.REFERENCE_TYPE == type) {
+        byte[] encryptedBytes = null;
+        Cipher c;
+
+```
+
+### UnusedAssignment
+Variable `tmpTarget` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+                    this.target = target;
+                } else {
+                    URI tmpTarget = null;
+                    try {
+                        tmpTarget = new URI(target);
+```
+
+### UnusedAssignment
+Variable `tmpEncoding` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+                    this.encoding = null;
+                } else {
+                    URI tmpEncoding = null;
+                    try {
+                        tmpEncoding = new URI(encoding);
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+         */
+        EncryptedKey newEncryptedKey(Element element) throws XMLEncryptionException {
+            EncryptedKey result = null;
+            NodeList dataElements =
+                element.getElementsByTagNameNS(
 ```
 
 ### UnusedAssignment
@@ -5586,6 +5526,66 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
                 URI tmpAlgorithm = null;
                 try {
                     tmpAlgorithm = new URI(algorithm);
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+    public EncryptedData createEncryptedData(int type, String value) throws XMLEncryptionException {
+        EncryptedData result = null;
+        CipherData data = null;
+
+        if (CipherData.REFERENCE_TYPE == type) {
+```
+
+### UnusedAssignment
+Variable `encryptedBytes` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+        }
+
+        byte[] encryptedBytes = null;
+
+        // Now create the working cipher if none was created already
+```
+
+### UnusedAssignment
+Variable `tmpAlgorithm` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+            public AgreementMethodImpl(String algorithm) {
+                agreementMethodInformation = new LinkedList<>();
+                URI tmpAlgorithm = null;
+                try {
+                    tmpAlgorithm = new URI(algorithm);
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+         */
+        EncryptedData newEncryptedData(Element element) throws XMLEncryptionException {
+            EncryptedData result = null;
+
+            NodeList dataElements =
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+    public EncryptedKey createEncryptedKey(int type, String value) throws XMLEncryptionException {
+        EncryptedKey result = null;
+        CipherData data = null;
+
+        if (CipherData.REFERENCE_TYPE == type) {
 ```
 
 ## RuleId[id=IndexOfReplaceableByContains]
@@ -5715,35 +5715,35 @@ Condition `c <= 0x7FFFFFFF` is always `true`
 in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
 #### Snippet
 ```java
+                // already outside valid Character range, just for completeness
+                extraByte = 4;
+            } else if (c <= 0x7FFFFFFF) {
+                // 0x04000000 - 0x7FFFFFFF
+                // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+```
+
+### ConstantValue
+Condition `c <= 0x7FFFFFFF` is always `true`
+in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
+#### Snippet
+```java
+                // already outside valid Character range, just for completeness
+                extraByte = 4;
+            } else if (c <= 0x7FFFFFFF) {
+                // 0x04000000 - 0x7FFFFFFF
+                // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+```
+
+### ConstantValue
+Condition `c <= 0x7FFFFFFF` is always `true`
+in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
+#### Snippet
+```java
             // already outside valid Character range, just for completeness
             extraByte = 4;
         } else if (c <= 0x7FFFFFFF) {
             // 0x04000000 - 0x7FFFFFFF
             // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-```
-
-### ConstantValue
-Condition `c <= 0x7FFFFFFF` is always `true`
-in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
-#### Snippet
-```java
-                // already outside valid Character range, just for completeness
-                extraByte = 4;
-            } else if (c <= 0x7FFFFFFF) {
-                // 0x04000000 - 0x7FFFFFFF
-                // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-```
-
-### ConstantValue
-Condition `c <= 0x7FFFFFFF` is always `true`
-in `src/main/java/org/apache/xml/security/c14n/implementations/UtfHelpper.java`
-#### Snippet
-```java
-                // already outside valid Character range, just for completeness
-                extraByte = 4;
-            } else if (c <= 0x7FFFFFFF) {
-                // 0x04000000 - 0x7FFFFFFF
-                // 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
 ```
 
 ### ConstantValue
@@ -5759,18 +5759,6 @@ in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 ```
 
 ### ConstantValue
-Condition `els == null` is always `false`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-            Element[] els =
-                XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509CERTIFICATE);
-            if (els == null || els.length == 0) {
-                Element el =
-                    XMLUtils.selectDsNode(element.getFirstChild(), Constants._TAG_X509DATA, 0);
-```
-
-### ConstantValue
 Condition `x509childNodes == null` is always `false`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
 #### Snippet
@@ -5783,6 +5771,30 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509D
 ```
 
 ### ConstantValue
+Condition `els == null` is always `false`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+            Element[] els =
+                XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509CERTIFICATE);
+            if (els == null || els.length == 0) {
+                Element el =
+                    XMLUtils.selectDsNode(element.getFirstChild(), Constants._TAG_X509DATA, 0);
+```
+
+### ConstantValue
+Condition `x509childNodes != null` is always `true`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SKI);
+
+        return x509childNodes != null && x509childNodes.length > 0;
+    }
+
+```
+
+### ConstantValue
 Condition `x509childNodes != null` is always `true`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
 #### Snippet
@@ -5796,10 +5808,22 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509S
 
 ### ConstantValue
 Condition `x509childNodes != null` is always `true`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
-            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SKI);
+        Element[] x509childNodes =
+            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
+        if (!(x509childNodes != null && x509childNodes.length > 0)) {
+            return null;
+        }
+```
+
+### ConstantValue
+Condition `x509childNodes != null` is always `true`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
+#### Snippet
+```java
+            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
 
         return x509childNodes != null && x509childNodes.length > 0;
     }
@@ -5852,30 +5876,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Retri
                 Element e2 = obtainReferenceElement(resource2, secureValidation);
                 if (e2 == element) {
                     LOG.debug("Error: Can't have RetrievalMethods pointing to each other");
-```
-
-### ConstantValue
-Condition `x509childNodes != null` is always `true`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
-
-        return x509childNodes != null && x509childNodes.length > 0;
-    }
-
-```
-
-### ConstantValue
-Condition `x509childNodes != null` is always `true`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-        Element[] x509childNodes =
-            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
-        if (!(x509childNodes != null && x509childNodes.length > 0)) {
-            return null;
-        }
 ```
 
 ### ConstantValue
@@ -5988,18 +5988,6 @@ public class XMLSecurityConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `XMLSec` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
-#### Snippet
-```java
- * with this class.
- */
-public class XMLSec {
-
-    static {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `XMLSecurityUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 #### Snippet
@@ -6009,6 +5997,18 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 public class XMLSecurityUtils {
 
     private static final int MAX_SYMMETRIC_KEY_SIZE = 1024;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `XMLSec` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
+#### Snippet
+```java
+ * with this class.
+ */
+public class XMLSec {
+
+    static {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6109,15 +6109,15 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMManifest.java`
 ```
 
 ### DataFlowIssue
-Condition `this.content.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLObject.java`
+Method invocation `equals` may produce `NullPointerException`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMDigestMethod.java`
 #### Snippet
 ```java
-                new ArrayList<>(content));
-            for (int i = 0, size = this.content.size(); i < size; i++) {
-                if (!(this.content.get(i) instanceof XMLStructure)) {
-                    throw new ClassCastException
-                        ("content["+i+"] is not a valid type");
+    static DigestMethod unmarshal(Element dmElem) throws MarshalException {
+        String alg = DOMUtils.getAttributeValue(dmElem, "Algorithm");
+        if (alg.equals(DigestMethod.SHA1)) {
+            return new SHA1(dmElem);
+        } else if (alg.equals(SHA224)) {
 ```
 
 ### DataFlowIssue
@@ -6133,39 +6133,15 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyInfo.java`
 ```
 
 ### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMDigestMethod.java`
+Condition `this.content.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLObject.java`
 #### Snippet
 ```java
-    static DigestMethod unmarshal(Element dmElem) throws MarshalException {
-        String alg = DOMUtils.getAttributeValue(dmElem, "Algorithm");
-        if (alg.equals(DigestMethod.SHA1)) {
-            return new SHA1(dmElem);
-        } else if (alg.equals(SHA224)) {
-```
-
-### DataFlowIssue
-Condition `this.externalElements.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMPGPData.java`
-#### Snippet
-```java
-                Collections.unmodifiableList(new ArrayList<>(other));
-            for (int i = 0, size = this.externalElements.size(); i < size; i++) {
-                if (!(this.externalElements.get(i) instanceof XMLStructure)) {
+                new ArrayList<>(content));
+            for (int i = 0, size = this.content.size(); i < size; i++) {
+                if (!(this.content.get(i) instanceof XMLStructure)) {
                     throw new ClassCastException
-                        ("other["+i+"] is not a valid PGPData type");
-```
-
-### DataFlowIssue
-Condition `this.externalElements.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMPGPData.java`
-#### Snippet
-```java
-                Collections.unmodifiableList(new ArrayList<>(other));
-            for (int i = 0, size = this.externalElements.size(); i < size; i++) {
-                if (!(this.externalElements.get(i) instanceof XMLStructure)) {
-                    throw new ClassCastException
-                        ("other["+i+"] is not a valid PGPData type");
+                        ("content["+i+"] is not a valid type");
 ```
 
 ### DataFlowIssue
@@ -6190,6 +6166,54 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMTransform.java`
                 spi = TransformService.getInstance(algorithm, "DOM", provider);
             } catch (NoSuchAlgorithmException nsae) {
                 try {
+```
+
+### DataFlowIssue
+Condition `this.externalElements.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMPGPData.java`
+#### Snippet
+```java
+                Collections.unmodifiableList(new ArrayList<>(other));
+            for (int i = 0, size = this.externalElements.size(); i < size; i++) {
+                if (!(this.externalElements.get(i) instanceof XMLStructure)) {
+                    throw new ClassCastException
+                        ("other["+i+"] is not a valid PGPData type");
+```
+
+### DataFlowIssue
+Condition `this.externalElements.get(i) instanceof XMLStructure` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMPGPData.java`
+#### Snippet
+```java
+                Collections.unmodifiableList(new ArrayList<>(other));
+            for (int i = 0, size = this.externalElements.size(); i < size; i++) {
+                if (!(this.externalElements.get(i) instanceof XMLStructure)) {
+                    throw new ClassCastException
+                        ("other["+i+"] is not a valid PGPData type");
+```
+
+### DataFlowIssue
+Condition `this.transforms.get(i) instanceof Transform` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRetrievalMethod.java`
+#### Snippet
+```java
+                new ArrayList<>(transforms));
+            for (int i = 0, size = this.transforms.size(); i < size; i++) {
+                if (!(this.transforms.get(i) instanceof Transform)) {
+                    throw new ClassCastException
+                        ("transforms["+i+"] is not a valid type");
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
+#### Snippet
+```java
+    static SignatureMethod unmarshal(Element smElem) throws MarshalException {
+        String alg = DOMUtils.getAttributeValue(smElem, "Algorithm");
+        if (alg.equals(SignatureMethod.RSA_SHA1)) {
+            return new SHA1withRSA(smElem);
+        } else if (alg.equals(RSA_SHA224)) {
 ```
 
 ### DataFlowIssue
@@ -6289,18 +6313,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheCanonicalizer.java`
 ```
 
 ### DataFlowIssue
-Condition `this.transforms.get(i) instanceof Transform` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRetrievalMethod.java`
-#### Snippet
-```java
-                new ArrayList<>(transforms));
-            for (int i = 0, size = this.transforms.size(); i < size; i++) {
-                if (!(this.transforms.get(i) instanceof Transform)) {
-                    throw new ClassCastException
-                        ("transforms["+i+"] is not a valid type");
-```
-
-### DataFlowIssue
 Condition `obj instanceof Reference` is redundant and can be replaced with a null check
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignedInfo.java`
 #### Snippet
@@ -6310,18 +6322,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignedInfo.java`
             if (!(obj instanceof Reference)) {
                 throw new ClassCastException("list of references contains " +
                     "an illegal type");
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
-#### Snippet
-```java
-    static SignatureMethod unmarshal(Element smElem) throws MarshalException {
-        String alg = DOMUtils.getAttributeValue(smElem, "Algorithm");
-        if (alg.equals(SignatureMethod.RSA_SHA1)) {
-            return new SHA1withRSA(smElem);
-        } else if (alg.equals(RSA_SHA224)) {
 ```
 
 ### DataFlowIssue
@@ -6373,18 +6373,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureProperties.ja
 ```
 
 ### DataFlowIssue
-Method invocation `getTextContent` may produce `NullPointerException`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
-#### Snippet
-```java
-                params.setSaltLength(saltLength);
-            } catch (NumberFormatException ex) {
-                throw new MarshalException("Invalid salt length supplied: " + saltLengthNode.getTextContent());
-            }
-            params.setDigestName(digestName);
-```
-
-### DataFlowIssue
 Condition `this.allTransforms.get(i) instanceof Transform` is redundant and can be replaced with a null check
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 #### Snippet
@@ -6406,6 +6394,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
                 if (!(this.transforms.get(i) instanceof Transform)) {
                     throw new ClassCastException
                         ("transforms["+i+"] is not a valid type");
+```
+
+### DataFlowIssue
+Method invocation `getTextContent` may produce `NullPointerException`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
+#### Snippet
+```java
+                params.setSaltLength(saltLength);
+            } catch (NumberFormatException ex) {
+                throw new MarshalException("Invalid salt length supplied: " + saltLengthNode.getTextContent());
+            }
+            params.setDigestName(digestName);
 ```
 
 ### DataFlowIssue
@@ -6665,6 +6665,18 @@ Method invocation `add` may produce `NullPointerException`
 in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/CanonicalizerBase.java`
 #### Snippet
 ```java
+                        utilizedNamespaces = new ArrayList<>();
+                        utilizedAttributes = new ArrayList<>();
+                        outputStack.peek().add(XMLSecEventFactory.createXMLSecNamespace(null, ""));
+                        outputStack.push(Collections.<Comparable>emptyList());
+
+```
+
+### DataFlowIssue
+Method invocation `add` may produce `NullPointerException`
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/CanonicalizerBase.java`
+#### Snippet
+```java
                 utilizedNamespaces.remove(comparableNamespace);
             }
             outputStack.peek().add(comparableNamespace);
@@ -6706,18 +6718,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Ca
                 outputStack.peek().add(attributeNamespace);
             }
         }
-```
-
-### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/CanonicalizerBase.java`
-#### Snippet
-```java
-                        utilizedNamespaces = new ArrayList<>();
-                        utilizedAttributes = new ArrayList<>();
-                        outputStack.peek().add(XMLSecEventFactory.createXMLSecNamespace(null, ""));
-                        outputStack.push(Collections.<Comparable>emptyList());
-
 ```
 
 ### DataFlowIssue
@@ -6933,7 +6933,7 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
             } else {
                 c = Cipher.getInstance(jceAlgorithm, requestedJCEProvider);
             }
-        } catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException nsae) {
 ```
 
 ### DataFlowIssue
@@ -6957,7 +6957,7 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
             } else {
                 c = Cipher.getInstance(jceAlgorithm, requestedJCEProvider);
             }
-        } catch (NoSuchAlgorithmException nsae) {
+        } catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException e) {
 ```
 
 ### DataFlowIssue
@@ -7056,18 +7056,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/SignerOutputStream.java`
 ```java
 
     @Override
-    public void write(int arg0) {
-        super.write(arg0);
-        try {
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `write()` overrides synchronized method
-in `src/main/java/org/apache/jcp/xml/dsig/internal/SignerOutputStream.java`
-#### Snippet
-```java
-
-    @Override
     public void write(byte[] arg0, int arg1, int arg2) {
         super.write(arg0, arg1, arg2);
         try {
@@ -7098,15 +7086,15 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/MacOutputStream.java`
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `mark()` overrides synchronized method
-in `src/main/java/org/apache/xml/security/utils/UnsyncByteArrayInputStream.java`
+Unsynchronized method `write()` overrides synchronized method
+in `src/main/java/org/apache/jcp/xml/dsig/internal/SignerOutputStream.java`
 #### Snippet
 ```java
-     */
+
     @Override
-    public void mark(int readlimit) {
-        mark = pos;
-    }
+    public void write(int arg0) {
+        super.write(arg0);
+        try {
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
@@ -7118,6 +7106,18 @@ in `src/main/java/org/apache/xml/security/utils/UnsyncByteArrayInputStream.java`
     @Override
     public void reset() {
         pos = mark;
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `mark()` overrides synchronized method
+in `src/main/java/org/apache/xml/security/utils/UnsyncByteArrayInputStream.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void mark(int readlimit) {
+        mark = pos;
     }
 ```
 
@@ -7152,9 +7152,9 @@ in `src/main/java/org/apache/xml/security/utils/DigesterOutputStream.java`
 ```java
 
     /** {@inheritDoc} */
-    public void write(int arg0) {
-        mda.update((byte)arg0);
-    }
+    public void write(byte[] arg0, int arg1, int arg2) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Pre-digested input:");
 ```
 
 ### NonSynchronizedMethodOverridesSynchronizedMethod
@@ -7164,9 +7164,9 @@ in `src/main/java/org/apache/xml/security/utils/DigesterOutputStream.java`
 ```java
 
     /** {@inheritDoc} */
-    public void write(byte[] arg0, int arg1, int arg2) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Pre-digested input:");
+    public void write(int arg0) {
+        mda.update((byte)arg0);
+    }
 ```
 
 ## RuleId[id=AbstractMethodCallInConstructor]
@@ -7270,18 +7270,6 @@ in `src/main/java/org/apache/xml/security/stax/config/JCEAlgorithmMapper.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/xml/security/stax/config/ConfigurationProperties.java`
-#### Snippet
-```java
-    }
-
-    protected static synchronized void init(PropertiesType propertiesType,
-            Class<?> callingClass) throws Exception {
-        properties = new Properties();
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/xml/security/stax/config/ResourceResolverMapper.java`
 #### Snippet
 ```java
@@ -7290,6 +7278,18 @@ in `src/main/java/org/apache/xml/security/stax/config/ResourceResolverMapper.jav
     protected static synchronized void init(ResourceResolversType resourceResolversType,
             Class<?> callingClass) throws Exception {
         List<ResolverType> handlerList = resourceResolversType.getResolver();
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/xml/security/stax/config/ConfigurationProperties.java`
+#### Snippet
+```java
+    }
+
+    protected static synchronized void init(PropertiesType propertiesType,
+            Class<?> callingClass) throws Exception {
+        properties = new Properties();
 ```
 
 ### ProtectedMemberInFinalClass
@@ -7323,6 +7323,18 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
     }
 
+    protected static final boolean isPad(byte octet) {
+        return octet == PAD;
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+    }
+
     protected static final byte[] decodeInternal(byte[] base64Data, int len)
         throws Base64DecodingException {
         // remove white spaces
@@ -7335,33 +7347,9 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
     }
 
-    protected static final boolean isWhiteSpace(byte octet) {
-        return octet == 0x20 || octet == 0xd || octet == 0xa || octet == 0x9;
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-    }
-
     protected static final void decode(byte[] base64Data, OutputStream os, int len)
         throws Base64DecodingException, IOException {
         // remove white spaces
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-    }
-
-    protected static final int getBytesInternal(String s, byte[] result) {
-        int length = s.length();
-
 ```
 
 ### ProtectedMemberInFinalClass
@@ -7383,8 +7371,20 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 ```java
     }
 
-    protected static final boolean isPad(byte octet) {
-        return octet == PAD;
+    protected static final int getBytesInternal(String s, byte[] result) {
+        int length = s.length();
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
+#### Snippet
+```java
+    }
+
+    protected static final boolean isWhiteSpace(byte octet) {
+        return octet == 0x20 || octet == 0xd || octet == 0xa || octet == 0x9;
     }
 ```
 
@@ -7747,18 +7747,6 @@ Unnecessary `Throwable.initCause()` call
 in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
 #### Snippet
 ```java
-                } catch (URISyntaxException ex) {
-                    throw (IllegalArgumentException)
-                            new IllegalArgumentException().initCause(ex);
-                }
-                algorithmURI = tmpAlgorithm.toString();
-```
-
-### UnnecessaryInitCause
-Unnecessary `Throwable.initCause()` call
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
                     } catch (URISyntaxException ex) {
                         throw (IllegalArgumentException)
                                 new IllegalArgumentException().initCause(ex);
@@ -7788,6 +7776,18 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
                             new IllegalArgumentException().initCause(ex);
                 }
                 this.algorithm = tmpAlgorithm.toString();
+```
+
+### UnnecessaryInitCause
+Unnecessary `Throwable.initCause()` call
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+                } catch (URISyntaxException ex) {
+                    throw (IllegalArgumentException)
+                            new IllegalArgumentException().initCause(ex);
+                }
+                algorithmURI = tmpAlgorithm.toString();
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -7904,6 +7904,18 @@ in `src/main/java/org/apache/xml/security/transforms/params/InclusiveNamespaces.
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMURIDereferencer.java`
+#### Snippet
+```java
+
+        ResourceResolverContext resContext = new ResourceResolverContext(uriAttr, baseURI, secVal);
+        if ((uriRef instanceof javax.xml.crypto.dsig.Reference) || resContext.isURISafeToResolve()) {
+            try {
+                XMLSignatureInput in = ResourceResolver.resolve(resContext);
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/jcp/xml/dsig/internal/DigesterOutputStream.java`
 #### Snippet
@@ -7928,18 +7940,6 @@ public class DigesterOutputStream extends OutputStream {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMURIDereferencer.java`
-#### Snippet
-```java
-
-        ResourceResolverContext resContext = new ResourceResolverContext(uriAttr, baseURI, secVal);
-        if ((uriRef instanceof javax.xml.crypto.dsig.Reference) || resContext.isURISafeToResolve()) {
-            try {
-                XMLSignatureInput in = ResourceResolver.resolve(resContext);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMHMACSignatureMethod.java`
 #### Snippet
@@ -7961,6 +7961,30 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMHMACSignatureMethod.ja
         org.slf4j.LoggerFactory.getLogger(DOMHMACSignatureMethod.class);
 
     // see RFC 4051 for these algorithm definitions
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
+#### Snippet
+```java
+    private static final String DOM_SIGNATURE_PROVIDER = "org.jcp.xml.dsig.internal.dom.SignatureProvider";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DOMSignatureMethod.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DOMSignatureMethod.class);
+
+    private SignatureMethodParameterSpec params;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8024,30 +8048,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignedInfo.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
-#### Snippet
-```java
-    private static final String DOM_SIGNATURE_PROVIDER = "org.jcp.xml.dsig.internal.dom.SignatureProvider";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMSignatureMethod.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMSignatureMethod.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMSignatureMethod.class);
-
-    private SignatureMethodParameterSpec params;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.xml.security` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 #### Snippet
@@ -8084,18 +8084,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
-#### Snippet
-```java
-
-    static {
-        org.apache.xml.security.Init.init();
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
 #### Snippet
@@ -8120,6 +8108,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
+#### Snippet
+```java
+
+    static {
+        org.apache.xml.security.Init.init();
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/c14n/CanonicalizerSpi.java`
 #### Snippet
@@ -8141,54 +8141,6 @@ in `src/main/java/org/apache/xml/security/c14n/CanonicalizerSpi.java`
         try (java.io.InputStream bais = new ByteArrayInputStream(inputBytes)) {
             document = XMLUtils.read(bais, secureValidation);
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary and can be removed
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
-#### Snippet
-```java
-     * @param content a list of one or more X.509 data types. Valid types are
-     *    {@link String} (subject names), <code>byte[]</code> (subject key ids),
-     *    {@link java.security.cert.X509Certificate}, {@link X509CRL},
-     *    or {@link javax.xml.crypto.XMLStructure}
-     *    objects or elements from an external namespace). The list is
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
-#### Snippet
-```java
-     *    {@link String} (subject names), <code>byte[]</code> (subject key ids),
-     *    {@link java.security.cert.X509Certificate}, {@link X509CRL},
-     *    or {@link javax.xml.crypto.XMLStructure}
-     *    objects or elements from an external namespace). The list is
-     *    defensively copied to protect against subsequent modification.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
-#### Snippet
-```java
-    private static final String DOM_SIGNATURE_PROVIDER = "org.jcp.xml.dsig.internal.dom.SignatureProvider";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMRSAPSSSignatureMethod.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMRSAPSSSignatureMethod.class);
-
-    private final SignatureMethodParameterSpec params;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8228,6 +8180,78 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
+#### Snippet
+```java
+    private static final String DOM_SIGNATURE_PROVIDER = "org.jcp.xml.dsig.internal.dom.SignatureProvider";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DOMRSAPSSSignatureMethod.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRSAPSSSignatureMethod.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DOMRSAPSSSignatureMethod.class);
+
+    private final SignatureMethodParameterSpec params;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary and can be removed
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
+#### Snippet
+```java
+     * @param content a list of one or more X.509 data types. Valid types are
+     *    {@link String} (subject names), <code>byte[]</code> (subject key ids),
+     *    {@link java.security.cert.X509Certificate}, {@link X509CRL},
+     *    or {@link javax.xml.crypto.XMLStructure}
+     *    objects or elements from an external namespace). The list is
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.crypto` is unnecessary and can be removed
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMX509Data.java`
+#### Snippet
+```java
+     *    {@link String} (subject names), <code>byte[]</code> (subject key ids),
+     *    {@link java.security.cert.X509Certificate}, {@link X509CRL},
+     *    or {@link javax.xml.crypto.XMLStructure}
+     *    objects or elements from an external namespace). The list is
+     *    defensively copied to protect against subsequent modification.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+    public static final String CONF_NS = "http://www.xmlsecurity.org/NS/#configuration";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Init.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Init.class);
+
+    /** Field alreadyInitialized */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/c14n/Canonicalizer.java`
 #### Snippet
@@ -8261,30 +8285,6 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTabl
         org.slf4j.LoggerFactory.getLogger(NameSpaceSymbTable.class);
 
     private static final String XMLNS = "xmlns";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/Init.java`
-#### Snippet
-```java
-    public static final String CONF_NS = "http://www.xmlsecurity.org/NS/#configuration";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Init.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/Init.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Init.class);
-
-    /** Field alreadyInitialized */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8348,6 +8348,42 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/XmlAttrStack.java
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
+#### Snippet
+```java
+     *
+     * @throws XMLSecurityException
+     * @see java.security.cert.X509Extension#getExtensionValue(java.lang.String)
+     */
+    public static byte[] getSKIBytesFromCert(X509Certificate cert)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
+#### Snippet
+```java
+public class XMLX509SKI extends SignatureElementProxy implements XMLX509DataContent {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLX509SKI.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLX509SKI.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509IssuerSerial.java`
 #### Snippet
@@ -8403,42 +8439,6 @@ in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 
     private static final org.slf4j.Logger LOG =
         org.slf4j.LoggerFactory.getLogger(X509Data.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
-#### Snippet
-```java
-     *
-     * @throws XMLSecurityException
-     * @see java.security.cert.X509Extension#getExtensionValue(java.lang.String)
-     */
-    public static byte[] getSKIBytesFromCert(X509Certificate cert)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
-#### Snippet
-```java
-public class XMLX509SKI extends SignatureElementProxy implements XMLX509DataContent {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLX509SKI.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509SKI.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLX509SKI.class);
 
     /**
 ```
@@ -8529,42 +8529,6 @@ in `src/main/java/org/apache/xml/security/keys/storage/StorageResolver.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-public class X509CertificateResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509CertificateResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509CertificateResolver.class);
-
-    /** {@inheritDoc} */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    protected javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
 #### Snippet
 ```java
@@ -8612,6 +8576,42 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer2001
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    protected javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+public class X509CertificateResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509CertificateResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509CertificateResolver.class);
+
+    /** {@inheritDoc} */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SecretKeyResolver.java`
 #### Snippet
@@ -8637,126 +8637,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Secre
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
-#### Snippet
-```java
-public class DEREncodedKeyValueResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DEREncodedKeyValueResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DEREncodedKeyValueResolver.class);
-
-    /** {@inheritDoc} */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-public class EncryptedKeyResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(RSAKeyValueResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(RSAKeyValueResolver.class);
-
-    private final Key kek;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    protected javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-public class X509SKIResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509SKIResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509SKIResolver.class);
-
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
-#### Snippet
-```java
-public class X509IssuerSerialResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509IssuerSerialResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509IssuerSerialResolver.class);
-
-    /** {@inheritDoc} */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    protected javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolver.java`
 #### Snippet
 ```java
@@ -8777,6 +8657,30 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolver.java`
         org.slf4j.LoggerFactory.getLogger(KeyResolver.class);
 
     private static List<KeyResolverSpi> resolverList = new CopyOnWriteArrayList<>();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
+#### Snippet
+```java
+public class DEREncodedKeyValueResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DEREncodedKeyValueResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DEREncodedKeyValueResolver.class);
+
+    /** {@inheritDoc} */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8817,6 +8721,114 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RSAKe
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
+#### Snippet
+```java
+public class X509IssuerSerialResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509IssuerSerialResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509IssuerSerialResolver.class);
+
+    /** {@inheritDoc} */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    protected javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    protected javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+public class X509SKIResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509SKIResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509SKIResolver.class);
+
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
+#### Snippet
+```java
+public class EncryptedKeyResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(RSAKeyValueResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(RSAKeyValueResolver.class);
+
+    private final Key kek;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKeyValueResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    protected javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKeyValueResolver.java`
 #### Snippet
 ```java
@@ -8841,7 +8853,7 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKey
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKeyValueResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
 #### Snippet
 ```java
     /** {@inheritDoc} */
@@ -8876,18 +8888,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKe
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    protected javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
 #### Snippet
@@ -8913,54 +8913,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyIn
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
-#### Snippet
-```java
-public class RetrievalMethodResolver extends KeyResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(RetrievalMethodResolver.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(RetrievalMethodResolver.class);
-
-    /** {@inheritDoc} */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    public javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-    /** {@inheritDoc} */
-    @Override
-    protected javax.crypto.SecretKey engineResolveSecretKey(
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
@@ -8979,6 +8931,54 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509S
 
     private static final org.slf4j.Logger LOG =
         org.slf4j.LoggerFactory.getLogger(X509SubjectNameResolver.class);
+
+    /** {@inheritDoc} */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    protected javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
+#### Snippet
+```java
+    /** {@inheritDoc} */
+    @Override
+    public javax.crypto.SecretKey engineResolveSecretKey(
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
+#### Snippet
+```java
+public class RetrievalMethodResolver extends KeyResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(RetrievalMethodResolver.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(RetrievalMethodResolver.class);
 
     /** {@inheritDoc} */
 ```
@@ -9060,8 +9060,8 @@ Qualifier `org.apache.xml.security.stax.ext` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
 #### Snippet
 ```java
-     * @param securityProperties The configuration to validate
-     * @return The validated configuration
+     * @throws XMLSecurityException
+     *          if the initialisation failed
      * @throws org.apache.xml.security.stax.ext.XMLSecurityConfigurationException
      *          if the configuration is invalid
      */
@@ -9072,8 +9072,8 @@ Qualifier `org.apache.xml.security.stax.ext` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
 #### Snippet
 ```java
-     * @throws XMLSecurityException
-     *          if the initialisation failed
+     * @param securityProperties The configuration to validate
+     * @return The validated configuration
      * @throws org.apache.xml.security.stax.ext.XMLSecurityConfigurationException
      *          if the configuration is invalid
      */
@@ -9081,14 +9081,14 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.charset` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartDocumentImpl.java`
+in `src/main/java/org/apache/xml/security/stax/impl/util/DigestOutputStream.java`
 #### Snippet
 ```java
-    @Override
-    public String getCharacterEncodingScheme() {
-        return characterEncodingScheme != null ? characterEncodingScheme : java.nio.charset.StandardCharsets.UTF_8.name();
+        messageDigest.update(arg0, arg1, arg2);
+        if (isDebugEnabled) {
+            stringBuilder.append(new String(arg0, arg1, arg2, java.nio.charset.StandardCharsets.UTF_8));
+        }
     }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9105,14 +9105,14 @@ in `src/main/java/org/apache/xml/security/stax/impl/util/SignerOutputStream.java
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.charset` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/stax/impl/util/DigestOutputStream.java`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartDocumentImpl.java`
 #### Snippet
 ```java
-        messageDigest.update(arg0, arg1, arg2);
-        if (isDebugEnabled) {
-            stringBuilder.append(new String(arg0, arg1, arg2, java.nio.charset.StandardCharsets.UTF_8));
-        }
+    @Override
+    public String getCharacterEncodingScheme() {
+        return characterEncodingScheme != null ? characterEncodingScheme : java.nio.charset.StandardCharsets.UTF_8.name();
     }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9132,11 +9132,11 @@ Qualifier `org.apache.xml.security.exceptions` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/stax/securityToken/SecurityToken.java`
 #### Snippet
 ```java
-     * Returns the public key if one exists and already initialized, null otherwise
-     * @return the public key
-     * @throws org.apache.xml.security.exceptions.XMLSecurityException
+     *
+     * @return The certificate chain
+     * @throws org.apache.xml.security.exceptions.XMLSecurityException if the certificates can't be retrieved
      */
-    PublicKey getPublicKey() throws XMLSecurityException;
+    X509Certificate[] getX509Certificates() throws XMLSecurityException;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9144,11 +9144,11 @@ Qualifier `org.apache.xml.security.exceptions` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/stax/securityToken/SecurityToken.java`
 #### Snippet
 ```java
-     *
-     * @return The certificate chain
-     * @throws org.apache.xml.security.exceptions.XMLSecurityException if the certificates can't be retrieved
+     * Returns the public key if one exists and already initialized, null otherwise
+     * @return the public key
+     * @throws org.apache.xml.security.exceptions.XMLSecurityException
      */
-    X509Certificate[] getX509Certificates() throws XMLSecurityException;
+    PublicKey getPublicKey() throws XMLSecurityException;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9176,42 +9176,6 @@ in `src/main/java/org/apache/xml/security/utils/ClassLoaderUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
-#### Snippet
-```java
-
-    private static boolean getProperty(final String name) {
-        return java.security.AccessController.doPrivileged(
-            (java.security.PrivilegedAction<Boolean>) () -> Boolean.getBoolean(name));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
-#### Snippet
-```java
-    private static boolean getProperty(final String name) {
-        return java.security.AccessController.doPrivileged(
-            (java.security.PrivilegedAction<Boolean>) () -> Boolean.getBoolean(name));
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
-#### Snippet
-```java
-
-/**
- * This {@link org.xml.sax.ErrorHandler} does absolutely nothing but LOG
- * the events.
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
 #### Snippet
@@ -9233,6 +9197,42 @@ in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
         org.slf4j.LoggerFactory.getLogger(IgnoreAllErrorHandler.class);
 
     /** Field throwExceptions */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.xml.sax` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
+#### Snippet
+```java
+
+/**
+ * This {@link org.xml.sax.ErrorHandler} does absolutely nothing but LOG
+ * the events.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
+#### Snippet
+```java
+
+    private static boolean getProperty(final String name) {
+        return java.security.AccessController.doPrivileged(
+            (java.security.PrivilegedAction<Boolean>) () -> Boolean.getBoolean(name));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/IgnoreAllErrorHandler.java`
+#### Snippet
+```java
+    private static boolean getProperty(final String name) {
+        return java.security.AccessController.doPrivileged(
+            (java.security.PrivilegedAction<Boolean>) () -> Boolean.getBoolean(name));
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9357,54 +9357,6 @@ in `src/main/java/org/apache/xml/security/utils/I18n.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-public abstract class ElementProxy {
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ElementProxy.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ElementProxy.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
-#### Snippet
-```java
-public class ResolverFragment extends ResourceResolverSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ResolverFragment.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ResolverFragment.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverXPointer.java`
 #### Snippet
 ```java
@@ -9453,6 +9405,42 @@ in `src/main/java/org/apache/xml/security/utils/resolver/ResourceResolver.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                    (PrivilegedAction<Boolean>) () -> Boolean.getBoolean("org.apache.xml.security.ignoreLineBreaks"));
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
+
+    private static XMLParser xmlParserImpl =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+        try {
+            if (addPreamble) {
+                os.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+            }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverLocalFilesystem.java`
 #### Snippet
 ```java
@@ -9473,6 +9461,66 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
         org.slf4j.LoggerFactory.getLogger(ResolverLocalFilesystem.class);
 
     /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
+#### Snippet
+```java
+public class ResolverFragment extends ResourceResolverSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ResolverFragment.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverFragment.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ResolverFragment.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+public abstract class ElementProxy {
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ElementProxy.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ElementProxy.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/parser/XMLParserImpl.java`
+#### Snippet
+```java
+        DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+        f.setNamespaceAware(true);
+        f.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        f.setFeature("http://apache.org/xml/features/disallow-doctype-decl", disallowDocTypeDeclarations);
+        return f.newDocumentBuilder();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9500,54 +9548,6 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/parser/XMLParserImpl.java`
-#### Snippet
-```java
-        DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
-        f.setNamespaceAware(true);
-        f.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        f.setFeature("http://apache.org/xml/features/disallow-doctype-decl", disallowDocTypeDeclarations);
-        return f.newDocumentBuilder();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-        try {
-            if (addPreamble) {
-                os.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n".getBytes(java.nio.charset.StandardCharsets.UTF_8));
-            }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-                    (PrivilegedAction<Boolean>) () -> Boolean.getBoolean("org.apache.xml.security.ignoreLineBreaks"));
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
-
-    private static XMLParser xmlParserImpl =
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/signature/ReferenceNotInitializedException.java`
 #### Snippet
@@ -9569,6 +9569,30 @@ in `src/main/java/org/apache/xml/security/signature/ReferenceNotInitializedExcep
  * because of an uninitialized {@link org.apache.xml.security.signature.XMLSignatureInput}
  *
  */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/MissingResourceFailureException.java`
+#### Snippet
+```java
+
+/**
+ * Thrown by {@link org.apache.xml.security.signature.SignedInfo#verify()} when
+ * testing the signature fails because of uninitialized
+ * {@link org.apache.xml.security.signature.Reference}s.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/MissingResourceFailureException.java`
+#### Snippet
+```java
+ * Thrown by {@link org.apache.xml.security.signature.SignedInfo#verify()} when
+ * testing the signature fails because of uninitialized
+ * {@link org.apache.xml.security.signature.Reference}s.
+ *
+ * @see ReferenceNotInitializedException
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9620,159 +9644,483 @@ in `src/main/java/org/apache/xml/security/signature/MissingResourceFailureExcept
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/MissingResourceFailureException.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
 #### Snippet
 ```java
 
-/**
- * Thrown by {@link org.apache.xml.security.signature.SignedInfo#verify()} when
- * testing the signature fails because of uninitialized
- * {@link org.apache.xml.security.signature.Reference}s.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/MissingResourceFailureException.java`
-#### Snippet
-```java
- * Thrown by {@link org.apache.xml.security.signature.SignedInfo#verify()} when
- * testing the signature fails because of uninitialized
- * {@link org.apache.xml.security.signature.Reference}s.
- *
- * @see ReferenceNotInitializedException
+    /**
+     * Some InputStreams do not support the {@link java.io.InputStream#reset}
+     * method, so we read it in completely and work on our Proxy.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-     * if the Signatures match on the SignedInfo.
-     *
-     * @param pk {@link java.security.PublicKey} part of the keypair or
-     * {@link javax.crypto.SecretKey} that was used to sign
-     * @return true if the signature is valid, false otherwise
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-     *
-     * @param pk {@link java.security.PublicKey} part of the keypair or
-     * {@link javax.crypto.SecretKey} that was used to sign
-     * @return true if the signature is valid, false otherwise
-     * @throws XMLSignatureException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-     *
-     * @param signingKey the {@link java.security.PrivateKey} or
-     * {@link javax.crypto.SecretKey} that is used to sign.
-     * @throws XMLSignatureException
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-     * Proxy method for {@link SignedInfo#createSecretKey(byte[])}. If you want
-     * to create a MAC, this method helps you to obtain the
-     * {@link javax.crypto.SecretKey} from octets.
-     *
-     * @param secretKeyBytes
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-            Constants.XML_DSIG_NS_MORE_07_05 + "rsa-pss";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLSignature.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLSignature.class);
-
-    /** ds:Signature.ds:SignedInfo element */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Manifest.java`
-#### Snippet
-```java
-     * @return true if all References verify, false if one or more do not verify.
-     * @throws MissingResourceFailureException if a {@link Reference} does not verify
-     * (throws a {@link org.apache.xml.security.signature.ReferenceNotInitializedException}
-     * because of an uninitialized {@link XMLSignatureInput}
-     * @see org.apache.xml.security.signature.Reference#verify
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Manifest.java`
-#### Snippet
-```java
-     * (throws a {@link org.apache.xml.security.signature.ReferenceNotInitializedException}
-     * because of an uninitialized {@link XMLSignatureInput}
-     * @see org.apache.xml.security.signature.Reference#verify
-     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
-     * @see org.apache.xml.security.signature.MissingResourceFailureException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Manifest.java`
-#### Snippet
-```java
-     * because of an uninitialized {@link XMLSignatureInput}
-     * @see org.apache.xml.security.signature.Reference#verify
-     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
-     * @see org.apache.xml.security.signature.MissingResourceFailureException
-     * @throws XMLSecurityException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Manifest.java`
-#### Snippet
-```java
-     * @see org.apache.xml.security.signature.Reference#verify
-     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
-     * @see org.apache.xml.security.signature.MissingResourceFailureException
-     * @throws XMLSecurityException
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Manifest.java`
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
 #### Snippet
 ```java
     /**
-     * This <code>addDocument</code> method is used to add a new resource to the
-     * signed info. A {@link org.apache.xml.security.signature.Reference} is built
-     * from the supplied values.
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
+     * java.security.SecureRandom)}
+     * which is executed on the internal {@link java.security.Signature} object.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+#### Snippet
+```java
+public class SignatureAlgorithm extends Algorithm {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureAlgorithm.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureAlgorithm.class);
+
+    /** All available algorithm classes are registered here */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.spec` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#setParameter(
+     * java.security.spec.AlgorithmParameterSpec)}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest()}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest()}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#digest()} method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#digest()} method
+     */
+    public byte[] digest() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#isEqual}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#isEqual}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param digesta
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * @param digesta
+     * @param digestb
+     * @return the result of the {@link java.security.MessageDigest#isEqual} method
+     */
+    public static boolean isEqual(byte[] digesta, byte[] digestb) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte[], int, int)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte[], int, int)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param buf
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest(byte[], int, int)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest(byte[], int, int)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param buf
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * @param offset
+     * @param len
+     * @return the result of the {@link java.security.MessageDigest#digest(byte[], int, int)} method
+     * @throws java.security.DigestException
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * @throws java.security.DigestException
+     */
+    public int digest(byte[] buf, int offset, int len) throws java.security.DigestException {
+        return algorithm.digest(buf, offset, len);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte)}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param input
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte[])}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#update(byte[])}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param input
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+        Constants.XML_DSIG_NS_MORE_07_05 + "sha3-512";
+
+    /** Field algorithm stores the actual {@link java.security.MessageDigest} */
+    private final MessageDigest algorithm;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getProvider}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getProvider}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getProvider} method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getProvider} method
+     */
+    public java.security.Provider getJCEProvider() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * @return the result of the {@link java.security.MessageDigest#getProvider} method
+     */
+    public java.security.Provider getJCEProvider() {
+        return algorithm.getProvider();
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the actual {@link java.security.MessageDigest} algorithm object
+     *
+     * @return the actual {@link java.security.MessageDigest} algorithm object
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * Returns the actual {@link java.security.MessageDigest} algorithm object
+     *
+     * @return the actual {@link java.security.MessageDigest} algorithm object
+     */
+    public MessageDigest getAlgorithm() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getDigestLength}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getDigestLength}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getDigestLength} method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getDigestLength} method
+     */
+    public int getDigestLength() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getAlgorithm}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#getAlgorithm}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getAlgorithm} method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @return the result of the {@link java.security.MessageDigest#getAlgorithm} method
+     */
+    public String getJCEAlgorithmString() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest(byte[])}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#digest(byte[])}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     * @param input
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+     *
+     * @param input
+     * @return the result of the {@link java.security.MessageDigest#digest(byte[])} method
+     */
+    public byte[] digest(byte[] input) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.MessageDigest#reset}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/XMLSignatureInputDebugger.java`
+#### Snippet
+```java
+
+    /**
+     * Normalizes a {@link org.w3c.dom.Comment} value
+     *
+     * @param currentPI
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.MessageDigest#reset}
+     * which is executed on the internal {@link java.security.MessageDigest} object.
+     *
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9848,26 +10196,62 @@ in `src/main/java/org/apache/xml/security/signature/Manifest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Manifest.java`
 #### Snippet
 ```java
+     * @return true if all References verify, false if one or more do not verify.
+     * @throws MissingResourceFailureException if a {@link Reference} does not verify
+     * (throws a {@link org.apache.xml.security.signature.ReferenceNotInitializedException}
+     * because of an uninitialized {@link XMLSignatureInput}
+     * @see org.apache.xml.security.signature.Reference#verify
+```
 
-    /**
-     * Some InputStreams do not support the {@link java.io.InputStream#reset}
-     * method, so we read it in completely and work on our Proxy.
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Manifest.java`
+#### Snippet
+```java
+     * (throws a {@link org.apache.xml.security.signature.ReferenceNotInitializedException}
+     * because of an uninitialized {@link XMLSignatureInput}
+     * @see org.apache.xml.security.signature.Reference#verify
+     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
+     * @see org.apache.xml.security.signature.MissingResourceFailureException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Manifest.java`
+#### Snippet
+```java
+     * because of an uninitialized {@link XMLSignatureInput}
+     * @see org.apache.xml.security.signature.Reference#verify
+     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
+     * @see org.apache.xml.security.signature.MissingResourceFailureException
+     * @throws XMLSecurityException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Manifest.java`
+#### Snippet
+```java
+     * @see org.apache.xml.security.signature.Reference#verify
+     * @see org.apache.xml.security.signature.SignedInfo#verify(boolean)
+     * @see org.apache.xml.security.signature.MissingResourceFailureException
+     * @throws XMLSecurityException
      */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Manifest.java`
 #### Snippet
 ```java
-
     /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
-     * which is executed on the internal {@link java.security.Signature} object.
+     * This <code>addDocument</code> method is used to add a new resource to the
+     * signed info. A {@link org.apache.xml.security.signature.Reference} is built
+     * from the supplied values.
      *
 ```
 
@@ -9878,7 +10262,31 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 ```java
 
     /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
+     * java.security.SecureRandom)}
+     * which is executed on the internal {@link java.security.Signature} object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
+     * java.security.SecureRandom)}
+     * which is executed on the internal {@link java.security.Signature} object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
+     * java.security.SecureRandom)}
      * which is executed on the internal {@link java.security.Signature} object.
      *
 ```
@@ -9888,8 +10296,8 @@ Qualifier `java.security` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 #### Snippet
 ```java
-    /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
+     * java.security.SecureRandom)}
      * which is executed on the internal {@link java.security.Signature} object.
      *
      * @param signingKey
@@ -9902,7 +10310,7 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 ```java
 
     /**
-     * Proxy method for {@link java.security.Signature#sign()}
+     * Proxy method for {@link java.security.Signature#update(byte[])}
      * which is executed on the internal {@link java.security.Signature} object.
      *
 ```
@@ -9913,22 +10321,10 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 #### Snippet
 ```java
     /**
-     * Proxy method for {@link java.security.Signature#sign()}
+     * Proxy method for {@link java.security.Signature#update(byte[])}
      * which is executed on the internal {@link java.security.Signature} object.
      *
-     * @return the result of the {@link java.security.Signature#sign()} method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-     * @return the result of the {@link java.security.Signature#sign()} method
-     * @throws XMLSignatureException
-     */
+     * @param input
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9974,31 +10370,7 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 ```java
 
     /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
-     * java.security.SecureRandom)}
-     * which is executed on the internal {@link java.security.Signature} object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
-     * java.security.SecureRandom)}
-     * which is executed on the internal {@link java.security.Signature} object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
-     * java.security.SecureRandom)}
+     * Proxy method for {@link java.security.Signature#update(byte[], int, int)}
      * which is executed on the internal {@link java.security.Signature} object.
      *
 ```
@@ -10008,8 +10380,68 @@ Qualifier `java.security` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 #### Snippet
 ```java
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
-     * java.security.SecureRandom)}
+    /**
+     * Proxy method for {@link java.security.Signature#update(byte[], int, int)}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+     * @param buf
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.Signature#verify(byte[])}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#verify(byte[])}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+     * @param signature
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+
+    /**
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey)}
      * which is executed on the internal {@link java.security.Signature} object.
      *
      * @param signingKey
@@ -10058,6 +10490,42 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
 ```java
 
     /**
+     * Proxy method for {@link java.security.Signature#sign()}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#sign()}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+     * @return the result of the {@link java.security.Signature#sign()} method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+     * @return the result of the {@link java.security.Signature#sign()} method
+     * @throws XMLSignatureException
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
+#### Snippet
+```java
+
+    /**
      * Proxy method for {@link java.security.Signature#update(byte[])}
      * which is executed on the internal {@link java.security.Signature} object.
      *
@@ -10073,510 +10541,6 @@ in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
      * which is executed on the internal {@link java.security.Signature} object.
      *
      * @param input
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.Signature#update(byte[])}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.Signature#update(byte[])}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-     * @param input
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.Signature#verify(byte[])}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.Signature#verify(byte[])}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-     * @param signature
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.Signature#update(byte[], int, int)}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithmSpi.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.Signature#update(byte[], int, int)}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-     * @param buf
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest()}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest()}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#digest()} method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#digest()} method
-     */
-    public byte[] digest() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getAlgorithm}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getAlgorithm}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getAlgorithm} method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getAlgorithm} method
-     */
-    public String getJCEAlgorithmString() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Returns the actual {@link java.security.MessageDigest} algorithm object
-     *
-     * @return the actual {@link java.security.MessageDigest} algorithm object
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * Returns the actual {@link java.security.MessageDigest} algorithm object
-     *
-     * @return the actual {@link java.security.MessageDigest} algorithm object
-     */
-    public MessageDigest getAlgorithm() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#isEqual}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#isEqual}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param digesta
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * @param digesta
-     * @param digestb
-     * @return the result of the {@link java.security.MessageDigest#isEqual} method
-     */
-    public static boolean isEqual(byte[] digesta, byte[] digestb) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte[])}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte[])}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param input
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-        Constants.XML_DSIG_NS_MORE_07_05 + "sha3-512";
-
-    /** Field algorithm stores the actual {@link java.security.MessageDigest} */
-    private final MessageDigest algorithm;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param input
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest(byte[], int, int)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest(byte[], int, int)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param buf
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * @param offset
-     * @param len
-     * @return the result of the {@link java.security.MessageDigest#digest(byte[], int, int)} method
-     * @throws java.security.DigestException
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * @throws java.security.DigestException
-     */
-    public int digest(byte[] buf, int offset, int len) throws java.security.DigestException {
-        return algorithm.digest(buf, offset, len);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getDigestLength}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getDigestLength}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getDigestLength} method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getDigestLength} method
-     */
-    public int getDigestLength() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte[], int, int)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#update(byte[], int, int)}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param buf
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getProvider}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#getProvider}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getProvider} method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @return the result of the {@link java.security.MessageDigest#getProvider} method
-     */
-    public java.security.Provider getJCEProvider() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     * @return the result of the {@link java.security.MessageDigest#getProvider} method
-     */
-    public java.security.Provider getJCEProvider() {
-        return algorithm.getProvider();
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest(byte[])}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#digest(byte[])}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     * @param input
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-     *
-     * @param input
-     * @return the result of the {@link java.security.MessageDigest#digest(byte[])} method
-     */
-    public byte[] digest(byte[] input) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-
-    /**
-     * Proxy method for {@link java.security.MessageDigest#reset}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/MessageDigestAlgorithm.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.MessageDigest#reset}
-     * which is executed on the internal {@link java.security.MessageDigest} object.
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
-#### Snippet
-```java
-public class JCEMapper {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(JCEMapper.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(JCEMapper.class);
-
-    private static Map<String, Algorithm> algorithmsMap = new ConcurrentHashMap<>();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10604,51 +10568,27 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureED
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/XMLSignatureInputDebugger.java`
-#### Snippet
-```java
-
-    /**
-     * Normalizes a {@link org.w3c.dom.Comment} value
-     *
-     * @param currentPI
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/signature/Reference.java`
-#### Snippet
-```java
- * This includes:
- *
- * Construct a <CODE>ds:Reference</CODE> from an {@link org.w3c.dom.Element}.
- *
- * <p>Create a new reference</p>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/signature/Reference.java`
+in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
-            () -> Boolean.getBoolean("org.apache.xml.security.useC14N11"));
+public class JCEMapper {
 
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Reference.class);
+        org.slf4j.LoggerFactory.getLogger(JCEMapper.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/signature/Reference.java`
+in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
 
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Reference.class);
+        org.slf4j.LoggerFactory.getLogger(JCEMapper.class);
 
-    private Manifest manifest;
+    private static Map<String, Algorithm> algorithmsMap = new ConcurrentHashMap<>();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10661,6 +10601,54 @@ in `src/main/java/org/apache/xml/security/encryption/Transforms.java`
  * @see org.apache.xml.security.encryption.CipherReference
  */
 public interface Transforms {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.spec` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
+#### Snippet
+```java
+    /**
+     * Proxy method for {@link java.security.Signature#setParameter(
+     * java.security.spec.AlgorithmParameterSpec)}
+     * which is executed on the internal {@link java.security.Signature} object.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
+#### Snippet
+```java
+        try {
+            this.macAlgorithm = (provider == null) ? Mac.getInstance(algorithmID) : Mac.getInstance(algorithmID, provider);
+        } catch (java.security.NoSuchAlgorithmException ex) {
+            Object[] exArgs = { algorithmID, ex.getLocalizedMessage() };
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
+#### Snippet
+```java
+public abstract class IntegrityHmac extends SignatureAlgorithmSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(IntegrityHmac.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(IntegrityHmac.class);
+
+    /** Field macAlgorithm */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10689,50 +10677,74 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureDS
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
-    /**
-     * Proxy method for {@link java.security.Signature#initSign(java.security.PrivateKey,
-     * java.security.SecureRandom)}
-     * which is executed on the internal {@link java.security.Signature} object.
+     * if the Signatures match on the SignedInfo.
      *
+     * @param pk {@link java.security.PublicKey} part of the keypair or
+     * {@link javax.crypto.SecretKey} that was used to sign
+     * @return true if the signature is valid, false otherwise
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+#### Snippet
+```java
+     *
+     * @param pk {@link java.security.PublicKey} part of the keypair or
+     * {@link javax.crypto.SecretKey} that was used to sign
+     * @return true if the signature is valid, false otherwise
+     * @throws XMLSignatureException
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
-public class SignatureAlgorithm extends Algorithm {
+            Constants.XML_DSIG_NS_MORE_07_05 + "rsa-pss";
 
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureAlgorithm.class);
+        org.slf4j.LoggerFactory.getLogger(XMLSignature.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
 
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureAlgorithm.class);
+        org.slf4j.LoggerFactory.getLogger(XMLSignature.class);
 
-    /** All available algorithm classes are registered here */
+    /** ds:Signature.ds:SignedInfo element */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security.spec` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/SignatureAlgorithm.java`
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
 #### Snippet
 ```java
-    /**
-     * Proxy method for {@link java.security.Signature#setParameter(
-     * java.security.spec.AlgorithmParameterSpec)}
-     * which is executed on the internal {@link java.security.Signature} object.
      *
+     * @param signingKey the {@link java.security.PrivateKey} or
+     * {@link javax.crypto.SecretKey} that is used to sign.
+     * @throws XMLSignatureException
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+#### Snippet
+```java
+     * Proxy method for {@link SignedInfo#createSecretKey(byte[])}. If you want
+     * to create a MAC, this method helps you to obtain the
+     * {@link javax.crypto.SecretKey} from octets.
+     *
+     * @param secretKeyBytes
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10757,6 +10769,66 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureEC
         org.slf4j.LoggerFactory.getLogger(SignatureECDSA.class);
 
     private final Signature signatureAlgorithm;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/signature/Reference.java`
+#### Snippet
+```java
+            () -> Boolean.getBoolean("org.apache.xml.security.useC14N11"));
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Reference.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/signature/Reference.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Reference.class);
+
+    private Manifest manifest;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/signature/Reference.java`
+#### Snippet
+```java
+ * This includes:
+ *
+ * Construct a <CODE>ds:Reference</CODE> from an {@link org.w3c.dom.Element}.
+ *
+ * <p>Create a new reference</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureBaseRSA.java`
+#### Snippet
+```java
+public abstract class SignatureBaseRSA extends SignatureAlgorithmSpi {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureBaseRSA.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureBaseRSA.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureBaseRSA.class);
+
+    /** Field algorithm */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10808,90 +10880,6 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipherInput.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security.spec` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-    /**
-     * Proxy method for {@link java.security.Signature#setParameter(
-     * java.security.spec.AlgorithmParameterSpec)}
-     * which is executed on the internal {@link java.security.Signature} object.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-public abstract class IntegrityHmac extends SignatureAlgorithmSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(IntegrityHmac.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(IntegrityHmac.class);
-
-    /** Field macAlgorithm */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-        try {
-            this.macAlgorithm = (provider == null) ? Mac.getInstance(algorithmID) : Mac.getInstance(algorithmID, provider);
-        } catch (java.security.NoSuchAlgorithmException ex) {
-            Object[] exArgs = { algorithmID, ex.getLocalizedMessage() };
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureBaseRSA.java`
-#### Snippet
-```java
-public abstract class SignatureBaseRSA extends SignatureAlgorithmSpi {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureBaseRSA.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureBaseRSA.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureBaseRSA.class);
-
-    /** Field algorithm */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.transforms` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/transforms/Transforms.java`
-#### Snippet
-```java
-
-/**
- * Holder of the {@link org.apache.xml.security.transforms.Transform} steps to
- * be performed on the data.
- * The input to the first Transform is the result of dereferencing the
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/xml/security/transforms/Transforms.java`
 #### Snippet
@@ -10913,6 +10901,18 @@ in `src/main/java/org/apache/xml/security/transforms/Transforms.java`
         org.slf4j.LoggerFactory.getLogger(Transforms.class);
 
     private Element[] transformsElement;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.transforms` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/transforms/Transforms.java`
+#### Snippet
+```java
+
+/**
+ * Holder of the {@link org.apache.xml.security.transforms.Transform} steps to
+ * be performed on the data.
+ * The input to the first Transform is the result of dereferencing the
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10964,30 +10964,6 @@ in `src/main/java/org/apache/xml/security/transforms/implementations/TransformXP
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/transforms/Transform.java`
-#### Snippet
-```java
-public final class Transform extends SignatureElementProxy {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Transform.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/transforms/Transform.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Transform.class);
-
-    /** All available Transform classes are registered here */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.xml.security.signature` is unnecessary and can be removed
 in `src/main/java/org/apache/xml/security/transforms/implementations/TransformEnvelopedSignature.java`
 #### Snippet
@@ -11009,6 +10985,30 @@ in `src/main/java/org/apache/xml/security/transforms/implementations/TransformEn
          * @see org.apache.xml.security.signature.NodeFilter#isNodeInclude(org.w3c.dom.Node)
          */
         public int isNodeInclude(Node n) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/transforms/Transform.java`
+#### Snippet
+```java
+public final class Transform extends SignatureElementProxy {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Transform.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/transforms/Transform.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Transform.class);
+
+    /** All available Transform classes are registered here */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11057,6 +11057,54 @@ in `src/main/java/org/apache/xml/security/transforms/implementations/TransformXP
      * @see org.apache.xml.security.signature.NodeFilter#isNodeInclude(org.w3c.dom.Node)
      */
     public int isNodeInclude(Node currentNode) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+     * @throws XMLEncryptionException
+     * @return the XMLCipher
+     * @see javax.crypto.Cipher#getInstance(java.lang.String)
+     */
+    public static XMLCipher getInstance(String transformation) throws XMLEncryptionException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+     * @throws XMLEncryptionException
+     * @return the XMLCipher
+     * @see javax.crypto.Cipher#getInstance(java.lang.String)
+     */
+    public static XMLCipher getInstance(String transformation) throws XMLEncryptionException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+public class XMLCipher {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLCipher.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLCipher.class);
+
+    /** Triple DES EDE (192 bit key) in CBC mode */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11155,67 +11203,7 @@ in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
             boolean result = false;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-public class XMLCipher {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLCipher.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLCipher.class);
-
-    /** Triple DES EDE (192 bit key) in CBC mode */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-     * @throws XMLEncryptionException
-     * @return the XMLCipher
-     * @see javax.crypto.Cipher#getInstance(java.lang.String)
-     */
-    public static XMLCipher getInstance(String transformation) throws XMLEncryptionException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/xml/security/encryption/XMLCipher.java`
-#### Snippet
-```java
-     * @throws XMLEncryptionException
-     * @return the XMLCipher
-     * @see javax.crypto.Cipher#getInstance(java.lang.String)
-     */
-    public static XMLCipher getInstance(String transformation) throws XMLEncryptionException {
-```
-
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `DOMKeyValue()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
-#### Snippet
-```java
-     * @param kvtElem a KeyValue child element
-     */
-    public DOMKeyValue(Element kvtElem) throws MarshalException {
-        this.publicKey = unmarshalKeyValue(kvtElem);
-    }
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `DOMKeyValue()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
@@ -11229,15 +11217,27 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Canonicalizer20010315()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315.java`
+Constructor `DOMKeyValue()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 #### Snippet
 ```java
-     * @param c14n11 Whether this is a Canonical XML 1.1 implementation or not
+     * @param kvtElem a KeyValue child element
      */
-    public Canonicalizer20010315(boolean includeComments, boolean c14n11) {
+    public DOMKeyValue(Element kvtElem) throws MarshalException {
+        this.publicKey = unmarshalKeyValue(kvtElem);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Canonicalizer20010315Excl()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+#### Snippet
+```java
+     * @param includeComments
+     */
+    public Canonicalizer20010315Excl(boolean includeComments) {
         super(includeComments);
-        xmlattrStack = new XmlAttrStack(c14n11);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11253,15 +11253,15 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer2001
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Canonicalizer20010315Excl()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315Excl.java`
+Constructor `Canonicalizer20010315()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/c14n/implementations/Canonicalizer20010315.java`
 #### Snippet
 ```java
-     * @param includeComments
+     * @param c14n11 Whether this is a Canonical XML 1.1 implementation or not
      */
-    public Canonicalizer20010315Excl(boolean includeComments) {
+    public Canonicalizer20010315(boolean includeComments, boolean c14n11) {
         super(includeComments);
-    }
+        xmlattrStack = new XmlAttrStack(c14n11);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11289,6 +11289,18 @@ in `src/main/java/org/apache/xml/security/stax/ext/AbstractInputProcessor.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AbstractSignatureReferenceVerifyInputProcessor()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractSignatureReferenceVerifyInputProcessor.java`
+#### Snippet
+```java
+    private final List<ReferenceType> processedReferences;
+
+    public AbstractSignatureReferenceVerifyInputProcessor(
+            InputProcessorChain inputProcessorChain,
+            SignatureType signatureType, InboundSecurityToken inboundSecurityToken,
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractEncryptEndingOutputProcessor()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractEncryptEndingOutputProcessor.java`
 #### Snippet
@@ -11301,15 +11313,15 @@ public abstract class AbstractEncryptEndingOutputProcessor extends AbstractBuffe
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSignatureReferenceVerifyInputProcessor()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractSignatureReferenceVerifyInputProcessor.java`
+Constructor `SignatureVerifier()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractSignatureInputHandler.java`
 #### Snippet
 ```java
-    private final List<ReferenceType> processedReferences;
+        private Transformer transformer;
 
-    public AbstractSignatureReferenceVerifyInputProcessor(
-            InputProcessorChain inputProcessorChain,
-            SignatureType signatureType, InboundSecurityToken inboundSecurityToken,
+        public SignatureVerifier(SignatureType signatureType, InboundSecurityContext inboundSecurityContext,
+                                 XMLSecurityProperties securityProperties) throws XMLSecurityException {
+            this.signatureType = signatureType;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11325,15 +11337,15 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractSig
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SignatureVerifier()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractSignatureInputHandler.java`
+Constructor `AbstractDecryptInputProcessor()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractDecryptInputProcessor.java`
 #### Snippet
 ```java
-        private Transformer transformer;
+    private final ArrayDeque<XMLSecEvent> tmpXmlEventList = new ArrayDeque<>();
 
-        public SignatureVerifier(SignatureType signatureType, InboundSecurityContext inboundSecurityContext,
-                                 XMLSecurityProperties securityProperties) throws XMLSecurityException {
-            this.signatureType = signatureType;
+    public AbstractDecryptInputProcessor(XMLSecurityProperties securityProperties) throws XMLSecurityException {
+        super(securityProperties);
+        keyInfoType = null;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11361,30 +11373,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractDecr
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractDecryptInputProcessor()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/AbstractDecryptInputProcessor.java`
-#### Snippet
-```java
-    private final ArrayDeque<XMLSecEvent> tmpXmlEventList = new ArrayDeque<>();
-
-    public AbstractDecryptInputProcessor(XMLSecurityProperties securityProperties) throws XMLSecurityException {
-        super(securityProperties);
-        keyInfoType = null;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Canonicalizer20010315()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315.java`
-#### Snippet
-```java
-public abstract class Canonicalizer20010315 extends CanonicalizerBase {
-
-    public Canonicalizer20010315(boolean includeComments) {
-        super(includeComments);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractInternalEncryptionOutputProcessor()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractEncryptOutputProcessor.java`
 #### Snippet
@@ -11405,6 +11393,18 @@ in `src/main/java/org/apache/xml/security/stax/impl/processor/output/AbstractEnc
 
     public AbstractEncryptOutputProcessor() throws XMLSecurityException {
         super();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Canonicalizer20010315()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315.java`
+#### Snippet
+```java
+public abstract class Canonicalizer20010315 extends CanonicalizerBase {
+
+    public Canonicalizer20010315(boolean includeComments) {
+        super(includeComments);
     }
 ```
 
@@ -11445,14 +11445,14 @@ in `src/main/java/org/apache/xml/security/stax/impl/securityToken/AbstractInboun
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractElementSecurityEvent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractElementSecurityEvent.java`
+Constructor `Canonicalizer20010315_Excl()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315_Excl.java`
 #### Snippet
 ```java
-    private XMLSecEvent xmlSecEvent;
+    protected boolean propagateDefaultNamespace = false;
 
-    public AbstractElementSecurityEvent(SecurityEventConstants.Event securityEventType) {
-        super(securityEventType);
+    public Canonicalizer20010315_Excl(boolean includeComments) {
+        super(includeComments);
     }
 ```
 
@@ -11469,63 +11469,15 @@ in `src/main/java/org/apache/xml/security/stax/securityEvent/TokenSecurityEvent.
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Canonicalizer20010315_Excl()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315_Excl.java`
+Constructor `AbstractElementSecurityEvent()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractElementSecurityEvent.java`
 #### Snippet
 ```java
-    protected boolean propagateDefaultNamespace = false;
+    private XMLSecEvent xmlSecEvent;
 
-    public Canonicalizer20010315_Excl(boolean includeComments) {
-        super(includeComments);
+    public AbstractElementSecurityEvent(SecurityEventConstants.Event securityEventType) {
+        super(securityEventType);
     }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSecuredElementSecurityEvent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractSecuredElementSecurityEvent.java`
-#### Snippet
-```java
-    }
-
-    public AbstractSecuredElementSecurityEvent(
-            SecurityEventConstants.Event securityEventType, SecurityToken securityToken,
-            List<XMLSecurityConstants.ContentType> protectionOrder, boolean signed, boolean encrypted) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSecuredElementSecurityEvent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractSecuredElementSecurityEvent.java`
-#### Snippet
-```java
-    private List<XMLSecurityConstants.ContentType> protectionOrder;
-
-    public AbstractSecuredElementSecurityEvent(
-            SecurityEventConstants.Event securityEventType, SecurityToken securityToken,
-            List<XMLSecurityConstants.ContentType> protectionOrder) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Signature11ElementProxy()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/utils/Signature11ElementProxy.java`
-#### Snippet
-```java
-     * @param doc
-     */
-    public Signature11ElementProxy(Document doc) {
-        if (doc == null) {
-            throw new RuntimeException("Document is null");
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Signature11ElementProxy()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/utils/Signature11ElementProxy.java`
-#### Snippet
-```java
-     * @throws XMLSecurityException
-     */
-    public Signature11ElementProxy(Element element, String baseURI) throws XMLSecurityException {
-        super(element, baseURI);
-
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11541,15 +11493,51 @@ in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Ca
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SignatureElementProxy()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/utils/SignatureElementProxy.java`
+Constructor `AbstractSecuredElementSecurityEvent()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractSecuredElementSecurityEvent.java`
+#### Snippet
+```java
+    private List<XMLSecurityConstants.ContentType> protectionOrder;
+
+    public AbstractSecuredElementSecurityEvent(
+            SecurityEventConstants.Event securityEventType, SecurityToken securityToken,
+            List<XMLSecurityConstants.ContentType> protectionOrder) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractSecuredElementSecurityEvent()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/stax/securityEvent/AbstractSecuredElementSecurityEvent.java`
+#### Snippet
+```java
+    }
+
+    public AbstractSecuredElementSecurityEvent(
+            SecurityEventConstants.Event securityEventType, SecurityToken securityToken,
+            List<XMLSecurityConstants.ContentType> protectionOrder, boolean signed, boolean encrypted) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Signature11ElementProxy()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/utils/Signature11ElementProxy.java`
 #### Snippet
 ```java
      * @throws XMLSecurityException
      */
-    public SignatureElementProxy(Element element, String baseURI) throws XMLSecurityException {
+    public Signature11ElementProxy(Element element, String baseURI) throws XMLSecurityException {
         super(element, baseURI);
 
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Signature11ElementProxy()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/utils/Signature11ElementProxy.java`
+#### Snippet
+```java
+     * @param doc
+     */
+    public Signature11ElementProxy(Document doc) {
+        if (doc == null) {
+            throw new RuntimeException("Document is null");
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11565,15 +11553,27 @@ in `src/main/java/org/apache/xml/security/utils/SignatureElementProxy.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ElementProxy()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+Constructor `SignatureElementProxy()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/utils/SignatureElementProxy.java`
 #### Snippet
 ```java
      * @throws XMLSecurityException
      */
-    public ElementProxy(Element element, String baseURI) throws XMLSecurityException {
-        if (element == null) {
-            throw new XMLSecurityException("ElementProxy.nullElement");
+    public SignatureElementProxy(Element element, String baseURI) throws XMLSecurityException {
+        super(element, baseURI);
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ElementProxy()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+     *
+     */
+    public ElementProxy() {
+    }
+
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11593,11 +11593,11 @@ Constructor `ElementProxy()` of an abstract class should not be declared 'public
 in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
 #### Snippet
 ```java
-     *
+     * @throws XMLSecurityException
      */
-    public ElementProxy() {
-    }
-
+    public ElementProxy(Element element, String baseURI) throws XMLSecurityException {
+        if (element == null) {
+            throw new XMLSecurityException("ElementProxy.nullElement");
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11629,6 +11629,18 @@ Constructor `SignatureEDDSA()` of an abstract class should not be declared 'publ
 in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureEDDSA.java`
 #### Snippet
 ```java
+    }
+
+    public SignatureEDDSA(Provider provider) throws XMLSignatureException {
+        String algorithmID = JCEMapper.translateURItoJCEID(this.engineGetURI());
+        LOG.debug("Created SignatureEDDSA using {}", algorithmID);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SignatureEDDSA()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureEDDSA.java`
+#### Snippet
+```java
      * @throws XMLSignatureException
      */
     public SignatureEDDSA() throws XMLSignatureException {
@@ -11637,15 +11649,27 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureED
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SignatureEDDSA()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureEDDSA.java`
+Constructor `IntegrityHmac()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
 #### Snippet
 ```java
     }
 
-    public SignatureEDDSA(Provider provider) throws XMLSignatureException {
+    public IntegrityHmac(Provider provider) throws XMLSignatureException {
         String algorithmID = JCEMapper.translateURItoJCEID(this.engineGetURI());
-        LOG.debug("Created SignatureEDDSA using {}", algorithmID);
+        LOG.debug("Created IntegrityHmacSHA1 using {}", algorithmID);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `IntegrityHmac()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
+#### Snippet
+```java
+     * @throws XMLSignatureException
+     */
+    public IntegrityHmac() throws XMLSignatureException {
+        this(null);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11670,30 +11694,6 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/SignatureEC
     public SignatureECDSA() throws XMLSignatureException {
         this(null);
     }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `IntegrityHmac()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-     * @throws XMLSignatureException
-     */
-    public IntegrityHmac() throws XMLSignatureException {
-        this(null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `IntegrityHmac()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/xml/security/algorithms/implementations/IntegrityHmac.java`
-#### Snippet
-```java
-    }
-
-    public IntegrityHmac(Provider provider) throws XMLSignatureException {
-        String algorithmID = JCEMapper.translateURItoJCEID(this.engineGetURI());
-        LOG.debug("Created IntegrityHmacSHA1 using {}", algorithmID);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11862,8 +11862,8 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
 ```java
         }
 
-        securityProperties = validateAndApplyDefaultsToOutboundSecurityProperties(securityProperties);
-        return new OutboundXMLSec(securityProperties);
+        securityProperties = validateAndApplyDefaultsToInboundSecurityProperties(securityProperties);
+        return new InboundXMLSec(securityProperties);
     }
 ```
 
@@ -11874,8 +11874,8 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSec.java`
 ```java
         }
 
-        securityProperties = validateAndApplyDefaultsToInboundSecurityProperties(securityProperties);
-        return new InboundXMLSec(securityProperties);
+        securityProperties = validateAndApplyDefaultsToOutboundSecurityProperties(securityProperties);
+        return new OutboundXMLSec(securityProperties);
     }
 ```
 
@@ -11988,20 +11988,8 @@ in `src/main/java/org/apache/xml/security/utils/DOMNamespaceContext.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-    public static final String  encode(byte[] binaryData, int length) {
-        if (length < 4) {
-            length = Integer.MAX_VALUE;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `bitlen`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 #### Snippet
 ```java
 
@@ -12009,42 +11997,6 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
         bitlen = ((bitlen + 7) >> 3) << 3;
 
         if (bitlen < big.bitLength()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bitlen`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-
-        //round bitlen
-        bitlen = ((bitlen + 7) >> 3) << 3;
-
-        if (bitlen < big.bitLength()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        // remove white spaces
-        if (len == -1) {
-            len = removeWhiteSpace(base64Data);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/xml/security/utils/Base64.java`
-#### Snippet
-```java
-        // remove white spaces
-        if (len == -1) {
-            len = removeWhiteSpace(base64Data);
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -12096,8 +12048,152 @@ in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bitlen`
+Assignment to method parameter `number`
 in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                    return (Element)sibling;
+                }
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sibling`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `number`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                    return (Element)sibling;
+                }
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sibling`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `number`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                    return (Element)sibling;
+                }
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sibling`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                number--;
+            }
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bitlen`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
 
@@ -12108,147 +12204,51 @@ in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `number`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Assignment to method parameter `len`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-                    return (Element)sibling;
-                }
-                number--;
-            }
-            sibling = sibling.getNextSibling();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sibling`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-                number--;
-            }
-            sibling = sibling.getNextSibling();
+        // remove white spaces
+        if (len == -1) {
+            len = removeWhiteSpace(base64Data);
         }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
 
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Assignment to method parameter `len`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
+        // remove white spaces
+        if (len == -1) {
+            len = removeWhiteSpace(base64Data);
         }
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `number`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Assignment to method parameter `length`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-                    return (Element)sibling;
-                }
-                number--;
-            }
-            sibling = sibling.getNextSibling();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sibling`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-                number--;
-            }
-            sibling = sibling.getNextSibling();
+    public static final String  encode(byte[] binaryData, int length) {
+        if (length < 4) {
+            length = Integer.MAX_VALUE;
         }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `number`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-                    return (Element)sibling;
-                }
-                number--;
-            }
-            sibling = sibling.getNextSibling();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sibling`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-                number--;
-            }
-            sibling = sibling.getNextSibling();
-        }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
 
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+Assignment to method parameter `bitlen`
+in `src/main/java/org/apache/xml/security/utils/Base64.java`
 #### Snippet
 ```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
-        }
+
+        //round bitlen
+        bitlen = ((bitlen + 7) >> 3) << 3;
+
+        if (bitlen < big.bitLength()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -12302,18 +12302,6 @@ in `src/main/java/org/apache/xml/security/transforms/implementations/TransformEn
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/Utils.java`
-#### Snippet
-```java
-    public static String parseIdFromSameDocumentURI(String uri) {
-        if (uri.length() == 0) {
-            return null;
-        }
-        String id = uri.substring(1);
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
 #### Snippet
 ```java
@@ -12322,6 +12310,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
         return (attr == null) ? null : attr.getValue();
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
+#### Snippet
+```java
+                (nsURI, context.getDefaultNamespacePrefix());
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -12338,14 +12338,14 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMUtils.java`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/Utils.java`
 #### Snippet
 ```java
-                (nsURI, context.getDefaultNamespacePrefix());
-        } else {
+    public static String parseIdFromSameDocumentURI(String uri) {
+        if (uri.length() == 0) {
             return null;
         }
-    }
+        String id = uri.substring(1);
 ```
 
 ### ReturnNull
@@ -12386,18 +12386,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMPGPData.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheCanonicalizer.java`
-#### Snippet
-```java
-            return ((ByteArrayOutputStream)outputStream).toByteArray();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRetrievalMethod.java`
 #### Snippet
 ```java
@@ -12410,6 +12398,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMRetrievalMethod.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheCanonicalizer.java`
+#### Snippet
+```java
+            return ((ByteArrayOutputStream)outputStream).toByteArray();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 #### Snippet
 ```java
@@ -12418,6 +12418,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
             return (value == null) ? null : value.clone();
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
+#### Snippet
+```java
+                in = transform.performTransform(in, os, secVal);
+                if (!in.isNodeSet() && !in.isElement()) {
+                    return null;
+                }
+            } else {
 ```
 
 ### ReturnNull
@@ -12437,18 +12449,6 @@ Return of `null`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 #### Snippet
 ```java
-                return SECP521R1;
-            } else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
-#### Snippet
-```java
         PublicKey unmarshalKeyValue(Element kvElem) throws MarshalException {
             externalPublicKey = new javax.xml.crypto.dom.DOMStructure(kvElem);
             return null;
@@ -12461,47 +12461,23 @@ Return of `null`
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 #### Snippet
 ```java
+                return SECP521R1;
+            } else {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
+#### Snippet
+```java
                 match = SECP521R1;
             } else {
                 return null;
             }
             return match.getObjectId();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/ApacheTransform.java`
-#### Snippet
-```java
-                in = transform.performTransform(in, os, secVal);
-                if (!in.isNodeSet() && !in.isElement()) {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
-#### Snippet
-```java
-                    // LOG a warning
-                    LOG.warn("cannot cache dereferenced data: " + e);
-                    return null;
-                }
-            } else if (xsi.isElement()) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
-#### Snippet
-```java
-                    // LOG a warning
-                    LOG.warn("cannot cache dereferenced data: " + ioe);
-                    return null;
-                }
-            }
 ```
 
 ### ReturnNull
@@ -12530,26 +12506,38 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 #### Snippet
 ```java
-                return ob.n;
-            }
-            return null;
-        }
-
+                    // LOG a warning
+                    LOG.warn("cannot cache dereferenced data: " + e);
+                    return null;
+                }
+            } else if (xsi.isElement()) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMReference.java`
 #### Snippet
 ```java
-        if (ob != null && ob.lastrendered != null && ob.lastrendered.equals(uri)) {
-            ne.rendered = true;
-            return null;
-        }
-        return ne.n;
+                    // LOG a warning
+                    LOG.warn("cannot cache dereferenced data: " + ioe);
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/Init.java`
+#### Snippet
+```java
+                            System.getProperty("org.apache.xml.security.resource.config");
+                        if (cfile == null) {
+                            return null;
+                        }
+                        return ClassLoaderUtils.getResourceAsStream(cfile, Init.class);
 ```
 
 ### ReturnNull
@@ -12614,14 +12602,26 @@ in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTabl
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/Init.java`
+in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
 #### Snippet
 ```java
-                            System.getProperty("org.apache.xml.security.resource.config");
-                        if (cfile == null) {
-                            return null;
-                        }
-                        return ClassLoaderUtils.getResourceAsStream(cfile, Init.class);
+                return ob.n;
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/c14n/implementations/NameSpaceSymbTable.java`
+#### Snippet
+```java
+        if (ob != null && ob.lastrendered != null && ob.lastrendered.equals(uri)) {
+            ne.rendered = true;
+            return null;
+        }
+        return ne.n;
 ```
 
 ### ReturnNull
@@ -12662,10 +12662,46 @@ in `src/main/java/org/apache/xml/security/keys/content/x509/XMLX509Certificate.j
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-            return new XMLX509CRL(e, this.baseURI);
+            return new KeyValue(e, this.baseURI);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+            return new KeyName(e, this.baseURI);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+            return new KeyInfoReference(e, this.baseURI);
         }
         return null;
     }
@@ -12689,7 +12725,7 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 #### Snippet
 ```java
-            return new XMLX509IssuerSerial(e, this.baseURI);
+            return new XMLX509SKI(e, this.baseURI);
         }
         return null;
     }
@@ -12701,7 +12737,7 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 #### Snippet
 ```java
-            return new XMLX509SKI(e, this.baseURI);
+            return new XMLX509CRL(e, this.baseURI);
         }
         return null;
     }
@@ -12725,6 +12761,18 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 #### Snippet
 ```java
+            return new XMLX509Digest(e, this.baseURI);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
+#### Snippet
+```java
             return new XMLX509Certificate(e, this.baseURI);
         }
         return null;
@@ -12737,68 +12785,8 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/content/X509Data.java`
 #### Snippet
 ```java
-            return new XMLX509Digest(e, this.baseURI);
+            return new XMLX509IssuerSerial(e, this.baseURI);
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            return new SPKIData(e, this.baseURI);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        LOG.debug("I couldn't find a X509Certificate using the system-wide key resolvers");
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            return new RetrievalMethod(e, this.baseURI);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -12821,66 +12809,6 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            return new KeyInfoReference(e, this.baseURI);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
             return new X509Data(e, this.baseURI);
         }
         return null;
@@ -12893,44 +12821,8 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-            return new KeyValue(e, this.baseURI);
+            }
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-            return new PGPData(e, this.baseURI);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
-#### Snippet
-```java
-        LOG.debug("I couldn't find a secret key using the system-wide key resolvers");
-
         return null;
     }
 
@@ -12965,6 +12857,18 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
+        LOG.debug("I couldn't find a X509Certificate using the system-wide key resolvers");
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
         LOG.debug("I couldn't find a key using the system-wide key resolvers");
 
         return null;
@@ -12977,8 +12881,44 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-            return new KeyName(e, this.baseURI);
         }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -13013,6 +12953,30 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
+            return new PGPData(e, this.baseURI);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
+#### Snippet
+```java
             }
         }
         return null;
@@ -13034,38 +12998,38 @@ in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/storage/StorageResolver.java`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-            }
-
-            return null;
+            return new SPKIData(e, this.baseURI);
         }
+        return null;
     }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolverSpi.java`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-    ) throws KeyResolverException {
-        if (!engineCanResolve(element, baseURI, storage)) {
-            return null;
-        }
-        return engineResolveX509Certificate(element, baseURI, storage, secureValidation);
+        LOG.debug("I couldn't find a secret key using the system-wide key resolvers");
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolverSpi.java`
+in `src/main/java/org/apache/xml/security/keys/KeyInfo.java`
 #### Snippet
 ```java
-    ) throws KeyResolverException {
-        if (!engineCanResolve(element, baseURI, storage)) {
-            return null;
+            return new RetrievalMethod(e, this.baseURI);
         }
-        return engineResolvePrivateKey(element, baseURI, storage, secureValidation);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -13089,28 +13053,52 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolverSpi.java`
         if (!engineCanResolve(element, baseURI, storage)) {
             return null;
         }
+        return engineResolveX509Certificate(element, baseURI, storage, secureValidation);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolverSpi.java`
+#### Snippet
+```java
+    ) throws KeyResolverException {
+        if (!engineCanResolve(element, baseURI, storage)) {
+            return null;
+        }
         return engineResolvePublicKey(element, baseURI, storage, secureValidation);
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/KeyResolverSpi.java`
 #### Snippet
 ```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-}
+    ) throws KeyResolverException {
+        if (!engineCanResolve(element, baseURI, storage)) {
+            return null;
+        }
+        return engineResolvePrivateKey(element, baseURI, storage, secureValidation);
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+in `src/main/java/org/apache/xml/security/keys/storage/StorageResolver.java`
 #### Snippet
 ```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
+            }
+
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
+#### Snippet
+```java
+    protected SecretKey engineResolveSecretKey(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
+        throws KeyResolverException {
         return null;
     }
 
@@ -13118,7 +13106,7 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509C
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
 #### Snippet
 ```java
         }
@@ -13130,35 +13118,11 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509C
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-                    return engineResolveX509Certificate(el, baseURI, storage, secureValidation);
-                }
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        } catch (XMLSecurityException ex) {
-            LOG.debug("Security Exception", ex);
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
 #### Snippet
 ```java
-    protected SecretKey engineResolveSecretKey(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
-        throws KeyResolverException {
+        }
+
         return null;
     }
 
@@ -13193,6 +13157,18 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
 #### Snippet
 ```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
         }
 
         return null;
@@ -13202,7 +13178,43 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509D
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+                    return engineResolveX509Certificate(el, baseURI, storage, secureValidation);
+                }
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        } catch (XMLSecurityException ex) {
+            LOG.debug("Security Exception", ex);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509CertificateResolver.java`
 #### Snippet
 ```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
@@ -13214,11 +13226,11 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509D
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509DigestResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SecretKeyResolver.java`
 #### Snippet
 ```java
-        }
 
+        LOG.debug("I can't");
         return null;
     }
 
@@ -13231,18 +13243,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Secre
 ```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
     ) throws KeyResolverException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SecretKeyResolver.java`
-#### Snippet
-```java
-
-        LOG.debug("I can't");
         return null;
     }
 
@@ -13301,32 +13301,8 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
 #### Snippet
 ```java
-    protected SecretKey engineResolveSecretKey(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
-        throws KeyResolverException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
-#### Snippet
-```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
     ) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
-#### Snippet
-```java
-    protected X509Certificate engineResolveX509Certificate(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
-        throws KeyResolverException {
         return null;
     }
 
@@ -13349,8 +13325,8 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
 #### Snippet
 ```java
-        }
-
+    protected SecretKey engineResolveSecretKey(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
+        throws KeyResolverException {
         return null;
     }
 
@@ -13358,55 +13334,7 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREn
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-    ) {
-        if (element == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SingleKeyResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
 #### Snippet
 ```java
         }
@@ -13418,14 +13346,14 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Singl
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SingleKeyResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DEREncodedKeyValueResolver.java`
 #### Snippet
 ```java
-        }
-
+    protected X509Certificate engineResolveX509Certificate(Element element, String baseURI, StorageResolver storage, boolean secureValidation)
+        throws KeyResolverException {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -13454,11 +13382,23 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Singl
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SingleKeyResolver.java`
 #### Snippet
 ```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/SingleKeyResolver.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 }
@@ -13466,62 +13406,14 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509S
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RSAKeyValueResolver.java`
 #### Snippet
 ```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
     ) {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SKI);
-        if (!(x509childNodes != null && x509childNodes.length > 0)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
+}
 ```
 
 ### ReturnNull
@@ -13586,11 +13478,11 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509I
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RSAKeyValueResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509IssuerSerialResolver.java`
 #### Snippet
 ```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
+        }
+
         return null;
     }
 
@@ -13605,7 +13497,7 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RSAKe
     ) {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -13658,7 +13550,103 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RSAKe
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKeyValueResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SKI);
+        if (!(x509childNodes != null && x509childNodes.length > 0)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SKIResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
+#### Snippet
+```java
+    ) {
+        if (element == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/EncryptedKeyResolver.java`
 #### Snippet
 ```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
@@ -13678,6 +13666,18 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKey
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKeyValueResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -13730,6 +13730,66 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/ECKey
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            LOG.debug("XMLSecurityException", e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        if (referentElement == null) {
+            LOG.debug("De-reference of KeyInfoReference URI returned null: {}", uriAttr.getValue());
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
 #### Snippet
 ```java
@@ -13738,6 +13798,30 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKe
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+#### Snippet
+```java
+        } else if (resource.isNodeSet()) {
+            LOG.debug("De-reference of KeyInfoReference returned an unsupported NodeSet");
+            return null;
+        } else {
+            // Retrieved resource is a byte stream
 ```
 
 ### ReturnNull
@@ -13766,7 +13850,7 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKe
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
 #### Snippet
 ```java
         }
@@ -13781,8 +13865,8 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKeyValueResolver.java`
 #### Snippet
 ```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
+        }
+
         return null;
     }
 
@@ -13802,11 +13886,23 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/DSAKe
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
-        }
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
+        return null;
+    }
+}
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
+#### Snippet
+```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) {
         return null;
     }
 
@@ -13814,23 +13910,11 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyIn
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
-        } else if (resource.isNodeSet()) {
-            LOG.debug("De-reference of KeyInfoReference returned an unsupported NodeSet");
-            return null;
-        } else {
-            // Retrieved resource is a byte stream
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.debug("XMLSecurityException", e);
+            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
+        if (!(x509childNodes != null && x509childNodes.length > 0)) {
             return null;
         }
 
@@ -13838,43 +13922,19 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyIn
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
-        if (referentElement == null) {
-            LOG.debug("De-reference of KeyInfoReference URI returned null: {}", uriAttr.getValue());
+            }
+
             return null;
-        }
-
+        } catch (XMLSecurityException ex) {
+            LOG.debug("XMLSecurityException", ex);
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/KeyInfoReferenceResolver.java`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
 #### Snippet
 ```java
         }
@@ -13889,8 +13949,32 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
+#### Snippet
+```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
     ) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
+#### Snippet
+```java
+            return KeyResolver.getPublicKey(e, baseURI, storage, secureValidation);
+        }
         return null;
     }
 
@@ -13926,30 +14010,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Retri
 #### Snippet
 ```java
             LOG.debug("IOException", ex);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/RetrievalMethodResolver.java`
-#### Snippet
-```java
-            return KeyResolver.getPublicKey(e, baseURI, storage, secureValidation);
         }
         return null;
     }
@@ -14030,102 +14090,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Retri
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-            XMLUtils.selectDsNodes(element.getFirstChild(), Constants._TAG_X509SUBJECTNAME);
-        if (!(x509childNodes != null && x509childNodes.length > 0)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        } catch (XMLSecurityException ex) {
-            LOG.debug("XMLSecurityException", ex);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/X509SubjectNameResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
-#### Snippet
-```java
-        Element element, String baseURI, StorageResolver storage, boolean secureValidation
-    ) throws KeyResolverException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
 #### Snippet
 ```java
@@ -14153,6 +14117,54 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
 #### Snippet
 ```java
+        Element element, String baseURI, StorageResolver storage, boolean secureValidation
+    ) throws KeyResolverException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
+#### Snippet
+```java
         }
 
         return null;
@@ -14179,18 +14191,6 @@ in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/Priva
 ```java
         Element element, String baseURI, StorageResolver storage, boolean secureValidation
     ) throws KeyResolverException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/keys/keyresolver/implementations/PrivateKeyResolver.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -14210,37 +14210,13 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityProperties.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityEventReader.java`
+in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 #### Snippet
 ```java
-            return this.xmlSecEvent;
-        } catch (NoSuchElementException e) {
-            return null;
+            }
         }
+        return null;
     }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
-#### Snippet
-```java
-                return parentNamespaceContext.getNamespaceURI(prefix);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
-#### Snippet
-```java
-                return parentNamespaceContext.getPrefix(namespaceURI);
-            }
-            return null;
-        }
 
 ```
 
@@ -14258,37 +14234,85 @@ in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/ext/XMLSecurityUtils.java`
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
 #### Snippet
 ```java
+                return parentNamespaceContext.getPrefix(namespaceURI);
             }
+            return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamWriter.java`
+#### Snippet
+```java
+                return parentNamespaceContext.getNamespaceURI(prefix);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityEventReader.java`
+#### Snippet
+```java
+            return this.xmlSecEvent;
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getSystemId() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
+#### Snippet
+```java
+    public XMLSecStartElement getStartElementAtLevel(int level) {
+        if (getDocumentLevel() < level) {
+            return null;
+        }
+        return parentXMLSecStartELement.getStartElementAtLevel(level);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getPublicId() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
+#### Snippet
+```java
+    @Override
+    public QName getSchemaType() {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
-#### Snippet
-```java
-            @Override
-            public String getSystemId() {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
-#### Snippet
-```java
-            @Override
-            public String getPublicId() {
-                return null;
-            }
 
 ```
 
@@ -14309,6 +14333,30 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
 #### Snippet
 ```java
+            return true;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
+#### Snippet
+```java
+            @Override
+            public String getPublicId() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
+#### Snippet
+```java
                     return xmlSecStartElement.getNamespaceURI(prefix);
                 }
                 return null;
@@ -14321,59 +14369,11 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/stax/impl/XMLSecurityStreamReader.java`
 #### Snippet
 ```java
-            return true;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getPublicId() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getSystemId() {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
-#### Snippet
-```java
-    @Override
-    public QName getSchemaType() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEventBaseImpl.java`
-#### Snippet
-```java
-    public XMLSecStartElement getStartElementAtLevel(int level) {
-        if (getDocumentLevel() < level) {
-            return null;
-        }
-        return parentXMLSecStartELement.getStartElementAtLevel(level);
+            @Override
+            public String getSystemId() {
+                return null;
+            }
+        };
 ```
 
 ### ReturnNull
@@ -14383,18 +14383,6 @@ in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecDTDImpl.java`
 ```java
     @Override
     public Object getProcessedDTD() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEntityDeclarationImpl.java`
-#### Snippet
-```java
-    @Override
-    public String getBaseURI() {
         return null;
     }
 
@@ -14442,58 +14430,22 @@ in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEntityDeclaration
 #### Snippet
 ```java
     @Override
+    public String getBaseURI() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecEntityDeclarationImpl.java`
+#### Snippet
+```java
+    @Override
     public String getPublicId() {
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
-#### Snippet
-```java
-        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
-                throws XMLStreamException, XMLSecurityException {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
-#### Snippet
-```java
-    public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
-            throws XMLStreamException, XMLSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
-#### Snippet
-```java
-        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
-                throws XMLStreamException, XMLSecurityException {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
-#### Snippet
-```java
-        int thisLevel = getDocumentLevel();
-        if (thisLevel < level) {
-            return null;
-        } else if (thisLevel == level) {
-            return this;
 ```
 
 ### ReturnNull
@@ -14525,6 +14477,30 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
 #### Snippet
 ```java
+                    return parentXMLSecStartELement.getNamespaceURI(prefix);
+                }
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
+#### Snippet
+```java
+        int thisLevel = getDocumentLevel();
+        if (thisLevel < level) {
+            return null;
+        } else if (thisLevel == level) {
+            return this;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
+#### Snippet
+```java
             return parentXMLSecStartELement.getNamespaceURI(prefix);
         }
         return null;
@@ -14534,13 +14510,37 @@ in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/stax/XMLSecStartElementImpl.java`
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
 #### Snippet
 ```java
-                    return parentXMLSecStartELement.getNamespaceURI(prefix);
-                }
-                return null;
-            }
+    public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
+            throws XMLStreamException, XMLSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
+#### Snippet
+```java
+        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
+                throws XMLStreamException, XMLSecurityException {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLSecurityInputProcessor.java`
+#### Snippet
+```java
+        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
+                throws XMLStreamException, XMLSecurityException {
+            return null;
+        }
 
 ```
 
@@ -14678,6 +14678,30 @@ in `src/main/java/org/apache/xml/security/stax/impl/securityToken/AbstractInboun
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverXPointer.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getInputStreamFromExternalReference() throws XMLSecurityException {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverXPointer.java`
+#### Snippet
+```java
+            return this;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverHttp.java`
 #### Snippet
 ```java
@@ -14702,25 +14726,13 @@ in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverHt
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverXPointer.java`
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315_Excl.java`
 #### Snippet
 ```java
-    @Override
-    public InputStream getInputStreamFromExternalReference() throws XMLSecurityException {
-        return null;
-    }
-}
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/resourceResolvers/ResolverXPointer.java`
-#### Snippet
-```java
-            return this;
+        if (inclusiveNamespaces == null || inclusiveNamespaces.isEmpty()) {
+            return null;
         }
-        return null;
-    }
 
 ```
 
@@ -14750,37 +14762,13 @@ in `src/main/java/org/apache/xml/security/stax/securityEvent/KeyValueTokenSecuri
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/Canonicalizer20010315_Excl.java`
+in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/CanonicalizerBase.java`
 #### Snippet
 ```java
-
-        if (inclusiveNamespaces == null || inclusiveNamespaces.isEmpty()) {
+                }
+            }
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/DOMNamespaceContext.java`
-#### Snippet
-```java
-        }
-        if (namespaceURI == null && context != null) {
-            return context.lookupNamespaceURI(null) != null ? null : DEFAULT_NS_PREFIX;
-        } else if (XML_NS_URI.equals(namespaceURI)) {
-            return XML_NS_PREFIX;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/DOMNamespaceContext.java`
-#### Snippet
-```java
-            return XMLNS_ATTRIBUTE;
-        }
-        return null;
-    }
 
 ```
 
@@ -14822,6 +14810,30 @@ in `src/main/java/org/apache/xml/security/utils/ClassLoaderUtils.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/xml/security/utils/DOMNamespaceContext.java`
+#### Snippet
+```java
+        }
+        if (namespaceURI == null && context != null) {
+            return context.lookupNamespaceURI(null) != null ? null : DEFAULT_NS_PREFIX;
+        } else if (XML_NS_URI.equals(namespaceURI)) {
+            return XML_NS_PREFIX;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/DOMNamespaceContext.java`
+#### Snippet
+```java
+            return XMLNS_ATTRIBUTE;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/xml/security/utils/HelperNodeList.java`
 #### Snippet
 ```java
@@ -14834,25 +14846,13 @@ in `src/main/java/org/apache/xml/security/utils/HelperNodeList.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/impl/transformer/canonicalizer/CanonicalizerBase.java`
+in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 #### Snippet
 ```java
+                        return namespaceSplit[0];
+                    }
+                    return null;
                 }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
-#### Snippet
-```java
-            return new BigInteger(1, XMLUtils.decode(XMLUtils.getFullTextChildrenFromNode(n)));
-        }
-        return null;
-    }
 
 ```
 
@@ -14882,18 +14882,6 @@ in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/stax/config/XIncludeHandler.java`
-#### Snippet
-```java
-                        return namespaceSplit[0];
-                    }
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/xml/security/utils/resolver/implementations/ResolverXPointer.java`
 #### Snippet
 ```java
@@ -14902,6 +14890,66 @@ in `src/main/java/org/apache/xml/security/utils/resolver/implementations/Resolve
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
+#### Snippet
+```java
+            sibling = sibling.getNextSibling();
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -14930,6 +14978,18 @@ in `src/main/java/org/apache/xml/security/utils/Base64.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/xml/security/utils/ElementProxy.java`
+#### Snippet
+```java
+            return new BigInteger(1, XMLUtils.decode(XMLUtils.getFullTextChildrenFromNode(n)));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/xml/security/signature/SignatureProperties.java`
 #### Snippet
 ```java
@@ -14938,66 +14998,6 @@ in `src/main/java/org/apache/xml/security/signature/SignatureProperties.java`
                 return null;
             }
             return new SignatureProperty(propertyElem, this.baseURI);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            sibling = sibling.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            sibling = sibling.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            sibling = sibling.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/utils/XMLUtils.java`
-#### Snippet
-```java
-            sibling = sibling.getNextSibling();
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -15050,14 +15050,14 @@ in `src/main/java/org/apache/xml/security/signature/SignedInfo.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
 #### Snippet
 ```java
-            return new ObjectContainer(objElem, this.baseURI);
-        } catch (XMLSecurityException ex) {
+        }
+        if (inputOctetStreamProxy == null) {
             return null;
         }
-    }
+        try {   //NOPMD
 ```
 
 ### ReturnNull
@@ -15074,14 +15074,14 @@ in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/xml/security/signature/XMLSignatureInput.java`
+in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
+            return algorithmsMap.get(algorithmURI);
         }
-        if (inputOctetStreamProxy == null) {
-            return null;
-        }
-        try {   //NOPMD
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15089,7 +15089,7 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
-            return algorithmsMap.get(algorithmURI);
+            return algorithm.jceName;
         }
         return null;
     }
@@ -15113,18 +15113,6 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
-             return algorithm.requiredKey;
-         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
-#### Snippet
-```java
             return algorithm.algorithmClass;
         }
         return null;
@@ -15137,11 +15125,23 @@ Return of `null`
 in `src/main/java/org/apache/xml/security/algorithms/JCEMapper.java`
 #### Snippet
 ```java
-            return algorithm.jceName;
-        }
+             return algorithm.requiredKey;
+         }
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/signature/XMLSignature.java`
+#### Snippet
+```java
+            return new ObjectContainer(objElem, this.baseURI);
+        } catch (XMLSecurityException ex) {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -15166,18 +15166,6 @@ in `src/main/java/org/apache/xml/security/signature/Reference.java`
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/xml/security/exceptions/XMLSecurityException.java`
-#### Snippet
-```java
-            return (Exception)this.getCause();
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -15214,6 +15202,18 @@ in `src/main/java/org/apache/xml/security/algorithms/implementations/ECDSAUtils.
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/xml/security/exceptions/XMLSecurityException.java`
+#### Snippet
+```java
+            return (Exception)this.getCause();
+        }
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -15266,18 +15266,6 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMXMLSignature.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `rkey` is redundant
-in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
-#### Snippet
-```java
-        RSA(RSAPublicKey key) throws KeyException {
-            super(key);
-            RSAPublicKey rkey = key;
-            exponent = new DOMCryptoBinary(rkey.getPublicExponent());
-            modulus = new DOMCryptoBinary(rkey.getModulus());
-```
-
-### UnnecessaryLocalVariable
 Local variable `dkey` is redundant
 in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
 #### Snippet
@@ -15287,6 +15275,18 @@ in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
             DSAPublicKey dkey = key;
             DSAParams params = dkey.getParams();
             p = new DOMCryptoBinary(params.getP());
+```
+
+### UnnecessaryLocalVariable
+Local variable `rkey` is redundant
+in `src/main/java/org/apache/jcp/xml/dsig/internal/dom/DOMKeyValue.java`
+#### Snippet
+```java
+        RSA(RSAPublicKey key) throws KeyException {
+            super(key);
+            RSAPublicKey rkey = key;
+            exponent = new DOMCryptoBinary(rkey.getPublicExponent());
+            modulus = new DOMCryptoBinary(rkey.getModulus());
 ```
 
 ### UnnecessaryLocalVariable
