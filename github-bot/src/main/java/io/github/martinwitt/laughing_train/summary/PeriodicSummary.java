@@ -8,12 +8,8 @@ import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
 import io.github.martinwitt.laughing_train.data.GitHubState;
 import io.github.martinwitt.laughing_train.data.Issue;
 import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.github.martinwitt.laughing_train.services.ServiceAddresses;
+import io.github.martinwitt.laughing_train.services.IssueRequestService;
 import io.quarkus.scheduler.Scheduled;
-import io.smallrye.mutiny.Uni;
-import io.smallrye.mutiny.unchecked.Unchecked;
-import io.vertx.mutiny.core.eventbus.EventBus;
-import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,30 +22,31 @@ import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;
 
+/**
+ * This class is responsible for creating a summary issue on GitHub. It is triggered every 2 hours. If there is no summary issue, it will be created. If there is a summary issue, it will be updated.
+ * The summary issue contains a list of all open issues and pull requests with their status.
+ */
 public class PeriodicSummary {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    EventBus eventBus;
+    IssueRequestService issueRequestService;
+
+    PeriodicSummary(IssueRequestService issueRequestService) {
+        this.issueRequestService = issueRequestService;
+    }
 
     @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
     public void createSummary() {
-        eventBus.<FindIssueResult>request(ServiceAddresses.FIND_SUMMARY_ISSUE_REQUEST, "message")
-                .subscribe()
-                .with(
-                        v -> {
-                            logger.atInfo().log("Got result %s", v);
-                            if (v.body() instanceof FindIssueResult.SingleResult summary) {
-                                updateContent(Uni.createFrom().item(summary.issue()));
-                            } else if (v.body() instanceof FindIssueResult.NoResult noResult) {
-                                logger.atInfo().log("No summary issue found, creating one");
-                                createNewSummary();
-                            } else {
-                                logger.atWarning().log("No summary issue found %s", v);
-                            }
-                        },
-                        e -> logger.atWarning().withCause(e).log("Error while finding summary issue"));
+        var summaryIssue = issueRequestService.getSummaryIssue();
+        if (summaryIssue instanceof FindIssueResult.SingleResult summary) {
+            updateContent(summary.issue());
+        } else if (summaryIssue instanceof FindIssueResult.NoResult noResult) {
+            logger.atInfo().log("No summary issue found, creating one");
+            createNewSummary();
+        } else {
+            logger.atWarning().log("No summary issue found");
+        }
     }
 
     private void createNewSummary() {
@@ -60,13 +57,15 @@ public class PeriodicSummary {
         }
     }
 
-    private Uni<Issue> createIssue() {
-        return Uni.createFrom()
-                .item(Unchecked.supplier(this::createNewIssue))
-                .onItem()
-                .transform(this::toIssue);
+    private Issue createIssue() throws IOException {
+        return toIssue(createNewIssue());
     }
 
+    /**
+     * Creates a new issue in the repository martinwitt/laughing-train with the title laughing-train-summary
+     * @return  the created issue
+     * @throws IOException  if the issue could not be created
+     */
     private GHIssue createNewIssue() throws IOException {
         return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                 .getRepository("martinwitt/laughing-train")
@@ -74,30 +73,27 @@ public class PeriodicSummary {
                 .create();
     }
 
-    private void updateContent(Uni<Issue> issue) {
+    private void updateContent(Issue issue) {
         logger.atInfo().log("Updating summary issue");
-        eventBus.<FindPullRequestResult>request(
-                        ServiceAddresses.FIND_ISSUE_REQUEST, new FindIssueRequest.WithUserName("MartinWitt"))
-                .subscribe()
-                .with(
-                        result -> {
-                            logger.atInfo().log("Result %s", result);
-                            if (result.body() instanceof FindPullRequestResult.MultipleResults multipleResults) {
-                                updateBody(issue, multipleResults);
-                            } else {
-                                logger.atWarning().log("No pull requests found %s", result);
-                            }
-                        },
-                        e -> logger.atSevere().withCause(e).log("Error while finding PRs"));
+        FindPullRequestResult test =
+                issueRequestService.findPullRequests(new FindIssueRequest.WithUserName("MartinWitt"));
+        if (test instanceof FindPullRequestResult.MultipleResults multipleResults) {
+            logger.atInfo().log("Found multiple results %s", multipleResults);
+            updateBody(issue, multipleResults);
+        } else if (test instanceof FindPullRequestResult.NoResult noResult) {
+            logger.atInfo().log("Found no results %s", noResult);
+        } else {
+            logger.atInfo().log("Found single result %s", test);
+        }
     }
 
-    private void updateBody(Uni<Issue> issue, FindPullRequestResult.MultipleResults multipleResults) {
+    private void updateBody(Issue issue, FindPullRequestResult.MultipleResults multipleResults) {
         try {
-            issue.subscribe().with(Unchecked.consumer(v -> GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+            GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                     .getRepository("martinwitt/laughing-train")
-                    .getIssue(v.number())
-                    .setBody(createSummaryBody(multipleResults.pullRequests().stream()
-                            .collect(Collectors.groupingBy(PullRequest::repo))))));
+                    .getIssue(issue.number())
+                    .setBody(createSummaryBody(
+                            multipleResults.pullRequests().stream().collect(Collectors.groupingBy(PullRequest::repo))));
         } catch (Exception e) {
             logger.atSevere().withCause(e).log("Error while creating summary");
         }
