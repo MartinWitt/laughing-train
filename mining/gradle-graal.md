@@ -10,11 +10,23 @@ I found 31 bad smells with 2 repairable:
 | ReturnNull | 3 | false |
 | ConstantValue | 3 | false |
 | UnnecessaryBoxing | 2 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+#### Snippet
+```java
+    private String getBiggestWindowsVsEditionInstalled(String version) {
+        if (version == null) {
+            return null;
+        }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
@@ -39,19 +51,31 @@ in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
 
 ```
 
-### ReturnNull
-Return of `null`
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
 #### Snippet
 ```java
-    private String getBiggestWindowsVsEditionInstalled(String version) {
-        if (version == null) {
-            return null;
-        }
-
+        String searchedVsVarsPath = Integer.parseInt(javaVersion.get()) >= 11
+                ? DEFAULT_WINDOWS_VS_VARS_PATH
+                        .replaceAll("\\{version}", searchedVsVersion)
+                        .replaceAll("\\{edition}", searchedVsEdition)
+                : WINDOWS_7_ENV_PATH;
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+#### Snippet
+```java
+                ? DEFAULT_WINDOWS_VS_VARS_PATH
+                        .replaceAll("\\{version}", searchedVsVersion)
+                        .replaceAll("\\{edition}", searchedVsEdition)
+                : WINDOWS_7_ENV_PATH;
+        if (WINDOWS_7_ENV_PATH.equals(searchedVsVarsPath)) {
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
@@ -136,28 +160,17 @@ in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Dereference of `subDirectories` may produce `NullPointerException`
+in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
 #### Snippet
 ```java
-        String searchedVsVarsPath = Integer.parseInt(javaVersion.get()) >= 11
-                ? DEFAULT_WINDOWS_VS_VARS_PATH
-                        .replaceAll("\\{version}", searchedVsVersion)
-                        .replaceAll("\\{edition}", searchedVsEdition)
-                : WINDOWS_7_ENV_PATH;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
-#### Snippet
-```java
-                ? DEFAULT_WINDOWS_VS_VARS_PATH
-                        .replaceAll("\\{version}", searchedVsVersion)
-                        .replaceAll("\\{edition}", searchedVsEdition)
-                : WINDOWS_7_ENV_PATH;
-        if (WINDOWS_7_ENV_PATH.equals(searchedVsVarsPath)) {
+        AbstractSet<String> subDirectoriesNames = new HashSet<String>();
+        File[] subDirectories = directory.listFiles(File::isDirectory);
+        for (File subDirectory : subDirectories) {
+            subDirectoriesNames.add(subDirectory.getName());
+        }
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -171,19 +184,6 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
      * <p>Check {@link org.gradle.api.provider.Provider#isPresent()} to determine if an override has been set.</p>
      */
     public final Provider<String> getOutputName() {
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Dereference of `subDirectories` may produce `NullPointerException`
-in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
-#### Snippet
-```java
-        AbstractSet<String> subDirectoriesNames = new HashSet<String>();
-        File[] subDirectories = directory.listFiles(File::isDirectory);
-        for (File subDirectory : subDirectories) {
-            subDirectoriesNames.add(subDirectory.getName());
-        }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -225,18 +225,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-     * @throws IOException If any problem while creating output directory
-     */
-    protected final void configureArgs(List<String> args) throws IOException {
-        args.add("-cp");
-        args.add(generateClasspathArgument());
-```
-
-### BoundedWildcard
 Can generalize to `? extends Configuration`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
@@ -246,6 +234,18 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
     public final void setClasspath(Provider<Configuration> provider) {
         classpath.set(provider);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
+#### Snippet
+```java
+     * @throws IOException If any problem while creating output directory
+     */
+    protected final void configureArgs(List<String> args) throws IOException {
+        args.add("-cp");
+        args.add(generateClasspathArgument());
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
