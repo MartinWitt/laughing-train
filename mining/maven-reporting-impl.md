@@ -9,8 +9,8 @@ I found 11 bad smells with 2 repairable:
 | MismatchedJavadocCode | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | AssignmentToForLoopParameter | 1 | false |
-| CodeBlock2Expr | 1 | true |
 | NonProtectedConstructorInAbstractClass | 1 | true |
+| CodeBlock2Expr | 1 | true |
 | ConstantValue | 1 | false |
 | IndexOfReplaceableByContains | 1 | false |
 | IgnoreResultOfCall | 1 | false |
@@ -68,18 +68,6 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `AbstractMavenReportRenderer` has no concrete subclass
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
-#### Snippet
-```java
- * @see #renderBody()
- */
-public abstract class AbstractMavenReportRenderer implements MavenReportRenderer {
-    /** The current sink to use */
-    protected Sink sink;
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractMavenReport` has no concrete subclass
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
 #### Snippet
@@ -91,17 +79,16 @@ public abstract class AbstractMavenReport extends AbstractMojo implements MavenM
      * The output directory for the report. Note that this parameter is only evaluated if the goal is run directly from
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
+### AbstractClassNeverImplemented
+Abstract class `AbstractMavenReportRenderer` has no concrete subclass
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 #### Snippet
 ```java
-        // Add publish date
-        String outputTimestamp = getProject().getProperties().getProperty("project.build.outputTimestamp");
-        MavenArchiver.parseBuildOutputTimestamp(outputTimestamp).ifPresent(v -> {
-            context.setPublishDate(Date.from(v));
-        });
+ * @see #renderBody()
+ */
+public abstract class AbstractMavenReportRenderer implements MavenReportRenderer {
+    /** The current sink to use */
+    protected Sink sink;
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -115,6 +102,19 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
     public AbstractMavenReportRenderer(Sink sink) {
         this.sink = sink;
     }
+```
+
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
+#### Snippet
+```java
+        // Add publish date
+        String outputTimestamp = getProject().getProperties().getProperty("project.build.outputTimestamp");
+        MavenArchiver.parseBuildOutputTimestamp(outputTimestamp).ifPresent(v -> {
+            context.setPublishDate(Date.from(v));
+        });
 ```
 
 ## RuleId[id=ConstantValue]
