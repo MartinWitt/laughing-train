@@ -173,11 +173,23 @@ Obsolete collection type `Stack` used
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
 ```java
-    private final Map<String, SchemaDTO> schemaDTOs = new LinkedHashMap<>();
-    private Map<String, Schema> schemasByName;
-    private Stack<SchemaElement> contextStack;
 
-    private boolean requireDescriptions;
+    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
+        Stack<RelationType> stack = new Stack<>();
+        stack.push(relationType);
+        while (!stack.isEmpty()) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack<>` used
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+
+    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
+        Stack<RelationType> stack = new Stack<>();
+        stack.push(relationType);
+        while (!stack.isEmpty()) {
 ```
 
 ### ObsoleteCollection
@@ -197,23 +209,11 @@ Obsolete collection type `Stack` used
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
 ```java
+    private final Map<String, SchemaDTO> schemaDTOs = new LinkedHashMap<>();
+    private Map<String, Schema> schemasByName;
+    private Stack<SchemaElement> contextStack;
 
-    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
-        Stack<RelationType> stack = new Stack<>();
-        stack.push(relationType);
-        while (!stack.isEmpty()) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-
-    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
-        Stack<RelationType> stack = new Stack<>();
-        stack.push(relationType);
-        while (!stack.isEmpty()) {
+    private boolean requireDescriptions;
 ```
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
@@ -271,10 +271,10 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 in `core/src/main/java/com/uber/ugb/schema/Vocabulary.java`
 #### Snippet
 ```java
-    public RelationType getRelationType(final String localName, final SchemaManager.TypeCategory fromCategory) {
-        Set<RelationType> types = relationTypesByLocalName.get(localName);
+    public EntityType getEntityType(final String localName) {
+        Set<EntityType> types = entityTypesByLocalName.get(localName);
         if (null == types || 0 == types.size()) {
-            throw new IllegalArgumentException("no relation type with label " + localName);
+            throw new IllegalArgumentException("no entity type with label " + localName);
         } else if (types.size() > 1) {
 ```
 
@@ -283,10 +283,10 @@ in `core/src/main/java/com/uber/ugb/schema/Vocabulary.java`
 in `core/src/main/java/com/uber/ugb/schema/Vocabulary.java`
 #### Snippet
 ```java
-    public EntityType getEntityType(final String localName) {
-        Set<EntityType> types = entityTypesByLocalName.get(localName);
+    public RelationType getRelationType(final String localName, final SchemaManager.TypeCategory fromCategory) {
+        Set<RelationType> types = relationTypesByLocalName.get(localName);
         if (null == types || 0 == types.size()) {
-            throw new IllegalArgumentException("no entity type with label " + localName);
+            throw new IllegalArgumentException("no relation type with label " + localName);
         } else if (types.size() > 1) {
 ```
 
@@ -363,18 +363,6 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`0 == element.getDescription().length()` can be replaced with 'element.getDescription().isEmpty()'
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-
-    private void checkDescription(final SchemaElement element) {
-        if (null == element.getDescription() || 0 == element.getDescription().length()) {
-            throw new InvalidSchemaException("missing description");
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `0 < entityType.getExtends().size()` can be replaced with '!entityType.getExtends().isEmpty()'
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
@@ -386,14 +374,26 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
         }
 ```
 
+### SizeReplaceableByIsEmpty
+`0 == element.getDescription().length()` can be replaced with 'element.getDescription().isEmpty()'
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+
+    private void checkDescription(final SchemaElement element) {
+        if (null == element.getDescription() || 0 == element.getDescription().length()) {
+            throw new InvalidSchemaException("missing description");
+        }
+```
+
 ## RuleId[id=UnnecessaryReturn]
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-            }
-        }
+    public void cleanup() throws DBException {
+        out.close();
         return;
     }
 
@@ -404,8 +404,8 @@ in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-    public void cleanup() throws DBException {
-        out.close();
+            }
+        }
         return;
     }
 
@@ -425,18 +425,6 @@ in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `SchemaManager` has no concrete subclass
-in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
-#### Snippet
-```java
- * @param <D> the class of the database or storage schema management API
- */
-public abstract class SchemaManager<D> implements Serializable {
-
-    protected static Logger logger = LoggerFactory.getLogger(SchemaManager.class);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `StorageSchemaElement` has no concrete subclass
 in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
 #### Snippet
@@ -448,6 +436,18 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
         protected String storageName;
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `SchemaManager` has no concrete subclass
+in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
+#### Snippet
+```java
+ * @param <D> the class of the database or storage schema management API
+ */
+public abstract class SchemaManager<D> implements Serializable {
+
+    protected static Logger logger = LoggerFactory.getLogger(SchemaManager.class);
+```
+
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Edge`
@@ -456,7 +456,7 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 ```java
     }
 
-    private int countEdges(List<Edge> edges) {
+    private int countVertices(List<Edge> edges) {
         Set set = new HashSet();
         for (Edge edge : edges) {
 ```
@@ -468,7 +468,7 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 ```java
     }
 
-    private int countVertices(List<Edge> edges) {
+    private int countEdges(List<Edge> edges) {
         Set set = new HashSet();
         for (Edge edge : edges) {
 ```
@@ -495,6 +495,18 @@ in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
     protected <T> T getField(final Function<E, T> accessor) {
 
         T value = accessor.apply((E) this);
+```
+
+### BoundedWildcard
+Can generalize to `? super Task`
+in `core/src/main/java/com/uber/ugb/db/AbstractSubgraphDB.java`
+#### Snippet
+```java
+
+    public void traverseOneStep(Object id, QueriesSpec.Query.Step step, Set<Object> visitedVertexIds,
+                                LinkedBlockingQueue<Task> tasks, Subgraph subgraph,
+                                int stepId, boolean isLastStep) throws Exception {
+
 ```
 
 ### BoundedWildcard
@@ -546,15 +558,15 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Task`
-in `core/src/main/java/com/uber/ugb/db/AbstractSubgraphDB.java`
+Can generalize to `? extends IdempotentOperation`
+in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
 #### Snippet
 ```java
+    }
 
-    public void traverseOneStep(Object id, QueriesSpec.Query.Step step, Set<Object> visitedVertexIds,
-                                LinkedBlockingQueue<Task> tasks, Subgraph subgraph,
-                                int stepId, boolean isLastStep) throws Exception {
-
+    private void executeWorkflow(final List<IdempotentOperation> workflow) throws UpdateFailedException {
+        tryInTransaction(() -> {
+            try {
 ```
 
 ### BoundedWildcard
@@ -582,39 +594,63 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IdempotentOperation`
-in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
-#### Snippet
-```java
-    }
-
-    private void executeWorkflow(final List<IdempotentOperation> workflow) throws UpdateFailedException {
-        tryInTransaction(() -> {
-            try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? super Schema`
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
 ```java
     }
 
-    private static <T> void checkUnique(Collection<T> elements, Function<T, String> nameGetter)
-            throws InvalidSchemaException {
-        Set<String> names = new HashSet<>();
+    private <X extends Exception> void forAllSchemas(final ConsumerWithException<Schema, X> consumer) throws X {
+        for (Schema schema : schemasByName.values()) {
+            consumer.accept(schema);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
+Can generalize to `? super RelationTypeDTO`
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
 ```java
     }
 
-    private static <T> void checkUnique(Collection<T> elements, Function<T, String> nameGetter)
+    private void expandInlineLinks(final TypeDTO typeDTO, List<RelationTypeDTO> linkTypeDTOS)
             throws InvalidSchemaException {
-        Set<String> names = new HashSet<>();
+        for (InlineRelationTypeDTO inlineDTO : typeDTO.getRelations()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaDTO`
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+     * Adds zero or more schemas to this builder
+     */
+    public void addSchemas(final Collection<SchemaDTO> schemaDTOs) {
+        for (SchemaDTO schemaDTO : schemaDTOs) {
+            addSchema(schemaDTO);
+```
+
+### BoundedWildcard
+Can generalize to `? super RelationType`
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+    }
+
+    private <X extends Exception> void forAllRelationTypes(final ConsumerWithException<RelationType, X> consumer)
+            throws X {
+        forAllSchemas(schema -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super RelationType`
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+    }
+
+    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
+        Stack<RelationType> stack = new Stack<>();
+        stack.push(relationType);
 ```
 
 ### BoundedWildcard
@@ -642,30 +678,6 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Schema`
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-    }
-
-    private <X extends Exception> void forAllSchemas(final ConsumerWithException<Schema, X> consumer) throws X {
-        for (Schema schema : schemasByName.values()) {
-            consumer.accept(schema);
-```
-
-### BoundedWildcard
-Can generalize to `? super RelationTypeDTO`
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-    }
-
-    private void expandInlineLinks(final TypeDTO typeDTO, List<RelationTypeDTO> linkTypeDTOS)
-            throws InvalidSchemaException {
-        for (InlineRelationTypeDTO inlineDTO : typeDTO.getRelations()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 #### Snippet
@@ -675,6 +687,30 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
     private static <T> void checkUnique(T[] elements, Function<T, String> nameGetter) throws InvalidSchemaException {
         checkUnique(Arrays.asList(elements), nameGetter);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void checkUnique(Collection<T> elements, Function<T, String> nameGetter)
+            throws InvalidSchemaException {
+        Set<String> names = new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void checkUnique(Collection<T> elements, Function<T, String> nameGetter)
+            throws InvalidSchemaException {
+        Set<String> names = new HashSet<>();
 ```
 
 ### BoundedWildcard
@@ -690,39 +726,15 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RelationType`
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+Can generalize to `? extends T`
+in `core/src/main/java/com/uber/ugb/schema/diff/SchemaDiff.java`
 #### Snippet
 ```java
-    }
+        }
 
-    private <T> T getInferred(final RelationType relationType, final Function<RelationType, T> accessor) {
-        Stack<RelationType> stack = new Stack<>();
-        stack.push(relationType);
-```
-
-### BoundedWildcard
-Can generalize to `? super RelationType`
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-    }
-
-    private <X extends Exception> void forAllRelationTypes(final ConsumerWithException<RelationType, X> consumer)
-            throws X {
-        forAllSchemas(schema -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaDTO`
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-     * Adds zero or more schemas to this builder
-     */
-    public void addSchemas(final Collection<SchemaDTO> schemaDTOs) {
-        for (SchemaDTO schemaDTO : schemaDTOs) {
-            addSchema(schemaDTO);
+        private static <T> Map<T, T> toSet(Collection<T> items) {
+            Map<T, T> set = new HashMap<>();
+            if (null != items) {
 ```
 
 ### BoundedWildcard
@@ -807,18 +819,6 @@ in `core/src/main/java/com/uber/ugb/schema/diff/SchemaDiff.java`
         SchemaDiffHelper(final Schema oldSchema, final Schema newSchema, final List<SchemaChange> changes) {
             this.oldSchema = oldSchema;
             this.newSchema = newSchema;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/com/uber/ugb/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-        }
-
-        private static <T> Map<T, T> toSet(Collection<T> items) {
-            Map<T, T> set = new HashMap<>();
-            if (null != items) {
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
@@ -924,6 +924,18 @@ in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `out` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
+#### Snippet
+```java
+public class CsvOutputDB extends DB {
+
+    private PrintStream out;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `vertexPartition` is accessed in both synchronized and unsynchronized contexts
 in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
 #### Snippet
@@ -945,18 +957,6 @@ in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
     protected long randomSeed;
     private Map<QualifiedName, Long> vertexPartition;
     private long batchSize = 1000;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `out` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
-#### Snippet
-```java
-public class CsvOutputDB extends DB {
-
-    private PrintStream out;
-
-    @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1087,11 +1087,11 @@ Field initialization to `0.0` is redundant
 in `core/src/main/java/com/uber/ugb/measurement/StreamingStandardDeviation.java`
 #### Snippet
 ```java
+
     private long count = 0;
     private double average = 0.0;
     private double pwrSumAvg = 0.0;
 
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -1099,11 +1099,11 @@ Field initialization to `0.0` is redundant
 in `core/src/main/java/com/uber/ugb/measurement/StreamingStandardDeviation.java`
 #### Snippet
 ```java
-
     private long count = 0;
     private double average = 0.0;
     private double pwrSumAvg = 0.0;
 
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -1132,18 +1132,6 @@ in `core/src/main/java/com/uber/ugb/model/distro/ConstantDegreeDistribution.java
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
-#### Snippet
-```java
-    private Map<QualifiedName, Long> vertexPartition;
-    private long batchSize = 1000;
-    private int batchCounter = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `core/src/main/java/com/uber/ugb/model/generator/WeightedValueslGenerator.java`
 #### Snippet
 ```java
@@ -1152,6 +1140,18 @@ in `core/src/main/java/com/uber/ugb/model/generator/WeightedValueslGenerator.jav
     int totalWeights = 0;
 
     public WeightedValueslGenerator(StatisticsSpec.PropertyValueWeight[] valueWeights) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
+#### Snippet
+```java
+    private Map<QualifiedName, Long> vertexPartition;
+    private long batchSize = 1000;
+    private int batchCounter = 0;
+
+    /**
 ```
 
 ## RuleId[id=NonStaticFinalLogger]
@@ -1169,14 +1169,14 @@ public class ProgressReporter {
 
 ### NonStaticFinalLogger
 Non-constant logger field `logger`
-in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
+in `src/main/java/com/uber/ugb/Benchmark.java`
 #### Snippet
 ```java
-public class GraphGenerator implements Serializable {
+    public static final String READ_THREAD_COUNT_PROPERTY = "read.thread.count";
+    public static final String READ_OPERATION_COUNT_PROPERTY = "read.operation.count";
+    public static Logger logger = Logger.getLogger(Benchmark.class.getName());
 
-    private static Logger logger = Logger.getLogger(GraphGenerator.class.getName());
-    private final GraphModel model;
-    // used in random permutations and degree distributions
+    public static void main(String[] args) {
 ```
 
 ### NonStaticFinalLogger
@@ -1193,14 +1193,14 @@ in `core/src/main/java/com/uber/ugb/model/Incidence.java`
 
 ### NonStaticFinalLogger
 Non-constant logger field `logger`
-in `src/main/java/com/uber/ugb/Benchmark.java`
+in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
 #### Snippet
 ```java
-    public static final String READ_THREAD_COUNT_PROPERTY = "read.thread.count";
-    public static final String READ_OPERATION_COUNT_PROPERTY = "read.operation.count";
-    public static Logger logger = Logger.getLogger(Benchmark.class.getName());
+public class GraphGenerator implements Serializable {
 
-    public static void main(String[] args) {
+    private static Logger logger = Logger.getLogger(GraphGenerator.class.getName());
+    private final GraphModel model;
+    // used in random permutations and degree distributions
 ```
 
 ### NonStaticFinalLogger
@@ -1245,23 +1245,11 @@ Allocation of zero length array
 in `core/src/main/java/com/uber/ugb/schema/model/dto/SchemaDTO.java`
 #### Snippet
 ```java
-    private String[] includes = new String[]{};
-    private EntityTypeDTO[] entities = new EntityTypeDTO[]{};
-    private RelationTypeDTO[] relations = new RelationTypeDTO[]{};
-    private IndexDTO[] indexes = new IndexDTO[]{};
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/com/uber/ugb/schema/model/dto/SchemaDTO.java`
-#### Snippet
-```java
-
     private String name;
     private String[] includes = new String[]{};
     private EntityTypeDTO[] entities = new EntityTypeDTO[]{};
     private RelationTypeDTO[] relations = new RelationTypeDTO[]{};
+    private IndexDTO[] indexes = new IndexDTO[]{};
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1281,11 +1269,23 @@ Allocation of zero length array
 in `core/src/main/java/com/uber/ugb/schema/model/dto/SchemaDTO.java`
 #### Snippet
 ```java
-    private String name;
     private String[] includes = new String[]{};
     private EntityTypeDTO[] entities = new EntityTypeDTO[]{};
     private RelationTypeDTO[] relations = new RelationTypeDTO[]{};
     private IndexDTO[] indexes = new IndexDTO[]{};
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/com/uber/ugb/schema/model/dto/SchemaDTO.java`
+#### Snippet
+```java
+
+    private String name;
+    private String[] includes = new String[]{};
+    private EntityTypeDTO[] entities = new EntityTypeDTO[]{};
+    private RelationTypeDTO[] relations = new RelationTypeDTO[]{};
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1500,18 +1500,6 @@ in `core/src/main/java/com/uber/ugb/schema/model/EntityType.java`
 ```
 
 ### DataFlowIssue
-Dereference of `graghConceptDir.listFiles()` may produce `NullPointerException`
-in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
-#### Snippet
-```java
-            throw new InvalidSchemaException("not a directory: " + graghConceptDir);
-        }
-        for (File file : graghConceptDir.listFiles()) {
-            if (file.getName().endsWith(".yaml")) {
-                addConcept(new FileInputStream(file));
-```
-
-### DataFlowIssue
 Dereference of `edgeDistrbutionDir.listFiles()` may produce `NullPointerException`
 in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
 #### Snippet
@@ -1521,6 +1509,18 @@ in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
         for (File file : edgeDistrbutionDir.listFiles()) {
             String fileName = file.getName();
             if (fileName.endsWith(".csv")) {
+```
+
+### DataFlowIssue
+Dereference of `graghConceptDir.listFiles()` may produce `NullPointerException`
+in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
+#### Snippet
+```java
+            throw new InvalidSchemaException("not a directory: " + graghConceptDir);
+        }
+        for (File file : graghConceptDir.listFiles()) {
+            if (file.getName().endsWith(".yaml")) {
+                addConcept(new FileInputStream(file));
 ```
 
 ### DataFlowIssue
@@ -1969,54 +1969,6 @@ in `core/src/main/java/com/uber/ugb/schema/model/dto/TypeDTO.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
-#### Snippet
-```java
-        JavaSparkContext javaSparkContext = new JavaSparkContext(sparkConf);
-
-        System.out.println("start generating " + totalVertices + " vertices by partition size " + vertexPartitionSize);
-        System.out.println("start generating " + totalEdges + " edges by partition size " + edgePartitionSize);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
-#### Snippet
-```java
-
-        System.out.println("start generating " + totalVertices + " vertices by partition size " + vertexPartitionSize);
-        System.out.println("start generating " + totalEdges + " edges by partition size " + edgePartitionSize);
-
-        JavaRDD<Metrics> genVertex = javaSparkContext.parallelize(parts)
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
-#### Snippet
-```java
-        String outputFile = this.getProperties().getProperty("csv.output", null);
-        if (outputFile == null) {
-            out = System.out;
-        } else {
-            try {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
-#### Snippet
-```java
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                out = System.out;
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/uber/ugb/Benchmark.java`
 #### Snippet
 ```java
@@ -2147,6 +2099,54 @@ in `src/main/java/com/uber/ugb/Benchmark.java`
             }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
+#### Snippet
+```java
+        String outputFile = this.getProperties().getProperty("csv.output", null);
+        if (outputFile == null) {
+            out = System.out;
+        } else {
+            try {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
+#### Snippet
+```java
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                out = System.out;
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
+#### Snippet
+```java
+        JavaSparkContext javaSparkContext = new JavaSparkContext(sparkConf);
+
+        System.out.println("start generating " + totalVertices + " vertices by partition size " + vertexPartitionSize);
+        System.out.println("start generating " + totalEdges + " edges by partition size " + edgePartitionSize);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/com/uber/ugb/GraphGenerator.java`
+#### Snippet
+```java
+
+        System.out.println("start generating " + totalVertices + " vertices by partition size " + vertexPartitionSize);
+        System.out.println("start generating " + totalEdges + " edges by partition size " + edgePartitionSize);
+
+        JavaRDD<Metrics> genVertex = javaSparkContext.parallelize(parts)
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -2170,18 +2170,6 @@ in `core/src/main/java/com/uber/ugb/db/GremlinDB.java`
         } catch (ScriptException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
-#### Snippet
-```java
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 ```
 
@@ -2219,6 +2207,78 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
             e.printStackTrace();
         }
         return Status.OK;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
+#### Snippet
+```java
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/uber/ugb/Benchmark.java`
+#### Snippet
+```java
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            logger.info("Failed to read file:" + fileName);
+            File currentDirectory = new File(new File(".").getAbsolutePath());
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/uber/ugb/Benchmark.java`
+#### Snippet
+```java
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    logger.info("Failed to read property file:" + fileName);
+                }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/uber/ugb/Benchmark.java`
+#### Snippet
+```java
+        } catch (Exception exp) {
+            logger.info("Unexpected exception:" + exp.getMessage());
+            exp.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/uber/ugb/Benchmark.java`
+#### Snippet
+```java
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("unknownDB:" + dbname, e);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `hbase/src/main/java/com/uber/ugb/db/hbase/HBaseDB.java`
+#### Snippet
+```java
+                conn.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -2283,18 +2343,6 @@ in `hbase/src/main/java/com/uber/ugb/db/hbase/HBaseDB.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `hbase/src/main/java/com/uber/ugb/db/hbase/HBaseDB.java`
-#### Snippet
-```java
-                conn.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
@@ -2303,54 +2351,6 @@ in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
                 e.printStackTrace();
                 out = System.out;
             }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/uber/ugb/Benchmark.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("unknownDB:" + dbname, e);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/uber/ugb/Benchmark.java`
-#### Snippet
-```java
-        } catch (Exception exp) {
-            logger.info("Unexpected exception:" + exp.getMessage());
-            exp.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/uber/ugb/Benchmark.java`
-#### Snippet
-```java
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            logger.info("Failed to read file:" + fileName);
-            File currentDirectory = new File(new File(".").getAbsolutePath());
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/uber/ugb/Benchmark.java`
-#### Snippet
-```java
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    logger.info("Failed to read property file:" + fileName);
-                }
 ```
 
 ### ThrowablePrintStackTrace
@@ -2432,18 +2432,6 @@ Constructor `TypeDTO()` of an abstract class should not be declared 'public'
 in `core/src/main/java/com/uber/ugb/schema/model/dto/TypeDTO.java`
 #### Snippet
 ```java
-    private InlineRelationTypeDTO[] relations = new InlineRelationTypeDTO[]{};
-
-    public TypeDTO() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TypeDTO()` of an abstract class should not be declared 'public'
-in `core/src/main/java/com/uber/ugb/schema/model/dto/TypeDTO.java`
-#### Snippet
-```java
     }
 
     public TypeDTO(final String label) {
@@ -2451,19 +2439,19 @@ in `core/src/main/java/com/uber/ugb/schema/model/dto/TypeDTO.java`
     }
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `core/src/main/java/com/uber/ugb/db/DB.java`
+### NonProtectedConstructorInAbstractClass
+Constructor `TypeDTO()` of an abstract class should not be declared 'public'
+in `core/src/main/java/com/uber/ugb/schema/model/dto/TypeDTO.java`
 #### Snippet
 ```java
-     */
-    public QueryResult executeQuery(String query, Object startVertexId) {
-        return null;
+    private InlineRelationTypeDTO[] relations = new InlineRelationTypeDTO[]{};
+
+    public TypeDTO() {
     }
 
 ```
 
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
@@ -2471,6 +2459,18 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 ```java
             }
         }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/com/uber/ugb/db/DB.java`
+#### Snippet
+```java
+     */
+    public QueryResult executeQuery(String query, Object startVertexId) {
         return null;
     }
 
@@ -2690,11 +2690,11 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
-
-    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
+    protected byte[] genEdgeKeyPrefix(QualifiedName edgeLabel,
+                                      Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         if (isBackward) {
-            out.write(conf.asByteArray(outVertexId));
+            out.write(inVertexId.toString().getBytes());
 ```
 
 ### UnstableApiUsage
@@ -2702,11 +2702,11 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
-
-    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
+    protected byte[] genEdgeKeyPrefix(QualifiedName edgeLabel,
+                                      Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         if (isBackward) {
-            out.write(conf.asByteArray(outVertexId));
+            out.write(inVertexId.toString().getBytes());
 ```
 
 ### UnstableApiUsage
@@ -2738,11 +2738,11 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
-    protected byte[] genEdgeKeyPrefix(QualifiedName edgeLabel,
-                                      Object outVertexId, Object inVertexId, boolean isBackward) {
+
+    protected byte[] genVertexKey(QualifiedName label, Object id) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        if (isBackward) {
-            out.write(inVertexId.toString().getBytes());
+        out.write(id.toString().getBytes());
+        out.write(Separator);
 ```
 
 ### UnstableApiUsage
@@ -2750,11 +2750,11 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
-    protected byte[] genEdgeKeyPrefix(QualifiedName edgeLabel,
-                                      Object outVertexId, Object inVertexId, boolean isBackward) {
+
+    protected byte[] genVertexKey(QualifiedName label, Object id) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        if (isBackward) {
-            out.write(inVertexId.toString().getBytes());
+        out.write(id.toString().getBytes());
+        out.write(Separator);
 ```
 
 ### UnstableApiUsage
@@ -2763,10 +2763,10 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genVertexKey(QualifiedName label, Object id) {
+    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.write(id.toString().getBytes());
-        out.write(Separator);
+        if (isBackward) {
+            out.write(conf.asByteArray(outVertexId));
 ```
 
 ### UnstableApiUsage
@@ -2775,10 +2775,10 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genVertexKey(QualifiedName label, Object id) {
+    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.write(id.toString().getBytes());
-        out.write(Separator);
+        if (isBackward) {
+            out.write(conf.asByteArray(outVertexId));
 ```
 
 ## RuleId[id=NumericOverflow]
