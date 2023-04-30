@@ -219,18 +219,6 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `AnalysisResult` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/AnalysisResult.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableAnalysisResult.class)
-public abstract class AnalysisResult {
-    public abstract String code();
-    // Using @Nullable instead of Optionals as freemarker templating does not not support Optionals
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AnalysisResults` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
 #### Snippet
@@ -243,15 +231,15 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleRevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
+Abstract class `AnalysisResult` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/AnalysisResult.java`
 #### Snippet
 ```java
 @ImmutableStyle
-@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
-public abstract class GradleRevapiConfig {
-    @Value.NaturalOrder
-    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
+@JsonDeserialize(as = ImmutableAnalysisResult.class)
+public abstract class AnalysisResult {
+    public abstract String code();
+    // Using @Nullable instead of Optionals as freemarker templating does not not support Optionals
 ```
 
 ### AbstractClassNeverImplemented
@@ -264,6 +252,18 @@ in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.jav
 abstract class PerProjectAcceptedBreaks {
     @JsonValue
     @Value.NaturalOrder
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GradleRevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
+public abstract class GradleRevapiConfig {
+    @Value.NaturalOrder
+    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
 ```
 
 ### AbstractClassNeverImplemented
