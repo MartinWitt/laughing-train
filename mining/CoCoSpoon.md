@@ -26,7 +26,7 @@ public class NoInsertionFound extends Exception {
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-01-56-18.396.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-02-41-48.989.html`
 #### Snippet
 ```java
               <td>0</td>
