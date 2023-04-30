@@ -40,18 +40,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
-#### Snippet
-```java
-
-    private static String identity(String... parts) {
-        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
-    }
-}
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
@@ -63,30 +51,16 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         // oauth token
 ```
 
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
-## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\.git)`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
 #### Snippet
 ```java
 
-  /* Matches github ssh urls of format git@github.com:owner/repo.git */
-  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
-
-  /* Matches github http and https urls of format https://github.com/owner/repo.git */
+    private static String identity(String... parts) {
+        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
+    }
+}
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -138,6 +112,32 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
+## RuleId[id=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> getDefaultProperties() {
+    return new HashMap<String, String>() {{
+      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
+      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
+```
+
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\.git)`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+
+  /* Matches github ssh urls of format git@github.com:owner/repo.git */
+  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
+
+  /* Matches github http and https urls of format https://github.com/owner/repo.git */
+```
+
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super InvalidProperty`
@@ -152,15 +152,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
+Can generalize to `? extends SBuildType`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
   }
 
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
+  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
+  }
 ```
 
 ### BoundedWildcard
@@ -176,15 +176,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SBuildType`
+Can generalize to `? extends List`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
   }
 
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
 ```
 
 ## RuleId[id=RedundantSuppression]
