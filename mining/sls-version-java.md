@@ -133,18 +133,6 @@ public abstract class SlsVersionMatcher {
 
 ## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-     * orderable one.
-     */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `valueOf()` tries to override a static method of a superclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
 #### Snippet
@@ -154,6 +142,18 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.
     public static NonOrderableSlsVersion valueOf(String value) {
         Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
         checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
+```
+
+### MethodOverridesStaticMethod
+Method `check()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+#### Snippet
+```java
+     * orderable one.
+     */
+    public static boolean check(String coordinate) {
+        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
+    }
 ```
 
 ### MethodOverridesStaticMethod
