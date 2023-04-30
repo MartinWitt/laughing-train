@@ -19,6 +19,8 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -31,8 +33,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
@@ -43,6 +43,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleaner;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
@@ -71,6 +72,12 @@ public class RefactorService {
 
     @Inject
     ProjectConfigService projectConfigService;
+
+    DiffCleaner diffCleaner;
+
+    public RefactorService() {
+        diffCleaner = new DiffCleaner();
+    }
 
     public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
@@ -130,11 +137,14 @@ public class RefactorService {
             TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
             transformationEngine.setChangeListener(listener);
             Changelog log = transformationEngine.applyToGivenPath(refactorPath);
+            log.getChanges()
+                    .forEach(change ->
+                            diffCleaner.clean(success.project().folder().toPath(), change));
             try {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
                 GitHubUtils.createLabelIfMissing(repository);
-                createSinglePullRequest(repository, success.project().folder().toPath(), log.getChanges());
+                createSinglePullRequest(repository, success.project().folder().toPath(), log.getChanges(), badSmells);
             } catch (Exception e) {
                 logger.atSevere().withCause(e).log("Failed to create pull request");
                 FileUtils.deleteQuietly(success.project().folder());
@@ -144,16 +154,20 @@ public class RefactorService {
     }
 
     private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github) throws IOException {
+        logger.atInfo().log("Creating fork for %s", success.project().getOwnerRepoName());
         @Var GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
         if (github.getMyself().getRepository(success.project().name()) == null) {
+            logger.atInfo().log("Forking %s", success.project().getOwnerRepoName());
             repository = repository.fork();
         } else {
+            logger.atInfo().log("Found fork %s", success.project().name());
             repository = github.getMyself().getRepository(success.project().name());
         }
         return repository;
     }
 
-    private void createSinglePullRequest(GHRepository repo, Path dir, List<? extends Change> changes)
+    private void createSinglePullRequest(
+            GHRepository repo, Path dir, List<? extends Change> changes, List<? extends BadSmell> badSmells)
             throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
         logger.atInfo().log("Found changes for %s types", changes.size());
@@ -162,6 +176,7 @@ public class RefactorService {
                 repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
         StringBuilder body = new StringBuilder();
         body.append(changelogPrinter.printRepairedIssues(changes));
+        body.append(changelogPrinter.printBadSmellFingerPrints(badSmells));
         createCommit(repo, dir, changes, ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
         createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));

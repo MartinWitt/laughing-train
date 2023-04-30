@@ -1,8 +1,8 @@
 package xyz.keksdose.spoon.code_solver.transformations;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 /**
  * This mocks a result from an analyzer.

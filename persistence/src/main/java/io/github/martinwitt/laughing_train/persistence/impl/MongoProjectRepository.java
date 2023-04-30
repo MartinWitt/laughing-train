@@ -6,11 +6,11 @@ import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConve
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectRepositoryImpl implements ProjectRepository, PanacheMongoRepository<ProjectDao> {
+public class MongoProjectRepository implements ProjectRepository, PanacheMongoRepository<ProjectDao> {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();

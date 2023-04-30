@@ -1,9 +1,9 @@
 package io.github.martinwitt.laughing_train.persistence;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.util.Objects;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 public class BadSmell implements AnalyzerResult {
 
@@ -44,7 +44,7 @@ public class BadSmell implements AnalyzerResult {
     }
 
     /** (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
@@ -63,28 +63,27 @@ public class BadSmell implements AnalyzerResult {
     }
 
     /** (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof BadSmell)) {
-            return false;
+        if (obj instanceof BadSmell other) {
+            return Objects.equals(analyzer, other.analyzer)
+                    && Objects.equals(identifier, other.identifier)
+                    && Objects.equals(ruleID, other.ruleID)
+                    && Objects.equals(filePath, other.filePath)
+                    && Objects.equals(message, other.message)
+                    && Objects.equals(messageMarkdown, other.messageMarkdown)
+                    && Objects.equals(snippet, other.snippet)
+                    && Objects.equals(projectName, other.projectName)
+                    && Objects.equals(projectUrl, other.projectUrl)
+                    && Objects.equals(commitHash, other.commitHash)
+                    && Objects.equals(position, other.position);
         }
-        BadSmell other = (BadSmell) obj;
-        return Objects.equals(analyzer, other.analyzer)
-                && Objects.equals(identifier, other.identifier)
-                && Objects.equals(ruleID, other.ruleID)
-                && Objects.equals(filePath, other.filePath)
-                && Objects.equals(message, other.message)
-                && Objects.equals(messageMarkdown, other.messageMarkdown)
-                && Objects.equals(snippet, other.snippet)
-                && Objects.equals(projectName, other.projectName)
-                && Objects.equals(projectUrl, other.projectUrl)
-                && Objects.equals(commitHash, other.commitHash)
-                && Objects.equals(position, other.position);
+        return false;
     }
 
     @Override
@@ -158,5 +157,9 @@ public class BadSmell implements AnalyzerResult {
                         position.endColumn(),
                         position.charOffset(),
                         position.charLength());
+    }
+
+    public BadSmell withProjectUrl(String projectUrl) {
+        return new BadSmell(this, projectName, projectUrl, commitHash);
     }
 }

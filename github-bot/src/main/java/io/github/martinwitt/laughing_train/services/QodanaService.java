@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.health.api.AsyncHealthCheck;
@@ -15,6 +16,10 @@ import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,17 +27,12 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
 public class QodanaService {

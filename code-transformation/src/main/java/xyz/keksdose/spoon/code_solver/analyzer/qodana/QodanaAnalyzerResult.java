@@ -2,9 +2,9 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
 import com.contrastsecurity.sarif.Region;
 import com.contrastsecurity.sarif.Result;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 public record QodanaAnalyzerResult(
         RuleId ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet)

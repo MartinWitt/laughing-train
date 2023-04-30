@@ -23,6 +23,7 @@ import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 
@@ -230,6 +230,9 @@ public class QodanaAnalyzer {
             StringReader reader = new StringReader(Files.readString(resultPath));
             ObjectMapper mapper = new ObjectMapper();
             SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
+            if (sarif.getRuns().get(0).getResults() == null) {
+                return List.of();
+            }
             for (Result result : sarif.getRuns().get(0).getResults()) {
                 results.add(new QodanaAnalyzerResult(result));
             }
@@ -278,8 +281,8 @@ public class QodanaAnalyzer {
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
             this.resultPathString = resultFolder + "/qodana.sarif.json";
-            logger.atInfo().log("Result folder set to %s", resultFolder);
-            logger.atInfo().log("Result path set to %s", resultPathString);
+            logger.atFine().log("Result folder set to %s", resultFolder);
+            logger.atFine().log("Result path set to %s", resultPathString);
             return this;
         }
 

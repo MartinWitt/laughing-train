@@ -1,8 +1,8 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @MongoEntity(database = "Laughing-Train", collection = "BadSmell")
 @SuppressWarnings("NullAway")

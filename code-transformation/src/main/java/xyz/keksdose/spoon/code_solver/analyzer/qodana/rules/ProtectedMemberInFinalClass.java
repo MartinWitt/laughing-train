@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.lang.annotation.Annotation;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.ModifierKind;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;

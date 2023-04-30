@@ -1,7 +1,6 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
@@ -9,11 +8,10 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.logging.Log;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
-import java.io.IOException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Random;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -116,20 +114,6 @@ public class SearchProjectService {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        GitHub github = GitHub.connectAnonymously();
-        var repos = github.searchRepositories()
-                .q("language:java")
-                .org("xtext")
-                .sort(Sort.UPDATED)
-                .list()
-                .withPageSize(50)
-                .iterator()
-                .nextPage();
-        var repo = repos.get(0);
-        int a = 3;
-    }
-
     private String getRandomOrgName() {
         String org = orgs.get(random.nextInt(orgs.size()));
         logger.atInfo().log("Searching for project in org %s", org);
@@ -137,10 +121,7 @@ public class SearchProjectService {
     }
 
     private Project toProject(GHRepository ghRepo) {
-        @Var String ghRepoUrl = ghRepo.getHtmlUrl().toString();
-        if (ghRepoUrl.endsWith(".git")) {
-            ghRepoUrl = ghRepoUrl.substring(0, ghRepoUrl.length() - 4);
-        }
+        String ghRepoUrl = ghRepo.getHtmlUrl().toString();
         return new Project(ghRepo.getName(), ghRepoUrl);
     }
 

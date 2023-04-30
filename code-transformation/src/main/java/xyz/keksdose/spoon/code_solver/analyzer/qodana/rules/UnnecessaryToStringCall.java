@@ -3,13 +3,14 @@ package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 import static xyz.keksdose.spoon.code_solver.history.MarkdownString.fromMarkdown;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
 import java.util.List;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.PositionScanner;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
+import xyz.keksdose.spoon.code_solver.diffs.DiffCleanModes;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
@@ -50,9 +51,10 @@ public class UnnecessaryToStringCall extends AbstractRefactoring {
                     type.getTopLevelType(),
                     new Change(
                             UNNECESSARY_TO_STRING_CALL,
-                            fromMarkdown("Remove redudant `toString()` call in `%s`".formatted(oldInvocation)),
+                            fromMarkdown("Remove redundant `toString()` call in `%s`".formatted(oldInvocation)),
                             type.getTopLevelType(),
-                            result));
+                            result,
+                            List.of(DiffCleanModes.NO_WHITESPACE_ADD)));
         }
     }
     /**

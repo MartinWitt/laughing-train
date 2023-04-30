@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.util.List;
 import java.util.function.Function;
@@ -25,7 +26,6 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringC
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedLabel;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UtilityClassWithoutPrivateConstructor;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public enum QodanaRules implements AnalyzerRule {

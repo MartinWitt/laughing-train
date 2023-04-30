@@ -5,6 +5,7 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.QodanaService;
@@ -17,6 +18,9 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.core.eventbus.Message;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayDeque;
@@ -24,13 +28,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
 public class PeriodicMiner {
