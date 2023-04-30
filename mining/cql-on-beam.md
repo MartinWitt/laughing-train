@@ -9,8 +9,8 @@ I found 15 bad smells with 5 repairable:
 | ReplaceInefficientStreamCount | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | UnnecessarySuperQualifier | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | MethodOverridesStaticMethod | 1 | false |
@@ -53,19 +53,6 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
     }
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.hl7.elm.r1` is unnecessary, and can be replaced with an import
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
-#### Snippet
-```java
-      List<CqlCompilerException> errors = new ArrayList<>();
-      libraryManager.resolveLibrary(
-          new org.hl7.elm.r1.VersionedIdentifier()
-              .withId(libraryIds.getName())
-              .withVersion(libraryIds.getVersion()),
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `contextResources.getValue()` might be null
@@ -77,6 +64,19 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
     RetrieveProvider retrieveProvider = createRetrieveProvider(contextResources.getValue());
     for (VersionedIdentifier cqlLibraryId : cqlLibraryVersionedIdentifiers) {
       Library library = libraryLoader.load(cqlLibraryId);
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.hl7.elm.r1` is unnecessary, and can be replaced with an import
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
+#### Snippet
+```java
+      List<CqlCompilerException> errors = new ArrayList<>();
+      libraryManager.resolveLibrary(
+          new org.hl7.elm.r1.VersionedIdentifier()
+              .withId(libraryIds.getName())
+              .withVersion(libraryIds.getVersion()),
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -94,15 +94,27 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super KV`
-in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
+Can generalize to `? super EvaluateCqlOptions`
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
 #### Snippet
 ```java
-  @ProcessElement
-  public void processElement(
-      @Element String element, OutputReceiver<KV<ResourceTypeAndId, String>> out) {
-    JsonObject resourceObject = JsonParser.parseString(element).getAsJsonObject();
-    String resourceType = resourceObject.get("resourceType").getAsString();
+  @VisibleForTesting
+  static void runPipeline(
+      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
+      String[] args,
+      ZonedDateTime evaluationDateTime) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pipeline`
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static void runPipeline(
+      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
+      String[] args,
+      ZonedDateTime evaluationDateTime) {
 ```
 
 ### BoundedWildcard
@@ -130,42 +142,18 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super EvaluateCqlOptions`
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
+Can generalize to `? super KV`
+in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
 #### Snippet
 ```java
-  @VisibleForTesting
-  static void runPipeline(
-      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
-      String[] args,
-      ZonedDateTime evaluationDateTime) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pipeline`
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static void runPipeline(
-      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
-      String[] args,
-      ZonedDateTime evaluationDateTime) {
+  @ProcessElement
+  public void processElement(
+      @Element String element, OutputReceiver<KV<ResourceTypeAndId, String>> out) {
+    JsonObject resourceObject = JsonParser.parseString(element).getAsJsonObject();
+    String resourceType = resourceObject.get("resourceType").getAsString();
 ```
 
 ## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
-#### Snippet
-```java
-    IParser parser = fhirContext.newJsonParser();
-    jsonResource.forEach(
-        element -> {
-          bundle.addEntry().setResource((Resource) parser.parseResource(element));
-        });
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `src/main/java/com/google/fhir/cql/beam/CachingModelResolver.java`
@@ -176,6 +164,18 @@ in `src/main/java/com/google/fhir/cql/beam/CachingModelResolver.java`
           return super.resolveType(value);
         });
   }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
+#### Snippet
+```java
+    IParser parser = fhirContext.newJsonParser();
+    jsonResource.forEach(
+        element -> {
+          bundle.addEntry().setResource((Resource) parser.parseResource(element));
+        });
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
