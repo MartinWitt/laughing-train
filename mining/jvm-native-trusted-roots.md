@@ -48,27 +48,15 @@ public class SecurityFrameworkUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NativeTrustedRootsInternalUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsInternalUtils.java`
+Class `PemReaderUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
 #### Snippet
 ```java
+import java.util.List;
 
-@ApiStatus.Internal
-public class NativeTrustedRootsInternalUtils {
-    private static final String _OS_NAME = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
-    public static final boolean isWindows = _OS_NAME.startsWith("windows");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LinuxTrustedCertificatesUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
-#### Snippet
-```java
-import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.renderExceptionMessage;
-
-public class LinuxTrustedCertificatesUtil {
-    private final static Logger LOGGER = Logger.getLogger(LinuxTrustedCertificatesUtil.class.getName());
-
+public class PemReaderUtil {
+    private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
+    private static final String END_CERT = "-----END CERTIFICATE-----";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -84,30 +72,30 @@ public class NativeTrustedCertificates {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PemReaderUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
+Class `LinuxTrustedCertificatesUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
 #### Snippet
 ```java
-import java.util.List;
+import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.renderExceptionMessage;
 
-public class PemReaderUtil {
-    private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
-    private static final String END_CERT = "-----END CERTIFICATE-----";
+public class LinuxTrustedCertificatesUtil {
+    private final static Logger LOGGER = Logger.getLogger(LinuxTrustedCertificatesUtil.class.getName());
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NativeTrustedRootsInternalUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsInternalUtils.java`
+#### Snippet
+```java
+
+@ApiStatus.Internal
+public class NativeTrustedRootsInternalUtils {
+    private static final String _OS_NAME = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
+    public static final boolean isWindows = _OS_NAME.startsWith("windows");
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/jetbrains/nativecerts/mac/CFArrayRefByReference.java`
-#### Snippet
-```java
-    @Nullable
-    public CoreFoundation.CFArrayRef getArray() {
-        Pointer value = super.getValue();
-        if (value == null) {
-            return null;
-```
-
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `src/main/java/org/jetbrains/nativecerts/mac/CFStringRefByReference.java`
@@ -115,6 +103,18 @@ in `src/main/java/org/jetbrains/nativecerts/mac/CFStringRefByReference.java`
 ```java
     @Nullable
     public CoreFoundation.CFStringRef getStringRef() {
+        Pointer value = super.getValue();
+        if (value == null) {
+            return null;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/jetbrains/nativecerts/mac/CFArrayRefByReference.java`
+#### Snippet
+```java
+    @Nullable
+    public CoreFoundation.CFArrayRef getArray() {
         Pointer value = super.getValue();
         if (value == null) {
             return null;
@@ -165,11 +165,11 @@ Missorted modifiers `final static`
 in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
 #### Snippet
 ```java
+
 public class NativeTrustedRootsDebugMain {
     private final static Logger rootLogger = Logger.getLogger("");
     private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
 
-    public static void main(String[] args) throws Exception {
 ```
 
 ### MissortedModifiers
@@ -177,11 +177,11 @@ Missorted modifiers `final static`
 in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
 #### Snippet
 ```java
-
 public class NativeTrustedRootsDebugMain {
     private final static Logger rootLogger = Logger.getLogger("");
     private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
 
+    public static void main(String[] args) throws Exception {
 ```
 
 ### MissortedModifiers
