@@ -15,11 +15,11 @@ Return of `null`
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-    public String setSystemProperty(String name, String value) {
-      // no-op
+    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
+    if (releaseId == null) {
       return null;
     }
-  }
+    return new Release(impl);
 ```
 
 ### ReturnNull
@@ -27,11 +27,11 @@ Return of `null`
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
-    if (releaseId == null) {
+    public String setSystemProperty(String name, String value) {
+      // no-op
       return null;
     }
-    return new Release(impl);
+  }
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -74,6 +74,18 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 ```
 
 ### UnstableApiUsage
+'forUseAtConfigurationTime()' is marked unstable with @Incubating
+in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
+#### Snippet
+```java
+    // Deprecated and a noop starting in 7.4
+    if (GradleVersion.current().compareTo(GradleVersion.version("7.4")) < 0) {
+      return provider.forUseAtConfigurationTime();
+    } else {
+      return provider;
+```
+
+### UnstableApiUsage
 'fileContents(org.gradle.api.file.RegularFile)' is marked unstable with @Incubating
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
@@ -109,29 +121,17 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 
 ```
 
-### UnstableApiUsage
-'forUseAtConfigurationTime()' is marked unstable with @Incubating
-in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
-#### Snippet
-```java
-    // Deprecated and a noop starting in 7.4
-    if (GradleVersion.current().compareTo(GradleVersion.version("7.4")) < 0) {
-      return provider.forUseAtConfigurationTime();
-    } else {
-      return provider;
-```
-
 ## RuleId[id=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-
-  public String getClassifier() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_CLASSIFIER);
-  }
-
+  public Release getRelease() {
+    Impl impl = getImpl();
+    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
+    if (releaseId == null) {
+      return null;
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -140,8 +140,8 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
 
-  public String getArch() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
+  public String getOs() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
   }
 
 ```
@@ -164,8 +164,8 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
 
-  public String getOs() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
+  public String getArch() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
   }
 
 ```
@@ -175,11 +175,11 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-  public Release getRelease() {
-    Impl impl = getImpl();
-    Object releaseId = impl.detectedProperties.get(Detector.DETECTED_RELEASE);
-    if (releaseId == null) {
-      return null;
+
+  public String getClassifier() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_CLASSIFIER);
+  }
+
 ```
 
 ### UseOfPropertiesAsHashtable
