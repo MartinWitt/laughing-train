@@ -84,15 +84,15 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `NonOrderableSlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+Abstract class `OrderableSlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
 ```java
 @Value.Immutable
 @ImmutablesStyle
-public abstract class NonOrderableSlsVersion extends SlsVersion {
+public abstract class OrderableSlsVersion extends SlsVersion implements Comparable<OrderableSlsVersion> {
 
-    @JsonCreator
+    private static final SlsVersionType[] ORDERED_VERSION_TYPES = {
 ```
 
 ### AbstractClassNeverImplemented
@@ -108,15 +108,15 @@ public abstract class SlsVersion implements Serializable {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `OrderableSlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+Abstract class `NonOrderableSlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
 #### Snippet
 ```java
 @Value.Immutable
 @ImmutablesStyle
-public abstract class OrderableSlsVersion extends SlsVersion implements Comparable<OrderableSlsVersion> {
+public abstract class NonOrderableSlsVersion extends SlsVersion {
 
-    private static final SlsVersionType[] ORDERED_VERSION_TYPES = {
+    @JsonCreator
 ```
 
 ### AbstractClassNeverImplemented
@@ -134,26 +134,14 @@ public abstract class SlsVersionMatcher {
 ## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
 ```java
 
     @JsonCreator
-    public static NonOrderableSlsVersion valueOf(String value) {
-        Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
-```
-
-### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-     * orderable one.
-     */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
-    }
+    public static OrderableSlsVersion valueOf(String value) {
+        Optional<OrderableSlsVersion> optional = safeValueOf(value);
+        checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
 ```
 
 ### MethodOverridesStaticMethod
@@ -169,14 +157,26 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
 ```
 
 ### MethodOverridesStaticMethod
+Method `check()` tries to override a static method of a superclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
+#### Snippet
+```java
+     * orderable one.
+     */
+    public static boolean check(String coordinate) {
+        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
+    }
+```
+
+### MethodOverridesStaticMethod
 Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
 #### Snippet
 ```java
 
     @JsonCreator
-    public static OrderableSlsVersion valueOf(String value) {
-        Optional<OrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
+    public static NonOrderableSlsVersion valueOf(String value) {
+        Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
+        checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
 ```
 
