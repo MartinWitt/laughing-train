@@ -23,10 +23,10 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            MetricNamespace metrics,
+            String metricName,
             Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
+            MetricNamespace metricNamespace,
+            MetricDefinition definition,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -59,10 +59,10 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            String metricName,
+            MetricNamespace metrics,
             Optional<String> libraryName,
-            MetricNamespace metricNamespace,
-            MetricDefinition definition,
+            String packageName,
+            ImplementationVisibility visibility) {
 ```
 
 ## RuleId[id=IOResource]
@@ -121,11 +121,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        }
-        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
-                .addModifiers(modifiers.toArray(new Modifier[0]))
-                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
-                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
+        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
+                .addModifiers(visibility.apply())
+                .addModifiers(extraModifiers.toArray(new Modifier[0]))
+                .returns(MetricName.class)
+                .addCode("return $L;", metricNameBlock)
 ```
 
 ### ZeroLengthArrayInitialization
@@ -133,11 +133,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
-                .addModifiers(visibility.apply())
-                .addModifiers(extraModifiers.toArray(new Modifier[0]))
-                .returns(MetricName.class)
-                .addCode("return $L;", metricNameBlock)
+        }
+        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
+                .addModifiers(modifiers.toArray(new Modifier[0]))
+                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
+                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
 ```
 
 ## RuleId[id=DataFlowIssue]
