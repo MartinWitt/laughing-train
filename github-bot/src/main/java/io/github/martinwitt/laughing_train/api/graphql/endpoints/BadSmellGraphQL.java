@@ -4,6 +4,8 @@ import io.github.martinwitt.laughing_train.api.graphql.dto.BadSmellGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
+import io.github.martinwitt.laughing_train.summary.GetFixableBadSmells;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.util.List;
@@ -18,6 +20,12 @@ public class BadSmellGraphQL {
 
     @Inject
     BadSmellRepository badSmellRepository;
+
+    @Inject
+    GetFixableBadSmells getFixableBadSmells;
+
+    @Inject
+    ProjectRepository projectRepository;
 
     @Query("allBadSmells")
     @Description("Gets all bad smells from the database")
@@ -53,6 +61,18 @@ public class BadSmellGraphQL {
     @Description("Gets all bad smells from the database by identifier")
     public List<BadSmellGraphQLDto> getAllBadSmellsByIdentifier(@Name("identifier") String identifier) {
         return badSmellRepository.findByIdentifier(identifier).stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    @Query("fixableByProjectName")
+    @Description("Gets all fixable bad smells from the database by projectName")
+    public List<BadSmellGraphQLDto> getAllFixableBadSmellsByProjectName(@Name("projectName") String projectName) {
+        var projects = projectRepository.findByProjectName(projectName);
+        if (projects.isEmpty()) {
+            return List.of();
+        }
+        return getFixableBadSmells.getFixableBadSmells(projects.get(0)).stream()
                 .map(this::mapToDto)
                 .toList();
     }

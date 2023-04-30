@@ -7,9 +7,6 @@ import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
 import io.github.martinwitt.laughing_train.data.GitHubState;
 import io.github.martinwitt.laughing_train.data.Issue;
 import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.quarkus.vertx.ConsumeEvent;
-import io.smallrye.mutiny.Uni;
-import io.smallrye.mutiny.unchecked.Unchecked;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.util.List;
@@ -23,8 +20,7 @@ public class IssueRequestService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @ConsumeEvent(value = ServiceAddresses.FIND_ISSUE_REQUEST, blocking = true)
-    public Uni<FindPullRequestResult> findPullRequests(FindIssueRequest request) {
+    public FindPullRequestResult findPullRequests(FindIssueRequest request) {
         logger.atFine().log("Got request %s", request);
         if (request instanceof FindIssueRequest.WithUserName userName) {
             logger.atFine().log("Got user name %s", userName);
@@ -33,11 +29,13 @@ public class IssueRequestService {
         throw new IllegalArgumentException("Unknown request type %s".formatted(request));
     }
 
-    private Uni<FindPullRequestResult> getIssuesWithFixes(FindIssueRequest.WithUserName userName) {
-        return Uni.createFrom()
-                .item(Unchecked.supplier(() -> searchPrs(userName)))
-                .onItem()
-                .transform(v -> new FindPullRequestResult.MultipleResults(convertGHIssueToPullRequest(v)));
+    private FindPullRequestResult getIssuesWithFixes(FindIssueRequest.WithUserName userName) {
+        try {
+            return new FindPullRequestResult.MultipleResults(convertGHIssueToPullRequest(searchPrs(userName)));
+        } catch (IOException e) {
+            logger.atSevere().withCause(e).log("Error while searching for issues with fixes for user %s", userName);
+            return new FindPullRequestResult.NoResult();
+        }
     }
 
     private List<PullRequest> convertGHIssueToPullRequest(List<? extends GHIssue> issues) {
@@ -72,28 +70,22 @@ public class IssueRequestService {
         return Enum.valueOf(GitHubState.class, state.name());
     }
 
-    @ConsumeEvent(value = ServiceAddresses.FIND_SUMMARY_ISSUE_REQUEST, blocking = true)
-    public Uni<FindIssueResult> getSummaryIssue(String ignored) {
-        logger.atFine().log("Finding summary issue");
+    public FindIssueResult getSummaryIssue() {
         return findSummaryIssue();
     }
 
-    private Uni<FindIssueResult> findSummaryIssue() {
-        return Uni.createFrom()
-                .item(Unchecked.supplier(this::searchSummaryIssueOnGithub))
-                .onItem()
-                .transform(this::emptyToFailure)
-                .onFailure()
-                .call(v -> Uni.createFrom().item(new FindIssueResult.NoResult()))
-                .onItem()
-                .transform(FindIssueResult.SingleResult::new);
-    }
-
-    private Issue emptyToFailure(List<? extends GHIssue> list) {
-        if (list.isEmpty()) {
-            throw new IllegalStateException("No summary issue found");
+    private FindIssueResult findSummaryIssue() {
+        try {
+            var list = searchSummaryIssueOnGithub();
+            if (list.isEmpty()) {
+                return new FindIssueResult.NoResult();
+            }
+            return new FindIssueResult.MultipleResults(
+                    list.stream().map(v -> toIssue(v)).toList());
+        } catch (IOException e) {
+            logger.atSevere().withCause(e).log("Error while searching for summary issue");
+            return new FindIssueResult.NoResult();
         }
-        return (toIssue(list.get(0)));
     }
 
     private List<GHIssue> searchSummaryIssueOnGithub() throws IOException {

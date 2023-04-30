@@ -6,43 +6,46 @@ import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.scheduler.Scheduled;
-import jakarta.inject.Inject;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;
-import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
 public class PeriodicRefactoringSummary {
 
     private static final String LABEL_NAME = "laughing-train-refactoring-summary";
 
-    @Inject
     ProjectRepository projectRepository;
-
-    @Inject
     BadSmellRepository badSmellRepository;
+    GetFixableBadSmells getFixableBadSmells;
+
+    PeriodicRefactoringSummary(
+            ProjectRepository projectRepository,
+            BadSmellRepository badSmellRepository,
+            GetFixableBadSmells getFixableBadSmells) {
+        this.projectRepository = projectRepository;
+        this.badSmellRepository = badSmellRepository;
+        this.getFixableBadSmells = getFixableBadSmells;
+    }
 
     @Scheduled(every = "2h", delay = 10)
     void createSummary() throws IOException {
-        var issue = searchSummaryIssueOnGithub().get(0);
+        var issue = searchSummaryIssueOnGithub();
         issue.setBody(createSummaryBody());
     }
 
     private String createSummaryBody() {
-        Set<String> ruleIDs = getNameOfAllRules();
+
         StringBuilder summary = new StringBuilder();
         summary.append("# Summary of all refactoring opportunities:\n");
         for (Project project : projectRepository.getAll()) {
-            String commitHash = getNewestHash(project);
-            Map<RuleId, List<BadSmell>> badSmellByRuleId = getFixableBadSmells(ruleIDs, commitHash);
-            if (badSmellByRuleId.values().stream().allMatch(List::isEmpty)) {
+            List<BadSmell> badSmells = getFixableBadSmells.getFixableBadSmells(project);
+            Map<RuleId, List<BadSmell>> badSmellByRuleId =
+                    badSmells.stream().collect(Collectors.groupingBy(BadSmell::ruleID));
+            if (badSmells.isEmpty()) {
                 continue;
             }
             summary.append("## Project: ").append(project.getProjectName()).append("\n");
@@ -52,7 +55,6 @@ public class PeriodicRefactoringSummary {
                 if (entry.getValue().isEmpty()) {
                     continue;
                 }
-
                 summary.append("| ")
                         .append(entry.getKey().id())
                         .append(" | ")
@@ -63,26 +65,12 @@ public class PeriodicRefactoringSummary {
         return summary.toString();
     }
 
-    private Map<RuleId, List<BadSmell>> getFixableBadSmells(Set<String> ruleIDs, String commitHash) {
-        return badSmellRepository.findByCommitHash(commitHash).stream()
-                .filter(v -> ruleIDs.contains(v.ruleID().id()))
-                .collect(Collectors.groupingBy(BadSmell::ruleID));
-    }
-
-    private String getNewestHash(Project project) {
-        return project.getCommitHashes().get(project.getCommitHashes().size() - 1);
-    }
-
-    private Set<String> getNameOfAllRules() {
-        return getAllRules().stream().map(v -> v.getRuleId().id()).collect(Collectors.toSet());
-    }
-
-    private List<AnalyzerRule> getAllRules() {
-        return Arrays.asList(QodanaRules.values());
-    }
-
-    private List<GHIssue> searchSummaryIssueOnGithub() throws IOException {
-        return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+    /**
+     * Search for the summary issue on github. The summary issue contains an overview over all refactoring opportunities.
+     * @return the summary issue on github never null
+     */
+    private GHIssue searchSummaryIssueOnGithub() throws IOException {
+        var list = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
                 .getRepository("MartinWitt/laughing-train")
                 .queryIssues()
                 .pageSize(1)
@@ -90,5 +78,9 @@ public class PeriodicRefactoringSummary {
                 .state(GHIssueState.OPEN)
                 .list()
                 .toList();
+        if (list.isEmpty()) {
+            throw new IllegalStateException("No summary issue found");
+        }
+        return list.get(0);
     }
 }
