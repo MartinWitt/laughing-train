@@ -101,7 +101,7 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/conf
 ```java
      */
     @JsonAdapter(TimeFieldAdapter.NanoSeconds.class)
-    public long maxStartOffset = 1 * TIME.SECOND;
+    public Long maxInterval = 1 * TIME.SECOND;
 
     /**
 ```
@@ -113,7 +113,7 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/conf
 ```java
      */
     @JsonAdapter(TimeFieldAdapter.NanoSeconds.class)
-    public Long maxInterval = 1 * TIME.SECOND;
+    public long maxStartOffset = 1 * TIME.SECOND;
 
     /**
 ```
@@ -156,6 +156,18 @@ in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tuto
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
+Static method `valueOf()` declared in class 'java.lang.Enum' but referenced via subclass 'null'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnumDefaultValueTypeAdapter.java`
+#### Snippet
+```java
+        }
+        try {
+            return (E) E.valueOf(defaultValue.getClass(), in.nextString());
+        } catch (IllegalArgumentException e) {
+            return defaultValue;
+```
+
+### StaticCallOnSubclass
 Static method `getByAddress()` declared in class 'java.net.InetAddress' but referenced via subclass 'java.net.Inet4Address'
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/NetworkAddress.java`
 #### Snippet
@@ -165,6 +177,18 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/N
             this.address = (Inet4Address) Inet4Address.getByAddress(ipv4Address);
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
+```
+
+### StaticCallOnSubclass
+Static method `getByAddress()` declared in class 'java.net.InetAddress' but referenced via subclass 'java.net.Inet4Address'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
+#### Snippet
+```java
+                final Inet4Address ipResult;
+                try {
+                    ipResult = (Inet4Address) Inet4Address.getByAddress(addressFlatToArray(network | unitNumber));
+                } catch (UnknownHostException ex) {
+                    throw new RuntimeException("Error converting hostname to IP, address is not IPv4");
 ```
 
 ### StaticCallOnSubclass
@@ -251,30 +275,6 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/I
         } catch (UnknownHostException ex) {
 ```
 
-### StaticCallOnSubclass
-Static method `getByAddress()` declared in class 'java.net.InetAddress' but referenced via subclass 'java.net.Inet4Address'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
-#### Snippet
-```java
-                final Inet4Address ipResult;
-                try {
-                    ipResult = (Inet4Address) Inet4Address.getByAddress(addressFlatToArray(network | unitNumber));
-                } catch (UnknownHostException ex) {
-                    throw new RuntimeException("Error converting hostname to IP, address is not IPv4");
-```
-
-### StaticCallOnSubclass
-Static method `valueOf()` declared in class 'java.lang.Enum' but referenced via subclass 'null'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnumDefaultValueTypeAdapter.java`
-#### Snippet
-```java
-        }
-        try {
-            return (E) E.valueOf(defaultValue.getClass(), in.nextString());
-        } catch (IllegalArgumentException e) {
-            return defaultValue;
-```
-
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `mosaicVersion` from instance context
@@ -327,27 +327,39 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+Redundant character escape `\\\"` in RegExp
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
 #### Snippet
 ```java
-    }
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
 
-    private final static Pattern PORT_PATTERN = Pattern.compile("^([0-9]+)\\/.*:([0-9]+)$");
-
-    /**
+    private final Logger logger;
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
+Redundant character escape `\\\"` in RegExp
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
 #### Snippet
 ```java
-            if (line.length() > 0) {
-                log.debug(line);
-                if (line.matches("\\s*\\[\\d+\\]\\s\\d+\\s*")) {
-                    pid = Integer.parseInt(line.split("\\s")[1]);
-                    log.info("Started with pid=" + pid + ".");
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
+
+    private final Logger logger;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+#### Snippet
+```java
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
+
+    private final Logger logger;
 ```
 
 ### RegExpRedundantEscape
@@ -363,39 +375,15 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+Redundant character escape `\\]` in RegExp
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
 #### Snippet
 ```java
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
-
-    private final Logger logger;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
-
-    private final Logger logger;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
-
-    private final Logger logger;
+            if (line.length() > 0) {
+                log.debug(line);
+                if (line.matches("\\s*\\[\\d+\\]\\s\\d+\\s*")) {
+                    pid = Integer.parseInt(line.split("\\s")[1]);
+                    log.info("Started with pid=" + pid + ".");
 ```
 
 ### RegExpRedundantEscape
@@ -410,17 +398,29 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAda
     private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Vector` used
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/DistributedFederationManagement.java`
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
 #### Snippet
 ```java
-     */
-    private void removeDirectory(ChannelSftp channel, String dirName) throws SftpException {
-        Vector<LsEntry> entries = channel.ls(dirName);
-        channel.cd(dirName);
-        String file;
+    }
+
+    private final static Pattern PORT_PATTERN = Pattern.compile("^([0-9]+)\\/.*:([0-9]+)$");
+
+    /**
+```
+
+## RuleId[id=ObsoleteCollection]
+### ObsoleteCollection
+Obsolete collection type `Vector<>` used
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleParameters.java`
+#### Snippet
+```java
+            newParameters = new VehicleParameters(before);
+            this.vehicleOperatingSystem = vehicleOperatingSystem;
+            changedParameters = new Vector<>();
+        }
+
 ```
 
 ### ObsoleteCollection
@@ -436,15 +436,15 @@ in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Vector<>` used
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
+Obsolete collection type `Vector` used
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/DistributedFederationManagement.java`
 #### Snippet
 ```java
-    private final String image;
-    private String name;
-    private List<Pair<String, Object>> parameters = new Vector<>();
-    private List<Pair<Integer, Integer>> portBindings = new Vector<>();
-    private String user;
+     */
+    private void removeDirectory(ChannelSftp channel, String dirName) throws SftpException {
+        Vector<LsEntry> entries = channel.ls(dirName);
+        channel.cd(dirName);
+        String file;
 ```
 
 ### ObsoleteCollection
@@ -452,11 +452,11 @@ Obsolete collection type `Vector<>` used
 in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
 #### Snippet
 ```java
-     */
-    public DockerContainer execute() {
-        List<String> options = new Vector<>();
-
-        if (removeAfterRun) {
+    private String name;
+    private List<Pair<String, Object>> parameters = new Vector<>();
+    private List<Pair<Integer, Integer>> portBindings = new Vector<>();
+    private String user;
+    private List<Pair<File, String>> volumeBindings = new Vector<>();
 ```
 
 ### ObsoleteCollection
@@ -476,11 +476,35 @@ Obsolete collection type `Vector<>` used
 in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
 #### Snippet
 ```java
+     */
+    public DockerContainer execute() {
+        List<String> options = new Vector<>();
+
+        if (removeAfterRun) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Vector<>` used
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
+#### Snippet
+```java
+    private final String image;
     private String name;
     private List<Pair<String, Object>> parameters = new Vector<>();
     private List<Pair<Integer, Integer>> portBindings = new Vector<>();
     private String user;
-    private List<Pair<File, String>> volumeBindings = new Vector<>();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Vector<>` used
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+#### Snippet
+```java
+     */
+    private List<Pair<Integer, Integer>> readPortBinding(String containerName) {
+        final List<Pair<Integer, Integer>> bindings = new Vector<>();
+        String result = docker.port(containerName).replace("\r", "");
+        for (String line : StringUtils.split(result, "\n")) {
 ```
 
 ### ObsoleteCollection
@@ -505,30 +529,6 @@ in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.j
     private final Vector<DockerContainer> runningContainers = new Vector<>();
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-```
-
-### ObsoleteCollection
-Obsolete collection type `Vector<>` used
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
-#### Snippet
-```java
-     */
-    private List<Pair<Integer, Integer>> readPortBinding(String containerName) {
-        final List<Pair<Integer, Integer>> bindings = new Vector<>();
-        String result = docker.port(containerName).replace("\r", "");
-        for (String line : StringUtils.split(result, "\n")) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Vector<>` used
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleParameters.java`
-#### Snippet
-```java
-            newParameters = new VehicleParameters(before);
-            this.vehicleOperatingSystem = vehicleOperatingSystem;
-            changedParameters = new Vector<>();
-        }
-
 ```
 
 ## RuleId[id=StaticPseudoFunctionalStyleMethod]
@@ -576,90 +576,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`this.events.size() > 0` can be replaced with '!this.events.isEmpty()'
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/MultiThreadedTimeManagement.java`
-#### Snippet
-```java
-
-        // run while events are available
-        while (this.events.size() > 0 && this.time < getEndTime()) {
-
-            // remove first event of queue
-```
-
-### SizeReplaceableByIsEmpty
-`laneAssignment.getAllowedVehicleClasses().size() == 0` can be replaced with 'laneAssignment.getAllowedVehicleClasses().isEmpty()'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
-#### Snippet
-```java
-        } else if (laneAssignment.getAllowedVehicleClasses().size() == 1 && laneAssignment.isVehicleClassAllowed(VehicleClass.ElectricVehicle)) {
-            assignment = "EV";
-        } else if (laneAssignment.getAllowedVehicleClasses().size() == 0) {
-            //special case: load empty sign with speed-limit background
-            Path imageFile = imageCreatorSpeedLimits.getOrCreateImage(null, laneAssignment.getLane());
-```
-
-### SizeReplaceableByIsEmpty
-`resultObjects.size() > 0` can be replaced with '!resultObjects.isEmpty()'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/AbstractTraciCommand.java`
-#### Snippet
-```java
-                        }
-                    }
-                    if (resultObjects.size() > 0) {
-                        results.add(constructResult(status, resultObjects.toArray(new Object[0])));
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`applications.size() > 0` can be replaced with '!applications.isEmpty()'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/mapping/UnitMapping.java`
-#### Snippet
-```java
-
-    public boolean hasApplication() {
-        return applications.size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`interfaces.size() == 0` can be replaced with 'interfaces.isEmpty()'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/communication/AdHocConfiguration.java`
-#### Snippet
-```java
-     */
-    public RadioMode getRadioMode() {
-        if (interfaces.size() == 0) {
-            return RadioMode.OFF;
-        } else if (interfaces.size() == 1) {
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            Thread.sleep(1000);
-            while (((line = sumoInputReader.readLine()) != null)) {
-                if (line.length() > 0) {
-                    if (log.isDebugEnabled()) {
-                        log.debug(line);
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                BufferedReader sumoErrorReader = new BufferedReader(new InputStreamReader(err, StandardCharsets.UTF_8));
-                while (((line = sumoErrorReader.readLine()) != null)) {
-                    if (line.length() > 0) {
-                        log.error(line);
-                    }
-```
-
-### SizeReplaceableByIsEmpty
 `handovers.size() > 0` can be replaced with '!handovers.isEmpty()'
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/ambassador/CellAmbassador.java`
 #### Snippet
@@ -669,18 +585,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/ambassador/CellAmb
         if (handovers.size() > 0) {
             chainManager.sendInteractionToRti(new CellularHandoverUpdates(currentTime, handovers));
         }
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
-#### Snippet
-```java
-        int pid = -1;
-        while ((line = reader.readLine()) != null) {
-            if (line.length() > 0) {
-                log.debug(line);
-                if (line.matches("\\s*\\[\\d+\\]\\s\\d+\\s*")) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -720,15 +624,87 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 ```
 
 ### SizeReplaceableByIsEmpty
-`connections.size() > 0` can be replaced with '!connections.isEmpty()'
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/route/Route.java`
+`laneAssignment.getAllowedVehicleClasses().size() == 0` can be replaced with 'laneAssignment.getAllowedVehicleClasses().isEmpty()'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
 #### Snippet
 ```java
-     */
-    public void addConnection(@Nonnull Connection connection) {
-        if (connections.size() > 0 && Iterables.getLast(connections).getId().equals(connection.getId())) {
-            return;
-        }
+        } else if (laneAssignment.getAllowedVehicleClasses().size() == 1 && laneAssignment.isVehicleClassAllowed(VehicleClass.ElectricVehicle)) {
+            assignment = "EV";
+        } else if (laneAssignment.getAllowedVehicleClasses().size() == 0) {
+            //special case: load empty sign with speed-limit background
+            Path imageFile = imageCreatorSpeedLimits.getOrCreateImage(null, laneAssignment.getLane());
+```
+
+### SizeReplaceableByIsEmpty
+`resultObjects.size() > 0` can be replaced with '!resultObjects.isEmpty()'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/AbstractTraciCommand.java`
+#### Snippet
+```java
+                        }
+                    }
+                    if (resultObjects.size() > 0) {
+                        results.add(constructResult(status, resultObjects.toArray(new Object[0])));
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`this.events.size() > 0` can be replaced with '!this.events.isEmpty()'
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/MultiThreadedTimeManagement.java`
+#### Snippet
+```java
+
+        // run while events are available
+        while (this.events.size() > 0 && this.time < getEndTime()) {
+
+            // remove first event of queue
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            Thread.sleep(1000);
+            while (((line = sumoInputReader.readLine()) != null)) {
+                if (line.length() > 0) {
+                    if (log.isDebugEnabled()) {
+                        log.debug(line);
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                BufferedReader sumoErrorReader = new BufferedReader(new InputStreamReader(err, StandardCharsets.UTF_8));
+                while (((line = sumoErrorReader.readLine()) != null)) {
+                    if (line.length() > 0) {
+                        log.error(line);
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
+#### Snippet
+```java
+        int pid = -1;
+        while ((line = reader.readLine()) != null) {
+            if (line.length() > 0) {
+                log.debug(line);
+                if (line.matches("\\s*\\[\\d+\\]\\s\\d+\\s*")) {
+```
+
+### SizeReplaceableByIsEmpty
+`processors.size() > 0` can be replaced with '!processors.isEmpty()'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
+#### Snippet
+```java
+        this.time = time;
+
+        Validate.isTrue(processors.size() > 0, "The processor list must contain at minimum one processor.");
+        for (EventProcessor processor : processors) {
+            Objects.requireNonNull(processor, "All event processors must not be null.");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -744,15 +720,39 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventI
 ```
 
 ### SizeReplaceableByIsEmpty
-`processors.size() > 0` can be replaced with '!processors.isEmpty()'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
+`applications.size() > 0` can be replaced with '!applications.isEmpty()'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/mapping/UnitMapping.java`
 #### Snippet
 ```java
-        this.time = time;
 
-        Validate.isTrue(processors.size() > 0, "The processor list must contain at minimum one processor.");
-        for (EventProcessor processor : processors) {
-            Objects.requireNonNull(processor, "All event processors must not be null.");
+    public boolean hasApplication() {
+        return applications.size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`interfaces.size() == 0` can be replaced with 'interfaces.isEmpty()'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/communication/AdHocConfiguration.java`
+#### Snippet
+```java
+     */
+    public RadioMode getRadioMode() {
+        if (interfaces.size() == 0) {
+            return RadioMode.OFF;
+        } else if (interfaces.size() == 1) {
+```
+
+### SizeReplaceableByIsEmpty
+`connections.size() > 0` can be replaced with '!connections.isEmpty()'
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/route/Route.java`
+#### Snippet
+```java
+     */
+    public void addConnection(@Nonnull Connection connection) {
+        if (connections.size() > 0 && Iterables.getLast(connections).getId().equals(connection.getId())) {
+            return;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -778,6 +778,18 @@ in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/a
         final StringBuffer sb = new StringBuffer("InterVehicleMsg{");
         sb.append("senderPosition=").append(senderPosition);
         sb.append('}');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
+#### Snippet
+```java
+        }
+        boolean containsLineseperator = json.contains("\n");
+        return new StringBuilder()
+                .append(json.substring(0, maxLength - 100))
+                .append(containsLineseperator ? NEWLINE : "")
 ```
 
 ### StringBufferReplaceableByString
@@ -814,18 +826,6 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/cam
             StringBuilder sb = new StringBuilder("VehicleAwarenessData[");
             sb.append("vehicleClass:").append(vehicleClass);
             sb.append(", width:").append(width);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
-#### Snippet
-```java
-        }
-        boolean containsLineseperator = json.contains("\n");
-        return new StringBuilder()
-                .append(json.substring(0, maxLength - 100))
-                .append(containsLineseperator ? NEWLINE : "")
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -880,18 +880,6 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/MathUtils.java`
 ```
 
 ### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/MathUtils.java`
-#### Snippet
-```java
-        if (a < b && a < c) {
-            return a;
-        } else if (b < c) {
-            return b;
-        } else {
-```
-
-### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
 in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/MathUtils.java`
 #### Snippet
@@ -903,17 +891,29 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/MathUtils.java`
         } else {
 ```
 
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/MathUtils.java`
+#### Snippet
+```java
+        if (a < b && a < c) {
+            return a;
+        } else if (b < c) {
+            return b;
+        } else {
+```
+
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
 #### Snippet
 ```java
-    public void startExternalWatchDog(String simId, int port) {
-        if (port > 0) {
-            progressLogger.info("" + port);
-            externalWatchDog = new ExternalWatchDog(federation, port);
-            externalWatchDog.start();
+            return oiRegion.readFile(configFile, configBuilder);
+        } catch (InstantiationException | JsonParseException ex) {
+            log.error("Could not read configuration " + configPath + "", ex);
+            throw new InternalFederateException(ex);
+        }
 ```
 
 ### TrivialStringConcatenation
@@ -930,6 +930,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignIm
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+    public void startExternalWatchDog(String simId, int port) {
+        if (port > 0) {
+            progressLogger.info("" + port);
+            externalWatchDog = new ExternalWatchDog(federation, port);
+            externalWatchDog.start();
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/UtmPointAdapter.java`
 #### Snippet
 ```java
@@ -938,18 +950,6 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/UtmPointAdapter
         object.add("zone", new JsonPrimitive(point.getZone().getNumber() + "" + point.getZone().getLetter()));
         return object;
     }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
-#### Snippet
-```java
-            return oiRegion.readFile(configFile, configBuilder);
-        } catch (InstantiationException | JsonParseException ex) {
-            log.error("Could not read configuration " + configPath + "", ex);
-            throw new InternalFederateException(ex);
-        }
 ```
 
 ### TrivialStringConcatenation
@@ -990,558 +990,6 @@ abstract class LogStatements {
 ```
 
 ## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends InteractionDescriptor`
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/interaction/TypeBasedInteractionManagement.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeInteractions(String federateId, Collection<InteractionDescriptor> interactionIds) throws IllegalArgumentException {
-        if (!federation.getFederationManagement().isFederateJoined(federateId)) {
-            throw new IllegalArgumentException("Federate with id \"" + federateId + "\" is unknown.");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Route`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/RouteManager.java`
-#### Snippet
-```java
-    }
-
-    private int getMaxRouteID(Collection<Route> routes) {
-        int id = 0;
-        for (Route r : routes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Connection`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
-#### Snippet
-```java
-    }
-
-    private double lengthOfConnections(List<Connection> connections) {
-        return connections == null ? Double.MAX_VALUE : connections.stream().map(Connection::getLength).reduce(0d, Double::sum);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Connection`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
-#### Snippet
-```java
-    }
-
-    private List<String> convertConnectionsToIds(List<Connection> fixedRoute) {
-        return fixedRoute.stream().map(Connection::getId).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
-#### Snippet
-```java
-     * @return True, if not duplicate in the set.
-     */
-    private boolean checkForDuplicate(CandidateRoute route, Set<String> duplicateSet) {
-        String nodeIdList = StringUtils.join(route.getConnectionIds(), ",");
-        return duplicateSet.add(nodeIdList);
-```
-
-### BoundedWildcard
-Can generalize to `? extends FederateDescriptor`
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-     * @throws Exception if something went wrong during initalization of any federate
-     */
-    private ComponentProvider createFederation(final MosaicComponentParameters simulationParams, final List<FederateDescriptor> federates) throws Exception {
-        final ComponentProvider componentProvider = componentProviderFactory.createComponentProvider(simulationParams);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/DatabaseGraphLoader.java`
-#### Snippet
-```java
-     * @return List of points representing the geometry.
-     */
-    private PointList getWayGeometry(Node from, Node to, List<Node> wayNodeList) {
-        PointList points = new PointList(1000, true);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends TrafficLightState`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficLightStateDecoder.java`
-#### Snippet
-```java
-    }
-
-    public static String encodeStateList(List<TrafficLightState> customStateList) {
-        return customStateList.stream().map(
-                (state) -> state.isGreen() ? "G"
-```
-
-### BoundedWildcard
-Can generalize to `? super SPTEntry`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/DijkstraCamvitChoiceRouting.java`
-#### Snippet
-```java
-    }
-
-    void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueue,
-                   IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super SPTEntry`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AStarCamvitChoiceRouting.java`
-#### Snippet
-```java
-    }
-
-    private void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueueOpenSet,
-                           IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super SPTEntry`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AStarCamvitChoiceRouting.java`
-#### Snippet
-```java
-
-    private void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueueOpenSet,
-                           IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
-
-        int currNode = curr.adjNode;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Phase`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex/SumoTrafficLightLogic.java`
-#### Snippet
-```java
-     * @param currentPhase The index of the phase.
-     */
-    public SumoTrafficLightLogic(String logicId, List<Phase> phases, int currentPhase) {
-        this.logicId = logicId;
-        this.phases = phases;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
-#### Snippet
-```java
-    }
-
-    private void applyParametersFromSumoConfiguration(Map<String, Map<String, String>> newVehicleTypes) {
-        for (Entry<String, Map<String, String>> sumoParameterEntry : additionalVehicleTypeParameters.entrySet()) {
-            String currentVehicleType = sumoParameterEntry.getKey();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/ListTraciReader.java`
-#### Snippet
-```java
-    }
-
-    public ListTraciReader(AbstractTraciResultReader<T> itemReader, boolean expectByteBeforeLength) {
-        super(null);
-        this.itemReader = itemReader;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
-#### Snippet
-```java
-     *                <code>null</code>, if the value read from the stream should be returned by {@link #read(DataInputStream, int)}
-     */
-    protected AbstractTraciResultReader(@Nullable Matcher<T> matcher) {
-        this.matcher = matcher;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SumoVar`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribe.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("WeakerAccess")
-    public VehicleSubscribe(Bridge bridge, Collection<SumoVar> subscriptionCodes) {
-        super(TraciVersion.LOWEST);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/writer/ListTraciWriter.java`
-#### Snippet
-```java
-    }
-
-    private static <T> int calcLengthOfList(AbstractTraciParameterWriter<T> itemWriter, List<T> list) {
-        int length = 0;
-        for (T item : list) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/writer/ListTraciWriter.java`
-#### Snippet
-```java
-    }
-
-    private static <T> int calcLengthOfList(AbstractTraciParameterWriter<T> itemWriter, List<T> list) {
-        int length = 0;
-        for (T item : list) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SumoTrafficLightLogic.Phase`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightAddProgram.java`
-#### Snippet
-```java
-public class TrafficLightAddProgram implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
-
-    public void execute(Bridge bridge, String tlId, String programId, int phaseIndex, List<SumoTrafficLightLogic.Phase> phases) {
-        TraCIPhaseVector traciPhases = new TraCIPhaseVector();
-        for (SumoTrafficLightLogic.Phase phase : phases) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SumoTrafficLightLogic`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
-#### Snippet
-```java
-     * @return Map with TrafficLightPrograms as values and their ids as keys.
-     */
-    private Map<String, TrafficLightProgram> transformDefinitionsIntoPrograms(List<SumoTrafficLightLogic> programDefinitions) {
-        Map<String, TrafficLightProgram> programs = new LinkedHashMap<>();
-        for (SumoTrafficLightLogic programDefinition : programDefinitions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TrafficLightGetControlledLinks.TrafficLightControlledLink`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
-#### Snippet
-```java
-    private List<TrafficLight> createTrafficLights(
-            TrafficLightProgram currentProgram,
-            List<TrafficLightGetControlledLinks.TrafficLightControlledLink> controlledLinks,
-            GeoPoint junctionPosition
-    ) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    }
-
-    private void readVehicles(List<AbstractSubscriptionResult> results) {
-        StringVector arrivedIds = Simulation.getArrivedIDList();
-        for (String arrived : arrivedIds) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    }
-
-    private void readSurroundingVehiclesFromContextSubscriptions(List<AbstractSubscriptionResult> results) {
-        ContextSubscriptionResults contextResults = Vehicle.getAllContextSubscriptionResults();
-        contextResults.forEach((sumoId, subscriptionResults) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    }
-
-    private void readLaneAreas(List<AbstractSubscriptionResult> results) {
-        for (String laneArea : LANE_AREA_SUBSCRIPTIONS) {
-            LaneAreaSubscriptionResult result = new LaneAreaSubscriptionResult();
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    }
-
-    private void readInductionLoops(List<AbstractSubscriptionResult> results) {
-        for (String inductionLoop : INDUCTION_LOOP_SUBSCRIPTIONS) {
-            InductionLoopSubscriptionResult result = new InductionLoopSubscriptionResult();
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    }
-
-    private void readTrafficLights(List<AbstractSubscriptionResult> results) {
-        for (String trafficLight : TRAFFIC_LIGHT_SUBSCRIPTIONS) {
-            TrafficLightSubscriptionResult result = new TrafficLightSubscriptionResult();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractSubscriptionResult`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-     * @return The segment of the vehicle.
-     */
-    private Map<String, String> calculateVehicleSegmentInfo(List<AbstractSubscriptionResult> subscriptions) {
-        Map<String, String> vehicleToSegmentMap = new HashMap<>();
-        for (AbstractSubscriptionResult laneAreaDetector : subscriptions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Segment`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/IvimContent.java`
-#### Snippet
-```java
-    }
-
-    public IvimContent addSegments(List<Segment> segments) {
-        this.segments.addAll(segments);
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
-#### Snippet
-```java
-    }
-
-    void addSignContents(List<T> signContents) {
-        this.signContents.addAll(signContents);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GeoPoint`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoPolygon.java`
-#### Snippet
-```java
-    }
-
-    private GeoRectangle calcBoundingBox(List<GeoPoint> vertices) {
-        double maxLat = -90;
-        double minLat = 90;
-```
-
-### BoundedWildcard
-Can generalize to `? extends GeoPoint`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoPolygon.java`
-#### Snippet
-```java
-     * @param coordinates A list of lists of {@link GeoPoint}s
-     */
-    public GeoPolygon(List<GeoPoint> coordinates) {
-        final List<GeoPoint> verticesTmp = new ArrayList<>(coordinates);
-        if (!verticesTmp.get(0).equals(verticesTmp.get(verticesTmp.size() - 1))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CartesianPoint`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianPolygon.java`
-#### Snippet
-```java
-     * @param coordinates A list of lists of {@link CartesianPoint}s
-     */
-    public CartesianPolygon(List<CartesianPoint> coordinates) {
-        final List<CartesianPoint> verticesTmp = new ArrayList<>(coordinates);
-        if (!verticesTmp.get(0).equals(verticesTmp.get(verticesTmp.size() - 1))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CartesianPoint`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianPolygon.java`
-#### Snippet
-```java
-    }
-
-    private CartesianRectangle calcBoundingBox(List<CartesianPoint> vertices) {
-        double maxY = -Long.MAX_VALUE;
-        double minY = Long.MAX_VALUE;
-```
-
-### BoundedWildcard
-Can generalize to `? extends P`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
-#### Snippet
-```java
-         * other factors (travel speed, ...) as well.
-         */
-        default double estimateCost(Node<T, P> destinationNode) {
-            return getPosition().distanceTo(destinationNode.getPosition());
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends P`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
-#### Snippet
-```java
-         * cost: e.g. travel speed, road capacity, etc.
-         */
-        default double getCost(Node<T, P> nextNode) {
-            return getPosition().distanceTo(nextNode.getPosition());
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
-#### Snippet
-```java
-        }
-
-        private void split(List<T> items) {
-            if (bounds.size.x > bounds.size.y && bounds.size.x > bounds.size.z) {
-                items.sort(xCmp);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Vector3d`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
-#### Snippet
-```java
-    }
-
-    private QuickHull2d(ArrayList<Vector3d> points) {
-        this.points = points;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    }
-
-    public void walk(Walker<T> walker) {
-        double pos = 0;
-        for (int i = 0; i < size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Double`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    }
-
-    public <R extends LineString<T>> R translateLateral(Function<Double, Double> translationFun, R result) {
-        checkNotSingular();
-        result.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    }
-
-    public <R extends LineString<T>> R translateLateralByPoints(Function<T, Double> translationFun, R result) {
-        checkNotSingular();
-        result.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Grid.java`
-#### Snippet
-```java
-    }
-
-    public Grid(final SpatialItemAdapter<T> adapter, double cellWidth, double cellHeight,
-                double minX, double maxX, double minZ, double maxZ) {
-        this.adapter = adapter;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Grid.java`
-#### Snippet
-```java
-     * @return the list of results
-     */
-    public List<T> getItemsInBoundingArea(BoundingBox area, Predicate<T> filter, List<T> result) {
-        synchronized (tmpIndexA) {
-            CellIndex minIndex = toCellIndex(Math.max(area.min.x, minX), Math.max(area.min.z, minZ), tmpIndexA);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
-#### Snippet
-```java
-    }
-
-    private static <T> void selectInArea(QuadTree.TreeNode node, BoundingBox area, Predicate<T> filter, List<T> result) {
-        if (node.isLeaf()) {
-            for (int i = 0; i < node.objects.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
-#### Snippet
-```java
-    }
-
-    private static <T> void selectInArea(QuadTree.TreeNode node, BoundingBox area, Predicate<T> filter, List<T> result) {
-        if (node.isLeaf()) {
-            for (int i = 0; i < node.objects.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
-#### Snippet
-```java
-    }
-
-    private static <T> void selectInRadius(QuadTree.TreeNode node, Vector3d center, double rSqr, Predicate<T> filter, List<T> result) {
-        if (node.isLeaf()) {
-            for (int i = 0; i < node.objects.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
-#### Snippet
-```java
-    }
-
-    private static <T> void selectInRadius(QuadTree.TreeNode node, Vector3d center, double rSqr, Predicate<T> filter, List<T> result) {
-        if (node.isLeaf()) {
-            for (int i = 0; i < node.objects.size(); i++) {
-```
-
 ### BoundedWildcard
 Can generalize to `? extends CandidateRoute`
 in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
@@ -1591,87 +1039,39 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Connection.java`
-#### Snippet
-```java
-     * @param node Nodes to add.
-     */
-    public void addNodes(@Nonnull List<Node> node) {
-        Objects.requireNonNull(node);
-        nodes.addAll(node);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
-#### Snippet
-```java
-     * @return Lists of graph nodes.
-     */
-    public static ArrayList<Set<Node>> detectGraphs(Collection<Node> nodes) {
-        Set<Node> visitedNodes = new HashSet<>();
-        ArrayList<Set<Node>> foundGraphs = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
-#### Snippet
-```java
-        }
-
-        protected <T> T get(String columnName, T defaultValue, Function<Object, T> objectMapper) {
-            Integer column = columnIndex.get(columnName);
-            if (column != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CartesianPoint`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+Can generalize to `? extends Route`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/RouteManager.java`
 #### Snippet
 ```java
     }
 
-    private boolean isNodeInArea(CartesianPoint nodePosition, Area<CartesianPoint> destinationArea) {
-        if (nodePosition == null) {
-            log.warn("position of the unit is null");
+    private int getMaxRouteID(Collection<Route> routes) {
+        int id = 0;
+        for (Route r : routes) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CartesianPoint`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
-#### Snippet
-```java
-     */
-    public static Map<String, SimulationNode> getEntitiesInArea(
-            Map<String, SimulationNode> relevantEntities, Area<CartesianPoint> range) {
-        Map<String, SimulationNode> results = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends VehicleObject`
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/vehicle/PerceptionApp.java`
+Can generalize to `? extends Connection`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
 #### Snippet
 ```java
     }
 
-    private void colorVehicles(List<VehicleObject> vehiclesToColor, List<VehicleObject> previouslyColoredVehicles, Color color) {
-        for (VehicleObject currentVehicle : vehiclesToColor) {
-            if (!previouslyColoredVehicles.contains(currentVehicle)) {
+    private List<String> convertConnectionsToIds(List<Connection> fixedRoute) {
+        return fixedRoute.stream().map(Connection::getId).collect(Collectors.toList());
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/ProcessLoggingThread.java`
+Can generalize to `? extends Connection`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
 #### Snippet
 ```java
-    private boolean running = true;
+    }
 
-    public ProcessLoggingThread(String processName, InputStream stream, Consumer<String> lineConsumer) {
-        this.processName = processName;
-        this.stream = stream;
+    private double lengthOfConnections(List<Connection> connections) {
+        return connections == null ? Double.MAX_VALUE : connections.stream().map(Connection::getLength).reduce(0d, Double::sum);
+    }
 ```
 
 ### BoundedWildcard
@@ -1699,6 +1099,18 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/V
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+#### Snippet
+```java
+
+    private List<CPrototype> replaceWithTypesFromPredefinedDistribution(
+            CVehicle spawner, Map<String, List<CPrototype>> typeDistributions, RandomNumberGenerator rng) {
+        // return distribution given by typeDistribution
+        if (spawner.typeDistribution != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends CPrototype`
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
 #### Snippet
@@ -1711,15 +1123,135 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/S
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+Can generalize to `? extends Node`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/DatabaseGraphLoader.java`
+#### Snippet
+```java
+     * @return List of points representing the geometry.
+     */
+    private PointList getWayGeometry(Node from, Node to, List<Node> wayNodeList) {
+        PointList points = new PointList(1000, true);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
+#### Snippet
+```java
+     * @return True, if not duplicate in the set.
+     */
+    private boolean checkForDuplicate(CandidateRoute route, Set<String> duplicateSet) {
+        String nodeIdList = StringUtils.join(route.getConnectionIds(), ",");
+        return duplicateSet.add(nodeIdList);
+```
+
+### BoundedWildcard
+Can generalize to `? extends FederateDescriptor`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+     * @throws Exception if something went wrong during initalization of any federate
+     */
+    private ComponentProvider createFederation(final MosaicComponentParameters simulationParams, final List<FederateDescriptor> federates) throws Exception {
+        final ComponentProvider componentProvider = componentProviderFactory.createComponentProvider(simulationParams);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super SPTEntry`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/DijkstraCamvitChoiceRouting.java`
+#### Snippet
+```java
+    }
+
+    void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueue,
+                   IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends TrafficLightState`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficLightStateDecoder.java`
+#### Snippet
+```java
+    }
+
+    public static String encodeStateList(List<TrafficLightState> customStateList) {
+        return customStateList.stream().map(
+                (state) -> state.isGreen() ? "G"
+```
+
+### BoundedWildcard
+Can generalize to `? super SPTEntry`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AStarCamvitChoiceRouting.java`
+#### Snippet
+```java
+    }
+
+    private void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueueOpenSet,
+                           IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super SPTEntry`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AStarCamvitChoiceRouting.java`
 #### Snippet
 ```java
 
-    private List<CPrototype> replaceWithTypesFromPredefinedDistribution(
-            CVehicle spawner, Map<String, List<CPrototype>> typeDistributions, RandomNumberGenerator rng) {
-        // return distribution given by typeDistribution
-        if (spawner.typeDistribution != null) {
+    private void fillEdges(SPTEntry curr, PriorityQueue<SPTEntry> prioQueueOpenSet,
+                           IntObjectMap<SPTEntry> shortestWeightMap, EdgeExplorer explorer, boolean reverse) {
+
+        int currNode = curr.adjNode;
+```
+
+### BoundedWildcard
+Can generalize to `? super CartesianPoint`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+#### Snippet
+```java
+     */
+    public static Map<String, SimulationNode> getEntitiesInArea(
+            Map<String, SimulationNode> relevantEntities, Area<CartesianPoint> range) {
+        Map<String, SimulationNode> results = new HashMap<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super CartesianPoint`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+#### Snippet
+```java
+    }
+
+    private boolean isNodeInArea(CartesianPoint nodePosition, Area<CartesianPoint> destinationArea) {
+        if (nodePosition == null) {
+            log.warn("position of the unit is null");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Phase`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex/SumoTrafficLightLogic.java`
+#### Snippet
+```java
+     * @param currentPhase The index of the phase.
+     */
+    public SumoTrafficLightLogic(String logicId, List<Phase> phases, int currentPhase) {
+        this.logicId = logicId;
+        this.phases = phases;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
+#### Snippet
+```java
+    }
+
+    private void applyParametersFromSumoConfiguration(Map<String, Map<String, String>> newVehicleTypes) {
+        for (Entry<String, Map<String, String>> sumoParameterEntry : additionalVehicleTypeParameters.entrySet()) {
+            String currentVehicleType = sumoParameterEntry.getKey();
 ```
 
 ### BoundedWildcard
@@ -1771,6 +1303,198 @@ in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedA
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SumoVar`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribe.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("WeakerAccess")
+    public VehicleSubscribe(Bridge bridge, Collection<SumoVar> subscriptionCodes) {
+        super(TraciVersion.LOWEST);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
+#### Snippet
+```java
+     *                <code>null</code>, if the value read from the stream should be returned by {@link #read(DataInputStream, int)}
+     */
+    protected AbstractTraciResultReader(@Nullable Matcher<T> matcher) {
+        this.matcher = matcher;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/ListTraciReader.java`
+#### Snippet
+```java
+    }
+
+    public ListTraciReader(AbstractTraciResultReader<T> itemReader, boolean expectByteBeforeLength) {
+        super(null);
+        this.itemReader = itemReader;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/writer/ListTraciWriter.java`
+#### Snippet
+```java
+    }
+
+    private static <T> int calcLengthOfList(AbstractTraciParameterWriter<T> itemWriter, List<T> list) {
+        int length = 0;
+        for (T item : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/writer/ListTraciWriter.java`
+#### Snippet
+```java
+    }
+
+    private static <T> int calcLengthOfList(AbstractTraciParameterWriter<T> itemWriter, List<T> list) {
+        int length = 0;
+        for (T item : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SumoTrafficLightLogic`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
+#### Snippet
+```java
+     * @return Map with TrafficLightPrograms as values and their ids as keys.
+     */
+    private Map<String, TrafficLightProgram> transformDefinitionsIntoPrograms(List<SumoTrafficLightLogic> programDefinitions) {
+        Map<String, TrafficLightProgram> programs = new LinkedHashMap<>();
+        for (SumoTrafficLightLogic programDefinition : programDefinitions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TrafficLightGetControlledLinks.TrafficLightControlledLink`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
+#### Snippet
+```java
+    private List<TrafficLight> createTrafficLights(
+            TrafficLightProgram currentProgram,
+            List<TrafficLightGetControlledLinks.TrafficLightControlledLink> controlledLinks,
+            GeoPoint junctionPosition
+    ) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SumoTrafficLightLogic.Phase`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightAddProgram.java`
+#### Snippet
+```java
+public class TrafficLightAddProgram implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
+
+    public void execute(Bridge bridge, String tlId, String programId, int phaseIndex, List<SumoTrafficLightLogic.Phase> phases) {
+        TraCIPhaseVector traciPhases = new TraCIPhaseVector();
+        for (SumoTrafficLightLogic.Phase phase : phases) {
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    }
+
+    private void readLaneAreas(List<AbstractSubscriptionResult> results) {
+        for (String laneArea : LANE_AREA_SUBSCRIPTIONS) {
+            LaneAreaSubscriptionResult result = new LaneAreaSubscriptionResult();
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    }
+
+    private void readVehicles(List<AbstractSubscriptionResult> results) {
+        StringVector arrivedIds = Simulation.getArrivedIDList();
+        for (String arrived : arrivedIds) {
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    }
+
+    private void readTrafficLights(List<AbstractSubscriptionResult> results) {
+        for (String trafficLight : TRAFFIC_LIGHT_SUBSCRIPTIONS) {
+            TrafficLightSubscriptionResult result = new TrafficLightSubscriptionResult();
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    }
+
+    private void readSurroundingVehiclesFromContextSubscriptions(List<AbstractSubscriptionResult> results) {
+        ContextSubscriptionResults contextResults = Vehicle.getAllContextSubscriptionResults();
+        contextResults.forEach((sumoId, subscriptionResults) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    }
+
+    private void readInductionLoops(List<AbstractSubscriptionResult> results) {
+        for (String inductionLoop : INDUCTION_LOOP_SUBSCRIPTIONS) {
+            InductionLoopSubscriptionResult result = new InductionLoopSubscriptionResult();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractSubscriptionResult`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+     * @return The segment of the vehicle.
+     */
+    private Map<String, String> calculateVehicleSegmentInfo(List<AbstractSubscriptionResult> subscriptions) {
+        Map<String, String> vehicleToSegmentMap = new HashMap<>();
+        for (AbstractSubscriptionResult laneAreaDetector : subscriptions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends InteractionDescriptor`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/interaction/TypeBasedInteractionManagement.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeInteractions(String federateId, Collection<InteractionDescriptor> interactionIds) throws IllegalArgumentException {
+        if (!federation.getFederationManagement().isFederateJoined(federateId)) {
+            throw new IllegalArgumentException("Federate with id \"" + federateId + "\" is unknown.");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/ProcessLoggingThread.java`
+#### Snippet
+```java
+    private boolean running = true;
+
+    public ProcessLoggingThread(String processName, InputStream stream, Consumer<String> lineConsumer) {
+        this.processName = processName;
+        this.stream = stream;
+```
+
+### BoundedWildcard
 Can generalize to `? extends EventProcessor`
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventBuilder.java`
 #### Snippet
@@ -1795,6 +1519,18 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/MultiT
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends VehicleObject`
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/vehicle/PerceptionApp.java`
+#### Snippet
+```java
+    }
+
+    private void colorVehicles(List<VehicleObject> vehiclesToColor, List<VehicleObject> previouslyColoredVehicles, Color color) {
+        for (VehicleObject currentVehicle : vehiclesToColor) {
+            if (!previouslyColoredVehicles.contains(currentVehicle)) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
 #### Snippet
@@ -1804,6 +1540,270 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectIns
     public ObjectInstantiation(Class<T> clazz, Logger logger) {
         this.clazz = clazz;
         this.logger = logger;
+```
+
+### BoundedWildcard
+Can generalize to `? extends GeoPoint`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoPolygon.java`
+#### Snippet
+```java
+     * @param coordinates A list of lists of {@link GeoPoint}s
+     */
+    public GeoPolygon(List<GeoPoint> coordinates) {
+        final List<GeoPoint> verticesTmp = new ArrayList<>(coordinates);
+        if (!verticesTmp.get(0).equals(verticesTmp.get(verticesTmp.size() - 1))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GeoPoint`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoPolygon.java`
+#### Snippet
+```java
+    }
+
+    private GeoRectangle calcBoundingBox(List<GeoPoint> vertices) {
+        double maxLat = -90;
+        double minLat = 90;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CartesianPoint`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianPolygon.java`
+#### Snippet
+```java
+     * @param coordinates A list of lists of {@link CartesianPoint}s
+     */
+    public CartesianPolygon(List<CartesianPoint> coordinates) {
+        final List<CartesianPoint> verticesTmp = new ArrayList<>(coordinates);
+        if (!verticesTmp.get(0).equals(verticesTmp.get(verticesTmp.size() - 1))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CartesianPoint`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianPolygon.java`
+#### Snippet
+```java
+    }
+
+    private CartesianRectangle calcBoundingBox(List<CartesianPoint> vertices) {
+        double maxY = -Long.MAX_VALUE;
+        double minY = Long.MAX_VALUE;
+```
+
+### BoundedWildcard
+Can generalize to `? extends P`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
+#### Snippet
+```java
+         * cost: e.g. travel speed, road capacity, etc.
+         */
+        default double getCost(Node<T, P> nextNode) {
+            return getPosition().distanceTo(nextNode.getPosition());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends P`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
+#### Snippet
+```java
+         * other factors (travel speed, ...) as well.
+         */
+        default double estimateCost(Node<T, P> destinationNode) {
+            return getPosition().distanceTo(destinationNode.getPosition());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Vector3d`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
+#### Snippet
+```java
+    }
+
+    private QuickHull2d(ArrayList<Vector3d> points) {
+        this.points = points;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    }
+
+    public <R extends LineString<T>> R translateLateralByPoints(Function<T, Double> translationFun, R result) {
+        checkNotSingular();
+        result.clear();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    }
+
+    public void walk(Walker<T> walker) {
+        double pos = 0;
+        for (int i = 0; i < size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Double`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    }
+
+    public <R extends LineString<T>> R translateLateral(Function<Double, Double> translationFun, R result) {
+        checkNotSingular();
+        result.clear();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
+#### Snippet
+```java
+        }
+
+        private void split(List<T> items) {
+            if (bounds.size.x > bounds.size.y && bounds.size.x > bounds.size.z) {
+                items.sort(xCmp);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Grid.java`
+#### Snippet
+```java
+    }
+
+    public Grid(final SpatialItemAdapter<T> adapter, double cellWidth, double cellHeight,
+                double minX, double maxX, double minZ, double maxZ) {
+        this.adapter = adapter;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Grid.java`
+#### Snippet
+```java
+     * @return the list of results
+     */
+    public List<T> getItemsInBoundingArea(BoundingBox area, Predicate<T> filter, List<T> result) {
+        synchronized (tmpIndexA) {
+            CellIndex minIndex = toCellIndex(Math.max(area.min.x, minX), Math.max(area.min.z, minZ), tmpIndexA);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Segment`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/IvimContent.java`
+#### Snippet
+```java
+    }
+
+    public IvimContent addSegments(List<Segment> segments) {
+        this.segments.addAll(segments);
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void selectInArea(QuadTree.TreeNode node, BoundingBox area, Predicate<T> filter, List<T> result) {
+        if (node.isLeaf()) {
+            for (int i = 0; i < node.objects.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void selectInArea(QuadTree.TreeNode node, BoundingBox area, Predicate<T> filter, List<T> result) {
+        if (node.isLeaf()) {
+            for (int i = 0; i < node.objects.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void selectInRadius(QuadTree.TreeNode node, Vector3d center, double rSqr, Predicate<T> filter, List<T> result) {
+        if (node.isLeaf()) {
+            for (int i = 0; i < node.objects.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void selectInRadius(QuadTree.TreeNode node, Vector3d center, double rSqr, Predicate<T> filter, List<T> result) {
+        if (node.isLeaf()) {
+            for (int i = 0; i < node.objects.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
+#### Snippet
+```java
+    }
+
+    void addSignContents(List<T> signContents) {
+        this.signContents.addAll(signContents);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
+#### Snippet
+```java
+     * @return Lists of graph nodes.
+     */
+    public static ArrayList<Set<Node>> detectGraphs(Collection<Node> nodes) {
+        Set<Node> visitedNodes = new HashSet<>();
+        ArrayList<Set<Node>> foundGraphs = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Connection.java`
+#### Snippet
+```java
+     * @param node Nodes to add.
+     */
+    public void addNodes(@Nonnull List<Node> node) {
+        Objects.requireNonNull(node);
+        nodes.addAll(node);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
+#### Snippet
+```java
+        }
+
+        protected <T> T get(String columnName, T defaultValue, Function<Object, T> objectMapper) {
+            Integer column = columnIndex.get(columnName);
+            if (column != null) {
 ```
 
 ### BoundedWildcard
@@ -1842,149 +1842,738 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/FileUtils.java`
 
 ```
 
+## RuleId[id=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
+#### Snippet
+```java
+     * The configuration path for the application simulator.
+     */
+    @Nullable
+    private File configurationPath;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
+#### Snippet
+```java
+     * The configuration for the application simulator.
+     */
+    @Nullable
+    private CApplicationAmbassador configuration;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The simulation kernel mustn't be serializable.")
+    @Nullable
+    private EventManager eventManager;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The simulation kernel mustn't serializable.")
+    @Nullable
+    private Interactable interactable;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ChargingStationUnit.java`
+#### Snippet
+```java
+public class ChargingStationUnit extends AbstractSimulationUnit implements ChargingStationOperatingSystem {
+
+    @Nullable
+    private ChargingStationData cs;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
+#### Snippet
+```java
+    private final PerceptionModule<SimplePerceptionConfiguration> perceptionModule;
+
+    @Nonnull
+    private VehicleParameters vehicleParameters;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
+#### Snippet
+```java
+    private final NavigationModule navigationModule;
+
+    @Nonnull
+    private final PerceptionModule<SimplePerceptionConfiguration> perceptionModule;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
+#### Snippet
+```java
+public class VehicleUnit extends AbstractSimulationUnit implements VehicleOperatingSystem {
+
+    @Nonnull
+    private final NavigationModule navigationModule;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
+#### Snippet
+```java
+     * Id (name) which indicates the unit.
+     */
+    @Nonnull
+    private final String id;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CScenario.java`
+#### Snippet
+```java
+         * simulation run may return different results.
+         */
+        @Nullable
+        public Long randomSeed;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingWay.java`
+#### Snippet
+```java
+
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @Nullable
+    private final transient Database database;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingWay.java`
+#### Snippet
+```java
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+    @Nullable
+    private transient Way scenarioDatabaseWay;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingNode.java`
+#### Snippet
+```java
+
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @Nullable
+    private final transient Database database;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingNode.java`
+#### Snippet
+```java
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+    @Nullable
+    private transient Node scenarioDatabaseNode;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingRoadPosition.java`
+#### Snippet
+```java
+
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @Nullable
+    private final transient Database database;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
+#### Snippet
+```java
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+    @Nullable
+    private transient Connection scenarioDatabaseConnection;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
+#### Snippet
+```java
+
+    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
+    @Nullable
+    private final transient Database database;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageReception.java`
+#### Snippet
+```java
+     * information given.
+     */
+    @Nonnull
+    private final V2xReceiverInformation receiverInformation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/TimeCache.java`
+#### Snippet
+```java
+     * Map containing all the message ids with the corresponding messages.
+     */
+    @Nonnull
+    private final Map<Integer, Pair<Long, T>> cache = new ConcurrentHashMap<>();
+    
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventScheduler.java`
+#### Snippet
+```java
+    long getScheduledTime();
+
+    @Nonnull
+    int scheduleEvents(long time);
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    @Nonnull
+    public int scheduleEvents(final long time) {
+        int processedEvents = 0;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
+#### Snippet
+```java
+     * increase the performance.
+     */
+    @Nonnull
+    private final List<EventProcessor> processors;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
+#### Snippet
+```java
+     * The resource to process.
+     */
+    @Nullable
+    private final Object resource;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventInterceptor.java`
+#### Snippet
+```java
+     * The list is an unmodifiable view of all processors.
+     */
+    @Nonnull
+    private final List<EventProcessor> processors;
+
+```
+
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
 #### Snippet
 ```java
-public class ExternalWatchDog extends Thread {
-
-    private final static int CLOSE_STATUS = 3;
-
-    private final ComponentProvider federation;
+public class CellModuleNames {
+    public final static String DOWNSTREAM_MODULE = "Downstream";
+    public final static String UPSTREAM_MODULE = "Upstream";
+    public final static String GEOCASTER = "Geocaster";
+}
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/VehicleToTrafficLightApp.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
 #### Snippet
 ```java
-
-public final class VehicleToTrafficLightApp extends AbstractApplication<VehicleOperatingSystem> {
-    private final static long TIME_INTERVAL = TIME.SECOND;
-
-    //Use TopoBroadcast instead of GeoBroadcast because latter is not compatible with OMNeT++ or ns-3
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/TrafficLightApp.java`
-#### Snippet
-```java
-
-public final class TrafficLightApp extends AbstractApplication<TrafficLightOperatingSystem> implements CommunicationApplication {
-    public final static String SECRET = "open sesame!";
-    private final static short GREEN_DURATION = 10;
+    public final static String DOWNSTREAM_MODULE = "Downstream";
+    public final static String UPSTREAM_MODULE = "Upstream";
+    public final static String GEOCASTER = "Geocaster";
+}
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/TrafficLightApp.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
 #### Snippet
 ```java
-public final class TrafficLightApp extends AbstractApplication<TrafficLightOperatingSystem> implements CommunicationApplication {
-    public final static String SECRET = "open sesame!";
-    private final static short GREEN_DURATION = 10;
 
-    private static final String DEFAULT_PROGRAM = "1";
+public class CellModuleNames {
+    public final static String DOWNSTREAM_MODULE = "Downstream";
+    public final static String UPSTREAM_MODULE = "Upstream";
+    public final static String GEOCASTER = "Geocaster";
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
 #### Snippet
 ```java
-     * Unit: [ms]. Set to <code>0</code> to disable this feature.
+    private final long interval;
+
+    private final static int EXPORT_STEP_SIZE = 600;
+
+    private long nextExport;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
+#### Snippet
+```java
+     * the bandwidth measurement.
      */
-    private final static long SIMULATION_INFO_LOG_INTERVAL = 500 * TIME.MILLI_SECOND;
-
-    protected final static int STATUS_CODE_SUCCESS = 101;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-    private final static long SIMULATION_INFO_LOG_INTERVAL = 500 * TIME.MILLI_SECOND;
-
-    protected final static int STATUS_CODE_SUCCESS = 101;
-
-    protected static final DecimalFormat FORMAT_ONE_DIGIT = new DecimalFormat("#0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/message/InterVehicleMsg.java`
-#### Snippet
-```java
-    private final GeoPoint senderPosition;
-    private final EncodedPayload payload;
-    private final static long minLen = 128L;
-
-    public InterVehicleMsg(MessageRouting routing, GeoPoint senderPosition) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/RoadSideUnitApp.java`
-#### Snippet
-```java
-     * Interval at which messages are sent (every 2 seconds).
-     */
-    private final static long TIME_INTERVAL = 2 * TIME.SECOND;
-
-    private void sendAdHocBroadcast() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/interaction/TypeBasedInteractionManagement.java`
-#### Snippet
-```java
-public class TypeBasedInteractionManagement implements InteractionManagement {
-
-    private final static Logger LOG = LoggerFactory.getLogger(TypeBasedInteractionManagement.class);
+    private final static long END_TIME_NANO = Long.MAX_VALUE;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/message/GreenWaveMsg.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
 #### Snippet
 ```java
-    private final String         message;
-    private final EncodedPayload payload;
-    private final static long    MIN_LEN = 8L;
-
-    public GreenWaveMsg(MessageRouting routing, String message) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/EventSendingApp.java`
-#### Snippet
-```java
-     * Used for choosing a RAND id for the message that is sent intra-vehicle.
+     * in the bandwidth measurement.
      */
-    private final static int MAX_ID = 1000;
+    private final static long STARTING_TIME = 0;
+    private final static long STARTING_TIME_NANO = STARTING_TIME * TIME.SECOND;
 
-    @Override
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
 #### Snippet
 ```java
-public class DatabaseRouting implements Routing {
+     */
+    private final static long STARTING_TIME = 0;
+    private final static long STARTING_TIME_NANO = STARTING_TIME * TIME.SECOND;
 
-    private final static Logger log = LoggerFactory.getLogger(DatabaseRouting.class);
+    /**
+```
 
-    private Database scenarioDatabase;
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
+#### Snippet
+```java
+public class PerRegionBandwidthMeasurement implements StreamListener {
+
+    private final static Logger log = LoggerFactory.getLogger(PerRegionBandwidthMeasurement.class);
+
+    final static String WILDCARD_ALL = "*";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
+#### Snippet
+```java
+    private final static Logger log = LoggerFactory.getLogger(PerRegionBandwidthMeasurement.class);
+
+    final static String WILDCARD_ALL = "*";
+
+    private final File parentDir;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long UPDATE_CHARGING_STATION = -99_999_500;
+    // update seen traffic signs
+    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
+    // update traffic light
+    public final static long UPDATE_TRAFFIC_LIGHT = -99_999_400;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
+    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
+    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
+    // charging status
+    public final static long CHARGING_REJECTED = -99_999_000;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+
+    // v2x messages
+    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
+    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
+    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long VEHICLE_ADDED = -99_999_900;
+    public final static long VEHICLE_UPDATED = -99_999_800;
+    public final static long VEHICLE_REMOVED = -99_999_700;
+
+    // update traffic detectors
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long UNIT_REMOVED = 1;
+    // vehicle
+    public final static long VEHICLE_ADDED = -99_999_900;
+    public final static long VEHICLE_UPDATED = -99_999_800;
+    public final static long VEHICLE_REMOVED = -99_999_700;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    // v2x messages
+    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
+    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
+    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
+    // charging status
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+
+    // update traffic detectors
+    public final static long UPDATE_TRAFFIC_DETECTORS = -99_999_600;
+
+    // update charging station
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+ */
+public class EventNicenessPriorityRegister {
+    public final static long UNIT_REMOVED = 1;
+    // vehicle
+    public final static long VEHICLE_ADDED = -99_999_900;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
+    // update traffic light
+    public final static long UPDATE_TRAFFIC_LIGHT = -99_999_400;
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+
+    // update charging station
+    public final static long UPDATE_CHARGING_STATION = -99_999_500;
+    // update seen traffic signs
+    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
+    // charging status
+    public final static long CHARGING_REJECTED = -99_999_000;
+
+    // batteryUpdated
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+
+    // batteryUpdated
+    public final static long BATTERY_UPDATED = -99_998_900;
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+    // vehicle
+    public final static long VEHICLE_ADDED = -99_999_900;
+    public final static long VEHICLE_UPDATED = -99_999_800;
+    public final static long VEHICLE_REMOVED = -99_999_700;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/UnitSimulator.java`
+#### Snippet
+```java
+     * The log instance.
+     */
+    public final static Logger log = LoggerFactory.getLogger(UnitSimulator.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/UnitLoggerImpl.java`
+#### Snippet
+```java
+     * <code>&lt;logger name="ApplicationLogDelegate" additivity="false" level="INFO"&gt;</code>
+     */
+    private final static String ROOT_LOGGER = "ApplicationLogDelegate";
+
+    private static final String SIMTIME_LOG_POSTFIX = " (at simulation time {})";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+#### Snippet
+```java
+     * Static class used to hold primitive parameter types and values.
+     */
+    private final static class ParameterDeclaration {
+        private Class<?> paramClazz;
+        private Object paramValue;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+#### Snippet
+```java
+    private final static Pattern classPattern = Pattern.compile("^([a-zA-Z_$][a-zA-Z\\d\\._$]*)(?:|\\((.+)\\))$");
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+#### Snippet
+```java
+
+    // ^([a-zA-Z_$][a-zA-Z\d\._$]*)(?:|\((.+)\))$
+    private final static Pattern classPattern = Pattern.compile("^([a-zA-Z_$][a-zA-Z\\d\\._$]*)(?:|\\((.+)\\))$");
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/AbstractPerceptionModule.java`
+#### Snippet
+```java
+    }
+
+    abstract public Collection<Edge<Vector3d>> getSurroundingWalls();
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
+#### Snippet
+```java
+public class CentralPerceptionComponent {
+
+    private final static Logger LOG = LoggerFactory.getLogger(CentralPerceptionComponent.class);
+
+    private CartesianRectangle scenarioBounds;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficLightGroupUnit.java`
+#### Snippet
+```java
+     * Traffic Light group, only used for this special type of RSU.
+     */
+    final private TrafficLightGroup trafficLightGroup;
+
+    private TrafficLightGroupInfo trafficLightGroupInfo;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/CellModule.java`
+#### Snippet
+```java
+     * Default radius for geographic cam dissemination over the cellular network [m].
+     */
+    private final static long DEFAULT_CAM_GEO_RADIUS = 300;
+
+    public CellModule(OperatingSystem owner, Logger log) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/SlowDownApp.java`
+#### Snippet
+```java
+public class SlowDownApp extends AbstractApplication<VehicleOperatingSystem> implements VehicleApplication {
+
+    private final static float SPEED = 25 / 3.6f;
+
+    private boolean hazardousArea = false;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
+#### Snippet
+```java
+    private final static String HAZARD_ROAD = "311964536_1313885442_2879911873";
+
+    private final static SensorType SENSOR_TYPE = SensorType.ICE;
+    private final static float SPEED = 25 / 3.6f;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
+#### Snippet
+```java
+     * Location of the hazard which causes the route change.
+     */
+    private final static GeoPoint HAZARD_LOCATION = GeoPoint.latLon(52.633047, 13.565314);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
+#### Snippet
+```java
+     * Send hazard location at this interval, in seconds.
+     */
+    private final static long INTERVAL = 2 * TIME.SECOND;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
+#### Snippet
+```java
+
+    private final static SensorType SENSOR_TYPE = SensorType.ICE;
+    private final static float SPEED = 25 / 3.6f;
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
+#### Snippet
+```java
+     * Road ID where hazard is located.
+     */
+    private final static String HAZARD_ROAD = "311964536_1313885442_2879911873";
+
+    private final static SensorType SENSOR_TYPE = SensorType.ICE;
 ```
 
 ### MissortedModifiers
@@ -2001,14 +2590,26 @@ public class RouteFixer {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/util/TurnCostAnalyzer.java`
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherWarningApp.java`
 #### Snippet
 ```java
+     * This is the speed for the DEN message sent for rerouting.
+     */
+    private final static float SPEED = 25 / 3.6f;
 
-    /* fetch pillar nodes only */
-    private final static int GEOMETRY_FETCH_MODE_PILLAR_NODES_ONLY = 0;
 
-    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+#### Snippet
+```java
+public class DatabaseRouting implements Routing {
+
+    private final static Logger log = LoggerFactory.getLogger(DatabaseRouting.class);
+
+    private Database scenarioDatabase;
 ```
 
 ### MissortedModifiers
@@ -2019,6 +2620,18 @@ in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/
      * max_a = (coefficient of friction = 0.9 (dry asphalt) times gravity on Earth = 9.81 m/s^2)
      */
     private final static double MAX_A = 9.81 * 0.9;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/util/TurnCostAnalyzer.java`
+#### Snippet
+```java
+
+    /* fetch pillar nodes only */
+    private final static int GEOMETRY_FETCH_MODE_PILLAR_NODES_ONLY = 0;
 
     /**
 ```
@@ -2048,6 +2661,42 @@ public class SumoVehicleClassMapping {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final private`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/SnsAmbassador.java`
+#### Snippet
+```java
+     * Distance configurations of vehicles which have not been moved yet by the traffic simulator.
+     */
+    final private Map<String, Double> registeredVehicles = new HashMap<>();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignImageCreator.java`
+#### Snippet
+```java
+class TrafficSignImageCreator {
+
+    private final static Logger LOG = LoggerFactory.getLogger(TrafficSignImageCreator.class);
+    public static final String SIGN_FONT = "Helvetica";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+#### Snippet
+```java
+public class TransmissionSimulator {
+
+    private final static Logger log = LoggerFactory.getLogger(SnsAmbassador.class);
+
+    /**
+```
+
+### MissortedModifiers
 Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/SumoVersion.java`
 #### Snippet
@@ -2072,30 +2721,6 @@ public class TrafficSignManager {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignImageCreator.java`
-#### Snippet
-```java
-class TrafficSignImageCreator {
-
-    private final static Logger LOG = LoggerFactory.getLogger(TrafficSignImageCreator.class);
-    public static final String SIGN_FONT = "Helvetica";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex/LeadFollowVehicle.java`
-#### Snippet
-```java
-     * @return the id of the leading or following vehicle.
-     */
-    public final @Nonnull
-    String getOtherVehicleId() {
-        return otherVehicleId;
-```
-
-### MissortedModifiers
 Missorted modifiers `final @Nonnull`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex/LeadFollowVehicle.java`
 #### Snippet
@@ -2108,15 +2733,15 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
+Missorted modifiers `public final @Nonnull`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/api/complex/LeadFollowVehicle.java`
 #### Snippet
 ```java
-    private final static Logger log = LoggerFactory.getLogger(SumoVehicleTypesWriter.class);
-
-    final static String MOSAIC_TYPES_FILE_NAME = "mosaic_types.add.xml";
-    /**
-     * Document used to write vehicle types (prototypes) from Mapping to.
+     * @return the id of the leading or following vehicle.
+     */
+    public final @Nonnull
+    String getOtherVehicleId() {
+        return otherVehicleId;
 ```
 
 ### MissortedModifiers
@@ -2133,14 +2758,26 @@ public class SumoVehicleTypesWriter {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/AbstractTraciCommand.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
 #### Snippet
 ```java
-     * method calls reflects the order of readers used to read the message response.
-     */
-    protected final static class TraciCommandResultReaderBuilder {
+    private final static Logger log = LoggerFactory.getLogger(SumoVehicleTypesWriter.class);
 
-        private final AbstractTraciCommand<?> command;
+    final static String MOSAIC_TYPES_FILE_NAME = "mosaic_types.add.xml";
+    /**
+     * Document used to write vehicle types (prototypes) from Mapping to.
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
+#### Snippet
+```java
+public class SophisticatedAdhocTransmissionModel extends AdhocTransmissionModel {
+
+    private final static Logger log = LoggerFactory.getLogger(SimpleAdhocTransmissionModel.class);
+
+    @Override
 ```
 
 ### MissortedModifiers
@@ -2151,6 +2788,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Abstr
     protected abstract T constructResult(Status status, Object... objects);
 
     protected final static class TraciCommandWriterBuilder {
+
+        private final AbstractTraciCommand<?> command;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/AbstractTraciCommand.java`
+#### Snippet
+```java
+     * method calls reflects the order of readers used to read the message response.
+     */
+    protected final static class TraciCommandResultReaderBuilder {
 
         private final AbstractTraciCommand<?> command;
 ```
@@ -2172,18 +2821,6 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandLanePropertyChange.java`
 #### Snippet
 ```java
-     * Allowed vehicle classes.
-     */
-    public final static int VAR_ALLOWED = 0x34;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandLanePropertyChange.java`
-#### Snippet
-```java
      * Maximum speed allowed on the lane.
      */
     public final static int VAR_VMAX = 0x41;
@@ -2193,24 +2830,48 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandLanePropertyChange.java`
 #### Snippet
 ```java
-     * The Id of the lane the vehicle was at within the last step.
+     * Allowed vehicle classes.
      */
-    public final static int VAR_LANE_ID = 0x51;
-    // public final static int VAR_POSITION = 0x42;
-    // public final static int VAR_ID_LIST = 0x00;
+    public final static int VAR_ALLOWED = 0x34;
+
+    /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
 #### Snippet
 ```java
-     * The number of vehicles that were on the induction loop within the last simulation step.
+     * The tl's state of light definitions.
      */
-    public final static int VAR_LAST_STEP_VEHICLE_NUMBER = 0x10;
+    public final static int VAR_STATE = 0x20;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
+#### Snippet
+```java
+     * Ids of traffic light groups within the simulation.
+     */
+    public final static int VAR_ID_LIST = 0x00;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
+#### Snippet
+```java
+     * Definition of the complete traffic light program.
+     */
+    public final static int VAR_COMPLETE_DEFINITION = 0x2b;
 
     /**
 ```
@@ -2232,6 +2893,18 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
 #### Snippet
 ```java
+     * The Id of the lane the vehicle was at within the last step.
+     */
+    public final static int VAR_LANE_ID = 0x51;
+    // public final static int VAR_POSITION = 0x42;
+    // public final static int VAR_ID_LIST = 0x00;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
+#### Snippet
+```java
      * Command for a value of a certain variable of the vehicle.
      */
     public final static int COMMAND = 0xa4;
@@ -2244,11 +2917,11 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
 #### Snippet
 ```java
-     * The number of halting vehicles in the last simulation step.
+     * The percentage of time the detector was occupied by a vehicle in the last simulation step.
      */
-    public final static int VAR_LAST_STEP_HALTING_VEHICLE_NUMBER = 0x14;
-    // public final static int VAR_LAST_STEP_LENGTH_OF_JAM_IN_NUMBER_OF_VEHICLES = 0x18;
-    // public final static int VAR_LAST_STEP_LENGTH_OF_JAM_IN_METERS = 0x19;
+    public final static int VAR_LAST_STEP_OCCUPANCY = 0x13;
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -2268,9 +2941,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
 #### Snippet
 ```java
-     * The length of the vehicles.
+     * The number of vehicles that were on the induction loop within the last simulation step.
      */
-    public final static int VAR_LENGTH = 0x44;
+    public final static int VAR_LAST_STEP_VEHICLE_NUMBER = 0x10;
 
     /**
 ```
@@ -2280,9 +2953,21 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
 #### Snippet
 ```java
-     * The percentage of time the detector was occupied by a vehicle in the last simulation step.
+     * The number of halting vehicles in the last simulation step.
      */
-    public final static int VAR_LAST_STEP_OCCUPANCY = 0x13;
+    public final static int VAR_LAST_STEP_HALTING_VEHICLE_NUMBER = 0x14;
+    // public final static int VAR_LAST_STEP_LENGTH_OF_JAM_IN_NUMBER_OF_VEHICLES = 0x18;
+    // public final static int VAR_LAST_STEP_LENGTH_OF_JAM_IN_METERS = 0x19;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
+#### Snippet
+```java
+     * The length of the vehicles.
+     */
+    public final static int VAR_LENGTH = 0x44;
 
     /**
 ```
@@ -2292,9 +2977,57 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
 #### Snippet
 ```java
-     * Vehicle Id's running within the scenario.
+     * Information about vehicles which passed the detector.
      */
-    public final static int VAR_ID_LIST = 0x00;
+    public final static int VAR_LAST_STEP_VEHICLE_DATA = 0x17;
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
+#### Snippet
+```java
+     * The id of the lane the vehicle was at within the last step.
+     */
+    public final static int VAR_LANE_ID = 0x51;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
+#### Snippet
+```java
+     * The mean speed of vehicles that were on the induction loop within the last simulation step.
+     */
+    public final static int VAR_LAST_STEP_MEAN_SPEED = 0x11;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
+#### Snippet
+```java
+     * The time since last detection.
+     */
+    public final static int VAR_LAST_STEP_TIME_SINCE_LAST_DETECTION = 0x16;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
+#### Snippet
+```java
+     * The percentage of time the detector was occupied by a vehicle in the last simulation step.
+     */
+    public final static int VAR_LAST_STEP_OCCUPANCY = 0x13;
 
     /**
 ```
@@ -2316,9 +3049,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
 #### Snippet
 ```java
-     * The id of the lane the vehicle was at within the last step.
+     * Vehicle Id's running within the scenario.
      */
-    public final static int VAR_LANE_ID = 0x51;
+    public final static int VAR_ID_LIST = 0x00;
 
     /**
 ```
@@ -2328,9 +3061,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
 #### Snippet
 ```java
-     * The time since last detection.
+     * Command for a value of a certain variable of the vehicle.
      */
-    public final static int VAR_LAST_STEP_TIME_SINCE_LAST_DETECTION = 0x16;
+    public final static int COMMAND = 0xa4;
 
     /**
 ```
@@ -2361,144 +3094,12 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
-#### Snippet
-```java
-     * The mean speed of vehicles that were on the induction loop within the last simulation step.
-     */
-    public final static int VAR_LAST_STEP_MEAN_SPEED = 0x11;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
-#### Snippet
-```java
-     * Information about vehicles which passed the detector.
-     */
-    public final static int VAR_LAST_STEP_VEHICLE_DATA = 0x17;
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
-#### Snippet
-```java
-     * Command for a value of a certain variable of the vehicle.
-     */
-    public final static int COMMAND = 0xa4;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveInductionLoopState.java`
-#### Snippet
-```java
-     * The percentage of time the detector was occupied by a vehicle in the last simulation step.
-     */
-    public final static int VAR_LAST_STEP_OCCUPANCY = 0x13;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Id of the traffic light program.
-     */
-    public final static int VAR_PROGRAM_ID = 0x23;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Traffic light states.
-     */
-    public final static int VAR_STATE = 0x20;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Phase duration.
-     */
-    public final static int VAR_PHASE_DURATION = 0x24;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Complete program definition.
-     */
-    public final static int VAR_COMPLETE_PROGRAM = 0x2c;
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Change the state of a traffic light.
-     */
-    public final static int COMMAND = 0xc2;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-     * Index of the phase.
-     */
-    public final static int VAR_PHASE_INDEX = 0x22;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveRouteValue.java`
 #### Snippet
 ```java
      * Command for the tracking the given vehicle.
      */
     public final static int COMMAND = 0xa6;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveRouteValue.java`
-#### Snippet
-```java
-     * Vehicle Id's running within the scenario.
-     */
-    public final static int VAR_ID_LIST = 0x00;
 
     /**
 ```
@@ -2517,190 +3118,10 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveRouteValue.java`
 #### Snippet
 ```java
-    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
-
-    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
-
-    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-
-    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
-
-    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeRouteState.java`
-#### Snippet
-```java
-     * Add a new route.
-     */
-    public final static int VAR_ADD = 0x80;
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeRouteState.java`
-#### Snippet
-```java
-     * Change Route State.
-     */
-    public final static int COMMAND = 0xc6;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
-
-    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
-
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
-
-    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
-
-    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
-
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
-
-    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
-
-    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-public class CommandRetrieveVehicleTypeState {
-
-    public final static int COMMAND = 0xa5;
-
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static int COMMAND = 0xa5;
-
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-
-    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
-
-    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
-
-    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
-
-    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
-
-    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
-#### Snippet
-```java
-     * Definition of the complete traffic light program.
-     */
-    public final static int VAR_COMPLETE_DEFINITION = 0x2b;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
-#### Snippet
-```java
-     * Ids of traffic light groups within the simulation.
+     * Vehicle Id's running within the scenario.
      */
     public final static int VAR_ID_LIST = 0x00;
 
@@ -2712,9 +3133,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
 #### Snippet
 ```java
-     * The tl's state of light definitions.
+     * Currently, not implemented in TraCI server of SUMO.
      */
-    public final static int VAR_STATE = 0x20;
+    public final static int VAR_CONTROLLED_JUNCTIONS = 0x2a;
 
     /**
 ```
@@ -2724,21 +3145,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
 #### Snippet
 ```java
-     * The assumed time at which the traffic lights change the phase.
+     * The links controlled by the traffic light.
      */
-    public final static int VAR_TIME_OF_NEXT_SWITCH = 0x2d;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
-#### Snippet
-```java
-     * Command to asking for the value of a certain variable of the traffic light.
-     */
-    public final static int COMMAND = 0xa2;
+    public final static int VAR_CONTROLLED_LINKS = 0x27;
 
     /**
 ```
@@ -2760,21 +3169,21 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
 #### Snippet
 ```java
-     * Currently, not implemented in TraCI server of SUMO.
+     * Command to asking for the value of a certain variable of the traffic light.
      */
-    public final static int VAR_CONTROLLED_JUNCTIONS = 0x2a;
+    public final static int COMMAND = 0xa2;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
 #### Snippet
 ```java
-     * Add a filter to reduce previous set context subscription.
+     * The assumed time at which the traffic lights change the phase.
      */
-    public final static int COMMAND_ADD_CONTEXT_SUBSCRIPTION_FILTER = 0x7e;
+    public final static int VAR_TIME_OF_NEXT_SWITCH = 0x2d;
 
     /**
 ```
@@ -2787,18 +3196,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
      * The list of lanes which are controlled by the traffic light.
      */
     public final static int VAR_CONTROLLED_LANES = 0x26;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
-#### Snippet
-```java
-     * Response to subscribe vehicle variable.
-     */
-    public final static int RESPONSE_SUBSCRIBE_VEHICLE_VALUES = 0xe4;
 
     /**
 ```
@@ -2820,35 +3217,11 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Change the state of a lane.
+     * A subscription filter to return vehicles within field of vision
      */
-    public final static int COMMAND_CHANGE_LANE_STATE = 0xc3;
+    public final static int SUBSCRIPTION_FILTER_FIELD_OF_VISION = 0x0a;
 
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
-#### Snippet
-```java
-     * The links controlled by the traffic light.
-     */
-    public final static int VAR_CONTROLLED_LINKS = 0x27;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
-#### Snippet
-```java
-     * Command to subscribe areal detector variable.
-     */
-    public final static int COMMAND_SUBSCRIBE_LANE_AREA_VALUES = 0xdd;
-
-    /**
+}
 ```
 
 ### MissortedModifiers
@@ -2868,9 +3241,69 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Retrieve information from a traffic light group.
+     * Subscribe for vehicle values within a context of another vehicle.
      */
-    public final static int COMMAND_SUBSCRIBE_TRAFFIC_LIGHT_VALUES = 0xd2;
+    public final static int COMMAND_SUBSCRIBE_CONTEXT_VEHICLE_VALUES = 0x84;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+     * Complete program definition.
+     */
+    public final static int VAR_COMPLETE_PROGRAM = 0x2c;
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+#### Snippet
+```java
+     * Response to subscribe areal detector variable.
+     */
+    public final static int RESPONSE_SUBSCRIBE_LANE_AREA_VALUES = 0xed;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+     * Id of the traffic light program.
+     */
+    public final static int VAR_PROGRAM_ID = 0x23;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+#### Snippet
+```java
+     * Command to subscribe areal detector variable.
+     */
+    public final static int COMMAND_SUBSCRIBE_LANE_AREA_VALUES = 0xdd;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+     * Index of the phase.
+     */
+    public final static int VAR_PHASE_INDEX = 0x22;
 
     /**
 ```
@@ -2889,24 +3322,12 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
 #### Snippet
 ```java
-     * A subscription filter to return vehicles within field of vision
+     * Phase duration.
      */
-    public final static int SUBSCRIPTION_FILTER_FIELD_OF_VISION = 0x0a;
-
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
-#### Snippet
-```java
-     * Response to subscribe traffic light group variable.
-     */
-    public final static int RESPONSE_SUBSCRIBE_TRAFFIC_LIGHT_VALUES = 0xe2;
+    public final static int VAR_PHASE_DURATION = 0x24;
 
     /**
 ```
@@ -2916,9 +3337,45 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Response to subscribe areal detector variable.
+     * Command to subscribe vehicle variable.
      */
-    public final static int RESPONSE_SUBSCRIBE_LANE_AREA_VALUES = 0xed;
+    public final static int COMMAND_SUBSCRIBE_VEHICLE_VALUES = 0xd4;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+     * Change the state of a traffic light.
+     */
+    public final static int COMMAND = 0xc2;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+#### Snippet
+```java
+     * Add a filter to reduce previous set context subscription.
+     */
+    public final static int COMMAND_ADD_CONTEXT_SUBSCRIPTION_FILTER = 0x7e;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+     * Traffic light states.
+     */
+    public final static int VAR_STATE = 0x20;
 
     /**
 ```
@@ -2940,9 +3397,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Subscribe for vehicle values within a context of another vehicle.
+     * Retrieve information from a traffic light group.
      */
-    public final static int COMMAND_SUBSCRIBE_CONTEXT_VEHICLE_VALUES = 0x84;
+    public final static int COMMAND_SUBSCRIBE_TRAFFIC_LIGHT_VALUES = 0xd2;
 
     /**
 ```
@@ -2952,107 +3409,203 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Command to subscribe vehicle variable.
+     * Change the state of a lane.
      */
-    public final static int COMMAND_SUBSCRIBE_VEHICLE_VALUES = 0xd4;
+    public final static int COMMAND_CHANGE_LANE_STATE = 0xc3;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveSimulationValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Id's of vehicles which departed in this time step.
+     * Response to subscribe vehicle variable.
      */
-    public final static int VAR_DEPARTED_VEHICLES = 0x74;
+    public final static int RESPONSE_SUBSCRIBE_VEHICLE_VALUES = 0xe4;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeRouteState.java`
+#### Snippet
+```java
+     * Add a new route.
+     */
+    public final static int VAR_ADD = 0x80;
 }
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveSimulationValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
 #### Snippet
 ```java
-     * Command for the value of a certain variable of the induction loop within the last simulation step.
+     * Response to subscribe traffic light group variable.
      */
-    public final static int COMMAND = 0xab;
+    public final static int RESPONSE_SUBSCRIBE_TRAFFIC_LIGHT_VALUES = 0xe2;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeRouteState.java`
 #### Snippet
 ```java
-     * Command to get the API version.
+     * Change Route State.
      */
-    public final static int COMMAND_VERSION = 0x00;
+    public final static int COMMAND = 0xc6;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
 #### Snippet
 ```java
-     * The TraCI closes the connection to any client, stops simulation and shuts down SUMO.
-     */
-    public final static int COMMAND_CLOSE = 0x7f;
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
+
+    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
+
+    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
+
+    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
+
+    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
+
+    public final static SumoVar VAR_SIGMA = SumoVar.var(0x5d);
+
+    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
 }
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
 #### Snippet
 ```java
-     * Command forces SUMO to perform simulation until the given time step is reached.
-     */
-    public final static int COMMAND_SIMULATION_STEP = 0x02;
+    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
 
-    /**
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
 #### Snippet
 ```java
-     * Command to retrieve the shape of a lane.
-     */
-    public final static int VAR_SHAPE = 0x4e;
-}
+    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
 
+    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
+
+    public final static SumoVar VAR_TAU = SumoVar.var(0x48);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
 #### Snippet
 ```java
-     * Command to retrieve the length of a lane.
-     */
-    public final static int VAR_LENGTH = 0x44;
+    public final static int COMMAND = 0xa5;
 
-    /**
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
+
+    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
 #### Snippet
 ```java
-     * Command for the Lane value retrieval.
-     */
-    public final static int COMMAND = 0xa3;
+    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
 
-    /**
+    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
+
+    public final static SumoVar VAR_DECEL = SumoVar.var(0x47);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_SPEED_FACTOR = SumoVar.var(0x5e);
+
+    public final static SumoVar VAR_VCLASS = SumoVar.var(0x49);
+
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
+
+    public final static SumoVar VAR_MAX_SPEED = SumoVar.var(0x41);
+
+    public final static SumoVar VAR_ACCEL = SumoVar.var(0x46);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleTypeState.java`
+#### Snippet
+```java
+public class CommandRetrieveVehicleTypeState {
+
+    public final static int COMMAND = 0xa5;
+
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
 ```
 
 ### MissortedModifiers
@@ -3072,6 +3625,30 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
 #### Snippet
 ```java
+    public final static int VAR_IMAGE_PATH = 0x93;
+
+    public final static int VAR_WIDTH = 0x4d;
+
+    public final static int VAR_HEIGHT = 0xbc;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
+#### Snippet
+```java
+    public final static int VAR_ADD = 0x80;
+
+    public final static int VAR_REMOVE = 0x81;
+
+    public final static int VAR_IMAGE_PATH = 0x93;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
+#### Snippet
+```java
     public final static int VAR_REMOVE = 0x81;
 
     public final static int VAR_IMAGE_PATH = 0x93;
@@ -3084,11 +3661,11 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
 #### Snippet
 ```java
+    public final static int COMMAND = 0xc7;
+
     public final static int VAR_ADD = 0x80;
 
     public final static int VAR_REMOVE = 0x81;
-
-    public final static int VAR_IMAGE_PATH = 0x93;
 ```
 
 ### MissortedModifiers
@@ -3096,11 +3673,11 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
 #### Snippet
 ```java
-    public final static int COMMAND = 0xc7;
+    public final static int VAR_HEIGHT = 0xbc;
 
-    public final static int VAR_ADD = 0x80;
+    public final static int VAR_ANGLE = 0x43;
 
-    public final static int VAR_REMOVE = 0x81;
+}
 ```
 
 ### MissortedModifiers
@@ -3117,158 +3694,14 @@ public class CommandChangePoiState {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
-#### Snippet
-```java
-    public final static int VAR_IMAGE_PATH = 0x93;
-
-    public final static int VAR_WIDTH = 0x4d;
-
-    public final static int VAR_HEIGHT = 0xbc;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
-#### Snippet
-```java
-    public final static int VAR_HEIGHT = 0xbc;
-
-    public final static int VAR_ANGLE = 0x43;
-
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
-#### Snippet
-```java
-     * Command for the value of a certain variable of the junction.
-     */
-    public final static int COMMAND = 0xa9;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
-#### Snippet
-```java
-     * The position of the named junction.
-     */
-    public final static int VAR_POSITION = 0x42;
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
 #### Snippet
 ```java
-    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
+    public final static SumoVar VAR_DISTANCE = SumoVar.var(0x84);
 
-    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
+    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
 
-    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-public class CommandRetrieveVehicleState {
-
-    public final static int COMMAND = 0xa4;
-
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-
-    public final static SumoVar VAR_TELEPORTING_LIST = SumoVar.var(0x25);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-
-    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
-
-    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
-
-    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
-
-    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
-
-    public final static SumoVar VAR_LANE_POSITION = SumoVar.var(0x56);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
-
-    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
-
-    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
-
-    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
-
-    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
-
-    public final static SumoVar VAR_POSITION = SumoVar.var(0x42);
-
-    public final static SumoVar VAR_POSITION_3D = SumoVar.var(0x39);
+    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
 ```
 
 ### MissortedModifiers
@@ -3288,179 +3721,35 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
 #### Snippet
 ```java
+    public final static SumoVar VAR_POSITION_3D = SumoVar.var(0x39);
+
+    public final static SumoVar VAR_ACCELERATION = SumoVar.var(0x72);
+
+    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
+
+    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
+
+    public final static SumoVar VAR_LANE_POSITION = SumoVar.var(0x56);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
     public final static SumoVar VAR_POSITION = SumoVar.var(0x42);
 
     public final static SumoVar VAR_POSITION_3D = SumoVar.var(0x39);
 
     public final static SumoVar VAR_ACCELERATION = SumoVar.var(0x72);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static int COMMAND = 0xa4;
-
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-
-    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
-
-    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
-
-    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
-
-    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
-
-    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_ACCELERATION = SumoVar.var(0x72);
-
-    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
-
-    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
-
-    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
-
-    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
-
-    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
-
-    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_POSITION_3D = SumoVar.var(0x39);
-
-    public final static SumoVar VAR_ACCELERATION = SumoVar.var(0x72);
-
-    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
-
-    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
-
-    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
-
-    public final static SumoVar VAR_LANE_POSITION = SumoVar.var(0x56);
-
-    public final static SumoVar VAR_LATERAL_LANE_POSITION = SumoVar.var(0xb8);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_DISTANCE = SumoVar.var(0x84);
-
-    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
-
-    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public static final SumoVar VAR_FOLLOWER = SumoVar.WithParam.var(0x78, 100d);
-
-    public final static SumoVar VAR_DISTANCE = SumoVar.var(0x84);
-
-    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * The maximum deceleration.
-     */
-    public final static int VAR_DECELERATION = 0x47;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     */
-
-    public final static int VAR_IMPERFECTION = 0x5d;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * The maximum acceleration.
-     */
-    public final static int VAR_ACCELERATION = 0x46;
-
-    /**
 ```
 
 ### MissortedModifiers
@@ -3471,54 +3760,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
      * Remove the vehicle.
      */
     public final static int VAR_REMOVE = 0x81;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Speed factor to exceed the maximum permitted speed or to decelerate.
-     */
-    public final static int VAR_SPEED_FACTOR = 0x5e;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * The vehicle speed.
-     */
-    public final static int VAR_SPEED = 0x40;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Change route vy given Id.
-     */
-    public final static int VAR_CHANGE_ROUTE_BY_ID = 0x53;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Changes the speed for slow down.
-     */
-    public final static int VAR_SLOW_DOWN = 0x14;
 
     /**
 ```
@@ -3540,45 +3781,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
 #### Snippet
 ```java
-     * Additional parameter for the vehicle.
+     * Command to set vehicle variable.
      */
-    public final static int VAR_PARAMETER = 0x7e;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * The length of the vehicle.
-     */
-    public final static int VAR_LENGTH = 0x44;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Add a vehicle.
-     */
-    public final static int VAR_ADD = 0x85;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Vehicle stop.
-     */
-    public final static int VAR_STOP = 0x12;
+    public final static int COMMAND = 0xc4;
 
     /**
 ```
@@ -3600,9 +3805,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
 #### Snippet
 ```java
-     * Change to the lane.
+     * The maximum deceleration.
      */
-    public final static int VAR_CHANGE_LANE = 0x13;
+    public final static int VAR_DECELERATION = 0x47;
 
     /**
 ```
@@ -3612,9 +3817,9 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
 #### Snippet
 ```java
-     * Command to set vehicle variable.
+     * The maximum acceleration.
      */
-    public final static int COMMAND = 0xc4;
+    public final static int VAR_ACCELERATION = 0x46;
 
     /**
 ```
@@ -3624,9 +3829,33 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
 #### Snippet
 ```java
-     * Driver reaction time.
      */
-    public final static int VAR_TAU = 0x48;
+
+    public final static int VAR_IMPERFECTION = 0x5d;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Speed factor to exceed the maximum permitted speed or to decelerate.
+     */
+    public final static int VAR_SPEED_FACTOR = 0x5e;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Moves the vehicle to a new specific position.
+     */
+    public final static int VAR_MOVE_TO_XY = 0xb4;
 
     /**
 ```
@@ -3648,9 +3877,489 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
 #### Snippet
 ```java
+     * Vehicle stop.
+     */
+    public final static int VAR_STOP = 0x12;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Additional parameter for the vehicle.
+     */
+    public final static int VAR_PARAMETER = 0x7e;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * The vehicle speed.
+     */
+    public final static int VAR_SPEED = 0x40;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
      * The vehicle's color.
      */
     public final static int VAR_COLOR = 0x45;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Changes the speed for slow down.
+     */
+    public final static int VAR_SLOW_DOWN = 0x14;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
+
+    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
+
+    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_ACCELERATION = SumoVar.var(0x72);
+
+    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
+
+    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
+
+    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
+
+    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
+
+    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
+
+    public final static SumoVar VAR_POSITION = SumoVar.var(0x42);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
+
+    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
+
+    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_ANGLE = SumoVar.var(0x43);
+
+    public final static SumoVar VAR_TYPE_ID = SumoVar.var(0x4f);
+
+    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
+
+    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
+
+    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
+
+    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
+
+    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
+
+    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
+
+    public final static SumoVar VAR_TELEPORTING_LIST = SumoVar.var(0x25);
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveSimulationValue.java`
+#### Snippet
+```java
+     * Id's of vehicles which departed in this time step.
+     */
+    public final static int VAR_DEPARTED_VEHICLES = 0x74;
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
+
+    public final static SumoVar VAR_POSITION = SumoVar.var(0x42);
+
+    public final static SumoVar VAR_POSITION_3D = SumoVar.var(0x39);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveSimulationValue.java`
+#### Snippet
+```java
+     * Command for the value of a certain variable of the induction loop within the last simulation step.
+     */
+    public final static int COMMAND = 0xab;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
+
+    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
+
+    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
+
+    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
+
+    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
+
+    public final static SumoVar VAR_EMISSIONS_NOX = SumoVar.var(0x64);
+
+    public final static SumoVar VAR_EMISSIONS_FUEL = SumoVar.var(0x65);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
+
+    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
+
+    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+
+    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
+    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
+
+    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
+
+    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
+
+    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_ROUTE_ID = SumoVar.var(0x53);
+
+    public final static SumoVar VAR_LANE_POSITION = SumoVar.var(0x56);
+
+    public final static SumoVar VAR_LATERAL_LANE_POSITION = SumoVar.var(0xb8);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
+
+    public final static SumoVar VAR_TELEPORTING_LIST = SumoVar.var(0x25);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
+
+    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
+    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+
+    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
+    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
+    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
+#### Snippet
+```java
+     * The position of the named junction.
+     */
+    public final static int VAR_POSITION = 0x42;
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+public class CommandRetrieveVehicleState {
+
+    public final static int COMMAND = 0xa4;
+
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
+#### Snippet
+```java
+     * Command for the value of a certain variable of the junction.
+     */
+    public final static int COMMAND = 0xa9;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public static final SumoVar VAR_FOLLOWER = SumoVar.WithParam.var(0x78, 100d);
+
+    public final static SumoVar VAR_DISTANCE = SumoVar.var(0x84);
+
+    public final static SumoVar VAR_SIGNAL_STATES = SumoVar.var(0x5b);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static int COMMAND = 0xa4;
+
+    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
+
+    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+#### Snippet
+```java
+    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
+
+    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
+
+    public final static SumoVar VAR_EMISSIONS_PMX = SumoVar.var(0x63);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Change to the lane.
+     */
+    public final static int VAR_CHANGE_LANE = 0x13;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * The length of the vehicle.
+     */
+    public final static int VAR_LENGTH = 0x44;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Driver reaction time.
+     */
+    public final static int VAR_TAU = 0x48;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Change route vy given Id.
+     */
+    public final static int VAR_CHANGE_ROUTE_BY_ID = 0x53;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Add a vehicle.
+     */
+    public final static int VAR_ADD = 0x85;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+     * Lane change mode of the vehicle.
+     */
+    public final static int VAR_LANE_CHANGE_MODE = 0xb6;
 
     /**
 ```
@@ -3681,134 +4390,74 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
 #### Snippet
 ```java
-     * Moves the vehicle to a new specific position.
+     * The TraCI closes the connection to any client, stops simulation and shuts down SUMO.
      */
-    public final static int VAR_MOVE_TO_XY = 0xb4;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
-#### Snippet
-```java
-     * Lane change mode of the vehicle.
-     */
-    public final static int VAR_LANE_CHANGE_MODE = 0xb6;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-
-    public final static SumoVar VAR_TELEPORTING_LIST = SumoVar.var(0x25);
+    public final static int COMMAND_CLOSE = 0x7f;
 }
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
 #### Snippet
 ```java
-    public final static SumoVar VAR_EMISSIONS_ELECTRICITY = SumoVar.var(0x71);
+     * Command forces SUMO to perform simulation until the given time step is reached.
+     */
+    public final static int COMMAND_SIMULATION_STEP = 0x02;
 
-    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
-    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandSimulationControl.java`
+#### Snippet
+```java
+     * Command to get the API version.
+     */
+    public final static int COMMAND_VERSION = 0x00;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
+#### Snippet
+```java
+     * Command for the Lane value retrieval.
+     */
+    public final static int COMMAND = 0xa3;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
+#### Snippet
+```java
+     * Command to retrieve the shape of a lane.
+     */
+    public final static int VAR_SHAPE = 0x4e;
+}
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneValue.java`
 #### Snippet
 ```java
-    public final static SumoVar VAR_ROAD_ID = SumoVar.var(0x50);
+     * Command to retrieve the length of a lane.
+     */
+    public final static int VAR_LENGTH = 0x44;
 
-    public final static SumoVar VAR_LANE_ID = SumoVar.var(0x51);
-
-    public final static SumoVar VAR_LANE_INDEX = SumoVar.var(0x52);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
-
-    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
-
-    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-
-    public final static SumoVar VAR_NEXT_STOPS = SumoVar.var(0x73);
-    public final static SumoVar VAR_LINE = SumoVar.var(0xbd);
-
-    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_EMISSIONS_CO2 = SumoVar.var(0x60);
-
-    public final static SumoVar VAR_EMISSIONS_CO = SumoVar.var(0x61);
-
-    public final static SumoVar VAR_EMISSIONS_HC = SumoVar.var(0x62);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_MIN_GAP = SumoVar.var(0x4c);
-
-    public final static SumoVar VAR_SPEED = SumoVar.var(0x40);
-
-    public final static SumoVar VAR_POSITION = SumoVar.var(0x42);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
-    public final static SumoVar VAR_HEIGHT = SumoVar.var(0xbc);
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-    public final static SumoVar VAR_STOP_STATE = SumoVar.var(0xb5);
-
-    public final static SumoVar VAR_SLOPE = SumoVar.var(0x36);
-    public final static SumoVar VAR_LENGTH = SumoVar.var(0x44);
-    public final static SumoVar VAR_WIDTH = SumoVar.var(0x4d);
+    /**
 ```
 
 ### MissortedModifiers
@@ -3819,6 +4468,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
      * Subscription identifier for subscribing to train information such next stops and line information.
      */
     public final static String SUBSCRIPTION_TRAINS = "trains";
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
+#### Snippet
+```java
+     * Subscription identifier for subscribing to leader and follower information for each vehicle.
+     */
+    public final static String SUBSCRIPTION_LEADER = "leader";
 
     /**
 ```
@@ -3852,11 +4513,11 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
 #### Snippet
 ```java
-     * Subscription identifier for subscribing to leader and follower information for each vehicle.
-     */
-    public final static String SUBSCRIPTION_LEADER = "leader";
 
-    /**
+    public final static String HIGHLIGHT_CHANGE_LANE = "changeLane";
+    public final static String HIGHLIGHT_CHANGE_ROUTE = "changeRoute";
+}
+
 ```
 
 ### MissortedModifiers
@@ -3885,26 +4546,50 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
 #### Snippet
 ```java
+public class ExternalWatchDog extends Thread {
 
-    public final static String HIGHLIGHT_CHANGE_LANE = "changeLane";
-    public final static String HIGHLIGHT_CHANGE_ROUTE = "changeRoute";
-}
+    private final static int CLOSE_STATUS = 3;
 
+    private final ComponentProvider federation;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-communication/src/main/java/org/eclipse/mosaic/lib/model/delay/GammaRandomDelay.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
 #### Snippet
 ```java
-     * GammaDistribution with p=2, b=2, which fits best to the delay measurements in the smartv2x project.
-     */
-    private final static GammaDistribution GAMMA = new GammaDistribution(2, 2);
 
-    @Override
+    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> TRAFFIC_LIGHT_SUBSCRIPTIONS = new ArrayList<>();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    private final static Logger LOG = LoggerFactory.getLogger(SimulationSimulateStep.class);
+
+    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
+    final static List<String> TRAFFIC_LIGHT_SUBSCRIPTIONS = new ArrayList<>();
+
 ```
 
 ### MissortedModifiers
@@ -3924,18 +4609,6 @@ Missorted modifiers `final static`
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
 #### Snippet
 ```java
-
-    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> TRAFFIC_LIGHT_SUBSCRIPTIONS = new ArrayList<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
 public class SimulationSimulateStep implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationSimulateStep {
 
     private final static Logger LOG = LoggerFactory.getLogger(SimulationSimulateStep.class);
@@ -3945,98 +4618,26 @@ public class SimulationSimulateStep implements org.eclipse.mosaic.fed.sumo.bridg
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
 #### Snippet
 ```java
-    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> TRAFFIC_LIGHT_SUBSCRIPTIONS = new ArrayList<>();
+    private final static long SIMULATION_INFO_LOG_INTERVAL = 500 * TIME.MILLI_SECOND;
 
+    protected final static int STATUS_CODE_SUCCESS = 101;
+
+    protected static final DecimalFormat FORMAT_ONE_DIGIT = new DecimalFormat("#0.0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
 #### Snippet
 ```java
-    private final static Logger LOG = LoggerFactory.getLogger(SimulationSimulateStep.class);
-
-    final static List<String> VEHICLE_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> INDUCTION_LOOP_SUBSCRIPTIONS = new ArrayList<>();
-    final static List<String> LANE_AREA_SUBSCRIPTIONS = new ArrayList<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/SlowDownApp.java`
-#### Snippet
-```java
-public class SlowDownApp extends AbstractApplication<VehicleOperatingSystem> implements VehicleApplication {
-
-    private final static float SPEED = 25 / 3.6f;
-
-    private boolean hazardousArea = false;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
-#### Snippet
-```java
-     * Location of the hazard which causes the route change.
+     * Unit: [ms]. Set to <code>0</code> to disable this feature.
      */
-    private final static GeoPoint HAZARD_LOCATION = GeoPoint.latLon(52.633047, 13.565314);
+    private final static long SIMULATION_INFO_LOG_INTERVAL = 500 * TIME.MILLI_SECOND;
 
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
-#### Snippet
-```java
-     * Send hazard location at this interval, in seconds.
-     */
-    private final static long INTERVAL = 2 * TIME.SECOND;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
-#### Snippet
-```java
-    private final static String HAZARD_ROAD = "311964536_1313885442_2879911873";
-
-    private final static SensorType SENSOR_TYPE = SensorType.ICE;
-    private final static float SPEED = 25 / 3.6f;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
-#### Snippet
-```java
-     * Road ID where hazard is located.
-     */
-    private final static String HAZARD_ROAD = "311964536_1313885442_2879911873";
-
-    private final static SensorType SENSOR_TYPE = SensorType.ICE;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherServerApp.java`
-#### Snippet
-```java
-
-    private final static SensorType SENSOR_TYPE = SensorType.ICE;
-    private final static float SPEED = 25 / 3.6f;
-
-
+    protected final static int STATUS_CODE_SUCCESS = 101;
 ```
 
 ### MissortedModifiers
@@ -4053,6 +4654,1074 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/Sim
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/interaction/TypeBasedInteractionManagement.java`
+#### Snippet
+```java
+public class TypeBasedInteractionManagement implements InteractionManagement {
+
+    private final static Logger LOG = LoggerFactory.getLogger(TypeBasedInteractionManagement.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/VehicleRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/RsuRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(RsuRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/ServerRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(ServerRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/TmcRegistration.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1;
+
+    public final static String TYPE_ID = createTypeIdentifier(TmcRegistration.class);
+
+    private final TmcMapping tmcMapping;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/ScenarioVehicleRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(ScenarioVehicleRegistration.class);
+
+    private final String name;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/TrafficLightRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(TrafficLightRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/InductionLoopDetectorSubscription.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(InductionLoopDetectorSubscription.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleTypesInitialization.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleTypesInitialization.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/RoutelessVehicleRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(RoutelessVehicleRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightSubscription.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(org.eclipse.mosaic.interactions.traffic.TrafficLightSubscription.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+     * Sleep after each connection try. Unit: [ms].
+     */
+    private final static long SLEEP_AFTER_ATTEMPT = 1000L;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/LaneAreaDetectorSubscription.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(LaneAreaDetectorSubscription.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightUpdates.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(TrafficLightUpdates.class);
+
+    private final Map<String, TrafficLightGroupInfo> updatedTrafficLights;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleRoutesInitialization.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleRoutesInitialization.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/ScenarioTrafficLightRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(ScenarioTrafficLightRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleRouteChange.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleRouteChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSpeedChange.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleSpeedChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightStateChange.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(TrafficLightStateChange.class);
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/LanePropertyChange.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(LanePropertyChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleLaneChange.java`
+#### Snippet
+```java
+     * string identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleLaneChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSlowDown.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleSlowDown.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSensorActivation.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleSensorActivation.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleParametersChange.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleParametersChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleFederateAssignment.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleFederateAssignment.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleRouteRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleRouteRegistration.class);
+
+    private final VehicleRoute route;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/SumoTraciRequest.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(SumoTraciRequest.class);
+
+    private final String requestId;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/SumoTraciResponse.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(SumoTraciResponse.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSightDistanceConfiguration.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String TYPE_ID = createTypeIdentifier(VehicleSightDistanceConfiguration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/electricity/VehicleBatteryUpdates.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String TYPE_ID = createTypeIdentifier(VehicleBatteryUpdates.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/ApplicationInteraction.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(ApplicationInteraction.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/environment/EnvironmentSensorActivation.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(EnvironmentSensorActivation.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignRegistration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(TrafficSignRegistration.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/CellularCommunicationConfiguration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(CellularCommunicationConfiguration.class);
+
+    private final CellConfiguration configuration;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/VehicleSeenTrafficSignsUpdate.java`
+#### Snippet
+```java
+public final class VehicleSeenTrafficSignsUpdate extends Interaction {
+
+    public final static String TYPE_ID = createTypeIdentifier(VehicleSeenTrafficSignsUpdate.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageReception.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(V2xMessageReception.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/environment/GlobalEnvironmentUpdates.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(GlobalEnvironmentUpdates.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignSpeedLimitChange.java`
+#### Snippet
+```java
+public final class TrafficSignSpeedLimitChange extends Interaction {
+
+    public final static String TYPE_ID = createTypeIdentifier(TrafficSignSpeedLimitChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignLaneAssignmentChange.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    public final static String TYPE_ID = createTypeIdentifier(TrafficSignLaneAssignmentChange.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/CellularHandoverUpdates.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(CellularHandoverUpdates.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/AdHocCommunicationConfiguration.java`
+#### Snippet
+```java
+public final class AdHocCommunicationConfiguration extends Interaction {
+
+    private final static long serialVersionUID = 1L;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/AdHocCommunicationConfiguration.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(AdHocCommunicationConfiguration.class);
+
+    private final AdHocConfiguration configuration;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xFullMessageReception.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(V2xFullMessageReception.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageRemoval.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(V2xMessageRemoval.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageTransmission.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(V2xMessageTransmission.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageAcknowledgement.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(V2xMessageAcknowledgement.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+#### Snippet
+```java
+public class PerformanceMonitor {
+
+    private final static PerformanceMonitor INSTANCE = new PerformanceMonitor(LoggerFactory.getLogger("performance"));
+
+    public static PerformanceMonitor getInstance() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleUpdates.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(VehicleUpdates.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficDetectorUpdates.java`
+#### Snippet
+```java
+     * String identifying the type of this interaction.
+     */
+    public final static String TYPE_ID = createTypeIdentifier(TrafficDetectorUpdates.class);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/XmlUtils.java`
+#### Snippet
+```java
+public class XmlUtils {
+
+    private final static int DEFAULT_XML_INDENTATION = 4;
+
+    private XmlUtils() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/TimeFieldAdapter.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(TimeFieldAdapter.class);
+
+    private final static Pattern TIME_PATTERN = Pattern.compile("^([0-9]+[0-9_]*?\\.?[0-9]*) ?(min|minute|minutes|h|hour|hours|(|m|\\u00b5|n|milli|micro|nano)(?:|s|sec|second|seconds))$");
+    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
+            .put("", TIME.SECOND)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/TimeFieldAdapter.java`
+#### Snippet
+```java
+
+    private final static Pattern TIME_PATTERN = Pattern.compile("^([0-9]+[0-9_]*?\\.?[0-9]*) ?(min|minute|minutes|h|hour|hours|(|m|\\u00b5|n|milli|micro|nano)(?:|s|sec|second|seconds))$");
+    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
+            .put("", TIME.SECOND)
+            .put("n", TIME.NANO_SECOND)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
+#### Snippet
+```java
+    private final static String UNLIMITED = "unlimited";
+
+    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
+    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
+            .put("", DATA.BIT)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(DataFieldAdapter.class);
+
+    private final static String UNLIMITED = "unlimited";
+
+    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
+#### Snippet
+```java
+
+    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
+    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
+            .put("", DATA.BIT)
+            .put("k", DATA.KILOBIT)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/PolymorphismTypeAdapterFactory.java`
+#### Snippet
+```java
+public class PolymorphismTypeAdapterFactory implements TypeAdapterFactory {
+
+    private final static String classFieldName = "__class";
+
+    public static class PolymorphismTypeAdapter<R> extends TypeAdapter<R> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
+    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
+    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
+
+    private final static Map<String, Double> UNIT_MULTIPLIERS = ImmutableMap.<String, Double>builder()
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(UnitFieldAdapter.class);
+
+    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
+    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
+
+    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
+
+    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
+
+    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
+    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
+    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
+
+    private final static Map<String, Double> UNIT_MULTIPLIERS = ImmutableMap.<String, Double>builder()
+            .put("n", 1 / 1_000_000_000d).put("nano", 1 / 1_000_000_000d)
+            .put("\u00b5", 1 / 1_000_000d).put("micro", 1 / 1_000_000d)
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+
+    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
+    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
+    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+
+    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
+    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
+
+    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
+#### Snippet
+```java
+public class CommandLineParser<T> {
+
+    private final static Logger log = LoggerFactory.getLogger(CommandLineParser.class);
+
+    private final org.apache.commons.cli.CommandLineParser parser = new PosixParser();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
+#### Snippet
+```java
+public class DefaultEventScheduler implements EventScheduler {
+
+    private final static AtomicLong SEQUENCE = new AtomicLong();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/InteractionUtils.java`
+#### Snippet
+```java
+public class InteractionUtils {
+
+    private final static Logger log = LoggerFactory.getLogger(InteractionUtils.class);
+
+    private static Map<String, Class<?>> supportedInteractions = new HashMap<>();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/eventprocessing/sampling/HelloWorldApp.java`
+#### Snippet
+```java
+     * Sample interval. Unit: [ns].
+     */
+    private final static long TIME_INTERVAL = TIME.SECOND;
+
+    private void sample() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-communication/src/main/java/org/eclipse/mosaic/lib/model/delay/GammaRandomDelay.java`
+#### Snippet
+```java
+     * GammaDistribution with p=2, b=2, which fits best to the delay measurements in the smartv2x project.
+     */
+    private final static GammaDistribution GAMMA = new GammaDistribution(2, 2);
+
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/VehicleToTrafficLightApp.java`
+#### Snippet
+```java
+
+public final class VehicleToTrafficLightApp extends AbstractApplication<VehicleOperatingSystem> {
+    private final static long TIME_INTERVAL = TIME.SECOND;
+
+    //Use TopoBroadcast instead of GeoBroadcast because latter is not compatible with OMNeT++ or ns-3
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/message/InterVehicleMsg.java`
+#### Snippet
+```java
+    private final GeoPoint senderPosition;
+    private final EncodedPayload payload;
+    private final static long minLen = 128L;
+
+    public InterVehicleMsg(MessageRouting routing, GeoPoint senderPosition) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/RoadSideUnitApp.java`
+#### Snippet
+```java
+     * Interval at which messages are sent (every 2 seconds).
+     */
+    private final static long TIME_INTERVAL = 2 * TIME.SECOND;
+
+    private void sendAdHocBroadcast() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
+#### Snippet
+```java
+public class ObjectInstantiation<T> {
+
+    private final static String NEWLINE = System.lineSeparator();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/EventSendingApp.java`
+#### Snippet
+```java
+     * Used for choosing a RAND id for the message that is sent intra-vehicle.
+     */
+    private final static int MAX_ID = 1000;
+
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/message/GreenWaveMsg.java`
+#### Snippet
+```java
+    private final String         message;
+    private final EncodedPayload payload;
+    private final static long    MIN_LEN = 8L;
+
+    public GreenWaveMsg(MessageRouting routing, String message) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/TrafficLightApp.java`
+#### Snippet
+```java
+
+public final class TrafficLightApp extends AbstractApplication<TrafficLightOperatingSystem> implements CommunicationApplication {
+    public final static String SECRET = "open sesame!";
+    private final static short GREEN_DURATION = 10;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/TrafficLightApp.java`
+#### Snippet
+```java
+public final class TrafficLightApp extends AbstractApplication<TrafficLightOperatingSystem> implements CommunicationApplication {
+    public final static String SECRET = "open sesame!";
+    private final static short GREEN_DURATION = 10;
+
+    private static final String DEFAULT_PROGRAM = "1";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/UtmZone.java`
+#### Snippet
+```java
+    private static final int ZONE_HEIGHT_SHARING = 4;
+
+    private final static UtmZone[][] ZONE_CACHE = new UtmZone[ZONE_MAX_VALUE][26];
+
+    public final int number;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/UtmZone.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private final static char[] UTM_LETTERS = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+    };
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
+#### Snippet
+```java
+
+        private final static String TYPE_RECTANGLE = "rectangle";
+        private final static String TYPE_CIRCLE = "circle";
+        private final static String TYPE_POLYGON = "polygon";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
+#### Snippet
+```java
+    public static class GeoAreaAdapter extends AbstractTypeAdapterFactory<GeoArea> {
+
+        private final static String TYPE_RECTANGLE = "rectangle";
+        private final static String TYPE_CIRCLE = "circle";
+        private final static String TYPE_POLYGON = "polygon";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
+#### Snippet
+```java
+        private final static String TYPE_RECTANGLE = "rectangle";
+        private final static String TYPE_CIRCLE = "circle";
+        private final static String TYPE_POLYGON = "polygon";
+
+        private GeoAreaAdapter(TypeAdapterFactory parentFactory, Gson gson) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
+#### Snippet
+```java
+    }
+
+    private final static double LINE_MATCHING_RESOLUTION_IN_METERS = 50;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `synchronized static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/GlobalRandom.java`
+#### Snippet
+```java
+    }
+
+    public synchronized static void initialize(RandomNumberGenerator randomNumberGenerator) {
+        GlobalRandom.RANDOM = randomNumberGenerator;
+    }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/AbstractTypeAdapterFactory.java`
+#### Snippet
+```java
+public abstract class AbstractTypeAdapterFactory<T> extends TypeAdapter<T> {
+
+    private final static String TYPE_FIELD = "type";
+
+    private final Gson gson;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Edge.java`
+#### Snippet
+```java
+public class Edge<T extends Vector3d> implements Serializable {
+
+    private final static long serialVersionUID = 1L;
+
+    public T a;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/HarvesineGeoCalculator.java`
+#### Snippet
+```java
+
+    private final static Vector3d NORTH = VectorUtils.NORTH;
+    private final static double EARTH_R = ReferenceEllipsoid.WGS_84.equatorialRadius;
+
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/HarvesineGeoCalculator.java`
+#### Snippet
+```java
+public class HarvesineGeoCalculator implements GeoCalculator {
+
+    private final static Vector3d NORTH = VectorUtils.NORTH;
+    private final static double EARTH_R = ReferenceEllipsoid.WGS_84.equatorialRadius;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
+#### Snippet
+```java
+ */
+public class DockerRun {
+    private final static Logger LOG = LoggerFactory.getLogger(DockerRun.class);
+
+    private final DockerClient client;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+#### Snippet
+```java
+    }
+
+    private final static Pattern PORT_PATTERN = Pattern.compile("^([0-9]+)\\/.*:([0-9]+)$");
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/V2xMessage.java`
 #### Snippet
 ```java
@@ -4061,18 +5730,6 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/V2xMessa
     private final static AtomicInteger idGenerator = new AtomicInteger();
 
     /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherWarningApp.java`
-#### Snippet
-```java
-     * This is the speed for the DEN message sent for rerouting.
-     */
-    private final static float SPEED = 25 / 3.6f;
-
-
 ```
 
 ### MissortedModifiers
@@ -4128,9 +5785,9 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
 #### Snippet
 ```java
-     * The default maximum speed. Unit: [m/2]
+     * The default speed factor of the vehicles driver.
      */
-    public final static double DEFAULT_MAX_SPEED_MS = 70;
+    public final static double DEFAULT_SPEED_FACTOR = 1.0;
 
     /**
 ```
@@ -4152,9 +5809,9 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
 #### Snippet
 ```java
-     * The default speed factor of the vehicles driver.
+     * The default width of a vehicle. Unit: [m]
      */
-    public final static double DEFAULT_SPEED_FACTOR = 1.0;
+    public final static double DEFAULT_VEHICLE_WIDTH = 1.8;
 
     /**
 ```
@@ -4164,21 +5821,9 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
 #### Snippet
 ```java
-     * The default height of a vehicle. Unit: [m]
+     * The default maximum speed. Unit: [m/2]
      */
-    public final static double DEFAULT_VEHICLE_HEIGHT = 1.5;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
-#### Snippet
-```java
-     * The default reaction time of the vehicles driver. Unit: [m]
-     */
-    public final static double DEFAULT_TAU = 1.0;
+    public final static double DEFAULT_MAX_SPEED_MS = 70;
 
     /**
 ```
@@ -4212,6 +5857,30 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
 #### Snippet
 ```java
+     * The default deceleration of a vehicle. Unit: [m/s^2]
+     */
+    public final static double DEFAULT_DECELERATION = 4.5;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
+#### Snippet
+```java
+     * The default reaction time of the vehicles driver. Unit: [m]
+     */
+    public final static double DEFAULT_TAU = 1.0;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
+#### Snippet
+```java
      * The default acceleration of a vehicle. Unit: [m/s^2]
      */
     public final static double DEFAULT_ACCELERATION = 2.6;
@@ -4224,33 +5893,21 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
 #### Snippet
 ```java
+     * The default height of a vehicle. Unit: [m]
+     */
+    public final static double DEFAULT_VEHICLE_HEIGHT = 1.5;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
+#### Snippet
+```java
      * The default deviation of the speed factor the vehicles driver. Unit: [m]
      */
     public final static double DEFAULT_SPEED_DEVIATION = 0.0;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
-#### Snippet
-```java
-     * The default width of a vehicle. Unit: [m]
-     */
-    public final static double DEFAULT_VEHICLE_WIDTH = 1.8;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleType.java`
-#### Snippet
-```java
-     * The default deceleration of a vehicle. Unit: [m/s^2]
-     */
-    public final static double DEFAULT_DECELERATION = 4.5;
 
     /**
 ```
@@ -4272,18 +5929,6 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/NetworkAddress.java`
 #### Snippet
 ```java
-     * Special IPv4 address for GeoAnycast (IP address 255.255.255.254)
-     */
-    final static Inet4Address ANYCAST_ADDRESS = createIPv4Address(255, 255, 255, 254);
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/NetworkAddress.java`
-#### Snippet
-```java
      * Special IPv4 address for Broadcasts (IP address 255.255.255.255)
      */
     public final static Inet4Address BROADCAST_ADDRESS = createIPv4Address(255, 255, 255, 255);
@@ -4293,14 +5938,14 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/N
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficlight/TrafficLightState.java`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/NetworkAddress.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 1L;
+     * Special IPv4 address for GeoAnycast (IP address 255.255.255.254)
+     */
+    final static Inet4Address ANYCAST_ADDRESS = createIPv4Address(255, 255, 255, 254);
 
-    public final static TrafficLightState OFF = new TrafficLightState(false, false, false);
-    public final static TrafficLightState GREEN = new TrafficLightState(false, true, false);
-    public final static TrafficLightState YELLOW = new TrafficLightState(false, false, true);
+
 ```
 
 ### MissortedModifiers
@@ -4320,6 +5965,18 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficlight/TrafficLightState.java`
 #### Snippet
 ```java
+    public final static TrafficLightState OFF = new TrafficLightState(false, false, false);
+    public final static TrafficLightState GREEN = new TrafficLightState(false, true, false);
+    public final static TrafficLightState YELLOW = new TrafficLightState(false, false, true);
+    public final static TrafficLightState RED = new TrafficLightState(true, false, false);
+    public final static TrafficLightState RED_YELLOW = new TrafficLightState(true, false, true);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficlight/TrafficLightState.java`
+#### Snippet
+```java
 
     public final static TrafficLightState OFF = new TrafficLightState(false, false, false);
     public final static TrafficLightState GREEN = new TrafficLightState(false, true, false);
@@ -4332,11 +5989,11 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficlight/TrafficLightState.java`
 #### Snippet
 ```java
+    private static final long serialVersionUID = 1L;
+
+    public final static TrafficLightState OFF = new TrafficLightState(false, false, false);
     public final static TrafficLightState GREEN = new TrafficLightState(false, true, false);
     public final static TrafficLightState YELLOW = new TrafficLightState(false, false, true);
-    public final static TrafficLightState RED = new TrafficLightState(true, false, false);
-    public final static TrafficLightState RED_YELLOW = new TrafficLightState(true, false, true);
-
 ```
 
 ### MissortedModifiers
@@ -4344,11 +6001,11 @@ Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficlight/TrafficLightState.java`
 #### Snippet
 ```java
-    public final static TrafficLightState OFF = new TrafficLightState(false, false, false);
     public final static TrafficLightState GREEN = new TrafficLightState(false, true, false);
     public final static TrafficLightState YELLOW = new TrafficLightState(false, false, true);
     public final static TrafficLightState RED = new TrafficLightState(true, false, false);
     public final static TrafficLightState RED_YELLOW = new TrafficLightState(true, false, true);
+
 ```
 
 ### MissortedModifiers
@@ -4377,6 +6034,18 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/NetworkEntityIdTransformer.java`
+#### Snippet
+```java
+public class NetworkEntityIdTransformer implements IdTransformer<Integer, String> {
+
+    private final static Logger log = LoggerFactory.getLogger(NetworkEntityIdTransformer.class);
+    private BiMap<String, Integer> idMap = HashBiMap.create();
+    private AtomicInteger nextId = new AtomicInteger();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
 #### Snippet
 ```java
@@ -4385,1110 +6054,6 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/
     public final static String TYPE_ID = TrafficSignLaneAssignment.class.getSimpleName();
 
     /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
-#### Snippet
-```java
- */
-public class DockerRun {
-    private final static Logger LOG = LoggerFactory.getLogger(DockerRun.class);
-
-    private final DockerClient client;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
-#### Snippet
-```java
-    }
-
-    private final static Pattern PORT_PATTERN = Pattern.compile("^([0-9]+)\\/.*:([0-9]+)$");
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/UtmZone.java`
-#### Snippet
-```java
-    private static final int ZONE_HEIGHT_SHARING = 4;
-
-    private final static UtmZone[][] ZONE_CACHE = new UtmZone[ZONE_MAX_VALUE][26];
-
-    public final int number;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/UtmZone.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private final static char[] UTM_LETTERS = {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-    };
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
-#### Snippet
-```java
-        private final static String TYPE_RECTANGLE = "rectangle";
-        private final static String TYPE_CIRCLE = "circle";
-        private final static String TYPE_POLYGON = "polygon";
-
-        private GeoAreaAdapter(TypeAdapterFactory parentFactory, Gson gson) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
-#### Snippet
-```java
-
-        private final static String TYPE_RECTANGLE = "rectangle";
-        private final static String TYPE_CIRCLE = "circle";
-        private final static String TYPE_POLYGON = "polygon";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
-#### Snippet
-```java
-    public static class GeoAreaAdapter extends AbstractTypeAdapterFactory<GeoArea> {
-
-        private final static String TYPE_RECTANGLE = "rectangle";
-        private final static String TYPE_CIRCLE = "circle";
-        private final static String TYPE_POLYGON = "polygon";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
-#### Snippet
-```java
-    }
-
-    private final static double LINE_MATCHING_RESOLUTION_IN_METERS = 50;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/GlobalRandom.java`
-#### Snippet
-```java
-    }
-
-    public synchronized static void initialize(RandomNumberGenerator randomNumberGenerator) {
-        GlobalRandom.RANDOM = randomNumberGenerator;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/AbstractTypeAdapterFactory.java`
-#### Snippet
-```java
-public abstract class AbstractTypeAdapterFactory<T> extends TypeAdapter<T> {
-
-    private final static String TYPE_FIELD = "type";
-
-    private final Gson gson;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-     * Sleep after each connection try. Unit: [ms].
-     */
-    private final static long SLEEP_AFTER_ATTEMPT = 1000L;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Edge.java`
-#### Snippet
-```java
-public class Edge<T extends Vector3d> implements Serializable {
-
-    private final static long serialVersionUID = 1L;
-
-    public T a;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/HarvesineGeoCalculator.java`
-#### Snippet
-```java
-
-    private final static Vector3d NORTH = VectorUtils.NORTH;
-    private final static double EARTH_R = ReferenceEllipsoid.WGS_84.equatorialRadius;
-
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/HarvesineGeoCalculator.java`
-#### Snippet
-```java
-public class HarvesineGeoCalculator implements GeoCalculator {
-
-    private final static Vector3d NORTH = VectorUtils.NORTH;
-    private final static double EARTH_R = ReferenceEllipsoid.WGS_84.equatorialRadius;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
-#### Snippet
-```java
-
-public class CellModuleNames {
-    public final static String DOWNSTREAM_MODULE = "Downstream";
-    public final static String UPSTREAM_MODULE = "Upstream";
-    public final static String GEOCASTER = "Geocaster";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
-#### Snippet
-```java
-public class CellModuleNames {
-    public final static String DOWNSTREAM_MODULE = "Downstream";
-    public final static String UPSTREAM_MODULE = "Upstream";
-    public final static String GEOCASTER = "Geocaster";
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
-#### Snippet
-```java
-    public final static String DOWNSTREAM_MODULE = "Downstream";
-    public final static String UPSTREAM_MODULE = "Upstream";
-    public final static String GEOCASTER = "Geocaster";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-    private final static Logger log = LoggerFactory.getLogger(PerRegionBandwidthMeasurement.class);
-
-    final static String WILDCARD_ALL = "*";
-
-    private final File parentDir;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-     */
-    private final static long STARTING_TIME = 0;
-    private final static long STARTING_TIME_NANO = STARTING_TIME * TIME.SECOND;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-     * the bandwidth measurement.
-     */
-    private final static long END_TIME_NANO = Long.MAX_VALUE;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-     * in the bandwidth measurement.
-     */
-    private final static long STARTING_TIME = 0;
-    private final static long STARTING_TIME_NANO = STARTING_TIME * TIME.SECOND;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-public class PerRegionBandwidthMeasurement implements StreamListener {
-
-    private final static Logger log = LoggerFactory.getLogger(PerRegionBandwidthMeasurement.class);
-
-    final static String WILDCARD_ALL = "*";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-    private final long interval;
-
-    private final static int EXPORT_STEP_SIZE = 600;
-
-    private long nextExport;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/TmcRegistration.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1;
-
-    public final static String TYPE_ID = createTypeIdentifier(TmcRegistration.class);
-
-    private final TmcMapping tmcMapping;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/VehicleRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/ServerRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(ServerRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/ScenarioVehicleRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(ScenarioVehicleRegistration.class);
-
-    private final String name;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/RsuRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(RsuRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleTypesInitialization.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleTypesInitialization.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/TrafficLightRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(TrafficLightRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/ScenarioTrafficLightRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(ScenarioTrafficLightRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/mapping/advanced/RoutelessVehicleRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(RoutelessVehicleRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightUpdates.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(TrafficLightUpdates.class);
-
-    private final Map<String, TrafficLightGroupInfo> updatedTrafficLights;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/LaneAreaDetectorSubscription.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(LaneAreaDetectorSubscription.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleRoutesInitialization.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleRoutesInitialization.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/InductionLoopDetectorSubscription.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(InductionLoopDetectorSubscription.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightSubscription.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(org.eclipse.mosaic.interactions.traffic.TrafficLightSubscription.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSpeedChange.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleSpeedChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleRouteChange.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleRouteChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSensorActivation.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleSensorActivation.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleLaneChange.java`
-#### Snippet
-```java
-     * string identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleLaneChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficDetectorUpdates.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(TrafficDetectorUpdates.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleRouteRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleRouteRegistration.class);
-
-    private final VehicleRoute route;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleParametersChange.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleParametersChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSightDistanceConfiguration.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String TYPE_ID = createTypeIdentifier(VehicleSightDistanceConfiguration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleSlowDown.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleSlowDown.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/TrafficLightStateChange.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(TrafficLightStateChange.class);
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/LanePropertyChange.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(LanePropertyChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/SumoTraciRequest.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(SumoTraciRequest.class);
-
-    private final String requestId;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/vehicle/VehicleFederateAssignment.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleFederateAssignment.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/SumoTraciResponse.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(SumoTraciResponse.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/ApplicationInteraction.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(ApplicationInteraction.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/electricity/VehicleBatteryUpdates.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String TYPE_ID = createTypeIdentifier(VehicleBatteryUpdates.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/environment/EnvironmentSensorActivation.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(EnvironmentSensorActivation.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffic/VehicleUpdates.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(VehicleUpdates.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignRegistration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(TrafficSignRegistration.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignSpeedLimitChange.java`
-#### Snippet
-```java
-public final class TrafficSignSpeedLimitChange extends Interaction {
-
-    public final static String TYPE_ID = createTypeIdentifier(TrafficSignSpeedLimitChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/TrafficSignLaneAssignmentChange.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    public final static String TYPE_ID = createTypeIdentifier(TrafficSignLaneAssignmentChange.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageReception.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(V2xMessageReception.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageRemoval.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(V2xMessageRemoval.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/CellularCommunicationConfiguration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(CellularCommunicationConfiguration.class);
-
-    private final CellConfiguration configuration;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/environment/GlobalEnvironmentUpdates.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(GlobalEnvironmentUpdates.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/CellularHandoverUpdates.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(CellularHandoverUpdates.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/trafficsigns/VehicleSeenTrafficSignsUpdate.java`
-#### Snippet
-```java
-public final class VehicleSeenTrafficSignsUpdate extends Interaction {
-
-    public final static String TYPE_ID = createTypeIdentifier(VehicleSeenTrafficSignsUpdate.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xFullMessageReception.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(V2xFullMessageReception.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageAcknowledgement.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(V2xMessageAcknowledgement.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageTransmission.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(V2xMessageTransmission.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/AdHocCommunicationConfiguration.java`
-#### Snippet
-```java
-public final class AdHocCommunicationConfiguration extends Interaction {
-
-    private final static long serialVersionUID = 1L;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/AdHocCommunicationConfiguration.java`
-#### Snippet
-```java
-     * String identifying the type of this interaction.
-     */
-    public final static String TYPE_ID = createTypeIdentifier(AdHocCommunicationConfiguration.class);
-
-    private final AdHocConfiguration configuration;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long UPDATE_CHARGING_STATION = -99_999_500;
-    // update seen traffic signs
-    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
-    // update traffic light
-    public final static long UPDATE_TRAFFIC_LIGHT = -99_999_400;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
-    // charging status
-    public final static long CHARGING_REJECTED = -99_999_000;
-
-    // batteryUpdated
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
-    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
-    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
-    // charging status
-    public final static long CHARGING_REJECTED = -99_999_000;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long VEHICLE_ADDED = -99_999_900;
-    public final static long VEHICLE_UPDATED = -99_999_800;
-    public final static long VEHICLE_REMOVED = -99_999_700;
-
-    // update traffic detectors
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
-    // update traffic light
-    public final static long UPDATE_TRAFFIC_LIGHT = -99_999_400;
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-
-    // update charging station
-    public final static long UPDATE_CHARGING_STATION = -99_999_500;
-    // update seen traffic signs
-    public final static long UPDATE_SEEN_TRAFFIC_SIGN = -99_999_450;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-
-    // batteryUpdated
-    public final static long BATTERY_UPDATED = -99_998_900;
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    // v2x messages
-    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
-    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
-    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
-    // charging status
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    public final static long UNIT_REMOVED = 1;
-    // vehicle
-    public final static long VEHICLE_ADDED = -99_999_900;
-    public final static long VEHICLE_UPDATED = -99_999_800;
-    public final static long VEHICLE_REMOVED = -99_999_700;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-
-    // v2x messages
-    public final static long V2X_MESSAGE_ACKNOWLEDGEMENT = -99_999_200;
-    public final static long V2X_MESSAGE_RECEPTION = -99_999_100;
-    public final static long V2X_FULL_MESSAGE_RECEPTION = -99_999_99;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-    // vehicle
-    public final static long VEHICLE_ADDED = -99_999_900;
-    public final static long VEHICLE_UPDATED = -99_999_800;
-    public final static long VEHICLE_REMOVED = -99_999_700;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
-
-    // update traffic detectors
-    public final static long UPDATE_TRAFFIC_DETECTORS = -99_999_600;
-
-    // update charging station
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
- */
-public class EventNicenessPriorityRegister {
-    public final static long UNIT_REMOVED = 1;
-    // vehicle
-    public final static long VEHICLE_ADDED = -99_999_900;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/UnitSimulator.java`
-#### Snippet
-```java
-     * The log instance.
-     */
-    public final static Logger log = LoggerFactory.getLogger(UnitSimulator.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/UnitLoggerImpl.java`
-#### Snippet
-```java
-     * <code>&lt;logger name="ApplicationLogDelegate" additivity="false" level="INFO"&gt;</code>
-     */
-    private final static String ROOT_LOGGER = "ApplicationLogDelegate";
-
-    private static final String SIMTIME_LOG_POSTFIX = " (at simulation time {})";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-     * Static class used to hold primitive parameter types and values.
-     */
-    private final static class ParameterDeclaration {
-        private Class<?> paramClazz;
-        private Object paramValue;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-
-    // ^([a-zA-Z_$][a-zA-Z\d\._$]*)(?:|\((.+)\))$
-    private final static Pattern classPattern = Pattern.compile("^([a-zA-Z_$][a-zA-Z\\d\\._$]*)(?:|\\((.+)\\))$");
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-    private final static Pattern classPattern = Pattern.compile("^([a-zA-Z_$][a-zA-Z\\d\\._$]*)(?:|\\((.+)\\))$");
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/AbstractPerceptionModule.java`
-#### Snippet
-```java
-    }
-
-    abstract public Collection<Edge<Vector3d>> getSurroundingWalls();
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficLightGroupUnit.java`
-#### Snippet
-```java
-     * Traffic Light group, only used for this special type of RSU.
-     */
-    final private TrafficLightGroup trafficLightGroup;
-
-    private TrafficLightGroupInfo trafficLightGroupInfo;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
-#### Snippet
-```java
-public class CentralPerceptionComponent {
-
-    private final static Logger LOG = LoggerFactory.getLogger(CentralPerceptionComponent.class);
-
-    private CartesianRectangle scenarioBounds;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/CellModule.java`
-#### Snippet
-```java
-     * Default radius for geographic cam dissemination over the cellular network [m].
-     */
-    private final static long DEFAULT_CAM_GEO_RADIUS = 300;
-
-    public CellModule(OperatingSystem owner, Logger log) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
-#### Snippet
-```java
-
-    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The EdgeWrapper won't be serialized.")
-    private final static class EdgeWrapper extends org.eclipse.mosaic.lib.spatial.Edge<Vector3d> {
-
-        private final Edge edge;
 ```
 
 ### MissortedModifiers
@@ -5505,14 +6070,26 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/No
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteTypeDetector.java`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
 #### Snippet
 ```java
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final static String forComparison = "SQLite format 3";
+    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The EdgeWrapper won't be serialized.")
+    private final static class EdgeWrapper extends org.eclipse.mosaic.lib.spatial.Edge<Vector3d> {
 
-    @Override
+        private final Edge edge;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+public abstract class AbstractNetworkAmbassador extends AbstractFederateAmbassador {
+
+    private final static class RegisteredNode {
+
+        private AdHocCommunicationConfiguration configuration;
 ```
 
 ### MissortedModifiers
@@ -5528,267 +6105,15 @@ public class SQLiteTypeDetector extends FileTypeDetector {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/SnsAmbassador.java`
-#### Snippet
-```java
-     * Distance configurations of vehicles which have not been moved yet by the traffic simulator.
-     */
-    final private Map<String, Double> registeredVehicles = new HashMap<>();
-
-    /**
-```
-
-### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
-#### Snippet
-```java
-public class TransmissionSimulator {
-
-    private final static Logger log = LoggerFactory.getLogger(SnsAmbassador.class);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/eventprocessing/sampling/HelloWorldApp.java`
-#### Snippet
-```java
-     * Sample interval. Unit: [ns].
-     */
-    private final static long TIME_INTERVAL = TIME.SECOND;
-
-    private void sample() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
-#### Snippet
-```java
-public class PerformanceMonitor {
-
-    private final static PerformanceMonitor INSTANCE = new PerformanceMonitor(LoggerFactory.getLogger("performance"));
-
-    public static PerformanceMonitor getInstance() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/XmlUtils.java`
-#### Snippet
-```java
-public class XmlUtils {
-
-    private final static int DEFAULT_XML_INDENTATION = 4;
-
-    private XmlUtils() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
-#### Snippet
-```java
-    private final static String UNLIMITED = "unlimited";
-
-    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
-    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
-            .put("", DATA.BIT)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteTypeDetector.java`
 #### Snippet
 ```java
 
-    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
-    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
-            .put("", DATA.BIT)
-            .put("k", DATA.KILOBIT)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/DataFieldAdapter.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(DataFieldAdapter.class);
-
-    private final static String UNLIMITED = "unlimited";
-
-    private final static Pattern BANDWIDTH_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(|(|k|M|G|T|Ki|Mi|Gi|Ti)(B|b|bit|Bit|bits|Bits|byte|Byte|bytes|Bytes)(|ps))$");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/TimeFieldAdapter.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(TimeFieldAdapter.class);
-
-    private final static Pattern TIME_PATTERN = Pattern.compile("^([0-9]+[0-9_]*?\\.?[0-9]*) ?(min|minute|minutes|h|hour|hours|(|m|\\u00b5|n|milli|micro|nano)(?:|s|sec|second|seconds))$");
-    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
-            .put("", TIME.SECOND)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/TimeFieldAdapter.java`
-#### Snippet
-```java
-
-    private final static Pattern TIME_PATTERN = Pattern.compile("^([0-9]+[0-9_]*?\\.?[0-9]*) ?(min|minute|minutes|h|hour|hours|(|m|\\u00b5|n|milli|micro|nano)(?:|s|sec|second|seconds))$");
-    private final static Map<String, Long> MULTIPLIERS = ImmutableMap.<String, Long>builder()
-            .put("", TIME.SECOND)
-            .put("n", TIME.NANO_SECOND)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/InteractionUtils.java`
-#### Snippet
-```java
-public class InteractionUtils {
-
-    private final static Logger log = LoggerFactory.getLogger(InteractionUtils.class);
-
-    private static Map<String, Class<?>> supportedInteractions = new HashMap<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
-#### Snippet
-```java
-public class SophisticatedAdhocTransmissionModel extends AdhocTransmissionModel {
-
-    private final static Logger log = LoggerFactory.getLogger(SimpleAdhocTransmissionModel.class);
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final static String forComparison = "SQLite format 3";
 
     @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(UnitFieldAdapter.class);
-
-    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
-    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
-
-    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
-
-    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-
-    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
-    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
-
-    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-
-    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
-    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
-    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
-    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
-    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
-
-    private final static Map<String, Double> UNIT_MULTIPLIERS = ImmutableMap.<String, Double>builder()
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
-
-    private final static Map<String, Double> UNIT_MULTIPLIERS = ImmutableMap.<String, Double>builder()
-            .put("n", 1 / 1_000_000_000d).put("nano", 1 / 1_000_000_000d)
-            .put("\u00b5", 1 / 1_000_000d).put("micro", 1 / 1_000_000d)
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
-
-    private final static Pattern VOLTAGE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(volt|volts|v))$");
-    private final static Pattern CURRENT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(ampere|amperes|a))$");
-    private final static Pattern CAPACITY_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(amperehour|ampereshour|amperehours|ampereshours|ah|ahr))$");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/PolymorphismTypeAdapterFactory.java`
-#### Snippet
-```java
-public class PolymorphismTypeAdapterFactory implements TypeAdapterFactory {
-
-    private final static String classFieldName = "__class";
-
-    public static class PolymorphismTypeAdapter<R> extends TypeAdapter<R> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
-#### Snippet
-```java
-public class CommandLineParser<T> {
-
-    private final static Logger log = LoggerFactory.getLogger(CommandLineParser.class);
-
-    private final org.apache.commons.cli.CommandLineParser parser = new PosixParser();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
-#### Snippet
-```java
-public class DefaultEventScheduler implements EventScheduler {
-
-    private final static AtomicLong SEQUENCE = new AtomicLong();
-
-    /**
 ```
 
 ### MissortedModifiers
@@ -5804,123 +6129,27 @@ public class FileOutput extends AbstractOutputGenerator {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public static @Nonnull`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/filter/FilterFactory.java`
+Missorted modifiers `final private`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-     * @return a filter which matches to the given filter definition. An empty filter is returned, if no such filter exists.
+     * Input stream from network federate.
      */
-    public static @Nonnull
-    Filter createFilter(Method m, String filterDef) {
-        final String filterName = StringUtils.substringBefore(filterDef, "=").trim();
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
-#### Snippet
-```java
-    }
-
-    static public Object getTimeInMs(Interaction interaction) {
-        return interaction == null ? "" : interaction.getTime() / TIME.MILLI_SECOND;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
-#### Snippet
-```java
-public class ExtendedMethodSet {
-
-    private final static SortedMap<Integer, V2xMessage> V2X_MESSAGES = new TreeMap<>();
-
-    public static void deleteV2xMessage(int messageId) {
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
-#### Snippet
-```java
-    }
-
-    static public Object getType(V2xMessageTransmission interaction) {
-        V2xMessage message = Objects.requireNonNull(V2X_MESSAGES.get(interaction.getMessageId()));
-        if (message instanceof GenericV2xMessage) {
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
-#### Snippet
-```java
-    }
-
-    static public Object getTimeInSec(Interaction interaction) {
-        return interaction == null ? "" : interaction.getTime() / TIME.SECOND;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
-#### Snippet
-```java
-    }
-
-    static public Object getType(V2xMessageReception interaction) {
-        V2xMessage message = Objects.requireNonNull(V2X_MESSAGES.get(interaction.getMessageId()));
-        if (message instanceof GenericV2xMessage) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
-#### Snippet
-```java
-public class ObjectInstantiation<T> {
-
-    private final static String NEWLINE = System.lineSeparator();
+    final private InputStream in;
 
     /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/RegistrationSubscriptionTypes.java`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-public final class RegistrationSubscriptionTypes {
+         * Geo address with rectangular shaped area.
+         */
+        public final static int GEORECTANGLE = 3;
+    }
 
-    private final static Set<String> registrationSubscriptionTypes = Collections.unmodifiableSet(Sets.newHashSet(
-            RsuRegistration.TYPE_ID,
-            TmcRegistration.TYPE_ID,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/AbstractOutputGenerator.java`
-#### Snippet
-```java
-public class AbstractOutputGenerator {
-
-    protected final static Logger log = LoggerFactory.getLogger(AbstractOutputGenerator.class);
-
-    private final Map<String, Consumer<Interaction>> interactionRegistry = new HashMap<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/NetworkEntityIdTransformer.java`
-#### Snippet
-```java
-public class NetworkEntityIdTransformer implements IdTransformer<Integer, String> {
-
-    private final static Logger log = LoggerFactory.getLogger(NetworkEntityIdTransformer.class);
-    private BiMap<String, Integer> idMap = HashBiMap.create();
-    private AtomicInteger nextId = new AtomicInteger();
 ```
 
 ### MissortedModifiers
@@ -5952,9 +6181,9 @@ Missorted modifiers `final private`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-     * Input stream from network federate.
-     */
-    final private InputStream in;
+     * Logger
+     *///TODO: implement usage
+    final private Logger log;
 
     /**
 ```
@@ -5976,6 +6205,18 @@ Missorted modifiers `final static`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
+         * Topological address.
+         */
+        public final static int TOPOCAST = 1;
+
+        /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
+#### Snippet
+```java
          * Success message, returned by federate upon successful execution of command.
          */
         public final static int SUCCESS = 41;
@@ -5988,11 +6229,11 @@ Missorted modifiers `final static`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-         * Geo address with rectangular shaped area.
+         * Undefined Message.
          */
-        public final static int GEORECTANGLE = 3;
-    }
+        public final static int UNDEF = -1;
 
+        /**
 ```
 
 ### MissortedModifiers
@@ -6000,9 +6241,9 @@ Missorted modifiers `final static`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-         * Scheduling request at the next event time.
+         * initialize the federate.
          */
-        public final static int NEXT_EVENT = 21;
+        public final static int INIT = 1;
 
         /**
 ```
@@ -6024,18 +6265,6 @@ Missorted modifiers `final static`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-         * Undefined Message.
-         */
-        public final static int UNDEF = -1;
-
-        /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
-#### Snippet
-```java
          * A virtual node has received a message.
          */
         public final static int MSG_RECV = 22;
@@ -6048,336 +6277,107 @@ Missorted modifiers `final static`
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-         * Topological address.
+         * Scheduling request at the next event time.
          */
-        public final static int TOPOCAST = 1;
+        public final static int NEXT_EVENT = 21;
 
         /**
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
+Missorted modifiers `public static @Nonnull`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/filter/FilterFactory.java`
 #### Snippet
 ```java
-         * initialize the federate.
-         */
-        public final static int INIT = 1;
-
-        /**
+     * @return a filter which matches to the given filter definition. An empty filter is returned, if no such filter exists.
+     */
+    public static @Nonnull
+    Filter createFilter(Method m, String filterDef) {
+        final String filterName = StringUtils.substringBefore(filterDef, "=").trim();
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
+Missorted modifiers `static public`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
 #### Snippet
 ```java
-     * Logger
-     *///TODO: implement usage
-    final private Logger log;
+    }
 
-    /**
+    static public Object getType(V2xMessageTransmission interaction) {
+        V2xMessage message = Objects.requireNonNull(V2X_MESSAGES.get(interaction.getMessageId()));
+        if (message instanceof GenericV2xMessage) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
 #### Snippet
 ```java
-public abstract class AbstractNetworkAmbassador extends AbstractFederateAmbassador {
+public class ExtendedMethodSet {
 
-    private final static class RegisteredNode {
+    private final static SortedMap<Integer, V2xMessage> V2X_MESSAGES = new TreeMap<>();
 
-        private AdHocCommunicationConfiguration configuration;
+    public static void deleteV2xMessage(int messageId) {
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CScenario.java`
+### MissortedModifiers
+Missorted modifiers `static public`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
 #### Snippet
 ```java
-         * simulation run may return different results.
-         */
-        @Nullable
-        public Long randomSeed;
+    }
 
+    static public Object getTimeInMs(Interaction interaction) {
+        return interaction == null ? "" : interaction.getTime() / TIME.MILLI_SECOND;
+    }
 ```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingNode.java`
+### MissortedModifiers
+Missorted modifiers `static public`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
 #### Snippet
 ```java
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
-    @Nullable
-    private transient Node scenarioDatabaseNode;
+    }
 
+    static public Object getType(V2xMessageReception interaction) {
+        V2xMessage message = Objects.requireNonNull(V2X_MESSAGES.get(interaction.getMessageId()));
+        if (message instanceof GenericV2xMessage) {
 ```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingNode.java`
+### MissortedModifiers
+Missorted modifiers `static public`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/ExtendedMethodSet.java`
 #### Snippet
 ```java
+    }
 
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @Nullable
-    private final transient Database database;
-
+    static public Object getTimeInSec(Interaction interaction) {
+        return interaction == null ? "" : interaction.getTime() / TIME.SECOND;
+    }
 ```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingWay.java`
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/AbstractOutputGenerator.java`
 #### Snippet
 ```java
+public class AbstractOutputGenerator {
 
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @Nullable
-    private final transient Database database;
+    protected final static Logger log = LoggerFactory.getLogger(AbstractOutputGenerator.class);
 
+    private final Map<String, Consumer<Interaction>> interactionRegistry = new HashMap<>();
 ```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingWay.java`
+### MissortedModifiers
+Missorted modifiers `final static`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/RegistrationSubscriptionTypes.java`
 #### Snippet
 ```java
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
-    @Nullable
-    private transient Way scenarioDatabaseWay;
+public final class RegistrationSubscriptionTypes {
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
-#### Snippet
-```java
-
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @Nullable
-    private final transient Database database;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
-#### Snippet
-```java
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
-    @Nullable
-    private transient Connection scenarioDatabaseConnection;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingRoadPosition.java`
-#### Snippet
-```java
-
-    /* This reference must be kept transient, since it should never be serialized (e.g. by GSON) */
-    @Nullable
-    private final transient Database database;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/communication/V2xMessageReception.java`
-#### Snippet
-```java
-     * information given.
-     */
-    @Nonnull
-    private final V2xReceiverInformation receiverInformation;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The simulation kernel mustn't be serializable.")
-    @Nullable
-    private EventManager eventManager;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings(value = "SE_BAD_FIELD", justification = "The simulation kernel mustn't serializable.")
-    @Nullable
-    private Interactable interactable;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
-#### Snippet
-```java
-     * The configuration path for the application simulator.
-     */
-    @Nullable
-    private File configurationPath;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/SimulationKernel.java`
-#### Snippet
-```java
-     * The configuration for the application simulator.
-     */
-    @Nullable
-    private CApplicationAmbassador configuration;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ChargingStationUnit.java`
-#### Snippet
-```java
-public class ChargingStationUnit extends AbstractSimulationUnit implements ChargingStationOperatingSystem {
-
-    @Nullable
-    private ChargingStationData cs;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
-#### Snippet
-```java
-    private final NavigationModule navigationModule;
-
-    @Nonnull
-    private final PerceptionModule<SimplePerceptionConfiguration> perceptionModule;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
-#### Snippet
-```java
-public class VehicleUnit extends AbstractSimulationUnit implements VehicleOperatingSystem {
-
-    @Nonnull
-    private final NavigationModule navigationModule;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
-#### Snippet
-```java
-    private final PerceptionModule<SimplePerceptionConfiguration> perceptionModule;
-
-    @Nonnull
-    private VehicleParameters vehicleParameters;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
-#### Snippet
-```java
-     * Id (name) which indicates the unit.
-     */
-    @Nonnull
-    private final String id;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventScheduler.java`
-#### Snippet
-```java
-    long getScheduledTime();
-
-    @Nonnull
-    int scheduleEvents(long time);
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/TimeCache.java`
-#### Snippet
-```java
-     * Map containing all the message ids with the corresponding messages.
-     */
-    @Nonnull
-    private final Map<Integer, Pair<Long, T>> cache = new ConcurrentHashMap<>();
-    
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    @Nonnull
-    public int scheduleEvents(final long time) {
-        int processedEvents = 0;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/EventInterceptor.java`
-#### Snippet
-```java
-     * The list is an unmodifiable view of all processors.
-     */
-    @Nonnull
-    private final List<EventProcessor> processors;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
-#### Snippet
-```java
-     * increase the performance.
-     */
-    @Nonnull
-    private final List<EventProcessor> processors;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.java`
-#### Snippet
-```java
-     * The resource to process.
-     */
-    @Nullable
-    private final Object resource;
-
+    private final static Set<String> registrationSubscriptionTypes = Collections.unmodifiableSet(Sets.newHashSet(
+            RsuRegistration.TYPE_ID,
+            TmcRegistration.TYPE_ID,
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -6406,103 +6406,6 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/ProcessLoggingThr
                     lineConsumer.accept("Process " + processName + ": " + line);
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `initialize()` only delegates to its super method
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/SumoAmbassador.java`
-#### Snippet
-```java
-
-    @Override
-    public void initialize(long startTime, long endTime) throws InternalFederateException {
-        super.initialize(startTime, endTime);
-    }
-```
-
-### RedundantMethodOverride
-Method `canProcessEvent()` is identical to its super method
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean canProcessEvent() {
-        return true;
-    }
-```
-
-### RedundantMethodOverride
-Method `getNumberOfTrafficLights()` only delegates to its super method
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
-#### Snippet
-```java
-
-        @Override
-        public int getNumberOfTrafficLights() {
-            return super.getNumberOfTrafficLights();
-        }
-```
-
-### RedundantMethodOverride
-Method `getNumberOfVehicles()` only delegates to its super method
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
-#### Snippet
-```java
-
-        @Override
-        public int getNumberOfVehicles() {
-            return super.getNumberOfVehicles();
-        }
-```
-
-### RedundantMethodOverride
-Method `addTrafficLightGroup()` only delegates to its super method
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
-#### Snippet
-```java
-
-        @Override
-        public void addTrafficLightGroup(TrafficLightGroup trafficLightGroup) {
-            super.addTrafficLightGroup(trafficLightGroup);
-        }
-```
-
-### RedundantMethodOverride
-Method `hashCode()` only delegates to its super method
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/TrafficLightNode.java`
-#### Snippet
-```java
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-```
-
-### RedundantMethodOverride
-Method `canProcessEvent()` is identical to its super method
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
-#### Snippet
-```java
-    }
-
-    public boolean canProcessEvent() {
-        return true;
-    }
-```
-
-### RedundantMethodOverride
-Method `isSpawningActive()` is identical to its super method
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/spawning/flow/ConstantSpawningMode.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isSpawningActive(long currentTime) {
-        return end > currentTime;
-    }
-```
-
 ## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `VehicleSetResume` is the same as one of its superclass' names
@@ -6514,18 +6417,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 public class VehicleSetResume
         extends AbstractTraciCommand<Void>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetResume {
-```
-
-### ClassNameSameAsAncestorName
-Class name `PoiSetHeight` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetHeight.java`
-#### Snippet
-```java
- * This class sets the height of a PoI object in the SUMO-GUI.
- */
-public class PoiSetHeight
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetHeight {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6541,39 +6432,15 @@ public class TrafficLightGetTimeOfNextSwitch
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `SimulationSimulateStep` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationSimulateStep.java`
+Class name `PoiSetHeight` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetHeight.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to set the simulation step.
+ * This class sets the height of a PoI object in the SUMO-GUI.
  */
-public class SimulationSimulateStep
-        extends AbstractTraciCommand<AbstractSubscriptionResult>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationSimulateStep {
-```
-
-### ClassNameSameAsAncestorName
-Class name `JunctionGetPosition` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/JunctionGetPosition.java`
-#### Snippet
-```java
-import java.util.Locale;
-
-public class JunctionGetPosition
-        extends AbstractTraciCommand<Position>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.JunctionGetPosition {
-```
-
-### ClassNameSameAsAncestorName
-Class name `SimulationTraciRequest` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
-#### Snippet
-```java
- * Implementation for a byte array message from the simulation.
- */
-public class SimulationTraciRequest
-        extends AbstractTraciCommand<SumoTraciResult>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationTraciRequest {
+public class PoiSetHeight
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetHeight {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6589,6 +6456,18 @@ public class VehicleSetMinGap
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `SimulationTraciRequest` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
+#### Snippet
+```java
+ * Implementation for a byte array message from the simulation.
+ */
+public class SimulationTraciRequest
+        extends AbstractTraciCommand<SumoTraciResult>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationTraciRequest {
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleTypeGetWidth` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetWidth.java`
 #### Snippet
@@ -6598,6 +6477,18 @@ import org.eclipse.mosaic.rti.api.InternalFederateException;
 public class VehicleTypeGetWidth
         extends AbstractTraciCommand<Double>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetWidth {
+```
+
+### ClassNameSameAsAncestorName
+Class name `SimulationSimulateStep` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationSimulateStep.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to set the simulation step.
+ */
+public class SimulationSimulateStep
+        extends AbstractTraciCommand<AbstractSubscriptionResult>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationSimulateStep {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6613,18 +6504,6 @@ public class VehicleSetColor
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetMaxSpeed` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMaxSpeed.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to set a maximum speed for the vehicle.
- */
-public class VehicleSetMaxSpeed
-        extends AbstractVehicleSetSingleDoubleValue
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxSpeed {
-```
-
-### ClassNameSameAsAncestorName
 Class name `TrafficLightSetProgram` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightSetProgram.java`
 #### Snippet
@@ -6634,6 +6513,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Traff
 public class TrafficLightSetProgram
         extends AbstractTraciCommand<Void>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetProgram {
+```
+
+### ClassNameSameAsAncestorName
+Class name `JunctionGetPosition` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/JunctionGetPosition.java`
+#### Snippet
+```java
+import java.util.Locale;
+
+public class JunctionGetPosition
+        extends AbstractTraciCommand<Position>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.JunctionGetPosition {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6661,15 +6552,15 @@ public class RouteGetIds
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `PoiSetWidth` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetWidth.java`
+Class name `VehicleSetMaxSpeed` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMaxSpeed.java`
 #### Snippet
 ```java
- * This class sets the width of a PoI object in the SUMO-GUI.
+ * This class represents the SUMO command which allows to set a maximum speed for the vehicle.
  */
-public class PoiSetWidth
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetWidth {
+public class VehicleSetMaxSpeed
+        extends AbstractVehicleSetSingleDoubleValue
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxSpeed {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6685,27 +6576,27 @@ public class LaneGetLength
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `SimulationGetTrafficLightIds` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetTrafficLightIds.java`
+Class name `PoiSetWidth` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetWidth.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to get the Id's of the traffic light groups.
+ * This class sets the width of a PoI object in the SUMO-GUI.
  */
-public class SimulationGetTrafficLightIds
-        extends AbstractTraciCommand<List<String>>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetTrafficLightIds {
+public class PoiSetWidth
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetWidth {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetDecel` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetDecel.java`
+Class name `LaneAreaSubscribe` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneAreaSubscribe.java`
 #### Snippet
 ```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
+import java.util.Collection;
 
-public class VehicleTypeGetDecel
-        extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetDecel {
+public class LaneAreaSubscribe
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneAreaSubscribe {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6733,87 +6624,27 @@ public class VehicleSetMaxAcceleration
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `LaneAreaSubscribe` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneAreaSubscribe.java`
+Class name `SimulationGetTrafficLightIds` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetTrafficLightIds.java`
 #### Snippet
 ```java
-import java.util.Collection;
-
-public class LaneAreaSubscribe
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneAreaSubscribe {
-```
-
-### ClassNameSameAsAncestorName
-Class name `SimulationGetVersion` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetVersion.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to get the version of the Traci API.
+ * This class represents the SUMO command which allows to get the Id's of the traffic light groups.
  */
-public class SimulationGetVersion
-        extends AbstractTraciCommand<org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetVersion.CurrentVersion>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetVersion {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSubscribeSurroundingVehicle` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribeSurroundingVehicle.java`
-#### Snippet
-```java
- * Several options for vehicle subscription are implemented in this class.
- */
-public class VehicleSubscribeSurroundingVehicle
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribeSurroundingVehicle {
-```
-
-### ClassNameSameAsAncestorName
-Class name `LaneSetMaxSpeed` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneSetMaxSpeed.java`
-#### Snippet
-```java
- * This class represents the SUMO command which sets the maximum lane speed.
- */
-public class LaneSetMaxSpeed
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetMaxSpeed {
-```
-
-### ClassNameSameAsAncestorName
-Class name `PoiSetImage` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetImage.java`
-#### Snippet
-```java
- * This class sets the image path of a PoI object in the SUMO-GUI.
- */
-public class PoiSetImage
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetImage {
-```
-
-### ClassNameSameAsAncestorName
-Class name `SimulationGetDepartedVehicleIds` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetDepartedVehicleIds.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to get the Id's of the vehicles departed the simulation.
- */
-public class SimulationGetDepartedVehicleIds
+public class SimulationGetTrafficLightIds
         extends AbstractTraciCommand<List<String>>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetDepartedVehicleIds {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetTrafficLightIds {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `LaneSetAllow` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneSetAllow.java`
+Class name `VehicleTypeGetDecel` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetDecel.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which sets the allowed classes to a specific lane.
- */
-public class LaneSetAllow
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetAllow {
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleTypeGetDecel
+        extends AbstractTraciCommand<Double>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetDecel {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6829,6 +6660,30 @@ public class InductionLoopSubscribe
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `SimulationGetVersion` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetVersion.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to get the version of the Traci API.
+ */
+public class SimulationGetVersion
+        extends AbstractTraciCommand<org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetVersion.CurrentVersion>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetVersion {
+```
+
+### ClassNameSameAsAncestorName
+Class name `LaneSetMaxSpeed` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneSetMaxSpeed.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which sets the maximum lane speed.
+ */
+public class LaneSetMaxSpeed
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetMaxSpeed {
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleSetVehicleLength` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetVehicleLength.java`
 #### Snippet
@@ -6841,6 +6696,42 @@ public class VehicleSetVehicleLength
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `PoiSetImage` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiSetImage.java`
+#### Snippet
+```java
+ * This class sets the image path of a PoI object in the SUMO-GUI.
+ */
+public class PoiSetImage
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetImage {
+```
+
+### ClassNameSameAsAncestorName
+Class name `LaneSetAllow` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneSetAllow.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which sets the allowed classes to a specific lane.
+ */
+public class LaneSetAllow
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetAllow {
+```
+
+### ClassNameSameAsAncestorName
+Class name `SimulationGetDepartedVehicleIds` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetDepartedVehicleIds.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to get the Id's of the vehicles departed the simulation.
+ */
+public class SimulationGetDepartedVehicleIds
+        extends AbstractTraciCommand<List<String>>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetDepartedVehicleIds {
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleTypeGetHeight` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetHeight.java`
 #### Snippet
@@ -6850,6 +6741,30 @@ import org.eclipse.mosaic.rti.api.InternalFederateException;
 public class VehicleTypeGetHeight
         extends AbstractTraciCommand<Double>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetHeight {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSubscribeSurroundingVehicle` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribeSurroundingVehicle.java`
+#### Snippet
+```java
+ * Several options for vehicle subscription are implemented in this class.
+ */
+public class VehicleSubscribeSurroundingVehicle
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribeSurroundingVehicle {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetRouteById` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRouteById.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to change the vehicles route to the route with the given id.
+ */
+public class VehicleSetRouteById
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRouteById {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6877,18 +6792,6 @@ public class VehicleSetSpeed
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `PoiAdd` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiAdd.java`
-#### Snippet
-```java
- * This class adds a PoI object in the SUMO-GUI.
- */
-public class PoiAdd
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiAdd {
-```
-
-### ClassNameSameAsAncestorName
 Class name `TrafficLightGetControlledJunctions` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledJunctions.java`
 #### Snippet
@@ -6898,6 +6801,18 @@ import java.util.List;
 public class TrafficLightGetControlledJunctions implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledJunctions {
 
     boolean warned = false;
+```
+
+### ClassNameSameAsAncestorName
+Class name `PoiAdd` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiAdd.java`
+#### Snippet
+```java
+ * This class adds a PoI object in the SUMO-GUI.
+ */
+public class PoiAdd
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiAdd {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6925,15 +6840,15 @@ public class VehicleSetSpeedFactor
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetRouteById` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRouteById.java`
+Class name `TrafficLightSetRemainingPhaseDuration` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightSetRemainingPhaseDuration.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to change the vehicles route to the route with the given id.
- */
-public class VehicleSetRouteById
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class TrafficLightSetRemainingPhaseDuration
         extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRouteById {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetRemainingPhaseDuration {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6949,18 +6864,6 @@ public class VehicleSetStop
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightSetRemainingPhaseDuration` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightSetRemainingPhaseDuration.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
-
-public class TrafficLightSetRemainingPhaseDuration
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetRemainingPhaseDuration {
-```
-
-### ClassNameSameAsAncestorName
 Class name `VehicleSetMaxDeceleration` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMaxDeceleration.java`
 #### Snippet
@@ -6973,27 +6876,27 @@ public class VehicleSetMaxDeceleration
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetParameter` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetParameter.java`
+Class name `VehicleSetMoveToXY` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMoveToXY.java`
 #### Snippet
 ```java
- * This class writes a parameter value for specific a vehicle.
+ * This class represents the SUMO command which allows to set the vehicle move to explicit position.
  */
-public class VehicleSetParameter
+public class VehicleSetMoveToXY
         extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetParameter {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMoveToXY {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetReactionTime` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetReactionTime.java`
+Class name `TrafficLightGetControlledLinks` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLinks.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to set the vehicle headway in "traffic flow".
+ * This class represents the SUMO command which allows to get the links controlled by a traffic light.
  */
-public class VehicleSetReactionTime
-        extends AbstractVehicleSetSingleDoubleValue
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetReactionTime {
+public class TrafficLightGetControlledLinks
+        extends AbstractTraciCommand<List<org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLinks.TrafficLightControlledLink>>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLinks {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7021,39 +6924,27 @@ public class VehicleGetParameter
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetMoveToXY` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMoveToXY.java`
+Class name `VehicleSetParameter` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetParameter.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to set the vehicle move to explicit position.
+ * This class writes a parameter value for specific a vehicle.
  */
-public class VehicleSetMoveToXY
+public class VehicleSetParameter
         extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMoveToXY {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetParameter {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetRemove` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRemove.java`
+Class name `VehicleAdd` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleAdd.java`
 #### Snippet
 ```java
 import org.eclipse.mosaic.rti.api.InternalFederateException;
 
-public class VehicleSetRemove
+public class VehicleAdd
         extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRemove {
-```
-
-### ClassNameSameAsAncestorName
-Class name `TrafficLightGetControlledLinks` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLinks.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to get the links controlled by a traffic light.
- */
-public class TrafficLightGetControlledLinks
-        extends AbstractTraciCommand<List<org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLinks.TrafficLightControlledLink>>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLinks {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleAdd {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7069,6 +6960,30 @@ public class SimulationClose
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `VehicleSetRemove` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRemove.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleSetRemove
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRemove {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetReactionTime` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetReactionTime.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to set the vehicle headway in "traffic flow".
+ */
+public class VehicleSetReactionTime
+        extends AbstractVehicleSetSingleDoubleValue
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetReactionTime {
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleTypeGetMaxSpeed` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetMaxSpeed.java`
 #### Snippet
@@ -7078,18 +6993,6 @@ import org.eclipse.mosaic.rti.api.InternalFederateException;
 public class VehicleTypeGetMaxSpeed
         extends AbstractTraciCommand<Double>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetMaxSpeed {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleAdd` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleAdd.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
-
-public class VehicleAdd
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleAdd {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7117,39 +7020,15 @@ public class LaneGetShape extends AbstractTraciCommand<List<Position>>
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetSpeedFactor` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetSpeedFactor.java`
+Class name `VehicleGetTeleportingList` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleGetTeleportingList.java`
 #### Snippet
 ```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
+import java.util.List;
 
-public class VehicleTypeGetSpeedFactor
-        extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetSpeedFactor {
-```
+public class VehicleGetTeleportingList extends AbstractTraciCommand<List<String>> implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetTeleportingList {
 
-### ClassNameSameAsAncestorName
-Class name `TrafficLightGetCurrentPhase` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetCurrentPhase.java`
-#### Snippet
-```java
-import java.util.Locale;
-
-public class TrafficLightGetCurrentPhase
-        extends AbstractTraciCommand<Integer>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetCurrentPhase {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetVClass` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetVClass.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
-
-public class VehicleTypeGetVClass
-        extends AbstractTraciCommand<String>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetVClass {
+    public VehicleGetTeleportingList() {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7162,6 +7041,42 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Route
 public class RouteAdd
         extends AbstractTraciCommand<List<String>>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteAdd {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetSpeedFactor` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetSpeedFactor.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleTypeGetSpeedFactor
+        extends AbstractTraciCommand<Double>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetSpeedFactor {
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightAddProgram` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightAddProgram.java`
+#### Snippet
+```java
+ * Adds a complete definition of a traffic light program. Does only work with SUMO >= 1.1.0.
+ */
+public class TrafficLightAddProgram
+        extends AbstractTraciCommand<Void>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightGetCurrentPhase` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetCurrentPhase.java`
+#### Snippet
+```java
+import java.util.Locale;
+
+public class TrafficLightGetCurrentPhase
+        extends AbstractTraciCommand<Integer>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetCurrentPhase {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7186,54 +7101,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 public class VehicleSetHighlight
         extends AbstractTraciCommand<Void>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetHighlight {
-```
-
-### ClassNameSameAsAncestorName
-Class name `TrafficLightAddProgram` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightAddProgram.java`
-#### Snippet
-```java
- * Adds a complete definition of a traffic light program. Does only work with SUMO >= 1.1.0.
- */
-public class TrafficLightAddProgram
-        extends AbstractTraciCommand<Void>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleGetTeleportingList` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleGetTeleportingList.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class VehicleGetTeleportingList extends AbstractTraciCommand<List<String>> implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetTeleportingList {
-
-    public VehicleGetTeleportingList() {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetAccel` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetAccel.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
-
-public class VehicleTypeGetAccel
-        extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetAccel {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetLength` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetLength.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.rti.api.InternalFederateException;
-
-public class VehicleTypeGetLength
-        extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetLength {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7273,51 +7140,39 @@ public class PoiRemove
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetSpeedMode` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetSpeedMode.java`
-#### Snippet
-```java
- * it follows the right-of-way rules. Furthermore, tt may not exceed the bounds on acceleration and deceleration.
- */
-public class VehicleSetSpeedMode
-        extends AbstractVehicleSetSingleIntegerValue
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetSpeedMode {
-```
-
-### ClassNameSameAsAncestorName
-Class name `RouteGetEdges` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteGetEdges.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to get the edge Id's of a route.
- */
-public class RouteGetEdges
-        extends AbstractTraciCommand<List<String>>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetEdges {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetMinGap` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetMinGap.java`
+Class name `VehicleTypeGetLength` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetLength.java`
 #### Snippet
 ```java
 import org.eclipse.mosaic.rti.api.InternalFederateException;
 
-public class VehicleTypeGetMinGap
+public class VehicleTypeGetLength
         extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetMinGap {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetLength {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetTau` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetTau.java`
+Class name `VehicleTypeGetVClass` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetVClass.java`
 #### Snippet
 ```java
 import org.eclipse.mosaic.rti.api.InternalFederateException;
 
-public class VehicleTypeGetTau
+public class VehicleTypeGetVClass
+        extends AbstractTraciCommand<String>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetVClass {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetAccel` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetAccel.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleTypeGetAccel
         extends AbstractTraciCommand<Double>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetTau {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetAccel {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7333,15 +7188,51 @@ public class VehicleSetUpdateBestLanes
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightGetControlledLanes` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLanes.java`
+Class name `VehicleTypeGetMinGap` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetMinGap.java`
 #### Snippet
 ```java
- * This class represents the SUMO command which allows to get the controlled lanes by traffic light apps.
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleTypeGetMinGap
+        extends AbstractTraciCommand<Double>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetMinGap {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetSpeedMode` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetSpeedMode.java`
+#### Snippet
+```java
+ * it follows the right-of-way rules. Furthermore, tt may not exceed the bounds on acceleration and deceleration.
  */
-public class TrafficLightGetControlledLanes
+public class VehicleSetSpeedMode
+        extends AbstractVehicleSetSingleIntegerValue
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetSpeedMode {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetTau` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetTau.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.rti.api.InternalFederateException;
+
+public class VehicleTypeGetTau
+        extends AbstractTraciCommand<Double>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetTau {
+```
+
+### ClassNameSameAsAncestorName
+Class name `RouteGetEdges` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteGetEdges.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to get the edge Id's of a route.
+ */
+public class RouteGetEdges
         extends AbstractTraciCommand<List<String>>
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLanes {
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetEdges {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7357,18 +7248,6 @@ public class VehicleSetChangeLane
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetImperfection` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetImperfection.java`
-#### Snippet
-```java
- * This class represents the SUMO command which allows to set an imperfection value for the driver.
- */
-public class VehicleSetImperfection
-        extends AbstractVehicleSetSingleDoubleValue
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetImperfection {
-```
-
-### ClassNameSameAsAncestorName
 Class name `TrafficLightSetState` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightSetState.java`
 #### Snippet
@@ -7378,6 +7257,30 @@ import org.eclipse.mosaic.rti.api.InternalFederateException;
 public class TrafficLightSetState
         extends AbstractTraciCommand<Void>
         implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetState {
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightGetControlledLanes` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLanes.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to get the controlled lanes by traffic light apps.
+ */
+public class TrafficLightGetControlledLanes
+        extends AbstractTraciCommand<List<String>>
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLanes {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetImperfection` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetImperfection.java`
+#### Snippet
+```java
+ * This class represents the SUMO command which allows to set an imperfection value for the driver.
+ */
+public class VehicleSetImperfection
+        extends AbstractVehicleSetSingleDoubleValue
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetImperfection {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7489,27 +7392,15 @@ public class VehicleSetColor implements org.eclipse.mosaic.fed.sumo.bridge.api.V
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetMinGap` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMinGap.java`
+Class name `JunctionGetPosition` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/JunctionGetPosition.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.Vehicle;
+import org.eclipse.sumo.libsumo.TraCIPosition;
 
-public class VehicleSetMinGap implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMinGap {
+public class JunctionGetPosition implements org.eclipse.mosaic.fed.sumo.bridge.api.JunctionGetPosition {
 
-    public void execute(Bridge bridge, String vehicleId, double value) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `RouteGetIds` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteGetIds.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class RouteGetIds implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetIds {
-
-    public List<String> execute(Bridge bridge) {
+    public Position execute(Bridge bridge, String junctionId) throws CommandException {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7525,27 +7416,27 @@ public class VehicleTypeGetWidth implements org.eclipse.mosaic.fed.sumo.bridge.a
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleGetRouteId` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetRouteId.java`
+Class name `RouteGetIds` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteGetIds.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.Vehicle;
+import java.util.List;
 
-public class VehicleGetRouteId implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetRouteId {
+public class RouteGetIds implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetIds {
 
-    public String execute(Bridge bridge, String vehicle) {
+    public List<String> execute(Bridge bridge) {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `JunctionGetPosition` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/JunctionGetPosition.java`
+Class name `LaneAreaSubscribe` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneAreaSubscribe.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.TraCIPosition;
+import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
 
-public class JunctionGetPosition implements org.eclipse.mosaic.fed.sumo.bridge.api.JunctionGetPosition {
+public class LaneAreaSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneAreaSubscribe {
 
-    public Position execute(Bridge bridge, String junctionId) throws CommandException {
+    public void execute(Bridge bridge, String laneAreaId, long startTime, long endTime) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7573,15 +7464,15 @@ public class PoiSetWidth implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSe
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `LaneAreaSubscribe` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneAreaSubscribe.java`
+Class name `VehicleSetMinGap` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMinGap.java`
 #### Snippet
 ```java
-import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
+import org.eclipse.sumo.libsumo.Vehicle;
 
-public class LaneAreaSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneAreaSubscribe {
+public class VehicleSetMinGap implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMinGap {
 
-    public void execute(Bridge bridge, String laneAreaId, long startTime, long endTime) {
+    public void execute(Bridge bridge, String vehicleId, double value) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7597,30 +7488,6 @@ public class VehicleSetMaxSpeed implements org.eclipse.mosaic.fed.sumo.bridge.ap
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightGetState` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightGetState.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.TrafficLight;
-
-public class TrafficLightGetState implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetState {
-
-    public String execute(Bridge bridge, String tlId) throws CommandException {
-```
-
-### ClassNameSameAsAncestorName
-Class name `InductionLoopSubscribe` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/InductionLoopSubscribe.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
-
-public class InductionLoopSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.InductionLoopSubscribe {
-
-    public void execute(Bridge bridge, String inductionLoopId, long startTime, long endTime) {
-```
-
-### ClassNameSameAsAncestorName
 Class name `LaneGetLength` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneGetLength.java`
 #### Snippet
@@ -7633,27 +7500,15 @@ public class LaneGetLength implements org.eclipse.mosaic.fed.sumo.bridge.api.Lan
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetDecel` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetDecel.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.VehicleType;
-
-public class VehicleTypeGetDecel implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetDecel {
-
-    public double execute(Bridge bridge, String typeId) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSetMaxAcceleration` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMaxAcceleration.java`
+Class name `VehicleGetRouteId` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetRouteId.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleSetMaxAcceleration implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxAcceleration {
+public class VehicleGetRouteId implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetRouteId {
 
-    public void execute(Bridge bridge, String vehicleId, double value) throws CommandException, InternalFederateException {
+    public String execute(Bridge bridge, String vehicle) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7669,6 +7524,54 @@ public class SimulationGetTrafficLightIds implements org.eclipse.mosaic.fed.sumo
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `InductionLoopSubscribe` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/InductionLoopSubscribe.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
+
+public class InductionLoopSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.InductionLoopSubscribe {
+
+    public void execute(Bridge bridge, String inductionLoopId, long startTime, long endTime) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetDecel` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetDecel.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.VehicleType;
+
+public class VehicleTypeGetDecel implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetDecel {
+
+    public double execute(Bridge bridge, String typeId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightGetState` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightGetState.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.TrafficLight;
+
+public class TrafficLightGetState implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetState {
+
+    public String execute(Bridge bridge, String tlId) throws CommandException {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetMaxAcceleration` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMaxAcceleration.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.Vehicle;
+
+public class VehicleSetMaxAcceleration implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxAcceleration {
+
+    public void execute(Bridge bridge, String vehicleId, double value) throws CommandException, InternalFederateException {
+```
+
+### ClassNameSameAsAncestorName
 Class name `SimulationGetDepartedVehicleIds` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationGetDepartedVehicleIds.java`
 #### Snippet
@@ -7678,18 +7581,6 @@ import java.util.stream.Collectors;
 public class SimulationGetDepartedVehicleIds implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationGetDepartedVehicleIds {
 
     public List<String> execute(Bridge bridge) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `PoiSetImage` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/PoiSetImage.java`
-#### Snippet
-```java
- * This class sets the image path of a PoI object in the SUMO-GUI.
- */
-public class PoiSetImage implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetImage {
-    /**
-     * Executes the command in order to set the image path of a previously added PoI object.
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7705,15 +7596,15 @@ public class LaneSetMaxSpeed implements org.eclipse.mosaic.fed.sumo.bridge.api.L
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSubscribeSurroundingVehicle` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscribeSurroundingVehicle.java`
+Class name `PoiSetImage` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/PoiSetImage.java`
 #### Snippet
 ```java
- * Several options for vehicle subscription are implemented in this class.
+ * This class sets the image path of a PoI object in the SUMO-GUI.
  */
-public class VehicleSubscribeSurroundingVehicle
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribeSurroundingVehicle {
-
+public class PoiSetImage implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetImage {
+    /**
+     * Executes the command in order to set the image path of a previously added PoI object.
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7741,15 +7632,15 @@ public class VehicleSetVehicleLength implements org.eclipse.mosaic.fed.sumo.brid
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetRouteById` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetRouteById.java`
+Class name `VehicleSubscribeSurroundingVehicle` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscribeSurroundingVehicle.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.Vehicle;
+ * Several options for vehicle subscription are implemented in this class.
+ */
+public class VehicleSubscribeSurroundingVehicle
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribeSurroundingVehicle {
 
-public class VehicleSetRouteById implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRouteById {
-
-    public void execute(Bridge bridge, String vehicleId, String routeId) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7765,15 +7656,27 @@ public class VehicleSetSpeed implements org.eclipse.mosaic.fed.sumo.bridge.api.V
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `LaneSetAllow` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneSetAllow.java`
+Class name `VehicleSetRouteById` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetRouteById.java`
 #### Snippet
 ```java
-import java.util.List;
+import org.eclipse.sumo.libsumo.Vehicle;
 
-public class LaneSetAllow implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetAllow {
+public class VehicleSetRouteById implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRouteById {
 
-    public void execute(Bridge bridge, String laneId, List<String> allowedVClasses) {
+    public void execute(Bridge bridge, String vehicleId, String routeId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightSetRemainingPhaseDuration` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightSetRemainingPhaseDuration.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.TrafficLight;
+
+public class TrafficLightSetRemainingPhaseDuration implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetRemainingPhaseDuration {
+
+    public void execute(Bridge bridge, String tlId, double remainingDurationS) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7801,27 +7704,15 @@ public class PoiAdd implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiAdd {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightSetRemainingPhaseDuration` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightSetRemainingPhaseDuration.java`
+Class name `VehicleSetStop` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetStop.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.TrafficLight;
+import org.eclipse.sumo.libsumo.Vehicle;
 
-public class TrafficLightSetRemainingPhaseDuration implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSetRemainingPhaseDuration {
+public class VehicleSetStop implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetStop {
 
-    public void execute(Bridge bridge, String tlId, double remainingDurationS) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSubscriptionSetFieldOfVision` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscriptionSetFieldOfVision.java`
-#### Snippet
-```java
- * collect all vehicles surrounding a specific vehicle.
- */
-public class VehicleSubscriptionSetFieldOfVision
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscriptionSetFieldOfVision {
-
+    /**
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7837,30 +7728,6 @@ public class TrafficLightGetControlledJunctions implements org.eclipse.mosaic.fe
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetParameter` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetParameter.java`
-#### Snippet
-```java
- * This class writes a parameter value for specific a vehicle.
- */
-public class VehicleSetParameter implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetParameter {
-    /**
-     * This method executes the command with the given arguments in order to set the
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSetStop` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetStop.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.Vehicle;
-
-public class VehicleSetStop implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetStop {
-
-    /**
-```
-
-### ClassNameSameAsAncestorName
 Class name `VehicleSetSpeedFactor` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetSpeedFactor.java`
 #### Snippet
@@ -7868,6 +7735,42 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/Veh
 import org.eclipse.sumo.libsumo.Vehicle;
 
 public class VehicleSetSpeedFactor implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetSpeedFactor {
+
+    public void execute(Bridge bridge, String vehicleId, double value) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `LaneSetAllow` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneSetAllow.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class LaneSetAllow implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneSetAllow {
+
+    public void execute(Bridge bridge, String laneId, List<String> allowedVClasses) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSubscriptionSetFieldOfVision` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscriptionSetFieldOfVision.java`
+#### Snippet
+```java
+ * collect all vehicles surrounding a specific vehicle.
+ */
+public class VehicleSubscriptionSetFieldOfVision
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscriptionSetFieldOfVision {
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetMaxDeceleration` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMaxDeceleration.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.Vehicle;
+
+public class VehicleSetMaxDeceleration implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxDeceleration {
 
     public void execute(Bridge bridge, String vehicleId, double value) {
 ```
@@ -7885,6 +7788,18 @@ public class TrafficLightGetCurrentProgram implements org.eclipse.mosaic.fed.sum
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `VehicleSetParameter` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetParameter.java`
+#### Snippet
+```java
+ * This class writes a parameter value for specific a vehicle.
+ */
+public class VehicleSetParameter implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetParameter {
+    /**
+     * This method executes the command with the given arguments in order to set the
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleSetMoveToXY` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMoveToXY.java`
 #### Snippet
@@ -7897,15 +7812,15 @@ public class VehicleSetMoveToXY implements org.eclipse.mosaic.fed.sumo.bridge.ap
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetMaxDeceleration` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetMaxDeceleration.java`
+Class name `VehicleAdd` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleAdd.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleSetMaxDeceleration implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetMaxDeceleration {
+public class VehicleAdd implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleAdd {
 
-    public void execute(Bridge bridge, String vehicleId, double value) {
+    public void execute(Bridge bridge, String vehicleId, String routeId, String vehicleType, String departLane, String departPosition, String departSpeed) throws CommandException, InternalFederateException {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7918,6 +7833,42 @@ import java.util.List;
 public class TrafficLightGetControlledLinks implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLinks {
 
 
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleGetParameter` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetParameter.java`
+#### Snippet
+```java
+ * This class reads a parameter value for specific a vehicle.
+ */
+public class VehicleGetParameter implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetParameter {
+    /**
+     * This method executes the command with the given arguments in order to get the value of a specific parameter of the given vehicle.
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetMaxSpeed` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetMaxSpeed.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.VehicleType;
+
+public class VehicleTypeGetMaxSpeed implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetMaxSpeed {
+
+    public double execute(Bridge bridge, String typeId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetSigma` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetSigma.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.VehicleType;
+
+public class VehicleTypeGetSigma implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetSigma {
+
+    public double execute(Bridge bridge, String typeId) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7945,42 +7896,6 @@ public class SimulationClose implements org.eclipse.mosaic.fed.sumo.bridge.api.S
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetSigma` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetSigma.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.VehicleType;
-
-public class VehicleTypeGetSigma implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetSigma {
-
-    public double execute(Bridge bridge, String typeId) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetMaxSpeed` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetMaxSpeed.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.VehicleType;
-
-public class VehicleTypeGetMaxSpeed implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetMaxSpeed {
-
-    public double execute(Bridge bridge, String typeId) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleGetParameter` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetParameter.java`
-#### Snippet
-```java
- * This class reads a parameter value for specific a vehicle.
- */
-public class VehicleGetParameter implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetParameter {
-    /**
-     * This method executes the command with the given arguments in order to get the value of a specific parameter of the given vehicle.
-```
-
-### ClassNameSameAsAncestorName
 Class name `VehicleSetRemove` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetRemove.java`
 #### Snippet
@@ -7990,18 +7905,6 @@ import org.eclipse.sumo.libsumo.Vehicle;
 public class VehicleSetRemove implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetRemove {
 
     public void execute(Bridge bridge, String vehicleId, Reason reason) throws CommandException, InternalFederateException {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleAdd` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleAdd.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.Vehicle;
-
-public class VehicleAdd implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleAdd {
-
-    public void execute(Bridge bridge, String vehicleId, String routeId, String vehicleType, String departLane, String departPosition, String departSpeed) throws CommandException, InternalFederateException {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8017,27 +7920,15 @@ public class VehicleTypeGetSpeedFactor implements org.eclipse.mosaic.fed.sumo.br
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `LaneGetShape` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneGetShape.java`
+Class name `VehicleSetHighlight` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetHighlight.java`
 #### Snippet
 ```java
-import java.util.List;
-
-public class LaneGetShape implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneGetShape {
-    @Override
-    public List<Position> execute(Bridge bridge, String laneId) throws CommandException, InternalFederateException {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleGetTeleportingList` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetTeleportingList.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class VehicleGetTeleportingList implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetTeleportingList {
-    @Override
-    public List<String> execute(Bridge bridge) throws CommandException, InternalFederateException {
+ * This class highlights a specific vehicle in the SUMO-GUI.
+ */
+public class VehicleSetHighlight implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetHighlight {
+    /**
+     * This method executes the command with the given arguments in order to highlight a vehicle in the SUMO-GUI with a circle
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8053,63 +7944,15 @@ public class TrafficLightGetCurrentPhase implements org.eclipse.mosaic.fed.sumo.
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetHighlight` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetHighlight.java`
+Class name `VehicleGetTeleportingList` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetTeleportingList.java`
 #### Snippet
 ```java
- * This class highlights a specific vehicle in the SUMO-GUI.
- */
-public class VehicleSetHighlight implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetHighlight {
-    /**
-     * This method executes the command with the given arguments in order to highlight a vehicle in the SUMO-GUI with a circle
-```
+import java.util.stream.Collectors;
 
-### ClassNameSameAsAncestorName
-Class name `RouteAdd` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteAdd.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class RouteAdd implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteAdd {
-
-    public void execute(Bridge bridge, String routeId, List<String> edges) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `TrafficLightAddProgram` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightAddProgram.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TrafficLightAddProgram implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
-
-    public void execute(Bridge bridge, String tlId, String programId, int phaseIndex, List<SumoTrafficLightLogic.Phase> phases) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetVClass` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetVClass.java`
-#### Snippet
-```java
-import org.eclipse.sumo.libsumo.VehicleType;
-
-public class VehicleTypeGetVClass implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetVClass {
-
-    public String execute(Bridge bridge, String typeId) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `PoiSetAngle` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/PoiSetAngle.java`
-#### Snippet
-```java
- * This rotates a PoI object in the SUMO-GUI.
- */
-public class PoiSetAngle implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetAngle {
-    /**
-     * Executes the command in order to set the direction of a previously added PoI object.
+public class VehicleGetTeleportingList implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetTeleportingList {
+    @Override
+    public List<String> execute(Bridge bridge) throws CommandException, InternalFederateException {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8125,6 +7968,18 @@ public class VehicleTypeGetLength implements org.eclipse.mosaic.fed.sumo.bridge.
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetVClass` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetVClass.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.VehicleType;
+
+public class VehicleTypeGetVClass implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetVClass {
+
+    public String execute(Bridge bridge, String typeId) {
+```
+
+### ClassNameSameAsAncestorName
 Class name `VehicleSetSlowDown` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetSlowDown.java`
 #### Snippet
@@ -8137,27 +7992,63 @@ public class VehicleSetSlowDown implements org.eclipse.mosaic.fed.sumo.bridge.ap
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleTypeGetAccel` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetAccel.java`
+Class name `TrafficLightAddProgram` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightAddProgram.java`
 #### Snippet
 ```java
-import org.eclipse.sumo.libsumo.VehicleType;
+import java.util.List;
 
-public class VehicleTypeGetAccel implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetAccel {
+public class TrafficLightAddProgram implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightAddProgram {
 
-    public double execute(Bridge bridge, String typeId) {
+    public void execute(Bridge bridge, String tlId, String programId, int phaseIndex, List<SumoTrafficLightLogic.Phase> phases) {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetLaneChangeMode` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetLaneChangeMode.java`
+Class name `RouteAdd` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteAdd.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class RouteAdd implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteAdd {
+
+    public void execute(Bridge bridge, String routeId, List<String> edges) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `PoiSetAngle` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/PoiSetAngle.java`
+#### Snippet
+```java
+ * This rotates a PoI object in the SUMO-GUI.
+ */
+public class PoiSetAngle implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiSetAngle {
+    /**
+     * Executes the command in order to set the direction of a previously added PoI object.
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetUpdateBestLanes` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetUpdateBestLanes.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleSetLaneChangeMode implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetLaneChangeMode {
+public class VehicleSetUpdateBestLanes implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetUpdateBestLanes {
 
-    public void execute(Bridge bridge, String vehicleId, int value) {
+    public void execute(Bridge bridge, String vehicleId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `LaneGetShape` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/LaneGetShape.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class LaneGetShape implements org.eclipse.mosaic.fed.sumo.bridge.api.LaneGetShape {
+    @Override
+    public List<Position> execute(Bridge bridge, String laneId) throws CommandException, InternalFederateException {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8173,27 +8064,39 @@ public class PoiRemove implements org.eclipse.mosaic.fed.sumo.bridge.api.PoiRemo
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightSubscribe` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightSubscribe.java`
-#### Snippet
-```java
- * For more information check https://sumo.dlr.de/docs/TraCI/Object_Variable_Subscription.html
- */
-public class TrafficLightSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSubscribe {
-    /**
-     * This method executes the command with the given arguments in order to subscribe the traffic light group to the application.
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSetUpdateBestLanes` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetUpdateBestLanes.java`
+Class name `VehicleSetLaneChangeMode` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetLaneChangeMode.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleSetUpdateBestLanes implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetUpdateBestLanes {
+public class VehicleSetLaneChangeMode implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetLaneChangeMode {
 
-    public void execute(Bridge bridge, String vehicleId) {
+    public void execute(Bridge bridge, String vehicleId, int value) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleTypeGetAccel` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetAccel.java`
+#### Snippet
+```java
+import org.eclipse.sumo.libsumo.VehicleType;
+
+public class VehicleTypeGetAccel implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleTypeGetAccel {
+
+    public double execute(Bridge bridge, String typeId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `RouteGetEdges` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteGetEdges.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class RouteGetEdges implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetEdges {
+
+
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8221,30 +8124,6 @@ public class VehicleTypeGetMinGap implements org.eclipse.mosaic.fed.sumo.bridge.
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `TrafficLightGetControlledLanes` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightGetControlledLanes.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TrafficLightGetControlledLanes implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLanes {
-
-    public List<String> execute(Bridge bridge, String tlId) throws CommandException {
-```
-
-### ClassNameSameAsAncestorName
-Class name `RouteGetEdges` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/RouteGetEdges.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class RouteGetEdges implements org.eclipse.mosaic.fed.sumo.bridge.api.RouteGetEdges {
-
-
-```
-
-### ClassNameSameAsAncestorName
 Class name `VehicleTypeGetTau` is the same as one of its superclass' names
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleTypeGetTau.java`
 #### Snippet
@@ -8257,27 +8136,39 @@ public class VehicleTypeGetTau implements org.eclipse.mosaic.fed.sumo.bridge.api
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleSetChangeLane` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetChangeLane.java`
+Class name `TrafficLightSubscribe` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightSubscribe.java`
+#### Snippet
+```java
+ * For more information check https://sumo.dlr.de/docs/TraCI/Object_Variable_Subscription.html
+ */
+public class TrafficLightSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightSubscribe {
+    /**
+     * This method executes the command with the given arguments in order to subscribe the traffic light group to the application.
+```
+
+### ClassNameSameAsAncestorName
+Class name `TrafficLightGetControlledLanes` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/TrafficLightGetControlledLanes.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class TrafficLightGetControlledLanes implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledLanes {
+
+    public List<String> execute(Bridge bridge, String tlId) throws CommandException {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleGetVehicleTypeId` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetVehicleTypeId.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleSetChangeLane implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetChangeLane {
+public class VehicleGetVehicleTypeId implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetVehicleTypeId {
 
-    public void execute(Bridge bridge, String vehicleId, int laneIndex, long duration) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `VehicleSubscribe` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscribe.java`
-#### Snippet
-```java
-import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
-
-public class VehicleSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribe {
-
-    public void execute(Bridge bridge, String vehicleId, long startTime, long endTime) {
+    public String execute(Bridge bridge, String vehicle) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8293,15 +8184,27 @@ public class TrafficLightSetState implements org.eclipse.mosaic.fed.sumo.bridge.
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `VehicleGetVehicleTypeId` is the same as one of its superclass' names
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleGetVehicleTypeId.java`
+Class name `VehicleSubscribe` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSubscribe.java`
+#### Snippet
+```java
+import org.eclipse.mosaic.fed.sumo.bridge.Bridge;
+
+public class VehicleSubscribe implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSubscribe {
+
+    public void execute(Bridge bridge, String vehicleId, long startTime, long endTime) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `VehicleSetChangeLane` is the same as one of its superclass' names
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/VehicleSetChangeLane.java`
 #### Snippet
 ```java
 import org.eclipse.sumo.libsumo.Vehicle;
 
-public class VehicleGetVehicleTypeId implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleGetVehicleTypeId {
+public class VehicleSetChangeLane implements org.eclipse.mosaic.fed.sumo.bridge.api.VehicleSetChangeLane {
 
-    public String execute(Bridge bridge, String vehicle) {
+    public void execute(Bridge bridge, String vehicleId, int laneIndex, long duration) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -8353,6 +8256,18 @@ public class SimulationSimulateStep implements org.eclipse.mosaic.fed.sumo.bridg
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `InRadius` is the same as one of its superclass' names
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/Edge.java`
+#### Snippet
+```java
+    }
+
+    public static class InRadius<V extends Vector3d, E extends org.eclipse.mosaic.lib.spatial.Edge<V>> extends SpatialTreeTraverser.InRadius<E> {
+        @Override
+        protected double getCenterDistanceSqr(E item, SpatialTree<E> tree) {
+```
+
+### ClassNameSameAsAncestorName
 Class name `Nearest` is the same as one of its superclass' names
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/Edge.java`
 #### Snippet
@@ -8364,16 +8279,101 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/Ed
         protected double getCenterDistanceSqr(E item, SpatialTree<E> tree) {
 ```
 
-### ClassNameSameAsAncestorName
-Class name `InRadius` is the same as one of its superclass' names
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/Edge.java`
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `getNumberOfVehicles()` only delegates to its super method
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
+#### Snippet
+```java
+
+        @Override
+        public int getNumberOfVehicles() {
+            return super.getNumberOfVehicles();
+        }
+```
+
+### RedundantMethodOverride
+Method `addTrafficLightGroup()` only delegates to its super method
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
+#### Snippet
+```java
+
+        @Override
+        public void addTrafficLightGroup(TrafficLightGroup trafficLightGroup) {
+            super.addTrafficLightGroup(trafficLightGroup);
+        }
+```
+
+### RedundantMethodOverride
+Method `getNumberOfTrafficLights()` only delegates to its super method
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/CentralPerceptionComponent.java`
+#### Snippet
+```java
+
+        @Override
+        public int getNumberOfTrafficLights() {
+            return super.getNumberOfTrafficLights();
+        }
+```
+
+### RedundantMethodOverride
+Method `canProcessEvent()` is identical to its super method
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
 #### Snippet
 ```java
     }
 
-    public static class InRadius<V extends Vector3d, E extends org.eclipse.mosaic.lib.spatial.Edge<V>> extends SpatialTreeTraverser.InRadius<E> {
-        @Override
-        protected double getCenterDistanceSqr(E item, SpatialTree<E> tree) {
+    public boolean canProcessEvent() {
+        return true;
+    }
+```
+
+### RedundantMethodOverride
+Method `isSpawningActive()` is identical to its super method
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/spawning/flow/ConstantSpawningMode.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isSpawningActive(long currentTime) {
+        return end > currentTime;
+    }
+```
+
+### RedundantMethodOverride
+Method `initialize()` only delegates to its super method
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/SumoAmbassador.java`
+#### Snippet
+```java
+
+    @Override
+    public void initialize(long startTime, long endTime) throws InternalFederateException {
+        super.initialize(startTime, endTime);
+    }
+```
+
+### RedundantMethodOverride
+Method `canProcessEvent()` is identical to its super method
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean canProcessEvent() {
+        return true;
+    }
+```
+
+### RedundantMethodOverride
+Method `hashCode()` only delegates to its super method
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/TrafficLightNode.java`
+#### Snippet
+```java
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 ```
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
@@ -8404,14 +8404,110 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/DistributedFederationManagement.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ChargingStationUnit.java`
 #### Snippet
 ```java
-            CLocalHost host = handle.getHost();
-            if (!(host instanceof CRemoteHost)) {
-                super.stopFederate(handle, true);
-                return;
+    public void processEvent(@Nonnull final Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // failsafe
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ServerUnit.java`
+#### Snippet
+```java
+    public void processEvent(Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // don't handle processed events
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/RoadSideUnit.java`
+#### Snippet
+```java
+    public void processEvent(@Nonnull final Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // failsafe
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
+#### Snippet
+```java
+    public void processEvent(@Nonnull final Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // failsafe
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficManagementCenterUnit.java`
+#### Snippet
+```java
+    public void processEvent(Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // don't handle processed events
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficLightGroupUnit.java`
+#### Snippet
+```java
+    public void processEvent(@Nonnull final Event event) throws Exception {
+        // never remove the preProcessEvent call!
+        final boolean preProcessed = super.preProcessEvent(event);
+
+        // don't handle processed events
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/providers/WallTree.java`
+#### Snippet
+```java
+    public void initialize() {
+        List<Edge<Vector3d>> walls = new ArrayList<>();
+        for (Building building : super.getDatabase().getBuildings()) {
+            for (Wall wall : building.getWalls()) {
+                walls.add(new Edge<>(
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/CellModule.java`
+#### Snippet
+```java
             }
+        }
+        return super.sendCam(routing);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModule.java`
+#### Snippet
+```java
+
+        final MessageRouting routing = createMessageRouting().topoBroadCast();
+        return super.sendCam(routing);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -8424,6 +8520,30 @@ in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/
         return (currEdge.edge == EdgeIterator.NO_EDGE || edge.getEdge() != currEdge.edge) && super.accept(edge, currEdge.edge);
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetWidth.java`
+#### Snippet
+```java
+
+    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
+#### Snippet
+```java
+            throws CommandException, InternalFederateException {
+        this.msgId = messageId;
+        return super.executeAndReturn(bridge, (Object) messageContent).orElse(
+                new SumoTraciResult(
+                        messageId,
 ```
 
 ### UnnecessarySuperQualifier
@@ -8452,30 +8572,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Junct
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
-#### Snippet
-```java
-            throws CommandException, InternalFederateException {
-        this.msgId = messageId;
-        return super.executeAndReturn(bridge, (Object) messageContent).orElse(
-                new SumoTraciResult(
-                        messageId,
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetWidth.java`
-#### Snippet
-```java
-
-    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteGetIds.java`
 #### Snippet
 ```java
@@ -8500,6 +8596,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneG
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneAreaSubscribe.java`
+#### Snippet
+```java
+     */
+    public void execute(Bridge bridge, String laneAreaId, long startTime, long endTime) throws CommandException, InternalFederateException {
+        super.execute(bridge, ((double) startTime) / TIME.SECOND, ((double) endTime) / TIME.SECOND, laneAreaId);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationGetTrafficLightIds.java`
 #### Snippet
 ```java
@@ -8518,30 +8626,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
     public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
         return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/LaneAreaSubscribe.java`
-#### Snippet
-```java
-     */
-    public void execute(Bridge bridge, String laneAreaId, long startTime, long endTime) throws CommandException, InternalFederateException {
-        super.execute(bridge, ((double) startTime) / TIME.SECOND, ((double) endTime) / TIME.SECOND, laneAreaId);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribeSurroundingVehicle.java`
-#### Snippet
-```java
-     */
-    public void execute(Bridge bridge, String vehicleId, long startTime, long endTime, double range) throws CommandException, InternalFederateException {
-        super.execute(bridge, ((double) startTime) / TIME.SECOND, ((double) endTime) / TIME.SECOND, vehicleId, range);
     }
 
 ```
@@ -8572,6 +8656,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSubscribeSurroundingVehicle.java`
+#### Snippet
+```java
+     */
+    public void execute(Bridge bridge, String vehicleId, long startTime, long endTime, double range) throws CommandException, InternalFederateException {
+        super.execute(bridge, ((double) startTime) / TIME.SECOND, ((double) endTime) / TIME.SECOND, vehicleId, range);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/PoiAdd.java`
 #### Snippet
 ```java
@@ -8596,36 +8692,12 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleGetParameter.java`
-#### Snippet
-```java
-     */
-    public String execute(Bridge bridge, String vehicleId, String parameterName) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, vehicleId, parameterName).orElse(null);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetMoveToXY.java`
 #### Snippet
 ```java
      */
     public void execute(Bridge bridge, String vehicleId, String edgeId, int laneIndex, CartesianPoint position, double angle, Mode keepRouteMode) throws CommandException, InternalFederateException {
         super.execute(bridge, vehicleId, edgeId, laneIndex, position.getX(), position.getY(), angle, keepRouteMode.mode);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRemove.java`
-#### Snippet
-```java
-     */
-    public void execute(Bridge bridge, String vehicleId, Reason reason) throws CommandException, InternalFederateException {
-        super.execute(bridge, vehicleId, reason.reasonByte);
     }
 
 ```
@@ -8640,6 +8712,30 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Traff
         return super.executeAndReturn(bridge, tlId).orElseThrow(
                 () -> new CommandException(
                         String.format(Locale.ENGLISH, "Could not read list of controlled Links for TrafficLight %s.", tlId)
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleGetParameter.java`
+#### Snippet
+```java
+     */
+    public String execute(Bridge bridge, String vehicleId, String parameterName) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, vehicleId, parameterName).orElse(null);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetRemove.java`
+#### Snippet
+```java
+     */
+    public void execute(Bridge bridge, String vehicleId, Reason reason) throws CommandException, InternalFederateException {
+        super.execute(bridge, vehicleId, reason.reasonByte);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -8692,48 +8788,12 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetVClass.java`
-#### Snippet
-```java
-
-    public String execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, vehicleTypeId).orElse("passenger");
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleSetHighlight.java`
 #### Snippet
 ```java
      */
     public void execute(Bridge bridge, String vehicleId, Color color) throws CommandException, InternalFederateException {
         super.execute(bridge, vehicleId, color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetAccel.java`
-#### Snippet
-```java
-
-    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetLength.java`
-#### Snippet
-```java
-
-    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
     }
 
 ```
@@ -8752,14 +8812,38 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteGetEdges.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetVClass.java`
 #### Snippet
 ```java
-     */
-    public List<String> execute(Bridge bridge, String routeId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, routeId).orElseThrow(
-                () -> new CommandException(
-                        String.format(Locale.ENGLISH, "Couldn't extract Edges of Route %s.", routeId)
+
+    public String execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, vehicleTypeId).orElse("passenger");
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetLength.java`
+#### Snippet
+```java
+
+    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/VehicleTypeGetAccel.java`
+#### Snippet
+```java
+
+    public double execute(Bridge bridge, String vehicleTypeId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, vehicleTypeId).orElse(0d);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -8788,14 +8872,14 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLanes.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteGetEdges.java`
 #### Snippet
 ```java
      */
-    public List<String> execute(Bridge bridge, String tlId) throws CommandException, InternalFederateException {
-        return super.executeAndReturn(bridge, tlId).orElseThrow(
-                () -> new CommandException(String.format(
-                        Locale.ENGLISH, "Could not read list of controlled Lanes for TrafficLight %s.", tlId)
+    public List<String> execute(Bridge bridge, String routeId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, routeId).orElseThrow(
+                () -> new CommandException(
+                        String.format(Locale.ENGLISH, "Couldn't extract Edges of Route %s.", routeId)
 ```
 
 ### UnnecessarySuperQualifier
@@ -8808,6 +8892,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Vehic
         super.execute(bridge, vehicleId, laneIndex, duration / (double) TIME.SECOND);
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledLanes.java`
+#### Snippet
+```java
+     */
+    public List<String> execute(Bridge bridge, String tlId) throws CommandException, InternalFederateException {
+        return super.executeAndReturn(bridge, tlId).orElseThrow(
+                () -> new CommandException(String.format(
+                        Locale.ENGLISH, "Could not read list of controlled Lanes for TrafficLight %s.", tlId)
 ```
 
 ### UnnecessarySuperQualifier
@@ -8872,146 +8968,14 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/SumoAmb
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/traffic/InductionLoopInfo.java`
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/DistributedFederationManagement.java`
 #### Snippet
 ```java
-    public String toString() {
-        return "InductionLoopInfo{"
-                + "name=" + super.getName()
-                + ", vehicleCount=" + vehicleCount
-                + ", meanSpeed=" + meanSpeed
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/traffic/LaneAreaDetectorInfo.java`
-#### Snippet
-```java
-    public String toString() {
-        return "LaneAreaDetectorInfo{"
-                + "name=" + super.getName()
-                + ", length=" + length
-                + ", vehicleCount=" + vehicleCount
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
-#### Snippet
-```java
-    public TrafficSignLaneAssignment(String id, Position position, String connectionId, List<LaneAssignment> laneAssignments) {
-        super(id, position, connectionId);
-        super.addSignContents(laneAssignments);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ServerUnit.java`
-#### Snippet
-```java
-    public void processEvent(Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // don't handle processed events
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/ChargingStationUnit.java`
-#### Snippet
-```java
-    public void processEvent(@Nonnull final Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // failsafe
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/RoadSideUnit.java`
-#### Snippet
-```java
-    public void processEvent(@Nonnull final Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // failsafe
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficManagementCenterUnit.java`
-#### Snippet
-```java
-    public void processEvent(Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // don't handle processed events
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/VehicleUnit.java`
-#### Snippet
-```java
-    public void processEvent(@Nonnull final Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // failsafe
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/TrafficLightGroupUnit.java`
-#### Snippet
-```java
-    public void processEvent(@Nonnull final Event event) throws Exception {
-        // never remove the preProcessEvent call!
-        final boolean preProcessed = super.preProcessEvent(event);
-
-        // don't handle processed events
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/providers/WallTree.java`
-#### Snippet
-```java
-    public void initialize() {
-        List<Edge<Vector3d>> walls = new ArrayList<>();
-        for (Building building : super.getDatabase().getBuildings()) {
-            for (Wall wall : building.getWalls()) {
-                walls.add(new Edge<>(
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/CellModule.java`
-#### Snippet
-```java
+            CLocalHost host = handle.getHost();
+            if (!(host instanceof CRemoteHost)) {
+                super.stopFederate(handle, true);
+                return;
             }
-        }
-        return super.sendCam(routing);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModule.java`
-#### Snippet
-```java
-
-        final MessageRouting routing = createMessageRouting().topoBroadCast();
-        return super.sendCam(routing);
-    }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -9048,6 +9012,42 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/MultiT
                 super.eventQueue.remove(); // remove the head of the queue
                 // same time, but different nice value
                 processedEvents += executeEvents(executables);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/traffic/InductionLoopInfo.java`
+#### Snippet
+```java
+    public String toString() {
+        return "InductionLoopInfo{"
+                + "name=" + super.getName()
+                + ", vehicleCount=" + vehicleCount
+                + ", meanSpeed=" + meanSpeed
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/traffic/LaneAreaDetectorInfo.java`
+#### Snippet
+```java
+    public String toString() {
+        return "LaneAreaDetectorInfo{"
+                + "name=" + super.getName()
+                + ", length=" + length
+                + ", vehicleCount=" + vehicleCount
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
+#### Snippet
+```java
+    public TrafficSignLaneAssignment(String id, Position position, String connectionId, List<LaneAssignment> laneAssignments) {
+        super(id, position, connectionId);
+        super.addSignContents(laneAssignments);
+    }
+
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -9186,27 +9186,15 @@ import org.eclipse.mosaic.rti.api.Interaction;
 
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
-`netPart = netPart & ip` could be simplified to 'netPart \&= ip'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
+`region.downlink.capacity = region.downlink.capacity + bandwidthToFreeInBps` could be simplified to 'region.downlink.capacity += bandwidthToFreeInBps'
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionCapacityUtility.java`
 #### Snippet
 ```java
-        int netPart = addressArrayToFlat(netMask.getAddress());
-        int client = ip & ~netPart;
-        netPart = netPart & ip;
-
-        for (Map.Entry<UnitType, Inet4Address> unitNetworkEntry : unitNetworks.entrySet()) {
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`quadKey = quadKey | ((y & (1 << i)) << (i + 1)) | ((x & (1 << i)) << i)` could be simplified to 'quadKey \|= ((y \& (1 \<\< i)) \<\< (i + 1)) \| ((x \& (1 \<\< i)) \<\< i)'
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
-#### Snippet
-```java
-        long quadKey = 0;
-        for (int i = 0; i <= zoom; i++) {
-            quadKey = quadKey | ((y & (1 << i)) << (i + 1)) | ((x & (1 << i)) << i);
         }
-        return quadKey;
+        if (region.downlink.capacity + bandwidthToFreeInBps <= region.downlink.maxCapacity) {
+            region.downlink.capacity = region.downlink.capacity + bandwidthToFreeInBps;
+            log.trace("Freeing {} bit/s in the downlink direction in region {} (capacity now: {} bit/s)",
+                    bandwidthToFreeInBps, region.id, region.downlink.capacity);
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -9246,18 +9234,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionCapa
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`region.downlink.capacity = region.downlink.capacity + bandwidthToFreeInBps` could be simplified to 'region.downlink.capacity += bandwidthToFreeInBps'
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionCapacityUtility.java`
-#### Snippet
-```java
-        }
-        if (region.downlink.capacity + bandwidthToFreeInBps <= region.downlink.maxCapacity) {
-            region.downlink.capacity = region.downlink.capacity + bandwidthToFreeInBps;
-            log.trace("Freeing {} bit/s in the downlink direction in region {} (capacity now: {} bit/s)",
-                    bandwidthToFreeInBps, region.id, region.downlink.capacity);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `vehicleConfiguration.startingTime = vehicleConfiguration.startingTime - config.start` could be simplified to 'vehicleConfiguration.startingTime -= config.start'
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
 #### Snippet
@@ -9281,7 +9257,55 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/S
                 }
 ```
 
+### ReplaceAssignmentWithOperatorAssignment
+`quadKey = quadKey | ((y & (1 << i)) << (i + 1)) | ((x & (1 << i)) << i)` could be simplified to 'quadKey \|= ((y \& (1 \<\< i)) \<\< (i + 1)) \| ((x \& (1 \<\< i)) \<\< i)'
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
+#### Snippet
+```java
+        long quadKey = 0;
+        for (int i = 0; i <= zoom; i++) {
+            quadKey = quadKey | ((y & (1 << i)) << (i + 1)) | ((x & (1 << i)) << i);
+        }
+        return quadKey;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`netPart = netPart & ip` could be simplified to 'netPart \&= ip'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
+#### Snippet
+```java
+        int netPart = addressArrayToFlat(netMask.getAddress());
+        int client = ip & ~netPart;
+        netPart = netPart & ip;
+
+        for (Map.Entry<UnitType, Inet4Address> unitNetworkEntry : unitNetworks.entrySet()) {
+```
+
 ## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
+#### Snippet
+```java
+                        + "Servers can't be addressed with multicasts. Your set values will be dismissed");
+            }
+            server.downlink.maxCapacity = server.downlink.capacity = Long.MAX_VALUE;
+            server.uplink.maxCapacity = server.uplink.capacity = Long.MAX_VALUE;
+            server.downlink.multicast = null;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
+#### Snippet
+```java
+            }
+            server.downlink.maxCapacity = server.downlink.capacity = Long.MAX_VALUE;
+            server.uplink.maxCapacity = server.uplink.capacity = Long.MAX_VALUE;
+            server.downlink.multicast = null;
+        });
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
@@ -9292,6 +9316,18 @@ in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/
             if (!(weightsUpdated = updateWeightsOfEdges())) {
                 // if nothing has been updated in this iteration, we can skip all further iterations
                 break;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
+#### Snippet
+```java
+        String line;
+        int pid = -1;
+        while ((line = reader.readLine()) != null) {
+            if (line.length() > 0) {
+                log.debug(line);
 ```
 
 ### NestedAssignment
@@ -9320,66 +9356,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 
 ### NestedAssignment
 Result of assignment expression used
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
-#### Snippet
-```java
-        // find the left and right extrema. These define the chord that separates the upper and
-        // lower sets
-        minX = maxX = points.get(0).x;
-        iLeft = iRight = 0;
-        for (i = 1; i < points.size(); i++) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
-#### Snippet
-```java
-        // lower sets
-        minX = maxX = points.get(0).x;
-        iLeft = iRight = 0;
-        for (i = 1; i < points.size(); i++) {
-            q = points.get(i);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
-#### Snippet
-```java
-                        + "Servers can't be addressed with multicasts. Your set values will be dismissed");
-            }
-            server.downlink.maxCapacity = server.downlink.capacity = Long.MAX_VALUE;
-            server.uplink.maxCapacity = server.uplink.capacity = Long.MAX_VALUE;
-            server.downlink.multicast = null;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
-#### Snippet
-```java
-            }
-            server.downlink.maxCapacity = server.downlink.capacity = Long.MAX_VALUE;
-            server.uplink.maxCapacity = server.uplink.capacity = Long.MAX_VALUE;
-            server.downlink.multicast = null;
-        });
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
-#### Snippet
-```java
-        String line;
-        int pid = -1;
-        while ((line = reader.readLine()) != null) {
-            if (line.length() > 0) {
-                log.debug(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/ProcessLoggingThread.java`
 #### Snippet
 ```java
@@ -9404,14 +9380,26 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectIns
 
 ### NestedAssignment
 Result of assignment expression used
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodManager.java`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
 #### Snippet
 ```java
+        // find the left and right extrema. These define the chord that separates the upper and
+        // lower sets
+        minX = maxX = points.get(0).x;
+        iLeft = iRight = 0;
+        for (i = 1; i < points.size(); i++) {
+```
 
-        // initialize iteration methods
-        for (int level = 1; (iterationMethodIndex = findIterationMethod(methods)) != -1; level++) {
-            // what is the name of this iteration method, without "get"
-            String methodName = getIterationMethodName(methods.get(iterationMethodIndex));
+### NestedAssignment
+Result of assignment expression used
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuickHull2d.java`
+#### Snippet
+```java
+        // lower sets
+        minX = maxX = points.get(0).x;
+        iLeft = iRight = 0;
+        for (i = 1; i < points.size(); i++) {
+            q = points.get(i);
 ```
 
 ### NestedAssignment
@@ -9438,6 +9426,18 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNet
             }
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodManager.java`
+#### Snippet
+```java
+
+        // initialize iteration methods
+        for (int level = 1; (iterationMethodIndex = findIterationMethod(methods)) != -1; level++) {
+            // what is the name of this iteration method, without "get"
+            String methodName = getIterationMethodName(methods.get(iterationMethodIndex));
+```
+
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -9453,15 +9453,15 @@ in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/ivi
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `queue` is accessed in both synchronized and unsynchronized contexts
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
+Field `routingCostFunction` is accessed in both synchronized and unsynchronized contexts
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperWeighting.java`
 #### Snippet
 ```java
-    private boolean running = false;
+    private final double maxSpeed;
 
-    private ScheduledEvents queue = null;
-    private int activeCount = 0;
+    private RoutingCostFunction routingCostFunction;
 
+    public GraphHopperWeighting(FlagEncoder encoder, GraphhopperToDatabaseMapper graphMapper) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9477,15 +9477,15 @@ in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.jav
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `routingCostFunction` is accessed in both synchronized and unsynchronized contexts
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperWeighting.java`
+Field `queue` is accessed in both synchronized and unsynchronized contexts
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
 #### Snippet
 ```java
-    private final double maxSpeed;
+    private boolean running = false;
 
-    private RoutingCostFunction routingCostFunction;
+    private ScheduledEvents queue = null;
+    private int activeCount = 0;
 
-    public GraphHopperWeighting(FlagEncoder encoder, GraphhopperToDatabaseMapper graphMapper) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9501,6 +9501,30 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/SumoAmb
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `interactionQueue` is accessed in both synchronized and unsynchronized contexts
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+#### Snippet
+```java
+     * A priority queue that holds unprocessed interactions.
+     */
+    protected InteractionQueue interactionQueue = new InteractionQueue();
+
+    protected FederateDescriptor descriptor;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `rti` is accessed in both synchronized and unsynchronized contexts
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+#### Snippet
+```java
+     * The bridge for interacting with the RTI.
+     */
+    protected RtiAmbassador rti;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `socket` is accessed in both synchronized and unsynchronized contexts
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
@@ -9508,18 +9532,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
      * Socket with which data is exchanged with SUMO.
      */
     Socket socket;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `nextTimeStep` is accessed in both synchronized and unsynchronized contexts
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-     * Simulation time at which the positions are published next.
-     */
-    long nextTimeStep;
 
     /**
 ```
@@ -9549,27 +9561,15 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `rti` is accessed in both synchronized and unsynchronized contexts
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+Field `nextTimeStep` is accessed in both synchronized and unsynchronized contexts
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-     * The bridge for interacting with the RTI.
+     * Simulation time at which the positions are published next.
      */
-    protected RtiAmbassador rti;
+    long nextTimeStep;
 
     /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `interactionQueue` is accessed in both synchronized and unsynchronized contexts
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
-#### Snippet
-```java
-     * A priority queue that holds unprocessed interactions.
-     */
-    protected InteractionQueue interactionQueue = new InteractionQueue();
-
-    protected FederateDescriptor descriptor;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9659,810 +9659,6 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Traff
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/MosaicComponentParameters.java`
-#### Snippet
-```java
-     * The realtime break to slow down simulation for debugging/visualization purposes.
-     */
-    private int realTimeBreak = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
-#### Snippet
-```java
-        public String host = "local";
-
-        public int port = 0;
-        public boolean deploy = false;
-        public boolean start = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
-#### Snippet
-```java
-
-        public int port = 0;
-        public boolean deploy = false;
-        public boolean start = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
-#### Snippet
-```java
-        public int port = 0;
-        public boolean deploy = false;
-        public boolean start = false;
-
-        @JacksonXmlElementWrapper(localName = "subscriptions")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "l", longOption = "logger", argName = "PATH", description = "Path to logback configuration file (default: etc/logback.xml)")
-    public String loggerConfiguration = null;
-
-    @CommandLineOption(shortOption = "e", longOption = "external-watchdog", argName = "PORTNUMBER", description = "Specific external watchdog port number")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "s", longOption = "scenario", argName = "NAME", description = "The name of the MOSAIC scenario. Can be used instead of \"-c\" parameter. (mandatory)", group = "config")
-    public String scenarioName = null;
-
-    @CommandLineOption(shortOption = "w", longOption = "watchdog-interval", argName = "SECONDS", description = "Kill MOSAIC process after n seconds if a federate is not responding. 0 disables the watchdog. (default: 30)")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "o", longOption = "log-level", argName = "LOGLEVEL", description = "Overrides the log level to new value (e.g. DEBUG)")
-    public String logLevel = null;
-
-    @CommandLineOption(longOption = "runtime", argName = "PATH", description = "Path to MOSAIC RTI configuration file (default: etc/runtime.json)")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(longOption = "runtime", argName = "PATH", description = "Path to MOSAIC RTI configuration file (default: etc/runtime.json)")
-    public String runtimeConfiguration = null;
-
-    @CommandLineOption(longOption = "hosts", argName = "PATH", description = "Path to host configuration file (default: etc/hosts.json)")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(longOption = "hosts", argName = "PATH", description = "Path to host configuration file (default: etc/hosts.json)")
-    public String hostsConfiguration = null;
-
-    @CommandLineOption(shortOption = "l", longOption = "logger", argName = "PATH", description = "Path to logback configuration file (default: etc/logback.xml)")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "v", longOption = "start-visualizer", description = "Starts the web socket visualizer.")
-    public boolean startVisualizer = false;
-
-    @CommandLineOption(shortOption = "b", longOption = "realtime-brake", argName = "REALTIMEFACTOR", description = "Set value for real time brake.")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "c", longOption = "config", argName = "PATH", description = "Path to MOSAIC scenario configuration file (scenario_config.json). Can be used instead of \"-s\" parameter. (mandatory).", group = "config")
-    public String configurationPath = null;
-
-    @CommandLineOption(shortOption = "s", longOption = "scenario", argName = "NAME", description = "The name of the MOSAIC scenario. Can be used instead of \"-c\" parameter. (mandatory)", group = "config")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "e", longOption = "external-watchdog", argName = "PORTNUMBER", description = "Specific external watchdog port number")
-    public String externalWatchDog = null;
-
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "b", longOption = "realtime-brake", argName = "REALTIMEFACTOR", description = "Set value for real time brake.")
-    public String realtimeBrake = null;
-
-    @CommandLineOption(shortOption = "o", longOption = "log-level", argName = "LOGLEVEL", description = "Overrides the log level to new value (e.g. DEBUG)")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
-#### Snippet
-```java
-
-    @CommandLineOption(shortOption = "w", longOption = "watchdog-interval", argName = "SECONDS", description = "Kill MOSAIC process after n seconds if a federate is not responding. 0 disables the watchdog. (default: 30)")
-    public String watchdogInterval = null;
-
-    @CommandLineOption(shortOption = "r", longOption = "random-seed", argName = "SEED", description = "Overrides the random seed which is given in the scenario configuration file")
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-     * Current time in milliseconds, used to check if program is still alive.
-     */
-    private volatile long timeOfLastUpdate = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
-#### Snippet
-```java
-    private boolean running = false;
-
-    private ScheduledEvents queue = null;
-    private int activeCount = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
-#### Snippet
-```java
-    private final Worker[] workers;
-    private final ComponentProvider federation;
-    private boolean running = false;
-
-    private ScheduledEvents queue = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
-#### Snippet
-```java
-    private int activeCount = 0;
-
-    private InternalFederateException exceptionInThread = null;
-
-    ThreadPool(ComponentProvider federation, int numberOfThreads) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
-#### Snippet
-```java
-
-    private ScheduledEvents queue = null;
-    private int activeCount = 0;
-
-    private InternalFederateException exceptionInThread = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-        private double passedSimulationTimeSinceLogNs = 0;
-        private long passedRealtimeSinceLogNs = 0;
-        private long lastSimTime = 0;
-        private long lastRealTimeNs = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-    private final Logger progressLogger;
-
-    private long lastLogTime = 0;
-
-    private long simStartRealtimeNs;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-        private long passedRealtimeSinceLogNs = 0;
-        private long lastSimTime = 0;
-        private long lastRealTimeNs = 0;
-
-        private PerformanceInformation performance = new PerformanceInformation();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-
-        private double passedSimulationTimeSinceLogNs = 0;
-        private long passedRealtimeSinceLogNs = 0;
-        private long lastSimTime = 0;
-        private long lastRealTimeNs = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
-#### Snippet
-```java
-    protected static class PerformanceCalculator {
-
-        private double passedSimulationTimeSinceLogNs = 0;
-        private long passedRealtimeSinceLogNs = 0;
-        private long lastSimTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/config/CRouting.java`
-#### Snippet
-```java
-     * The source for the route calculation, e.g. the path to the database containing the road network.
-     */
-    public String source = null;
-
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/RoutingParameters.java`
-#### Snippet
-```java
-public class RoutingParameters {
-
-    private int numAlternativeRoutes = 0;
-
-    private RoutingCostFunction routingCostFunction = RoutingCostFunction.Fastest;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/RoutingParameters.java`
-#### Snippet
-```java
-    private RoutingCostFunction routingCostFunction = RoutingCostFunction.Fastest;
-
-    private boolean considerTurnCosts = false;
-
-    private double restrictionCosts = Double.POSITIVE_INFINITY;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-    private int realtimeBrake = 0;
-    private int watchdogInterval = DEFAULT_WATCHDOG_INTERVAL;
-    private int externalWatchdogPort = 0;
-
-    private Logger log = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-    private String logLevelOverride;
-
-    private int realtimeBrake = 0;
-    private int watchdogInterval = DEFAULT_WATCHDOG_INTERVAL;
-    private int externalWatchdogPort = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-    private int externalWatchdogPort = 0;
-
-    private Logger log = null;
-    private ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
-#### Snippet
-```java
-
-    private SPTEntry toNode = null;
-    private boolean finished = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
-#### Snippet
-```java
-    private final IntObjectMap<SPTEntry> nodeEntries = new IntObjectHashMap<>();
-
-    private SPTEntry toNode = null;
-    private boolean finished = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/InductionLoop.java`
-#### Snippet
-```java
-     * Latest time stamp when traffic flow was cached.
-     */
-    private long trafficFlowCacheTime = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
-#### Snippet
-```java
-    private HashSet<Integer> relevantEdgesIDs;
-
-    private int requestAlternatives = 0;
-
-    private List<Path> alternativePaths;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
-#### Snippet
-```java
-        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationTraciRequest {
-
-    private String msgId = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledJunctions.java`
-#### Snippet
-```java
-public class TrafficLightGetControlledJunctions implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledJunctions {
-
-    boolean warned = false;
-
-    public List<String> execute(Bridge bridge, String tlId) throws CommandException, InternalFederateException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
-#### Snippet
-```java
-     * Number of bytes that have benn read.
-     */
-    protected int numBytesRead = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
-#### Snippet
-```java
-     * Total number od bytes.
-     */
-    protected int totalBytesLeft = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
-#### Snippet
-```java
-     * Prints out all traci calls.
-     */
-    public boolean debugTraciCalls = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
-#### Snippet
-```java
-     * This could be helpful as IDM should be parametrized with lower time gaps to achieve specific time gap values.
-     */
-    public double timeGapOffset = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/ExternalVehicleState.java`
-#### Snippet
-```java
-    private boolean added = false;
-
-    private VehicleData lastMovementInfo = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/ExternalVehicleState.java`
-#### Snippet
-```java
-     * added during simulation.
-     */
-    private boolean added = false;
-
-    private VehicleData lastMovementInfo = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0d` is redundant
-in `lib/mosaic-communication/src/main/java/org/eclipse/mosaic/lib/model/transmission/CTransmission.java`
-#### Snippet
-```java
-     * means that lossProbability=0 (lossfree), lossProbability=1 (100% lossy).
-     */
-    public double lossProbability = 0.0d;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/SlowDownApp.java`
-#### Snippet
-```java
-    private final static float SPEED = 25 / 3.6f;
-
-    private boolean hazardousArea = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-     * before the next simulation step.
-     */
-    private boolean updateBestLanesBeforeNextSimulationStep = false;
-    private boolean noRearSensorConfigured = true;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-        private VehicleData lastVehicleData = null;
-        private Double frontSensorDistance = null;
-        private Double rearSensorDistance = null;
-
-        private SumoVehicleState(String id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-        private final String id;
-        private VehicleData currentVehicleData = null;
-        private VehicleData lastVehicleData = null;
-        private Double frontSensorDistance = null;
-        private Double rearSensorDistance = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-    private static class SumoVehicleState {
-        private final String id;
-        private VehicleData currentVehicleData = null;
-        private VehicleData lastVehicleData = null;
-        private Double frontSensorDistance = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-        private VehicleData currentVehicleData = null;
-        private VehicleData lastVehicleData = null;
-        private Double frontSensorDistance = null;
-        private Double rearSensorDistance = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/cam/TrafficLightAwarenessData.java`
-#### Snippet
-```java
-     * therefore it will not be available after a encoded DENM message has been decoded.
-     */
-    private transient TrafficLightGroup trafficLightGroup = null;
-    
-    public TrafficLightAwarenessData(DataInput dataInput) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/Spatm.java`
-#### Snippet
-```java
-     * The encoded message.
-     */
-    private EncodedPayload payload = null;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/EtsiPayloadConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private static EtsiPayloadConfiguration globalConfiguration = null;
-
-    public static EtsiPayloadConfiguration getPayloadConfiguration() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherWarningApp.java`
-#### Snippet
-```java
-     * Flag that is set if the route has already been changed.
-     */
-    private boolean routeChanged = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/cam/VehicleAwarenessData.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings(value = "JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS", justification = "is only used for caching purposes")
-    private transient String cachedString = null;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/ivim/Advice.java`
-#### Snippet
-```java
-     * Tells whether the lane is dedicated for AVs only.
-     */
-    private boolean dedicatedForAvsOnly = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/SpeedLimit.java`
-#### Snippet
-```java
-    private double speedLimit;
-
-    private Double initialSpeedLimit = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
-#### Snippet
-```java
-     * Tells if the traffic sign is variable.
-     */
-    private boolean isVariable = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
-#### Snippet
-```java
-     * 0.0 is north, 90.0 is east
-     */
-    private double angle = 0.0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerContainer.java`
-#### Snippet
-```java
-     * The process which corresponds with the running container.
-     */
-    private Process process = null;
-
-    DockerContainer(String image, String name, List<Pair<Integer, Integer>> portBindings) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
-#### Snippet
-```java
-    private String user;
-    private List<Pair<File, String>> volumeBindings = new Vector<>();
-    private boolean removeAfterRun = false;
-    private boolean removeBeforeRun;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-     * Command used to start Sumo.
-     */
-    FederateExecutor federateExecutor = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/SpatialTreeTraverser.java`
-#### Snippet
-```java
-
-    public static class Nearest<T> extends CenterDistanceBased<T> {
-        protected T nearest = null;
-        protected double distanceSqr = Double.POSITIVE_INFINITY;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/SpatialTreeTraverser.java`
-#### Snippet
-```java
-
-    public static class InRadius<T> extends CenterDistanceBased<T> {
-        protected double radiusSqr = 0;
-        protected final List<T> result = new ArrayList<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
-#### Snippet
-```java
-    private class KdNode extends Node {
-        private List<Node> children = null;
-        private List<T> items = null;
-
-        KdNode(List<T> items, int bucketSz, int depth) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
-#### Snippet
-```java
-
-    private class KdNode extends Node {
-        private List<Node> children = null;
-        private List<T> items = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/LazyGeoProjection.java`
-#### Snippet
-```java
-
-    private final ProjectionFactory projectionFactory;
-    private GeoProjection inst = null;
-
-    public LazyGeoProjection() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/GeoProjection.java`
-#### Snippet
-```java
-    }
-
-    private volatile GeoCalculator geoCalculator = null;
-
-    public GeoProjection setGeoCalculator(GeoCalculator geoCalculator) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/CCell.java`
 #### Snippet
@@ -10487,39 +9683,15 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/chain/ChainManager
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
-#### Snippet
-```java
-        final ArrayList<QuadTree<?>.ObjectAndNode> objects = new ArrayList<>();
-        int objectsCount = 0;
-        TreeNode[] childNodes = null;
-
-        private TreeNode(int depth, double minX, double maxX, double minZ, double maxZ) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
-#### Snippet
-```java
-
-    class ObjectAndNode {
-        TreeNode node = null;
-        final T object;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/GeocasterModule.java`
 #### Snippet
 ```java
 
-        final ArrayList<QuadTree<?>.ObjectAndNode> objects = new ArrayList<>();
-        int objectsCount = 0;
-        TreeNode[] childNodes = null;
+    private final RandomNumberGenerator rng;
+    private long processedMessages = 0;
 
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -10535,18 +9707,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandw
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/GeocasterModule.java`
-#### Snippet
-```java
-
-    private final RandomNumberGenerator rng;
-    private long processedMessages = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/message/CellModuleMessage.java`
 #### Snippet
@@ -10556,90 +9716,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/message/CellModule
         private Object resource = null;
 
         public Builder(String emittingModule, String nextModule) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
-#### Snippet
-```java
-     * The current lookahead for time advance requests.
-     */
-    protected long lookahead = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
-#### Snippet
-```java
-     * can be found.
-     */
-    private File binariesDir = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
-#### Snippet
-```java
-     * be deployed and started.
-     */
-    private CLocalHost host = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
-#### Snippet
-```java
-     * working directory before starting it.
-     */
-    private boolean deployAndUndeploy = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
-#### Snippet
-```java
-     * The configuration directory for the federate.
-     */
-    private File configDir = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
-#### Snippet
-```java
-     * Flag signalizing whether to start/stop the federate external component (e.g. an external executable).
-     */
-    private boolean startAndStop = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/JavaFederateExecutor.java`
-#### Snippet
-```java
-    private final FederateDescriptor handle;
-
-    private ExecutableFederateExecutor delegateExecFederateStarter = null;
-
-    public JavaFederateExecutor(FederateDescriptor handle, String mainClass, String programArguments) {
 ```
 
 ### RedundantFieldInitialization
@@ -10667,18 +9743,6 @@ public abstract class AbstractApplication<OS extends OperatingSystem> implements
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/config/CApplicationAmbassador.java`
-#### Snippet
-```java
-         * of the perception backend.
-         */
-        public boolean measurePerformance = false;
-    }
-}
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/config/CApplicationAmbassador.java`
 #### Snippet
@@ -10703,15 +9767,15 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/conf
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
+Field initialization to `false` is redundant
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/config/CApplicationAmbassador.java`
 #### Snippet
 ```java
-    private final List<String> args;
-
-    protected Process currentLocalProcess = null;
-    protected int currentRemoteProcessId = -1;
-
+         * of the perception backend.
+         */
+        public boolean measurePerformance = false;
+    }
+}
 ```
 
 ### RedundantFieldInitialization
@@ -10775,27 +9839,39 @@ public abstract class WallIndex {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModuleConfiguration.java`
+Field initialization to `null` is redundant
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
 #### Snippet
 ```java
-        private AdHocChannel channel0;
-        private AdHocChannel channel1;
-        private int nrOfChannels = 0;
+        private VehicleIndex vehicleIndex = null;
+        private TrafficLightIndex trafficLightIndex = null;
+        private WallIndex wallIndex = null;
 
-        private AdHocModuleRadioConfiguration(AdHocModuleConfiguration parent) {
+        public Builder(Logger log) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModuleConfiguration.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
 #### Snippet
 ```java
+    public static class Builder {
+        private final Logger log;
+        private VehicleIndex vehicleIndex = null;
+        private TrafficLightIndex trafficLightIndex = null;
+        private WallIndex wallIndex = null;
+```
 
-        private double power = -1;  // Default value -1 indicates power configuration through federate
-        private Double distance = null;
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
+#### Snippet
+```java
+        private final Logger log;
+        private VehicleIndex vehicleIndex = null;
+        private TrafficLightIndex trafficLightIndex = null;
+        private WallIndex wallIndex = null;
 
-        private AdHocChannel channel0;
 ```
 
 ### RedundantFieldInitialization
@@ -10823,219 +9899,27 @@ public abstract class AbstractCommunicationModuleConfiguration implements Commun
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
-#### Snippet
-```java
-        private VehicleIndex vehicleIndex = null;
-        private TrafficLightIndex trafficLightIndex = null;
-        private WallIndex wallIndex = null;
-
-        public Builder(Logger log) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
-#### Snippet
-```java
-        private final Logger log;
-        private VehicleIndex vehicleIndex = null;
-        private TrafficLightIndex trafficLightIndex = null;
-        private WallIndex wallIndex = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/TrafficObjectIndex.java`
-#### Snippet
-```java
-    public static class Builder {
-        private final Logger log;
-        private VehicleIndex vehicleIndex = null;
-        private TrafficLightIndex trafficLightIndex = null;
-        private WallIndex wallIndex = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
-#### Snippet
-```java
-     * Tells whether the way is a oneway.
-     */
-    private boolean isOneway = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModuleConfiguration.java`
 #### Snippet
 ```java
-    private double maxSpeedInMs = 0;
-    private int lanesForward = 0;
-    private int lanesBackward = 0;
+        private AdHocChannel channel0;
+        private AdHocChannel channel1;
+        private int nrOfChannels = 0;
 
-    private final List<Node> nodes = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
-#### Snippet
-```java
-
-    private double maxSpeedInMs = 0;
-    private int lanesForward = 0;
-    private int lanesBackward = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
-#### Snippet
-```java
-    private final String type;
-
-    private double maxSpeedInMs = 0;
-    private int lanesForward = 0;
-    private int lanesBackward = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
-#### Snippet
-```java
-     * Flag indicating if this node has been generated from an edge's shape.
-     */
-    private boolean generated = false;
-    
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
-#### Snippet
-```java
-     * Flag indicating if this node is an intersection.
-     */
-    private boolean intersection = false;
-
-    private final List<Way> ways = new ArrayList<>();
+        private AdHocModuleRadioConfiguration(AdHocModuleConfiguration parent) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
-#### Snippet
-```java
-     * User defined tagged value for the next CAM.
-     */
-    private byte[] userTaggedValue = null;
-
-    private Class<? extends OperatingSystem> operatingSystemCheck;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/building/Wall.java`
-#### Snippet
-```java
-     * Length of this wall, determined by the distance between its two corners im meters.
-     */
-    public transient Double length = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/commuter/SimpleCommuterApp.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/communication/AdHocModuleConfiguration.java`
 #### Snippet
 ```java
 
-    private boolean initialTripPlanned = false;
-    private boolean returnTripPlanned = false;
+        private double power = -1;  // Default value -1 indicates power configuration through federate
+        private Double distance = null;
 
-    private StopWatch stopWatch;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/commuter/SimpleCommuterApp.java`
-#### Snippet
-```java
-    private final long activityDuration;
-
-    private boolean initialTripPlanned = false;
-    private boolean returnTripPlanned = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
-#### Snippet
-```java
-
-    // Keep status of the emergency brake performed on obstacle
-    private boolean emergencyBrake = false;
-    private long stoppedAt = Long.MIN_VALUE;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
-#### Snippet
-```java
-    // Keep track of the vehicle movement for the emergency brake detection
-    private float lastSpeed = 0;
-    private float lastTime = 0;
-    private long startedBrakingAt = Long.MIN_VALUE;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
-#### Snippet
-```java
-
-    // Keep track of the vehicle movement for the emergency brake detection
-    private float lastSpeed = 0;
-    private float lastTime = 0;
-    private long startedBrakingAt = Long.MIN_VALUE;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
-#### Snippet
-```java
-    private final MutableGeoPoint maxBounds = new MutableGeoPoint(-90, -180);
-
-    private transient List<String> borderNodes = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/trafficlight/TrafficLightControlApp.java`
-#### Snippet
-```java
-public class TrafficLightControlApp extends AbstractApplication<TrafficLightOperatingSystem> {
-
-    private boolean lengthened = false;
-
-    @Override
+        private AdHocChannel channel0;
 ```
 
 ### RedundantFieldInitialization
@@ -11067,9 +9951,9 @@ Field initialization to `false` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CMappingConfiguration.java`
 #### Snippet
 ```java
-     * result in slightly randomized departure times. The specified `targetFlow` of the vehicle spawner is kept.
+     * All spawners before {@code start} will be completely ignored then.
      */
-    public boolean randomizeFlows = false;
+    public boolean adjustStartingTimes = false;
 
     /**
 ```
@@ -11079,23 +9963,11 @@ Field initialization to `false` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CMappingConfiguration.java`
 #### Snippet
 ```java
-     * All spawners before {@code start} will be completely ignored then.
+     * result in slightly randomized departure times. The specified `targetFlow` of the vehicle spawner is kept.
      */
-    public boolean adjustStartingTimes = false;
+    public boolean randomizeFlows = false;
 
     /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
-#### Snippet
-```java
-    public double length = 0.0;
-    public double width = 0.0;
-    public double height = 0.0;
-    public double minGap = 0.0;
-    public double maxSpeed = 0.0;
 ```
 
 ### RedundantFieldInitialization
@@ -11151,30 +10023,6 @@ Field initialization to `0.0` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
 #### Snippet
 ```java
-    public double width = 0.0;
-    public double height = 0.0;
-    public double minGap = 0.0;
-    public double maxSpeed = 0.0;
-    public double speedFactor = 0.0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
-#### Snippet
-```java
-    public double height = 0.0;
-    public double minGap = 0.0;
-    public double maxSpeed = 0.0;
-    public double speedFactor = 0.0;
-    public double accel = 0.0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
-#### Snippet
-```java
     public double speedFactor = 0.0;
     public double accel = 0.0;
     public double decel = 0.0;
@@ -11187,11 +10035,47 @@ Field initialization to `0.0` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
 #### Snippet
 ```java
+    public double length = 0.0;
+    public double width = 0.0;
+    public double height = 0.0;
+    public double minGap = 0.0;
+    public double maxSpeed = 0.0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
+#### Snippet
+```java
     public double minGap = 0.0;
     public double maxSpeed = 0.0;
     public double speedFactor = 0.0;
     public double accel = 0.0;
     public double decel = 0.0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
+#### Snippet
+```java
+    public double height = 0.0;
+    public double minGap = 0.0;
+    public double maxSpeed = 0.0;
+    public double speedFactor = 0.0;
+    public double accel = 0.0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/CParameterDeviations.java`
+#### Snippet
+```java
+    public double width = 0.0;
+    public double height = 0.0;
+    public double minGap = 0.0;
+    public double maxSpeed = 0.0;
+    public double speedFactor = 0.0;
 ```
 
 ### RedundantFieldInitialization
@@ -11223,9 +10107,9 @@ Field initialization to `0` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/units/CVehicle.java`
 #### Snippet
 ```java
-     * Position within the connection of the route where the vehicle(-s) should be spawned.
+     * The index of the connection of the route where the vehicle will start on.
      */
-    public int pos = 0;
+    public int departConnectionIndex = 0;
 
     /**
 ```
@@ -11235,11 +10119,23 @@ Field initialization to `0` is redundant
 in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/config/units/CVehicle.java`
 #### Snippet
 ```java
-     * The index of the connection of the route where the vehicle will start on.
+     * Position within the connection of the route where the vehicle(-s) should be spawned.
      */
-    public int departConnectionIndex = 0;
+    public int pos = 0;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/AbstractSimulationUnit.java`
+#### Snippet
+```java
+     * User defined tagged value for the next CAM.
+     */
+    private byte[] userTaggedValue = null;
+
+    private Class<? extends OperatingSystem> operatingSystemCheck;
 ```
 
 ### RedundantFieldInitialization
@@ -11267,75 +10163,219 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/w
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
 #### Snippet
 ```java
-    private final T[] elements;
 
-    private int head = 0;
-    private boolean ringMode = false;
+    @CommandLineOption(longOption = "hosts", argName = "PATH", description = "Path to host configuration file (default: etc/hosts.json)")
+    public String hostsConfiguration = null;
 
+    @CommandLineOption(shortOption = "l", longOption = "logger", argName = "PATH", description = "Path to logback configuration file (default: etc/logback.xml)")
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
 #### Snippet
 ```java
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private int index = 0;
 
-            public boolean hasNext() {
+    @CommandLineOption(shortOption = "o", longOption = "log-level", argName = "LOGLEVEL", description = "Overrides the log level to new value (e.g. DEBUG)")
+    public String logLevel = null;
+
+    @CommandLineOption(longOption = "runtime", argName = "PATH", description = "Path to MOSAIC RTI configuration file (default: etc/runtime.json)")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "w", longOption = "watchdog-interval", argName = "SECONDS", description = "Kill MOSAIC process after n seconds if a federate is not responding. 0 disables the watchdog. (default: 30)")
+    public String watchdogInterval = null;
+
+    @CommandLineOption(shortOption = "r", longOption = "random-seed", argName = "SEED", description = "Overrides the random seed which is given in the scenario configuration file")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(longOption = "runtime", argName = "PATH", description = "Path to MOSAIC RTI configuration file (default: etc/runtime.json)")
+    public String runtimeConfiguration = null;
+
+    @CommandLineOption(longOption = "hosts", argName = "PATH", description = "Path to host configuration file (default: etc/hosts.json)")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "b", longOption = "realtime-brake", argName = "REALTIMEFACTOR", description = "Set value for real time brake.")
+    public String realtimeBrake = null;
+
+    @CommandLineOption(shortOption = "o", longOption = "log-level", argName = "LOGLEVEL", description = "Overrides the log level to new value (e.g. DEBUG)")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "l", longOption = "logger", argName = "PATH", description = "Path to logback configuration file (default: etc/logback.xml)")
+    public String loggerConfiguration = null;
+
+    @CommandLineOption(shortOption = "e", longOption = "external-watchdog", argName = "PORTNUMBER", description = "Specific external watchdog port number")
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
 #### Snippet
 ```java
 
-    private int head = 0;
-    private boolean ringMode = false;
+    @CommandLineOption(shortOption = "v", longOption = "start-visualizer", description = "Starts the web socket visualizer.")
+    public boolean startVisualizer = false;
+
+    @CommandLineOption(shortOption = "b", longOption = "realtime-brake", argName = "REALTIMEFACTOR", description = "Set value for real time brake.")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "e", longOption = "external-watchdog", argName = "PORTNUMBER", description = "Specific external watchdog port number")
+    public String externalWatchDog = null;
+
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "s", longOption = "scenario", argName = "NAME", description = "The name of the MOSAIC scenario. Can be used instead of \"-c\" parameter. (mandatory)", group = "config")
+    public String scenarioName = null;
+
+    @CommandLineOption(shortOption = "w", longOption = "watchdog-interval", argName = "SECONDS", description = "Kill MOSAIC process after n seconds if a federate is not responding. 0 disables the watchdog. (default: 30)")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/cli/MosaicParameters.java`
+#### Snippet
+```java
+
+    @CommandLineOption(shortOption = "c", longOption = "config", argName = "PATH", description = "Path to MOSAIC scenario configuration file (scenario_config.json). Can be used instead of \"-s\" parameter. (mandatory).", group = "config")
+    public String configurationPath = null;
+
+    @CommandLineOption(shortOption = "s", longOption = "scenario", argName = "NAME", description = "The name of the MOSAIC scenario. Can be used instead of \"-c\" parameter. (mandatory)", group = "config")
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
+#### Snippet
+```java
+        public String host = "local";
+
+        public int port = 0;
+        public boolean deploy = false;
+        public boolean start = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
+#### Snippet
+```java
+
+        public int port = 0;
+        public boolean deploy = false;
+        public boolean start = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/config/CRuntime.java`
+#### Snippet
+```java
+        public int port = 0;
+        public boolean deploy = false;
+        public boolean start = false;
+
+        @JacksonXmlElementWrapper(localName = "subscriptions")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/config/CRouting.java`
+#### Snippet
+```java
+     * The source for the route calculation, e.g. the path to the database containing the road network.
+     */
+    public String source = null;
+
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/SlowDownApp.java`
+#### Snippet
+```java
+    private final static float SPEED = 25 / 3.6f;
+
+    private boolean hazardousArea = false;
 
     /**
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/RoutingParameters.java`
 #### Snippet
 ```java
-    private static class MeasurementAggregation {
-        private long calls = 0;
-        private long total = 0;
-        private long min = Long.MAX_VALUE;
-        private long max = 0;
+public class RoutingParameters {
+
+    private int numAlternativeRoutes = 0;
+
+    private RoutingCostFunction routingCostFunction = RoutingCostFunction.Fastest;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+Field initialization to `false` is redundant
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/RoutingParameters.java`
 #### Snippet
 ```java
+    private RoutingCostFunction routingCostFunction = RoutingCostFunction.Fastest;
 
-    private static class MeasurementAggregation {
-        private long calls = 0;
-        private long total = 0;
-        private long min = Long.MAX_VALUE;
+    private boolean considerTurnCosts = false;
+
+    private double restrictionCosts = Double.POSITIVE_INFINITY;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+Field initialization to `false` is redundant
+in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherWarningApp.java`
 #### Snippet
 ```java
-        private long total = 0;
-        private long min = Long.MAX_VALUE;
-        private long max = 0;
+     * Flag that is set if the route has already been changed.
+     */
+    private boolean routeChanged = false;
 
-
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -11348,6 +10388,18 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/V
     private long start = 0;
     private long end = Long.MAX_VALUE;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+#### Snippet
+```java
+     * for initializing static objects such as RSUs, TMCs and charging stations.
+     */
+    private boolean immobileUnitsInitialized = false;
+    /**
+     * Flag used to indicate if traffic lights have been initialized
 ```
 
 ### RedundantFieldInitialization
@@ -11376,14 +10428,554 @@ in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/S
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
 #### Snippet
 ```java
-     * for initializing static objects such as RSUs, TMCs and charging stations.
-     */
-    private boolean immobileUnitsInitialized = false;
+
+    private SPTEntry toNode = null;
+    private boolean finished = false;
+
     /**
-     * Flag used to indicate if traffic lights have been initialized
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
+#### Snippet
+```java
+    private final IntObjectMap<SPTEntry> nodeEntries = new IntObjectHashMap<>();
+
+    private SPTEntry toNode = null;
+    private boolean finished = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+    private int realtimeBrake = 0;
+    private int watchdogInterval = DEFAULT_WATCHDOG_INTERVAL;
+    private int externalWatchdogPort = 0;
+
+    private Logger log = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+    private int externalWatchdogPort = 0;
+
+    private Logger log = null;
+    private ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+    private String logLevelOverride;
+
+    private int realtimeBrake = 0;
+    private int watchdogInterval = DEFAULT_WATCHDOG_INTERVAL;
+    private int externalWatchdogPort = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
+#### Snippet
+```java
+    private HashSet<Integer> relevantEdgesIDs;
+
+    private int requestAlternatives = 0;
+
+    private List<Path> alternativePaths;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/InductionLoop.java`
+#### Snippet
+```java
+     * Latest time stamp when traffic flow was cached.
+     */
+    private long trafficFlowCacheTime = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/SimulationTraciRequest.java`
+#### Snippet
+```java
+        implements org.eclipse.mosaic.fed.sumo.bridge.api.SimulationTraciRequest {
+
+    private String msgId = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/TrafficLightGetControlledJunctions.java`
+#### Snippet
+```java
+public class TrafficLightGetControlledJunctions implements org.eclipse.mosaic.fed.sumo.bridge.api.TrafficLightGetControlledJunctions {
+
+    boolean warned = false;
+
+    public List<String> execute(Bridge bridge, String tlId) throws CommandException, InternalFederateException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
+#### Snippet
+```java
+     * Total number od bytes.
+     */
+    protected int totalBytesLeft = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
+#### Snippet
+```java
+     * Number of bytes that have benn read.
+     */
+    protected int numBytesRead = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
+#### Snippet
+```java
+     * This could be helpful as IDM should be parametrized with lower time gaps to achieve specific time gap values.
+     */
+    public double timeGapOffset = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/config/CSumo.java`
+#### Snippet
+```java
+     * Prints out all traci calls.
+     */
+    public boolean debugTraciCalls = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/ExternalVehicleState.java`
+#### Snippet
+```java
+     * added during simulation.
+     */
+    private boolean added = false;
+
+    private VehicleData lastMovementInfo = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/ExternalVehicleState.java`
+#### Snippet
+```java
+    private boolean added = false;
+
+    private VehicleData lastMovementInfo = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/MosaicComponentParameters.java`
+#### Snippet
+```java
+     * The realtime break to slow down simulation for debugging/visualization purposes.
+     */
+    private int realTimeBreak = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+     * Current time in milliseconds, used to check if program is still alive.
+     */
+    private volatile long timeOfLastUpdate = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
+#### Snippet
+```java
+
+    private ScheduledEvents queue = null;
+    private int activeCount = 0;
+
+    private InternalFederateException exceptionInThread = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
+#### Snippet
+```java
+    private final Worker[] workers;
+    private final ComponentProvider federation;
+    private boolean running = false;
+
+    private ScheduledEvents queue = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
+#### Snippet
+```java
+    private int activeCount = 0;
+
+    private InternalFederateException exceptionInThread = null;
+
+    ThreadPool(ComponentProvider federation, int numberOfThreads) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/ThreadPool.java`
+#### Snippet
+```java
+    private boolean running = false;
+
+    private ScheduledEvents queue = null;
+    private int activeCount = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+        private long passedRealtimeSinceLogNs = 0;
+        private long lastSimTime = 0;
+        private long lastRealTimeNs = 0;
+
+        private PerformanceInformation performance = new PerformanceInformation();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+        private double passedSimulationTimeSinceLogNs = 0;
+        private long passedRealtimeSinceLogNs = 0;
+        private long lastSimTime = 0;
+        private long lastRealTimeNs = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+
+        private double passedSimulationTimeSinceLogNs = 0;
+        private long passedRealtimeSinceLogNs = 0;
+        private long lastSimTime = 0;
+        private long lastRealTimeNs = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+    protected static class PerformanceCalculator {
+
+        private double passedSimulationTimeSinceLogNs = 0;
+        private long passedRealtimeSinceLogNs = 0;
+        private long lastSimTime = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/AbstractTimeManagement.java`
+#### Snippet
+```java
+    private final Logger progressLogger;
+
+    private long lastLogTime = 0;
+
+    private long simStartRealtimeNs;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+        private final String id;
+        private VehicleData currentVehicleData = null;
+        private VehicleData lastVehicleData = null;
+        private Double frontSensorDistance = null;
+        private Double rearSensorDistance = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+     * before the next simulation step.
+     */
+    private boolean updateBestLanesBeforeNextSimulationStep = false;
+    private boolean noRearSensorConfigured = true;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+        private VehicleData lastVehicleData = null;
+        private Double frontSensorDistance = null;
+        private Double rearSensorDistance = null;
+
+        private SumoVehicleState(String id) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+    private static class SumoVehicleState {
+        private final String id;
+        private VehicleData currentVehicleData = null;
+        private VehicleData lastVehicleData = null;
+        private Double frontSensorDistance = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+        private VehicleData currentVehicleData = null;
+        private VehicleData lastVehicleData = null;
+        private Double frontSensorDistance = null;
+        private Double rearSensorDistance = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+#### Snippet
+```java
+     * The current lookahead for time advance requests.
+     */
+    protected long lookahead = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
+#### Snippet
+```java
+     * be deployed and started.
+     */
+    private CLocalHost host = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
+#### Snippet
+```java
+     * working directory before starting it.
+     */
+    private boolean deployAndUndeploy = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
+#### Snippet
+```java
+     * The configuration directory for the federate.
+     */
+    private File configDir = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
+#### Snippet
+```java
+     * Flag signalizing whether to start/stop the federate external component (e.g. an external executable).
+     */
+    private boolean startAndStop = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederateDescriptor.java`
+#### Snippet
+```java
+     * can be found.
+     */
+    private File binariesDir = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/JavaFederateExecutor.java`
+#### Snippet
+```java
+    private final FederateDescriptor handle;
+
+    private ExecutableFederateExecutor delegateExecFederateStarter = null;
+
+    public JavaFederateExecutor(FederateDescriptor handle, String mainClass, String programArguments) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+     * Command used to start Sumo.
+     */
+    FederateExecutor federateExecutor = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/ExecutableFederateExecutor.java`
+#### Snippet
+```java
+    private final List<String> args;
+
+    protected Process currentLocalProcess = null;
+    protected int currentRemoteProcessId = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+#### Snippet
+```java
+
+    private int head = 0;
+    private boolean ringMode = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+#### Snippet
+```java
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int index = 0;
+
+            public boolean hasNext() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/RingBuffer.java`
+#### Snippet
+```java
+    private final T[] elements;
+
+    private int head = 0;
+    private boolean ringMode = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+#### Snippet
+```java
+        private long total = 0;
+        private long min = Long.MAX_VALUE;
+        private long max = 0;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+#### Snippet
+```java
+
+    private static class MeasurementAggregation {
+        private long calls = 0;
+        private long total = 0;
+        private long min = Long.MAX_VALUE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/PerformanceMonitor.java`
+#### Snippet
+```java
+    private static class MeasurementAggregation {
+        private long calls = 0;
+        private long total = 0;
+        private long min = Long.MAX_VALUE;
+        private long max = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -11399,15 +10991,339 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/Event.
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/write/WriteByLog.java`
+Field initialization to `false` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
 #### Snippet
 ```java
 
-    private final int appenderIdx;
-    private static int cnt = 0;
+    // Keep status of the emergency brake performed on obstacle
+    private boolean emergencyBrake = false;
+    private long stoppedAt = Long.MIN_VALUE;
 
-    public WriteByLog(File outputFile, boolean append) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
+#### Snippet
+```java
+    // Keep track of the vehicle movement for the emergency brake detection
+    private float lastSpeed = 0;
+    private float lastTime = 0;
+    private long startedBrakingAt = Long.MIN_VALUE;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
+#### Snippet
+```java
+
+    // Keep track of the vehicle movement for the emergency brake detection
+    private float lastSpeed = 0;
+    private float lastTime = 0;
+    private long startedBrakingAt = Long.MIN_VALUE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/trafficlight/TrafficLightControlApp.java`
+#### Snippet
+```java
+public class TrafficLightControlApp extends AbstractApplication<TrafficLightOperatingSystem> {
+
+    private boolean lengthened = false;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/commuter/SimpleCommuterApp.java`
+#### Snippet
+```java
+
+    private boolean initialTripPlanned = false;
+    private boolean returnTripPlanned = false;
+
+    private StopWatch stopWatch;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/commuter/SimpleCommuterApp.java`
+#### Snippet
+```java
+    private final long activityDuration;
+
+    private boolean initialTripPlanned = false;
+    private boolean returnTripPlanned = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0d` is redundant
+in `lib/mosaic-communication/src/main/java/org/eclipse/mosaic/lib/model/transmission/CTransmission.java`
+#### Snippet
+```java
+     * means that lossProbability=0 (lossfree), lossProbability=1 (100% lossy).
+     */
+    public double lossProbability = 0.0d;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/SpatialTreeTraverser.java`
+#### Snippet
+```java
+
+    public static class InRadius<T> extends CenterDistanceBased<T> {
+        protected double radiusSqr = 0;
+        protected final List<T> result = new ArrayList<>();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/SpatialTreeTraverser.java`
+#### Snippet
+```java
+
+    public static class Nearest<T> extends CenterDistanceBased<T> {
+        protected T nearest = null;
+        protected double distanceSqr = Double.POSITIVE_INFINITY;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
+#### Snippet
+```java
+    private class KdNode extends Node {
+        private List<Node> children = null;
+        private List<T> items = null;
+
+        KdNode(List<T> items, int bucketSz, int depth) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/KdTree.java`
+#### Snippet
+```java
+
+    private class KdNode extends Node {
+        private List<Node> children = null;
+        private List<T> items = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/LazyGeoProjection.java`
+#### Snippet
+```java
+
+    private final ProjectionFactory projectionFactory;
+    private GeoProjection inst = null;
+
+    public LazyGeoProjection() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/GeoProjection.java`
+#### Snippet
+```java
+    }
+
+    private volatile GeoCalculator geoCalculator = null;
+
+    public GeoProjection setGeoCalculator(GeoCalculator geoCalculator) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerContainer.java`
+#### Snippet
+```java
+     * The process which corresponds with the running container.
+     */
+    private Process process = null;
+
+    DockerContainer(String image, String name, List<Pair<Integer, Integer>> portBindings) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
+#### Snippet
+```java
+    private String user;
+    private List<Pair<File, String>> volumeBindings = new Vector<>();
+    private boolean removeAfterRun = false;
+    private boolean removeBeforeRun;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+#### Snippet
+```java
+
+    private boolean failIfOutsideWorld = false;
+    private boolean useZoneOfUtmOrigin = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+#### Snippet
+```java
+    private final UtmPoint utmOrigin;
+
+    private boolean failIfOutsideWorld = false;
+    private boolean useZoneOfUtmOrigin = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/EtsiPayloadConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private static EtsiPayloadConfiguration globalConfiguration = null;
+
+    public static EtsiPayloadConfiguration getPayloadConfiguration() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/Spatm.java`
+#### Snippet
+```java
+     * The encoded message.
+     */
+    private EncodedPayload payload = null;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/cam/TrafficLightAwarenessData.java`
+#### Snippet
+```java
+     * therefore it will not be available after a encoded DENM message has been decoded.
+     */
+    private transient TrafficLightGroup trafficLightGroup = null;
+    
+    public TrafficLightAwarenessData(DataInput dataInput) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
+#### Snippet
+```java
+
+        final ArrayList<QuadTree<?>.ObjectAndNode> objects = new ArrayList<>();
+        int objectsCount = 0;
+        TreeNode[] childNodes = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
+#### Snippet
+```java
+
+    class ObjectAndNode {
+        TreeNode node = null;
+        final T object;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTree.java`
+#### Snippet
+```java
+        final ArrayList<QuadTree<?>.ObjectAndNode> objects = new ArrayList<>();
+        int objectsCount = 0;
+        TreeNode[] childNodes = null;
+
+        private TreeNode(int depth, double minX, double maxX, double minZ, double maxZ) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/ivim/Advice.java`
+#### Snippet
+```java
+     * Tells whether the lane is dedicated for AVs only.
+     */
+    private boolean dedicatedForAvsOnly = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/cam/VehicleAwarenessData.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings(value = "JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS", justification = "is only used for caching purposes")
+    private transient String cachedString = null;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
+#### Snippet
+```java
+     * Tells if the traffic sign is variable.
+     */
+    private boolean isVariable = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
+#### Snippet
+```java
+     * 0.0 is north, 90.0 is east
+     */
+    private double angle = 0.0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/SpeedLimit.java`
+#### Snippet
+```java
+    private double speedLimit;
+
+    private Double initialSpeedLimit = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -11435,6 +11351,90 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/CAbstractNe
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
+#### Snippet
+```java
+    private final String type;
+
+    private double maxSpeedInMs = 0;
+    private int lanesForward = 0;
+    private int lanesBackward = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
+#### Snippet
+```java
+     * Tells whether the way is a oneway.
+     */
+    private boolean isOneway = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
+#### Snippet
+```java
+    private double maxSpeedInMs = 0;
+    private int lanesForward = 0;
+    private int lanesBackward = 0;
+
+    private final List<Node> nodes = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Way.java`
+#### Snippet
+```java
+
+    private double maxSpeedInMs = 0;
+    private int lanesForward = 0;
+    private int lanesBackward = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
+#### Snippet
+```java
+     * Flag indicating if this node is an intersection.
+     */
+    private boolean intersection = false;
+
+    private final List<Way> ways = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
+#### Snippet
+```java
+     * Flag indicating if this node has been generated from an edge's shape.
+     */
+    private boolean generated = false;
+    
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/building/Wall.java`
+#### Snippet
+```java
+     * Length of this wall, determined by the distance between its two corners im meters.
+     */
+    public transient Double length = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
 #### Snippet
@@ -11459,25 +11459,25 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNet
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+Field initialization to `0` is redundant
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/write/WriteByLog.java`
 #### Snippet
 ```java
-    private final UtmPoint utmOrigin;
 
-    private boolean failIfOutsideWorld = false;
-    private boolean useZoneOfUtmOrigin = false;
+    private final int appenderIdx;
+    private static int cnt = 0;
 
+    public WriteByLog(File outputFile, boolean append) {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+Field initialization to `null` is redundant
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
 #### Snippet
 ```java
+    private final MutableGeoPoint maxBounds = new MutableGeoPoint(-90, -180);
 
-    private boolean failIfOutsideWorld = false;
-    private boolean useZoneOfUtmOrigin = false;
+    private transient List<String> borderNodes = null;
 
     /**
 ```
@@ -11485,14 +11485,14 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Proje
 ## RuleId[id=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/PublicTransportData.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/objects/VehicleObject.java`
 #### Snippet
 ```java
-     * Class representing a vehicle stopping place.
-     */
-    public static class StoppingPlace {
-        /**
-         * Id of the stop.
+import javax.annotation.Nullable;
+
+public class VehicleObject extends SpatialObject<VehicleObject> {
+
+    /**
 ```
 
 ### EqualsAndHashcode
@@ -11509,53 +11509,17 @@ public class TrafficLightObject extends SpatialObject<TrafficLightObject> {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/simulation/perception/index/objects/VehicleObject.java`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/PublicTransportData.java`
 #### Snippet
 ```java
-import javax.annotation.Nullable;
-
-public class VehicleObject extends SpatialObject<VehicleObject> {
-
-    /**
+     * Class representing a vehicle stopping place.
+     */
+    public static class StoppingPlace {
+        /**
+         * Id of the stop.
 ```
 
 ## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `Rectangle`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianRectangle.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.lib.geo;
-
-public class CartesianRectangle implements Rectangle<CartesianPoint>, Bounds<CartesianPoint>, CartesianArea {
-
-    private static final long serialVersionUID = 1L;
-```
-
-### RedundantImplements
-Redundant interface declaration `Rectangle`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoRectangle.java`
-#### Snippet
-```java
- * Together they form a rectangular area.
- */
-public class GeoRectangle implements Rectangle<GeoPoint>, Bounds<GeoPoint>, GeoArea {
-
-    private static final long serialVersionUID = 1L;
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-public abstract class LineString<T extends Vector3d> extends ArrayList<T> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-```
-
 ### RedundantImplements
 Redundant interface declaration `Application`
 in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/api/TrafficManagementCenterApplication.java`
@@ -11629,6 +11593,42 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/conf
 ```
 
 ### RedundantImplements
+Redundant interface declaration `Rectangle`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/CartesianRectangle.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.lib.geo;
+
+public class CartesianRectangle implements Rectangle<CartesianPoint>, Bounds<CartesianPoint>, CartesianArea {
+
+    private static final long serialVersionUID = 1L;
+```
+
+### RedundantImplements
+Redundant interface declaration `Rectangle`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoRectangle.java`
+#### Snippet
+```java
+ * Together they form a rectangular area.
+ */
+public class GeoRectangle implements Rectangle<GeoPoint>, Bounds<GeoPoint>, GeoArea {
+
+    private static final long serialVersionUID = 1L;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+public abstract class LineString<T extends Vector3d> extends ArrayList<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+```
+
+### RedundantImplements
 Redundant interface declaration `Runnable`
 in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/websocket/WebsocketVisualizerServer.java`
 #### Snippet
@@ -11643,7 +11643,7 @@ public class WebsocketVisualizerServer extends WebSocketServer implements Runnab
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-04-20-39.800.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-13-02-14.878.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -11654,6 +11654,18 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-04-20-39.800.
 ```
 
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer b` may be declared as 'StringBuilder'
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
+#### Snippet
+```java
+        int endRowIndex = max(csvSize, csvSize + exportSize);
+
+        StringBuffer b;
+        for (int rowIndex = csvSize; rowIndex < endRowIndex; rowIndex++) {
+            b = new StringBuffer(Long.toUnsignedString((csvSize * interval) / TIME.SECOND));
+```
+
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer sb` may be declared as 'StringBuilder'
 in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/app/tutorial/message/InterVehicleMsg.java`
@@ -11688,18 +11700,6 @@ in `app/tutorials/traffic-light-communication/src/main/java/org/eclipse/mosaic/a
         final StringBuffer sb = new StringBuffer("GreenWaveMsg{");
         sb.append("message='").append(message).append('\'');
         sb.append('}');
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer b` may be declared as 'StringBuilder'
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/PerRegionBandwidthMeasurement.java`
-#### Snippet
-```java
-        int endRowIndex = max(csvSize, csvSize + exportSize);
-
-        StringBuffer b;
-        for (int rowIndex = csvSize; rowIndex < endRowIndex; rowIndex++) {
-            b = new StringBuffer(Long.toUnsignedString((csvSize * interval) / TIME.SECOND));
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -11743,14 +11743,14 @@ public interface VehicleSetMaxAcceleration {
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicClassLoader.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/ApplicationAmbassador.java`
 #### Snippet
 ```java
-                    .toArray(URL[]::new);
-        } catch (Exception e) {
-            return new URL[0];
         }
-    }
+        SimulationKernel.SimulationKernel.setClassLoader(new URLClassLoader(
+                urls.toArray(new URL[0]),
+                Thread.currentThread().getContextClassLoader()
+        ));
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11762,6 +11762,18 @@ in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicClassLoade
             }
             return new MosaicClassLoader(new URL[0], ClassLoader.getSystemClassLoader());
         });
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicClassLoader.java`
+#### Snippet
+```java
+                    .toArray(URL[]::new);
+        } catch (Exception e) {
+            return new URL[0];
+        }
     }
 ```
 
@@ -11791,30 +11803,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/Abstr
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/EncodedPayload.java`
-#### Snippet
-```java
-    public byte[] getBytes() {
-        if (bytes == null) {
-            return new byte[0];
-        }
-        return bytes.clone();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/ApplicationAmbassador.java`
-#### Snippet
-```java
-        }
-        SimulationKernel.SimulationKernel.setClassLoader(new URLClassLoader(
-                urls.toArray(new URL[0]),
-                Thread.currentThread().getContextClassLoader()
-        ));
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
 #### Snippet
 ```java
@@ -11825,19 +11813,44 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLinePa
         // write option values into parameter object
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `payload` initializer `null` is redundant
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/Spatm.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/EncodedPayload.java`
 #### Snippet
 ```java
-     * The encoded message.
-     */
-    private EncodedPayload payload = null;
-
-    @Override
+    public byte[] getBytes() {
+        if (bytes == null) {
+            return new byte[0];
+        }
+        return bytes.clone();
 ```
 
+## RuleId[id=TypeParameterExtendsObject]
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
+#### Snippet
+```java
+     * Pre-register commands.
+     */
+    public <T extends Object> T register(Class<? extends T> clazz, T command) {
+        commands.put(clazz, command);
+        return command;
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException if the given class could not be instantiated.
+     */
+    public <T extends Object> T getOrCreate(Class<T> commandClass) {
+        T command = (T) commands.get(commandClass);
+        if (command == null) {
+```
+
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `type` initializer `null` is redundant
 in `app/tutorials/weather-warning/src/main/java/org/eclipse/mosaic/app/tutorial/WeatherWarningApp.java`
@@ -11874,29 +11887,16 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/JsonUtils.java`
         String tmp;
 ```
 
-## RuleId[id=TypeParameterExtendsObject]
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
+### UnusedAssignment
+Variable `payload` initializer `null` is redundant
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/Spatm.java`
 #### Snippet
 ```java
-     * Pre-register commands.
+     * The encoded message.
      */
-    public <T extends Object> T register(Class<? extends T> clazz, T command) {
-        commands.put(clazz, command);
-        return command;
-```
+    private EncodedPayload payload = null;
 
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException if the given class could not be instantiated.
-     */
-    public <T extends Object> T getOrCreate(Class<T> commandClass) {
-        T command = (T) commands.get(commandClass);
-        if (command == null) {
+    @Override
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -11999,19 +11999,20 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNet
             final String errorPattern = ".*Error:.*";
 ```
 
-## RuleId[id=SuspiciousNameCombination]
-### SuspiciousNameCombination
-'laneWidth' should probably not be passed as parameter 'height'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
+## RuleId[id=SocketResource]
+### SocketResource
+'Socket' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
 #### Snippet
 ```java
-        double y = basePoint.getY() + Math.cos(Math.toRadians(angle + 90)) * distanceFromBase;
-        if (bridge != null && image != null) {
-            bridge.getPoiControl().addImagePoi(id, CartesianPoint.xy(x, y), image, laneWidth, laneWidth, angle);
-        } else {
-            LOG.error("Could not add traffic sign image.");
+    public void run() {
+        try {
+            final Socket socket = serverSocket.accept();
+            final DataInputStream in = new DataInputStream(socket.getInputStream());
+            int status = in.readInt();
 ```
 
+## RuleId[id=SuspiciousNameCombination]
 ### SuspiciousNameCombination
 'maxWidth' should probably not be passed as parameter 'height'
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignImageCreator.java`
@@ -12060,20 +12061,187 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignIm
                 top += borderWidth + innerWidth / 2 + textSize.height / 2;
 ```
 
-## RuleId[id=SocketResource]
-### SocketResource
-'Socket' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
+### SuspiciousNameCombination
+'laneWidth' should probably not be passed as parameter 'height'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
 #### Snippet
 ```java
-    public void run() {
-        try {
-            final Socket socket = serverSocket.accept();
-            final DataInputStream in = new DataInputStream(socket.getInputStream());
-            int status = in.readInt();
+        double y = basePoint.getY() + Math.cos(Math.toRadians(angle + 90)) * distanceFromBase;
+        if (bridge != null && image != null) {
+            bridge.getPoiControl().addImagePoi(id, CartesianPoint.xy(x, y), image, laneWidth, laneWidth, angle);
+        } else {
+            LOG.error("Could not add traffic sign image.");
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ConfigBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/gson/ConfigBuilderFactory.java`
+#### Snippet
+```java
+import com.google.gson.GsonBuilder;
+
+public class ConfigBuilderFactory {
+
+    public static GsonBuilder getConfigBuilder() throws RuntimeException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CellModuleNames` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.cell.module;
+
+public class CellModuleNames {
+    public final static String DOWNSTREAM_MODULE = "Downstream";
+    public final static String UPSTREAM_MODULE = "Upstream";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConfigurationReader` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
+#### Snippet
+```java
+ * some values used for calculation.
+ */
+public class ConfigurationReader {
+
+    private static final Logger log = LoggerFactory.getLogger(ConfigurationReader.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StreamModulesDebugLogger` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/streammodules/StreamModulesDebugLogger.java`
+#### Snippet
+```java
+ * All messages are only available for log level lower or equals DEBUG
+ */
+class StreamModulesDebugLogger {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NodeUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/NodeUtility.java`
+#### Snippet
+```java
+ * This class contains static methods to make the handling of the configuration of the nodes easier.
+ */
+public class NodeUtility {
+
+    private static final SimulationData simData = SimulationData.INSTANCE;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HandoverUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/HandoverUtility.java`
+#### Snippet
+```java
+import org.apache.commons.lang3.StringUtils;
+
+public class HandoverUtility {
+
+    public static boolean isAfterHandover(String currentRegion, String previousRegion) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RetransmissionLossUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RetransmissionLossUtility.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
+public class RetransmissionLossUtility {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NodeCapacityUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/NodeCapacityUtility.java`
+#### Snippet
+```java
+ * Static methods for handling the bandwidth calculation.
+ */
+public final class NodeCapacityUtility {
+
+    private static final Logger log = LoggerFactory.getLogger(NodeCapacityUtility.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DelayUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/DelayUtility.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
+public final class DelayUtility {
+
+    private static final Logger log = LoggerFactory.getLogger(DelayUtility.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegionCapacityUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionCapacityUtility.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
+public final class RegionCapacityUtility {
+
+    private static final Logger log = LoggerFactory.getLogger(RegionCapacityUtility.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CapacityUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/CapacityUtility.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
+public final class CapacityUtility {
+
+    private static final Logger log = LoggerFactory.getLogger(CapacityUtility.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EventNicenessPriorityRegister` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
+#### Snippet
+```java
+ * top = highest priority. bottom lowest priority.
+ */
+public class EventNicenessPriorityRegister {
+    public final static long UNIT_REMOVED = 1;
+    // vehicle
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegionUtility` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtility.java`
+#### Snippet
+```java
+ * This class contains static methods to make the region handling easier.
+ */
+public class RegionUtility {
+
+    private static final Logger log = LoggerFactory.getLogger(RegionUtility.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RoadPositionFactory` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/RoadPositionFactory.java`
+#### Snippet
+```java
+ * is mainly used for stop instructions for vehicles.
+ */
+public class RoadPositionFactory {
+
+    /**
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `WayTypeEncoder` has only 'static' members, and lacks a 'private' constructor
 in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/util/WayTypeEncoder.java`
@@ -12135,6 +12303,18 @@ public class TraciDatatypes {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CommandRetrieveTrafficLightValue` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+
+public class CommandRetrieveTrafficLightValue {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CommandRetrieveLaneAreaState` has only 'static' members, and lacks a 'private' constructor
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveLaneAreaState.java`
 #### Snippet
@@ -12159,18 +12339,6 @@ public class CommandRetrieveInductionLoopState {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandChangeTrafficLightState` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
-
-public class CommandChangeTrafficLightState {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CommandRetrieveRouteValue` has only 'static' members, and lacks a 'private' constructor
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveRouteValue.java`
 #### Snippet
@@ -12178,6 +12346,30 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
 
 public class CommandRetrieveRouteValue {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CommandVariableSubscriptions` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+
+public class CommandVariableSubscriptions {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CommandChangeTrafficLightState` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeTrafficLightState.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+
+public class CommandChangeTrafficLightState {
 
     /**
 ```
@@ -12207,25 +12399,37 @@ public class CommandRetrieveVehicleTypeState {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandRetrieveTrafficLightValue` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveTrafficLightValue.java`
+Class `CommandChangePoiState` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
 #### Snippet
 ```java
 package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
 
-public class CommandRetrieveTrafficLightValue {
+public class CommandChangePoiState {
 
-    /**
+    public final static int COMMAND = 0xc7;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandVariableSubscriptions` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandVariableSubscriptions.java`
+Class `CommandRetrieveVehicleState` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
 #### Snippet
 ```java
 package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
 
-public class CommandVariableSubscriptions {
+public class CommandRetrieveVehicleState {
+
+    public final static int COMMAND = 0xa4;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CommandChangeVehicleValue` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+
+public class CommandChangeVehicleValue {
 
     /**
 ```
@@ -12238,6 +12442,18 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/const
 package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
 
 public class CommandRetrieveSimulationValue {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CommandRetrieveJunctionValue` has only 'static' members, and lacks a 'private' constructor
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+
+public class CommandRetrieveJunctionValue {
 
     /**
 ```
@@ -12267,51 +12483,27 @@ public class CommandRetrieveLaneValue {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandChangePoiState` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangePoiState.java`
+Class `FederatePriority` has only 'static' members, and lacks a 'private' constructor
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederatePriority.java`
 #### Snippet
 ```java
-package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
-
-public class CommandChangePoiState {
-
-    public final static int COMMAND = 0xc7;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CommandRetrieveJunctionValue` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveJunctionValue.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
-
-public class CommandRetrieveJunctionValue {
+ * Constant values for prioritizing federates.
+ */
+public final class FederatePriority {
 
     /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandChangeVehicleValue` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandChangeVehicleValue.java`
+Class `InteractionUtils` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/InteractionUtils.java`
 #### Snippet
 ```java
-package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
+import java.util.Optional;
 
-public class CommandChangeVehicleValue {
+public class InteractionUtils {
 
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CommandRetrieveVehicleState` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/constants/CommandRetrieveVehicleState.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.fed.sumo.bridge.traci.constants;
-
-public class CommandRetrieveVehicleState {
-
-    public final static int COMMAND = 0xa4;
+    private final static Logger log = LoggerFactory.getLogger(InteractionUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12327,18 +12519,6 @@ public class TransmissionModel {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `UnitNameGenerator` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/UnitNameGenerator.java`
-#### Snippet
-```java
- * Helper class to generate unique names for the objects in the simulation.
- */
-public class UnitNameGenerator {
-
-    private static final Map<UnitType, AtomicInteger> unitCounters = new HashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GeoUtils` has only 'static' members, and lacks a 'private' constructor
 in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/geo/GeoUtils.java`
 #### Snippet
@@ -12351,18 +12531,6 @@ public class GeoUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GlobalRandom` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/GlobalRandom.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.lib.math;
-
-public class GlobalRandom {
-
-    private static RandomNumberGenerator RANDOM = createGoodRand(0);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SpeedUtils` has only 'static' members, and lacks a 'private' constructor
 in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/SpeedUtils.java`
 #### Snippet
@@ -12372,6 +12540,18 @@ package org.eclipse.mosaic.lib.math;
 public class SpeedUtils {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GlobalRandom` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/math/GlobalRandom.java`
+#### Snippet
+```java
+package org.eclipse.mosaic.lib.math;
+
+public class GlobalRandom {
+
+    private static RandomNumberGenerator RANDOM = createGoodRand(0);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12399,87 +12579,15 @@ public class MathUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConfigBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/gson/ConfigBuilderFactory.java`
+Class `UnitNameGenerator` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/UnitNameGenerator.java`
 #### Snippet
 ```java
-import com.google.gson.GsonBuilder;
-
-public class ConfigBuilderFactory {
-
-    public static GsonBuilder getConfigBuilder() throws RuntimeException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CellModuleNames` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModuleNames.java`
-#### Snippet
-```java
-package org.eclipse.mosaic.fed.cell.module;
-
-public class CellModuleNames {
-    public final static String DOWNSTREAM_MODULE = "Downstream";
-    public final static String UPSTREAM_MODULE = "Upstream";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigurationReader` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/util/ConfigurationReader.java`
-#### Snippet
-```java
- * some values used for calculation.
+ * Helper class to generate unique names for the objects in the simulation.
  */
-public class ConfigurationReader {
+public class UnitNameGenerator {
 
-    private static final Logger log = LoggerFactory.getLogger(ConfigurationReader.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RetransmissionLossUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RetransmissionLossUtility.java`
-#### Snippet
-```java
- */
-@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
-public class RetransmissionLossUtility {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NodeUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/NodeUtility.java`
-#### Snippet
-```java
- * This class contains static methods to make the handling of the configuration of the nodes easier.
- */
-public class NodeUtility {
-
-    private static final SimulationData simData = SimulationData.INSTANCE;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HandoverUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/HandoverUtility.java`
-#### Snippet
-```java
-import org.apache.commons.lang3.StringUtils;
-
-public class HandoverUtility {
-
-    public static boolean isAfterHandover(String currentRegion, String previousRegion) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DelayUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/DelayUtility.java`
-#### Snippet
-```java
- */
-@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
-public final class DelayUtility {
-
-    private static final Logger log = LoggerFactory.getLogger(DelayUtility.class);
+    private static final Map<UnitType, AtomicInteger> unitCounters = new HashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12495,99 +12603,15 @@ class QuadTreeTraversal {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StreamModulesDebugLogger` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/streammodules/StreamModulesDebugLogger.java`
+Class `DatabaseUtils` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
 #### Snippet
 ```java
- * All messages are only available for log level lower or equals DEBUG
+ * contained in {@link Database}s.
  */
-class StreamModulesDebugLogger {
+public class DatabaseUtils {
 
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CapacityUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/CapacityUtility.java`
-#### Snippet
-```java
- */
-@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
-public final class CapacityUtility {
-
-    private static final Logger log = LoggerFactory.getLogger(CapacityUtility.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegionCapacityUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionCapacityUtility.java`
-#### Snippet
-```java
- */
-@SuppressWarnings(value = {"NP_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"}, justification = "filled by GSON")
-public final class RegionCapacityUtility {
-
-    private static final Logger log = LoggerFactory.getLogger(RegionCapacityUtility.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NodeCapacityUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/NodeCapacityUtility.java`
-#### Snippet
-```java
- * Static methods for handling the bandwidth calculation.
- */
-public final class NodeCapacityUtility {
-
-    private static final Logger log = LoggerFactory.getLogger(NodeCapacityUtility.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegionUtility` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtility.java`
-#### Snippet
-```java
- * This class contains static methods to make the region handling easier.
- */
-public class RegionUtility {
-
-    private static final Logger log = LoggerFactory.getLogger(RegionUtility.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FederatePriority` has only 'static' members, and lacks a 'private' constructor
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/parameters/FederatePriority.java`
-#### Snippet
-```java
- * Constant values for prioritizing federates.
- */
-public final class FederatePriority {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EventNicenessPriorityRegister` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/EventNicenessPriorityRegister.java`
-#### Snippet
-```java
- * top = highest priority. bottom lowest priority.
- */
-public class EventNicenessPriorityRegister {
-    public final static long UNIT_REMOVED = 1;
-    // vehicle
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RoadPositionFactory` has only 'static' members, and lacks a 'private' constructor
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/RoadPositionFactory.java`
-#### Snippet
-```java
- * is mainly used for stop instructions for vehicles.
- */
-public class RoadPositionFactory {
-
-    /**
+    static final Logger log = LoggerFactory.getLogger(Database.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12603,27 +12627,27 @@ final class TABLES {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DatabaseUtils` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
+Class `ADDRESSTYPE` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
- * contained in {@link Database}s.
- */
-public class DatabaseUtils {
+     * Allowed address types.
+     */
+    public static final class ADDRESSTYPE {
 
-    static final Logger log = LoggerFactory.getLogger(Database.class);
+        /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `InteractionUtils` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/InteractionUtils.java`
+Class `CMD` has only 'static' members, and lacks a 'private' constructor
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-import java.util.Optional;
+    }
 
-public class InteractionUtils {
-
-    private final static Logger log = LoggerFactory.getLogger(InteractionUtils.class);
+    public static final class CMD {
+        /**
+         * Undefined Message.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12674,30 +12698,6 @@ public final class RegistrationSubscriptionTypes {
     private final static Set<String> registrationSubscriptionTypes = Collections.unmodifiableSet(Sets.newHashSet(
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `CMD` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
-#### Snippet
-```java
-    }
-
-    public static final class CMD {
-        /**
-         * Undefined Message.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ADDRESSTYPE` has only 'static' members, and lacks a 'private' constructor
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
-#### Snippet
-```java
-     * Allowed address types.
-     */
-    public static final class ADDRESSTYPE {
-
-        /**
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -12712,6 +12712,54 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/InteractionUtils.
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getTime` may produce `NullPointerException`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
+#### Snippet
+```java
+        if (newRoadPosition != null) {
+            setVehicleData(
+                    new VehicleData.Builder(getVehicleData().getTime(), getVehicleData().getName())
+                            .copyFrom(getVehicleData())
+                            .road(newRoadPosition).create()
+```
+
+### DataFlowIssue
+Method invocation `getRoadPosition` may produce `NullPointerException`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
+#### Snippet
+```java
+    @VisibleForTesting
+    boolean onRouteQuery(VehicleRoute route) {
+        return route.getConnectionIds().contains(this.getVehicleData().getRoadPosition().getConnectionId());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getNode` may produce `NullPointerException`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
+#### Snippet
+```java
+
+    private Connection getConnectionBetweenNodes(INode from, INode to) {
+        final Node fromNode = database.getNode(from.getId());
+        final Collection<Connection> fromNodeConnections = fromNode.getOutgoingConnections().isEmpty() ? fromNode.getPartOfConnections() : fromNode.getOutgoingConnections();
+
+```
+
+### DataFlowIssue
+Dereference of `plateau.targetRev.parent` may produce `NullPointerException`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
+#### Snippet
+```java
+
+            // the local optimality = weight of plateau / weight of optimal path
+            plateau.localOptimality = (plateau.startRev.weight - plateau.targetRev.parent.weight) / optimalWeight;
+
+            // if plateau consists of only one edge or is not locally optimal,
+```
+
 ### DataFlowIssue
 Method invocation `getRequestedTime` may produce `NullPointerException`
 in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/MultiThreadedTimeManagement.java`
@@ -12749,51 +12797,51 @@ in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/MultiThreadedT
 ```
 
 ### DataFlowIssue
-Method invocation `getNode` may produce `NullPointerException`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
+Method invocation `getTime` may produce `NullPointerException`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
 #### Snippet
 ```java
-
-    private Connection getConnectionBetweenNodes(INode from, INode to) {
-        final Node fromNode = database.getNode(from.getId());
-        final Collection<Connection> fromNodeConnections = fromNode.getOutgoingConnections().isEmpty() ? fromNode.getPartOfConnections() : fromNode.getOutgoingConnections();
-
-```
-
-### DataFlowIssue
-Dereference of `plateau.targetRev.parent` may produce `NullPointerException`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
-#### Snippet
-```java
-
-            // the local optimality = weight of plateau / weight of optimal path
-            plateau.localOptimality = (plateau.startRev.weight - plateau.targetRev.parent.weight) / optimalWeight;
-
-            // if plateau consists of only one edge or is not locally optimal,
-```
-
-### DataFlowIssue
-Method invocation `getRoadPosition` may produce `NullPointerException`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
-#### Snippet
-```java
-    @VisibleForTesting
-    boolean onRouteQuery(VehicleRoute route) {
-        return route.getConnectionIds().contains(this.getVehicleData().getRoadPosition().getConnectionId());
+            throw new IllegalStateException("No event in the queue.");
+        }
+        return eventQueue.peek().getTime();
     }
 
 ```
 
 ### DataFlowIssue
-Method invocation `getTime` may produce `NullPointerException`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
+Method invocation `getNice` may produce `NullPointerException`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/MultiThreadedEventScheduler.java`
 #### Snippet
 ```java
-        if (newRoadPosition != null) {
-            setVehicleData(
-                    new VehicleData.Builder(getVehicleData().getTime(), getVehicleData().getName())
-                            .copyFrom(getVehicleData())
-                            .road(newRoadPosition).create()
+            throw new IllegalStateException("No event in the queue.");
+        }
+        return eventQueue.peek().getNice();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getSpeed` may produce `NullPointerException`
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
+#### Snippet
+```java
+
+    private boolean reachedSpeed(double speed) {
+        return Math.abs(getOs().getVehicleData().getSpeed() - speed) < 0.1d;
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getSpeed` may produce `NullPointerException`
+in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
+#### Snippet
+```java
+    private void detectEmergencyBrake() {
+
+        float curSpeed = (float) getOs().getNavigationModule().getVehicleData().getSpeed();
+
+        // Calculate brake deceleration
 ```
 
 ### DataFlowIssue
@@ -12822,30 +12870,6 @@ in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/exam
 
 ### DataFlowIssue
 Method invocation `getSpeed` may produce `NullPointerException`
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
-#### Snippet
-```java
-    private void detectEmergencyBrake() {
-
-        float curSpeed = (float) getOs().getNavigationModule().getVehicleData().getSpeed();
-
-        // Calculate brake deceleration
-```
-
-### DataFlowIssue
-Method invocation `getSpeed` may produce `NullPointerException`
-in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/examples/emergencybrake/EmergencyBrakeApp.java`
-#### Snippet
-```java
-
-    private boolean reachedSpeed(double speed) {
-        return Math.abs(getOs().getVehicleData().getSpeed() - speed) < 0.1d;
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getSpeed` may produce `NullPointerException`
 in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tutorial/configurableapp/VehicleConfigurationApp.java`
 #### Snippet
 ```java
@@ -12854,42 +12878,6 @@ in `app/tutorials/example-applications/src/main/java/org/eclipse/mosaic/app/tuto
             if (getOs().getVehicleData().getSpeed() > wantedSpeed) {
                 getLog().info("The current speed equals {}m/s will be slowed down to the wanted speed equals {}m/s",
                         getOs().getVehicleData().getSpeed(), wantedSpeed);
-```
-
-### DataFlowIssue
-Method invocation `getTime` may produce `NullPointerException`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/DefaultEventScheduler.java`
-#### Snippet
-```java
-            throw new IllegalStateException("No event in the queue.");
-        }
-        return eventQueue.peek().getTime();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getNice` may produce `NullPointerException`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/scheduling/MultiThreadedEventScheduler.java`
-#### Snippet
-```java
-            throw new IllegalStateException("No event in the queue.");
-        }
-        return eventQueue.peek().getNice();
-    }
-
-```
-
-### DataFlowIssue
-Argument `methodName` might be null
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodManager.java`
-#### Snippet
-```java
-            int objLevel = objLevels.get(iterationMethodIndex);
-
-            MethodElement me = new MethodElement(objLevel, declare, methodName);
-
-            this.iterationMethods.add(me);
 ```
 
 ### DataFlowIssue
@@ -12902,6 +12890,18 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServe
         sendMess.setTime(time).setNodeId(srcNodeId).setChannelId(translateChannel(dac.getAdhocChannelId())).setMessageId(msgId).setLength(msgLength);
 
         ByteBuffer buffer = ByteBuffer.allocate(Long.SIZE);
+```
+
+### DataFlowIssue
+Argument `methodName` might be null
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodManager.java`
+#### Snippet
+```java
+            int objLevel = objLevels.get(iterationMethodIndex);
+
+            MethodElement me = new MethodElement(objLevel, declare, methodName);
+
+            this.iterationMethods.add(me);
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -12968,6 +12968,18 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/FileUtils.java`
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'Wgs84Projection' is still used
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+#### Snippet
+```java
+     * @deprecated Legacy constructor.
+     */
+    public Wgs84Projection(GeoPoint playgroundCenter, CartesianPoint cartesianOffset) {
+        final UtmZone zone = UtmZone.from(playgroundCenter);
+        this.utmOrigin = new MutableUtmPoint(
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'CORNER' is still used
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/TABLES.java`
 #### Snippet
@@ -12992,18 +13004,6 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistenc
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'addWay' is still used
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
-#### Snippet
-```java
-         * @deprecated use {@link #addWay(String, String, String)} instead
-         */
-        public Builder addWay(Way way) {
-            database.ways.put(way.getId(), way);
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'addRoute' is still used
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
 #### Snippet
@@ -13016,15 +13016,15 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.j
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'Wgs84Projection' is still used
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+Deprecated member 'addWay' is still used
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
 #### Snippet
 ```java
-     * @deprecated Legacy constructor.
-     */
-    public Wgs84Projection(GeoPoint playgroundCenter, CartesianPoint cartesianOffset) {
-        final UtmZone zone = UtmZone.from(playgroundCenter);
-        this.utmOrigin = new MutableUtmPoint(
+         * @deprecated use {@link #addWay(String, String, String)} instead
+         */
+        public Builder addWay(Way way) {
+            database.ways.put(way.getId(), way);
+
 ```
 
 ## RuleId[id=MethodOverloadsParentMethod]
@@ -13037,6 +13037,18 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Transformati
 
     public TransformationMatrix multiply(Matrix4d mat, TransformationMatrix result) {
         return (TransformationMatrix) super.multiply(mat, result);
+    }
+```
+
+### MethodOverloadsParentMethod
+Method `add()` overloads a compatible method of a superclass, when overriding might have been intended
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/TransformationMatrix.java`
+#### Snippet
+```java
+    }
+
+    public TransformationMatrix add(Matrix4d mat, TransformationMatrix result) {
+        return (TransformationMatrix) super.add(mat, result);
     }
 ```
 
@@ -13065,14 +13077,14 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/Transformati
 ```
 
 ### MethodOverloadsParentMethod
-Method `add()` overloads a compatible method of a superclass, when overriding might have been intended
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/TransformationMatrix.java`
+Method `multiply()` overloads a compatible method of a superclass, when overriding might have been intended
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/RotationMatrix.java`
 #### Snippet
 ```java
     }
 
-    public TransformationMatrix add(Matrix4d mat, TransformationMatrix result) {
-        return (TransformationMatrix) super.add(mat, result);
+    public RotationMatrix multiply(Matrix3d mat, RotationMatrix result) {
+        return (RotationMatrix) super.multiply(mat, result);
     }
 ```
 
@@ -13112,55 +13124,7 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/RotationMatr
     }
 ```
 
-### MethodOverloadsParentMethod
-Method `multiply()` overloads a compatible method of a superclass, when overriding might have been intended
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/RotationMatrix.java`
-#### Snippet
-```java
-    }
-
-    public RotationMatrix multiply(Matrix3d mat, RotationMatrix result) {
-        return (RotationMatrix) super.multiply(mat, result);
-    }
-```
-
 ## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'status' in a Serializable class
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandException.java`
-#### Snippet
-```java
-public class CommandException extends Exception {
-
-    private final Status status;
-
-    public CommandException(String errorMessage) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'value' in a Serializable class
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleParameter.java`
-#### Snippet
-```java
-    private final VehicleParameterType parameterType;
-
-    private final Object value;
-
-    public VehicleParameter(@Nonnull final VehicleParameterType parameterType, @Nonnull final Object value) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'additionalData' in a Serializable class
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleData.java`
-#### Snippet
-```java
-     */
-    @JsonAdapter(PolymorphismTypeAdapterFactory.class)
-    private final Object additionalData;
-
-    /**
-```
-
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'networkConfig' in a Serializable class
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/ConfigurationData.java`
@@ -13174,18 +13138,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/Configuration
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'cellAmbassadorConfig' in a Serializable class
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/ConfigurationData.java`
-#### Snippet
-```java
-    INSTANCE;
-
-    private CCell cellAmbassadorConfig;
-    private CNetwork networkConfig;
-    private CRegion regionConfig;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'regionConfig' in a Serializable class
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/ConfigurationData.java`
 #### Snippet
@@ -13195,6 +13147,18 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/Configuration
     private CRegion regionConfig;
 
     /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'cellAmbassadorConfig' in a Serializable class
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/ConfigurationData.java`
+#### Snippet
+```java
+    INSTANCE;
+
+    private CCell cellAmbassadorConfig;
+    private CNetwork networkConfig;
+    private CRegion regionConfig;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -13234,15 +13198,39 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'edge' in a Serializable class
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
+Non-serializable field 'status' in a Serializable class
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandException.java`
 #### Snippet
 ```java
-    private final static class EdgeWrapper extends org.eclipse.mosaic.lib.spatial.Edge<Vector3d> {
+public class CommandException extends Exception {
 
-        private final Edge edge;
+    private final Status status;
 
-        public EdgeWrapper(Edge edge) {
+    public CommandException(String errorMessage) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'value' in a Serializable class
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleParameter.java`
+#### Snippet
+```java
+    private final VehicleParameterType parameterType;
+
+    private final Object value;
+
+    public VehicleParameter(@Nonnull final VehicleParameterType parameterType, @Nonnull final Object value) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'additionalData' in a Serializable class
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/vehicle/VehicleData.java`
+#### Snippet
+```java
+     */
+    @JsonAdapter(PolymorphismTypeAdapterFactory.class)
+    private final Object additionalData;
+
+    /**
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -13255,6 +13243,18 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/No
         private final Node node;
 
         private NodeWrapper(Node node) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'edge' in a Serializable class
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
+#### Snippet
+```java
+    private final static class EdgeWrapper extends org.eclipse.mosaic.lib.spatial.Edge<Vector3d> {
+
+        private final Edge edge;
+
+        public EdgeWrapper(Edge edge) {
 ```
 
 ## RuleId[id=MismatchedJavadocCode]
@@ -13322,78 +13322,6 @@ in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
-#### Snippet
-```java
-                removeDirectory(file);
-            } else if (!file.delete()) {
-                this.log.error("Error while deleting file: {}", file.toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
-#### Snippet
-```java
-            log.debug("Destination directory does not exist, try to create it.");
-            if (!hostDeployDir.mkdirs()) {
-                log.warn("Could not create directory {}", hostDeployDir.toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
-#### Snippet
-```java
-                removeDirectory(fedDeployDir);
-                if (!fedDeployDir.mkdirs()) {
-                    log.warn("Could not create directory {}", fedDeployDir.toString());
-                }
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-
-    protected void printVersionAndCopyrightInfo() {
-        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
-        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
-        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-    protected void printMosaicVersion() {
-        LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME).info("Running Eclipse MOSAIC {} on Java JRE v{} ({})",
-                MosaicVersion.get().toString(),
-                System.getProperty("java.version"),
-                System.getProperty("java.vendor")
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
-#### Snippet
-```java
-            StreamResult result = new StreamResult(file);
-            transformer.transform(source, result);
-            log.info("{} file successfully written.", file.toString());
-        } catch (TransformerException e) {
-            log.debug("Couldn't write additional-file.");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/config/model/CMobileNetworkProperties.java`
 #### Snippet
 ```java
@@ -13442,14 +13370,86 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
 #### Snippet
 ```java
-                return ClientServerChannelProtos.RadioChannel.PROTO_SCH6;
-            default:
-                throw new RuntimeException("Channel " + channel.toString() + " does not exist in MOSAIC");
+
+    protected void printVersionAndCopyrightInfo() {
+        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
+        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
+        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+    protected void printMosaicVersion() {
+        LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME).info("Running Eclipse MOSAIC {} on Java JRE v{} ({})",
+                MosaicVersion.get().toString(),
+                System.getProperty("java.version"),
+                System.getProperty("java.vendor")
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
+#### Snippet
+```java
+            StreamResult result = new StreamResult(file);
+            transformer.transform(source, result);
+            log.info("{} file successfully written.", file.toString());
+        } catch (TransformerException e) {
+            log.debug("Couldn't write additional-file.");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
+#### Snippet
+```java
+                removeDirectory(file);
+            } else if (!file.delete()) {
+                this.log.error("Error while deleting file: {}", file.toString());
+            }
         }
-    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
+#### Snippet
+```java
+            log.debug("Destination directory does not exist, try to create it.");
+            if (!hostDeployDir.mkdirs()) {
+                log.warn("Could not create directory {}", hostDeployDir.toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/federation/LocalFederationManagement.java`
+#### Snippet
+```java
+                removeDirectory(fedDeployDir);
+                if (!fedDeployDir.mkdirs()) {
+                    log.warn("Could not create directory {}", fedDeployDir.toString());
+                }
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+            this.log.info("Connected to {} for reading on port {}", federateName, port);
+        } catch (UnknownHostException ex) {
+            this.log.error("Unknown host: " + ex.toString());
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
 ```
 
 ### UnnecessaryToStringCall
@@ -13478,14 +13478,14 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNet
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-            this.log.info("Connected to {} for reading on port {}", federateName, port);
-        } catch (UnknownHostException ex) {
-            this.log.error("Unknown host: " + ex.toString());
-            throw new RuntimeException(ex);
-        } catch (IOException ex) {
+                return ClientServerChannelProtos.RadioChannel.PROTO_SCH6;
+            default:
+                throw new RuntimeException("Channel " + channel.toString() + " does not exist in MOSAIC");
+        }
+    }
 ```
 
 ## RuleId[id=SetReplaceableByEnumSet]
@@ -13565,327 +13565,51 @@ in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/time/SequentialTime
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `LANE_PROPERTY_CHANGE` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+Non-private field `interactionQueue` accessed in synchronized context
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
 #### Snippet
 ```java
-    private synchronized void receiveInteraction(LanePropertyChange lanePropertyChange) throws InternalFederateException {
-
-        log.info("{} at simulation time {}", LANE_PROPERTY_CHANGE, TIME.format(lanePropertyChange.getTime()));
-
-        final String laneId = lanePropertyChange.getEdgeId() + "_" + lanePropertyChange.getLaneIndex();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            List<String> allowedVehicleClasses = lanePropertyChange.getAllowedVehicleClasses().stream()
-                    .map(SumoVehicleClassMapping::toSumo).collect(Collectors.toList());
-            bridge.getSimulationControl().setLaneAllowedVehicles(laneId, allowedVehicleClasses);
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-            if (lanePropertyChange.getDisallowedVehicleClasses().containsAll(Lists.newArrayList(VehicleClass.values()))) {
-                bridge.getSimulationControl().setLaneAllowedVehicles(laneId, Lists.newArrayList());
-            } else {
-                List<String> disallowedVehicleClasses = lanePropertyChange.getDisallowedVehicleClasses().stream()
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                List<String> disallowedVehicleClasses = lanePropertyChange.getDisallowedVehicleClasses().stream()
-                        .map(SumoVehicleClassMapping::toSumo).collect(Collectors.toList());
-                bridge.getSimulationControl().setLaneDisallowedVehicles(laneId, disallowedVehicleClasses);
-            }
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-        if (lanePropertyChange.getMaxSpeed() != null) {
-            log.info("Change max speed of lane with ID={}", laneId);
-            bridge.getSimulationControl().setLaneMaxSpeed(laneId, lanePropertyChange.getMaxSpeed());
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `TRAFFIC_LIGHTS_STATE_CHANGE_REQ` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-    private synchronized void receiveInteraction(TrafficLightStateChange trafficLightStateChange) throws InternalFederateException {
-        try {
-            log.info(TRAFFIC_LIGHTS_STATE_CHANGE_REQ);
-
-            String trafficLightGroupId = trafficLightStateChange.getTrafficLightGroupId();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                            trafficLightGroupId, trafficLightStateChange.getPhaseIndex()
-                    );
-                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
-                    break;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                            trafficLightGroupId, durationInSeconds
-                    );
-                    bridge.getTrafficLightControl().setPhaseRemainingDuration(trafficLightGroupId, durationInSeconds);
-                    break;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                            trafficLightGroupId, trafficLightStateChange.getProgramId()
-                    );
-                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
-                    break;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                            trafficLightGroupId, trafficLightStateChange.getProgramId(), trafficLightStateChange.getPhaseIndex()
-                    );
-                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
-                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
-                    break;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                    );
-                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
-                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
-                    break;
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                case ChangeToCustomState:
-                    log.info("Changing to custom states for traffic light group '{}'.", trafficLightGroupId);
-                    bridge.getTrafficLightControl().setPhase(trafficLightGroupId, trafficLightStateChange.getCustomStateList());
-                    break;
-                default:
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            }
-
-            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
-            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
-            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
-            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
-            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
-            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
-            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
-            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
-            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
-            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
-            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
-
-            Map<String, TrafficLightGroupInfo> changedTrafficLightGroupInfo = new HashMap<>();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.rti` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-            // now tell the RTI that an update happened so that the update can reach other federates
-            this.rti.triggerInteraction(
-                    new TrafficLightUpdates(trafficLightStateChange.getTime(), changedTrafficLightGroupInfo)
-            );
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `VEHICLE_LANE_CHANGE_REQ` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            if (log.isInfoEnabled()) {
-                log.info("{} at simulation time {}: vehicleId=\"{}\", mode={}, lane={}",
-                        VEHICLE_LANE_CHANGE_REQ,
-                        TIME.format(vehicleLaneChange.getTime()),
-                        vehicleLaneChange.getVehicleId(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                    return;
-            }
-            bridge.getVehicleControl().changeLane(vehicleLaneChange.getVehicleId(), targetLaneId, vehicleLaneChange.getDuration());
-
-            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sumoConfig` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            bridge.getVehicleControl().changeLane(vehicleLaneChange.getVehicleId(), targetLaneId, vehicleLaneChange.getDuration());
-
-            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
-                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
-                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
-                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
-                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
-                    bridge.getVehicleControl().highlight(vehicleLaneChange.getVehicleId(), Color.RED);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
-                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
-                    bridge.getVehicleControl().highlight(vehicleLaneChange.getVehicleId(), Color.RED);
-                }
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-    private synchronized void receiveInteraction(SumoTraciRequest sumoTraciRequest) throws InternalFederateException {
-        try {
-            if (bridge instanceof TraciClientBridge) {
-                log.info(
-                        "{} at simulation time {}: " + "length=\"{}\", id=\"{}\" data={}",
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `SUMO_TRACI_BYTE_ARRAY_MESSAGE` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-                log.info(
-                        "{} at simulation time {}: " + "length=\"{}\", id=\"{}\" data={}",
-                        SUMO_TRACI_BYTE_ARRAY_MESSAGE,
-                        TIME.format(sumoTraciRequest.getTime()),
-                        sumoTraciRequest.getCommandLength(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-
-                SumoTraciResult sumoTraciResult =
-                        ((TraciClientBridge) bridge).writeByteArrayMessage(sumoTraciRequest.getRequestId(), sumoTraciRequest.getCommand());
-                rti.triggerInteraction(new SumoTraciResponse(sumoTraciRequest.getTime(), sumoTraciResult));
-            } else {
+    @Override
+    public final synchronized void advanceTime(long time) throws InternalFederateException {
+        Interaction nextInteraction = interactionQueue.getNextInteraction(time);
+        while (nextInteraction != null) {
+            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `rti` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
 #### Snippet
 ```java
-                SumoTraciResult sumoTraciResult =
-                        ((TraciClientBridge) bridge).writeByteArrayMessage(sumoTraciRequest.getRequestId(), sumoTraciRequest.getCommand());
-                rti.triggerInteraction(new SumoTraciResponse(sumoTraciRequest.getTime(), sumoTraciResult));
-            } else {
-                log.warn("SumoTraciRequests are not supported.");
+        Interaction nextInteraction = interactionQueue.getNextInteraction(time);
+        while (nextInteraction != null) {
+            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
+            processInteraction(nextInteraction);
+            nextInteraction = interactionQueue.getNextInteraction(time);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `VEHICLE_STOP_REQ` accessed in synchronized context
+Non-private field `interactionQueue` accessed in synchronized context
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+#### Snippet
+```java
+            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
+            processInteraction(nextInteraction);
+            nextInteraction = interactionQueue.getNextInteraction(time);
+        }
+        processTimeAdvanceGrant(time);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `LANE_AREA_DETECTOR_SUBSCRIPTION` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-                        "{} at simulation time {}: vehicleId=\"{}\", edgeId=\"{}\", position=\"{}\", laneIndex={}, duration={}, "
-                                + "stopMode={}",
-                        VEHICLE_STOP_REQ,
-                        TIME.format(vehicleStop.getTime()),
-                        vehicleStop.getVehicleId(),
+    private synchronized void receiveInteraction(LaneAreaDetectorSubscription laneAreaDetectorSubscription) throws InternalFederateException {
+        log.info(
+                LANE_AREA_DETECTOR_SUBSCRIPTION + " Subscribe to LaneArea with ID={}",
+                laneAreaDetectorSubscription.getLaneAreaId()
+        );
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13893,11 +13617,35 @@ Non-private field `bridge` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-        for (String removed : vehicleUpdates.getRemovedNames()) {
-            if (externalVehicles.containsKey(removed)) {
-                bridge.getSimulationControl().removeVehicle(removed, VehicleSetRemove.Reason.ARRIVED);
-            }
-        }
+        );
+
+        bridge.getSimulationControl().subscribeForLaneArea(
+                laneAreaDetectorSubscription.getLaneAreaId(),
+                laneAreaDetectorSubscription.getTime(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `VEHICLE_SIGHT_DISTANCE_REQ` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+    private synchronized void receiveInteraction(VehicleSightDistanceConfiguration vehicleSightDistanceConfiguration) throws InternalFederateException {
+        log.info("{} at simulation time {}: vehicleId=\"{}\", range={}, angle={}",
+                VEHICLE_SIGHT_DISTANCE_REQ,
+                TIME.format(vehicleSightDistanceConfiguration.getTime()),
+                vehicleSightDistanceConfiguration.getVehicleId(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+        );
+
+        bridge.getSimulationControl().subscribeForVehiclesWithinFieldOfVision(
+                vehicleSightDistanceConfiguration.getVehicleId(),
+                vehicleSightDistanceConfiguration.getTime(), getEndTime(),
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -14069,6 +13817,114 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `LANE_PROPERTY_CHANGE` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+    private synchronized void receiveInteraction(LanePropertyChange lanePropertyChange) throws InternalFederateException {
+
+        log.info("{} at simulation time {}", LANE_PROPERTY_CHANGE, TIME.format(lanePropertyChange.getTime()));
+
+        final String laneId = lanePropertyChange.getEdgeId() + "_" + lanePropertyChange.getLaneIndex();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            List<String> allowedVehicleClasses = lanePropertyChange.getAllowedVehicleClasses().stream()
+                    .map(SumoVehicleClassMapping::toSumo).collect(Collectors.toList());
+            bridge.getSimulationControl().setLaneAllowedVehicles(laneId, allowedVehicleClasses);
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+            if (lanePropertyChange.getDisallowedVehicleClasses().containsAll(Lists.newArrayList(VehicleClass.values()))) {
+                bridge.getSimulationControl().setLaneAllowedVehicles(laneId, Lists.newArrayList());
+            } else {
+                List<String> disallowedVehicleClasses = lanePropertyChange.getDisallowedVehicleClasses().stream()
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                List<String> disallowedVehicleClasses = lanePropertyChange.getDisallowedVehicleClasses().stream()
+                        .map(SumoVehicleClassMapping::toSumo).collect(Collectors.toList());
+                bridge.getSimulationControl().setLaneDisallowedVehicles(laneId, disallowedVehicleClasses);
+            }
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+        if (lanePropertyChange.getMaxSpeed() != null) {
+            log.info("Change max speed of lane with ID={}", laneId);
+            bridge.getSimulationControl().setLaneMaxSpeed(laneId, lanePropertyChange.getMaxSpeed());
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `TRAFFIC_LIGHT_SUBSCRIPTION` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+    private synchronized void receiveInteraction(TrafficLightSubscription trafficLightSubscription) throws InternalFederateException {
+        log.info("{} at simulation time {}: Subscribe to Traffic light group with ID={}",
+                TRAFFIC_LIGHT_SUBSCRIPTION, TIME.format(trafficLightSubscription.getTime()),
+                trafficLightSubscription.getTrafficLightGroupId()
+        );
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+        );
+
+        bridge.getSimulationControl().subscribeForTrafficLight(
+                trafficLightSubscription.getTrafficLightGroupId(),
+                trafficLightSubscription.getTime(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `INDUCTION_LOOP_DETECTOR_SUBSCRIPTION` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+    private synchronized void receiveInteraction(InductionLoopDetectorSubscription inductionLoopDetectorSubscription) throws InternalFederateException {
+        log.info(
+                INDUCTION_LOOP_DETECTOR_SUBSCRIPTION + " Subscribe to InductionLoop with ID={}",
+                inductionLoopDetectorSubscription.getInductionLoopId()
+        );
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+        );
+
+        bridge.getSimulationControl().subscribeForInductionLoop(
+                inductionLoopDetectorSubscription.getInductionLoopId(),
+                inductionLoopDetectorSubscription.getTime(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `VEHICLE_SPEED_CHANGE_REQ` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
@@ -14129,78 +13985,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `INDUCTION_LOOP_DETECTOR_SUBSCRIPTION` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-    private synchronized void receiveInteraction(InductionLoopDetectorSubscription inductionLoopDetectorSubscription) throws InternalFederateException {
-        log.info(
-                INDUCTION_LOOP_DETECTOR_SUBSCRIPTION + " Subscribe to InductionLoop with ID={}",
-                inductionLoopDetectorSubscription.getInductionLoopId()
-        );
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-        );
-
-        bridge.getSimulationControl().subscribeForInductionLoop(
-                inductionLoopDetectorSubscription.getInductionLoopId(),
-                inductionLoopDetectorSubscription.getTime(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `VEHICLE_SLOWDOWN_REQ` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            log.info(
-                    "{} at simulation time {}: vehicleId=\"{}\", targetSpeed={}m/s, interval={}ms",
-                    VEHICLE_SLOWDOWN_REQ,
-                    TIME.format(vehicleSlowDown.getTime()),
-                    vehicleSlowDown.getVehicleId(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-            );
-        }
-        bridge.getVehicleControl()
-                .slowDown(vehicleSlowDown.getVehicleId(), vehicleSlowDown.getSpeed(), vehicleSlowDown.getDuration());
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `VEHICLE_SIGHT_DISTANCE_REQ` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-    private synchronized void receiveInteraction(VehicleSightDistanceConfiguration vehicleSightDistanceConfiguration) throws InternalFederateException {
-        log.info("{} at simulation time {}: vehicleId=\"{}\", range={}, angle={}",
-                VEHICLE_SIGHT_DISTANCE_REQ,
-                TIME.format(vehicleSightDistanceConfiguration.getTime()),
-                vehicleSightDistanceConfiguration.getVehicleId(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bridge` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-        );
-
-        bridge.getSimulationControl().subscribeForVehiclesWithinFieldOfVision(
-                vehicleSightDistanceConfiguration.getVehicleId(),
-                vehicleSightDistanceConfiguration.getTime(), getEndTime(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `VEHICLE_RESUME_REQ` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
@@ -14225,15 +14009,15 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `TRAFFIC_LIGHT_SUBSCRIPTION` accessed in synchronized context
+Non-private field `TRAFFIC_LIGHTS_STATE_CHANGE_REQ` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-    private synchronized void receiveInteraction(TrafficLightSubscription trafficLightSubscription) throws InternalFederateException {
-        log.info("{} at simulation time {}: Subscribe to Traffic light group with ID={}",
-                TRAFFIC_LIGHT_SUBSCRIPTION, TIME.format(trafficLightSubscription.getTime()),
-                trafficLightSubscription.getTrafficLightGroupId()
-        );
+    private synchronized void receiveInteraction(TrafficLightStateChange trafficLightStateChange) throws InternalFederateException {
+        try {
+            log.info(TRAFFIC_LIGHTS_STATE_CHANGE_REQ);
+
+            String trafficLightGroupId = trafficLightStateChange.getTrafficLightGroupId();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -14241,23 +14025,11 @@ Non-private field `bridge` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-        );
+                            trafficLightGroupId, trafficLightStateChange.getPhaseIndex()
+                    );
+                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
+                    break;
 
-        bridge.getSimulationControl().subscribeForTrafficLight(
-                trafficLightSubscription.getTrafficLightGroupId(),
-                trafficLightSubscription.getTime(),
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `LANE_AREA_DETECTOR_SUBSCRIPTION` accessed in synchronized context
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
-#### Snippet
-```java
-    private synchronized void receiveInteraction(LaneAreaDetectorSubscription laneAreaDetectorSubscription) throws InternalFederateException {
-        log.info(
-                LANE_AREA_DETECTOR_SUBSCRIPTION + " Subscribe to LaneArea with ID={}",
-                laneAreaDetectorSubscription.getLaneAreaId()
-        );
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -14265,11 +14037,191 @@ Non-private field `bridge` accessed in synchronized context
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-        );
+                            trafficLightGroupId, durationInSeconds
+                    );
+                    bridge.getTrafficLightControl().setPhaseRemainingDuration(trafficLightGroupId, durationInSeconds);
+                    break;
 
-        bridge.getSimulationControl().subscribeForLaneArea(
-                laneAreaDetectorSubscription.getLaneAreaId(),
-                laneAreaDetectorSubscription.getTime(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                            trafficLightGroupId, trafficLightStateChange.getProgramId()
+                    );
+                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
+                    break;
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                            trafficLightGroupId, trafficLightStateChange.getProgramId(), trafficLightStateChange.getPhaseIndex()
+                    );
+                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
+                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
+                    break;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                    );
+                    bridge.getTrafficLightControl().setProgramById(trafficLightGroupId, trafficLightStateChange.getProgramId());
+                    bridge.getTrafficLightControl().setPhaseIndex(trafficLightGroupId, trafficLightStateChange.getPhaseIndex());
+                    break;
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                case ChangeToCustomState:
+                    log.info("Changing to custom states for traffic light group '{}'.", trafficLightGroupId);
+                    bridge.getTrafficLightControl().setPhase(trafficLightGroupId, trafficLightStateChange.getCustomStateList());
+                    break;
+                default:
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            }
+
+            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
+            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
+            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
+            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
+            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
+            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            String programId = bridge.getTrafficLightControl().getCurrentProgram(trafficLightGroupId);
+            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
+            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
+            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            int phaseIndex = bridge.getTrafficLightControl().getCurrentPhase(trafficLightGroupId);
+            long assumedNextTimeSwitch = (long) (bridge.getTrafficLightControl().getNextSwitchTime(trafficLightGroupId) * TIME.SECOND);
+            List<TrafficLightState> currentStates = bridge.getTrafficLightControl().getCurrentStates(trafficLightGroupId);
+
+            Map<String, TrafficLightGroupInfo> changedTrafficLightGroupInfo = new HashMap<>();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.rti` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+            // now tell the RTI that an update happened so that the update can reach other federates
+            this.rti.triggerInteraction(
+                    new TrafficLightUpdates(trafficLightStateChange.getTime(), changedTrafficLightGroupInfo)
+            );
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `VEHICLE_STOP_REQ` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                        "{} at simulation time {}: vehicleId=\"{}\", edgeId=\"{}\", position=\"{}\", laneIndex={}, duration={}, "
+                                + "stopMode={}",
+                        VEHICLE_STOP_REQ,
+                        TIME.format(vehicleStop.getTime()),
+                        vehicleStop.getVehicleId(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `VEHICLE_LANE_CHANGE_REQ` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            if (log.isInfoEnabled()) {
+                log.info("{} at simulation time {}: vehicleId=\"{}\", mode={}, lane={}",
+                        VEHICLE_LANE_CHANGE_REQ,
+                        TIME.format(vehicleLaneChange.getTime()),
+                        vehicleLaneChange.getVehicleId(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                    return;
+            }
+            bridge.getVehicleControl().changeLane(vehicleLaneChange.getVehicleId(), targetLaneId, vehicleLaneChange.getDuration());
+
+            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sumoConfig` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            bridge.getVehicleControl().changeLane(vehicleLaneChange.getVehicleId(), targetLaneId, vehicleLaneChange.getDuration());
+
+            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
+                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
+                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+            if (sumoConfig.highlights.contains(CSumo.HIGHLIGHT_CHANGE_LANE)) {
+                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
+                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
+                    bridge.getVehicleControl().highlight(vehicleLaneChange.getVehicleId(), Color.RED);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                VehicleData vehicleData = bridge.getSimulationControl().getLastKnownVehicleData(vehicleLaneChange.getVehicleId());
+                if (vehicleData.getRoadPosition().getLaneIndex() != targetLaneId) {
+                    bridge.getVehicleControl().highlight(vehicleLaneChange.getVehicleId(), Color.RED);
+                }
+            }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -14333,75 +14285,87 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/Abstrac
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `interactionQueue` accessed in synchronized context
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-    @Override
-    public final synchronized void advanceTime(long time) throws InternalFederateException {
-        Interaction nextInteraction = interactionQueue.getNextInteraction(time);
-        while (nextInteraction != null) {
-            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
+        for (String removed : vehicleUpdates.getRemovedNames()) {
+            if (externalVehicles.containsKey(removed)) {
+                bridge.getSimulationControl().removeVehicle(removed, VehicleSetRemove.Reason.ARRIVED);
+            }
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+    private synchronized void receiveInteraction(SumoTraciRequest sumoTraciRequest) throws InternalFederateException {
+        try {
+            if (bridge instanceof TraciClientBridge) {
+                log.info(
+                        "{} at simulation time {}: " + "length=\"{}\", id=\"{}\" data={}",
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `SUMO_TRACI_BYTE_ARRAY_MESSAGE` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+                log.info(
+                        "{} at simulation time {}: " + "length=\"{}\", id=\"{}\" data={}",
+                        SUMO_TRACI_BYTE_ARRAY_MESSAGE,
+                        TIME.format(sumoTraciRequest.getTime()),
+                        sumoTraciRequest.getCommandLength(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+
+                SumoTraciResult sumoTraciResult =
+                        ((TraciClientBridge) bridge).writeByteArrayMessage(sumoTraciRequest.getRequestId(), sumoTraciRequest.getCommand());
+                rti.triggerInteraction(new SumoTraciResponse(sumoTraciRequest.getTime(), sumoTraciResult));
+            } else {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `rti` accessed in synchronized context
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-        Interaction nextInteraction = interactionQueue.getNextInteraction(time);
-        while (nextInteraction != null) {
-            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
-            processInteraction(nextInteraction);
-            nextInteraction = interactionQueue.getNextInteraction(time);
+                SumoTraciResult sumoTraciResult =
+                        ((TraciClientBridge) bridge).writeByteArrayMessage(sumoTraciRequest.getRequestId(), sumoTraciRequest.getCommand());
+                rti.triggerInteraction(new SumoTraciResponse(sumoTraciRequest.getTime(), sumoTraciResult));
+            } else {
+                log.warn("SumoTraciRequests are not supported.");
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `interactionQueue` accessed in synchronized context
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+Non-private field `VEHICLE_SLOWDOWN_REQ` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
 #### Snippet
 ```java
-            rti.getMonitor().onProcessInteraction(getId(), nextInteraction);
-            processInteraction(nextInteraction);
-            nextInteraction = interactionQueue.getNextInteraction(time);
+            log.info(
+                    "{} at simulation time {}: vehicleId=\"{}\", targetSpeed={}m/s, interval={}ms",
+                    VEHICLE_SLOWDOWN_REQ,
+                    TIME.format(vehicleSlowDown.getTime()),
+                    vehicleSlowDown.getVehicleId(),
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bridge` accessed in synchronized context
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/AbstractSumoAmbassador.java`
+#### Snippet
+```java
+            );
         }
-        processTimeAdvanceGrant(time);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ambassadorFederateChannel` accessed in synchronized context
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
-#### Snippet
-```java
-                int id = simulatedNodes.toExternalId(nodeId);
-                nodesToAdd.add(new NodeDataContainer(id, registeredNode.position));
-                if (CMD.SUCCESS != ambassadorFederateChannel.writeAddNodeMessage(time, nodesToAdd)) {
-                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
-                    throw new InternalFederateException(
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.federateAmbassadorChannel` accessed in synchronized context
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
-#### Snippet
-```java
-                nodesToAdd.add(new NodeDataContainer(id, registeredNode.position));
-                if (CMD.SUCCESS != ambassadorFederateChannel.writeAddNodeMessage(time, nodesToAdd)) {
-                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
-                    throw new InternalFederateException(
-                            "Error in " + this.federateName + ": " + this.federateAmbassadorChannel.getLastStatusMessage()
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.federateAmbassadorChannel` accessed in synchronized context
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
-#### Snippet
-```java
-                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
-                    throw new InternalFederateException(
-                            "Error in " + this.federateName + ": " + this.federateAmbassadorChannel.getLastStatusMessage()
-                    );
-                }
+        bridge.getVehicleControl()
+                .slowDown(vehicleSlowDown.getVehicleId(), vehicleSlowDown.getSpeed(), vehicleSlowDown.getDuration());
+    }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -14434,6 +14398,42 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNet
 #### Snippet
 ```java
                     this.log.error("Could not add new RSU: {}", this.federateAmbassadorChannel.getLastStatusMessage());
+                    throw new InternalFederateException(
+                            "Error in " + this.federateName + ": " + this.federateAmbassadorChannel.getLastStatusMessage()
+                    );
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ambassadorFederateChannel` accessed in synchronized context
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+                int id = simulatedNodes.toExternalId(nodeId);
+                nodesToAdd.add(new NodeDataContainer(id, registeredNode.position));
+                if (CMD.SUCCESS != ambassadorFederateChannel.writeAddNodeMessage(time, nodesToAdd)) {
+                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
+                    throw new InternalFederateException(
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.federateAmbassadorChannel` accessed in synchronized context
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+                nodesToAdd.add(new NodeDataContainer(id, registeredNode.position));
+                if (CMD.SUCCESS != ambassadorFederateChannel.writeAddNodeMessage(time, nodesToAdd)) {
+                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
+                    throw new InternalFederateException(
+                            "Error in " + this.federateName + ": " + this.federateAmbassadorChannel.getLastStatusMessage()
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.federateAmbassadorChannel` accessed in synchronized context
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+                    this.log.error("Could not add new vehicles: {}", this.federateAmbassadorChannel.getLastStatusMessage());
                     throw new InternalFederateException(
                             "Error in " + this.federateName + ": " + this.federateAmbassadorChannel.getLastStatusMessage()
                     );
@@ -14599,147 +14599,27 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/CAbstractNe
 
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
-#### Snippet
-```java
-                    federation.getFederationManagement().stopFederation();
-                } catch (Exception e) {
-                    System.err.format("Could not stop federation. Stacktrace: %n%s%n", ExceptionUtils.getStackTrace(e));
-                }
-                System.out.println("External Watchdog kills the Simulation");
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
 #### Snippet
 ```java
-                    System.err.format("Could not stop federation. Stacktrace: %n%s%n", ExceptionUtils.getStackTrace(e));
-                }
-                System.out.println("External Watchdog kills the Simulation");
-                System.exit(333);
-            }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-            if (timeSinceLastUpdate > this.maxIdleTime * 1000L && watching) {
-                try {
-                    System.err.println();
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                try {
-                    System.err.println();
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
-                    System.err.println("        This could be caused by an error in a federate.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println();
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
-                    System.err.println("        This could be caused by an error in a federate.");
-                    System.err.println("        You can increase the timeout using the -w parameter.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
-                    System.err.println("        This could be caused by an error in a federate.");
-                    System.err.println("        You can increase the timeout using the -w parameter.");
-                    System.err.println("        Using \"-w 0\" disables the watchdog.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
-                    System.err.println("        This could be caused by an error in a federate.");
-                    System.err.println("        You can increase the timeout using the -w parameter.");
-                    System.err.println("        Using \"-w 0\" disables the watchdog.");
-                    System.err.println("--------------------------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println("        This could be caused by an error in a federate.");
-                    System.err.println("        You can increase the timeout using the -w parameter.");
-                    System.err.println("        Using \"-w 0\" disables the watchdog.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" MOSAIC will now shut down.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println("        You can increase the timeout using the -w parameter.");
-                    System.err.println("        Using \"-w 0\" disables the watchdog.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" MOSAIC will now shut down.");
-                    System.err.println("--------------------------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println("        Using \"-w 0\" disables the watchdog.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" MOSAIC will now shut down.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
-#### Snippet
-```java
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println(" MOSAIC will now shut down.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println();
+        }
+        String usage = new String(baos.toByteArray(), StandardCharsets.UTF_8);
+        System.out.format("Invalid command line arguments: %s%n%s", error, usage);
+    }
 
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
 #### Snippet
 ```java
-                    System.err.println(" MOSAIC will now shut down.");
-                    System.err.println("--------------------------------------------------------------------------------");
-                    System.err.println();
-
-                    // wait a second to complete print lines
+     */
+    protected void printAndLog(String message) {
+        System.err.println(message);
+        if (getLogger() != null) {
+            getLogger().error(message);
 ```
 
 ### SystemOutErr
@@ -14964,78 +14844,6 @@ in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.ja
 #### Snippet
 ```java
      */
-    protected void printAndLog(String message) {
-        System.err.println(message);
-        if (getLogger() != null) {
-            getLogger().error(message);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-        }
-        String usage = new String(baos.toByteArray(), StandardCharsets.UTF_8);
-        System.out.format("Invalid command line arguments: %s%n%s", error, usage);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-
-    protected void printVersionAndCopyrightInfo() {
-        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
-        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
-        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-    protected void printVersionAndCopyrightInfo() {
-        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
-        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
-        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
-        System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
-        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
-        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
-        System.out.println();
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
-        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
-        System.out.println();
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
-#### Snippet
-```java
-     */
     protected void printAndLog(String string, Throwable reason) {
         System.err.println(string);
         System.err.println("   Stacktrace: " + ExceptionUtils.getStackTrace(reason));
@@ -15116,6 +14924,54 @@ in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.ja
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
+#### Snippet
+```java
+
+    protected void printVersionAndCopyrightInfo() {
+        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
+        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
+        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
+#### Snippet
+```java
+    protected void printVersionAndCopyrightInfo() {
+        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
+        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
+        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
+        System.out.println();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
+#### Snippet
+```java
+        System.out.println("Eclipse MOSAIC [Version " + MosaicVersion.get().toString() + "]");
+        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
+        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
+        System.out.println();
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicStarter.java`
+#### Snippet
+```java
+        System.out.println("Copyright (c) 2023 Fraunhofer FOKUS and others. All rights reserved.");
+        System.out.println("License EPL-2.0: Eclipse Public License Version 2 [https://eclipse.org/legal/epl-v20.html].");
+        System.out.println();
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/LogStatements.java`
 #### Snippet
 ```java
@@ -15175,6 +15031,150 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/LogStat
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
+#### Snippet
+```java
+                    federation.getFederationManagement().stopFederation();
+                } catch (Exception e) {
+                    System.err.format("Could not stop federation. Stacktrace: %n%s%n", ExceptionUtils.getStackTrace(e));
+                }
+                System.out.println("External Watchdog kills the Simulation");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/ExternalWatchDog.java`
+#### Snippet
+```java
+                    System.err.format("Could not stop federation. Stacktrace: %n%s%n", ExceptionUtils.getStackTrace(e));
+                }
+                System.out.println("External Watchdog kills the Simulation");
+                System.exit(333);
+            }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+            if (timeSinceLastUpdate > this.maxIdleTime * 1000L && watching) {
+                try {
+                    System.err.println();
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                try {
+                    System.err.println();
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
+                    System.err.println("        This could be caused by an error in a federate.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println();
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
+                    System.err.println("        This could be caused by an error in a federate.");
+                    System.err.println("        You can increase the timeout using the -w parameter.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
+                    System.err.println("        This could be caused by an error in a federate.");
+                    System.err.println("        You can increase the timeout using the -w parameter.");
+                    System.err.println("        Using \"-w 0\" disables the watchdog.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println(" ERROR: One or more federates did not respond for " + maxIdleTime + " seconds.");
+                    System.err.println("        This could be caused by an error in a federate.");
+                    System.err.println("        You can increase the timeout using the -w parameter.");
+                    System.err.println("        Using \"-w 0\" disables the watchdog.");
+                    System.err.println("--------------------------------------------------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println("        This could be caused by an error in a federate.");
+                    System.err.println("        You can increase the timeout using the -w parameter.");
+                    System.err.println("        Using \"-w 0\" disables the watchdog.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" MOSAIC will now shut down.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println("        You can increase the timeout using the -w parameter.");
+                    System.err.println("        Using \"-w 0\" disables the watchdog.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" MOSAIC will now shut down.");
+                    System.err.println("--------------------------------------------------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println("        Using \"-w 0\" disables the watchdog.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" MOSAIC will now shut down.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println(" MOSAIC will now shut down.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println();
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `rti/mosaic-rti-core/src/main/java/org/eclipse/mosaic/rti/WatchDogThread.java`
+#### Snippet
+```java
+                    System.err.println(" MOSAIC will now shut down.");
+                    System.err.println("--------------------------------------------------------------------------------");
+                    System.err.println();
+
+                    // wait a second to complete print lines
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
 #### Snippet
@@ -15189,14 +15189,14 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLinePa
 ## RuleId[id=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
 #### Snippet
 ```java
-         * @deprecated use {@link #addWay(String, String, String)} instead
-         */
-        public Builder addWay(Way way) {
-            database.ways.put(way.getId(), way);
-
+     * @deprecated Legacy constructor.
+     */
+    public Wgs84Projection(GeoPoint playgroundCenter, CartesianPoint cartesianOffset) {
+        final UtmZone zone = UtmZone.from(playgroundCenter);
+        this.utmOrigin = new MutableUtmPoint(
 ```
 
 ### MissingDeprecatedAnnotation
@@ -15216,11 +15216,11 @@ Missing '@Deprecated' annotation
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
 #### Snippet
 ```java
-         * @deprecated use {@link #addNode(String, GeoPoint)} instead
+         * @deprecated use {@link #addWay(String, String, String)} instead
          */
-        public Builder addNode(Node node) {
-            if (node != null) {
-                database.nodes.put(node.getId(), node);
+        public Builder addWay(Way way) {
+            database.ways.put(way.getId(), way);
+
 ```
 
 ### MissingDeprecatedAnnotation
@@ -15249,14 +15249,14 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.j
 
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/transform/Wgs84Projection.java`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/Database.java`
 #### Snippet
 ```java
-     * @deprecated Legacy constructor.
-     */
-    public Wgs84Projection(GeoPoint playgroundCenter, CartesianPoint cartesianOffset) {
-        final UtmZone zone = UtmZone.from(playgroundCenter);
-        this.utmOrigin = new MutableUtmPoint(
+         * @deprecated use {@link #addNode(String, GeoPoint)} instead
+         */
+        public Builder addNode(Node node) {
+            if (node != null) {
+                database.nodes.put(node.getId(), node);
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -15294,30 +15294,6 @@ in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/ambassador/LibSumo
             return sumoOutput == null || !sumoOutput.matches(".*(" + VALID_LIBSUMO_VERSIONS + ").*");
         } catch (IOException e) {
             return true;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
-#### Snippet
-```java
-        for (Pair<File, String> binding : volumeBindings) {
-            options.add("-v");
-            options.add(binding.getKey().getAbsolutePath().replace('\\', '/').replace(" ", "\\ ") + ":" + binding.getValue());
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
-#### Snippet
-```java
-    private List<Pair<Integer, Integer>> readPortBinding(String containerName) {
-        final List<Pair<Integer, Integer>> bindings = new Vector<>();
-        String result = docker.port(containerName).replace("\r", "");
-        for (String line : StringUtils.split(result, "\n")) {
-            Matcher m = PORT_PATTERN.matcher(line);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15366,6 +15342,30 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/JsonUtils.java`
             } else if (!inMultilineComment && !inSinglelineComment && !tmp.substring(0, 1).matches("\\n|\\r|\\s")) {
                 newLines.add(tmp);
             }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerRun.java`
+#### Snippet
+```java
+        for (Pair<File, String> binding : volumeBindings) {
+            options.add("-v");
+            options.add(binding.getKey().getAbsolutePath().replace('\\', '/').replace(" ", "\\ ") + ":" + binding.getValue());
+        }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+#### Snippet
+```java
+    private List<Pair<Integer, Integer>> readPortBinding(String containerName) {
+        final List<Pair<Integer, Integer>> bindings = new Vector<>();
+        String result = docker.port(containerName).replace("\r", "");
+        for (String line : StringUtils.split(result, "\n")) {
+            Matcher m = PORT_PATTERN.matcher(line);
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -15466,30 +15466,6 @@ in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/traffi
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.mosaic.lib.database.spatial` is unnecessary and can be removed
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
-#### Snippet
-```java
-        }
-        edgeIndex = new KdTree<>(new SpatialItemAdapter.EdgeAdapter<>(), items);
-        edgeSearch = new org.eclipse.mosaic.lib.database.spatial.Edge.Nearest<>();
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
-#### Snippet
-```java
-     * Returns all {@link Way}s that this node is part of.
-     *
-     * @return An unmodifiable {@link java.util.List} view from {@link #ways}.
-     */
-    @Nonnull
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
 #### Snippet
@@ -15526,39 +15502,39 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Node.java`
 #### Snippet
 ```java
-
-    /**
-     * Connects to the database defined by {@link #setDatabaseFile(java.lang.String)}.
+     * Returns all {@link Way}s that this node is part of.
      *
-     * @throws SQLException thrown if connection couldn't be established of the statement couldn't be created
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
-#### Snippet
-```java
-    /**
-     * Constructor for accessing new or existing databases.
-     * Make sure to call {@link #setDatabaseFile(java.lang.String)} before use of object.
+     * @return An unmodifiable {@link java.util.List} view from {@link #ways}.
      */
-    protected SQLiteAccess() {
+    @Nonnull
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/AbstractOutputGenerator.java`
+Qualifier `org.eclipse.mosaic.lib.database.spatial` is unnecessary and can be removed
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
 #### Snippet
 ```java
- *  }
- *  </pre>
- * As a third method, the {@link #registerInteractionForOutputGeneration(String, java.util.function.Consumer)}  method can be used in the constructor.
- * <pre>
- *  MyOutputGenerator() {
+        }
+        edgeIndex = new KdTree<>(new SpatialItemAdapter.EdgeAdapter<>(), items);
+        edgeSearch = new org.eclipse.mosaic.lib.database.spatial.Edge.Nearest<>();
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
+#### Snippet
+```java
+     * Closes the channel.
+     *
+     * @throws java.io.IOException
+     */
+    public void close() throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -15567,22 +15543,10 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServe
 #### Snippet
 ```java
      *
-     * @return The read message.
-     * @throws java.io.IOException
-     */ //TODO: ChannelID (and length) not yet treated
-    public ReceiveMessageContainer readMessage(IdTransformer<Integer, String> idTransformer) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
-#### Snippet
-```java
-     *
-     * @return the read time as long
+     * @return the read command
      * @throws java.io.IOException
      */
-    public long readTimeBody() throws IOException {
+    public int readCommand() throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -15603,10 +15567,10 @@ in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServe
 #### Snippet
 ```java
      *
-     * @return the read command
+     * @return the read time as long
      * @throws java.io.IOException
      */
-    public int readCommand() throws IOException {
+    public long readTimeBody() throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -15614,11 +15578,47 @@ Qualifier `java.io` is unnecessary and can be removed
 in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/ClientServerChannel.java`
 #### Snippet
 ```java
-     * Closes the channel.
      *
+     * @return The read message.
      * @throws java.io.IOException
+     */ //TODO: ChannelID (and length) not yet treated
+    public ReceiveMessageContainer readMessage(IdTransformer<Integer, String> idTransformer) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
+#### Snippet
+```java
+    /**
+     * Constructor for accessing new or existing databases.
+     * Make sure to call {@link #setDatabaseFile(java.lang.String)} before use of object.
      */
-    public void close() throws IOException {
+    protected SQLiteAccess() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
+#### Snippet
+```java
+
+    /**
+     * Connects to the database defined by {@link #setDatabaseFile(java.lang.String)}.
+     *
+     * @throws SQLException thrown if connection couldn't be established of the statement couldn't be created
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/ambassador/AbstractOutputGenerator.java`
+#### Snippet
+```java
+ *  }
+ *  </pre>
+ * As a third method, the {@link #registerInteractionForOutputGeneration(String, java.util.function.Consumer)}  method can be used in the constructor.
+ * <pre>
+ *  MyOutputGenerator() {
 ```
 
 ## RuleId[id=ComparatorMethodParameterNotUsed]
@@ -15636,90 +15636,6 @@ in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/time/FederateEve
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSubscriptionTraciReader()` of an abstract class should not be declared 'public'
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractSubscriptionTraciReader.java`
-#### Snippet
-```java
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    public AbstractSubscriptionTraciReader() {
-        super(null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UnitData()` of an abstract class should not be declared 'public'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/UnitData.java`
-#### Snippet
-```java
-     * @param position position of the unit
-     */
-    public UnitData(long time, String name, GeoPoint position) {
-        this.time = time;
-        this.name = name;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `V2xMessage()` of an abstract class should not be declared 'public'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/V2xMessage.java`
-#### Snippet
-```java
-     * @param routing the routing configuration of this {@link V2xMessage}.
-     */
-    public V2xMessage(final MessageRouting routing) {
-        this.routing = Objects.requireNonNull(routing);
-        id = idGenerator.getAndIncrement();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TrafficSign()` of an abstract class should not be declared 'public'
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
-#### Snippet
-```java
-     * @param connectionId     The corresponding edge of the sign.
-     */
-    public TrafficSign(String id, Position position, String connectionId) {
-        this.id = id;
-        this.position = position.getProjectedPosition();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LineString()` of an abstract class should not be declared 'public'
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    public LineString() { }
-
-    public LineString(List<? extends T> copyFrom) {
-        super(copyFrom);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LineString()` of an abstract class should not be declared 'public'
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    }
-
-    public LineString() { }
-
-    public LineString(List<? extends T> copyFrom) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LineString()` of an abstract class should not be declared 'public'
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
-#### Snippet
-```java
-    }
-
-    public LineString(Stream<? extends T> points) {
-        points.forEach(this::addPoint);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `CellModule()` of an abstract class should not be declared 'public'
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModule.java`
 #### Snippet
@@ -15729,18 +15645,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/module/CellModule.
     public CellModule(String moduleName, ChainManager chainManager) {
         this.moduleName = moduleName;
         this.chainManager = chainManager;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ApplicationInteraction()` of an abstract class should not be declared 'public'
-in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/ApplicationInteraction.java`
-#### Snippet
-```java
-     *               all simulation simulated units will be notified.
-     */
-    public ApplicationInteraction(long time, @Nullable String unitId) {
-        super(time);
-        this.unitId = unitId;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -15780,6 +15684,30 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AbstractSubscriptionTraciReader()` of an abstract class should not be declared 'public'
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractSubscriptionTraciReader.java`
+#### Snippet
+```java
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    public AbstractSubscriptionTraciReader() {
+        super(null);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ApplicationInteraction()` of an abstract class should not be declared 'public'
+in `lib/mosaic-interactions/src/main/java/org/eclipse/mosaic/interactions/application/ApplicationInteraction.java`
+#### Snippet
+```java
+     *               all simulation simulated units will be notified.
+     */
+    public ApplicationInteraction(long time, @Nullable String unitId) {
+        super(time);
+        this.unitId = unitId;
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractEnumDefaultValueTypeAdapter()` of an abstract class should not be declared 'public'
 in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnumDefaultValueTypeAdapter.java`
 #### Snippet
@@ -15789,6 +15717,78 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnum
     public AbstractEnumDefaultValueTypeAdapter(E defaultValue) {
         this.defaultValue = defaultValue;
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LineString()` of an abstract class should not be declared 'public'
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    }
+
+    public LineString() { }
+
+    public LineString(List<? extends T> copyFrom) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LineString()` of an abstract class should not be declared 'public'
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    }
+
+    public LineString(Stream<? extends T> points) {
+        points.forEach(this::addPoint);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `LineString()` of an abstract class should not be declared 'public'
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.java`
+#### Snippet
+```java
+    public LineString() { }
+
+    public LineString(List<? extends T> copyFrom) {
+        super(copyFrom);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UnitData()` of an abstract class should not be declared 'public'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/UnitData.java`
+#### Snippet
+```java
+     * @param position position of the unit
+     */
+    public UnitData(long time, String name, GeoPoint position) {
+        this.time = time;
+        this.name = name;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `V2xMessage()` of an abstract class should not be declared 'public'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/V2xMessage.java`
+#### Snippet
+```java
+     * @param routing the routing configuration of this {@link V2xMessage}.
+     */
+    public V2xMessage(final MessageRouting routing) {
+        this.routing = Objects.requireNonNull(routing);
+        id = idGenerator.getAndIncrement();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TrafficSign()` of an abstract class should not be declared 'public'
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSign.java`
+#### Snippet
+```java
+     * @param connectionId     The corresponding edge of the sign.
+     */
+    public TrafficSign(String id, Position position, String connectionId) {
+        this.id = id;
+        this.position = position.getProjectedPosition();
 ```
 
 ## RuleId[id=Convert2Lambda]
@@ -15817,6 +15817,30 @@ in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `geoArea`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtility.java`
+#### Snippet
+```java
+        } else {
+            if (geoArea instanceof GeoRectangle) {
+                geoArea = ((GeoRectangle) geoArea).toPolygon();
+            }
+            CartesianPolygon destPolygon = ((GeoPolygon) geoArea).toCartesian();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentPosition`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
+#### Snippet
+```java
+        for (String nodeId : nodeList) {
+            distanceToPoint += currentPosition.distanceTo(getPositionOfNode(nodeId));
+            currentPosition = getPositionOfNode(nodeId);
+        }
+        return distanceToPoint;
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `additionalFlags`
 in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/util/WayTypeEncoder.java`
@@ -15902,15 +15926,15 @@ in `lib/mosaic-communication/src/main/java/org/eclipse/mosaic/lib/model/delay/Ga
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `containerName`
-in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+Assignment to method parameter `obj`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
 #### Snippet
 ```java
-        }
-        // set name of container to default value if it hasn't been set
-        containerName = StringUtils.defaultString(containerName, image);
-        if (!options.contains("--name")) {
-            options.add("--name");
+            debug("File has been loaded into the destination object.");
+        } else {
+            obj = createWithDefaultDefaultConstructor();
+            if (obj == null) {
+                throw new InstantiationException("Could not read or instantiate the object.");
 ```
 
 ### AssignmentToMethodParameter
@@ -15962,6 +15986,18 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/LineString.j
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `containerName`
+in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.java`
+#### Snippet
+```java
+        }
+        // set name of container to default value if it hasn't been set
+        containerName = StringUtils.defaultString(containerName, image);
+        if (!options.contains("--name")) {
+            options.add("--name");
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `dSqr`
 in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
 #### Snippet
@@ -15986,30 +16022,6 @@ in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTrav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `geoArea`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtility.java`
-#### Snippet
-```java
-        } else {
-            if (geoArea instanceof GeoRectangle) {
-                geoArea = ((GeoRectangle) geoArea).toPolygon();
-            }
-            CartesianPolygon destPolygon = ((GeoPolygon) geoArea).toCartesian();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentPosition`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
-#### Snippet
-```java
-        for (String nodeId : nodeList) {
-            distanceToPoint += currentPosition.distanceTo(getPositionOfNode(nodeId));
-            currentPosition = getPositionOfNode(nodeId);
-        }
-        return distanceToPoint;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteWriter.java`
 #### Snippet
@@ -16019,18 +16031,6 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistenc
             fileName += ".db";
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `obj`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/objects/ObjectInstantiation.java`
-#### Snippet
-```java
-            debug("File has been loaded into the destination object.");
-        } else {
-            obj = createWithDefaultDefaultConstructor();
-            if (obj == null) {
-                throw new InstantiationException("Could not read or instantiate the object.");
 ```
 
 ### AssignmentToMethodParameter
@@ -16048,618 +16048,6 @@ in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/FileUtils.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicClassLoader.java`
-#### Snippet
-```java
-            return path.toUri().toURL();
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
-#### Snippet
-```java
-    @Override
-    public VehicleRoute createRouteForRTI(CandidateRoute candidateRoute) throws IllegalRouteException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
-#### Snippet
-```java
-    @Override
-    public IRoadPosition findClosestRoadPosition(GeoPoint point) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
-#### Snippet
-```java
-    @Override
-    public INode findClosestNode(GeoPoint point) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
-#### Snippet
-```java
-    @Override
-    public IConnection getConnection(String nodeId) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
-#### Snippet
-```java
-    @Override
-    public INode getNode(String nodeId) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
-#### Snippet
-```java
-        File[] dirs = baseDir.listFiles();
-        if (dirs == null) {
-            return null;
-        }
-        for (File file : dirs) {
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
-#### Snippet
-```java
-        return node != null
-                ? new LazyLoadingNode(node)
-                : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
-#### Snippet
-```java
-        Edge closestEdge = findClosestEdge(location);
-        if (closestEdge == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
-#### Snippet
-```java
-    private List<Connection> findIntermediateConnectionsRecursively(Connection from, Connection to, int depth) {
-        if (depth == 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
-#### Snippet
-```java
-        double distanceToOriginalTarget = distanceCalculation.calcDist(pathTarget.lat, pathTarget.lon, origTarget.lat, origTarget.lon);
-        if (distanceToOriginalTarget > MAX_DISTANCE_TO_TARGET) {
-            return null;
-        }
-        Iterator<EdgeIteratorState> edgesIt = newPath.calcEdges().iterator();
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
-#### Snippet
-```java
-        Iterator<EdgeIteratorState> edgesIt = newPath.calcEdges().iterator();
-        if (!edgesIt.hasNext()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
-#### Snippet
-```java
-                            "Something went wrong during path search: The found route has infinite weight. Maybe there's a turn restriction or unconnected "
-                                    + "sub-graphs in the network. Route will be ignored.");
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            getLogger().warn("Could not read the log folder from " + logbackConfigPath, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/DatabaseGraphLoader.java`
-#### Snippet
-```java
-            return encoding.handleWayTags(osmWay, aw, 0);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
-#### Snippet
-```java
-            return new Path(this.graph, this.weighting).setWeight(toNode.weight).setSPTEntry(toNode).extract();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
-#### Snippet
-```java
-    private String getImageForLaneAssignment(LaneAssignment laneAssignment) {
-        if (imageCreatorSpeedLimits == null || imageCreatorLaneAssignments == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
-#### Snippet
-```java
-    private String getImageForSpeedLimit(SpeedLimit speedLimit) {
-        if (imageCreatorSpeedLimits == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
-#### Snippet
-```java
-    private PlateauPath createPathFromPlateau(PlateauPath optimalPath) {
-        if (plateaus.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
-#### Snippet
-```java
-                return (Class<T>) Class.forName(newClassName);
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
-#### Snippet
-```java
-            log.warn("Couldn't instantiate DocumentBuilder, this will result in no additional-file being written");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteAdd.java`
-#### Snippet
-```java
-    @Override
-    protected List<String> constructResult(Status status, Object... objects) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
-#### Snippet
-```java
-            throw new IOException("Matcher of " + this.getClass().getSimpleName() + " failed.");
-        } else if (matcher != null) {
-            return null;
-        }
-        return result;
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
-#### Snippet
-```java
-            return TrafficLightStateDecoder.createStateListFromEncodedString(getCurrentState.execute(bridge, trafficLightGroupId));
-        } catch (CommandException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
-#### Snippet
-```java
-                    );
-            if (trafficLights.isEmpty()) { // railway signals can be defined without a phase logic and will be ignored
-                return null;
-            }
-            return new TrafficLightGroup(trafficLightGroupId, trafficLightPrograms, trafficLights);
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-    private List<PublicTransportData.StoppingPlace> getNextStop(TraCINextStopDataVector2 stops) {
-        if (stops.isEmpty()) {
-            return null;
-        }
-        List<PublicTransportData.StoppingPlace> nextStops = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
-#### Snippet
-```java
-        try {
-            if (traCIPosition.getX() < -1000 && traCIPosition.getY() < -1000) {
-                return null;
-            }
-            return new Position(CartesianPoint.xyz(traCIPosition.getX(), traCIPosition.getY(), traCIPosition.getZ() < -1000 ? 0 : traCIPosition.getZ()));
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/VehicleFacade.java`
-#### Snippet
-```java
-        } catch (IllegalArgumentException | CommandException e) {
-            log.error("Could not retrieve or transform parameter {} for vehicle {}.", parameterName, vehicleId);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-    private IRoadPosition getRoadPosition(VehicleSubscriptionResult veh, VehicleData lastVehicleData) {
-        if (veh.edgeId == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-                 * We ignore this vehicle until it's added to the simulation. */
-                log.debug("Skip vehicle {} which is loaded but not yet simulated.", veh.id);
-                return null;
-            }
-            if (currentTeleportingList == null) {  // we call this only once per simulation step if at least one vehicle is teleporting
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-        if (isParking && isNewVehicle) {
-            log.warn("Skip vehicle {} which is inserted into simulation in PARKED state.", veh.id);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
-#### Snippet
-```java
-    public VehicleData getLastKnownVehicleData(String vehicleId) {
-        SumoVehicleState vehicle = sumoVehicles.get(vehicleId);
-        return vehicle != null ? vehicle.currentVehicleData : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/CamContent.java`
-#### Snippet
-```java
-    public byte[] getUserTaggedValue() {
-        if (userTaggedValue == null) {
-            return null;
-        }
-        return userTaggedValue.clone();
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/EncodedPayload.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
-#### Snippet
-```java
-        @Override
-        public GeoPoint getPosition() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
-#### Snippet
-```java
-        @Override
-        public INode getEndNode() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
-#### Snippet
-```java
-        @Override
-        public IWay getWay() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
-#### Snippet
-```java
-        @Override
-        public INode getStartNode() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
-#### Snippet
-```java
-        return address != null
-                ? addressMap.inverse().get(address)
-                : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
-#### Snippet
-```java
-        return hostname != null
-                ? addressMap.get(hostname)
-                : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/electricity/ChargingStationData.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignSpeed.java`
-#### Snippet
-```java
-                        return speedLimit.clone();
-                    } catch (Exception e) {
-                        return null;
-                    }
-                })
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignSpeed.java`
-#### Snippet
-```java
-    public SpeedLimit getSpeedLimit(int lane) {
-        if (lane < 0 || lane >= getSignContents().size()) {
-            return null;
-        }
-        return getSignContents().get(lane);
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
-#### Snippet
-```java
-                        return laneAssignment.clone();
-                    } catch (Exception e) {
-                        return null;
-                    }
-                })
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
-#### Snippet
-```java
-    public LaneAssignment getLaneAssignment(int lane) {
-        if (lane < 0 || lane >= getSignContents().size()) {
-            return null;
-        }
-        return getSignContents().get(lane);
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
-#### Snippet
-```java
-                    : TYPE_RECTANGLE.equalsIgnoreCase(type) ? GeoRectangle.class
-                    : TYPE_POLYGON.equalsIgnoreCase(type) ? GeoPolygon.class
-                    : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
-#### Snippet
-```java
-                    : GeoRectangle.class.isAssignableFrom(typeClass) ? TYPE_RECTANGLE
-                    : GeoPolygon.class.isAssignableFrom(typeClass) ? TYPE_POLYGON
-                    : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
-#### Snippet
-```java
-            return route;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/ConfigurationData.java`
 #### Snippet
 ```java
@@ -16668,30 +16056,6 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/Configuration
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/SimulationData.java`
-#### Snippet
-```java
-    public CNetworkProperties getRegionOfNode(String nodeId) {
-        SimulationNode node = simulationNodeMap.get(nodeId);
-        return node != null ? node.region : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/SimulationData.java`
-#### Snippet
-```java
-    public CartesianPoint getPositionOfNode(String nodeId) {
-        SimulationNode node = simulationNodeMap.get(nodeId);
-        return node != null ? node.position : null;
-    }
-
 ```
 
 ### ReturnNull
@@ -16708,12 +16072,24 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/viz/BandwidthMeasu
 
 ### ReturnNull
 Return of `null`
-in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/SimulationData.java`
 #### Snippet
 ```java
-    static <T> T getNearestObject(QuadTree<T> tree, Vector3d center, Predicate<T> filter) {
-        QuadTree<T>.ObjectAndNode r = selectNearest(tree.getRoot(), center, Double.MAX_VALUE, filter);
-        return r != null ? r.object : null;
+    public CartesianPoint getPositionOfNode(String nodeId) {
+        SimulationNode node = simulationNodeMap.get(nodeId);
+        return node != null ? node.position : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/data/SimulationData.java`
+#### Snippet
+```java
+    public CNetworkProperties getRegionOfNode(String nodeId) {
+        SimulationNode node = simulationNodeMap.get(nodeId);
+        return node != null ? node.region : null;
     }
 
 ```
@@ -16732,6 +16108,18 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionsInd
 
 ### ReturnNull
 Return of `null`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/etsi/VehicleCamSendingApp.java`
+#### Snippet
+```java
+        // failsafe
+        if (vehicleData == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtility.java`
 #### Snippet
 ```java
@@ -16744,73 +16132,13 @@ in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/utility/RegionUtil
 
 ### ReturnNull
 Return of `null`
-in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/ambassador/CellAmbassador.java`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/etsi/AbstractCamSendingApp.java`
 #### Snippet
 ```java
-    private VehicleData fetchVehicleDataFromLastUpdate(String vehicleId) {
-        if (latestVehicleUpdates == null) {
-            return null;
         }
-        // see if vehicle was added or updated within the last vehicle update
-```
 
-### ReturnNull
-Return of `null`
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/NopFederateExecutor.java`
-#### Snippet
-```java
-    public Process startLocalFederate(File workingDir) {
-        //nop
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
-#### Snippet
-```java
-                return this.poll();
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/config/CHosts.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/config/CHosts.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/etsi/VehicleCamSendingApp.java`
-#### Snippet
-```java
-        // failsafe
-        if (vehicleData == null) {
-            return null;
-        }
 
 ```
 
@@ -16828,14 +16156,14 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/
 
 ### ReturnNull
 Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/app/etsi/AbstractCamSendingApp.java`
+in `fed/mosaic-cell/src/main/java/org/eclipse/mosaic/fed/cell/ambassador/CellAmbassador.java`
 #### Snippet
 ```java
+    private VehicleData fetchVehicleDataFromLastUpdate(String vehicleId) {
+        if (latestVehicleUpdates == null) {
+            return null;
         }
-
-        return null;
-    }
-
+        // see if vehicle was added or updated within the last vehicle update
 ```
 
 ### ReturnNull
@@ -16855,11 +16183,11 @@ Return of `null`
 in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
 #### Snippet
 ```java
-        } catch (IllegalArgumentException e) {
-            belongingUnit.getOsLog().warn("NavigationModule#getNextTrafficLightNode received an invalid parameter", e);
-            return null;
-        }
+    @Override
+    public IRoadPosition getRoadPosition() {
+        return vehicleData == null ? null : vehicleData.getRoadPosition();
     }
+
 ```
 
 ### ReturnNull
@@ -16879,20 +16207,8 @@ Return of `null`
 in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/NavigationModule.java`
 #### Snippet
 ```java
-    @Override
-    public IRoadPosition getRoadPosition() {
-        return vehicleData == null ? null : vehicleData.getRoadPosition();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
-#### Snippet
-```java
-            return getPositionOfNode(lastNodeId);
-        } else {
+        } catch (IllegalArgumentException e) {
+            belongingUnit.getOsLog().warn("NavigationModule#getNextTrafficLightNode received an invalid parameter", e);
             return null;
         }
     }
@@ -16908,6 +16224,54 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
             return null;
         }
         return routing.refineRoadPosition(roadPosition);
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
+#### Snippet
+```java
+            return getPositionOfNode(firstNodeId);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
+#### Snippet
+```java
+        // check if there is an upcoming node
+        if (indexOfUpcomingNode < 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
+#### Snippet
+```java
+            return getPositionOfNode(lastNodeId);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -16944,42 +16308,6 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
-#### Snippet
-```java
-        // check if there is an upcoming node
-        if (indexOfUpcomingNode < 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/navigation/CentralNavigationComponent.java`
-#### Snippet
-```java
-            return getPositionOfNode(firstNodeId);
-        } else {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -17044,22 +16372,550 @@ in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/amba
 
 ### ReturnNull
 Return of `null`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/weighting/DeterministicSelector.java`
 #### Snippet
 ```java
-            EdgeWrapper result = edgeSearch.getNearest();
-            if (result == null) {
-                return null;
-            }
-            return result.edge;
+
+        if (selectedItem == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Restriction.java`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicClassLoader.java`
 #### Snippet
 ```java
-                return Type.Only;
+            return path.toUri().toURL();
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/util/RouteFixer.java`
+#### Snippet
+```java
+    private List<Connection> findIntermediateConnectionsRecursively(Connection from, Connection to, int depth) {
+        if (depth == 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
+#### Snippet
+```java
+    @Override
+    public IRoadPosition findClosestRoadPosition(GeoPoint point) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
+#### Snippet
+```java
+    @Override
+    public INode getNode(String nodeId) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
+#### Snippet
+```java
+    @Override
+    public IConnection getConnection(String nodeId) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
+#### Snippet
+```java
+    @Override
+    public INode findClosestNode(GeoPoint point) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/norouting/NoRouting.java`
+#### Snippet
+```java
+    @Override
+    public VehicleRoute createRouteForRTI(CandidateRoute candidateRoute) throws IllegalRouteException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+#### Snippet
+```java
+        Edge closestEdge = findClosestEdge(location);
+        if (closestEdge == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+#### Snippet
+```java
+        File[] dirs = baseDir.listFiles();
+        if (dirs == null) {
+            return null;
+        }
+        for (File file : dirs) {
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/DatabaseRouting.java`
+#### Snippet
+```java
+        return node != null
+                ? new LazyLoadingNode(node)
+                : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/database/LazyLoadingConnection.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+#### Snippet
+```java
+    CPrototype getPrototypeByName(String name) {
+        if (name == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
+#### Snippet
+```java
+        }
+        // if no types could be defined
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/DatabaseGraphLoader.java`
+#### Snippet
+```java
+            return encoding.handleWayTags(osmWay, aw, 0);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/BellmanFordRouting.java`
+#### Snippet
+```java
+            return new Path(this.graph, this.weighting).setWeight(toNode.weight).setSPTEntry(toNode).extract();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
+#### Snippet
+```java
+        double distanceToOriginalTarget = distanceCalculation.calcDist(pathTarget.lat, pathTarget.lon, origTarget.lat, origTarget.lon);
+        if (distanceToOriginalTarget > MAX_DISTANCE_TO_TARGET) {
+            return null;
+        }
+        Iterator<EdgeIteratorState> edgesIt = newPath.calcEdges().iterator();
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
+#### Snippet
+```java
+        Iterator<EdgeIteratorState> edgesIt = newPath.calcEdges().iterator();
+        if (!edgesIt.hasNext()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/GraphHopperRouting.java`
+#### Snippet
+```java
+                            "Something went wrong during path search: The found route has infinite weight. Maybe there's a turn restriction or unconnected "
+                                    + "sub-graphs in the network. Route will be ignored.");
+                    return null;
+                }
+            } else {
+```
+
+### ReturnNull
+Return of `null`
+in `rti/mosaic-starter/src/main/java/org/eclipse/mosaic/starter/MosaicSimulation.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            getLogger().warn("Could not read the log folder from " + logbackConfigPath, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-routing/src/main/java/org/eclipse/mosaic/lib/routing/graphhopper/algorithm/AbstractCamvitChoiceRouting.java`
+#### Snippet
+```java
+    private PlateauPath createPathFromPlateau(PlateauPath optimalPath) {
+        if (plateaus.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+#### Snippet
+```java
+                    destinationAddress
+            );
+            return null;
+        }
+        if (dac.getTimeToLive() != SINGLE_HOP_TTL) { // inform about dismissed TTL
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+#### Snippet
+```java
+        final String senderName = interaction.getSourceName();
+        if (!isValidSender(senderName)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
+#### Snippet
+```java
+    private String getImageForSpeedLimit(SpeedLimit speedLimit) {
+        if (imageCreatorSpeedLimits == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/TrafficSignManager.java`
+#### Snippet
+```java
+    private String getImageForLaneAssignment(LaneAssignment laneAssignment) {
+        if (imageCreatorSpeedLimits == null || imageCreatorLaneAssignments == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
+#### Snippet
+```java
+                return (Class<T>) Class.forName(newClassName);
+            } catch (ClassNotFoundException e) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/CommandRegister.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/util/SumoVehicleTypesWriter.java`
+#### Snippet
+```java
+            log.warn("Couldn't instantiate DocumentBuilder, this will result in no additional-file being written");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/RouteAdd.java`
+#### Snippet
+```java
+    @Override
+    protected List<String> constructResult(Status status, Object... objects) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
+#### Snippet
+```java
+            String forwardingEntityName = getForwardingEntity(reachableEntities, receivers);
+            if (forwardingEntityName == null) { // if no entity to forward the message to was found, Forwarding fails
+                return null;
+            }
+            // simulate the transmission to the forwarding entity
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
+#### Snippet
+```java
+                    );
+            if (!transmissionResult.success) { // whenever the transmission on the way to the destination area fails, everything fails
+                return null;
+            }
+            transmissionResult.numberOfHops = previousTransmissionResult.numberOfHops + 1;
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
+#### Snippet
+```java
+        }
+        // if destination area couldn't be reached in ttl, fail
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/traci/reader/AbstractTraciResultReader.java`
+#### Snippet
+```java
+            throw new IOException("Matcher of " + this.getClass().getSimpleName() + " failed.");
+        } else if (matcher != null) {
+            return null;
+        }
+        return result;
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/VehicleFacade.java`
+#### Snippet
+```java
+        } catch (IllegalArgumentException | CommandException e) {
+            log.error("Could not retrieve or transform parameter {} for vehicle {}.", parameterName, vehicleId);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
+#### Snippet
+```java
+            return TrafficLightStateDecoder.createStateListFromEncodedString(getCurrentState.execute(bridge, trafficLightGroupId));
+        } catch (CommandException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/TrafficLightFacade.java`
+#### Snippet
+```java
+                    );
+            if (trafficLights.isEmpty()) { // railway signals can be defined without a phase logic and will be ignored
+                return null;
+            }
+            return new TrafficLightGroup(trafficLightGroupId, trafficLightPrograms, trafficLights);
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+    private List<PublicTransportData.StoppingPlace> getNextStop(TraCINextStopDataVector2 stops) {
+        if (stops.isEmpty()) {
+            return null;
+        }
+        List<PublicTransportData.StoppingPlace> nextStops = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/libsumo/SimulationSimulateStep.java`
+#### Snippet
+```java
+        try {
+            if (traCIPosition.getX() < -1000 && traCIPosition.getY() < -1000) {
+                return null;
+            }
+            return new Position(CartesianPoint.xyz(traCIPosition.getX(), traCIPosition.getY(), traCIPosition.getZ() < -1000 ? 0 : traCIPosition.getZ()));
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+    public VehicleData getLastKnownVehicleData(String vehicleId) {
+        SumoVehicleState vehicle = sumoVehicles.get(vehicleId);
+        return vehicle != null ? vehicle.currentVehicleData : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+    private IRoadPosition getRoadPosition(VehicleSubscriptionResult veh, VehicleData lastVehicleData) {
+        if (veh.edgeId == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+                 * We ignore this vehicle until it's added to the simulation. */
+                log.debug("Skip vehicle {} which is loaded but not yet simulated.", veh.id);
+                return null;
+            }
+            if (currentTeleportingList == null) {  // we call this only once per simulation step if at least one vehicle is teleporting
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-sumo/src/main/java/org/eclipse/mosaic/fed/sumo/bridge/facades/SimulationFacade.java`
+#### Snippet
+```java
+        if (isParking && isNewVehicle) {
+            log.warn("Skip vehicle {} which is inserted into simulation in PARKED state.", veh.id);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/federatestarter/NopFederateExecutor.java`
+#### Snippet
+```java
+    public Process startLocalFederate(File workingDir) {
+        //nop
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/api/AbstractFederateAmbassador.java`
+#### Snippet
+```java
+                return this.poll();
             }
             return null;
         }
@@ -17068,14 +16924,254 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Restr
 
 ### ReturnNull
 Return of `null`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/NodeFinder.java`
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/config/CHosts.java`
 #### Snippet
 ```java
-            NodeWrapper result = nodeSearch.getNearest();
-            if (result == null) {
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rti/mosaic-rti-api/src/main/java/org/eclipse/mosaic/rti/config/CHosts.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnumDefaultValueTypeAdapter.java`
+#### Snippet
+```java
+        if (in.peek() == JsonToken.NULL) {
+            in.nextNull();
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/PolymorphismTypeAdapterFactory.java`
+#### Snippet
+```java
+                return delegate.fromJsonTree(jsonElement);
+            } catch (ClassNotFoundException e) {
                 return null;
             }
-            return result.node;
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
+#### Snippet
+```java
+        if (args.length == 0 || ArrayUtils.contains(args, "--help") || ArrayUtils.contains(args, "-h")) {
+            printHelp();
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
+#### Snippet
+```java
+                    : GeoRectangle.class.isAssignableFrom(typeClass) ? TYPE_RECTANGLE
+                    : GeoPolygon.class.isAssignableFrom(typeClass) ? TYPE_POLYGON
+                    : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/gson/GeoAreaAdapterFactory.java`
+#### Snippet
+```java
+                    : TYPE_RECTANGLE.equalsIgnoreCase(type) ? GeoRectangle.class
+                    : TYPE_POLYGON.equalsIgnoreCase(type) ? GeoPolygon.class
+                    : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/AStar.java`
+#### Snippet
+```java
+            return route;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/EncodedPayload.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/v2x/etsi/CamContent.java`
+#### Snippet
+```java
+    public byte[] getUserTaggedValue() {
+        if (userTaggedValue == null) {
+            return null;
+        }
+        return userTaggedValue.clone();
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
+#### Snippet
+```java
+        @Override
+        public GeoPoint getPosition() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
+#### Snippet
+```java
+        @Override
+        public INode getEndNode() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
+#### Snippet
+```java
+        @Override
+        public INode getStartNode() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/road/SimpleRoadPosition.java`
+#### Snippet
+```java
+        @Override
+        public IWay getWay() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-geomath/src/main/java/org/eclipse/mosaic/lib/spatial/QuadTreeTraversal.java`
+#### Snippet
+```java
+    static <T> T getNearestObject(QuadTree<T> tree, Vector3d center, Predicate<T> filter) {
+        QuadTree<T>.ObjectAndNode r = selectNearest(tree.getRoot(), center, Double.MAX_VALUE, filter);
+        return r != null ? r.object : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
+#### Snippet
+```java
+        return hostname != null
+                ? addressMap.get(hostname)
+                : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/addressing/IpResolver.java`
+#### Snippet
+```java
+        return address != null
+                ? addressMap.inverse().get(address)
+                : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/electricity/ChargingStationData.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignSpeed.java`
+#### Snippet
+```java
+                        return speedLimit.clone();
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignSpeed.java`
+#### Snippet
+```java
+    public SpeedLimit getSpeedLimit(int lane) {
+        if (lane < 0 || lane >= getSignContents().size()) {
+            return null;
+        }
+        return getSignContents().get(lane);
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
+#### Snippet
+```java
+        final List<Node> nodes = connection.getNodes();
+        if (nodes.isEmpty()) {
+            return null;
+        }
+        if (index < 0) {
 ```
 
 ### ReturnNull
@@ -17128,14 +17224,74 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUt
 
 ### ReturnNull
 Return of `null`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/DatabaseUtils.java`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
 #### Snippet
 ```java
-        final List<Node> nodes = connection.getNodes();
-        if (nodes.isEmpty()) {
+    public LaneAssignment getLaneAssignment(int lane) {
+        if (lane < 0 || lane >= getSignContents().size()) {
             return null;
         }
-        if (index < 0) {
+        return getSignContents().get(lane);
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-objects/src/main/java/org/eclipse/mosaic/lib/objects/trafficsign/TrafficSignLaneAssignment.java`
+#### Snippet
+```java
+                        return laneAssignment.clone();
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/road/Restriction.java`
+#### Snippet
+```java
+                return Type.Only;
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/NodeFinder.java`
+#### Snippet
+```java
+            NodeWrapper result = nodeSearch.getNearest();
+            if (result == null) {
+                return null;
+            }
+            return result.node;
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/spatial/EdgeFinder.java`
+#### Snippet
+```java
+            EdgeWrapper result = edgeSearch.getNearest();
+            if (result == null) {
+                return null;
+            }
+            return result.edge;
+```
+
+### ReturnNull
+Return of `null`
+in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
+#### Snippet
+```java
+    private synchronized VehicleData fetchVehicleDataFromLastUpdate(String vehicleId) {
+        if (latestVehicleUpdates == null) {
+            return null;
+        }
+        // see if vehicle was added or updated within the last vehicle update
 ```
 
 ### ReturnNull
@@ -17191,18 +17347,6 @@ Return of `null`
 in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
 #### Snippet
 ```java
-        @Override
-        protected <T> T get(String columnName, T defaultValue, Function<Object, T> objectMapper) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
-#### Snippet
-```java
             log.error("- error message: {}", e.getMessage());
             disconnect(statement);
             return null;
@@ -17212,170 +17356,14 @@ in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistenc
 
 ### ReturnNull
 Return of `null`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
+in `lib/mosaic-database/src/main/java/org/eclipse/mosaic/lib/database/persistence/SQLiteAccess.java`
 #### Snippet
 ```java
-                    destinationAddress
-            );
+        @Override
+        protected <T> T get(String columnName, T defaultValue, Function<Object, T> objectMapper) {
             return null;
         }
-        if (dac.getTimeToLive() != SINGLE_HOP_TTL) { // inform about dismissed TTL
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/ambassador/TransmissionSimulator.java`
-#### Snippet
-```java
-        final String senderName = interaction.getSourceName();
-        if (!isValidSender(senderName)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/weighting/DeterministicSelector.java`
-#### Snippet
-```java
-
-        if (selectedItem == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
-#### Snippet
-```java
-    CPrototype getPrototypeByName(String name) {
-        if (name == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
-#### Snippet
-```java
-        }
-
-        return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-mapping/src/main/java/org/eclipse/mosaic/fed/mapping/ambassador/SpawningFramework.java`
-#### Snippet
-```java
-        }
-        // if no types could be defined
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/AbstractEnumDefaultValueTypeAdapter.java`
-#### Snippet
-```java
-        if (in.peek() == JsonToken.NULL) {
-            in.nextNull();
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
-#### Snippet
-```java
-            String forwardingEntityName = getForwardingEntity(reachableEntities, receivers);
-            if (forwardingEntityName == null) { // if no entity to forward the message to was found, Forwarding fails
-                return null;
-            }
-            // simulate the transmission to the forwarding entity
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
-#### Snippet
-```java
-                    );
-            if (!transmissionResult.success) { // whenever the transmission on the way to the destination area fails, everything fails
-                return null;
-            }
-            transmissionResult.numberOfHops = previousTransmissionResult.numberOfHops + 1;
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-sns/src/main/java/org/eclipse/mosaic/fed/sns/model/SophisticatedAdhocTransmissionModel.java`
-#### Snippet
-```java
-        }
-        // if destination area couldn't be reached in ttl, fail
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/PolymorphismTypeAdapterFactory.java`
-#### Snippet
-```java
-                return delegate.fromJsonTree(jsonElement);
-            } catch (ClassNotFoundException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/cli/CommandLineParser.java`
-#### Snippet
-```java
-        if (args.length == 0 || ArrayUtils.contains(args, "--help") || ArrayUtils.contains(args, "-h")) {
-            printHelp();
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodElement.java`
-#### Snippet
-```java
-
-        if (!this.hasInitialized()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodElement.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -17404,6 +17392,30 @@ in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file
 
 ### ReturnNull
 Return of `null`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodElement.java`
+#### Snippet
+```java
+
+        if (!this.hasInitialized()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodElement.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file/format/MethodManager.java`
 #### Snippet
 ```java
@@ -17412,43 +17424,6 @@ in `fed/mosaic-output/src/main/java/org/eclipse/mosaic/fed/output/generator/file
             return null;
         } else {
             return method.substring(0, i);
-```
-
-### ReturnNull
-Return of `null`
-in `lib/mosaic-network/src/main/java/org/eclipse/mosaic/lib/coupling/AbstractNetworkAmbassador.java`
-#### Snippet
-```java
-    private synchronized VehicleData fetchVehicleDataFromLastUpdate(String vehicleId) {
-        if (latestVehicleUpdates == null) {
-            return null;
-        }
-        // see if vehicle was added or updated within the last vehicle update
-```
-
-## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\d+\\.\\d*|\\d+d)`
-in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
-#### Snippet
-```java
-    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
-    private final static Pattern parameterPattern =
-            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
-
-    private final Logger logger;
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour))`
-in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
-#### Snippet
-```java
-
-    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
-    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
-
-    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
 ```
 
 ## RuleId[id=BusyWait]
@@ -17486,6 +17461,31 @@ in `lib/mosaic-docker/src/main/java/org/eclipse/mosaic/lib/docker/DockerClient.j
                 Thread.sleep(20);
             } catch (InterruptedException e) {
                 throw new DockerRuntimeException(e);
+```
+
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\d+\\.\\d*|\\d+d)`
+in `fed/mosaic-application/src/main/java/org/eclipse/mosaic/fed/application/ambassador/util/ClassNameParser.java`
+#### Snippet
+```java
+    // ^(\d+|\d+\.\d*|\"[^\"\n]*\"|false|true)$
+    private final static Pattern parameterPattern =
+            Pattern.compile("^(?:((?:\\d+\\.\\d*|\\d+d))|(\\d+l)|(\\d+)|\\\"([^\\\"\\n]*)\\\"|'([^'\\n]*)'|(false|true))$");
+
+    private final Logger logger;
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour))`
+in `lib/mosaic-utils/src/main/java/org/eclipse/mosaic/lib/util/gson/UnitFieldAdapter.java`
+#### Snippet
+```java
+
+    private final static Pattern DISTANCE_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(miles|mile|meter|metre|m))$");
+    private final static Pattern SPEED_PATTERN = Pattern.compile("^([0-9]+\\.?[0-9]*) ?(mph|kmh|(?:(|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(meter|metre|m)(?:p|per|\\/)(h|hr|s|sec|second|hour)))$");
+
+    private final static Pattern WEIGHT_PATTERN = Pattern.compile("^(-?[0-9]+\\.?[0-9]*) ?((|k|d|c|m|\\u00b5|n|kilo|deci|centi|milli|micro|nano)(g|gram|grams))$");
 ```
 
 ## RuleId[id=RedundantFileCreation]
