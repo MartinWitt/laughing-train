@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-22-37-49.409.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-01-42-29.089.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -55,18 +55,6 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    checkResolution(childRes);
-
-    long result = h3Api.cellToCenterChild(h3, childRes);
-
-    return result;
-```
-
-### UnnecessaryLocalVariable
 Local variable `out` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -76,6 +64,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
     return out;
   }
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    checkResolution(childRes);
+
+    long result = h3Api.cellToCenterChild(h3, childRes);
+
+    return result;
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
