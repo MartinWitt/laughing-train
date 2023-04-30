@@ -114,6 +114,1242 @@ in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/ReadableHeader.java`
+#### Snippet
+```java
+     * @return the optional value
+     */
+    public Optional<Object> getValue(T tag);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+     * @throws IOException in case of a n I/O error.
+     */
+    public InputStream createInputStream() throws IOException;
+
+    public boolean hasContent();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+
+public interface ContentProvider {
+    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+
+public interface ContentProvider {
+    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+
+public interface ContentProvider {
+    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
+
+        @Override
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+    };
+
+    public long getSize();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
+#### Snippet
+```java
+    public InputStream createInputStream() throws IOException;
+
+    public boolean hasContent();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/SimpleFileInformationCustomizer.java`
+#### Snippet
+```java
+@FunctionalInterface
+public interface SimpleFileInformationCustomizer {
+    public void perform(FileInformation information) throws IOException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addFile(final String targetName, final byte[] source, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(String targetName, ByteBuffer source, FileInformationProvider<Object> provider) throws IOException;
+
+    public default void addFile(final String targetName, final ByteBuffer source, final SimpleFileInformationCustomizer customizer) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addFile(final String targetName, final ByteBuffer source) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(String targetName, Path source, FileInformationProvider<? super Path> provider) throws IOException;
+
+    public default void addFile(final String targetName, final Path source, final SimpleFileInformationCustomizer customizer) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+
+    public static final class Directory {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+
+    public static final class Directory {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+
+    public static final class Directory {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(String targetName, InputStream source, FileInformationProvider<Object> provider) throws IOException;
+
+    public default void addFile(final String targetName, final InputStream source, final SimpleFileInformationCustomizer customizer) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void addFile(String targetName, Path source, FileInformationProvider<? super Path> provider) throws IOException;
+
+    public default void addFile(final String targetName, final Path source, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void setDefaultInformationProvider(FileInformationProvider<Object> provider);
+
+    public FileInformationProvider<Object> getDefaultInformationProvider();
+
+    public default void addFile(final String targetName, final Path source) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+
+    public static FileInformationCustomizer<Path> pathCustomizer() {
+        return new FileInformationCustomizer<Path>() {
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addFile(final String targetName, final byte[] source) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static final class SymbolicLink {
+        private SymbolicLink() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static final class SymbolicLink {
+        private SymbolicLink() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> FileInformationProvider<T> defaultProvider() {
+        return (FileInformationProvider<T>) Defaults.DEFAULT_MULTI_PROVIDER;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static FileInformationProvider<Path> pathProvider() {
+        return Defaults.PATH_PROVIDER;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unchecked")
+    public static <T> FileInformationProvider<T> simpleDirectoryProvider() {
+        return (FileInformationProvider<T>) Defaults.SIMPLE_DIRECTORY_PROVIDER;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final List<ProviderRule<?>> rules) {
+        Objects.requireNonNull(defaultProvider);
+        Objects.requireNonNull(rules);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+public interface BuilderContext {
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+public interface BuilderContext {
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+public interface BuilderContext {
+    public static final String DEFAULT_USER = "root";
+
+    public static final String DEFAULT_GROUP = "root";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static <T> FileInformationProvider<T> simpleProvider(final int mode) {
+        return new FileInformationProvider<T>() {
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static SimpleFileInformationCustomizer nowTimestampCustomizer() {
+        return Defaults.NOW_TIMESTAMP_CUSTOMIZER;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final String DEFAULT_GROUP = "root";
+
+    public static final class Directory {
+        private Directory() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final String DEFAULT_GROUP = "root";
+
+    public static final class Directory {
+        private Directory() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addDirectory(final String targetName) throws IOException {
+        addDirectory(targetName, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final ProviderRule<?>... rules) {
+        Objects.requireNonNull(rules);
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+
+    public static FileInformationCustomizer<Path> pathCustomizer() {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+
+    public static FileInformationCustomizer<Path> pathCustomizer() {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public static final Directory DIRECTORY = new Directory();
+
+    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
+
+    public static FileInformationCustomizer<Path> pathCustomizer() {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addSymbolicLink(final String targetName, final String linkTo, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addSymbolicLink(targetName, linkTo, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void addSymbolicLink(String targetName, String linkTo, final FileInformationProvider<? super SymbolicLink> provider) throws IOException;
+
+    public default void addSymbolicLink(final String targetName, final String linkTo) throws IOException {
+        addSymbolicLink(targetName, linkTo, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void setDefaultInformationProvider(FileInformationProvider<Object> provider);
+
+    public FileInformationProvider<Object> getDefaultInformationProvider();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addFile(final String targetName, final byte[] source, final FileInformationProvider<Object> provider) throws IOException {
+        addFile(targetName, ByteBuffer.wrap(source), provider);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void addFile(String targetName, ByteBuffer source, FileInformationProvider<Object> provider) throws IOException;
+
+    public default void addFile(final String targetName, final ByteBuffer source, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public default void addFile(final String targetName, final InputStream source) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void addDirectory(String targetName, final FileInformationProvider<? super Directory> provider) throws IOException;
+
+    public default void addDirectory(final String targetName, final SimpleFileInformationCustomizer customizer) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unchecked")
+    public static <T> FileInformationProvider<T> simpleFileProvider() {
+        return (FileInformationProvider<T>) Defaults.SIMPLE_FILE_PROVIDER;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public void addSymbolicLink(String targetName, String linkTo, final FileInformationProvider<? super SymbolicLink> provider) throws IOException;
+
+    public default void addSymbolicLink(final String targetName, final String linkTo) throws IOException {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void addFile(String targetName, InputStream source, FileInformationProvider<Object> provider) throws IOException;
+
+    public default void addFile(final String targetName, final InputStream source, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public FileInformationProvider<Object> getDefaultInformationProvider();
+
+    public default void addFile(final String targetName, final Path source) throws IOException {
+        addFile(targetName, source, getDefaultInformationProvider());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    public void addDirectory(String targetName, final FileInformationProvider<? super Directory> provider) throws IOException;
+
+    public default void addDirectory(final String targetName, final SimpleFileInformationCustomizer customizer) throws IOException {
+        addDirectory(targetName, getDefaultInformationProvider().customize(customizer));
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+    }
+
+    public static SimpleFileInformationCustomizer modeCustomizer(final short mode) {
+        return new SimpleFileInformationCustomizer() {
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+
+    public interface Fields {
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+
+    public interface Fields {
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+
+    public interface Fields {
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
+
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PACKAGE = "Package"; //$NON-NLS-1$
+
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
+
+        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String VERSION = "Version"; //$NON-NLS-1$
+
+        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
+
+        public static final String SECTION = "Section"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+
+        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+
+        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
+#### Snippet
+```java
+        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
+
+        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
+
+        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmBaseTag.java`
+#### Snippet
+```java
+     * @return the key value
+     */
+    public Integer getValue();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `rpm/src/main/java/org/eclipse/packager/rpm/deps/RpmDependencyFlags.java`
+#### Snippet
+```java
+    private int value;
+
+    private RpmDependencyFlags(final int bit) {
+        this.value = 1 << bit;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+    public interface Context {
+        public void addPackage(FileInformation fileInformation, RpmInformation rpmInformation, Map<HashAlgorithm, String> checksums, HashAlgorithm idType);
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+        public void write(Document primary, OutputStream primaryStream) throws IOException;
+
+        public Document createDocument();
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+    public interface XmlContext {
+        public void write(Document primary, OutputStream primaryStream) throws IOException;
+
+        public Document createDocument();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/eclipse/packager/io/IOConsumer.java`
+#### Snippet
+```java
+@FunctionalInterface
+public interface IOConsumer<T> {
+    public void accept(T data) throws IOException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
+#### Snippet
+```java
+     *             package
+     */
+    public void addDirectory(String directory, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
+#### Snippet
+```java
+     * @throws IOException if the file cannot be written to the package
+     */
+    public default void addFile(final ContentProvider contentProvider, final String fileName, final EntryInformation entryInformation) throws IOException {
+        addFile(contentProvider, fileName, entryInformation, Optional.empty());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
+#### Snippet
+```java
+     *             package
+     */
+    public default void addDirectory(final String directory, final EntryInformation entryInformation) throws IOException {
+        addDirectory(directory, entryInformation, Optional.empty());
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
+#### Snippet
+```java
+     * @throws IOException if the file cannot be written to the package
+     */
+    public void addFile(ContentProvider contentProvider, String fileName, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
+#### Snippet
+```java
+     * </p>
+     */
+    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
+        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
+        sb.append('.').append(architecture).append(".rpm");
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
+#### Snippet
+```java
+     * </p>
+     */
+    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
+        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
+        sb.append('.').append(architecture).append(".rpm");
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
+#### Snippet
+```java
+     * </p>
+     */
+    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
+        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
+        sb.append('.').append(architecture).append(".rpm");
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
 #### Snippet
 ```java
@@ -162,518 +1398,14 @@ public interface RpmFileNameProvider {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
-#### Snippet
-```java
-     * </p>
-     */
-    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
-        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
-        sb.append('.').append(architecture).append(".rpm");
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
-#### Snippet
-```java
-     * </p>
-     */
-    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
-        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
-        sb.append('.').append(architecture).append(".rpm");
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
-#### Snippet
-```java
-     * </p>
-     */
-    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
-        final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
-        sb.append('.').append(architecture).append(".rpm");
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `rpm/src/main/java/org/eclipse/packager/rpm/deps/RpmDependencyFlags.java`
-#### Snippet
-```java
-    private int value;
-
-    private RpmDependencyFlags(final int bit) {
-        this.value = 1 << bit;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/ReadableHeader.java`
-#### Snippet
-```java
-     * @return the optional value
-     */
-    public Optional<Object> getValue(T tag);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/SimpleFileInformationCustomizer.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformationCustomizer.java`
 #### Snippet
 ```java
 @FunctionalInterface
-public interface SimpleFileInformationCustomizer {
-    public void perform(FileInformation information) throws IOException;
+public interface FileInformationCustomizer<T> {
+    public void perform(T object, FileInformation information) throws IOException;
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmBaseTag.java`
-#### Snippet
-```java
-     * @return the key value
-     */
-    public Integer getValue();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-
-    public interface Fields {
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-
-    public interface Fields {
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-
-    public interface Fields {
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String CONFLICTS = "Conflicts"; //$NON-NLS-1$
-
-        public static final String DEPENDS = "Depends"; //$NON-NLS-1$
-
-        public static final String PRE_DEPENDS = "Pre-Depends"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-
-        public static final String SECTION = "Section"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-
-        public static final String MAINTAINER = "Maintainer"; //$NON-NLS-1$
-
-        public static final String INSTALLED_SIZE = "Installed-Size"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PACKAGE = "Package"; //$NON-NLS-1$
-
-        public static final String VERSION = "Version"; //$NON-NLS-1$
-
-        public static final String ARCHITECTURE = "Architecture"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/control/BinaryPackageControlFile.java`
-#### Snippet
-```java
-        public static final String PRIORITY = "Priority"; //$NON-NLS-1$
-
-        public static final String ESSENTIAL = "Essential"; //$NON-NLS-1$
-
-        public static final String DESCRIPTION = "Description"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -714,138 +1446,6 @@ public interface FileInformationProvider<T> {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
-#### Snippet
-```java
-     * @throws IOException if the file cannot be written to the package
-     */
-    public default void addFile(final ContentProvider contentProvider, final String fileName, final EntryInformation entryInformation) throws IOException {
-        addFile(contentProvider, fileName, entryInformation, Optional.empty());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
-#### Snippet
-```java
-     * @throws IOException if the file cannot be written to the package
-     */
-    public void addFile(ContentProvider contentProvider, String fileName, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
-#### Snippet
-```java
-     *             package
-     */
-    public default void addDirectory(final String directory, final EntryInformation entryInformation) throws IOException {
-        addDirectory(directory, entryInformation, Optional.empty());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
-#### Snippet
-```java
-     *             package
-     */
-    public void addDirectory(String directory, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/eclipse/packager/io/IOConsumer.java`
-#### Snippet
-```java
-@FunctionalInterface
-public interface IOConsumer<T> {
-    public void accept(T data) throws IOException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-    public InputStream createInputStream() throws IOException;
-
-    public boolean hasContent();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-
-public interface ContentProvider {
-    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-
-public interface ContentProvider {
-    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-
-public interface ContentProvider {
-    public static final ContentProvider NULL_CONTENT = new ContentProvider() {
-
-        @Override
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-     * @throws IOException in case of a n I/O error.
-     */
-    public InputStream createInputStream() throws IOException;
-
-    public boolean hasContent();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-    };
-
-    public long getSize();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `core/src/main/java/org/eclipse/packager/io/IOFunction.java`
 #### Snippet
 ```java
@@ -865,570 +1465,6 @@ in `core/src/main/java/org/eclipse/packager/io/SpoolOutTarget.java`
 public interface SpoolOutTarget {
     public void spoolOut(final String fileName, final String mimeType, final IOConsumer<OutputStream> stream) throws IOException;
 }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static final class SymbolicLink {
-        private SymbolicLink() {
-        }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static final class SymbolicLink {
-        private SymbolicLink() {
-        }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void addFile(String targetName, ByteBuffer source, FileInformationProvider<Object> provider) throws IOException;
-
-    public default void addFile(final String targetName, final ByteBuffer source, final SimpleFileInformationCustomizer customizer) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void addSymbolicLink(String targetName, String linkTo, final FileInformationProvider<? super SymbolicLink> provider) throws IOException;
-
-    public default void addSymbolicLink(final String targetName, final String linkTo) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addDirectory(final String targetName) throws IOException {
-        addDirectory(targetName, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    public static <T> FileInformationProvider<T> simpleFileProvider() {
-        return (FileInformationProvider<T>) Defaults.SIMPLE_FILE_PROVIDER;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static SimpleFileInformationCustomizer modeCustomizer(final short mode) {
-        return new SimpleFileInformationCustomizer() {
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void addFile(String targetName, Path source, FileInformationProvider<? super Path> provider) throws IOException;
-
-    public default void addFile(final String targetName, final Path source, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addSymbolicLink(final String targetName, final String linkTo, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addSymbolicLink(targetName, linkTo, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void addFile(String targetName, InputStream source, FileInformationProvider<Object> provider) throws IOException;
-
-    public default void addFile(final String targetName, final InputStream source, final SimpleFileInformationCustomizer customizer) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addFile(final String targetName, final InputStream source) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void addFile(String targetName, ByteBuffer source, FileInformationProvider<Object> provider) throws IOException;
-
-    public default void addFile(final String targetName, final ByteBuffer source, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-public interface BuilderContext {
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-public interface BuilderContext {
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-public interface BuilderContext {
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void addFile(String targetName, InputStream source, FileInformationProvider<Object> provider) throws IOException;
-
-    public default void addFile(final String targetName, final InputStream source, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    public static <T> FileInformationProvider<T> simpleDirectoryProvider() {
-        return (FileInformationProvider<T>) Defaults.SIMPLE_DIRECTORY_PROVIDER;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addFile(final String targetName, final ByteBuffer source) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final List<ProviderRule<?>> rules) {
-        Objects.requireNonNull(defaultProvider);
-        Objects.requireNonNull(rules);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public FileInformationProvider<Object> getDefaultInformationProvider();
-
-    public default void addFile(final String targetName, final Path source) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static <T> FileInformationProvider<T> simpleProvider(final int mode) {
-        return new FileInformationProvider<T>() {
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addFile(final String targetName, final byte[] source) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void setDefaultInformationProvider(FileInformationProvider<Object> provider);
-
-    public FileInformationProvider<Object> getDefaultInformationProvider();
-
-    public default void addFile(final String targetName, final Path source) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final ProviderRule<?>... rules) {
-        Objects.requireNonNull(rules);
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static SimpleFileInformationCustomizer nowTimestampCustomizer() {
-        return Defaults.NOW_TIMESTAMP_CUSTOMIZER;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-
-    public static FileInformationCustomizer<Path> pathCustomizer() {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-
-    public static FileInformationCustomizer<Path> pathCustomizer() {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-
-    public static FileInformationCustomizer<Path> pathCustomizer() {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void addDirectory(String targetName, final FileInformationProvider<? super Directory> provider) throws IOException;
-
-    public default void addDirectory(final String targetName, final SimpleFileInformationCustomizer customizer) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static FileInformationProvider<Path> pathProvider() {
-        return Defaults.PATH_PROVIDER;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void addDirectory(String targetName, final FileInformationProvider<? super Directory> provider) throws IOException;
-
-    public default void addDirectory(final String targetName, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addDirectory(targetName, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> FileInformationProvider<T> defaultProvider() {
-        return (FileInformationProvider<T>) Defaults.DEFAULT_MULTI_PROVIDER;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static final Directory DIRECTORY = new Directory();
-
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-
-    public static final class Directory {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-
-    public static final class Directory {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final String DEFAULT_USER = "root";
-
-    public static final String DEFAULT_GROUP = "root";
-
-    public static final class Directory {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void setDefaultInformationProvider(FileInformationProvider<Object> provider);
-
-    public FileInformationProvider<Object> getDefaultInformationProvider();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addFile(final String targetName, final byte[] source, final FileInformationProvider<Object> provider) throws IOException {
-        addFile(targetName, ByteBuffer.wrap(source), provider);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final String DEFAULT_GROUP = "root";
-
-    public static final class Directory {
-        private Directory() {
-        }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformationCustomizer.java`
-#### Snippet
-```java
-@FunctionalInterface
-public interface FileInformationCustomizer<T> {
-    public void perform(T object, FileInformation information) throws IOException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final String DEFAULT_GROUP = "root";
-
-    public static final class Directory {
-        private Directory() {
-        }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public default void addFile(final String targetName, final byte[] source, final SimpleFileInformationCustomizer customizer) throws IOException {
-        addFile(targetName, source, getDefaultInformationProvider().customize(customizer));
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public void addFile(String targetName, Path source, FileInformationProvider<? super Path> provider) throws IOException;
-
-    public default void addFile(final String targetName, final Path source, final SimpleFileInformationCustomizer customizer) throws IOException {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public void addSymbolicLink(String targetName, String linkTo, final FileInformationProvider<? super SymbolicLink> provider) throws IOException;
-
-    public default void addSymbolicLink(final String targetName, final String linkTo) throws IOException {
-        addSymbolicLink(targetName, linkTo, getDefaultInformationProvider());
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    public static final SymbolicLink SYMBOLIC_LINK = new SymbolicLink();
-
-    public static FileInformationCustomizer<Path> pathCustomizer() {
-        return new FileInformationCustomizer<Path>() {
 
 ```
 
@@ -1457,54 +1493,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/HeaderValue.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        public void write(Document primary, OutputStream primaryStream) throws IOException;
-
-        public Document createDocument();
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-    public interface Context {
-        public void addPackage(FileInformation fileInformation, RpmInformation rpmInformation, Map<HashAlgorithm, String> checksums, HashAlgorithm idType);
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-    public interface XmlContext {
-        public void write(Document primary, OutputStream primaryStream) throws IOException;
-
-        public Document createDocument();
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
-#### Snippet
-```java
-        private final String versionString;
-
-        private Version(final String versionString) {
-            this.versionString = versionString;
-        }
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 #### Snippet
@@ -1528,19 +1516,19 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `DefaultPayloadCodingRegistry` has only 'static' members, and lacks a 'private' constructor
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/DefaultPayloadCodingRegistry.java`
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 #### Snippet
 ```java
-import java.util.TreeMap;
+        private final String versionString;
 
-public class DefaultPayloadCodingRegistry {
-    private static final String GZIP = "gzip";
-
+        private Version(final String versionString) {
+            this.versionString = versionString;
+        }
 ```
 
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `Dumper` has only 'static' members, and lacks a 'private' constructor
 in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
@@ -1550,6 +1538,18 @@ import org.eclipse.packager.rpm.parse.RpmInputStream;
 
 public class Dumper {
     private static final Boolean SKIP_META = Boolean.getBoolean("skipMeta");
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DefaultPayloadCodingRegistry` has only 'static' members, and lacks a 'private' constructor
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/DefaultPayloadCodingRegistry.java`
+#### Snippet
+```java
+import java.util.TreeMap;
+
+public class DefaultPayloadCodingRegistry {
+    private static final String GZIP = "gzip";
 
 ```
 
@@ -1618,6 +1618,18 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 
 ## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
+'Optional' contains array `String[]`
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTagValue.java`
+#### Snippet
+```java
+    }
+
+    public Optional<String[]> asStringArray() {
+        if (this.value == null) {
+            return Optional.empty();
+```
+
+### OptionalContainsCollection
 'Optional' contains array `Long[]`
 in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTagValue.java`
 #### Snippet
@@ -1641,31 +1653,7 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTagValue.java`
             return Optional.empty();
 ```
 
-### OptionalContainsCollection
-'Optional' contains array `String[]`
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTagValue.java`
-#### Snippet
-```java
-    }
-
-    public Optional<String[]> asStringArray() {
-        if (this.value == null) {
-            return Optional.empty();
-```
-
 ## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
-#### Snippet
-```java
-        Objects.requireNonNull(value);
-
-        this.entries.put(tag.getValue(), Arrays.stream(value).map(v -> new I18nString(v)).toArray(I18nString[]::new));
-    }
-
-```
-
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
@@ -1685,9 +1673,81 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
 ```java
         Objects.requireNonNull(value);
 
+        this.entries.put(tag.getValue(), Arrays.stream(value).map(v -> new I18nString(v)).toArray(I18nString[]::new));
+    }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
+#### Snippet
+```java
+        Objects.requireNonNull(value);
+
         this.entries.put(tag, Arrays.stream(value).map(v -> new I18nString(v)).toArray(I18nString[]::new));
     }
 
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+        final String fileFilter = System.getProperty("drone.rpm.yum.primaryFiles", dirFilter);
+
+        this.primaryFiles = Arrays.stream(fileFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
+        this.primaryDirs = Arrays.stream(dirFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+        this.primaryFiles = Arrays.stream(fileFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
+        this.primaryDirs = Arrays.stream(dirFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
+
+        this.primaryUniqueName = UUID.randomUUID().toString().replace("-", "");
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+        this.primaryStreamBuilder.addOutput(String.format("repodata/%s-primary.xml", this.primaryUniqueName), "application/xml");
+        this.primaryStreamBuilder.addOutput(String.format("repodata/%s-primary.xml.gz", this.primaryUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
+
+        // filelists
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+        this.filelistsStreamBuilder.addOutput(String.format("repodata/%s-filelists.xml", this.filelistsUniqueName), "application/xml");
+        this.filelistsStreamBuilder.addOutput(String.format("repodata/%s-filelists.xml.gz", this.filelistsUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
+
+        // other
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+        this.otherStreamBuilder.addOutput(String.format("repodata/%s-other.xml", this.otherUniqueName), "application/xml");
+        this.otherStreamBuilder.addOutput(String.format("repodata/%s-other.xml.gz", this.otherUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
+
+        // md
 ```
 
 ### Convert2MethodRef
@@ -1846,66 +1906,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/HeaderValue.java`
         default:
 ```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        final String fileFilter = System.getProperty("drone.rpm.yum.primaryFiles", dirFilter);
-
-        this.primaryFiles = Arrays.stream(fileFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
-        this.primaryDirs = Arrays.stream(dirFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-        this.primaryFiles = Arrays.stream(fileFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
-        this.primaryDirs = Arrays.stream(dirFilter.split(",")).map(re -> Pattern.compile(re)).collect(Collectors.toList());
-
-        this.primaryUniqueName = UUID.randomUUID().toString().replace("-", "");
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-        this.primaryStreamBuilder.addOutput(String.format("repodata/%s-primary.xml", this.primaryUniqueName), "application/xml");
-        this.primaryStreamBuilder.addOutput(String.format("repodata/%s-primary.xml.gz", this.primaryUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
-
-        // filelists
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-        this.filelistsStreamBuilder.addOutput(String.format("repodata/%s-filelists.xml", this.filelistsUniqueName), "application/xml");
-        this.filelistsStreamBuilder.addOutput(String.format("repodata/%s-filelists.xml.gz", this.filelistsUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
-
-        // other
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-        this.otherStreamBuilder.addOutput(String.format("repodata/%s-other.xml", this.otherUniqueName), "application/xml");
-        this.otherStreamBuilder.addOutput(String.format("repodata/%s-other.xml.gz", this.otherUniqueName), "application/x-gzip", output -> new GZIPOutputStream(output));
-
-        // md
-```
-
 ## RuleId[id=ComparatorCombinators]
 ### ComparatorCombinators
 Can be replaced with 'Comparator.comparingLong'
@@ -1963,63 +1963,15 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
 
 ## RuleId[id=OctalLiteral]
 ### OctalLiteral
-Octal integer `0755`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
-#### Snippet
-```java
-    static final FileInformationProvider<Object> SIMPLE_FILE_PROVIDER = BuilderContext.simpleProvider(0644);
-
-    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
-
-    static final FileInformationProvider<SymbolicLink> SIMPLE_SYMBOLIC_LINK = BuilderContext.simpleProvider(0644);
-```
-
-### OctalLiteral
 Octal integer `0644`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
-#### Snippet
-```java
-    }
-
-    static final FileInformationProvider<Object> SIMPLE_FILE_PROVIDER = BuilderContext.simpleProvider(0644);
-
-    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
-```
-
-### OctalLiteral
-Octal integer `0644`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
-#### Snippet
-```java
-    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
-
-    static final FileInformationProvider<SymbolicLink> SIMPLE_SYMBOLIC_LINK = BuilderContext.simpleProvider(0644);
-
-    static final FileInformationProvider<Object> DEFAULT_MULTI_PROVIDER = BuilderContext.multiProvider(SIMPLE_FILE_PROVIDER, new ProviderRule<?>[] { //
-```
-
-### OctalLiteral
-Octal integer `0644`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformation.java`
-#### Snippet
-```java
-    private Set<VerifyFlags> verifyFlags;
-
-    private short mode = 0644;
-
-    public void setTimestamp(final Instant timestamp) {
-```
-
-### OctalLiteral
-Octal integer `0755`
 in `deb/src/main/java/org/eclipse/packager/deb/build/EntryInformation.java`
 #### Snippet
 ```java
- */
-public class EntryInformation {
     public static final EntryInformation DEFAULT_DIRECTORY = new EntryInformation(0755);
 
     public static final EntryInformation DEFAULT_FILE = new EntryInformation(0644);
+
+    public static final EntryInformation DEFAULT_FILE_EXEC = new EntryInformation(0755);
 ```
 
 ### OctalLiteral
@@ -2047,30 +1999,66 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/EntryInformation.java`
 ```
 
 ### OctalLiteral
-Octal integer `0644`
+Octal integer `0755`
 in `deb/src/main/java/org/eclipse/packager/deb/build/EntryInformation.java`
 #### Snippet
 ```java
+ */
+public class EntryInformation {
     public static final EntryInformation DEFAULT_DIRECTORY = new EntryInformation(0755);
 
     public static final EntryInformation DEFAULT_FILE = new EntryInformation(0644);
+```
 
-    public static final EntryInformation DEFAULT_FILE_EXEC = new EntryInformation(0755);
+### OctalLiteral
+Octal integer `0644`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
+#### Snippet
+```java
+    }
+
+    static final FileInformationProvider<Object> SIMPLE_FILE_PROVIDER = BuilderContext.simpleProvider(0644);
+
+    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
+```
+
+### OctalLiteral
+Octal integer `0644`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
+#### Snippet
+```java
+    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
+
+    static final FileInformationProvider<SymbolicLink> SIMPLE_SYMBOLIC_LINK = BuilderContext.simpleProvider(0644);
+
+    static final FileInformationProvider<Object> DEFAULT_MULTI_PROVIDER = BuilderContext.multiProvider(SIMPLE_FILE_PROVIDER, new ProviderRule<?>[] { //
+```
+
+### OctalLiteral
+Octal integer `0755`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
+#### Snippet
+```java
+    static final FileInformationProvider<Object> SIMPLE_FILE_PROVIDER = BuilderContext.simpleProvider(0644);
+
+    static final FileInformationProvider<Directory> SIMPLE_DIRECTORY_PROVIDER = BuilderContext.simpleProvider(0755);
+
+    static final FileInformationProvider<SymbolicLink> SIMPLE_SYMBOLIC_LINK = BuilderContext.simpleProvider(0644);
+```
+
+### OctalLiteral
+Octal integer `0644`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformation.java`
+#### Snippet
+```java
+    private Set<VerifyFlags> verifyFlags;
+
+    private short mode = 0644;
+
+    public void setTimestamp(final Instant timestamp) {
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`(flags = optionalFlags.get()).length() > 0` can be replaced with '!(flags = optionalFlags.get()).isEmpty()'
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
-#### Snippet
-```java
-        final int preset;
-
-        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
-            preset = Integer.parseInt(flags.substring(0, 1));
-        } else {
-```
-
 ### SizeReplaceableByIsEmpty
 `(flags = optionalFlags.get()).length() > 0` can be replaced with '!(flags = optionalFlags.get()).isEmpty()'
 in `rpm/src/main/java/org/eclipse/packager/rpm/coding/BZip2PayloadCoding.java`
@@ -2097,6 +2085,18 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/coding/GzipPayloadCoding.java`
 
 ### SizeReplaceableByIsEmpty
 `(flags = optionalFlags.get()).length() > 0` can be replaced with '!(flags = optionalFlags.get()).isEmpty()'
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
+#### Snippet
+```java
+        final int preset;
+
+        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
+            preset = Integer.parseInt(flags.substring(0, 1));
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`(flags = optionalFlags.get()).length() > 0` can be replaced with '!(flags = optionalFlags.get()).isEmpty()'
 in `rpm/src/main/java/org/eclipse/packager/rpm/coding/ZstdPayloadCoding.java`
 #### Snippet
 ```java
@@ -2114,9 +2114,9 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
 #### Snippet
 ```java
      */
-    public static final RpmFileNameProvider LEGACY_FILENAME_PROVIDER = (name, version, architecture) -> {
+    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
         final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
-        sb.append('-').append(architecture).append(".rpm");
+        sb.append('.').append(architecture).append(".rpm");
         return sb.toString();
 ```
 
@@ -2126,25 +2126,13 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmFileNameProvider.java`
 #### Snippet
 ```java
      */
-    public static final RpmFileNameProvider DEFAULT_FILENAME_PROVIDER = (name, version, architecture) -> {
+    public static final RpmFileNameProvider LEGACY_FILENAME_PROVIDER = (name, version, architecture) -> {
         final StringBuilder sb = new StringBuilder(RpmLead.toLeadName(name, version));
-        sb.append('.').append(architecture).append(".rpm");
+        sb.append('-').append(architecture).append(".rpm");
         return sb.toString();
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
-#### Snippet
-```java
-        final short smode = (short) (mode | CpioConstants.C_ISDIR);
-
-        final Result result = this.recorder.addDirectory("./" + pathName.toString(), cpioCustomizer(mtime, inode, smode));
-
-        Consumer<FileEntry> c = this::initEntry;
-```
-
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
@@ -2169,43 +2157,19 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
         Consumer<FileEntry> c = this::initEntry;
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
+#### Snippet
+```java
+        final short smode = (short) (mode | CpioConstants.C_ISDIR);
+
+        final Result result = this.recorder.addDirectory("./" + pathName.toString(), cpioCustomizer(mtime, inode, smode));
+
+        Consumer<FileEntry> c = this::initEntry;
+```
+
 ## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        addElement(data, "timestamp", now / 1000);
-
-        addElement(data, "size", "" + spooler.getSize(filename + ".gz"));
-        addElement(data, "open-size", "" + spooler.getSize(filename));
-    }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-
-        addElement(data, "size", "" + spooler.getSize(filename + ".gz"));
-        addElement(data, "open-size", "" + spooler.getSize(filename));
-    }
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-                    final Element cl = addElement(pkg, "changelog", log.getText());
-                    cl.setAttribute("author", log.getAuthor());
-                    cl.setAttribute("date", "" + log.getTimestamp());
-                }
-            }
-```
-
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
@@ -2295,11 +2259,47 @@ Empty string used in concatenation
 in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 #### Snippet
 ```java
+                    final Element cl = addElement(pkg, "changelog", log.getText());
+                    cl.setAttribute("author", log.getAuthor());
+                    cl.setAttribute("date", "" + log.getTimestamp());
+                }
+            }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
                 if (dep.getVersion() != null) {
                     final RpmVersion version = RpmVersion.valueOf(dep.getVersion());
                     entry.setAttribute("epoch", "" + version.getEpoch().orElse(0));
                     entry.setAttribute("ver", version.getVersion());
                     if (version.getRelease().isPresent()) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+        addElement(data, "timestamp", now / 1000);
+
+        addElement(data, "size", "" + spooler.getSize(filename + ".gz"));
+        addElement(data, "open-size", "" + spooler.getSize(filename));
+    }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+
+        addElement(data, "size", "" + spooler.getSize(filename + ".gz"));
+        addElement(data, "open-size", "" + spooler.getSize(filename));
+    }
+
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -2329,75 +2329,15 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadProcessors.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
-#### Snippet
-```java
-    private final FileInformationProvider<T> provider;
-
-    public ProviderRule(final Class<T> clazz, final FileInformationProvider<T> provider) {
-        this.clazz = clazz;
-        this.provider = provider;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
-#### Snippet
-```java
-    private final FileInformationProvider<T> provider;
-
-    public ProviderRule(final Class<T> clazz, final FileInformationProvider<T> provider) {
-        this.clazz = clazz;
-        this.provider = provider;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PayloadCodingProvider`
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/PayloadCoding.java`
-#### Snippet
-```java
-    private final Supplier<PayloadCodingProvider> newInstanceSupplier;
-
-    PayloadCoding(final String value, final Supplier<PayloadCodingProvider> newInstanceSupplier) {
-        this.value = value;
-        this.newInstanceSupplier = newInstanceSupplier;
-```
-
-### BoundedWildcard
-Can generalize to `? super RpmTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+Can generalize to `? extends PayloadProcessor`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderOptions.java`
 #### Snippet
 ```java
     }
 
-    public static List<Dependency> makeDependencies(final InputHeader<RpmTag> header, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
-        Object namesVal = header.getTag(namesTag);
-        Object versionsVal = header.getTag(versionsTag);
-```
-
-### BoundedWildcard
-Can generalize to `? super Dependency`
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
-#### Snippet
-```java
-
-    @Override
-    public void fillRequirements(final Consumer<Dependency> requirementsConsumer) {
-        requirementsConsumer.accept(new Dependency("PayloadIsXz", "5.2-1", RpmDependencyFlags.LESS, RpmDependencyFlags.EQUAL, RpmDependencyFlags.RPMLIB));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super RpmSignatureTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.java`
-#### Snippet
-```java
-
-            @Override
-            public void finish(final Header<RpmSignatureTag> signature) {
-                signature.putString(RpmSignatureTag.SHA256HEADER, this.value);
-            }
+    public void setPayloadProcessors(final List<PayloadProcessor> payloadProcessors) {
+        // we create a copy of the list to prevent external changes to our state.
+        this.payloadProcessors = new ArrayList<>(payloadProcessors);
 ```
 
 ### BoundedWildcard
@@ -2409,18 +2349,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.jav
             @Override
             public void finish(final Header<RpmSignatureTag> signature) {
                 signature.putString(RpmSignatureTag.SHA1HEADER, this.value);
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? super RpmSignatureTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.java`
-#### Snippet
-```java
-
-            @Override
-            public void finish(final Header<RpmSignatureTag> signature) {
-                signature.putSize(this.headerSize + this.payloadSize, RpmSignatureTag.SIZE, RpmSignatureTag.LONGSIZE);
             }
 ```
 
@@ -2444,8 +2372,56 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.jav
 
             @Override
             public void finish(final Header<RpmSignatureTag> signature) {
+                signature.putSize(this.headerSize + this.payloadSize, RpmSignatureTag.SIZE, RpmSignatureTag.LONGSIZE);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? super RpmSignatureTag`
+in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.java`
+#### Snippet
+```java
+
+            @Override
+            public void finish(final Header<RpmSignatureTag> signature) {
                 signature.putBlob(RpmSignatureTag.MD5, this.digest.digest());
             }
+```
+
+### BoundedWildcard
+Can generalize to `? super RpmSignatureTag`
+in `rpm/src/main/java/org/eclipse/packager/rpm/signature/SignatureProcessors.java`
+#### Snippet
+```java
+
+            @Override
+            public void finish(final Header<RpmSignatureTag> signature) {
+                signature.putString(RpmSignatureTag.SHA256HEADER, this.value);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
+#### Snippet
+```java
+    private final FileInformationProvider<T> provider;
+
+    public ProviderRule(final Class<T> clazz, final FileInformationProvider<T> provider) {
+        this.clazz = clazz;
+        this.provider = provider;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
+#### Snippet
+```java
+    private final FileInformationProvider<T> provider;
+
+    public ProviderRule(final Class<T> clazz, final FileInformationProvider<T> provider) {
+        this.clazz = clazz;
+        this.provider = provider;
 ```
 
 ### BoundedWildcard
@@ -2485,15 +2461,111 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/coding/BZip2PayloadCoding.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformationProvider.java`
+Can generalize to `? extends ProviderRule`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
 #### Snippet
 ```java
-    public FileInformation provide(String targetName, T object, PayloadEntryType type) throws IOException;
+    }
 
-    public default FileInformationProvider<T> customize(final FileInformationCustomizer<T> customizer) {
-        if (customizer == null) {
-            return this;
+    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final List<ProviderRule<?>> rules) {
+        Objects.requireNonNull(defaultProvider);
+        Objects.requireNonNull(rules);
+```
+
+### BoundedWildcard
+Can generalize to `? super PayloadProcessor`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+     * @param consumer The code to run.
+     */
+    private void forEach(final Consumer<PayloadProcessor> consumer) {
+        this.processors.forEach(consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super CpioArchiveEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+    }
+
+    public Result addFile(final String targetPath, final Path path, final Consumer<CpioArchiveEntry> customizer) throws IOException {
+        checkFinished();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super CpioArchiveEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+    }
+
+    public Result addSymbolicLink(final String targetPath, final String linkTo, final Consumer<CpioArchiveEntry> customizer) throws IOException {
+        checkFinished();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super CpioArchiveEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+    }
+
+    public Result addFile(final String targetPath, final ByteBuffer data, final Consumer<CpioArchiveEntry> customizer) throws IOException {
+        checkFinished();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super ByteBuffer`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+        private final Consumer<ByteBuffer> consumer;
+
+        ProcessorStream(final OutputStream out, final Consumer<ByteBuffer> consumer) {
+            super(out);
+            this.consumer = consumer;
+```
+
+### BoundedWildcard
+Can generalize to `? super CpioArchiveEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+    }
+
+    public Result addDirectory(final String targetPath, final Consumer<CpioArchiveEntry> customizer) throws IOException {
+        checkFinished();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
+#### Snippet
+```java
+    }
+
+    public static <E, T extends RpmBaseTag> void putIntFields(final Header<T> header, final Collection<E> entries, final T tag, final ToIntFunction<E> func) {
+        if (entries.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
+#### Snippet
+```java
+    }
+
+    public static <E, T extends RpmBaseTag> void putIntFields(final Header<T> header, final Collection<E> entries, final T tag, final ToIntFunction<E> func) {
+        if (entries.isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -2563,7 +2635,7 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
 ```java
     }
 
-    public static <E, T extends RpmBaseTag> void putIntFields(final Header<T> header, final Collection<E> entries, final T tag, final ToIntFunction<E> func) {
+    public static <E, T extends RpmBaseTag> void putLongFields(final Header<T> header, final Collection<E> entries, final T tag, final ToLongFunction<E> func) {
         if (entries.isEmpty()) {
             return;
 ```
@@ -2575,7 +2647,7 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
 ```java
     }
 
-    public static <E, T extends RpmBaseTag> void putIntFields(final Header<T> header, final Collection<E> entries, final T tag, final ToIntFunction<E> func) {
+    public static <E, T extends RpmBaseTag> void putLongFields(final Header<T> header, final Collection<E> entries, final T tag, final ToLongFunction<E> func) {
         if (entries.isEmpty()) {
             return;
 ```
@@ -2605,123 +2677,63 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends E`
-in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
+Can generalize to `? super String`
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public static <E, T extends RpmBaseTag> void putLongFields(final Header<T> header, final Collection<E> entries, final T tag, final ToLongFunction<E> func) {
-        if (entries.isEmpty()) {
-            return;
+        private void appendFiles(final RpmInformation info, final Element pkg, final Predicate<String> fileFilter, final Predicate<String> dirFilter) {
+            for (final String file : new TreeSet<>(info.getFiles())) {
+                if (fileFilter == null || fileFilter.test(file)) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super E`
-in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
+Can generalize to `? super String`
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public static <E, T extends RpmBaseTag> void putLongFields(final Header<T> header, final Collection<E> entries, final T tag, final ToLongFunction<E> func) {
-        if (entries.isEmpty()) {
-            return;
+        private void appendFiles(final RpmInformation info, final Element pkg, final Predicate<String> fileFilter, final Predicate<String> dirFilter) {
+            for (final String file : new TreeSet<>(info.getFiles())) {
+                if (fileFilter == null || fileFilter.test(file)) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PayloadProcessor`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
-#### Snippet
-```java
-     * @param consumer The code to run.
-     */
-    private void forEach(final Consumer<PayloadProcessor> consumer) {
-        this.processors.forEach(consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super CpioArchiveEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+Can generalize to `? super Context`
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 #### Snippet
 ```java
     }
 
-    public Result addFile(final String targetPath, final ByteBuffer data, final Consumer<CpioArchiveEntry> customizer) throws IOException {
-        checkFinished();
+    public void process(final IOConsumer<Context> consumer) throws IOException {
+        final long now = System.currentTimeMillis();
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CpioArchiveEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+Can generalize to `? extends Dependency`
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public Result addSymbolicLink(final String targetPath, final String linkTo, final Consumer<CpioArchiveEntry> customizer) throws IOException {
-        checkFinished();
+        private void addDependencies(final Element fmt, final String elementName, final List<Dependency> deps) {
+            final Element ele = addElement(fmt, elementName);
 
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CpioArchiveEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+Can generalize to `? super Dependency`
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
 #### Snippet
 ```java
+
+    @Override
+    public void fillRequirements(final Consumer<Dependency> requirementsConsumer) {
+        requirementsConsumer.accept(new Dependency("PayloadIsXz", "5.2-1", RpmDependencyFlags.LESS, RpmDependencyFlags.EQUAL, RpmDependencyFlags.RPMLIB));
     }
-
-    public Result addDirectory(final String targetPath, final Consumer<CpioArchiveEntry> customizer) throws IOException {
-        checkFinished();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super ByteBuffer`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
-#### Snippet
-```java
-        private final Consumer<ByteBuffer> consumer;
-
-        ProcessorStream(final OutputStream out, final Consumer<ByteBuffer> consumer) {
-            super(out);
-            this.consumer = consumer;
-```
-
-### BoundedWildcard
-Can generalize to `? super CpioArchiveEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
-#### Snippet
-```java
-    }
-
-    public Result addFile(final String targetPath, final Path path, final Consumer<CpioArchiveEntry> customizer) throws IOException {
-        checkFinished();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends SignatureProcessor`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmWriter.java`
-#### Snippet
-```java
-    }
-
-    public void addAllSignatureProcessors(final List<SignatureProcessor> signatureProcessors) {
-        this.signatureProcessors.addAll(signatureProcessors);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PayloadProcessor`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderOptions.java`
-#### Snippet
-```java
-    }
-
-    public void setPayloadProcessors(final List<PayloadProcessor> payloadProcessors) {
-        // we create a copy of the list to prevent external changes to our state.
-        this.payloadProcessors = new ArrayList<>(payloadProcessors);
 ```
 
 ### BoundedWildcard
@@ -2737,6 +2749,18 @@ in `core/src/main/java/org/eclipse/packager/io/FileSystemSpoolOutTarget.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends PayloadCodingProvider`
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/PayloadCoding.java`
+#### Snippet
+```java
+    private final Supplier<PayloadCodingProvider> newInstanceSupplier;
+
+    PayloadCoding(final String value, final Supplier<PayloadCodingProvider> newInstanceSupplier) {
+        this.value = value;
+        this.newInstanceSupplier = newInstanceSupplier;
+```
+
+### BoundedWildcard
 Can generalize to `? super Dependency`
 in `rpm/src/main/java/org/eclipse/packager/rpm/coding/LZMAPayloadCoding.java`
 #### Snippet
@@ -2749,39 +2773,39 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/coding/LZMAPayloadCoding.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RpmTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
+Can generalize to `? extends SignatureProcessor`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmWriter.java`
 #### Snippet
 ```java
     }
 
-    private static List<Dependency> getDependencies(final ReadableHeader<RpmTag> header, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
-        Objects.requireNonNull(header);
-
+    public void addAllSignatureProcessors(final List<SignatureProcessor> signatureProcessors) {
+        this.signatureProcessors.addAll(signatureProcessors);
+    }
 ```
 
 ### BoundedWildcard
 Can generalize to `? super RpmTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
 #### Snippet
 ```java
     }
 
-    private static void putDependencies(final Header<RpmTag> header, final Collection<Dependency> dependencies, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
-        if (dependencies.isEmpty()) {
-            return;
+    public static List<Dependency> makeDependencies(final InputHeader<RpmTag> header, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
+        Object namesVal = header.getTag(namesTag);
+        Object versionsVal = header.getTag(versionsTag);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
+Can generalize to `? super T`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/FileInformationProvider.java`
 #### Snippet
 ```java
-    }
+    public FileInformation provide(String targetName, T object, PayloadEntryType type) throws IOException;
 
-    private static void putDependencies(final Header<RpmTag> header, final Collection<Dependency> dependencies, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
-        if (dependencies.isEmpty()) {
-            return;
+    public default FileInformationProvider<T> customize(final FileInformationCustomizer<T> customizer) {
+        if (customizer == null) {
+            return this;
 ```
 
 ### BoundedWildcard
@@ -2809,18 +2833,6 @@ in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OutputStream`
-in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
-#### Snippet
-```java
-    }
-
-    static void closeAll(final Stream<OutputStream> stream) throws IOException {
-        final List<Exception> ex = new LinkedList<>();
-
-```
-
-### BoundedWildcard
 Can generalize to `? super OutputStream`
 in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 #### Snippet
@@ -2829,6 +2841,18 @@ in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 
     public void open(final IOConsumer<OutputStream> consumer) throws IOException {
         final List<OutputStream> streams = new LinkedList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends OutputStream`
+in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
+#### Snippet
+```java
+    }
+
+    static void closeAll(final Stream<OutputStream> stream) throws IOException {
+        final List<Exception> ex = new LinkedList<>();
 
 ```
 
@@ -2869,18 +2893,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/signature/RsaSignatureProcessor.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProviderRule`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-    }
-
-    public static <T> FileInformationProvider<T> multiProvider(final FileInformationProvider<Object> defaultProvider, final List<ProviderRule<?>> rules) {
-        Objects.requireNonNull(defaultProvider);
-        Objects.requireNonNull(rules);
-```
-
-### BoundedWildcard
 Can generalize to `? super ByteBuffer`
 in `rpm/src/main/java/org/eclipse/packager/rpm/parse/HeaderValue.java`
 #### Snippet
@@ -2918,86 +2930,74 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/HeaderValue.java`
 
 ### BoundedWildcard
 Can generalize to `? super RpmTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
 #### Snippet
 ```java
     }
 
-    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
-        Objects.requireNonNull(header);
-        Objects.requireNonNull(architectureMapper);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
-#### Snippet
-```java
-    }
-
-    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
-        Objects.requireNonNull(header);
-        Objects.requireNonNull(architectureMapper);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
-#### Snippet
-```java
-    }
-
-    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
-        Objects.requireNonNull(header);
-        Objects.requireNonNull(architectureMapper);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        }
-
-        private void appendFiles(final RpmInformation info, final Element pkg, final Predicate<String> fileFilter, final Predicate<String> dirFilter) {
-            for (final String file : new TreeSet<>(info.getFiles())) {
-                if (fileFilter == null || fileFilter.test(file)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        }
-
-        private void appendFiles(final RpmInformation info, final Element pkg, final Predicate<String> fileFilter, final Predicate<String> dirFilter) {
-            for (final String file : new TreeSet<>(info.getFiles())) {
-                if (fileFilter == null || fileFilter.test(file)) {
+    private static void putDependencies(final Header<RpmTag> header, final Collection<Dependency> dependencies, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
+        if (dependencies.isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Dependency`
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        }
-
-        private void addDependencies(final Element fmt, final String elementName, final List<Dependency> deps) {
-            final Element ele = addElement(fmt, elementName);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Context`
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
 #### Snippet
 ```java
     }
 
-    public void process(final IOConsumer<Context> consumer) throws IOException {
-        final long now = System.currentTimeMillis();
+    private static void putDependencies(final Header<RpmTag> header, final Collection<Dependency> dependencies, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
+        if (dependencies.isEmpty()) {
+            return;
+```
 
+### BoundedWildcard
+Can generalize to `? super RpmTag`
+in `rpm/src/main/java/org/eclipse/packager/rpm/deps/Dependencies.java`
+#### Snippet
+```java
+    }
+
+    private static List<Dependency> getDependencies(final ReadableHeader<RpmTag> header, final RpmTag namesTag, final RpmTag versionsTag, final RpmTag flagsTag) {
+        Objects.requireNonNull(header);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super RpmTag`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
+#### Snippet
+```java
+    }
+
+    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
+        Objects.requireNonNull(header);
+        Objects.requireNonNull(architectureMapper);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
+#### Snippet
+```java
+    }
+
+    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
+        Objects.requireNonNull(header);
+        Objects.requireNonNull(architectureMapper);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/LeadBuilder.java`
+#### Snippet
+```java
+    }
+
+    public void fillFlagsFromHeader(final Header<RpmTag> header, final Function<String, Optional<Architecture>> architectureMapper, final Function<String, Optional<OperatingSystem>> operatingSystemMapper) {
+        Objects.requireNonNull(header);
+        Objects.requireNonNull(architectureMapper);
 ```
 
 ### BoundedWildcard
@@ -3019,43 +3019,7 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 ```java
     }
 
-    private void addDirectory(final String targetName, final int mode, final Instant modInstant, final Consumer<FileEntry> customizer) throws IOException {
-        final PathName pathName = PathName.parse(targetName);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super FileEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
-#### Snippet
-```java
-    }
-
     private <T> void addFile(final String targetName, final T sourcePath, final Consumer<FileEntry> customizer, final int mode, final Instant fileModificationInstant, final RecorderFunction<T> func) throws IOException {
-        final PathName pathName = PathName.parse(targetName);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super RpmTag`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
-#### Snippet
-```java
-    }
-
-    private static void putNumber(final LongMode longMode, final Header<RpmTag> header, final Collection<FileEntry> files, final RpmTag tag, final ToLongFunction<FileEntry> func) {
-        boolean useLong;
-        if (longMode == LongMode.FORCE_64BIT) {
-```
-
-### BoundedWildcard
-Can generalize to `? super FileEntry`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
-#### Snippet
-```java
-    }
-
-    private void addSymbolicLink(final String targetName, final String linkTo, final int mode, final Instant modInstant, final Consumer<FileEntry> customizer) throws IOException {
         final PathName pathName = PathName.parse(targetName);
 
 ```
@@ -3073,15 +3037,15 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Header`
+Can generalize to `? super RpmTag`
 in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 #### Snippet
 ```java
     }
 
-    public void setHeaderCustomizer(final Consumer<Header<RpmTag>> headerCustomizer) {
-        this.headerCustomizer = headerCustomizer;
-    }
+    private static void putNumber(final LongMode longMode, final Header<RpmTag> header, final Collection<FileEntry> files, final RpmTag tag, final ToLongFunction<FileEntry> func) {
+        boolean useLong;
+        if (longMode == LongMode.FORCE_64BIT) {
 ```
 
 ### BoundedWildcard
@@ -3108,15 +3072,51 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
     }
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTag.java`
+### BoundedWildcard
+Can generalize to `? super Header`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
 #### Snippet
 ```java
     }
 
-    private final static Map<Integer, RpmTag> all = new HashMap<>(RpmTag.values().length);
+    public void setHeaderCustomizer(final Consumer<Header<RpmTag>> headerCustomizer) {
+        this.headerCustomizer = headerCustomizer;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super FileEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
+#### Snippet
+```java
+    }
+
+    private void addSymbolicLink(final String targetName, final String linkTo, final int mode, final Instant modInstant, final Consumer<FileEntry> customizer) throws IOException {
+        final PathName pathName = PathName.parse(targetName);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super FileEntry`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmBuilder.java`
+#### Snippet
+```java
+    }
+
+    private void addDirectory(final String targetName, final int mode, final Instant modInstant, final Consumer<FileEntry> customizer) throws IOException {
+        final PathName pathName = PathName.parse(targetName);
+
+```
+
+## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmSignatureTag.java`
+#### Snippet
+```java
+    }
+
+    private final static Map<Integer, RpmSignatureTag> all = new HashMap<>(RpmSignatureTag.values().length);
 
     static {
 ```
@@ -3147,12 +3147,24 @@ public class RpmInputStream extends InputStream {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmSignatureTag.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmWriter.java`
+#### Snippet
+```java
+    private static final OpenOption[] DEFAULT_OPEN_OPTIONS = new OpenOption[] { StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING };
+
+    private final static Logger logger = LoggerFactory.getLogger(RpmWriter.class);
+
+    private final FileChannel file;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmTag.java`
 #### Snippet
 ```java
     }
 
-    private final static Map<Integer, RpmSignatureTag> all = new HashMap<>(RpmSignatureTag.values().length);
+    private final static Map<Integer, RpmTag> all = new HashMap<>(RpmTag.values().length);
 
     static {
 ```
@@ -3167,18 +3179,6 @@ public class Rpms {
     private final static char[] HEX = "0123456789ABCDEF".toCharArray();
 
     public static final byte[] LEAD_MAGIC = new byte[] { (byte) 0xED, (byte) 0xAB, (byte) 0xEE, (byte) 0xDB };
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/RpmWriter.java`
-#### Snippet
-```java
-    private static final OpenOption[] DEFAULT_OPEN_OPTIONS = new OpenOption[] { StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING };
-
-    private final static Logger logger = LoggerFactory.getLogger(RpmWriter.class);
-
-    private final FileChannel file;
 ```
 
 ### MissortedModifiers
@@ -3211,9 +3211,9 @@ Result of `File.delete()` is ignored
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
 ```java
-            addArFile(controlFile, "control.tar.gz", timestampSupplier);
+            }
         } finally {
-            controlFile.delete();
+            this.dataTemp.delete();
         }
     }
 ```
@@ -3223,48 +3223,24 @@ Result of `File.delete()` is ignored
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
 ```java
-            }
+            addArFile(controlFile, "control.tar.gz", timestampSupplier);
         } finally {
-            this.dataTemp.delete();
+            controlFile.delete();
         }
     }
 ```
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalFlags'
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/PayloadCodingProvider.java`
+`Optional` used as type for field 'release'
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmVersion.java`
 #### Snippet
 ```java
-    InputStream createInputStream(final InputStream in) throws IOException;
+    private final String version;
 
-    OutputStream createOutputStream(final OutputStream out, final Optional<String> optionalFlags) throws IOException;
+    private final Optional<String> release;
 
-}
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'payloadFlags'
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
-#### Snippet
-```java
-        private final PayloadCoding payloadCoding;
-
-        private final Optional<String> payloadFlags;
-
-        private Header<RpmTag> additionalHeader = new Header<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'overrideFormatter'
-in `deb/src/main/java/org/eclipse/packager/deb/ControlFileWriter.java`
-#### Snippet
-```java
-    }
-
-    public void writeEntry(final String key, final String value, final Optional<FieldFormatter> overrideFormatter) throws IOException {
-        final FieldFormatter formatter = overrideFormatter.orElseGet(() -> this.alternateFormatters.getOrDefault(key, FieldFormatter.SINGLE));
-        formatter.append(key, value, this.writer);
+    public RpmVersion(final String version) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3277,18 +3253,6 @@ public class RpmVersion {
     private final Optional<Integer> epoch;
 
     private final String version;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'release'
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmVersion.java`
-#### Snippet
-```java
-    private final String version;
-
-    private final Optional<String> release;
-
-    public RpmVersion(final String version) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3316,15 +3280,39 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/RpmVersion.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'timestampSupplier'
-in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
+`Optional` used as type for parameter 'optionalFlags'
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/PayloadCodingProvider.java`
 #### Snippet
 ```java
-     * @throws IOException if the file cannot be written to the package
-     */
-    public void addFile(ContentProvider contentProvider, String fileName, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
+    InputStream createInputStream(final InputStream in) throws IOException;
 
-    /**
+    OutputStream createOutputStream(final OutputStream out, final Optional<String> optionalFlags) throws IOException;
+
+}
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'overrideFormatter'
+in `deb/src/main/java/org/eclipse/packager/deb/ControlFileWriter.java`
+#### Snippet
+```java
+    }
+
+    public void writeEntry(final String key, final String value, final Optional<FieldFormatter> overrideFormatter) throws IOException {
+        final FieldFormatter formatter = overrideFormatter.orElseGet(() -> this.alternateFormatters.getOrDefault(key, FieldFormatter.SINGLE));
+        formatter.append(key, value, this.writer);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'payloadFlags'
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/PayloadRecorder.java`
+#### Snippet
+```java
+        private final PayloadCoding payloadCoding;
+
+        private final Optional<String> payloadFlags;
+
+        private Header<RpmTag> additionalHeader = new Header<>();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3341,38 +3329,14 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'timestampSupplier'
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+in `deb/src/main/java/org/eclipse/packager/deb/build/BinaryPackageBuilder.java`
 #### Snippet
 ```java
-    }
+     * @throws IOException if the file cannot be written to the package
+     */
+    public void addFile(ContentProvider contentProvider, String fileName, EntryInformation entryInformation, Optional<Supplier<Instant>> timestampSupplier) throws IOException;
 
-    public void addFile(final File file, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
-        addFile(new FileContentProvider(file), fileName, entryInformation, timestampSupplier);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'timestampSupplier'
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
-#### Snippet
-```java
-    }
-
-    public void addFile(final String content, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
-        addFile(new StaticContentProvider(content), fileName, entryInformation, timestampSupplier);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'timestampSupplier'
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
-#### Snippet
-```java
-    }
-
-    public void addFile(final byte[] content, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
-        addFile(new StaticContentProvider(content), fileName, entryInformation, timestampSupplier);
-    }
+    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3411,6 +3375,42 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
     }
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'timestampSupplier'
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(final String content, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
+        addFile(new StaticContentProvider(content), fileName, entryInformation, timestampSupplier);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'timestampSupplier'
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(final byte[] content, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
+        addFile(new StaticContentProvider(content), fileName, entryInformation, timestampSupplier);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'timestampSupplier'
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+    }
+
+    public void addFile(final File file, final String fileName, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
+        addFile(new FileContentProvider(file), fileName, entryInformation, timestampSupplier);
+    }
+```
+
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
@@ -3444,10 +3444,82 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
 #### Snippet
 ```java
 
-        for (int i = 0; i < names.length; i++) {
-            System.out.format("%s: %s - %s - %s %s%n", string, names[i], versions[i], flags[i], RpmDependencyFlags.parse(flags[i]));
-        }
+    private static void dumpEntry(final CpioArchiveEntry entry) {
+        System.out.format("-----------------------------------%n");
+        System.out.format(" %s%n", entry.getName());
+        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+    private static void dumpEntry(final CpioArchiveEntry entry) {
+        System.out.format("-----------------------------------%n");
+        System.out.format(" %s%n", entry.getName());
+        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+        System.out.format("-----------------------------------%n");
+        System.out.format(" %s%n", entry.getName());
+        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+
+        if (!SKIP_META) {
+            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
+            System.out.format("Name: %s%n", lead.getName());
+            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+        if (!SKIP_META) {
+            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
+            System.out.format("Name: %s%n", lead.getName());
+            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
+            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
+            System.out.format("Name: %s%n", lead.getName());
+            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
+            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+            System.out.format("Name: %s%n", lead.getName());
+            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
+            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
+        }
+
 ```
 
 ### SystemOutErr
@@ -3499,6 +3571,18 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
+#### Snippet
+```java
+
+        for (int i = 0; i < names.length; i++) {
+            System.out.format("%s: %s - %s - %s %s%n", string, names[i], versions[i], flags[i], RpmDependencyFlags.parse(flags[i]));
+        }
+    }
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
 #### Snippet
@@ -3534,90 +3618,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
     }
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-
-    private static void dumpEntry(final CpioArchiveEntry entry) {
-        System.out.format("-----------------------------------%n");
-        System.out.format(" %s%n", entry.getName());
-        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-    private static void dumpEntry(final CpioArchiveEntry entry) {
-        System.out.format("-----------------------------------%n");
-        System.out.format(" %s%n", entry.getName());
-        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-        System.out.format("-----------------------------------%n");
-        System.out.format(" %s%n", entry.getName());
-        System.out.format(" Size: %s, Chksum: %016x, Align: %s, Inode: %016x, Mode: %08o, NoL: %s, Device: %s.%s%n", entry.getSize(), entry.getChksum(), entry.getAlignmentBoundary(), entry.getInode(), entry.getMode(), entry.getNumberOfLinks(), entry.getDeviceMaj(), entry.getDeviceMin());
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-
-        if (!SKIP_META) {
-            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
-            System.out.format("Name: %s%n", lead.getName());
-            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-        if (!SKIP_META) {
-            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
-            System.out.format("Name: %s%n", lead.getName());
-            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
-            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-            System.out.format("Version: %s.%s%n", lead.getMajor(), lead.getMinor());
-            System.out.format("Name: %s%n", lead.getName());
-            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
-            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rpm/src/main/java/org/eclipse/packager/rpm/app/Dumper.java`
-#### Snippet
-```java
-            System.out.format("Name: %s%n", lead.getName());
-            System.out.format("Signature Version: %s%n", lead.getSignatureVersion());
-            System.out.format("Type: %s, Arch: %s, OS: %s%n", dumpFlag(lead.getType(), Type::fromValue), dumpFlag(lead.getArchitecture(), Architecture::fromValue), dumpFlag(lead.getOperatingSystem(), OperatingSystem::fromValue));
-        }
-
-```
-
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'namesVal == null' covered by subsequent condition '!(namesVal instanceof String\[\])'
@@ -3632,30 +3632,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `rpm/src/main/java/org/eclipse/packager/rpm/OperatingSystem.java`
-#### Snippet
-```java
-            MAP.put((int) os.value, os);
-            ALTMAP.put(os.name().toLowerCase(), os);
-            for (final String alias : getAliases(os).split(",\\s")) {
-                ALTMAP.put(alias.toLowerCase(), os);
-            }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
-#### Snippet
-```java
-            }
-
-            final String[] lines = value.split("\\n");
-            appendLines(appendable, lines);
-        }
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
@@ -3682,6 +3658,30 @@ in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
+#### Snippet
+```java
+            }
+
+            final String[] lines = value.split("\\n");
+            appendLines(appendable, lines);
+        }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `rpm/src/main/java/org/eclipse/packager/rpm/Architecture.java`
+#### Snippet
+```java
+            MAP.put((int) arch.value, arch);
+            ALTMAP.put(arch.name().toLowerCase(), arch);
+            for (final String alias : getAliases(arch).split(",\\s")) {
+                ALTMAP.put(alias.toLowerCase(), arch);
+            }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `rpm/src/main/java/org/eclipse/packager/rpm/PathName.java`
 #### Snippet
 ```java
@@ -3702,18 +3702,6 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/TextFileContentProvider.jav
         return data.replace("\r\n", "\n");
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `rpm/src/main/java/org/eclipse/packager/rpm/Architecture.java`
-#### Snippet
-```java
-            MAP.put((int) arch.value, arch);
-            ALTMAP.put(arch.name().toLowerCase(), arch);
-            for (final String alias : getAliases(arch).split(",\\s")) {
-                ALTMAP.put(alias.toLowerCase(), arch);
-            }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3753,6 +3741,30 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `rpm/src/main/java/org/eclipse/packager/rpm/OperatingSystem.java`
+#### Snippet
+```java
+            MAP.put((int) os.value, os);
+            ALTMAP.put(os.name().toLowerCase(), os);
+            for (final String alias : getAliases(os).split(",\\s")) {
+                ALTMAP.put(alias.toLowerCase(), os);
+            }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+
+    private void checkCreateParents(final String fileName, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
+        final String toks[] = fileName.split("/+");
+
+        String current = "";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
@@ -3776,18 +3788,6 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
         if (fileName.startsWith("./")) {
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
-#### Snippet
-```java
-
-    private void checkCreateParents(final String fileName, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
-        final String toks[] = fileName.split("/+");
-
-        String current = "";
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
@@ -3804,26 +3804,26 @@ in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
 #### Snippet
 ```java
-        final CpioArchiveInputStream cpio = in.getCpioStream();
-        CpioArchiveEntry cpioEntry;
-        while ((cpioEntry = cpio.getNextCPIOEntry()) != null) {
-            final String name = normalize(cpioEntry.getName());
+        final BufferedReader reader = new BufferedReader(inputReader);
 
+        while ((entry = ControlFileParser.parseInternal(reader)) != null) {
+            result.add(entry);
+        }
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
+in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
 #### Snippet
 ```java
-        final int preset;
+        StringBuilder currentValue = new StringBuilder();
 
-        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
-            preset = Integer.parseInt(flags.substring(0, 1));
-        } else {
+        while ((line = reader.readLine()) != null) {
+            if (line.isEmpty()) {
+                break; // break - could a multi file
 ```
 
 ### NestedAssignment
@@ -3852,26 +3852,50 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/coding/BZip2PayloadCoding.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/GzipPayloadCoding.java`
 #### Snippet
 ```java
-        final BufferedReader reader = new BufferedReader(inputReader);
+        final int compressionLevel;
 
-        while ((entry = ControlFileParser.parseInternal(reader)) != null) {
-            result.add(entry);
-        }
+        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
+            compressionLevel = Integer.parseInt(flags.substring(0, 1));
+        } else {
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/XZPayloadCoding.java`
 #### Snippet
 ```java
-        StringBuilder currentValue = new StringBuilder();
+        final int preset;
 
-        while ((line = reader.readLine()) != null) {
-            if (line.isEmpty()) {
-                break; // break - could a multi file
+        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
+            preset = Integer.parseInt(flags.substring(0, 1));
+        } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+#### Snippet
+```java
+        final CpioArchiveInputStream cpio = in.getCpioStream();
+        CpioArchiveEntry cpioEntry;
+        while ((cpioEntry = cpio.getNextCPIOEntry()) != null) {
+            final String name = normalize(cpioEntry.getName());
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/ZstdPayloadCoding.java`
+#### Snippet
+```java
+        final int level;
+
+        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
+            level = Integer.parseInt(flags.substring(0, 1));
+        } else {
 ```
 
 ### NestedAssignment
@@ -3896,30 +3920,6 @@ in `deb/src/main/java/org/eclipse/packager/deb/Packages.java`
                     while ((te = inputStream.getNextTarEntry()) != null) {
                         String name = te.getName();
                         if (name.startsWith("./")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/GzipPayloadCoding.java`
-#### Snippet
-```java
-        final int compressionLevel;
-
-        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
-            compressionLevel = Integer.parseInt(flags.substring(0, 1));
-        } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/ZstdPayloadCoding.java`
-#### Snippet
-```java
-        final int level;
-
-        if (optionalFlags.isPresent() && (flags = optionalFlags.get()).length() > 0) {
-            level = Integer.parseInt(flags.substring(0, 1));
-        } else {
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -3985,18 +3985,6 @@ in `core/src/main/java/org/eclipse/packager/security/pgp/PgpHelper.java`
 ```
 
 ### Convert2Lambda
-Anonymous new FileInformationProvider() can be replaced with lambda
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
-#### Snippet
-```java
-    });
-
-    static final FileInformationProvider<Path> PATH_PROVIDER = new FileInformationProvider<Path>() {
-
-        @Override
-```
-
-### Convert2Lambda
 Anonymous new SimpleFileInformationCustomizer() can be replaced with lambda
 in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
 #### Snippet
@@ -4009,27 +3997,15 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
 ```
 
 ### Convert2Lambda
-Anonymous new SimpleFileInformationCustomizer() can be replaced with lambda
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
-#### Snippet
-```java
-
-    public static SimpleFileInformationCustomizer modeCustomizer(final short mode) {
-        return new SimpleFileInformationCustomizer() {
-
-            @Override
-```
-
-### Convert2Lambda
 Anonymous new FileInformationProvider() can be replaced with lambda
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/Defaults.java`
 #### Snippet
 ```java
-        Objects.requireNonNull(rules);
+    });
 
-        return new FileInformationProvider<T>() {
+    static final FileInformationProvider<Path> PATH_PROVIDER = new FileInformationProvider<Path>() {
 
-            @Override
+        @Override
 ```
 
 ### Convert2Lambda
@@ -4056,6 +4032,30 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
             @Override
 ```
 
+### Convert2Lambda
+Anonymous new FileInformationProvider() can be replaced with lambda
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+        Objects.requireNonNull(rules);
+
+        return new FileInformationProvider<T>() {
+
+            @Override
+```
+
+### Convert2Lambda
+Anonymous new SimpleFileInformationCustomizer() can be replaced with lambda
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/BuilderContext.java`
+#### Snippet
+```java
+
+    public static SimpleFileInformationCustomizer modeCustomizer(final short mode) {
+        return new SimpleFileInformationCustomizer() {
+
+            @Override
+```
+
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
@@ -4072,18 +4072,6 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `value`
-in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
-#### Snippet
-```java
-
-        if (value <= 0) {
-            value = 0;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
 in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
 #### Snippet
 ```java
@@ -4095,27 +4083,39 @@ in `deb/src/main/java/org/eclipse/packager/deb/FieldFormatter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+Assignment to method parameter `value`
+in `rpm/src/main/java/org/eclipse/packager/rpm/header/Header.java`
 #### Snippet
 ```java
-        }
 
-        fileName = fileName.replace("\\", "/"); // just in case we get windows paths
-        fileName = fileName.replace("/+", "/");
+        if (value <= 0) {
+            value = 0;
+        }
 
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
+Assignment to method parameter `directory`
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
 ```java
+    @Override
+    public void addDirectory(String directory, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
+        directory = cleanupPath(directory);
+        if (!directory.endsWith("/")) {
+            directory += Character.toString('/');
+```
 
-        fileName = fileName.replace("\\", "/"); // just in case we get windows paths
-        fileName = fileName.replace("/+", "/");
-
-        if (fileName.startsWith("./")) {
+### AssignmentToMethodParameter
+Assignment to method parameter `directory`
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+        directory = cleanupPath(directory);
+        if (!directory.endsWith("/")) {
+            directory += Character.toString('/');
+        }
+        checkCreateParents(directory, timestampSupplier);
 ```
 
 ### AssignmentToMethodParameter
@@ -4143,42 +4143,30 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `directory`
+Assignment to method parameter `fileName`
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
 ```java
-    @Override
-    public void addDirectory(String directory, final EntryInformation entryInformation, final Optional<Supplier<Instant>> timestampSupplier) throws IOException {
-        directory = cleanupPath(directory);
-        if (!directory.endsWith("/")) {
-            directory += Character.toString('/');
+        }
+
+        fileName = fileName.replace("\\", "/"); // just in case we get windows paths
+        fileName = fileName.replace("/+", "/");
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `directory`
+Assignment to method parameter `fileName`
 in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
 #### Snippet
 ```java
-        directory = cleanupPath(directory);
-        if (!directory.endsWith("/")) {
-            directory += Character.toString('/');
-        }
-        checkCreateParents(directory, timestampSupplier);
+
+        fileName = fileName.replace("\\", "/"); // just in case we get windows paths
+        fileName = fileName.replace("/+", "/");
+
+        if (fileName.startsWith("./")) {
 ```
 
 ## RuleId[id=PointlessBitwiseExpression]
-### PointlessBitwiseExpression
-`1 << 0` can be replaced with '1'
-in `rpm/src/main/java/org/eclipse/packager/rpm/FileFlags.java`
-#### Snippet
-```java
-
-public enum FileFlags {
-    CONFIGURATION(1 << 0), /* !< from %%config */
-    DOC(1 << 1), /* !< from %%doc */
-    ICON(1 << 2), /* !< from %%donotuse. */
-```
-
 ### PointlessBitwiseExpression
 `1 << 0` can be replaced with '1'
 in `rpm/src/main/java/org/eclipse/packager/rpm/VerifyFlags.java`
@@ -4191,29 +4179,29 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/VerifyFlags.java`
     LINKTO(1 << 2), // 'L'
 ```
 
+### PointlessBitwiseExpression
+`1 << 0` can be replaced with '1'
+in `rpm/src/main/java/org/eclipse/packager/rpm/FileFlags.java`
+#### Snippet
+```java
+
+public enum FileFlags {
+    CONFIGURATION(1 << 0), /* !< from %%config */
+    DOC(1 << 1), /* !< from %%doc */
+    ICON(1 << 2), /* !< from %%donotuse. */
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/deps/RpmDependencyFlags.java`
+in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
 #### Snippet
 ```java
-    public static EnumSet<RpmDependencyFlags> parse(final Long flags) {
-        if (flags == null) {
+        if (line == null && result.isEmpty()) {
+            // empty file or part
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
-#### Snippet
-```java
-            return this.provider.provide(targetName, this.clazz.cast(object), type);
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -4242,11 +4230,11 @@ in `core/src/main/java/org/eclipse/packager/security/pgp/PgpHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
 #### Snippet
 ```java
-    public static String asString(final Object value) {
-        if (value == null) {
+        @Override
+        public InputStream createInputStream() throws IOException {
             return null;
         }
 
@@ -4254,13 +4242,73 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
 
 ### ReturnNull
 Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+in `rpm/src/main/java/org/eclipse/packager/rpm/build/ProviderRule.java`
 #### Snippet
 ```java
-                return values[0];
-            }
+            return this.provider.provide(targetName, this.clazz.cast(object), type);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/RpmVersion.java`
+#### Snippet
+```java
+    public static RpmVersion valueOf(final String version) {
+        if (version == null || version.isEmpty()) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/coding/NullPayloadCoding.java`
+#### Snippet
+```java
+    @Override
+    public String getCoding() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `deb/src/main/java/org/eclipse/packager/deb/build/TextFileContentProvider.java`
+#### Snippet
+```java
+            return new ByteArrayInputStream(this.data);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/deps/RpmDependencyFlags.java`
+#### Snippet
+```java
+    public static EnumSet<RpmDependencyFlags> parse(final Long flags) {
+        if (flags == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
+#### Snippet
+```java
+        private Element addVersion(final Element pkg, final RpmInformation.Version version) {
+            if (version == null) {
+                return null;
+            }
 
 ```
 
@@ -4290,6 +4338,30 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
 
 ### ReturnNull
 Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+#### Snippet
+```java
+    public static String asString(final Object value) {
+        if (value == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rpm/src/main/java/org/eclipse/packager/rpm/info/RpmInformations.java`
+#### Snippet
+```java
+                return values[0];
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `deb/src/main/java/org/eclipse/packager/deb/build/StaticContentProvider.java`
 #### Snippet
 ```java
@@ -4302,71 +4374,11 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/StaticContentProvider.java`
 
 ### ReturnNull
 Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/ControlFileParser.java`
+in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
 #### Snippet
 ```java
-        if (line == null && result.isEmpty()) {
-            // empty file or part
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/Packages.java`
-#### Snippet
-```java
-    public static String makeDescriptionMd5(final String string) {
-        if (string == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/Packages.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/RpmVersion.java`
-#### Snippet
-```java
-    public static RpmVersion valueOf(final String version) {
-        if (version == null || version.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/coding/NullPayloadCoding.java`
-#### Snippet
-```java
-    @Override
-    public String getCoding() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/build/ContentProvider.java`
-#### Snippet
-```java
-        @Override
-        public InputStream createInputStream() throws IOException {
+    public String getChecksum(final String fileName, final String algorithm) {
+        if (!this.digests.contains(algorithm)) {
             return null;
         }
 
@@ -4386,47 +4398,23 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/FileContentProvider.java`
 
 ### ReturnNull
 Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/build/TextFileContentProvider.java`
+in `deb/src/main/java/org/eclipse/packager/deb/Packages.java`
 #### Snippet
 ```java
-            return new ByteArrayInputStream(this.data);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/eclipse/packager/io/OutputSpooler.java`
-#### Snippet
-```java
-    public String getChecksum(final String fileName, final String algorithm) {
-        if (!this.digests.contains(algorithm)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rpm/src/main/java/org/eclipse/packager/rpm/yum/RepositoryCreator.java`
-#### Snippet
-```java
-        private Element addVersion(final Element pkg, final RpmInformation.Version version) {
-            if (version == null) {
-                return null;
             }
+        }
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+in `deb/src/main/java/org/eclipse/packager/deb/Packages.java`
 #### Snippet
 ```java
-    private String cleanupPath(String fileName) {
-        if (fileName == null) {
+    public static String makeDescriptionMd5(final String string) {
+        if (string == null) {
             return null;
         }
 
@@ -4444,10 +4432,22 @@ in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
     }
 ```
 
+### ReturnNull
+Return of `null`
+in `deb/src/main/java/org/eclipse/packager/deb/build/DebianPackageWriter.java`
+#### Snippet
+```java
+    private String cleanupPath(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+
+```
+
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-19-08-09.018.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-06-35-35.881.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4706,30 +4706,6 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'getCount()' is declared in unstable class 'com.google.common.io.CountingInputStream' marked with @Beta
-in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
-#### Snippet
-```java
-
-    protected <T extends RpmBaseTag> InputHeader<T> readHeader(final boolean withPadding) throws IOException {
-        final long start = this.count.getCount();
-
-        final byte[] magic = readComplete(3);
-```
-
-### UnstableApiUsage
-'getCount()' is declared in unstable class 'com.google.common.io.CountingInputStream' marked with @Beta
-in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
-#### Snippet
-```java
-        }
-
-        final long end = this.count.getCount();
-
-        return new InputHeader<>(entries, start, end - start);
-```
-
-### UnstableApiUsage
 'CountingInputStream(java.io.InputStream)' is declared in unstable class 'com.google.common.io.CountingInputStream' marked with @Beta
 in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
 #### Snippet
@@ -4763,5 +4739,29 @@ in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
     private final CountingInputStream count;
 
     public RpmInputStream(final InputStream in) {
+```
+
+### UnstableApiUsage
+'getCount()' is declared in unstable class 'com.google.common.io.CountingInputStream' marked with @Beta
+in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
+#### Snippet
+```java
+
+    protected <T extends RpmBaseTag> InputHeader<T> readHeader(final boolean withPadding) throws IOException {
+        final long start = this.count.getCount();
+
+        final byte[] magic = readComplete(3);
+```
+
+### UnstableApiUsage
+'getCount()' is declared in unstable class 'com.google.common.io.CountingInputStream' marked with @Beta
+in `rpm/src/main/java/org/eclipse/packager/rpm/parse/RpmInputStream.java`
+#### Snippet
+```java
+        }
+
+        final long end = this.count.getCount();
+
+        return new InputHeader<>(entries, start, end - start);
 ```
 
