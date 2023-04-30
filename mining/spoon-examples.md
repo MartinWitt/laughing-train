@@ -26,8 +26,8 @@ I found 97 bad smells with 10 repairable:
 | CommentedOutCode | 1 | false |
 | LongLiteralsEndingWithLowercaseL | 1 | false |
 | CatchMayIgnoreException | 1 | false |
-| StringEqualsEmptyString | 1 | false |
 | AnonymousHasLambdaAlternative | 1 | false |
+| StringEqualsEmptyString | 1 | false |
 | UnusedLabel | 1 | true |
 | SamePackageImport | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
@@ -73,18 +73,6 @@ public class TestUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
-#### Snippet
-```java
- * on 23/05/17
- */
-public class TestRunner {
-
-    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Util` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
 #### Snippet
@@ -118,6 +106,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 public class IOUtils {
 	/**
 	 * The default buffer size to use.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
+#### Snippet
+```java
+ * on 23/05/17
+ */
+public class TestRunner {
+
+    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -201,18 +201,6 @@ Obsolete collection type `Stack` used
 in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
 #### Snippet
 ```java
-	Set<CtPackageReference> scanned = new HashSet<>();
-
-	void scanDependencies(Stack<CtPackageReference> path) {
-		CtPackageReference ref = path.peek();
-		// return if already scanned
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
-#### Snippet
-```java
 	public void processingDone() {
 		for (CtPackageReference p : packRefs.keySet()) {
 			Stack<CtPackageReference> path = new Stack<>();
@@ -230,6 +218,18 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
 			Stack<CtPackageReference> path = new Stack<>();
 			path.push(p);
 			scanDependencies(path);
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
+#### Snippet
+```java
+	Set<CtPackageReference> scanned = new HashSet<>();
+
+	void scanDependencies(Stack<CtPackageReference> path) {
+		CtPackageReference ref = path.peek();
+		// return if already scanned
 ```
 
 ## RuleId[id=LongLiteralsEndingWithLowercaseL]
@@ -310,18 +310,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-
-	/** applies the test driver of this mutation tester on each mutant instance */
-	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
-		// now we run the mutants against the test class
-		for (T t : mutantInstances) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends CtClass`
 in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
 #### Snippet
@@ -334,15 +322,15 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtLocalVariable`
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
+Can generalize to `? extends T`
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
 #### Snippet
 ```java
 
-	@SuppressWarnings("unchecked")
-	public void instrument(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
-		ctLocalVariables.forEach(ctLocalVariable -> this.instrument(testMethod, ctLocalVariable));
-	}
+	/** applies the test driver of this mutation tester on each mutant instance */
+	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
+		// now we run the mutants against the test class
+		for (T t : mutantInstances) {
 ```
 
 ### BoundedWildcard
@@ -357,17 +345,16 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.
 		System.out.println(testMethod);
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
+### BoundedWildcard
+Can generalize to `? extends CtLocalVariable`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
 #### Snippet
 ```java
-			if (modifiers.contains(PUBLIC) || modifiers.contains(PROTECTED)) {
-				String docComment = element.getDocComment();
-				if (docComment == null || docComment.equals("")) {
-					System.out.println("undocumented element at " + element.getPosition());
-					undocumentedElements.add(element);
+
+	@SuppressWarnings("unchecked")
+	public void instrument(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
+		ctLocalVariables.forEach(ctLocalVariable -> this.instrument(testMethod, ctLocalVariable));
+	}
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
@@ -381,6 +368,19 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 			new Thread() {
 				@Override
 				public void run() {
+```
+
+## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
+#### Snippet
+```java
+			if (modifiers.contains(PUBLIC) || modifiers.contains(PROTECTED)) {
+				String docComment = element.getDocComment();
+				if (docComment == null || docComment.equals("")) {
+					System.out.println("undocumented element at " + element.getPosition());
+					undocumentedElements.add(element);
 ```
 
 ## RuleId[id=UnusedLabel]
@@ -435,18 +435,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
-#### Snippet
-```java
-						+ File.separatorChar + element.getSimpleName()
-						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
-				file.createNewFile();
-
-				// the path must be given relatively to to the working directory
-```
-
-### IgnoreResultOfCall
 Result of `String.toLowerCase()` is ignored
 in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
 #### Snippet
@@ -456,6 +444,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
 		nullObject.toLowerCase();
 	}
 }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
+#### Snippet
+```java
+						+ File.separatorChar + element.getSimpleName()
+						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
+				file.createNewFile();
+
+				// the path must be given relatively to to the working directory
 ```
 
 ### IgnoreResultOfCall
@@ -497,18 +497,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-				throw new MutantNotKilledException();
-			} catch (AssertionError expected) {
-				System.out.println("mutant killed!");
-			}
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/analysis/PatternTest.java`
 #### Snippet
 ```java
@@ -529,6 +517,18 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/PatternTest.java`
 				System.out.println(m.getMatchingElement().getPosition());
 			}
 			// note that the one called "d" also matches!
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+				throw new MutantNotKilledException();
+			} catch (AssertionError expected) {
+				System.out.println("mutant killed!");
+			}
+		}
 ```
 
 ### SystemOutErr
@@ -581,26 +581,14 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
+in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 #### Snippet
 ```java
-		instrument(clone, localVariables);
-		testClass.addMethod(clone);
-		System.out.println(clone);
-		run(launcher, testClass, clone);
-		testClass.removeMethod(clone);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
-#### Snippet
-```java
-					while (p.isAlive()) {
-						try {
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
+				String docComment = element.getDocComment();
+				if (docComment == null || docComment.equals("")) {
+					System.out.println("undocumented element at " + element.getPosition());
+					undocumentedElements.add(element);
+				}
 ```
 
 ### SystemOutErr
@@ -617,38 +605,14 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-				String docComment = element.getDocComment();
-				if (docComment == null || docComment.equals("")) {
-					System.out.println("undocumented element at " + element.getPosition());
-					undocumentedElements.add(element);
-				}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
-#### Snippet
-```java
-				new Main().m(i);
-			} catch (RuntimeException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
-#### Snippet
-```java
-
-	public void m(@Bound(min = 2d, max = 8d) int a) {
-		System.out.println("Great method!");
-	}
-
+					while (p.isAlive()) {
+						try {
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
 ```
 
 ### SystemOutErr
@@ -673,6 +637,42 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.
 		System.out.println(testMethod);
 	}
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+#### Snippet
+```java
+
+	public void m(@Bound(min = 2d, max = 8d) int a) {
+		System.out.println("Great method!");
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+#### Snippet
+```java
+				new Main().m(i);
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
+#### Snippet
+```java
+		instrument(clone, localVariables);
+		testClass.addMethod(clone);
+		System.out.println(clone);
+		run(launcher, testClass, clone);
+		testClass.removeMethod(clone);
 ```
 
 ## RuleId[id=DefaultAnnotationParam]
@@ -955,7 +955,44 @@ import spoon.reflect.factory.Factory;
 import java.lang.annotation.Annotation;
 ```
 
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
+#### Snippet
+```java
+		long count = 0;
+		int n = 0;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
+#### Snippet
+```java
+                        return true;
+                    }
+                } while ((current = current.getSuperclass()) != null);
+                return false;
+            }
+```
+
 ## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
+#### Snippet
+```java
+				lastTh = ex;
+				if (_verbose_) {
+					ex.printStackTrace();
+				}
+				try {
+```
+
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
@@ -978,30 +1015,6 @@ in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
 			e.printStackTrace();
 		}
 
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
-#### Snippet
-```java
-				lastTh = ex;
-				if (_verbose_) {
-					ex.printStackTrace();
-				}
-				try {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
-#### Snippet
-```java
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
 ```
 
 ### ThrowablePrintStackTrace
@@ -1052,29 +1065,16 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         }
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-                        return true;
-                    }
-                } while ((current = current.getSuperclass()) != null);
-                return false;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
-#### Snippet
-```java
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-			count += n;
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 ```
 
 ## RuleId[id=SamePackageImport]
@@ -1115,6 +1115,19 @@ class TestListener extends RunListener {
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-05-14-55.216.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -1122,7 +1135,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getFirstName() {
+    public String getLastName() {
         return null;
     }
 
@@ -1134,7 +1147,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getLastName() {
+    public String getFirstName() {
         return null;
     }
 
@@ -1174,19 +1187,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         return null;
     }
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-14-37-07.584.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
