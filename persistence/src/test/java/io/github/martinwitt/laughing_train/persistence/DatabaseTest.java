@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.persistence;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.mongodb.client.model.Filters;
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -57,6 +58,20 @@ class DatabaseTest {
         assertThat(badSmellRepository.findByIdentifier(badSmell.getIdentifier()))
                 .isEmpty();
     }
+
+    @Test
+    void filterForAnyContains() {
+        cleanDB();
+        var badSmell = createWithMessage("PointLessBoolean");
+
+        badSmellRepository.save(badSmell);
+        assertThat(badSmellRepositoryImpl
+                        .mongoCollection()
+                        .find((Filters.eq("commitHash", badSmell.getCommitHash())))
+                        .first())
+                .isNotNull();
+    }
+
     /**
      * Cleans the database before each test.
      */
