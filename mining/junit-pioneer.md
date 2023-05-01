@@ -127,18 +127,6 @@ in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
 
 ### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-/**
- * This class modifies the internals of the environment variables map with reflection.
- * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
- */
-class EnvironmentVariableUtils {
-```
-
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 #### Snippet
 ```java
@@ -147,6 +135,18 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
  * uses reflection to change them. This requires that the {@link SecurityManager}
  * allows modifications and can potentially break on different operating systems and
  * Java versions. Be aware that this is a fragile solution and consider finding a
+```
+
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+/**
+ * This class modifies the internals of the environment variables map with reflection.
+ * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
+ */
+class EnvironmentVariableUtils {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -165,11 +165,11 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
 ```java
-	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
-			boolean findRepeated, boolean findAllEnclosing) {
+		Optional<Class<?>> type = context.getTestClass();
+		// type may not be present because of recursion to the parent context
 		if (!type.isPresent())
 			return Stream.empty();
 
@@ -189,11 +189,11 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 #### Snippet
 ```java
-		Optional<Class<?>> type = context.getTestClass();
-		// type may not be present because of recursion to the parent context
+	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
+			boolean findRepeated, boolean findAllEnclosing) {
 		if (!type.isPresent())
 			return Stream.empty();
 
@@ -265,11 +265,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -277,11 +277,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -488,11 +488,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
+	 * Works on Windows
 	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 ```
 
 ### BoundedWildcard
@@ -500,11 +500,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Windows
+	 * Works on Linux and OSX
 	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -520,54 +520,6 @@ in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArguments
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
@@ -577,6 +529,30 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void clearEntries(Collection<K> entriesToClear) {
 		entriesToClear.forEach(this::clearEntry);
 	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### BoundedWildcard
@@ -604,15 +580,27 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Shared`
-in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+Can generalize to `? super String`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
 ```java
-	}
+			private final BiPredicate<String, Set<String>> selector;
 
-	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
-			ExtensionContext extensionContext) {
-		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+			private final BiPredicate<String, Set<String>> selector;
+
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
 ```
 
 ### BoundedWildcard
@@ -625,6 +613,18 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 	private <T> T invokeWithLocks(Invocation<T> invocation, List<ReentrantLock> locks) throws Throwable {
 		locks.forEach(ReentrantLock::lock);
 		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Shared`
+in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+#### Snippet
+```java
+	}
+
+	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
+			ExtensionContext extensionContext) {
+		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
 ```
 
 ### BoundedWildcard
