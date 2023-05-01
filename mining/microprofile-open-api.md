@@ -1,7 +1,7 @@
 # microprofile-open-api 
  
 # Bad smells
-I found 273 bad smells with 24 repairable:
+I found 274 bad smells with 24 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 116 | false |
@@ -37,6 +37,7 @@ I found 273 bad smells with 24 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | UseOfPropertiesAsHashtable | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | UseBulkOperation | 1 | false |
 ## RuleId[id=StringEquality]
@@ -70,9 +71,9 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/R
 #### Snippet
 ```java
         for (Review review : reviews.values()) {
-            User currentUser = review.getUser();
-            if (currentUser.getUserName() == user && (minRating == null || review.getRating() >= minRating)) {
-                reviewsByUser.add(review);
+            Airline currentAirline = review.getAirlines();
+            if (currentAirline.getName() == airlines) {
+                reviewsByAirlines.add(review);
             }
 ```
 
@@ -82,25 +83,13 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/R
 #### Snippet
 ```java
         for (Review review : reviews.values()) {
-            Airline currentAirline = review.getAirlines();
-            if (currentAirline.getName() == airlines) {
-                reviewsByAirlines.add(review);
+            User currentUser = review.getUser();
+            if (currentUser.getUserName() == user && (minRating == null || review.getRating() >= minRating)) {
+                reviewsByUser.add(review);
             }
 ```
 
 ## RuleId[id=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityScheme.java`
-#### Snippet
-```java
-     * </p>
-     */
-    public enum In {
-        COOKIE("cookie"), HEADER("header"), QUERY("query");
-
-```
-
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityScheme.java`
@@ -115,26 +104,14 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityS
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityScheme.java`
 #### Snippet
 ```java
-     *            the name the variable to remove
+     * </p>
      */
-    public void removeVariable(String variableName);
+    public enum In {
+        COOKIE("cookie"), HEADER("header"), QUERY("query");
 
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.java`
-#### Snippet
-```java
-     * @return the current Server object
-     **/
-    public Server addVariable(String variableName, ServerVariable variable);
-
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -175,14 +152,26 @@ public interface APIResponses extends Constructible, Extensible<APIResponses> {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.java`
 #### Snippet
 ```java
-    @POST
-    @Path("/rank/{playerId}/recordGame")
-    public void recordGame(@PathParam("playerId") String id, @QueryParam("place") int place,
-            @HeaderParam("Authorization") String token);
+     * @return the current Server object
+     **/
+    public Server addVariable(String variableName, ServerVariable variable);
 
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.java`
+#### Snippet
+```java
+     *            the name the variable to remove
+     */
+    public void removeVariable(String variableName);
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -199,14 +188,14 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/P
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
 #### Snippet
 ```java
-     * @since 3.1
-     */
-    public final class False {
-        private False() {
-        }
+    @POST
+    @Path("/rank/{playerId}/recordGame")
+    public void recordGame(@PathParam("playerId") String id, @QueryParam("place") int place,
+            @HeaderParam("Authorization") String token);
+
 ```
 
 ### UnnecessaryModifier
@@ -218,6 +207,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.
      */
     public final class True {
         private True() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * @since 3.1
+     */
+    public final class False {
+        private False() {
         }
 ```
 
@@ -247,18 +248,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetDat
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Variable is already assigned to this value
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
-#### Snippet
-```java
-            output = Long.parseLong(inputString);
-        } catch (Exception e) {
-            output = defaultValue;
-        }
-        if (output < minVal) {
-```
-
 ### DataFlowIssue
 Variable is already assigned to this value
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
@@ -295,6 +284,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Ja
         }
 ```
 
+### DataFlowIssue
+Variable is already assigned to this value
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
+#### Snippet
+```java
+            output = Long.parseLong(inputString);
+        } catch (Exception e) {
+            output = defaultValue;
+        }
+        if (output < minVal) {
+```
+
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -309,6 +310,114 @@ public enum Explode {
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+            return new HashMap<Object, Object>();
+        } else if (clazz == String.class) {
+            return new String("value");
+        } else if (clazz == Boolean.class || clazz == Boolean.TYPE) {
+            return new Boolean(true);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+            return new BigDecimal("1.0");
+        } else if (clazz == Object.class) {
+            return new String("object");
+        }
+        return null;
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        final ServerVariable sv = processConstructible(ServerVariable.class);
+
+        final String enumeration = new String("enumValue");
+        checkSameObject(sv, sv.addEnumeration(enumeration));
+        checkListEntry(sv.getEnumeration(), enumeration);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        assertEquals(sv.getEnumeration().size(), 0, "The list is expected to be empty.");
+
+        final String enumeration2 = new String("enumValue2");
+        sv.setEnumeration(Collections.singletonList(enumeration2));
+        assertEquals(sv.getEnumeration().size(), 1, "The list is expected to contain one entry.");
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        checkListEntry(sv.getEnumeration(), enumeration);
+
+        final String otherEnumerationValue = new String("otherValue");
+        checkListImmutable(sv, ServerVariable::getEnumeration, otherEnumerationValue);
+    }
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+
+        final String key = "myKey";
+        final String value = new String("myValue");
+        checkSameObject(d, d.addMapping(key, value));
+        checkMapEntry(d.getMapping(), key, value);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+
+        final String key2 = "myCallbackKey2";
+        final String value2 = new String("myValue2");
+        d.setMapping(Collections.singletonMap(key2, value2));
+        checkMapEntry(d.getMapping(), key2, value2);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        assertEquals(d.getMapping().size(), 2, "The map is expected to contain two entries.");
+
+        final String otherValue = new String("otherValue");
+        checkMapImmutable(d, Discriminator::getMapping, "otherValue", otherValue);
+        checkNullValueInAdd(d::getMapping, d::addMapping, "otherKey", value);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        final OAuthFlow o = processConstructible(OAuthFlow.class);
+        final String key = "myKey";
+        final String value = new String("myValue");
+        o.setScopes(Collections.singletonMap(key, value));
+        Map<String, String> scopes = o.getScopes();
+```
+
 ### StringOperationCanBeSimplified
 `new String()` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
@@ -343,18 +452,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
         String otherTag = new String("otherTag");
         checkListImmutable(o, Operation::getTags, otherTag);
 
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        final OAuthFlow o = processConstructible(OAuthFlow.class);
-        final String key = "myKey";
-        final String value = new String("myValue");
-        o.setScopes(Collections.singletonMap(key, value));
-        Map<String, String> scopes = o.getScopes();
 ```
 
 ### StringOperationCanBeSimplified
@@ -429,102 +526,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
     }
 ```
 
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-
-        final String key = "myKey";
-        final String value = new String("myValue");
-        checkSameObject(d, d.addMapping(key, value));
-        checkMapEntry(d.getMapping(), key, value);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-
-        final String key2 = "myCallbackKey2";
-        final String value2 = new String("myValue2");
-        d.setMapping(Collections.singletonMap(key2, value2));
-        checkMapEntry(d.getMapping(), key2, value2);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        assertEquals(d.getMapping().size(), 2, "The map is expected to contain two entries.");
-
-        final String otherValue = new String("otherValue");
-        checkMapImmutable(d, Discriminator::getMapping, "otherValue", otherValue);
-        checkNullValueInAdd(d::getMapping, d::addMapping, "otherKey", value);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        final ServerVariable sv = processConstructible(ServerVariable.class);
-
-        final String enumeration = new String("enumValue");
-        checkSameObject(sv, sv.addEnumeration(enumeration));
-        checkListEntry(sv.getEnumeration(), enumeration);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        assertEquals(sv.getEnumeration().size(), 0, "The list is expected to be empty.");
-
-        final String enumeration2 = new String("enumValue2");
-        sv.setEnumeration(Collections.singletonList(enumeration2));
-        assertEquals(sv.getEnumeration().size(), 1, "The list is expected to contain one entry.");
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        checkListEntry(sv.getEnumeration(), enumeration);
-
-        final String otherEnumerationValue = new String("otherValue");
-        checkListImmutable(sv, ServerVariable::getEnumeration, otherEnumerationValue);
-    }
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-            return new HashMap<Object, Object>();
-        } else if (clazz == String.class) {
-            return new String("value");
-        } else if (clazz == Boolean.class || clazz == Boolean.TYPE) {
-            return new Boolean(true);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-            return new BigDecimal("1.0");
-        } else if (clazz == Object.class) {
-            return new String("object");
-        }
-        return null;
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -594,6 +595,18 @@ Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
 #### Snippet
 ```java
+     * array can be used.
+     * 
+     * @return the list of security mechanisms for this callback operation
+     */
+    SecurityRequirement[] security() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
+#### Snippet
+```java
      * </p>
      * 
      * @return the list of responses for this callback operation
@@ -615,30 +628,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/Cal
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
-#### Snippet
-```java
-     * array can be used.
-     * 
-     * @return the list of security mechanisms for this callback operation
-     */
-    SecurityRequirement[] security() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of possible classes for a single match
-     **/
-    Class<?>[] oneOf() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
 #### Snippet
 ```java
@@ -654,11 +643,11 @@ Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
 #### Snippet
 ```java
-     * </p>
-     * 
-     * @return the list of classes to match
+     * Allows multiple properties in an object to be marked as required.
+     *
+     * @return the list of required schema properties
      **/
-    Class<?>[] allOf() default {};
+    String[] requiredProperties() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -678,23 +667,23 @@ Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
 #### Snippet
 ```java
-     * Allows multiple properties in an object to be marked as required.
-     *
-     * @return the list of required schema properties
+     * </p>
+     * 
+     * @return the list of possible classes for a single match
      **/
-    String[] requiredProperties() default {};
+    Class<?>[] oneOf() default {};
 ```
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/Parameter.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
 #### Snippet
 ```java
-     * Ignored if the properties content or array are specified.
+     * </p>
      * 
-     * @return the list of examples for this parameter
+     * @return the list of classes to match
      **/
-    ExampleObject[] examples() default {};
+    Class<?>[] allOf() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -711,14 +700,14 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Content
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/Parameter.java`
 #### Snippet
 ```java
-     * </p>
+     * Ignored if the properties content or array are specified.
      * 
-     * @return the list of possible classes for a single match
+     * @return the list of examples for this parameter
      **/
-    Class<?>[] oneOf() default {};
+    ExampleObject[] examples() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -731,18 +720,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.
      * @return the list of classes to match
      **/
     Class<?>[] allOf() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
-#### Snippet
-```java
-     * Allows multiple properties in an object to be marked as required.
-     * 
-     * @return the list of required schema properties
-     **/
-    String[] requiredProperties() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -762,11 +739,23 @@ Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
 #### Snippet
 ```java
-     * in the schema model.
+     * </p>
      * 
-     * @return a list of allowed schema values
-     */
-    String[] enumeration() default {};
+     * @return the list of possible classes for a single match
+     **/
+    Class<?>[] oneOf() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * Allows multiple properties in an object to be marked as required.
+     * 
+     * @return the list of required schema properties
+     **/
+    String[] requiredProperties() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -783,6 +772,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * in the schema model.
+     * 
+     * @return a list of allowed schema values
+     */
+    String[] enumeration() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/Link.java`
 #### Snippet
 ```java
@@ -794,78 +795,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/Link.ja
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`orders.size() > 0` can be replaced with '!orders.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
-#### Snippet
-```java
-
-    public Order placeOrder(Order order) {
-        if (orders.size() > 0) {
-            for (int i = orders.size() - 1; i >= 0; i--) {
-                if (orders.get(i).getId() == order.getId()) {
-```
-
-### SizeReplaceableByIsEmpty
-`orders.size() > 0` can be replaced with '!orders.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
-#### Snippet
-```java
-
-    public boolean deleteOrder(long orderId) {
-        if (orders.size() > 0) {
-            for (int i = orders.size() - 1; i >= 0; i--) {
-                if (orders.get(i).getId() == orderId) {
-```
-
-### SizeReplaceableByIsEmpty
-`users.size() > 0` can be replaced with '!users.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
-#### Snippet
-```java
-
-    public boolean removeUser(String username) {
-        if (users.size() > 0) {
-            for (int i = users.size() - 1; i >= 0; i--) {
-                if (users.get(i).getUserName().equals(username)) {
-```
-
-### SizeReplaceableByIsEmpty
-`users.size() > 0` can be replaced with '!users.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
-#### Snippet
-```java
-            return;
-        }
-        if (users.size() > 0) {
-            for (int i = users.size() - 1; i >= 0; i--) {
-                if (users.get(i).getUserName().equals(user.getUserName())) {
-```
-
-### SizeReplaceableByIsEmpty
-`pets.size() > 0` can be replaced with '!pets.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-            pet.setId(maxId + 1);
-        }
-        if (pets.size() > 0) {
-            for (int i = pets.size() - 1; i >= 0; i--) {
-                if (pets.get(i).getId() == pet.getId()) {
-```
-
-### SizeReplaceableByIsEmpty
-`pets.size() > 0` can be replaced with '!pets.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-
-    public boolean deletePet(long petId) {
-        if (pets.size() > 0) {
-            for (int i = pets.size() - 1; i >= 0; i--) {
-                Pet pet = pets.get(i);
-```
-
 ### SizeReplaceableByIsEmpty
 `users.size() > 0` can be replaced with '!users.isEmpty()'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/UserData.java`
@@ -888,6 +817,78 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/UserDa
         if (users.size() > 0) {
             for (int i = users.size() - 1; i >= 0; i--) {
                 if (users.get(i).getUsername().equals(username)) {
+```
+
+### SizeReplaceableByIsEmpty
+`orders.size() > 0` can be replaced with '!orders.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
+#### Snippet
+```java
+
+    public boolean deleteOrder(long orderId) {
+        if (orders.size() > 0) {
+            for (int i = orders.size() - 1; i >= 0; i--) {
+                if (orders.get(i).getId() == orderId) {
+```
+
+### SizeReplaceableByIsEmpty
+`orders.size() > 0` can be replaced with '!orders.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
+#### Snippet
+```java
+
+    public Order placeOrder(Order order) {
+        if (orders.size() > 0) {
+            for (int i = orders.size() - 1; i >= 0; i--) {
+                if (orders.get(i).getId() == order.getId()) {
+```
+
+### SizeReplaceableByIsEmpty
+`users.size() > 0` can be replaced with '!users.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
+#### Snippet
+```java
+            return;
+        }
+        if (users.size() > 0) {
+            for (int i = users.size() - 1; i >= 0; i--) {
+                if (users.get(i).getUserName().equals(user.getUserName())) {
+```
+
+### SizeReplaceableByIsEmpty
+`users.size() > 0` can be replaced with '!users.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
+#### Snippet
+```java
+
+    public boolean removeUser(String username) {
+        if (users.size() > 0) {
+            for (int i = users.size() - 1; i >= 0; i--) {
+                if (users.get(i).getUserName().equals(username)) {
+```
+
+### SizeReplaceableByIsEmpty
+`pets.size() > 0` can be replaced with '!pets.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+
+    public boolean deletePet(long petId) {
+        if (pets.size() > 0) {
+            for (int i = pets.size() - 1; i >= 0; i--) {
+                Pet pet = pets.get(i);
+```
+
+### SizeReplaceableByIsEmpty
+`pets.size() > 0` can be replaced with '!pets.isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+            pet.setId(maxId + 1);
+        }
+        if (pets.size() > 0) {
+            for (int i = pets.size() - 1; i >= 0; i--) {
+                if (pets.get(i).getId() == pet.getId()) {
 ```
 
 ## RuleId[id=BooleanConstructor]
@@ -954,15 +955,15 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Us
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
+Can generalize to `? extends Map`
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
     }
 
-    private <O, V> void checkListImmutable(O container, Function<O, List<V>> listGetter, V otherValue) {
-        List<V> list = listGetter.apply(container);
-        checkListEntryAbsent(list, otherValue);
+    private <O, K, T> void checkMapImmutable(O container, Function<O, Map<K, T>> mapGetter, K key, T otherValue) {
+        Map<K, T> map = mapGetter.apply(container);
+        assertNotNull(map, "The map must not be null.");
 ```
 
 ### BoundedWildcard
@@ -1002,30 +1003,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
+Can generalize to `? extends List`
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
     }
 
-    private <O, K, T> void checkMapImmutable(O container, Function<O, Map<K, T>> mapGetter, K key, T otherValue) {
-        Map<K, T> map = mapGetter.apply(container);
-        assertNotNull(map, "The map must not be null.");
+    private <O, V> void checkListImmutable(O container, Function<O, List<V>> listGetter, V otherValue) {
+        List<V> list = listGetter.apply(container);
+        checkListEntryAbsent(list, otherValue);
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `OASFactoryResolver` has no concrete subclass
-in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
-#### Snippet
-```java
- *
- */
-public abstract class OASFactoryResolver {
-
-    private static volatile OASFactoryResolver instance = null;
-```
-
 ### AbstractClassNeverImplemented
 Abstract class `MyAbstractLicenseImpl` has no concrete subclass
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
@@ -1036,6 +1025,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.j
     public abstract class MyAbstractLicenseImpl implements License {
     }
     public final class MyLicenseImpl implements License {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `OASFactoryResolver` has no concrete subclass
+in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
+#### Snippet
+```java
+ *
+ */
+public abstract class OASFactoryResolver {
+
+    private static volatile OASFactoryResolver instance = null;
 ```
 
 ### AbstractClassNeverImplemented
@@ -1051,6 +1052,18 @@ public abstract class OASFactoryResolver {
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
+#### Snippet
+```java
+
+        // treat "", "YES" as "true"
+        if ("".equals(booleanString)) {
+            output = true;
+        } else if ("YES".equalsIgnoreCase(booleanString)) {
+```
+
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
@@ -1109,18 +1122,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Pe
             if (status != null && !"".equals(status)) {
                 pet.setStatus(status);
             }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
-#### Snippet
-```java
-
-        // treat "", "YES" as "true"
-        if ("".equals(booleanString)) {
-            output = true;
-        } else if ("YES".equalsIgnoreCase(booleanString)) {
 ```
 
 ## RuleId[id=UnnecessaryBoxing]
@@ -1248,6 +1249,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetDat
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetStoreResource.java`
+#### Snippet
+```java
+            @APIResponse(responseCode = "200", description = "successful operation",
+                         extensions = @Extension(name = "x-response-ext", value = "test-response-ext")),
+            @APIResponse(responseCode = "500", description = "server error", extensions = {}),
+            @APIResponse(responseCode = "503", description = "service not available",
+                         content = @Content(extensions = @Extension(name = "x-notavailable-ext", value = "true"))),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetResource.java`
 #### Snippet
 ```java
@@ -1270,31 +1283,7 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Pe
                         description = "authentication needed to update an exsiting record of a pet in the store",
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetStoreResource.java`
-#### Snippet
-```java
-            @APIResponse(responseCode = "200", description = "successful operation",
-                         extensions = @Extension(name = "x-response-ext", value = "test-response-ext")),
-            @APIResponse(responseCode = "500", description = "server error", extensions = {}),
-            @APIResponse(responseCode = "503", description = "service not available",
-                         content = @Content(extensions = @Extension(name = "x-notavailable-ext", value = "true"))),
-```
-
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
-#### Snippet
-```java
-
-        if (ref != null) {
-            return ref.replaceFirst("^#/?", "").replace('/', '.');
-        } else {
-            return path;
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
@@ -1307,16 +1296,52 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
                 // No $ref, keep appending
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
+#### Snippet
+```java
+
+        if (ref != null) {
+            return ref.replaceFirst("^#/?", "").replace('/', '.');
+        } else {
+            return path;
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/filter/package-info.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/model/package-info.java`
 #### Snippet
 ```java
  */
 
 @org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.filter;
+package org.eclipse.microprofile.openapi.apps.petstore.model;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.annotations.tags` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tags.java`
+#### Snippet
+```java
+ * annotation were applied individually.
+ * <p>
+ * <b>Note:</b> If both {@link org.eclipse.microprofile.openapi.annotations.tags.Tag Tag} and
+ * {@link org.eclipse.microprofile.openapi.annotations.tags.Tags Tags} annotations are specified on the same
+ * method/class, then both tag definitions should be applied to method/class.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.annotations.tags` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tags.java`
+#### Snippet
+```java
+ * <p>
+ * <b>Note:</b> If both {@link org.eclipse.microprofile.openapi.annotations.tags.Tag Tag} and
+ * {@link org.eclipse.microprofile.openapi.annotations.tags.Tags Tags} annotations are specified on the same
+ * method/class, then both tag definitions should be applied to method/class.
+ * 
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1345,18 +1370,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tag.java
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.microprofile.openapi.annotations.tags` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tags.java`
-#### Snippet
-```java
- * annotation were applied individually.
- * <p>
- * <b>Note:</b> If both {@link org.eclipse.microprofile.openapi.annotations.tags.Tag Tag} and
- * {@link org.eclipse.microprofile.openapi.annotations.tags.Tags Tags} annotations are specified on the same
- * method/class, then both tag definitions should be applied to method/class.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.annotations.tags` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tag.java`
 #### Snippet
 ```java
@@ -1368,29 +1381,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tag.java
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.annotations.tags` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/tags/Tags.java`
-#### Snippet
-```java
- * <p>
- * <b>Note:</b> If both {@link org.eclipse.microprofile.openapi.annotations.tags.Tag Tag} and
- * {@link org.eclipse.microprofile.openapi.annotations.tags.Tags Tags} annotations are specified on the same
- * method/class, then both tag definitions should be applied to method/class.
- * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/model/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.petstore.model;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/package-info.java`
 #### Snippet
@@ -1415,17 +1405,6 @@ package org.eclipse.microprofile.openapi.models.security;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.airlines.model;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/package-info.java`
 #### Snippet
 ```java
@@ -1445,17 +1424,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/pac
 @org.osgi.annotation.versioning.Version("1.1")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.annotations.callbacks;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.petstore.data;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1525,85 +1493,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/callbacks/package-
 @org.osgi.annotation.versioning.Version("2.0")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.models.callbacks;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.airlines.exception;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("2.0")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.servers;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("2.0")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.servers;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.spi;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.links;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.links;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.petstore;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1620,52 +1509,6 @@ public class ApiResponse {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.servers;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.servers;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.2")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.parameters;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("1.2")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.parameters;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/package-info.java`
 #### Snippet
 ```java
@@ -1677,6 +1520,154 @@ package org.eclipse.microprofile.openapi.apps.airlines.data;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("2.0")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.models.servers;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("2.0")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.models.servers;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.1")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.links;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("1.1")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.links;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetStoreResource.java`
+#### Snippet
+```java
+               description = "Returns a map of status codes to quantities")
+    @Extension(name = "x-operation-ext", value = "test-operation-ext")
+    public java.util.Map<String, Integer> getInventory() {
+        return petData.getInventoryByStatus();
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.airlines.resources;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.1")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.servers;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("1.1")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.servers;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.parameters;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.parameters;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.airlines;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.airlines.model;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/filter/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.filter;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/spi/package-info.java`
 #### Snippet
 ```java
@@ -1719,53 +1710,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/media/package-info
 @org.osgi.annotation.versioning.Version("2.1")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.models.media;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-            pet.setPhotoUrls(urlObjs);
-        }
-        List<Tag> tagObjs = new java.util.ArrayList<Tag>();
-        int i = 0;
-        if (null != tags) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-    public List<Pet> findPetByTags(String tags) {
-        String[] tagList = tags.split(",");
-        List<Pet> result = new java.util.ArrayList<Pet>();
-        for (Pet pet : pets) {
-            if (null != pet.getTags()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-
-    public List<Pet> findPetByStatus(String status) {
-        List<Pet> result = new java.util.ArrayList<Pet>();
-        if (status == null) {
-            return result;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.petstore.exception;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1815,51 +1759,15 @@ package org.eclipse.microprofile.openapi.annotations.headers;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
+Qualifier `org.eclipse.microprofile.openapi.models.responses` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.Info} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.responses.APIResponses} instance.
      *
-     * @return a new Info instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.servers` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.servers.Server} instance.
-     *
-     * @return a new Server instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.parameters` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.parameters.Parameter} instance.
-     *
-     * @return a new Parameter instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.examples` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.examples.Example} instance.
-     *
-     * @return a new Example instance
+     * @return a new APIResponses instance
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1875,6 +1783,30 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.Discriminator} instance.
+     *
+     * @return a new Discriminator instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.callbacks` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.callbacks.Callback} instance.
+     *
+     * @return a new Callback instance
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.microprofile.openapi.models.headers` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
@@ -1884,6 +1816,126 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
      * This method creates a new {@link org.eclipse.microprofile.openapi.models.headers.Header} instance.
      *
      * @return a new Header instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.PathItem} instance.
+     *
+     * @return a new PathItem instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Operation} instance.
+     *
+     * @return a new Operation instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.security` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.SecurityRequirement} instance.
+     *
+     * @return a new SecurityRequirement instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.MediaType} instance.
+     *
+     * @return a new MediaType instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.Contact} instance.
+     *
+     * @return a new Contact instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.Schema} instance.
+     *
+     * @return a new Schema instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.ExternalDocumentation} instance.
+     *
+     * @return a new ExternalDocumentation instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Components} instance.
+     *
+     * @return a new Components instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.XML} instance.
+     *
+     * @return a new XML instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.Info} instance.
+     *
+     * @return a new Info instance
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1905,69 +1957,9 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.SecurityScheme} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.OAuthFlows} instance.
      *
-     * @return a new SecurityScheme instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.security` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.SecurityRequirement} instance.
-     *
-     * @return a new SecurityRequirement instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.responses` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.responses.APIResponses} instance.
-     *
-     * @return a new APIResponses instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-     *            describes the type parameter
-     * @param clazz
-     *            represents a model which extends the {@link org.eclipse.microprofile.openapi.models.Constructible}
-     *            interface
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.callbacks` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.callbacks.Callback} instance.
-     *
-     * @return a new Callback instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.License} instance.
-     *
-     * @return a new License instance
+     * @return a new OAuthFlows instance
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1983,15 +1975,27 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
+Qualifier `org.eclipse.microprofile.openapi.models.links` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.Contact} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.links.Link} instance.
      *
-     * @return a new Contact instance
+     * @return a new Link instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+     *            describes the type parameter
+     * @param clazz
+     *            represents a model which extends the {@link org.eclipse.microprofile.openapi.models.Constructible}
+     *            interface
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2001,9 +2005,33 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Components} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Paths} instance.
      *
-     * @return a new Components instance
+     * @return a new Paths instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.examples` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.examples.Example} instance.
+     *
+     * @return a new Example instance
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi.models.security` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+#### Snippet
+```java
+
+    /**
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.SecurityScheme} instance.
+     *
+     * @return a new SecurityScheme instance
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2043,51 +2071,27 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
+Qualifier `org.eclipse.microprofile.openapi.models.parameters` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.Schema} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.parameters.Parameter} instance.
      *
-     * @return a new Schema instance
+     * @return a new Parameter instance
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
+Qualifier `org.eclipse.microprofile.openapi.models.servers` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.PathItem} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.servers.Server} instance.
      *
-     * @return a new PathItem instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.XML} instance.
-     *
-     * @return a new XML instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.Discriminator} instance.
-     *
-     * @return a new Discriminator instance
+     * @return a new Server instance
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2103,42 +2107,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.ExternalDocumentation} instance.
-     *
-     * @return a new ExternalDocumentation instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.security` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.security.OAuthFlows} instance.
-     *
-     * @return a new OAuthFlows instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Operation} instance.
-     *
-     * @return a new Operation instance
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
@@ -2151,39 +2119,26 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.links` is unnecessary and can be removed
+Qualifier `org.eclipse.microprofile.openapi.models.info` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 #### Snippet
 ```java
 
     /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.links.Link} instance.
+     * This method creates a new {@link org.eclipse.microprofile.openapi.models.info.License} instance.
      *
-     * @return a new Link instance
+     * @return a new License instance
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/package-info.java`
 #### Snippet
 ```java
+ */
 
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.Paths} instance.
-     *
-     * @return a new Paths instance
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi.models.media` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
-#### Snippet
-```java
-
-    /**
-     * This method creates a new {@link org.eclipse.microprofile.openapi.models.media.MediaType} instance.
-     *
-     * @return a new MediaType instance
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.petstore;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2211,36 +2166,13 @@ package org.eclipse.microprofile.openapi.models.tags;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/package-info.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/package-info.java`
 #### Snippet
 ```java
  */
 
 @org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.airlines.resources;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.petstore.resource;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.openapi` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/openapi/OASConfig.java`
-#### Snippet
-```java
-     * Configuration property to specify the fully qualified name of the OASFilter implementation.
-     * 
-     * @see org.eclipse.microprofile.openapi.OASFilter
-     */
-    public static final String FILTER = "mp.openapi.filter";
+package org.eclipse.microprofile.openapi.apps.petstore.exception;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2256,6 +2188,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASConfig.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.openapi` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/openapi/OASConfig.java`
+#### Snippet
+```java
+     * Configuration property to specify the fully qualified name of the OASFilter implementation.
+     * 
+     * @see org.eclipse.microprofile.openapi.OASFilter
+     */
+    public static final String FILTER = "mp.openapi.filter";
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/package-info.java`
 #### Snippet
@@ -2276,6 +2220,41 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/package-info.java`
 @org.osgi.annotation.versioning.Version("2.0")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.models;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/UserResource.java`
+#### Snippet
+```java
+               operationId = "createUsersFromList")
+    public Response createUsersWithListInput(
+            @RequestBody(description = "List of user object", required = true) java.util.List<User> users) {
+        for (User user : users) {
+            userData.addUser(user);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.media;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.annotations.media;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2292,67 +2271,78 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.ja
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/package-info.java`
 #### Snippet
 ```java
  */
 
-@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.Version("2.1")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.media;
+package org.eclipse.microprofile.openapi;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/package-info.java`
 #### Snippet
 ```java
 
-@org.osgi.annotation.versioning.Version("1.2")
+@org.osgi.annotation.versioning.Version("2.1")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.media;
+package org.eclipse.microprofile.openapi;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/package-info.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/package-info.java`
 #### Snippet
 ```java
  */
 
 @org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.openapi.apps.airlines;
+package org.eclipse.microprofile.openapi.apps.petstore.resource;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/parameters/package-info.java`
 #### Snippet
 ```java
  */
 
-@org.osgi.annotation.versioning.Version("2.1")
+@org.osgi.annotation.versioning.Version("1.0")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi;
+package org.eclipse.microprofile.openapi.models.parameters;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/parameters/package-info.java`
 #### Snippet
 ```java
 
-@org.osgi.annotation.versioning.Version("2.1")
+@org.osgi.annotation.versioning.Version("1.0")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi;
+package org.eclipse.microprofile.openapi.models.parameters;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.petstore.data;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/UserResource.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/UserResource.java`
 #### Snippet
 ```java
-               operationId = "createUsersFromList")
+    @Operation(summary = "Creates list of users with given input array")
     public Response createUsersWithListInput(
             @RequestBody(description = "List of user object", required = true) java.util.List<User> users) {
         for (User user : users) {
@@ -2360,15 +2350,15 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/U
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetStoreResource.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
 #### Snippet
 ```java
-               description = "Returns a map of status codes to quantities")
-    @Extension(name = "x-operation-ext", value = "test-operation-ext")
-    public java.util.Map<String, Integer> getInventory() {
-        return petData.getInventoryByStatus();
-    }
+ * <br>
+ * <br>
+ * Service provider for OASFactoryResolver. The implementation registers itself via the {@link java.util.ServiceLoader}
+ * mechanism or by manually setting their implementation using the setInstance method.
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2396,25 +2386,25 @@ package org.eclipse.microprofile.openapi.models.headers;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/parameters/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/package-info.java`
 #### Snippet
 ```java
  */
 
-@org.osgi.annotation.versioning.Version("1.0")
+@org.osgi.annotation.versioning.Version("1.1")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.parameters;
+package org.eclipse.microprofile.openapi.annotations.security;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/parameters/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/package-info.java`
 #### Snippet
 ```java
 
-@org.osgi.annotation.versioning.Version("1.0")
+@org.osgi.annotation.versioning.Version("1.1")
 @org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.parameters;
+package org.eclipse.microprofile.openapi.annotations.security;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2443,29 +2433,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/Serve
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.security;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("1.1")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.annotations.security;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/responses/package-info.java`
 #### Snippet
 ```java
@@ -2508,6 +2475,76 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/extensions/pa
 @org.osgi.annotation.versioning.Version("1.1")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.annotations.extensions;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.spi;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/info/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.models.info;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/info/package-info.java`
+#### Snippet
+```java
+
+@org.osgi.annotation.versioning.Version("1.0")
+@org.osgi.annotation.versioning.ProviderType
+package org.eclipse.microprofile.openapi.models.info;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+
+    public List<Pet> findPetByStatus(String status) {
+        List<Pet> result = new java.util.ArrayList<Pet>();
+        if (status == null) {
+            return result;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+            pet.setPhotoUrls(urlObjs);
+        }
+        List<Tag> tagObjs = new java.util.ArrayList<Tag>();
+        int i = 0;
+        if (null != tags) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+    public List<Pet> findPetByTags(String tags) {
+        String[] tagList = tags.split(",");
+        List<Pet> result = new java.util.ArrayList<Pet>();
+        for (Pet pet : pets) {
+            if (null != pet.getTags()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2548,41 +2585,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/servers/Serve
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/info/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.info;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/info/package-info.java`
-#### Snippet
-```java
-
-@org.osgi.annotation.versioning.Version("1.0")
-@org.osgi.annotation.versioning.ProviderType
-package org.eclipse.microprofile.openapi.models.info;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
-#### Snippet
-```java
- * <br>
- * <br>
- * Service provider for OASFactoryResolver. The implementation registers itself via the {@link java.util.ServiceLoader}
- * mechanism or by manually setting their implementation using the setInstance method.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/package-info.java`
 #### Snippet
 ```java
@@ -2594,6 +2596,17 @@ package org.eclipse.microprofile.openapi.annotations;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.openapi.apps.airlines.exception;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/package-info.java`
 #### Snippet
 ```java
@@ -2613,18 +2626,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/package
 @org.osgi.annotation.versioning.Version("1.0")
 @org.osgi.annotation.versioning.ProviderType
 package org.eclipse.microprofile.openapi.annotations.enums;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/UserResource.java`
-#### Snippet
-```java
-    @Operation(summary = "Creates list of users with given input array")
-    public Response createUsersWithListInput(
-            @RequestBody(description = "List of user object", required = true) java.util.List<User> users) {
-        for (User user : users) {
-            userData.addUser(user);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2800,18 +2801,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/beanvalidation/BeanV
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
-#### Snippet
-```java
-public abstract class OASFactoryResolver {
-
-    private static volatile OASFactoryResolver instance = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/bookings/BookingResource.java`
 #### Snippet
@@ -2833,6 +2822,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/R
     private volatile int currentId = 0;
 
     static {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
+#### Snippet
+```java
+public abstract class OASFactoryResolver {
+
+    private static volatile OASFactoryResolver instance = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -2872,43 +2873,20 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/A
             flights.add(new Flight(AirlinesResource.getRandomAirline(),
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-05-01-08-15-17.791.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/responses/APIResponses.java`
@@ -2919,6 +2897,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/responses/APIRespo
             return null;
         }
         return map.get(name);
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/filter/AirlinesOASFilter.java`
+#### Snippet
+```java
+            parameter.setDescription("filterParameter - The user name for login");
+        } else if ("The password for login in clear text".equals(parameter.getDescription())) {
+            return null; // remove parameter
+        }
+        return parameter;
 ```
 
 ### ReturnNull
@@ -2947,6 +2937,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/Paths.java`
 
 ### ReturnNull
 Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/UserData.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityRequirement.java`
 #### Snippet
 ```java
@@ -2959,19 +2961,7 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityR
 
 ### ReturnNull
 Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/filter/AirlinesOASFilter.java`
-#### Snippet
-```java
-            parameter.setDescription("filterParameter - The user name for login");
-        } else if ("The password for login in clear text".equals(parameter.getDescription())) {
-            return null; // remove parameter
-        }
-        return parameter;
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/StoreData.java`
 #### Snippet
 ```java
             }
@@ -2983,59 +2973,11 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetDat
 
 ### ReturnNull
 Return of `null`
-in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
-#### Snippet
-```java
-    private static OASFactoryResolver loadSpi(ClassLoader cl) {
-        if (cl == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
-#### Snippet
-```java
-        @Override
-        public String getUrl() {
-            return null;
-        }
-        @Override
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
-#### Snippet
-```java
-        @Override
-        public Map<String, Object> getExtensions() {
-            return null;
-        }
-        @Override
-```
-
-### ReturnNull
-Return of `null`
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
 #### Snippet
 ```java
         @Override
         public String getName() {
-            return null;
-        }
-        @Override
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
-#### Snippet
-```java
-        @Override
-        public License name(String name) {
             return null;
         }
         @Override
@@ -3067,6 +3009,54 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.j
 
 ### ReturnNull
 Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
+#### Snippet
+```java
+        @Override
+        public Map<String, Object> getExtensions() {
+            return null;
+        }
+        @Override
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
+#### Snippet
+```java
+        @Override
+        public License name(String name) {
+            return null;
+        }
+        @Override
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
+#### Snippet
+```java
+        @Override
+        public String getUrl() {
+            return null;
+        }
+        @Override
+```
+
+### ReturnNull
+Return of `null`
+in `api/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
+#### Snippet
+```java
+    private static OASFactoryResolver loadSpi(ClassLoader cl) {
+        if (cl == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.java`
 #### Snippet
 ```java
@@ -3074,6 +3064,42 @@ in `spi/src/main/java/org/eclipse/microprofile/openapi/spi/OASFactoryResolver.ja
         if (cl == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/data/UserData.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -3087,18 +3113,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/callbacks/Callback
             return null;
         }
         return map.get(name);
-```
-
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/UserData.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -3166,19 +3180,7 @@ public class BadRequestException extends ApiException {
 
 ### NonFinalFieldOfException
 Non-final field `code` of exception class
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/NotFoundException.java`
-#### Snippet
-```java
-
-public class NotFoundException extends ApiException {
-    private int code;
-    public NotFoundException(int code, String msg) {
-        super(code, msg);
-```
-
-### NonFinalFieldOfException
-Non-final field `code` of exception class
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/ApiException.java`
 #### Snippet
 ```java
 
@@ -3202,7 +3204,7 @@ public class BadRequestException extends ApiException {
 
 ### NonFinalFieldOfException
 Non-final field `code` of exception class
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/ApiException.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
 #### Snippet
 ```java
 
@@ -3212,19 +3214,19 @@ public class ApiException extends Exception {
         super(msg);
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `output` initializer `defaultValue` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
+### NonFinalFieldOfException
+Non-final field `code` of exception class
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/NotFoundException.java`
 #### Snippet
 ```java
 
-    public long getLong(long minVal, long maxVal, long defaultValue, String inputString) {
-        long output = defaultValue;
-        try {
-            output = Long.parseLong(inputString);
+public class NotFoundException extends ApiException {
+    private int code;
+    public NotFoundException(int code, String msg) {
+        super(code, msg);
 ```
 
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `output` initializer `defaultValue` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
@@ -3273,6 +3275,31 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Ja
             output = Double.parseDouble(inputString);
 ```
 
+### UnusedAssignment
+Variable `output` initializer `defaultValue` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/JavaRestResourceUtil.java`
+#### Snippet
+```java
+
+    public long getLong(long minVal, long maxVal, long defaultValue, String inputString) {
+        long output = defaultValue;
+        try {
+            output = Long.parseLong(inputString);
+```
+
+## RuleId[id=UseBulkOperation]
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+            List<String> urlObjs = new ArrayList<String>();
+            for (String urlString : urls) {
+                urlObjs.add(urlString);
+            }
+            pet.setPhotoUrls(urlObjs);
+```
+
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `output < minVal` is always `false`
@@ -3296,18 +3323,5 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Ja
             if (output < minVal) {
                 output = minVal;
             }
-```
-
-## RuleId[id=UseBulkOperation]
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-            List<String> urlObjs = new ArrayList<String>();
-            for (String urlString : urls) {
-                urlObjs.add(urlString);
-            }
-            pet.setPhotoUrls(urlObjs);
 ```
 
