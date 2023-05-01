@@ -44,10 +44,9 @@ public class PeriodicSummary {
         } else if (summaryIssue instanceof FindIssueResult.NoResult noResult) {
             logger.atInfo().log("No summary issue found, creating one");
             createNewSummary();
-        } else if(summaryIssue instanceof FindIssueResult.MultipleResults multipleResults) {
+        } else if (summaryIssue instanceof FindIssueResult.MultipleResults multipleResults) {
             updateContent(multipleResults.issues().get(0));
-        } 
-        else {
+        } else {
             logger.atWarning().log("No summary issue found");
         }
     }
