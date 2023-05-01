@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -65,11 +64,9 @@ public class DataBaseMigration {
     private void migrateDataBase(Promise<Object> promise) {
         logger.atInfo().log("Migrating database");
         createConfigsIfMissing();
-        updateBadSmellsWithWrongProjectUrl();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
-        // removeBadSmellsWithoutProjectHash();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -98,7 +95,11 @@ public class DataBaseMigration {
         for (Project project : projectRepository.getAll()) {
             List<String> commitHashes = project.getCommitHashes();
             for (String commitHash : commitHashes) {
-                if (badSmellRepository.findByCommitHash(commitHash).isEmpty()) {
+                if (badSmellRepositoryImpl
+                                .mongoCollection()
+                                .find((Filters.eq("commitHash", commitHash)))
+                                .first()
+                        == null) {
                     project.removeCommitHash(commitHash);
                 }
             }
@@ -106,12 +107,6 @@ public class DataBaseMigration {
             projectRepository.save(project);
         }
         logger.atInfo().log("Finished removing project hashes without results");
-    }
-
-    private void removeBadSmellsWithWrongIdentifier() {
-        Pattern pattern = Pattern.compile("--\\d+$");
-        var result = badSmellRepositoryImpl.mongoCollection().deleteMany(Filters.regex("identifier", pattern));
-        logger.atInfo().log("Removed %d bad smells with wrong identifier", result.getDeletedCount());
     }
 
     private void removeDuplicatedProjects() {
@@ -124,28 +119,5 @@ public class DataBaseMigration {
                 .flatMap(Collection::stream)
                 .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
         logger.atInfo().log("Finished removing duplicated projects");
-    }
-
-    private void removeBadSmellsWithoutProjectHash() {
-        badSmellRepository
-                .getAll()
-                .filter(v -> !projectRepositoryImpl
-                        .mongoCollection()
-                        .find(Filters.in("commitHashes", v.getCommitHash()))
-                        .iterator()
-                        .hasNext())
-                .map(BadSmell::getIdentifier)
-                .forEach(badSmellRepository::deleteByIdentifier);
-    }
-
-    /**
-     * Fixes some fuckup with the project urls.
-     */
-    private void updateBadSmellsWithWrongProjectUrl() {
-        logger.atInfo().log("Updating bad smells with wrong project url");
-        var result = projectRepositoryImpl
-                .mongoCollection()
-                .deleteMany(Filters.regex("projectUrl", Pattern.compile(".*projectUrl.substring.*")));
-        logger.atInfo().log("Deleted %s projects", result.getDeletedCount());
     }
 }
