@@ -272,11 +272,9 @@ public class QodanaAnalyzer {
     public static class Builder {
 
         private String resultFolder = "laughing-cache";
-        private String qodanaImageName = "jetbrains/qodana-jvm-community";
+        private String qodanaImageName = "jetbrains/qodana-jvm:2023.1-eap";
         private String resultPathString = resultFolder + "/qodana.sarif.json";
         private String sourceFileRoot = "./src/main/java";
-        private Optional<String> cacheFolder = Optional.of("data/cache");
-        private String subFolder;
 
         public Builder withResultFolder(String resultFolder) {
             this.resultFolder = resultFolder;
@@ -298,12 +296,6 @@ public class QodanaAnalyzer {
 
         public Builder withSourceFileRoot(String sourceFileRoot) {
             this.sourceFileRoot = sourceFileRoot;
-            return this;
-        }
-
-        public Builder withCacheVolume(String volumeName, String subFolder) {
-            this.cacheFolder = Optional.of(volumeName);
-            this.subFolder = subFolder;
             return this;
         }
 

@@ -26,7 +26,7 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 /**
- * This aggreates all qodana refactorings and wraps them in a single processor.
+ * This aggregates all qodana refactorings and wraps them in a single processor.
  * Use {@link run(Path, ChangeListener)} to analyse the source code.
  * <b> Note: </b> This requires a running docker host and can take some minutes.
  */
