@@ -1,54 +1,28 @@
 # jnosql-mapping-extension 
  
 # Bad smells
-I found 96 bad smells with 7 repairable:
+I found 61 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RedundantClassCall | 41 | false |
-| BoundedWildcard | 9 | false |
+| RedundantClassCall | 11 | false |
 | UnnecessarySuperQualifier | 8 | false |
 | UnnecessaryFullyQualifiedName | 7 | false |
 | NonProtectedConstructorInAbstractClass | 5 | true |
 | SuspiciousNameCombination | 4 | false |
 | MisspelledEquals | 4 | false |
+| ClassCanBeRecord | 4 | false |
+| BoundedWildcard | 4 | false |
 | StringOperationCanBeSimplified | 3 | false |
-| ReturnNull | 3 | false |
 | SimplifyStreamApiCallChains | 2 | false |
-| ConstantValue | 2 | false |
-| OptionalUsedAsFieldOrParameterType | 1 | false |
+| EnhancedSwitchMigration | 2 | false |
 | UnnecessaryModifier | 1 | true |
 | DataFlowIssue | 1 | false |
 | Convert2MethodRef | 1 | false |
 | UnnecessaryQualifierForThis | 1 | false |
-| UnnecessaryLocalVariable | 1 | true |
+| HtmlWrongAttributeValue | 1 | false |
 | FuseStreamOperations | 1 | false |
 | WrongPackageStatement | 1 | false |
-## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'column'
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-    }
-
-    private <T> void setUDTField(T instance, Optional<Column> column, FieldMapping field) {
-        if (column.isPresent() && org.eclipse.jnosql.communication.cassandra.column.UDT.class.isInstance(column.get())) {
-            org.eclipse.jnosql.communication.cassandra.column.UDT udt =
-```
-
 ## RuleId[id=SuspiciousNameCombination]
-### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'right'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
-    }
-
-```
-
 ### SuspiciousNameCombination
 'y' should probably not be passed as parameter 'right'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
@@ -67,8 +41,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> greaterThanOrEqualTo(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN_OR_EQUAL, this, y);
+    public BinaryPredicate<X, T, T> greaterThan(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
     }
 
 ```
@@ -79,8 +53,20 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> greaterThan(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
+    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
+    }
+
+```
+
+### SuspiciousNameCombination
+'y' should probably not be passed as parameter 'right'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, T> greaterThanOrEqualTo(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN_OR_EQUAL, this, y);
     }
 
 ```
@@ -101,36 +87,12 @@ public <T extends CriteriaDocumentTemplate> T get(DocumentManager dm);
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/NumberFieldBuilder.java`
-#### Snippet
-```java
-    @Override
-    public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element, Class<?> forName) {
-        super.buildField(codeModel, jClass, typeElement, element, forName, NumberAttribute.class, DefaultNumberAttribute.class);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/StringFieldBuilder.java`
 #### Snippet
 ```java
     @Override
     public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element) {
         super.buildField(codeModel, jClass, typeElement, element, StringAttribute.class, DefaultStringAttribute.class);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/PluralFieldBuilder.java`
-#### Snippet
-```java
-    @Override
-    public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element) {
-        super.buildField(codeModel, jClass, typeElement, element, PluralAttribute.class, DefaultPluralAttribute.class);
     }
 
 ```
@@ -149,26 +111,14 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/ComparableFieldBuilder.java`
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/PluralFieldBuilder.java`
 #### Snippet
 ```java
     @Override
     public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element) {
-        super.buildField(codeModel, jClass, typeElement, element, ComparableAttribute.class, DefaultComparableAttribute.class);
+        super.buildField(codeModel, jClass, typeElement, element, PluralAttribute.class, DefaultPluralAttribute.class);
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/AbstractSimpleFieldBuilder.java`
-#### Snippet
-```java
-
-    protected void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element, Class<A> attributeInterface, Class<D> attributeClass) {
-        super.buildField(jClass,
-                element,
-                codeModel.ref(
 ```
 
 ### UnnecessarySuperQualifier
@@ -185,6 +135,30 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/AbstractSimpleFieldBuilder.java`
+#### Snippet
+```java
+
+    protected void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element, Class<A> attributeInterface, Class<D> attributeClass) {
+        super.buildField(jClass,
+                element,
+                codeModel.ref(
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/NumberFieldBuilder.java`
+#### Snippet
+```java
+    @Override
+    public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element, Class<?> forName) {
+        super.buildField(codeModel, jClass, typeElement, element, forName, NumberAttribute.class, DefaultNumberAttribute.class);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/AbstractValueFieldBuilder.java`
 #### Snippet
 ```java
@@ -195,356 +169,19 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
                 element,
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
-#### Snippet
-```java
-        }
-        if (Objects.nonNull(typeElement)) {
-            String toString = fieldType.toString();
-            try {
-                Class<?> forName = Class.forName(
-```
-
-## RuleId[id=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraUDTType.java`
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/ComparableFieldBuilder.java`
 #### Snippet
 ```java
     @Override
-    public List<Column> toColumn(ColumnEntityConverter converter, Converters converters) {
-        if (Iterable.class.isInstance(value)) {
-            List<Iterable<Column>> columns = new ArrayList<>();
-            stream(Iterable.class.cast(value).spliterator(), false)
+    public void buildField(JCodeModel codeModel, JDefinedClass jClass, TypeElement typeElement, Element element) {
+        super.buildField(codeModel, jClass, typeElement, element, ComparableAttribute.class, DefaultComparableAttribute.class);
+    }
+
 ```
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraUDTType.java`
-#### Snippet
-```java
-        if (Iterable.class.isInstance(value)) {
-            List<Iterable<Column>> columns = new ArrayList<>();
-            stream(Iterable.class.cast(value).spliterator(), false)
-                    .forEach(c -> columns.add(converter.toColumn(c).columns()));
-            return singletonList(UDT.builder(type).withName(field.name()).addUDTs(columns).build());
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-extension/src/main/java/org/eclipse/jnosql/mapping/arangodb/document/ArangoDBDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    ArangoDBDocumentRepositoryProxy(ArangoDBTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-extension/src/main/java/org/eclipse/jnosql/mapping/arangodb/document/ArangoDBDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    ArangoDBDocumentRepositoryProxy(ArangoDBTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-orientdb-extension/src/main/java/org/eclipse/jnosql/mapping/orientdb/document/OrientDBDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    OrientDBDocumentRepositoryProxy(OrientDBTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-orientdb-extension/src/main/java/org/eclipse/jnosql/mapping/orientdb/document/OrientDBDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    OrientDBDocumentRepositoryProxy(OrientDBTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(attribute)) {
-            return new Date(Number.class.cast(attribute).longValue());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-
-        if (Number.class.isInstance(attribute)) {
-            return new Date(Number.class.cast(attribute).longValue());
-        }
-        if (java.time.LocalDate.class.isInstance(attribute)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-            return new Date(Number.class.cast(attribute).longValue());
-        }
-        if (java.time.LocalDate.class.isInstance(attribute)) {
-            return Date.from(java.time.LocalDate.class.cast(attribute).atStartOfDay(ZONE_ID).toInstant());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-        if (java.time.LocalDate.class.isInstance(attribute)) {
-            return Date.from(java.time.LocalDate.class.cast(attribute).atStartOfDay(ZONE_ID).toInstant());
-        }
-        if (LocalDateTime.class.isInstance(attribute)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-            return Date.from(java.time.LocalDate.class.cast(attribute).atStartOfDay(ZONE_ID).toInstant());
-        }
-        if (LocalDateTime.class.isInstance(attribute)) {
-            return Date.from(LocalDateTime.class.cast(attribute).atZone(ZONE_ID).toInstant());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-        if (LocalDateTime.class.isInstance(attribute)) {
-            return Date.from(LocalDateTime.class.cast(attribute).atZone(ZONE_ID).toInstant());
-        }
-        if (ZonedDateTime.class.isInstance(attribute)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-            return Date.from(LocalDateTime.class.cast(attribute).atZone(ZONE_ID).toInstant());
-        }
-        if (ZonedDateTime.class.isInstance(attribute)) {
-            return Date.from(ZonedDateTime.class.cast(attribute).toInstant());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-        if (ZonedDateTime.class.isInstance(attribute)) {
-            return Date.from(ZonedDateTime.class.cast(attribute).toInstant());
-        }
-        if (Date.class.isInstance(attribute)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-            return Date.from(ZonedDateTime.class.cast(attribute).toInstant());
-        }
-        if (Date.class.isInstance(attribute)) {
-            return Date.class.cast(attribute);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-        if (Date.class.isInstance(attribute)) {
-            return Date.class.cast(attribute);
-        }
-        if (Calendar.class.isInstance(attribute)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-            return Date.class.cast(attribute);
-        }
-        if (Calendar.class.isInstance(attribute)) {
-            return Calendar.class.cast(attribute).getTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraRepositoryProxy.java`
-#### Snippet
-```java
-
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
-#### Snippet
-```java
-        }
-        if (Calendar.class.isInstance(attribute)) {
-            return Calendar.class.cast(attribute).getTime();
-        }
-        throw new IllegalArgumentException("There is not support to: " + attribute.getClass());
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraRepositoryProxy.java`
-#### Snippet
-```java
-
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
-#### Snippet
-```java
-        requireNonNull(criteriaQuery, "query is required");
-        if (criteriaQuery instanceof SelectQuery) {
-            SelectQuery<T, ?, ?, ?> selectQuery = SelectQuery.class.cast(criteriaQuery);
-            DocumentQuery documentQuery = CriteriaQueryUtils.convert(selectQuery);
-            Stream<DocumentEntity> entityStream = this.getManager().select(
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
-#### Snippet
-```java
-
-            if (selectQuery instanceof EntityQuery) {
-                EntityQuery.class.cast(selectQuery).feed(
-                        entityStream.map(
-                                documentEntity -> this.getConverter().toEntity(
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
-#### Snippet
-```java
-                );
-            } else if (selectQuery instanceof ExpressionQuery) {
-                ExpressionQuery.class.cast(selectQuery).feed(
-                        entityStream.map(
-                                documentEntity -> documentEntity.documents().stream().map(
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-solr-extension/src/main/java/org/eclipse/jnosql/mapping/solr/document/SolrRepositoryProxy.java`
-#### Snippet
-```java
-    SolrRepositoryProxy(SolrTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-solr-extension/src/main/java/org/eclipse/jnosql/mapping/solr/document/SolrRepositoryProxy.java`
-#### Snippet
-```java
-    SolrRepositoryProxy(SolrTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchbase-extension/src/main/java/org/eclipse/jnosql/mapping/couchbase/document/CouchbaseDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    CouchbaseDocumentRepositoryProxy(CouchbaseTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchbase-extension/src/main/java/org/eclipse/jnosql/mapping/couchbase/document/CouchbaseDocumentRepositoryProxy.java`
-#### Snippet
-```java
-    CouchbaseDocumentRepositoryProxy(CouchbaseTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
-#### Snippet
-```java
-            for (Element element : re.getElementsAnnotatedWith(annotationElement)) {
-                if (element instanceof TypeElement) {
-                    TypeElement typeElement = TypeElement.class.cast(element);
-
-                    String name = typeElement.getQualifiedName() + "_";
-```
-
+## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `cast()`
 in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
@@ -571,74 +208,14 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-hazelcast-extension/src/main/java/org/eclipse/jnosql/mapping/hazelcast/keyvalue/HazelcastRepositoryProxy.java`
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
 #### Snippet
 ```java
-    HazelcastRepositoryProxy(HazelcastTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
+            for (Element element : re.getElementsAnnotatedWith(annotationElement)) {
+                if (element instanceof TypeElement) {
+                    TypeElement typeElement = TypeElement.class.cast(element);
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-hazelcast-extension/src/main/java/org/eclipse/jnosql/mapping/hazelcast/keyvalue/HazelcastRepositoryProxy.java`
-#### Snippet
-```java
-    HazelcastRepositoryProxy(HazelcastTemplate template, Class<?> repositoryType, PageableRepository<?, ?> repository) {
-        this.template = template;
-        this.typeClass = Class.class.cast(ParameterizedType.class.cast(repositoryType.getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
-        this.repository = repository;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-
-    private <T> void setUDTField(T instance, Optional<Column> column, FieldMapping field) {
-        if (column.isPresent() && org.eclipse.jnosql.communication.cassandra.column.UDT.class.isInstance(column.get())) {
-            org.eclipse.jnosql.communication.cassandra.column.UDT udt =
-                    org.eclipse.jnosql.communication.cassandra.column.UDT.class.cast(column.get());
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-        if (column.isPresent() && org.eclipse.jnosql.communication.cassandra.column.UDT.class.isInstance(column.get())) {
-            org.eclipse.jnosql.communication.cassandra.column.UDT udt =
-                    org.eclipse.jnosql.communication.cassandra.column.UDT.class.cast(column.get());
-            Object columns = udt.get();
-            if (StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false)
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-                    org.eclipse.jnosql.communication.cassandra.column.UDT.class.cast(column.get());
-            Object columns = udt.get();
-            if (StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false)
-                    .allMatch(Iterable.class::isInstance)) {
-                GenericFieldMapping genericField = GenericFieldMapping.class.cast(field);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-            if (StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false)
-                    .allMatch(Iterable.class::isInstance)) {
-                GenericFieldMapping genericField = GenericFieldMapping.class.cast(field);
-                Collection collection = genericField.getCollectionInstance();
-                List<List<Column>> embeddable = (List<List<Column>>) columns;
+                    String name = typeElement.getQualifiedName() + "_";
 ```
 
 ### RedundantClassCall
@@ -701,77 +278,102 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
                     cast.getLeft()
 ```
 
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+        requireNonNull(criteriaQuery, "query is required");
+        if (criteriaQuery instanceof SelectQuery) {
+            SelectQuery<T, ?, ?, ?> selectQuery = SelectQuery.class.cast(criteriaQuery);
+            DocumentQuery documentQuery = CriteriaQueryUtils.convert(selectQuery);
+            Stream<DocumentEntity> entityStream = this.getManager().select(
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+
+            if (selectQuery instanceof EntityQuery) {
+                EntityQuery.class.cast(selectQuery).feed(
+                        entityStream.map(
+                                documentEntity -> this.getConverter().toEntity(
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+                );
+            } else if (selectQuery instanceof ExpressionQuery) {
+                ExpressionQuery.class.cast(selectQuery).feed(
+                        entityStream.map(
+                                documentEntity -> documentEntity.documents().stream().map(
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+#### Snippet
+```java
+        }
+        if (Objects.nonNull(typeElement)) {
+            String toString = fieldType.toString();
+            try {
+                Class<?> forName = Class.forName(
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
+Qualifier `jakarta.validation` is unnecessary and can be removed
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
-            return new Date(Number.class.cast(attribute).longValue());
-        }
-        if (java.time.LocalDate.class.isInstance(attribute)) {
-            return Date.from(java.time.LocalDate.class.cast(attribute).atStartOfDay(ZONE_ID).toInstant());
-        }
+     * @param event the event
+     * @throws NullPointerException                            when entity is null
+     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
+     *                                                         returns a non-empty collection
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
+Qualifier `jakarta.validation` is unnecessary and can be removed
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
-        }
-        if (java.time.LocalDate.class.isInstance(attribute)) {
-            return Date.from(java.time.LocalDate.class.cast(attribute).atStartOfDay(ZONE_ID).toInstant());
-        }
-        if (LocalDateTime.class.isInstance(attribute)) {
+     * @param event the event
+     * @throws NullPointerException                            when entity is null
+     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
+     *                                                         returns a non-empty collection
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
+Qualifier `jakarta.validation` is unnecessary and can be removed
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
- * <p>{@link Number}</p>
- * <p>{@link java.time.LocalDate}</p>
- * <p>{@link java.time.LocalDateTime}</p>
- * <p>{@link java.time.ZonedDateTime}</p>
- * <p>{@link Date}</p>
+     * @param entity the entity to be validated
+     * @throws NullPointerException                            when entity is null
+     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
+     *                                                         returns a non-empty collection
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
+Qualifier `jakarta.validation` is unnecessary and can be removed
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
- * <p>{@link java.time.LocalDate}</p>
- * <p>{@link java.time.LocalDateTime}</p>
- * <p>{@link java.time.ZonedDateTime}</p>
- * <p>{@link Date}</p>
- * <p>{@link Calendar}</p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultPath.java`
-#### Snippet
-```java
-
-    @Override
-    public <Z extends java.lang.Number & java.lang.Comparable> NumberExpression<X, Y, Z> get(NumberAttribute<Y, Z> attribute) {
-        return new DefaultNumberExpression<>(this, attribute);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultPath.java`
-#### Snippet
-```java
-
-    @Override
-    public <Z extends java.lang.Number & java.lang.Comparable> NumberExpression<X, Y, Z> get(NumberAttribute<Y, Z> attribute) {
-        return new DefaultNumberExpression<>(this, attribute);
-    }
+     * @param entity the entity to be validated
+     * @throws NullPointerException                            when entity is null
+     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
+     *                                                         returns a non-empty collection
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -784,6 +386,30 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
      * {@link org.eclipse.jnosql.mapping.criteria.api.Root}
      * @param <R> the result type of the query
      * @param <Q> the type of the actual query
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultPath.java`
+#### Snippet
+```java
+
+    @Override
+    public <Z extends java.lang.Number & java.lang.Comparable> NumberExpression<X, Y, Z> get(NumberAttribute<Y, Z> attribute) {
+        return new DefaultNumberExpression<>(this, attribute);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultPath.java`
+#### Snippet
+```java
+
+    @Override
+    public <Z extends java.lang.Number & java.lang.Comparable> NumberExpression<X, Y, Z> get(NumberAttribute<Y, Z> attribute) {
+        return new DefaultNumberExpression<>(this, attribute);
+    }
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -850,15 +476,27 @@ in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/conn
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `DefaultSelectQuery()` of an abstract class should not be declared 'public'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultSelectQuery.java`
+Constructor `AbstractRestrictedQuery()` of an abstract class should not be declared 'public'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractRestrictedQuery.java`
 #### Snippet
 ```java
-    private R result;
+    private Collection<Predicate<T>> restrictions;
 
-    public DefaultSelectQuery(Class<X> type) {
+    public AbstractRestrictedQuery(Class<T> type) {
         super(type);
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `DefaultAttribute()` of an abstract class should not be declared 'public'
+in `jnosql-metamodel-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/DefaultAttribute.java`
+#### Snippet
+```java
+    private final String name;
+    
+    public DefaultAttribute(Class<X> type, Class<T> attributeType, String name) {
+        super(type);
+        this.attributeType = attributeType;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -870,18 +508,6 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 
     public AbstractCompositionPredicate(Collection<Predicate<X>> predicates) {
         this.predicates = predicates;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRestrictedQuery()` of an abstract class should not be declared 'public'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractRestrictedQuery.java`
-#### Snippet
-```java
-    private Collection<Predicate<T>> restrictions;
-
-    public AbstractRestrictedQuery(Class<T> type) {
-        super(type);
     }
 ```
 
@@ -898,15 +524,15 @@ public abstract class DefaultSingularAttribute<X, T> extends DefaultAttribute<X,
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `DefaultAttribute()` of an abstract class should not be declared 'public'
-in `jnosql-metamodel-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/DefaultAttribute.java`
+Constructor `DefaultSelectQuery()` of an abstract class should not be declared 'public'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultSelectQuery.java`
 #### Snippet
 ```java
-    private final String name;
-    
-    public DefaultAttribute(Class<X> type, Class<T> attributeType, String name) {
+    private R result;
+
+    public DefaultSelectQuery(Class<X> type) {
         super(type);
-        this.attributeType = attributeType;
+    }
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -943,8 +569,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```java
 
     @Override
-    public BinaryPredicate<X, T, T> equal(T value) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, value);
+    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
     }
 ```
 
@@ -955,21 +581,9 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```java
 
     @Override
-    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
+    public BinaryPredicate<X, T, T> equal(T value) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, value);
     }
-```
-
-### MisspelledEquals
-`equal()` method should probably be 'equals()'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/api/Expression.java`
-#### Snippet
-```java
-     * @return equality predicate
-     */
-    BinaryPredicate<X, T, T> equal(T value);
-
-    /**
 ```
 
 ### MisspelledEquals
@@ -984,54 +598,54 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
     /**
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/converters/TimestampConverter.java`
+### MisspelledEquals
+`equal()` method should probably be 'equals()'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/api/Expression.java`
 #### Snippet
 ```java
-    public Date convertToDatabaseColumn(Object attribute) {
-        if (attribute == null) {
-            return null;
-        }
+     * @return equality predicate
+     */
+    BinaryPredicate<X, T, T> equal(T value);
 
+    /**
 ```
 
-### ReturnNull
-Return of `null`
-in `jnosql-mongodb-extension/src/main/java/org/eclipse/jnosql/mapping/mongodb/ObjectIdConverter.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-05-01-01-07-30.805.html`
 #### Snippet
 ```java
-            return new ObjectId(attribute);
-        }
-        return null;
-    }
-
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
-### ReturnNull
-Return of `null`
-in `jnosql-mongodb-extension/src/main/java/org/eclipse/jnosql/mapping/mongodb/ObjectIdConverter.java`
+## RuleId[id=EnhancedSwitchMigration]
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
 #### Snippet
 ```java
-           return dbData.toString();
-        }
-        return null;
-    }
-}
+            } else {
+                BiFunction<String, Object, DocumentCondition> bifunction;
+                switch (cast.getOperator()) {
+                    case EQUAL:
+                        bifunction = DocumentCondition::eq;
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `sb` is redundant
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraUDTType.java`
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        String sb = "CassandraUDTType{" + "type='" + type + '\'' +
-                ", value=" + value +
-                ", field=" + field +
+            } else {
+                BiFunction<String, Object, DocumentCondition> bifunction;
+                switch (cast.getOperator()) {
+                    case EXCLUSIVE_BETWEEN:
+                    case INCLUSIVE_BETWEEN:
 ```
 
 ## RuleId[id=FuseStreamOperations]
@@ -1047,15 +661,53 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
                 )
 ```
 
-## RuleId[id=WrongPackageStatement]
-### WrongPackageStatement
-Package name 'org.eclipse.jnosql.mapping.metamodel' does not correspond to the file path 'org.eclipse.jnosql.mapping'
-in `jnosql-metamodel-extension/src/main/java/org/eclipse/jnosql/mapping/package-info.java`
+## RuleId[id=ClassCanBeRecord]
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultPathFunction.java`
 #### Snippet
 ```java
- * for example a stronly typed query builder.
+ * @param <R> the return type of the function
  */
-package org.eclipse.jnosql.mapping.metamodel;
+public class DefaultPathFunction<X, Y, T, R> implements PathFunction<X, Y, T, R> {
+    
+    private final Path<X, Y> path;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/ArangoDBGraphConfiguration.java`
+#### Snippet
+```java
+
+
+    private static class EdgeConfiguration {
+
+        private final String edge;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQueryResult.java`
+#### Snippet
+```java
+ * @param <X> the type of the root entity
+ */
+public class DefaultExpressionQueryResult<X> implements ExpressionQueryResult<X> {
+    
+    private final Stream<ExpressionQueryResultRow<X>> rows;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionFunction.java`
+#### Snippet
+```java
+ * @param <T> the type of the expression
+ */
+public class DefaultExpressionFunction<X, Y, T, R> implements ExpressionFunction<X, Y, T, R> {
+    
+    private final Expression<X, Y, T> expression;
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -1072,51 +724,27 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArangoDBDocumentManager`
-in `jnosql-arangodb-extension/src/main/java/org/eclipse/jnosql/mapping/arangodb/document/DefaultArangoDBTemplate.java`
+Can generalize to `? extends ValidatorFactory`
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
-
-    @Inject
-    DefaultArangoDBTemplate(Instance<ArangoDBDocumentManager> manager,
-                            DocumentEntityConverter converter, DocumentWorkflow flow,
-                            DocumentEventPersistManager persistManager,
+         * @throws NullPointerException when the provided validatorFactories or the validators instances are null
+         */
+        private static Validator get(Instance<ValidatorFactory> validatorFactories, Instance<Validator> validators) {
+            Objects.requireNonNull(validatorFactories, "validatorFactories is required");
+            Objects.requireNonNull(validators, "validators is required");
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CouchbaseDocumentManager`
-in `jnosql-couchbase-extension/src/main/java/org/eclipse/jnosql/mapping/couchbase/document/DefaultCouchbaseTemplate.java`
+Can generalize to `? extends Validator`
+in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
 #### Snippet
 ```java
-
-    @Inject
-    DefaultCouchbaseTemplate(Instance<CouchbaseDocumentManager> manager,
-                             DocumentEntityConverter converter, DocumentWorkflow flow,
-                             DocumentEventPersistManager persistManager,
-```
-
-### BoundedWildcard
-Can generalize to `? extends SolrDocumentManager`
-in `jnosql-solr-extension/src/main/java/org/eclipse/jnosql/mapping/solr/document/DefaultSolrTemplate.java`
-#### Snippet
-```java
-
-    @Inject
-    DefaultSolrTemplate(Instance<SolrDocumentManager> manager,
-                        DocumentEntityConverter converter, DocumentWorkflow flow,
-                        DocumentEventPersistManager persistManager,
-```
-
-### BoundedWildcard
-Can generalize to `? extends OrientDBDocumentManager`
-in `jnosql-orientdb-extension/src/main/java/org/eclipse/jnosql/mapping/orientdb/document/DefaultOrientDBTemplate.java`
-#### Snippet
-```java
-
-    @Inject
-    DefaultOrientDBTemplate(Instance<OrientDBDocumentManager> manager,
-                            DocumentEntityConverter converter, DocumentWorkflow flow,
-                            DocumentEventPersistManager persistManager,
+         * @throws NullPointerException when the provided validatorFactories or the validators instances are null
+         */
+        private static Validator get(Instance<ValidatorFactory> validatorFactories, Instance<Validator> validators) {
+            Objects.requireNonNull(validatorFactories, "validatorFactories is required");
+            Objects.requireNonNull(validators, "validators is required");
 ```
 
 ### BoundedWildcard
@@ -1131,65 +759,14 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
         JInvocation invocation = JExpr._new(
 ```
 
-### BoundedWildcard
-Can generalize to `? extends CassandraColumnManager`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/DefaultCassandraTemplate.java`
+## RuleId[id=WrongPackageStatement]
+### WrongPackageStatement
+Package name 'org.eclipse.jnosql.mapping.metamodel' does not correspond to the file path 'org.eclipse.jnosql.mapping'
+in `jnosql-metamodel-extension/src/main/java/org/eclipse/jnosql/mapping/package-info.java`
 #### Snippet
 ```java
-
-    @Inject
-    DefaultCassandraTemplate(Instance<CassandraColumnManager> manager,
-                             CassandraColumnEntityConverter converter,
-                             CassandraColumnWorkflow flow,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ElasticsearchDocumentManager`
-in `jnosql-elasticsearch-extension/src/main/java/org/eclipse/jnosql/mapping/elasticsearch/document/DefaultElasticsearchTemplate.java`
-#### Snippet
-```java
-
-    @Inject
-    DefaultElasticsearchTemplate(Instance<ElasticsearchDocumentManager> manager,
-                                 DocumentEntityConverter converter, DocumentWorkflow flow,
-                                 DocumentEventPersistManager persistManager,
-```
-
-### BoundedWildcard
-Can generalize to `? extends MongoDBDocumentManager`
-in `jnosql-mongodb-extension/src/main/java/org/eclipse/jnosql/mapping/mongodb/DefaultMongoDBTemplate.java`
-#### Snippet
-```java
-    }
-
-    DefaultMongoDBTemplate(Instance<MongoDBDocumentManager> manager,
-            DocumentEntityConverter converter,
-            DocumentWorkflow workflow,
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false) .allMatc...` is always `true`
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-                    org.eclipse.jnosql.communication.cassandra.column.UDT.class.cast(column.get());
-            Object columns = udt.get();
-            if (StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false)
-                    .allMatch(Iterable.class::isInstance)) {
-                GenericFieldMapping genericField = GenericFieldMapping.class.cast(field);
-                Collection collection = genericField.getCollectionInstance();
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-cassandra-extension/src/main/java/org/eclipse/jnosql/mapping/cassandra/column/CassandraColumnEntityConverter.java`
-#### Snippet
-```java
-            Object columns = udt.get();
-            if (StreamSupport.stream(Iterable.class.cast(columns).spliterator(), false)
-                    .allMatch(Iterable.class::isInstance)) {
-                GenericFieldMapping genericField = GenericFieldMapping.class.cast(field);
-                Collection collection = genericField.getCollectionInstance();
+ * for example a stronly typed query builder.
+ */
+package org.eclipse.jnosql.mapping.metamodel;
 ```
 
