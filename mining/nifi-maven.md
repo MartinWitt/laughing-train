@@ -88,18 +88,6 @@ in `src/main/java/org/apache/nifi/extension/definition/ExtensionType.java`
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
@@ -108,6 +96,18 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
         while ((len = in.read(buffer)) >= 0) {
             out.write(buffer, 0, len);
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -166,6 +166,18 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
 
+    @Parameter(property = "narDependencyVersion")
+    protected String narDependencyVersion = null;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
     @Parameter(property = "narDependencyId")
     protected String narDependencyId = null;
 
@@ -184,19 +196,19 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
     @Parameter(property = "narDependencyId")
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `artifacts`
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
 
-    @Parameter(property = "narDependencyVersion")
-    protected String narDependencyVersion = null;
-
+            // the unskipped artifacts are in the resolved set.
+            artifacts = status.getResolvedDependencies();
+            unResolvedArtifacts.addAll(artifacts);
 
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `classifier`
 in `src/main/java/org/apache/nifi/NarMojo.java`
@@ -218,18 +230,6 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
         } else if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
             classifier = "-" + classifier;
         }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifacts`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-            // the unskipped artifacts are in the resolved set.
-            artifacts = status.getResolvedDependencies();
-            unResolvedArtifacts.addAll(artifacts);
 
 ```
 
@@ -347,30 +347,6 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super ServiceAPIDefinition`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-    }
-
-    private void processImplementedInterface(final Class<?> implementedInterface, final Class<?> controllerServiceClass, final Set<ServiceAPIDefinition> serviceApis) {
-        if (controllerServiceClass.isAssignableFrom(implementedInterface) && !controllerServiceClass.equals(implementedInterface)) {
-            final ClassLoader interfaceClassLoader = implementedInterface.getClassLoader();
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-    }
-
-    private void getInterfaceHierarchy(final Class<?> implementedInterface, final Set<Class<?>> interfaceHierarchy) {
-        final Class<?>[] parentInterfaces = implementedInterface.getInterfaces();
-        if (parentInterfaces == null) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ServiceAPIDefinition`
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
@@ -392,6 +368,42 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
     private void writeDocumentation(final Set<ExtensionDefinition> extensionDefinitions, final ExtensionClassLoader classLoader,
                                     final Class<?> docWriterClass, final XMLStreamWriter xmlWriter, final File additionalDetailsDir)
         throws InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+    }
+
+    private void getInterfaceHierarchy(final Class<?> implementedInterface, final Set<Class<?>> interfaceHierarchy) {
+        final Class<?>[] parentInterfaces = implementedInterface.getInterfaces();
+        if (parentInterfaces == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ServiceAPIDefinition`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+    }
+
+    private void processImplementedInterface(final Class<?> implementedInterface, final Class<?> controllerServiceClass, final Set<ServiceAPIDefinition> serviceApis) {
+        if (controllerServiceClass.isAssignableFrom(implementedInterface) && !controllerServiceClass.equals(implementedInterface)) {
+            final ClassLoader interfaceClassLoader = implementedInterface.getClassLoader();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+#### Snippet
+```java
+
+
+    private Set<Artifact> gatherArtifacts(final MavenProject mavenProject, final Supplier<Set<Artifact>> setSupplier) throws MojoExecutionException {
+        final Set<Artifact> artifacts = setSupplier.get();
+        final DependencyNodeVisitor nodeVisitor = new DependencyNodeVisitor() {
 ```
 
 ### BoundedWildcard
@@ -418,18 +430,6 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
                 allArtifacts.addAll(artifacts);
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-
-
-    private Set<Artifact> gatherArtifacts(final MavenProject mavenProject, final Supplier<Set<Artifact>> setSupplier) throws MojoExecutionException {
-        final Set<Artifact> artifacts = setSupplier.get();
-        final DependencyNodeVisitor nodeVisitor = new DependencyNodeVisitor() {
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
@@ -444,6 +444,18 @@ public class ExtensionClassLoaderFactory {
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `propertyServiceDefinitions == null` is always `false` when reached
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
+                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
+            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
+            writeMethod.invoke(docWriter, extensionInstance);
+```
+
 ### ConstantValue
 Condition `extensionInterfaces == null` is always `false`
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
@@ -466,17 +478,5 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefin
         if (parentInterfaces == null) {
             return;
         }
-```
-
-### ConstantValue
-Condition `propertyServiceDefinitions == null` is always `false` when reached
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
-                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
-            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
-            writeMethod.invoke(docWriter, extensionInstance);
 ```
 
