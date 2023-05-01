@@ -38,6 +38,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```java
         }
 
+        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
+            this.retryAfter = retryAfter;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'retryAfter'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+        }
+
         private Throttle(Optional<Duration> retryAfter, Throwable cause, QosReason reason) {
             super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, cause, reason);
             this.retryAfter = retryAfter;
@@ -56,15 +68,15 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryAfter'
+`Optional` used as type for field 'retryAfter'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        }
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
-        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
-            this.retryAfter = retryAfter;
+        private final Optional<Duration> retryAfter;
+
+        private Throttle(Optional<Duration> retryAfter) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -77,18 +89,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
         private Throttle(Optional<Duration> retryAfter) {
             super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
             this.retryAfter = retryAfter;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'retryAfter'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
-
-        private final Optional<Duration> retryAfter;
-
-        private Throttle(Optional<Duration> retryAfter) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -141,6 +141,19 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 public abstract class SerializableError implements Serializable {
 ```
 
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
+#### Snippet
+```java
+    private static Map<String, String> parseComments(String commentsString) {
+        Map<String, String> comments = new HashMap<>();
+        for (String comment : commentsString.split("[,;]")) {
+            String[] fields = comment.split(":");
+            if (fields.length == 2) {
+```
+
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
@@ -176,19 +189,6 @@ in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfigu
         if (keyStoreKeyAlias().isPresent() && !keyStorePath().isPresent()) {
             throw new SafeIllegalArgumentException("keyStorePath must be present if keyStoreKeyAlias is present");
         }
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
-#### Snippet
-```java
-    private static Map<String, String> parseComments(String commentsString) {
-        Map<String, String> comments = new HashMap<>();
-        for (String comment : commentsString.split("[,;]")) {
-            String[] fields = comment.split(":");
-            if (fields.length == 2) {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -280,18 +280,6 @@ public abstract class QosException extends RuntimeException {
 
 ## RuleId[id=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
-Exception class name `RetryOther` does not end with 'Exception'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-
-    /** See {@link #retryOther}. */
-    public static final class RetryOther extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
-
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `Unavailable` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
@@ -300,6 +288,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
     /** See {@link #unavailable}. */
     public static final class Unavailable extends QosException implements SafeLoggable {
         private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
+
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `RetryOther` does not end with 'Exception'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+
+    /** See {@link #retryOther}. */
+    public static final class RetryOther extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
 
 ```
 
