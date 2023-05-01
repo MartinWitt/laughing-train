@@ -66,9 +66,9 @@ public class BadSmellGraphQL {
     }
 
     @Query("fixableByProjectName")
-    @Description("Gets all fixable bad smells from the database by projectName")
-    public List<BadSmellGraphQLDto> getAllFixableBadSmellsByProjectName(@Name("projectName") String projectName) {
-        var projects = projectRepository.findByProjectName(projectName);
+    @Description("Gets all fixable bad smells from the database by projectUrl")
+    public List<BadSmellGraphQLDto> getAllFixableBadSmellsByProjectUrl(@Name("projectUrl") String projectUrl) {
+        var projects = projectRepository.findByProjectUrl(projectUrl);
         if (projects.isEmpty()) {
             return List.of();
         }
