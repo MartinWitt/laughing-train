@@ -109,18 +109,6 @@ in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Xpp3Dom\[children.size()\]'
-in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
-#### Snippet
-```java
-    public Xpp3Dom[] getChildren(String nameParameter) {
-        List<Xpp3Dom> children = getChildrenList(nameParameter);
-        return children.toArray(new Xpp3Dom[children.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Xpp3Dom\[childList.size()\]'
 in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 #### Snippet
@@ -133,37 +121,61 @@ in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[dirsExcluded.size()\]'
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+Call to `toArray()` with pre-sized array argument 'new Xpp3Dom\[children.size()\]'
+in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 #### Snippet
 ```java
-    public String[] getExcludedDirectories() {
-        slowScan();
-        return dirsExcluded.toArray(new String[dirsExcluded.size()]);
+    public Xpp3Dom[] getChildren(String nameParameter) {
+        List<Xpp3Dom> children = getChildrenList(nameParameter);
+        return children.toArray(new Xpp3Dom[children.size()]);
     }
 
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[filesIncluded.size()\]'
+Call to `toArray()` with pre-sized array argument 'new String\[noLinks.size()\]'
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+            }
+        }
+        newfiles = noLinks.toArray(new String[noLinks.size()]);
+        return newfiles;
+    }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[dirsExcluded.size()\]'
 in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 #### Snippet
 ```java
         }
 
-        return diffFiles(oldFiles, filesIncluded.toArray(new String[filesIncluded.size()]));
-    }
+        final String[] excl = dirsExcluded.toArray(new String[dirsExcluded.size()]);
 
+        final String[] notIncl = dirsNotIncluded.toArray(new String[dirsNotIncluded.size()]);
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[dirsIncluded.size()\]'
+Call to `toArray()` with pre-sized array argument 'new String\[dirsNotIncluded.size()\]'
 in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 #### Snippet
 ```java
-    @Deprecated
-    public String[] getIncludedDirectories() {
-        return dirsIncluded.toArray(new String[dirsIncluded.size()]);
+        final String[] excl = dirsExcluded.toArray(new String[dirsExcluded.size()]);
+
+        final String[] notIncl = dirsNotIncluded.toArray(new String[dirsNotIncluded.size()]);
+
+        for (String anExcl : excl) {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[filesExcluded.size()\]'
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+    public String[] getExcludedFiles() {
+        slowScan();
+        return filesExcluded.toArray(new String[filesExcluded.size()]);
     }
 
 ```
@@ -176,6 +188,18 @@ in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
     public String[] getNotIncludedFiles() {
         slowScan();
         return filesNotIncluded.toArray(new String[filesNotIncluded.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[dirsExcluded.size()\]'
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+    public String[] getExcludedDirectories() {
+        slowScan();
+        return dirsExcluded.toArray(new String[dirsExcluded.size()]);
     }
 
 ```
@@ -205,51 +229,27 @@ in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[dirsIncluded.size()\]'
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+    @Deprecated
+    public String[] getIncludedDirectories() {
+        return dirsIncluded.toArray(new String[dirsIncluded.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[filesIncluded.size()\]'
 in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 #### Snippet
 ```java
-            return new String[0];
-        }
-        return filesIncluded.toArray(new String[filesIncluded.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[filesExcluded.size()\]'
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
-#### Snippet
-```java
-    public String[] getExcludedFiles() {
-        slowScan();
-        return filesExcluded.toArray(new String[filesExcluded.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[dirsExcluded.size()\]'
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
-#### Snippet
-```java
         }
 
-        final String[] excl = dirsExcluded.toArray(new String[dirsExcluded.size()]);
+        return diffFiles(oldFiles, filesIncluded.toArray(new String[filesIncluded.size()]));
+    }
 
-        final String[] notIncl = dirsNotIncluded.toArray(new String[dirsNotIncluded.size()]);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[dirsNotIncluded.size()\]'
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
-#### Snippet
-```java
-        final String[] excl = dirsExcluded.toArray(new String[dirsExcluded.size()]);
-
-        final String[] notIncl = dirsNotIncluded.toArray(new String[dirsNotIncluded.size()]);
-
-        for (String anExcl : excl) {
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -265,15 +265,15 @@ in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[noLinks.size()\]'
+Call to `toArray()` with pre-sized array argument 'new String\[filesIncluded.size()\]'
 in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 #### Snippet
 ```java
-            }
+            return new String[0];
         }
-        newfiles = noLinks.toArray(new String[noLinks.size()]);
-        return newfiles;
+        return filesIncluded.toArray(new String[filesIncluded.size()]);
     }
+
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -363,18 +363,6 @@ public class XmlWriterUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
- * @author Kristian Rosenvold
- */
-public class Xpp3DomBuilder {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Java7Support` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/shared/utils/io/Java7Support.java`
 #### Snippet
@@ -384,6 +372,18 @@ in `src/main/java/org/apache/maven/shared/utils/io/Java7Support.java`
 public class Java7Support {
     /**
      * @param file The file to check for being a symbolic link.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+ * @author Kristian Rosenvold
+ */
+public class Xpp3DomBuilder {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -423,6 +423,18 @@ public class Xpp3DomUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `WriterFactory` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/shared/utils/WriterFactory.java`
+#### Snippet
+```java
+ * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/intl/encoding.doc.html">Supported encodings</a>
+ */
+public class WriterFactory {
+    /**
+     * ISO Latin Alphabet #1, also known as ISO-LATIN-1.
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ReaderFactory` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/shared/utils/ReaderFactory.java`
 #### Snippet
@@ -444,18 +456,6 @@ in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
 public class PathTool {
 
     /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WriterFactory` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/shared/utils/WriterFactory.java`
-#### Snippet
-```java
- * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/intl/encoding.doc.html">Supported encodings</a>
- */
-public class WriterFactory {
-    /**
-     * ISO Latin Alphabet #1, also known as ISO-LATIN-1.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -496,18 +496,6 @@ public class FileUtils {
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `actual` might be null
-in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
-#### Snippet
-```java
-         */
-
-        if (formal.isAssignableFrom(actual)) {
-            return true;
-        }
-```
-
-### DataFlowIssue
 `null` is returned by the method declared as @Nonnull
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
@@ -529,6 +517,18 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
                 files = blendFilesToList(files, fetchFiles);
             } else {
                 // ok... add the file
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
+#### Snippet
+```java
+         */
+
+        if (formal.isAssignableFrom(actual)) {
+            return true;
+        }
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -582,18 +582,6 @@ in `src/main/java/org/apache/maven/shared/utils/cli/CommandLineUtils.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/maven/shared/utils/cli/Commandline.java`
-#### Snippet
-```java
-    public Object clone() {
-        throw new RuntimeException("Do we ever clone a commandline?");
-        /*        Commandline c = new Commandline( (Shell) shell.clone() );
-        c.addArguments( getArguments() );
-         return c;*/
-```
-
-### CommentedOutCode
 Commented out code (5 lines)
 in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
@@ -603,6 +591,18 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
         /*        Shell shell = new Shell();
         shell.setExecutable( getExecutable() );
         shell.setWorkingDirectory( getWorkingDirectory() );
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/maven/shared/utils/cli/Commandline.java`
+#### Snippet
+```java
+    public Object clone() {
+        throw new RuntimeException("Do we ever clone a commandline?");
+        /*        Commandline c = new Commandline( (Shell) shell.clone() );
+        c.addArguments( getArguments() );
+         return c;*/
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -637,9 +637,9 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 ```java
      */
     @Deprecated
-    public static Properties loadProperties(@Nullable InputStream is) {
-        try {
-            Properties result = new Properties();
+    public static Properties loadProperties(@Nonnull File file) {
+        try (InputStream in = new FileInputStream(file)) {
+            return loadProperties(in);
 ```
 
 ### DeprecatedIsStillUsed
@@ -649,9 +649,9 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 ```java
      */
     @Deprecated
-    public static Properties loadProperties(@Nonnull File file) {
-        try (InputStream in = new FileInputStream(file)) {
-            return loadProperties(in);
+    public static Properties loadProperties(@Nullable InputStream is) {
+        try {
+            Properties result = new Properties();
 ```
 
 ### DeprecatedIsStillUsed
@@ -727,39 +727,15 @@ in `src/main/java/org/apache/maven/shared/utils/WriterFactory.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'contentEquals' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static boolean contentEquals(@Nonnull final InputStream input1, @Nonnull final InputStream input2)
-            throws IOException {
-        final InputStream bufferedInput1 = new BufferedInputStream(input1);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'toByteArray' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 #### Snippet
 ```java
     @Deprecated
     @Nonnull
-    public static byte[] toByteArray(@Nonnull final InputStream input) throws IOException {
+    public static byte[] toByteArray(@Nonnull final Reader input) throws IOException {
         return toByteArray(input, DEFAULT_BUFFER_SIZE);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'toByteArray' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    public static byte[] toByteArray(@Nonnull final Reader input, final int bufferSize) throws IOException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        copy(input, output, bufferSize);
 ```
 
 ### DeprecatedIsStillUsed
@@ -781,9 +757,9 @@ in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 ```java
     @Deprecated
     @Nonnull
-    public static byte[] toByteArray(@Nonnull final String input) throws IOException {
-        return toByteArray(input, DEFAULT_BUFFER_SIZE);
-    }
+    public static byte[] toByteArray(@Nonnull final Reader input, final int bufferSize) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        copy(input, output, bufferSize);
 ```
 
 ### DeprecatedIsStillUsed
@@ -793,9 +769,21 @@ in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 ```java
     @Deprecated
     @Nonnull
-    public static byte[] toByteArray(@Nonnull final Reader input) throws IOException {
+    public static byte[] toByteArray(@Nonnull final String input) throws IOException {
         return toByteArray(input, DEFAULT_BUFFER_SIZE);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'contentEquals' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static boolean contentEquals(@Nonnull final InputStream input1, @Nonnull final InputStream input2)
+            throws IOException {
+        final InputStream bufferedInput1 = new BufferedInputStream(input1);
 ```
 
 ### DeprecatedIsStillUsed
@@ -811,15 +799,27 @@ in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getIncludedDirectories' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+Deprecated member 'toByteArray' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 #### Snippet
 ```java
-     */
     @Deprecated
-    public String[] getIncludedDirectories() {
-        return dirsIncluded.toArray(new String[dirsIncluded.size()]);
+    @Nonnull
+    public static byte[] toByteArray(@Nonnull final InputStream input) throws IOException {
+        return toByteArray(input, DEFAULT_BUFFER_SIZE);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'XmlStreamReader' is still used
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlStreamReader.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class XmlStreamReader extends Reader {
+    private final org.apache.commons.io.input.XmlStreamReader reader;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -832,6 +832,18 @@ in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 public class DirectoryScanner {
     /**
      * Patterns which should be excluded by default.
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getIncludedDirectories' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public String[] getIncludedDirectories() {
+        return dirsIncluded.toArray(new String[dirsIncluded.size()]);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -859,27 +871,15 @@ public final class SelectorUtils {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'XmlStreamReader' is still used
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlStreamReader.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class XmlStreamReader extends Reader {
-    private final org.apache.commons.io.input.XmlStreamReader reader;
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'unifyLineSeparators' is still used
+Deprecated member 'join' is still used
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-     */
     @Deprecated
-    public static String unifyLineSeparators(@Nullable String s) {
-        return unifyLineSeparators(s, System.getProperty("line.separator"));
-    }
+    @Nonnull
+    public static String join(@Nonnull Object[] array, @Nullable String separator) {
+        if (separator == null) {
+            separator = "";
 ```
 
 ### DeprecatedIsStillUsed
@@ -895,15 +895,15 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'join' is still used
+Deprecated member 'unifyLineSeparators' is still used
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @Nonnull
-    public static String join(@Nonnull Object[] array, @Nullable String separator) {
-        if (separator == null) {
-            separator = "";
+    public static String unifyLineSeparators(@Nullable String s) {
+        return unifyLineSeparators(s, System.getProperty("line.separator"));
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -931,86 +931,26 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'fileWriteArray' is still used
+Deprecated member 'sizeOfDirectory' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static void fileWriteArray(@Nonnull File file, @Nullable String encoding, @Nullable String... data)
-            throws IOException {
-        Charset charset = charset(encoding);
+    public static long sizeOfDirectory(@Nonnull final File directory) {
+        if (!directory.exists()) {
+            final String message = directory + " does not exist";
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'dirname' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    public static String dirname(@Nonnull String path) {
-        int i = path.lastIndexOf(File.separator);
-        return (i >= 0 ? path.substring(0, i) : "");
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'fileWriteArray' is still used
+Deprecated member 'isSymbolicLink' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static void fileWriteArray(@Nonnull File file, @Nullable String... data) throws IOException {
-        fileWriteArray(file, null, data);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'copyDirectory' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void copyDirectory(@Nonnull File sourceDirectory, @Nonnull File destinationDirectory)
-            throws IOException {
-        Objects.requireNonNull(sourceDirectory);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'delete' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void delete(@Nonnull File file) throws IOException {
-        Files.delete(file.toPath());
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'deleteLegacyStyle' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static boolean deleteLegacyStyle(@Nonnull File file) {
-        try {
-            Files.delete(file.toPath());
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'copyURLToFile' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-     *     StandardCopyOption.REPLACE_EXISTING)}
-     */
-    public static void copyURLToFile(@Nonnull final URL source, @Nonnull final File destination) throws IOException {
-        copyStreamToFile(source.openStream(), destination);
+    public static boolean isSymbolicLink(@Nonnull final File file) throws IOException {
+        return Files.isSymbolicLink(file.toPath());
     }
 ```
 
@@ -1027,27 +967,15 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'loadFile' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    public static List<String> loadFile(@Nonnull File file) throws IOException {
-        List<String> lines = new ArrayList<String>();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'copyFileToDirectory' is still used
+Deprecated member 'fileWriteArray' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static void copyFileToDirectory(@Nonnull final File source, @Nonnull final File destinationDirectory)
+    public static void fileWriteArray(@Nonnull File file, @Nullable String encoding, @Nullable String... data)
             throws IOException {
-        if (destinationDirectory.exists() && !destinationDirectory.isDirectory()) {
+        Charset charset = charset(encoding);
 ```
 
 ### DeprecatedIsStillUsed
@@ -1057,9 +985,9 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ```java
     @Deprecated
     @Nonnull
-    public static String fileRead(@Nonnull File file, @Nullable String encoding) throws IOException {
-        Charset charset = charset(encoding);
-
+    public static String fileRead(@Nonnull File file) throws IOException {
+        return fileRead(file, null);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -1075,15 +1003,75 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'sizeOfDirectory' is still used
+Deprecated member 'copyDirectory' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static long sizeOfDirectory(@Nonnull final File directory) {
-        if (!directory.exists()) {
-            final String message = directory + " does not exist";
+    public static void copyDirectory(@Nonnull File sourceDirectory, @Nonnull File destinationDirectory)
+            throws IOException {
+        Objects.requireNonNull(sourceDirectory);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'copyFile' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void copyFile(@Nonnull final File source, @Nonnull final File destination) throws IOException {
+        // check source exists
+        if (!source.exists()) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'dirname' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nonnull
+    public static String dirname(@Nonnull String path) {
+        int i = path.lastIndexOf(File.separator);
+        return (i >= 0 ? path.substring(0, i) : "");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'copyURLToFile' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+     *     StandardCopyOption.REPLACE_EXISTING)}
+     */
+    public static void copyURLToFile(@Nonnull final URL source, @Nonnull final File destination) throws IOException {
+        copyStreamToFile(source.openStream(), destination);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'filename' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nonnull
+    public static String filename(@Nonnull String path) {
+        int i = path.lastIndexOf(File.separator);
+        return (i >= 0 ? path.substring(i + 1) : path);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'deleteLegacyStyle' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static boolean deleteLegacyStyle(@Nonnull File file) {
+        try {
+            Files.delete(file.toPath());
 ```
 
 ### DeprecatedIsStillUsed
@@ -1105,8 +1093,44 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ```java
     @Deprecated
     @Nonnull
-    public static String fileRead(@Nonnull File file) throws IOException {
-        return fileRead(file, null);
+    public static String fileRead(@Nonnull File file, @Nullable String encoding) throws IOException {
+        Charset charset = charset(encoding);
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'loadFile' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nonnull
+    public static List<String> loadFile(@Nonnull File file) throws IOException {
+        List<String> lines = new ArrayList<String>();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'extension' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nonnull
+    public static String extension(@Nonnull String path) {
+        // Ensure the last dot is after the last file separator
+        int lastSep = path.lastIndexOf(File.separatorChar);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'delete' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void delete(@Nonnull File file) throws IOException {
+        Files.delete(file.toPath());
     }
 ```
 
@@ -1123,39 +1147,27 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isSymbolicLink' is still used
+Deprecated member 'copyFileToDirectory' is still used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static boolean isSymbolicLink(@Nonnull final File file) throws IOException {
-        return Files.isSymbolicLink(file.toPath());
+    public static void copyFileToDirectory(@Nonnull final File source, @Nonnull final File destinationDirectory)
+            throws IOException {
+        if (destinationDirectory.exists() && !destinationDirectory.isDirectory()) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'fileWriteArray' is still used
+in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void fileWriteArray(@Nonnull File file, @Nullable String... data) throws IOException {
+        fileWriteArray(file, null, data);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'copyFile' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void copyFile(@Nonnull final File source, @Nonnull final File destination) throws IOException {
-        // check source exists
-        if (!source.exists()) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'filename' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    public static String filename(@Nonnull String path) {
-        int i = path.lastIndexOf(File.separator);
-        return (i >= 0 ? path.substring(i + 1) : path);
 ```
 
 ### DeprecatedIsStillUsed
@@ -1168,18 +1180,6 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
     public static void fileAppend(@Nonnull String fileName, @Nonnull String data) throws IOException {
         fileAppend(fileName, null, data);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'extension' is still used
-in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    public static String extension(@Nonnull String path) {
-        // Ensure the last dot is after the last file separator
-        int lastSep = path.lastIndexOf(File.separatorChar);
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -1255,6 +1255,19 @@ in `src/main/java/org/apache/maven/shared/utils/xml/XmlStreamReader.java`
             Pattern.compile("<\\?xml.*encoding[\\s]*=[\\s]*((?:\".[^\"]*\")|(?:'.[^']*'))", Pattern.MULTILINE);
 }
 
+```
+
+## RuleId[id=ThreadRun]
+### ThreadRun
+Calls to `run()` should probably be replaced with 'start()'
+in `src/main/java/org/apache/maven/shared/utils/cli/CommandLineUtils.java`
+#### Snippet
+```java
+                    } finally {
+                        ShutdownHookUtils.removeShutdownHook(processHook);
+                        processHook.run();
+                    }
+                }
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -1367,13 +1380,13 @@ in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
+`str.length() > 0` can be replaced with '!str.isEmpty()'
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
      */
-    public static boolean isEmpty(@Nullable String str) {
-        return ((str == null) || (str.trim().length() == 0));
+    public static boolean isNotEmpty(@Nullable String str) {
+        return ((str != null) && (str.length() > 0));
     }
 
 ```
@@ -1391,6 +1404,18 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static boolean isEmpty(@Nullable String str) {
+        return ((str == null) || (str.trim().length() == 0));
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `str.length() == 0` can be replaced with 'str.isEmpty()'
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
@@ -1400,18 +1425,6 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
         if (str.length() == 0) {
             return str;
         }
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static boolean isNotEmpty(@Nullable String str) {
-        return ((str != null) && (str.length() > 0));
-    }
-
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1426,19 +1439,6 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
                     }
 ```
 
-## RuleId[id=ThreadRun]
-### ThreadRun
-Calls to `run()` should probably be replaced with 'start()'
-in `src/main/java/org/apache/maven/shared/utils/cli/CommandLineUtils.java`
-#### Snippet
-```java
-                    } finally {
-                        ShutdownHookUtils.removeShutdownHook(processHook);
-                        processHook.run();
-                    }
-                }
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
@@ -1450,18 +1450,6 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/CmdShell.java`
         StringBuilder sb = new StringBuilder();
         sb.append('"');
         sb.append(super.getCommandLine(executable, arguments).get(0));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-                return "";
-            } else {
-                return new StringBuilder(length)
-                        .append(Character.toTitleCase(str.charAt(0)))
-                        .append(str, 1, length)
 ```
 
 ### StringBufferReplaceableByString
@@ -1486,6 +1474,18 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
         return new StringBuilder(start + overlay.length() + text.length() - end + 1)
                 .append(text, 0, start)
                 .append(overlay)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+                return "";
+            } else {
+                return new StringBuilder(length)
+                        .append(Character.toTitleCase(str.charAt(0)))
+                        .append(str, 1, length)
 ```
 
 ### StringBufferReplaceableByString
@@ -1558,7 +1558,7 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 ```java
      */
     @Nonnull
-    public static Properties loadOptionalProperties(final @Nullable URL url) {
+    public static Properties loadOptionalProperties(final @Nullable InputStream inputStream) {
 
         Properties properties = new Properties();
 ```
@@ -1582,7 +1582,7 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 ```java
      */
     @Nonnull
-    public static Properties loadOptionalProperties(final @Nullable InputStream inputStream) {
+    public static Properties loadOptionalProperties(final @Nullable URL url) {
 
         Properties properties = new Properties();
 ```
@@ -1593,10 +1593,10 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-     */
-    public static int countMatches(@Nullable String str, @Nonnull String sub) {
-        if (sub.equals("")) {
-            return 0;
+    @Nonnull
+    public static String chop(@Nonnull String str) {
+        if ("".equals(str)) {
+            return "";
         }
 ```
 
@@ -1605,10 +1605,10 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-    @Nonnull
-    public static String chop(@Nonnull String str) {
-        if ("".equals(str)) {
-            return "";
+     */
+    public static int countMatches(@Nullable String str, @Nonnull String sub) {
+        if (sub.equals("")) {
+            return 0;
         }
 ```
 
@@ -1875,18 +1875,6 @@ in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.xml.sax.helpers` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
-
-        try {
-            return org.xml.sax.helpers.XMLReaderFactory.createXMLReader();
-        } finally {
-            if (oldParser != null) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/shared/utils/io/Java7Support.java`
 #### Snippet
@@ -1899,15 +1887,15 @@ in `src/main/java/org/apache/maven/shared/utils/io/Java7Support.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
+Qualifier `org.xml.sax.helpers` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3DomBuilder.java`
 #### Snippet
 ```java
-     * @param is {@link InputStream}
-     * @return the loaded properties
-     * @deprecated use {@link #loadOptionalProperties(java.io.InputStream)} instead. This method
-     *             should not be used as it suppresses exceptions silently when loading properties fails.
-     */
+
+        try {
+            return org.xml.sax.helpers.XMLReaderFactory.createXMLReader();
+        } finally {
+            if (oldParser != null) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1920,6 +1908,18 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
      * @deprecated use {@link #loadOptionalProperties(java.io.File)} instead. This method should not
      *             be used as it suppresses exceptions silently when loading properties fails and returns {@code null}
      *             instead of an empty {@code Properties} instance when the given {@code File} is {@code null}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
+#### Snippet
+```java
+     * @param is {@link InputStream}
+     * @return the loaded properties
+     * @deprecated use {@link #loadOptionalProperties(java.io.InputStream)} instead. This method
+     *             should not be used as it suppresses exceptions silently when loading properties fails.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1947,18 +1947,6 @@ in `src/main/java/org/apache/maven/shared/utils/PropertyUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/shared/utils/io/ScanConductor.java`
-#### Snippet
-```java
-
-        /**
-         * This response is only valid for {@link ScanConductor#visitDirectory(String, java.io.File)}.
-         * Do not recurse into the current directory. The current directory will not be added
-         * and the processing will be continued with the next item in the list.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.shared.utils.io` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/shared/utils/io/ScanConductor.java`
 #### Snippet
@@ -1968,6 +1956,18 @@ in `src/main/java/org/apache/maven/shared/utils/io/ScanConductor.java`
  * {@link org.apache.maven.shared.utils.io.DirectoryScanner#setScanConductor(ScanConductor)}.
  * You will get notified about every visited directory and file. You can use the {@link ScanAction}
  * to control what should happen next.</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/shared/utils/io/ScanConductor.java`
+#### Snippet
+```java
+
+        /**
+         * This response is only valid for {@link ScanConductor#visitDirectory(String, java.io.File)}.
+         * Do not recurse into the current directory. The current directory will not be added
+         * and the processing will be continued with the next item in the list.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1999,18 +1999,6 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-     * @param str the String to check
-     * @return the trimmed text (never <code>null</code>)
-     * @see java.lang.String#trim()
-     */
-    @Nonnull
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
      *
      * <p>If whitespace is wanted to be removed, used the
      * {@link #strip(java.lang.String)} method.</p>
@@ -2035,6 +2023,18 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
+     * @return <code>true</code> if the Strings are equal, case insensitive, or
+     *         both <code>null</code>
+     * @see java.lang.String#equalsIgnoreCase(String)
+     */
+    public static boolean equalsIgnoreCase(String str1, String str2) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
      * @param str the String to check
      * @return the trimmed text (or <code>null</code>)
      * @see java.lang.String#trim()
@@ -2047,11 +2047,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-     * @return <code>true</code> if the Strings are equal, case insensitive, or
-     *         both <code>null</code>
-     * @see java.lang.String#equalsIgnoreCase(String)
+     * @param str the String to check
+     * @return the trimmed text (never <code>null</code>)
+     * @see java.lang.String#trim()
      */
-    public static boolean equalsIgnoreCase(String str1, String str2) {
+    @Nonnull
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2084,7 +2084,7 @@ Result of assignment expression used
 in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 #### Snippet
 ```java
-        final byte[] buffer = new byte[bufferSize];
+        final char[] buffer = new char[bufferSize];
         int n;
         while (-1 != (n = input.read(buffer))) {
             output.write(buffer, 0, n);
@@ -2096,7 +2096,7 @@ Result of assignment expression used
 in `src/main/java/org/apache/maven/shared/utils/io/IOUtil.java`
 #### Snippet
 ```java
-        final char[] buffer = new char[bufferSize];
+        final byte[] buffer = new byte[bufferSize];
         int n;
         while (-1 != (n = input.read(buffer))) {
             output.write(buffer, 0, n);
@@ -2132,6 +2132,18 @@ Result of assignment expression used
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
+        int strLen;
+        // CHECKSTYLE_OFF: InnerAssignment
+        if (str == null || (strLen = str.length()) == 0)
+        // CHECKSTYLE_ON: InnerAssignment
+        {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
         StringBuilder buf = new StringBuilder(text.length());
         int start = 0, end;
         while ((end = text.indexOf(repl, start)) != -1) {
@@ -2153,26 +2165,14 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        int strLen;
-        // CHECKSTYLE_OFF: InnerAssignment
-        if (str == null || (strLen = str.length()) == 0)
-        // CHECKSTYLE_ON: InnerAssignment
-        {
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
-                    try (RandomAccessFile existing = new RandomAccessFile(to, "rw")) {
-                        int n;
-                        while (-1 != (n = wrapped.read(newChars))) {
-                            ((Buffer) newChars).flip();
-
+        String filename = url.getFile().replace('/', File.separatorChar);
+        int pos = -1;
+        while ((pos = filename.indexOf('%', pos + 1)) >= 0) {
+            if (pos + 2 < filename.length()) {
+                String hexStr = filename.substring(pos + 1, pos + 3);
 ```
 
 ### NestedAssignment
@@ -2192,11 +2192,11 @@ Result of assignment expression used
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
-        String filename = url.getFile().replace('/', File.separatorChar);
-        int pos = -1;
-        while ((pos = filename.indexOf('%', pos + 1)) >= 0) {
-            if (pos + 2 < filename.length()) {
-                String hexStr = filename.substring(pos + 1, pos + 3);
+                    try (RandomAccessFile existing = new RandomAccessFile(to, "rw")) {
+                        int n;
+                        while (-1 != (n = wrapped.read(newChars))) {
+                            ((Buffer) newChars).flip();
+
 ```
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2328,11 +2328,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
 ```java
-    private boolean quotedExecutableEnabled = true;
+    private boolean quotedArgumentsEnabled = true;
 
-    private boolean singleQuotedArgumentEscaped = false;
+    private boolean unconditionalQuoting = false;
 
-    private boolean singleQuotedExecutableEscaped = false;
+    private String executable;
 ```
 
 ### RedundantFieldInitialization
@@ -2340,11 +2340,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
 ```java
-    private boolean quotedArgumentsEnabled = true;
+    private boolean quotedExecutableEnabled = true;
 
-    private boolean unconditionalQuoting = false;
+    private boolean singleQuotedArgumentEscaped = false;
 
-    private String executable;
+    private boolean singleQuotedExecutableEscaped = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2357,18 +2357,6 @@ in `src/main/java/org/apache/maven/shared/utils/xml/PrettyPrintXMLWriter.java`
     private boolean documentStarted = false;
 
     private boolean endOnSameLine = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/shared/utils/xml/PrettyPrintXMLWriter.java`
-#### Snippet
-```java
-    private boolean endOnSameLine = false;
-
-    private int depth = 0;
-
-    private char[] lineIndent;
 ```
 
 ### RedundantFieldInitialization
@@ -2396,25 +2384,25 @@ in `src/main/java/org/apache/maven/shared/utils/xml/PrettyPrintXMLWriter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/maven/shared/utils/xml/PrettyPrintXMLWriter.java`
 #### Snippet
 ```java
-     * Whether or not our results were built by a slow scan.
-     */
-    private boolean haveSlowResults = false;
+    private boolean endOnSameLine = false;
 
-    /**
+    private int depth = 0;
+
+    private char[] lineIndent;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlStreamReader.java`
 #### Snippet
 ```java
-     * The last ScanAction. We need to store this in the instance as the scan() method doesn't return
-     */
-    private ScanConductor.ScanAction scanAction = null;
+    private final org.apache.commons.io.input.XmlStreamReader reader;
+
+    private static String staticDefaultEncoding = null;
 
     /**
 ```
@@ -2433,65 +2421,29 @@ in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlStreamReader.java`
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
 #### Snippet
 ```java
-    private final org.apache.commons.io.input.XmlStreamReader reader;
+     * The last ScanAction. We need to store this in the instance as the scan() method doesn't return
+     */
+    private ScanConductor.ScanAction scanAction = null;
 
-    private static String staticDefaultEncoding = null;
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/maven/shared/utils/io/DirectoryScanner.java`
+#### Snippet
+```java
+     * Whether or not our results were built by a slow scan.
+     */
+    private boolean haveSlowResults = false;
 
     /**
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `indent`
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
-#### Snippet
-```java
-            throws IOException {
-        if (indent < 0) {
-            indent = 0;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indentSize`
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
-#### Snippet
-```java
-
-        if (indentSize < 0) {
-            indentSize = 0;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `columnSize`
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
-#### Snippet
-```java
-
-        if (columnSize < 0) {
-            columnSize = DEFAULT_COLUMN_LINE;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `columnSize`
-in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
-#### Snippet
-```java
-    public static void writeCommentLineBreak(XMLWriter writer, int columnSize) throws IOException {
-        if (columnSize < 10) {
-            columnSize = DEFAULT_COLUMN_LINE;
-        }
-
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `indent`
 in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
@@ -2565,6 +2517,66 @@ in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `indent`
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
+#### Snippet
+```java
+            throws IOException {
+        if (indent < 0) {
+            indent = 0;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indentSize`
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
+#### Snippet
+```java
+
+        if (indentSize < 0) {
+            indentSize = 0;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `columnSize`
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
+#### Snippet
+```java
+
+        if (columnSize < 0) {
+            columnSize = DEFAULT_COLUMN_LINE;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `columnSize`
+in `src/main/java/org/apache/maven/shared/utils/xml/XmlWriterUtil.java`
+#### Snippet
+```java
+    public static void writeCommentLineBreak(XMLWriter writer, int columnSize) throws IOException {
+        if (columnSize < 10) {
+            columnSize = DEFAULT_COLUMN_LINE;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
+#### Snippet
+```java
+        }
+        if (path.length() >= 2 && path.charAt(1) == ':') {
+            path = Character.toUpperCase(path.charAt(0)) + path.substring(1);
+        }
+        return path;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `basedir`
 in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
 #### Snippet
@@ -2610,18 +2622,6 @@ in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
         filename = StringUtils.chompLast(filename, separator);
 
         /*
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
-#### Snippet
-```java
-        }
-        if (path.length() >= 2 && path.charAt(1) == ':') {
-            path = Character.toUpperCase(path.charAt(0)) + path.substring(1);
-        }
-        return path;
 ```
 
 ### AssignmentToMethodParameter
@@ -2709,6 +2709,210 @@ in `src/main/java/org/apache/maven/shared/utils/io/SelectorUtils.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static String strip(String str, @Nullable String delim) {
+        str = stripStart(str, delim);
+        return stripEnd(str, delim);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `separator`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String join(@Nonnull Object[] array, @Nullable String separator) {
+        if (separator == null) {
+            separator = "";
+        }
+        int arraySize = array.length;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `separator`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String join(@Nonnull Iterator<?> iterator, String separator) {
+        if (separator == null) {
+            separator = "";
+        }
+        StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        }
+        if (offset > s.length()) {
+            offset = s.length();
+        }
+        if ((s.length() - offset) < (maxWidth - 3)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        }
+        if ((s.length() - offset) < (maxWidth - 3)) {
+            offset = s.length() - (maxWidth - 3);
+        }
+        if (offset <= 4) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ls`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+
+        if (ls == null) {
+            ls = System.getProperty("line.separator");
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+            return str;
+        }
+        str = leftPad(str, sz + p / 2, delim);
+        str = rightPad(str, size, delim);
+        return str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        }
+        str = leftPad(str, sz + p / 2, delim);
+        str = rightPad(str, size, delim);
+        return str;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `max`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+            start = end + repl.length();
+
+            if (--max == 0) {
+                break;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+            String value = obj.toString();
+
+            text = replace(text, "${" + key + "}", value);
+
+            if (!key.contains(" ")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+
+            if (!key.contains(" ")) {
+                text = replace(text, "$" + key, value);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `size`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    @Nonnull
+    public static String leftPad(@Nonnull String str, int size, @Nonnull String delim) {
+        size = (size - str.length()) / delim.length();
+        if (size > 0) {
+            str = repeat(delim, size) + str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        size = (size - str.length()) / delim.length();
+        if (size > 0) {
+            str = repeat(delim, size) + str;
+        }
+        return str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        // handle negatives, which means last n characters
+        if (start < 0) {
+            start = str.length() + start; // remember start is negative
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+
+        if (start < 0) {
+            start = 0;
+        }
+        if (start > str.length()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `size`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    @Nonnull
+    public static String rightPad(@Nonnull String str, int size, @Nonnull String delim) {
+        size = (size - str.length()) / delim.length();
+        if (size > 0) {
+            str += repeat(delim, size);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+        size = (size - str.length()) / delim.length();
+        if (size > 0) {
+            str += repeat(delim, size);
+        }
+        return str;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `end`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
@@ -2769,210 +2973,6 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `max`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-            start = end + repl.length();
-
-            if (--max == 0) {
-                break;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-            return str;
-        }
-        str = leftPad(str, sz + p / 2, delim);
-        str = rightPad(str, size, delim);
-        return str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        }
-        str = leftPad(str, sz + p / 2, delim);
-        str = rightPad(str, size, delim);
-        return str;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ls`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-
-        if (ls == null) {
-            ls = System.getProperty("line.separator");
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String strip(String str, @Nullable String delim) {
-        str = stripStart(str, delim);
-        return stripEnd(str, delim);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        // handle negatives, which means last n characters
-        if (start < 0) {
-            start = str.length() + start; // remember start is negative
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-
-        if (start < 0) {
-            start = 0;
-        }
-        if (start > str.length()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `separator`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String join(@Nonnull Iterator<?> iterator, String separator) {
-        if (separator == null) {
-            separator = "";
-        }
-        StringBuilder buf = new StringBuilder(256); // Java default is 16, probably too small
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-            String value = obj.toString();
-
-            text = replace(text, "${" + key + "}", value);
-
-            if (!key.contains(" ")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-
-            if (!key.contains(" ")) {
-                text = replace(text, "$" + key, value);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `separator`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String join(@Nonnull Object[] array, @Nullable String separator) {
-        if (separator == null) {
-            separator = "";
-        }
-        int arraySize = array.length;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (offset > s.length()) {
-            offset = s.length();
-        }
-        if ((s.length() - offset) < (maxWidth - 3)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        }
-        if ((s.length() - offset) < (maxWidth - 3)) {
-            offset = s.length() - (maxWidth - 3);
-        }
-        if (offset <= 4) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `size`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    @Nonnull
-    public static String leftPad(@Nonnull String str, int size, @Nonnull String delim) {
-        size = (size - str.length()) / delim.length();
-        if (size > 0) {
-            str = repeat(delim, size) + str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        size = (size - str.length()) / delim.length();
-        if (size > 0) {
-            str = repeat(delim, size) + str;
-        }
-        return str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `size`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    @Nonnull
-    public static String rightPad(@Nonnull String str, int size, @Nonnull String delim) {
-        size = (size - str.length()) / delim.length();
-        if (size > 0) {
-            str += repeat(delim, size);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        size = (size - str.length()) / delim.length();
-        if (size > 0) {
-            str += repeat(delim, size);
-        }
-        return str;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `file`
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
@@ -2987,7 +2987,7 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-22-42-15.415.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-05-01-07-16-53.779.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3132,14 +3132,14 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/BourneShell.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/Os.java`
+in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
 #### Snippet
 ```java
-            }
+    static String uppercaseDrive(@Nullable String path) {
+        if (path == null) {
+            return null;
         }
-        return null;
-    }
-
+        if (path.length() >= 2 && path.charAt(1) == ':') {
 ```
 
 ### ReturnNull
@@ -3168,37 +3168,61 @@ in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/PathTool.java`
-#### Snippet
-```java
-    static String uppercaseDrive(@Nullable String path) {
-        if (path == null) {
-            return null;
-        }
-        if (path.length() >= 2 && path.charAt(1) == ':') {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
 #### Snippet
 ```java
-    private static Object getPropertyValue(Object value, String property) throws IntrospectionException {
-        if (value == null || property == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
-#### Snippet
-```java
-
-            if (method == null) {
+            // delimiter MUST be present
+            if (idx <= start || idx >= expression.length()) {
                 return null;
             }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+#### Snippet
+```java
+            }
+        } catch (NumberFormatException e) {
+            return null;
+        } catch (InvocationTargetException e) {
+            // catch array index issues gracefully, otherwise release
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+#### Snippet
+```java
+            // catch array index issues gracefully, otherwise release
+            if (e.getCause() instanceof IndexOutOfBoundsException) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+#### Snippet
+```java
+            // property name does not require delimiter
+            if (idx <= start || idx > expression.length()) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+#### Snippet
+```java
+            throws IntrospectionException {
+        if (value == null || key == null) {
+            return null;
+        }
 
 ```
 
@@ -3243,20 +3267,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
 #### Snippet
 ```java
-            // delimiter MUST be present
-            if (idx <= start || idx >= expression.length()) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
-#### Snippet
-```java
-            throws IntrospectionException {
-        if (value == null || key == null) {
+    private static Object getPropertyValue(Object value, String property) throws IntrospectionException {
+        if (value == null || property == null) {
             return null;
         }
 
@@ -3267,8 +3279,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
 #### Snippet
 ```java
-            // property name does not require delimiter
-            if (idx <= start || idx > expression.length()) {
+
+            if (method == null) {
                 return null;
             }
 
@@ -3276,25 +3288,25 @@ in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExt
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+in `src/main/java/org/apache/maven/shared/utils/cli/javatool/AbstractJavaTool.java`
 #### Snippet
 ```java
-            }
-        } catch (NumberFormatException e) {
-            return null;
-        } catch (InvocationTargetException e) {
-            // catch array index issues gracefully, otherwise release
+            getLogger().warn("unexpected InvocationTargetException", e);
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/ReflectionValueExtractor.java`
+in `src/main/java/org/apache/maven/shared/utils/Os.java`
 #### Snippet
 ```java
-            // catch array index issues gracefully, otherwise release
-            if (e.getCause() instanceof IndexOutOfBoundsException) {
-                return null;
             }
+        }
+        return null;
+    }
 
 ```
 
@@ -3315,18 +3327,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
 ```java
-     */
-    public File getWorkingDirectory() {
-        return workingDir == null ? null : new File(workingDir);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
-#### Snippet
-```java
     String[] getShellArgs() {
         if (shellArgs.isEmpty()) {
             return null;
@@ -3336,25 +3336,13 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/cli/javatool/AbstractJavaTool.java`
+in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
 ```java
-            getLogger().warn("unexpected InvocationTargetException", e);
-        }
-        return null;
+     */
+    public File getWorkingDirectory() {
+        return workingDir == null ? null : new File(workingDir);
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/ClassMap.java`
-#### Snippet
-```java
-
-        if (cacheEntry == CACHE_MISS) {
-            return null;
-        }
 
 ```
 
@@ -3384,6 +3372,18 @@ in `src/main/java/org/apache/maven/shared/utils/introspection/ClassMap.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/ClassMap.java`
+#### Snippet
+```java
+
+        if (cacheEntry == CACHE_MISS) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 #### Snippet
 ```java
@@ -3396,23 +3396,35 @@ in `src/main/java/org/apache/maven/shared/utils/xml/Xpp3Dom.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-
-        if (applicables.isEmpty()) {
+    public static String uncapitaliseAllWords(String str) {
+        if (str == null) {
             return null;
         }
-
+        int sz = str.length();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
+    public static String capitaliseAllWords(String str) {
+        if (str == null) {
+            return null;
+        }
+        int sz = str.length();
+```
 
-        if (methodList == null) {
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String unifyLineSeparators(@Nullable String s, @Nullable String ls) {
+        if (s == null) {
             return null;
         }
 
@@ -3423,32 +3435,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-    public static String capitalise(String str) {
-        if (str == null) {
-            return null;
-        } else {
-            int length = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String upperCase(String str) {
-        if (str == null) {
-            return null;
-        }
-        return str.toUpperCase();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String substring(String str, int start) {
-        if (str == null) {
+            boolean force) {
+        if (source == null) {
             return null;
         }
 
@@ -3471,11 +3459,23 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-            boolean force) {
-        if (source == null) {
+    public static String stripEnd(String str, @Nullable String strip) {
+        if (str == null) {
             return null;
         }
+        int end = str.length();
+```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String reverse(String str) {
+        if (str == null) {
+            return null;
+        }
+        return new StringBuffer(str).reverse().toString();
 ```
 
 ### ReturnNull
@@ -3488,18 +3488,6 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (str == null) {
-            return null;
-        }
-        if (str.length() <= (pos + len)) {
 ```
 
 ### ReturnNull
@@ -3531,30 +3519,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-    public static String stripEnd(String str, @Nullable String strip) {
-        if (str == null) {
-            return null;
-        }
-        int end = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String substring(String str, int start, int end) {
-        if (str == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
     public static String lowerCase(String str) {
         if (str == null) {
             return null;
@@ -3567,35 +3531,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-    public static String uncapitaliseAllWords(String str) {
+    public static String capitalise(String str) {
         if (str == null) {
             return null;
-        }
-        int sz = str.length();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String unifyLineSeparators(@Nullable String s, @Nullable String ls) {
-        if (s == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
-#### Snippet
-```java
-    public static String reverse(String str) {
-        if (str == null) {
-            return null;
-        }
-        return new StringBuffer(str).reverse().toString();
+        } else {
+            int length = str.length();
 ```
 
 ### ReturnNull
@@ -3627,11 +3567,23 @@ Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 #### Snippet
 ```java
-    public static String capitaliseAllWords(String str) {
+        }
         if (str == null) {
             return null;
         }
-        int sz = str.length();
+        if (str.length() <= (pos + len)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String substring(String str, int start) {
+        if (str == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -3648,6 +3600,30 @@ in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String substring(String str, int start, int end) {
+        if (str == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/StringUtils.java`
+#### Snippet
+```java
+    public static String upperCase(String str) {
+        if (str == null) {
+            return null;
+        }
+        return str.toUpperCase();
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
 #### Snippet
 ```java
@@ -3656,6 +3632,30 @@ in `src/main/java/org/apache/maven/shared/utils/io/FileUtils.java`
                 return null; // Trying to go outside our context
             }
             int index2 = normalized.lastIndexOf('/', index - 1);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
+#### Snippet
+```java
+
+        if (applicables.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/shared/utils/introspection/MethodMap.java`
+#### Snippet
+```java
+
+        if (methodList == null) {
+            return null;
+        }
+
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -3735,18 +3735,6 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/BourneShell.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/org/apache/maven/shared/utils/cli/Commandline.java`
-#### Snippet
-```java
-            }
-        }
-        return environmentVars.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
 #### Snippet
 ```java
@@ -3755,6 +3743,18 @@ in `src/main/java/org/apache/maven/shared/utils/cli/shell/Shell.java`
             return shellArgs.toArray(new String[0]);
         }
     }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/maven/shared/utils/cli/Commandline.java`
+#### Snippet
+```java
+            }
+        }
+        return environmentVars.toArray(new String[0]);
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
