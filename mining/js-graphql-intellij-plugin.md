@@ -41,8 +41,8 @@ I found 1984 bad smells with 139 repairable:
 | DeprecatedIsStillUsed | 5 | false |
 | AssignmentToLambdaParameter | 5 | false |
 | UnusedSymbol | 5 | false |
-| CStyleArrayDeclaration | 4 | false |
 | CommentedOutCode | 4 | false |
+| CStyleArrayDeclaration | 4 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 4 | false |
 | PrivatePropertyName | 4 | false |
 | ZeroLengthArrayInitialization | 4 | false |
@@ -75,8 +75,8 @@ I found 1984 bad smells with 139 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | DoubleBraceInitialization | 1 | false |
-| IOResource | 1 | false |
 | MismatchedStringCase | 1 | false |
+| IOResource | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | MethodOverloadsParentMethod | 1 | false |
 | MismatchedJavadocCode | 1 | false |
@@ -198,18 +198,6 @@ Static method `or()` declared in class 'com.intellij.patterns.StandardPatterns' 
 in `src/main/com/intellij/lang/jsgraphql/ide/completion/GraphQLCompletionContributor.java`
 #### Snippet
 ```java
-            }
-        };
-        final ElementPattern<PsiElement> extendKeywords = PlatformPatterns.or(
-            psiElement(GraphQLElementTypes.TYPE_KEYWORD),
-            psiElement(GraphQLElementTypes.INTERFACE_KEYWORD),
-```
-
-### StaticCallOnSubclass
-Static method `or()` declared in class 'com.intellij.patterns.StandardPatterns' but referenced via subclass 'com.intellij.patterns.PlatformPatterns'
-in `src/main/com/intellij/lang/jsgraphql/ide/completion/GraphQLCompletionContributor.java`
-#### Snippet
-```java
         psiElement(GraphQLElementTypes.NAME).afterLeafSkipping(
             // skip
             PlatformPatterns.or(psiComment(), psiElement(TokenType.WHITE_SPACE), psiElement(GraphQLElementTypes.BRACKET_L)),
@@ -217,53 +205,16 @@ in `src/main/com/intellij/lang/jsgraphql/ide/completion/GraphQLCompletionContrib
             psiElement(GraphQLElementTypes.COLON)
 ```
 
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Z`
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+### StaticCallOnSubclass
+Static method `or()` declared in class 'com.intellij.patterns.StandardPatterns' but referenced via subclass 'com.intellij.patterns.PlatformPatterns'
+in `src/main/com/intellij/lang/jsgraphql/ide/completion/GraphQLCompletionContributor.java`
 #### Snippet
 ```java
-
-  /* The ZZ_CMAP_Z table has 272 entries */
-  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\14\100\1\300\u0100\100");
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_LEXSTATE`
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
-   * l is of the form l = 2*k, k a non negative integer
-   */
-  private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2,  2,  3,  3,  4, 4
-  };
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_A`
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_A table has 384 entries */
-  static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\2\1\3\2\5\1\3\22\0\1\2\1\20\1\12\1\4\1\10\1\0\1\33\1\0\1\21\1\22\1"+
-    "\0\1\17\1\1\1\14\1\15\1\0\1\7\11\13\1\23\2\0\1\24\2\0\1\25\4\6\1\16\25\6\1"+
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Y`
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_Y table has 256 entries */
-  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\175\3\1\4\172\3\1\5\4\3");
-
+            }
+        };
+        final ElementPattern<PsiElement> extendKeywords = PlatformPatterns.or(
+            psiElement(GraphQLElementTypes.TYPE_KEYWORD),
+            psiElement(GraphQLElementTypes.INTERFACE_KEYWORD),
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -313,6 +264,55 @@ in `gen/com/intellij/lang/jsgraphql/psi/GraphQLVisitorBase.java`
     // visitDirectivesAware(o);
     // visitNamedElement(o);
   }
+```
+
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_Y`
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_Y table has 256 entries */
+  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
+    "\1\0\1\1\1\2\175\3\1\4\172\3\1\5\4\3");
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_LEXSTATE`
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+   * l is of the form l = 2*k, k a non negative integer
+   */
+  private static final int ZZ_LEXSTATE[] = { 
+     0,  0,  1,  1,  2,  2,  3,  3,  4, 4
+  };
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_Z`
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_Z table has 272 entries */
+  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
+    "\1\0\1\100\1\200\14\100\1\300\u0100\100");
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_A`
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_A table has 384 entries */
+  static final char ZZ_CMAP_A[] = zzUnpackCMap(
+    "\11\0\1\2\1\3\2\5\1\3\22\0\1\2\1\20\1\12\1\4\1\10\1\0\1\33\1\0\1\21\1\22\1"+
+    "\0\1\17\1\1\1\14\1\15\1\0\1\7\11\13\1\23\2\0\1\24\2\0\1\25\4\6\1\16\25\6\1"+
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -381,11 +381,11 @@ Obsolete collection type `Stack`> used
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeInfo.java`
 #### Snippet
 ```java
-    private final @NotNull Type rawType;
-    private final @NotNull TypeName typeName;
-    private final @NotNull Stack<Class<?>> decoration = new Stack<>();
 
-    private TypeInfo(@NotNull Type type) {
+        GraphQLType out = objectType;
+        Stack<Class<?>> wrappingStack = new Stack<>();
+        wrappingStack.addAll(this.decoration);
+        while (!wrappingStack.isEmpty()) {
 ```
 
 ### ObsoleteCollection
@@ -393,11 +393,11 @@ Obsolete collection type `Stack<>` used
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeInfo.java`
 #### Snippet
 ```java
-    private final @NotNull Type rawType;
-    private final @NotNull TypeName typeName;
-    private final @NotNull Stack<Class<?>> decoration = new Stack<>();
 
-    private TypeInfo(@NotNull Type type) {
+        GraphQLType out = objectType;
+        Stack<Class<?>> wrappingStack = new Stack<>();
+        wrappingStack.addAll(this.decoration);
+        while (!wrappingStack.isEmpty()) {
 ```
 
 ### ObsoleteCollection
@@ -405,11 +405,11 @@ Obsolete collection type `Stack`> used
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeInfo.java`
 #### Snippet
 ```java
+    private final @NotNull Type rawType;
+    private final @NotNull TypeName typeName;
+    private final @NotNull Stack<Class<?>> decoration = new Stack<>();
 
-        GraphQLType out = objectType;
-        Stack<Class<?>> wrappingStack = new Stack<>();
-        wrappingStack.addAll(this.decoration);
-        while (!wrappingStack.isEmpty()) {
+    private TypeInfo(@NotNull Type type) {
 ```
 
 ### ObsoleteCollection
@@ -417,11 +417,11 @@ Obsolete collection type `Stack<>` used
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeInfo.java`
 #### Snippet
 ```java
+    private final @NotNull Type rawType;
+    private final @NotNull TypeName typeName;
+    private final @NotNull Stack<Class<?>> decoration = new Stack<>();
 
-        GraphQLType out = objectType;
-        Stack<Class<?>> wrappingStack = new Stack<>();
-        wrappingStack.addAll(this.decoration);
-        while (!wrappingStack.isEmpty()) {
+    private TypeInfo(@NotNull Type type) {
 ```
 
 ### ObsoleteCollection
@@ -494,7 +494,7 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TraverserState.java`
                 Map<String, ? extends List<U>> childrenMap = getChildren.apply(traverserContext.thisNode());
                 childrenMap.keySet().forEach(key -> {
                     List<U> children = childrenMap.get(key);
-                    for (int i = children.size() - 1; i >= 0; i--) {
+                    for (int i = 0; i < children.size(); i++) {
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -506,7 +506,7 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TraverserState.java`
                 Map<String, ? extends List<U>> childrenMap = getChildren.apply(traverserContext.thisNode());
                 childrenMap.keySet().forEach(key -> {
                     List<U> children = childrenMap.get(key);
-                    for (int i = 0; i < children.size(); i++) {
+                    for (int i = children.size() - 1; i >= 0; i--) {
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -534,30 +534,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `oldDefinitionMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-        Map<String, InputValueDefinition> newDefinitionMap = sortedMap(newIVD, InputValueDefinition::getName);
-
-        for (String inputFieldName : oldDefinitionMap.keySet()) {
-            InputValueDefinition oldField = oldDefinitionMap.get(inputFieldName);
-            Optional<InputValueDefinition> newField = Optional.ofNullable(newDefinitionMap.get(inputFieldName));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `newDefinitionMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-
-        // check new fields are not mandatory
-        for (String inputFieldName : newDefinitionMap.keySet()) {
-            InputValueDefinition newField = newDefinitionMap.get(inputFieldName);
-            Optional<InputValueDefinition> oldField = Optional.ofNullable(oldDefinitionMap.get(inputFieldName));
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `oldDirectivesMap.keySet()` may be replaced with 'entrySet()' iteration
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 #### Snippet
@@ -579,6 +555,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
             for (String argName : oldArgumentsByName.keySet()) {
                 Argument oldArgument = oldArgumentsByName.get(argName);
                 Optional<Argument> newArgument = Optional.ofNullable(newArgumentsByName.get(argName));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `oldDefinitionMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+        Map<String, InputValueDefinition> newDefinitionMap = sortedMap(newIVD, InputValueDefinition::getName);
+
+        for (String inputFieldName : oldDefinitionMap.keySet()) {
+            InputValueDefinition oldField = oldDefinitionMap.get(inputFieldName);
+            Optional<InputValueDefinition> newField = Optional.ofNullable(newDefinitionMap.get(inputFieldName));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `newDefinitionMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+
+        // check new fields are not mandatory
+        for (String inputFieldName : newDefinitionMap.keySet()) {
+            InputValueDefinition newField = newDefinitionMap.get(inputFieldName);
+            Optional<InputValueDefinition> oldField = Optional.ofNullable(oldDefinitionMap.get(inputFieldName));
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -1220,18 +1220,6 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`zippers.size() == 0` can be replaced with 'zippers.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/util/NodeMultiZipper.java`
-#### Snippet
-```java
-     */
-    public T toRootNode() {
-        if (zippers.size() == 0) {
-            return commonRoot;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `children.size() == 0` can be replaced with 'children.isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTraverser.java`
 #### Snippet
@@ -1241,30 +1229,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTraverser.java`
             if (children.size() == 0) {
                 tryComplete();
                 return;
-```
-
-### SizeReplaceableByIsEmpty
-`edges.size() == 0` can be replaced with 'edges.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
-#### Snippet
-```java
-        List<Edge<T>> edges = buildEdges();
-
-        if (edges.size() == 0) {
-            return emptyConnection();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`edges.size() == 0` can be replaced with 'edges.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
-#### Snippet
-```java
-
-        edges = edges.subList(begin, end);
-        if (edges.size() == 0) {
-            return emptyConnection();
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1292,15 +1256,39 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`childZippers.size() > 0` can be replaced with '!childZippers.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTransformer.java`
+`zippers.size() == 0` can be replaced with 'zippers.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/util/NodeMultiZipper.java`
 #### Snippet
 ```java
-                childZippers.addAll((Collection<? extends NodeZipper<T>>) childContext.getVar(List.class));
-            }
-            if (childZippers.size() > 0) {
-                NodeZipper<T> newNode = moveUp((T) currentContext.thisNode(), childZippers);
-                myZippers.add(newNode);
+     */
+    public T toRootNode() {
+        if (zippers.size() == 0) {
+            return commonRoot;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`edges.size() == 0` can be replaced with 'edges.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
+#### Snippet
+```java
+        List<Edge<T>> edges = buildEdges();
+
+        if (edges.size() == 0) {
+            return emptyConnection();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`edges.size() == 0` can be replaced with 'edges.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
+#### Snippet
+```java
+
+        edges = edges.subList(begin, end);
+        if (edges.size() == 0) {
+            return emptyConnection();
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1313,6 +1301,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTransformer.java
             if (children.size() == 0) {
                 tryComplete();
                 return;
+```
+
+### SizeReplaceableByIsEmpty
+`childZippers.size() > 0` can be replaced with '!childZippers.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTransformer.java`
+#### Snippet
+```java
+                childZippers.addAll((Collection<? extends NodeZipper<T>>) childContext.getVar(List.class));
+            }
+            if (childZippers.size() > 0) {
+                NodeZipper<T> newNode = moveUp((T) currentContext.thisNode(), childZippers);
+                myZippers.add(newNode);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1376,18 +1376,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaParser.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`fieldDefinitions.size() == 0` can be replaced with 'fieldDefinitions.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
-#### Snippet
-```java
-
-        List<GraphQLFieldDefinition> fieldDefinitions = type.getFieldDefinitions();
-        if (fieldDefinitions == null || fieldDefinitions.size() == 0) {
-            SchemaValidationError validationError = new SchemaValidationError(
-                SchemaValidationErrorType.ImplementingTypeLackOfFieldError,
-```
-
-### SizeReplaceableByIsEmpty
 `enumValueDefinitions.size() == 0` can be replaced with 'enumValueDefinitions.isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
 #### Snippet
@@ -1397,18 +1385,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRul
         if (enumValueDefinitions == null || enumValueDefinitions.size() == 0) {
             SchemaValidationError validationError = new SchemaValidationError(
                 SchemaValidationErrorType.EnumLackOfValueError,
-```
-
-### SizeReplaceableByIsEmpty
-`inputObjectFields.size() == 0` can be replaced with 'inputObjectFields.isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
-#### Snippet
-```java
-
-        List<GraphQLInputObjectField> inputObjectFields = type.getFields();
-        if (inputObjectFields == null || inputObjectFields.size() == 0) {
-            SchemaValidationError validationError = new SchemaValidationError(
-                SchemaValidationErrorType.InputObjectTypeLackOfFieldError,
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1424,15 +1400,39 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRul
 ```
 
 ### SizeReplaceableByIsEmpty
-`values.size() > 0` can be replaced with '!values.isEmpty()'
+`fieldDefinitions.size() == 0` can be replaced with 'fieldDefinitions.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
+#### Snippet
+```java
+
+        List<GraphQLFieldDefinition> fieldDefinitions = type.getFieldDefinitions();
+        if (fieldDefinitions == null || fieldDefinitions.size() == 0) {
+            SchemaValidationError validationError = new SchemaValidationError(
+                SchemaValidationErrorType.ImplementingTypeLackOfFieldError,
+```
+
+### SizeReplaceableByIsEmpty
+`inputObjectFields.size() == 0` can be replaced with 'inputObjectFields.isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
+#### Snippet
+```java
+
+        List<GraphQLInputObjectField> inputObjectFields = type.getFields();
+        if (inputObjectFields == null || inputObjectFields.size() == 0) {
+            SchemaValidationError validationError = new SchemaValidationError(
+                SchemaValidationErrorType.InputObjectTypeLackOfFieldError,
+```
+
+### SizeReplaceableByIsEmpty
+`fieldDefinitions.size() == 0` can be replaced with 'fieldDefinitions.isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 #### Snippet
 ```java
-                    .sorted(comparator)
-                    .collect(toList());
-                if (values.size() > 0) {
-                    out.format(" {\n");
-                    for (GraphQLEnumValueDefinition enumValueDefinition : values) {
+                                       Comparator<? super GraphQLSchemaElement> comparator,
+                                       List<GraphQLFieldDefinition> fieldDefinitions) {
+        if (fieldDefinitions.size() == 0) {
+            return;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1448,15 +1448,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`fieldDefinitions.size() == 0` can be replaced with 'fieldDefinitions.isEmpty()'
+`values.size() > 0` can be replaced with '!values.isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 #### Snippet
 ```java
-                                       Comparator<? super GraphQLSchemaElement> comparator,
-                                       List<GraphQLFieldDefinition> fieldDefinitions) {
-        if (fieldDefinitions.size() == 0) {
-            return;
-        }
+                    .sorted(comparator)
+                    .collect(toList());
+                if (values.size() > 0) {
+                    out.format(" {\n");
+                    for (GraphQLEnumValueDefinition enumValueDefinition : values) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1824,30 +1824,6 @@ in `src/main/com/intellij/lang/jsgraphql/ide/highlighting/query/GraphQLQueryCont
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @NotNull
-    private List<InputValueDefinition> createInputValueDefinitions(@Nullable List<Map<String, Object>> args) {
-        if (args == null) return ContainerUtil.emptyList();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
-#### Snippet
-```java
-
-    @NotNull
-    private List<FieldDefinition> createFields(@Nullable List<Map<String, Object>> fields) {
-        if (fields == null) return ContainerUtil.emptyList();
-
-```
-
-### BoundedWildcard
 Can generalize to `? super StructureViewTreeElement`
 in `src/main/com/intellij/lang/jsgraphql/ide/structureView/GraphQLStructureViewTreeElement.java`
 #### Snippet
@@ -1869,6 +1845,30 @@ in `src/main/com/intellij/lang/jsgraphql/ide/structureView/GraphQLStructureViewT
     private void addSelectionSetChildren(List<StructureViewTreeElement> children) {
         GraphQLSelectionSet selectionSet;
         if (childrenBase instanceof GraphQLSelectionSet) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
+#### Snippet
+```java
+
+    @NotNull
+    private List<FieldDefinition> createFields(@Nullable List<Map<String, Object>> fields) {
+        if (fields == null) return ContainerUtil.emptyList();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @NotNull
+    private List<InputValueDefinition> createInputValueDefinitions(@Nullable List<Map<String, Object>> args) {
+        if (args == null) return ContainerUtil.emptyList();
+
 ```
 
 ### BoundedWildcard
@@ -1920,6 +1920,42 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/InterThreadMemoizedSupplier.
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
+#### Snippet
+```java
+    }
+
+    public ExecutionResultImpl transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newExecutionResult().from(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
+#### Snippet
+```java
+    }
+
+    private Object errorsToSpec(List<GraphQLError> errors) {
+        return map(errors, GraphQLError::toSpecification);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
+#### Snippet
+```java
+        }
+
+        public Builder addErrors(List<GraphQLError> errors) {
+            this.errors.addAll(errors);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends GraphQLDirective`
 in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 #### Snippet
@@ -1929,6 +1965,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
     public static Map<String, GraphQLDirective> nonRepeatableDirectivesByName(List<GraphQLDirective> directives) {
         // filter the repeatable directives
         List<GraphQLDirective> singletonDirectives = directives.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
+#### Snippet
+```java
+    }
+
+    public static List<GraphQLDirective> enforceAddAll(List<GraphQLDirective> targetList, List<GraphQLDirective> newDirectives) {
+        assertNotNull(targetList, () -> "directive list can't be null");
+        assertNotNull(newDirectives, () -> "directive list can't be null");
 ```
 
 ### BoundedWildcard
@@ -1956,30 +2004,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
-#### Snippet
-```java
-    }
-
-    public static GraphQLDirective nonRepeatedDirectiveByNameWithAssert(Map<String, List<GraphQLDirective>> directives,
-                                                                        String directiveName) {
-        List<GraphQLDirective> directiveList = directives.get(directiveName);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
-#### Snippet
-```java
-    }
-
-    public static List<GraphQLDirective> enforceAddAll(List<GraphQLDirective> targetList, List<GraphQLDirective> newDirectives) {
-        assertNotNull(targetList, () -> "directive list can't be null");
-        assertNotNull(newDirectives, () -> "directive list can't be null");
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLDirective`
 in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 #### Snippet
@@ -1992,39 +2016,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
-#### Snippet
-```java
-        }
-
-        public Builder addErrors(List<GraphQLError> errors) {
-            this.errors.addAll(errors);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
+Can generalize to `? extends List`
+in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 #### Snippet
 ```java
     }
 
-    public ExecutionResultImpl transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newExecutionResult().from(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/ExecutionResultImpl.java`
-#### Snippet
-```java
-    }
-
-    private Object errorsToSpec(List<GraphQLError> errors) {
-        return map(errors, GraphQLError::toSpecification);
-    }
+    public static GraphQLDirective nonRepeatedDirectiveByNameWithAssert(Map<String, List<GraphQLDirective>> directives,
+                                                                        String directiveName) {
+        List<GraphQLDirective> directiveList = directives.get(directiveName);
 ```
 
 ### BoundedWildcard
@@ -2037,18 +2037,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/DefaultTraverserContext.java
                                    Map<Class<?>, Object> vars,
                                    Object sharedContextData,
                                    NodeLocation location,
-```
-
-### BoundedWildcard
-Can generalize to `? extends NodeZipper`
-in `src/main/com/intellij/lang/jsgraphql/types/util/NodeMultiZipper.java`
-#### Snippet
-```java
-    }
-
-    private NodeZipper<T> moveUp(T parent, List<NodeZipper<T>> sameParent) {
-        assertNotEmpty(sameParent, () -> "expected at least one zipper");
-
 ```
 
 ### BoundedWildcard
@@ -2076,14 +2064,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`>
-in `src/main/com/intellij/lang/jsgraphql/types/util/TraverserState.java`
+Can generalize to `? extends NodeZipper`
+in `src/main/com/intellij/lang/jsgraphql/types/util/NodeMultiZipper.java`
 #### Snippet
 ```java
+    }
 
-        @Override
-        public void pushAll(TraverserContext<U> traverserContext, Function<? super U, Map<String, ? extends List<U>>> getChildren) {
-            super.state.push(traverserContext);
+    private NodeZipper<T> moveUp(T parent, List<NodeZipper<T>> sameParent) {
+        assertNotEmpty(sameParent, () -> "expected at least one zipper");
 
 ```
 
@@ -2097,6 +2085,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TraverserState.java`
         public void pushAll(TraverserContext<U> traverserContext, Function<? super U, Map<String, ? extends List<U>>> getChildren) {
             Map<String, List<TraverserContext<U>>> childrenContextMap = new LinkedHashMap<>();
             if (!traverserContext.isDeleted()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>
+in `src/main/com/intellij/lang/jsgraphql/types/util/TraverserState.java`
+#### Snippet
+```java
+
+        @Override
+        public void pushAll(TraverserContext<U> traverserContext, Function<? super U, Map<String, ? extends List<U>>> getChildren) {
+            super.state.push(traverserContext);
+
 ```
 
 ### BoundedWildcard
@@ -2124,15 +2124,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTransformer.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/relay/Relay.java`
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaElementChildrenContainer.java`
 #### Snippet
 ```java
     }
 
-    private static <T> List<T> addElementToList(List<T> list, T element) {
-        ArrayList<T> result = new ArrayList<>(list);
-        result.add(element);
+    public SchemaElementChildrenContainer transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -2148,15 +2148,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaElementChildrenConta
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaElementChildrenContainer.java`
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/relay/Relay.java`
 #### Snippet
 ```java
     }
 
-    public SchemaElementChildrenContainer transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+    private static <T> List<T> addElementToList(List<T> list, T element) {
+        ArrayList<T> result = new ArrayList<>(list);
+        result.add(element);
 ```
 
 ### BoundedWildcard
@@ -2172,18 +2172,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLArgument.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
-#### Snippet
-```java
-     * @return a new field based on calling build on that builder
-     */
-    public GraphQLEnumValueDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newEnumValueDefinition(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
 Can generalize to `? extends NormalizedField`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
 #### Snippet
@@ -2193,6 +2181,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelection
     private DataFetchingFieldSelectionSetImpl(Supplier<NormalizedField> normalizedFieldSupplier) {
         this.normalizedFieldSupplier = normalizedFieldSupplier;
         this.computedValues = false;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
+#### Snippet
+```java
+     * @return a new field based on calling build on that builder
+     */
+    public GraphQLEnumValueDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newEnumValueDefinition(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -2232,42 +2232,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectField.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLArgument`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirective.java`
-#### Snippet
-```java
-        }
-
-        public Builder replaceArguments(List<GraphQLArgument> arguments) {
-            assertNotNull(arguments, () -> "arguments must not be null");
-            this.arguments.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirective.java`
-#### Snippet
-```java
-     * @return a new field based on calling build on that builder
-     */
-    public GraphQLDirective transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newDirective(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLSchemaElement`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
-#### Snippet
-```java
-     * @return this will always sent back TraversalControl.CONTINUE
-     */
-    default TraversalControl insertBeforeNode(GraphQLSchemaElement toInsertBefore, TraverserContext<GraphQLSchemaElement> context) {
-        return TreeTransformerUtil.insertBefore(context, toInsertBefore);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super GraphQLSchemaElement`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
 #### Snippet
@@ -2292,15 +2256,63 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super GraphQLSchemaElement`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
+#### Snippet
+```java
+     * @return this will always sent back TraversalControl.CONTINUE
+     */
+    default TraversalControl insertBeforeNode(GraphQLSchemaElement toInsertBefore, TraverserContext<GraphQLSchemaElement> context) {
+        return TreeTransformerUtil.insertBefore(context, toInsertBefore);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirective.java`
+#### Snippet
+```java
+     * @return a new field based on calling build on that builder
+     */
+    public GraphQLDirective transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newDirective(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLArgument`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirective.java`
+#### Snippet
+```java
+        }
+
+        public Builder replaceArguments(List<GraphQLArgument> arguments) {
+            assertNotNull(arguments, () -> "arguments must not be null");
+            this.arguments.clear();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.java`
+#### Snippet
+```java
+     * @return a new allocated list of sorted things
+     */
+    public static <T extends GraphQLSchemaElement> List<T> sortTypes(Comparator<? super GraphQLSchemaElement> comparator, Collection<T> types) {
+        List<T> sorted = new ArrayList<>(types);
+        sorted.sort(comparator);
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 #### Snippet
 ```java
     }
 
-    public static <T> List<T> filterList(Collection<T> list, Predicate<T> filter) {
-        return list
-                .stream()
+    public static <T> int findIndex(List<T> list, Predicate<T> filter) {
+        for (int i = 0; i < list.size(); i++) {
+            if (filter.test(list.get(i))) {
 ```
 
 ### BoundedWildcard
@@ -2310,9 +2322,69 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 ```java
     }
 
-    public static <T> List<T> filterList(Collection<T> list, Predicate<T> filter) {
+    public static <T> int findIndex(List<T> list, Predicate<T> filter) {
+        for (int i = 0; i < list.size(); i++) {
+            if (filter.test(list.get(i))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+     * @return a <strong>new</strong> list composed of the two concatenated lists elements
+     */
+    public static <T> List<T> concat(List<T> l1, List<T> l2) {
+        ArrayList<T> l = new ArrayList<>(l1);
+        l.addAll(l2);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+     * @return a <strong>new</strong> list composed of the two concatenated lists elements
+     */
+    public static <T> List<T> concat(List<T> l1, List<T> l2) {
+        ArrayList<T> l = new ArrayList<>(l1);
+        l.addAll(l2);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    //
+    // From a list of named things, get a map of them by name, merging them according to the merge function
+    public static <T> Map<String, T> getByName(List<T> namedObjects, Function<T, String> nameFn, BinaryOperator<T> mergeFunc) {
+        return namedObjects.stream().collect(Collectors.toMap(
+            nameFn,
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    //
+    // From a list of named things, get a map of them by name, merging them according to the merge function
+    public static <T> Map<String, T> getByName(List<T> namedObjects, Function<T, String> nameFn, BinaryOperator<T> mergeFunc) {
+        return namedObjects.stream().collect(Collectors.toMap(
+            nameFn,
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Optional<T> findOne(Collection<T> list, Predicate<T> filter) {
         return list
-                .stream()
+            .stream()
 ```
 
 ### BoundedWildcard
@@ -2320,23 +2392,35 @@ Can generalize to `? extends T`
 in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 #### Snippet
 ```java
-     * @return a <strong>new</strong> list composed of the two concatenated lists elements
-     */
-    public static <T> List<T> concat(List<T> l1, List<T> l2) {
-        ArrayList<T> l = new ArrayList<>(l1);
-        l.addAll(l2);
+    }
+
+    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
+        return list.stream().collect(Collectors.toMap(
+            keyFunction,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? super T`
 in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 #### Snippet
 ```java
-     * @return a <strong>new</strong> list composed of the two concatenated lists elements
-     */
-    public static <T> List<T> concat(List<T> l1, List<T> l2) {
-        ArrayList<T> l = new ArrayList<>(l1);
-        l.addAll(l2);
+    }
+
+    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
+        return list.stream().collect(Collectors.toMap(
+            keyFunction,
+```
+
+### BoundedWildcard
+Can generalize to `? extends NewKey`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    }
+
+    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
+        return list.stream().collect(Collectors.toMap(
+            keyFunction,
 ```
 
 ### BoundedWildcard
@@ -2352,6 +2436,78 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    //
+    // quickly turn a map of values into its list equivalent
+    public static <T> List<T> valuesToList(Map<?, T> map) {
+        return new ArrayList<>(map.values());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+
+    // normal groupingBy but with LinkedHashMap
+    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
+        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+
+    // normal groupingBy but with LinkedHashMap
+    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
+        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends NewKey`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+
+    // normal groupingBy but with LinkedHashMap
+    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
+        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    }
+
+    public static <T> List<T> filterList(Collection<T> list, Predicate<T> filter) {
+        return list
+                .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+    }
+
+    public static <T> List<T> filterList(Collection<T> list, Predicate<T> filter) {
+        return list
+                .stream()
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`>
 in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 #### Snippet
@@ -2360,78 +2516,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 
     public static <T> CompletableFuture<List<T>> flatList(CompletableFuture<List<List<T>>> cf) {
         return cf.thenApply(FpKit::flatList);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
-        return list.stream().collect(Collectors.toMap(
-            keyFunction,
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
-        return list.stream().collect(Collectors.toMap(
-            keyFunction,
-```
-
-### BoundedWildcard
-Can generalize to `? extends NewKey`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T, NewKey> Map<NewKey, T> groupingByUniqueKey(Collection<T> list, Function<T, NewKey> keyFunction) {
-        return list.stream().collect(Collectors.toMap(
-            keyFunction,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-
-    // normal groupingBy but with LinkedHashMap
-    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
-        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-
-    // normal groupingBy but with LinkedHashMap
-    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
-        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends NewKey`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-
-    // normal groupingBy but with LinkedHashMap
-    public static <T, NewKey> Map<NewKey, ImmutableList<T>> groupingBy(Collection<T> list, Function<T, NewKey> function) {
-        return list.stream().collect(Collectors.groupingBy(function, LinkedHashMap::new, mapping(Function.identity(), ImmutableList.toImmutableList())));
     }
 ```
 
@@ -2496,90 +2580,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    //
-    // From a list of named things, get a map of them by name, merging them according to the merge function
-    public static <T> Map<String, T> getByName(List<T> namedObjects, Function<T, String> nameFn, BinaryOperator<T> mergeFunc) {
-        return namedObjects.stream().collect(Collectors.toMap(
-            nameFn,
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    //
-    // From a list of named things, get a map of them by name, merging them according to the merge function
-    public static <T> Map<String, T> getByName(List<T> namedObjects, Function<T, String> nameFn, BinaryOperator<T> mergeFunc) {
-        return namedObjects.stream().collect(Collectors.toMap(
-            nameFn,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T> int findIndex(List<T> list, Predicate<T> filter) {
-        for (int i = 0; i < list.size(); i++) {
-            if (filter.test(list.get(i))) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T> int findIndex(List<T> list, Predicate<T> filter) {
-        for (int i = 0; i < list.size(); i++) {
-            if (filter.test(list.get(i))) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Optional<T> findOne(Collection<T> list, Predicate<T> filter) {
-        return list
-            .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-    //
-    // quickly turn a map of values into its list equivalent
-    public static <T> List<T> valuesToList(Map<?, T> map) {
-        return new ArrayList<>(map.values());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.java`
-#### Snippet
-```java
-     * @return a new allocated list of sorted things
-     */
-    public static <T extends GraphQLSchemaElement> List<T> sortTypes(Comparator<? super GraphQLSchemaElement> comparator, Collection<T> types) {
-        List<T> sorted = new ArrayList<>(types);
-        sorted.sort(comparator);
-```
-
-### BoundedWildcard
 Can generalize to `? super Builder`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLScalarType.java`
 #### Snippet
@@ -2592,114 +2592,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLScalarType.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeBuilder.java`
-#### Snippet
-```java
-    }
-
-    <T extends GraphQLSchemaElement> List<T> sort(List<T> types, Class<? extends GraphQLSchemaElement> parentType, Class<? extends GraphQLSchemaElement> elementType) {
-        Comparator<? super GraphQLSchemaElement> comparator = getComparatorImpl(comparatorRegistry, parentType, elementType);
-        return ImmutableList.copyOf(GraphqlTypeComparators.sortTypes(comparator, types));
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeResolver`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static TypeResolver getTypeResolverForUnion(GraphQLUnionType parentType, Map<String, TypeResolver> typeResolverMap) {
-        assertNotNull(parentType);
-        TypeResolver typeResolver = typeResolverMap.get(parentType.getName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataFetcherFactory`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static DataFetcher<?> getDataFetcherImpl(FieldCoordinates coordinates, GraphQLFieldDefinition fieldDefinition, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap, DataFetcherFactory<?> defaultDataFetcherFactory) {
-        assertNotNull(coordinates);
-        assertNotNull(fieldDefinition);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataFetcherFactory`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static DataFetcher<?> getDataFetcherImpl(FieldCoordinates coordinates, GraphQLFieldDefinition fieldDefinition, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap, DataFetcherFactory<?> defaultDataFetcherFactory) {
-        assertNotNull(coordinates);
-        assertNotNull(fieldDefinition);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataFetcher`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-         * @return this builder
-         */
-        public Builder dataFetchers(String parentTypeName, Map<String, DataFetcher<?>> fieldDataFetchers) {
-            assertNotNull(fieldDataFetchers);
-            fieldDataFetchers.forEach((fieldName, dataFetcher) -> dataFetcher(coordinates(parentTypeName, fieldName), dataFetcher));
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-     * @return a new GraphQLCodeRegistry object based on calling build on that builder
-     */
-    public GraphQLCodeRegistry transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newCodeRegistry(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataFetcherFactory`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static boolean hasDataFetcherImpl(FieldCoordinates coords, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap) {
-        assertNotNull(coords);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataFetcherFactory`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static boolean hasDataFetcherImpl(FieldCoordinates coords, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap) {
-        assertNotNull(coords);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeResolver`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-    }
-
-    private static TypeResolver getTypeResolverForInterface(GraphQLInterfaceType parentType, Map<String, TypeResolver> typeResolverMap) {
-        assertNotNull(parentType);
-        TypeResolver typeResolver = typeResolverMap.get(parentType.getName());
-```
-
-### BoundedWildcard
 Can generalize to `? extends FragmentDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironmentImpl.java`
 #### Snippet
@@ -2709,6 +2601,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironmentImp
         public Builder fragmentsByName(Map<String, FragmentDefinition> fragmentsByName) {
             this.fragmentsByName = ImmutableMap.copyOf(fragmentsByName);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeBuilder.java`
+#### Snippet
+```java
+    }
+
+    <T extends GraphQLSchemaElement> List<T> sort(List<T> types, Class<? extends GraphQLSchemaElement> parentType, Class<? extends GraphQLSchemaElement> elementType) {
+        Comparator<? super GraphQLSchemaElement> comparator = getComparatorImpl(comparatorRegistry, parentType, elementType);
+        return ImmutableList.copyOf(GraphqlTypeComparators.sortTypes(comparator, types));
 ```
 
 ### BoundedWildcard
@@ -2748,6 +2652,150 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends GraphQLNamedOutputType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
+#### Snippet
+```java
+    }
+
+    void replaceTypes(List<GraphQLNamedOutputType> types) {
+        this.replacedTypes = ImmutableList.copyOf(types);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
+#### Snippet
+```java
+     * @return a new object based on calling build on that builder
+     */
+    public GraphQLUnionType transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newUnionType(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeResolver`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static TypeResolver getTypeResolverForInterface(GraphQLInterfaceType parentType, Map<String, TypeResolver> typeResolverMap) {
+        assertNotNull(parentType);
+        TypeResolver typeResolver = typeResolverMap.get(parentType.getName());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcher`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+         * @return this builder
+         */
+        public Builder dataFetchers(String parentTypeName, Map<String, DataFetcher<?>> fieldDataFetchers) {
+            assertNotNull(fieldDataFetchers);
+            fieldDataFetchers.forEach((fieldName, dataFetcher) -> dataFetcher(coordinates(parentTypeName, fieldName), dataFetcher));
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeResolver`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static TypeResolver getTypeResolverForUnion(GraphQLUnionType parentType, Map<String, TypeResolver> typeResolverMap) {
+        assertNotNull(parentType);
+        TypeResolver typeResolver = typeResolverMap.get(parentType.getName());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcherFactory`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static boolean hasDataFetcherImpl(FieldCoordinates coords, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap) {
+        assertNotNull(coords);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcherFactory`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static boolean hasDataFetcherImpl(FieldCoordinates coords, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap) {
+        assertNotNull(coords);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+     * @return a new GraphQLCodeRegistry object based on calling build on that builder
+     */
+    public GraphQLCodeRegistry transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newCodeRegistry(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
+#### Snippet
+```java
+
+
+    ImmutableMap<String, GraphQLNamedType> allTypes(final GraphQLSchema schema, final Set<GraphQLType> additionalTypes, boolean afterTransform) {
+        List<GraphQLSchemaElement> roots = new ArrayList<>();
+        if (schema.isQueryDefined()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcherFactory`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static DataFetcher<?> getDataFetcherImpl(FieldCoordinates coordinates, GraphQLFieldDefinition fieldDefinition, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap, DataFetcherFactory<?> defaultDataFetcherFactory) {
+        assertNotNull(coordinates);
+        assertNotNull(fieldDefinition);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcherFactory`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+    }
+
+    private static DataFetcher<?> getDataFetcherImpl(FieldCoordinates coordinates, GraphQLFieldDefinition fieldDefinition, Map<FieldCoordinates, DataFetcherFactory<?>> dataFetcherMap, Map<String, DataFetcherFactory<?>> systemDataFetcherMap, DataFetcherFactory<?> defaultDataFetcherFactory) {
+        assertNotNull(coordinates);
+        assertNotNull(fieldDefinition);
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
+#### Snippet
+```java
+     * @return a new field based on calling build on that builder
+     */
+    public GraphQLEnumType transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newEnum(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
 Can generalize to `? extends GraphQLEnumValueDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
 #### Snippet
@@ -2772,18 +2820,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
-#### Snippet
-```java
-     * @return a new field based on calling build on that builder
-     */
-    public GraphQLEnumType transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newEnum(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLEnumValueDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
 #### Snippet
@@ -2793,42 +2829,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
         public Builder replaceValues(List<GraphQLEnumValueDefinition> valueDefinitions) {
             this.values.clear();
             valueDefinitions.forEach(this::value);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
-#### Snippet
-```java
-     * @return a new object based on calling build on that builder
-     */
-    public GraphQLUnionType transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newUnionType(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLNamedOutputType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
-#### Snippet
-```java
-    }
-
-    void replaceTypes(List<GraphQLNamedOutputType> types) {
-        this.replacedTypes = ImmutableList.copyOf(types);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
-#### Snippet
-```java
-
-
-    ImmutableMap<String, GraphQLNamedType> allTypes(final GraphQLSchema schema, final Set<GraphQLType> additionalTypes, boolean afterTransform) {
-        List<GraphQLSchemaElement> roots = new ArrayList<>();
-        if (schema.isQueryDefined()) {
 ```
 
 ### BoundedWildcard
@@ -2856,39 +2856,39 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DefaultGraphqlTypeComparat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends NodeZipper`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+Can generalize to `? super GraphQLSchemaElement`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringSchemaGeneratorPostProcessing.java`
 #### Snippet
 ```java
+        }
 
-    private Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> zipperWithSameParent(GraphQLSchemaElement parent,
-                                                                                                               Set<NodeZipper<GraphQLSchemaElement>> zippers,
-                                                                                                               Map<NodeZipper<GraphQLSchemaElement>, List<List<Breadcrumb<GraphQLSchemaElement>>>> curBreadcrumbsByZipper) {
-        Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> result = new LinkedHashMap<>();
+        private TraversalControl changOrContinue(GraphQLSchemaElement node, GraphQLSchemaElement newNode, TraverserContext<GraphQLSchemaElement> context) {
+            if (node != newNode) {
+                TreeTransformerUtil.changeNode(context, newNode);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>>
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+Can generalize to `? extends NamedNode`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringSchemaGeneratorPostProcessing.java`
 #### Snippet
 ```java
-    private Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> zipperWithSameParent(GraphQLSchemaElement parent,
-                                                                                                               Set<NodeZipper<GraphQLSchemaElement>> zippers,
-                                                                                                               Map<NodeZipper<GraphQLSchemaElement>, List<List<Breadcrumb<GraphQLSchemaElement>>>> curBreadcrumbsByZipper) {
-        Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> result = new LinkedHashMap<>();
-        outer:
+        }
+
+        private <T extends GraphQLNamedType> boolean notSuitable(T node, Function<T, NamedNode<?>> suitableFunc) {
+            if (isIntrospectionType(node)) {
+                return true;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+Can generalize to `? super RuntimeWiring.Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/EchoingWiringFactory.java`
 #### Snippet
 ```java
-    private NodeZipper<GraphQLSchemaElement> moveUp(
-            GraphQLSchemaElement parent,
-            Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> sameParentsZipper) {
-        Set<NodeZipper<GraphQLSchemaElement>> sameParent = sameParentsZipper.keySet();
-        assertNotEmpty(sameParent, () -> "expected at least one zipper");
+    }
+
+    public static RuntimeWiring newEchoingWiring(Consumer<RuntimeWiring.Builder> builderConsumer) {
+        RuntimeWiring.Builder builder = RuntimeWiring.newRuntimeWiring();
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -2928,51 +2928,27 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends NodeZipper`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 #### Snippet
 ```java
-    }
 
-    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
-        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
-        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
+    private Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> zipperWithSameParent(GraphQLSchemaElement parent,
+                                                                                                               Set<NodeZipper<GraphQLSchemaElement>> zippers,
+                                                                                                               Map<NodeZipper<GraphQLSchemaElement>, List<List<Breadcrumb<GraphQLSchemaElement>>>> curBreadcrumbsByZipper) {
+        Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> result = new LinkedHashMap<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLNamedType`
+Can generalize to `? extends List`>>
 in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 #### Snippet
 ```java
-    }
-
-    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
-        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
-        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
-#### Snippet
-```java
-    }
-
-    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
-        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
-        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLTypeReference`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
-#### Snippet
-```java
-    }
-
-    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
-        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
-        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
+    private Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> zipperWithSameParent(GraphQLSchemaElement parent,
+                                                                                                               Set<NodeZipper<GraphQLSchemaElement>> zippers,
+                                                                                                               Map<NodeZipper<GraphQLSchemaElement>, List<List<Breadcrumb<GraphQLSchemaElement>>>> curBreadcrumbsByZipper) {
+        Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> result = new LinkedHashMap<>();
+        outer:
 ```
 
 ### BoundedWildcard
@@ -3048,27 +3024,75 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RuntimeWiring.Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/EchoingWiringFactory.java`
+Can generalize to `? extends List`>
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+#### Snippet
+```java
+    private NodeZipper<GraphQLSchemaElement> moveUp(
+            GraphQLSchemaElement parent,
+            Map<NodeZipper<GraphQLSchemaElement>, List<Breadcrumb<GraphQLSchemaElement>>> sameParentsZipper) {
+        Set<NodeZipper<GraphQLSchemaElement>> sameParent = sameParentsZipper.keySet();
+        assertNotEmpty(sameParent, () -> "expected at least one zipper");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 #### Snippet
 ```java
     }
 
-    public static RuntimeWiring newEchoingWiring(Consumer<RuntimeWiring.Builder> builderConsumer) {
-        RuntimeWiring.Builder builder = RuntimeWiring.newRuntimeWiring();
-        builderConsumer.accept(builder);
+    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
+        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
+        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
+Can generalize to `? super GraphQLNamedType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public Builder additionalDirectives(Set<GraphQLDirective> additionalDirectives) {
-            this.additionalDirectives.addAll(additionalDirectives);
-            return this;
+    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
+        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
+        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+#### Snippet
+```java
+    }
+
+    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
+        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
+        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super GraphQLTypeReference`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
+#### Snippet
+```java
+    }
+
+    private void traverseAndTransform(DummyRoot dummyRoot, Map<String, GraphQLNamedType> changedTypes, Map<String, GraphQLTypeReference> typeReferences, GraphQLTypeVisitor visitor, GraphQLCodeRegistry.Builder codeRegistry) {
+        List<NodeZipper<GraphQLSchemaElement>> zippers = new LinkedList<>();
+        Map<GraphQLSchemaElement, NodeZipper<GraphQLSchemaElement>> zipperByNodeAfterTraversing = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataFetcher`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeRuntimeWiring.java`
+#### Snippet
+```java
+         * @return the current type wiring
+         */
+        public Builder dataFetchers(Map<String, DataFetcher> dataFetchersMap) {
+            assertNotNull(dataFetchersMap, () -> "you must provide a data fetchers map");
+            fieldDataFetchers.putAll(dataFetchersMap);
 ```
 
 ### BoundedWildcard
@@ -3096,27 +3120,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLSchemaElement`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringSchemaGeneratorPostProcessing.java`
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
 #### Snippet
 ```java
         }
 
-        private TraversalControl changOrContinue(GraphQLSchemaElement node, GraphQLSchemaElement newNode, TraverserContext<GraphQLSchemaElement> context) {
-            if (node != newNode) {
-                TreeTransformerUtil.changeNode(context, newNode);
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedNode`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringSchemaGeneratorPostProcessing.java`
-#### Snippet
-```java
-        }
-
-        private <T extends GraphQLNamedType> boolean notSuitable(T node, Function<T, NamedNode<?>> suitableFunc) {
-            if (isIntrospectionType(node)) {
-                return true;
+        public Builder additionalDirectives(Set<GraphQLDirective> additionalDirectives) {
+            this.additionalDirectives.addAll(additionalDirectives);
+            return this;
 ```
 
 ### BoundedWildcard
@@ -3132,18 +3144,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/UnionTypesChecker.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataFetcher`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeRuntimeWiring.java`
-#### Snippet
-```java
-         * @return the current type wiring
-         */
-        public Builder dataFetchers(Map<String, DataFetcher> dataFetchersMap) {
-            assertNotNull(dataFetchersMap, () -> "you must provide a data fetchers map");
-            fieldDataFetchers.putAll(dataFetchersMap);
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLFieldDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/FetchSchemaDirectiveWiring.java`
 #### Snippet
@@ -3156,54 +3156,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/FetchSchemaDirectiveWi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLEnumType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLEnumType onEnum(SchemaDirectiveWiringEnvironment<GraphQLEnumType> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLInputObjectField`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLInputObjectField onInputObjectField(SchemaDirectiveWiringEnvironment<GraphQLInputObjectField> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLInterfaceType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLInterfaceType onInterface(SchemaDirectiveWiringEnvironment<GraphQLInterfaceType> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLFieldDefinition onField(SchemaDirectiveWiringEnvironment<GraphQLFieldDefinition> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLInputObjectType`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
 #### Snippet
@@ -3211,42 +3163,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.
      * @return a non null element based on the original one
      */
     default GraphQLInputObjectType onInputObjectType(SchemaDirectiveWiringEnvironment<GraphQLInputObjectType> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLScalarType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLScalarType onScalar(SchemaDirectiveWiringEnvironment<GraphQLScalarType> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLObjectType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLObjectType onObject(SchemaDirectiveWiringEnvironment<GraphQLObjectType> environment) {
-        return environment.getElement();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLUnionType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
-     * @return a non null element based on the original one
-     */
-    default GraphQLUnionType onUnion(SchemaDirectiveWiringEnvironment<GraphQLUnionType> environment) {
         return environment.getElement();
     }
 ```
@@ -3264,6 +3180,66 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends GraphQLFieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLFieldDefinition onField(SchemaDirectiveWiringEnvironment<GraphQLFieldDefinition> environment) {
+        return environment.getElement();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLScalarType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLScalarType onScalar(SchemaDirectiveWiringEnvironment<GraphQLScalarType> environment) {
+        return environment.getElement();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLUnionType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLUnionType onUnion(SchemaDirectiveWiringEnvironment<GraphQLUnionType> environment) {
+        return environment.getElement();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLInterfaceType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLInterfaceType onInterface(SchemaDirectiveWiringEnvironment<GraphQLInterfaceType> environment) {
+        return environment.getElement();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLEnumType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLEnumType onEnum(SchemaDirectiveWiringEnvironment<GraphQLEnumType> environment) {
+        return environment.getElement();
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends GraphQLEnumValueDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
 #### Snippet
@@ -3276,15 +3252,27 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
+Can generalize to `? extends GraphQLInputObjectField`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
 #### Snippet
 ```java
-        }
+     * @return a non null element based on the original one
+     */
+    default GraphQLInputObjectField onInputObjectField(SchemaDirectiveWiringEnvironment<GraphQLInputObjectField> environment) {
+        return environment.getElement();
+    }
+```
 
-        public Builder replaceFields(List<GraphQLFieldDefinition> fieldDefinitions) {
-            assertNotNull(fieldDefinitions, () -> "fieldDefinitions can't be null");
-            this.fields.clear();
+### BoundedWildcard
+Can generalize to `? extends GraphQLObjectType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+     * @return a non null element based on the original one
+     */
+    default GraphQLObjectType onObject(SchemaDirectiveWiringEnvironment<GraphQLObjectType> environment) {
+        return environment.getElement();
+    }
 ```
 
 ### BoundedWildcard
@@ -3300,27 +3288,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
+Can generalize to `? extends GraphQLInterfaceType`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
 #### Snippet
 ```java
-     * @return a new object based on calling build on that builder
-     */
-    public GraphQLInterfaceType transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newInterface(this);
-        builderConsumer.accept(builder);
-```
+        }
 
-### BoundedWildcard
-Can generalize to `? extends GraphQLNamedOutputType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
-#### Snippet
-```java
-    }
-
-    void replaceInterfaces(List<GraphQLNamedOutputType> interfaces) {
-        this.replacedInterfaces = ImmutableList.copyOf(sortTypes(interfaceComparator, interfaces));
-    }
+        public Builder replaceInterfaces(List<GraphQLInterfaceType> interfaces) {
+            assertNotNull(interfaces, () -> "interfaces can't be null");
+            this.interfaces.clear();
 ```
 
 ### BoundedWildcard
@@ -3336,39 +3312,39 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLInterfaceType`
+Can generalize to `? extends GraphQLFieldDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
 #### Snippet
 ```java
         }
 
-        public Builder replaceInterfaces(List<GraphQLInterfaceType> interfaces) {
-            assertNotNull(interfaces, () -> "interfaces can't be null");
-            this.interfaces.clear();
+        public Builder replaceFields(List<GraphQLFieldDefinition> fieldDefinitions) {
+            assertNotNull(fieldDefinitions, () -> "fieldDefinitions can't be null");
+            this.fields.clear();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLInputObjectField`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.java`
-#### Snippet
-```java
-        }
-
-        public Builder fields(List<GraphQLInputObjectField> fields) {
-            fields.forEach(this::field);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLInputObjectField`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.java`
+Can generalize to `? extends GraphQLNamedOutputType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
 #### Snippet
 ```java
     }
 
-    private ImmutableMap<String, GraphQLInputObjectField> buildDefinitionMap(List<GraphQLInputObjectField> fieldDefinitions) {
-        return ImmutableMap.copyOf(FpKit.getByName(fieldDefinitions, GraphQLInputObjectField::getName,
-                (fld1, fld2) -> assertShouldNeverHappen("Duplicated definition for field '%s' in type '%s'", fld1.getName(), this.name)));
+    void replaceInterfaces(List<GraphQLNamedOutputType> interfaces) {
+        this.replacedInterfaces = ImmutableList.copyOf(sortTypes(interfaceComparator, interfaces));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInterfaceType.java`
+#### Snippet
+```java
+     * @return a new object based on calling build on that builder
+     */
+    public GraphQLInterfaceType transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newInterface(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -3384,6 +3360,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends GraphQLInputObjectField`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.java`
+#### Snippet
+```java
+        }
+
+        public Builder fields(List<GraphQLInputObjectField> fields) {
+            fields.forEach(this::field);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? super Builder`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.java`
 #### Snippet
@@ -3396,63 +3384,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InterfaceTypeDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
-#### Snippet
-```java
-            TypeDefinitionRegistry typeRegistry,
-            ImplementingTypeDefinition type,
-            Map<InterfaceTypeDefinition, ImplementingTypeDefinition> implementedInterfaces
-    ) {
-        Set<FieldDefinition> fieldDefinitions = getLogicallyDeclaredFields(type, typeRegistry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImplementingTypeDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
-#### Snippet
-```java
-            TypeDefinitionRegistry typeRegistry,
-            ImplementingTypeDefinition type,
-            Map<InterfaceTypeDefinition, ImplementingTypeDefinition> implementedInterfaces
-    ) {
-        Set<FieldDefinition> fieldDefinitions = getLogicallyDeclaredFields(type, typeRegistry);
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
-#### Snippet
-```java
-
-    private Map<InterfaceTypeDefinition, ImplementingTypeDefinition> checkInterfacesNotImplementedMoreThanOnce(
-            List<GraphQLError> errors,
-            ImplementingTypeDefinition type,
-            TypeDefinitionRegistry typeRegistry
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
-#### Snippet
-```java
-            FieldDefinition objectFieldDef,
-            FieldDefinition interfaceFieldDef,
-            List<GraphQLError> errors
-    ) {
-        List<InputValueDefinition> objectArgs = objectFieldDef.getInputValueDefinitions();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+Can generalize to `? extends GraphQLInputObjectField`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectType.java`
 #### Snippet
 ```java
     }
 
-    private Set<InterfaceTypeDefinition> toInterfaceTypeDefinitions(TypeDefinitionRegistry typeRegistry, Collection<Type> implementsTypes) {
-        return TypeDefinitionRegistry.fromSourceNodes(
-            implementsTypes.stream()
+    private ImmutableMap<String, GraphQLInputObjectField> buildDefinitionMap(List<GraphQLInputObjectField> fieldDefinitions) {
+        return ImmutableMap.copyOf(FpKit.getByName(fieldDefinitions, GraphQLInputObjectField::getName,
+                (fld1, fld2) -> assertShouldNeverHappen("Duplicated definition for field '%s' in type '%s'", fld1.getName(), this.name)));
 ```
 
 ### BoundedWildcard
@@ -3492,15 +3432,99 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesCheck
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesChecker.java`
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
 #### Snippet
 ```java
     }
 
-    private void assertTypeName(NamedNode node, List<GraphQLError> errors) {
-        if (node.getName().length() >= 2 && node.getName().startsWith("__")) {
-            errors.add((new IllegalNameError(node)));
+    private Set<InterfaceTypeDefinition> toInterfaceTypeDefinitions(TypeDefinitionRegistry typeRegistry, Collection<Type> implementsTypes) {
+        return TypeDefinitionRegistry.fromSourceNodes(
+            implementsTypes.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+#### Snippet
+```java
+
+    private Map<InterfaceTypeDefinition, ImplementingTypeDefinition> checkInterfacesNotImplementedMoreThanOnce(
+            List<GraphQLError> errors,
+            ImplementingTypeDefinition type,
+            TypeDefinitionRegistry typeRegistry
+```
+
+### BoundedWildcard
+Can generalize to `? super GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+#### Snippet
+```java
+            FieldDefinition objectFieldDef,
+            FieldDefinition interfaceFieldDef,
+            List<GraphQLError> errors
+    ) {
+        List<InputValueDefinition> objectArgs = objectFieldDef.getInputValueDefinitions();
+```
+
+### BoundedWildcard
+Can generalize to `? extends InterfaceTypeDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+#### Snippet
+```java
+            TypeDefinitionRegistry typeRegistry,
+            ImplementingTypeDefinition type,
+            Map<InterfaceTypeDefinition, ImplementingTypeDefinition> implementedInterfaces
+    ) {
+        Set<FieldDefinition> fieldDefinitions = getLogicallyDeclaredFields(type, typeRegistry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImplementingTypeDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+#### Snippet
+```java
+            TypeDefinitionRegistry typeRegistry,
+            ImplementingTypeDefinition type,
+            Map<InterfaceTypeDefinition, ImplementingTypeDefinition> implementedInterfaces
+    ) {
+        Set<FieldDefinition> fieldDefinitions = getLogicallyDeclaredFields(type, typeRegistry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
+#### Snippet
+```java
+    }
+
+    private <T> boolean isNotTheSameObjects(List<T> starting, List<T> ending) {
+        if (starting == ending) {
+            return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
+#### Snippet
+```java
+    }
+
+    private <T> boolean isNotTheSameObjects(List<T> starting, List<T> ending) {
+        if (starting == ending) {
+            return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLScalarType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ScalarInfo.java`
+#### Snippet
+```java
+    }
+
+    private static boolean inList(List<GraphQLScalarType> scalarList, String scalarTypeName) {
+        return scalarList.stream().anyMatch(sc -> sc.getName().equals(scalarTypeName));
+    }
 ```
 
 ### BoundedWildcard
@@ -3516,15 +3540,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesCh
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
+Can generalize to `? super GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesChecker.java`
 #### Snippet
 ```java
     }
 
-    private void checkFieldsDirectives(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, List<FieldDefinition> fieldDefinitions) {
-        fieldDefinitions.forEach(definition -> {
-            checkDirectives(FIELD_DEFINITION, errors, typeRegistry, definition, definition.getName(), definition.getDirectives());
+    private void assertTypeName(NamedNode node, List<GraphQLError> errors) {
+        if (node.getName().length() >= 2 && node.getName().startsWith("__")) {
+            errors.add((new IllegalNameError(node)));
 ```
 
 ### BoundedWildcard
@@ -3552,51 +3576,27 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesCh
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLScalarType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ScalarInfo.java`
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesChecker.java`
 #### Snippet
 ```java
     }
 
-    private static boolean inList(List<GraphQLScalarType> scalarList, String scalarTypeName) {
-        return scalarList.stream().anyMatch(sc -> sc.getName().equals(scalarTypeName));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
-#### Snippet
-```java
-    }
-
-    private <T> boolean isNotTheSameObjects(List<T> starting, List<T> ending) {
-        if (starting == ending) {
-            return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
-#### Snippet
-```java
-    }
-
-    private <T> boolean isNotTheSameObjects(List<T> starting, List<T> ending) {
-        if (starting == ending) {
-            return false;
+    private void checkFieldsDirectives(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, List<FieldDefinition> fieldDefinitions) {
+        fieldDefinitions.forEach(definition -> {
+            checkDirectives(FIELD_DEFINITION, errors, typeRegistry, definition, definition.getName(), definition.getDirectives());
 ```
 
 ### BoundedWildcard
 Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaExtensionsChecker.java`
 #### Snippet
 ```java
     }
 
-    private void addValidationError(List<GraphQLError> errors, String message, Object... args) {
-        errors.add(new DirectiveIllegalArgumentTypeError(element, elementName, directive.getName(), argument.getName(), String.format(message, args)));
-    }
+    private static Consumer<OperationTypeDefinition> checkOperationTypesExist(TypeDefinitionRegistry typeRegistry, List<GraphQLError> errors) {
+        return op -> {
+            TypeName unwrapped = TypeInfo.typeInfo(op.getTypeName()).getTypeName();
 ```
 
 ### BoundedWildcard
@@ -3661,14 +3661,50 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaExtensionsChecke
 
 ### BoundedWildcard
 Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaExtensionsChecker.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
 #### Snippet
 ```java
     }
 
-    private static Consumer<OperationTypeDefinition> checkOperationTypesExist(TypeDefinitionRegistry typeRegistry, List<GraphQLError> errors) {
-        return op -> {
-            TypeName unwrapped = TypeInfo.typeInfo(op.getTypeName()).getTypeName();
+    private void addValidationError(List<GraphQLError> errors, String message, Object... args) {
+        errors.add(new DirectiveIllegalArgumentTypeError(element, elementName, directive.getName(), argument.getName(), String.format(message, args)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
+#### Snippet
+```java
+    }
+
+    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
+        String name = newEntry.getName();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
+#### Snippet
+```java
+    }
+
+    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
+        String name = newEntry.getName();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
+#### Snippet
+```java
+    }
+
+    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
+        String name = newEntry.getName();
+
 ```
 
 ### BoundedWildcard
@@ -3720,54 +3756,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
-#### Snippet
-```java
-    private final List<GraphQLException> myErrors = new ArrayList<>();
-
-    public static <T extends Node> Stream<T> fromSourceNodes(@NotNull Stream<T> definitions, @NotNull Class<T> targetClass) {
-        //noinspection unchecked
-        return definitions
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
-#### Snippet
-```java
-    private final List<GraphQLException> myErrors = new ArrayList<>();
-
-    public static <T extends Node> Stream<T> fromSourceNodes(@NotNull Stream<T> definitions, @NotNull Class<T> targetClass) {
-        //noinspection unchecked
-        return definitions
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
-#### Snippet
-```java
-    }
-
-    private <T> void defineExt(Map<String, List<T>> typeExtensions, T newEntry, Function<T, String> namerFunc) {
-        List<T> currentList = typeExtensions.computeIfAbsent(namerFunc.apply(newEntry), k -> new ArrayList<>());
-        currentList.add(newEntry);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
-#### Snippet
-```java
-    }
-
-    private <T> void defineExt(Map<String, List<T>> typeExtensions, T newEntry, Function<T, String> namerFunc) {
-        List<T> currentList = typeExtensions.computeIfAbsent(namerFunc.apply(newEntry), k -> new ArrayList<>());
-        currentList.add(newEntry);
-```
-
-### BoundedWildcard
 Can generalize to `? extends SDLDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
 #### Snippet
@@ -3784,11 +3772,23 @@ Can generalize to `? extends T`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
 #### Snippet
 ```java
-    }
+    private final List<GraphQLException> myErrors = new ArrayList<>();
 
-    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
-        String name = newEntry.getName();
+    public static <T extends Node> Stream<T> fromSourceNodes(@NotNull Stream<T> definitions, @NotNull Class<T> targetClass) {
+        //noinspection unchecked
+        return definitions
+```
 
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry.java`
+#### Snippet
+```java
+    private final List<GraphQLException> myErrors = new ArrayList<>();
+
+    public static <T extends Node> Stream<T> fromSourceNodes(@NotNull Stream<T> definitions, @NotNull Class<T> targetClass) {
+        //noinspection unchecked
+        return definitions
 ```
 
 ### BoundedWildcard
@@ -3798,9 +3798,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry
 ```java
     }
 
-    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
-        String name = newEntry.getName();
-
+    private <T> void defineExt(Map<String, List<T>> typeExtensions, T newEntry, Function<T, String> namerFunc) {
+        List<T> currentList = typeExtensions.computeIfAbsent(namerFunc.apply(newEntry), k -> new ArrayList<>());
+        currentList.add(newEntry);
 ```
 
 ### BoundedWildcard
@@ -3810,9 +3810,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeDefinitionRegistry
 ```java
     }
 
-    private <T extends DirectiveDefinition> void define(Map<String, T> source, Map<String, T> target, T newEntry) {
-        String name = newEntry.getName();
-
+    private <T> void defineExt(Map<String, List<T>> typeExtensions, T newEntry, Function<T, String> namerFunc) {
+        List<T> currentList = typeExtensions.computeIfAbsent(namerFunc.apply(newEntry), k -> new ArrayList<>());
+        currentList.add(newEntry);
 ```
 
 ### BoundedWildcard
@@ -3828,18 +3828,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
-#### Snippet
-```java
-        }
-
-        public Builder fields(List<GraphQLFieldDefinition> fieldDefinitions) {
-            assertNotNull(fieldDefinitions, () -> "fieldDefinitions can't be null");
-            fieldDefinitions.forEach(this::field);
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLNamedOutputType`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
 #### Snippet
@@ -3849,6 +3837,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
     void replaceInterfaces(List<GraphQLNamedOutputType> interfaces) {
         this.replacedInterfaces = ImmutableList.copyOf(sortTypes(interfaceComparator, interfaces));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLFieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
+#### Snippet
+```java
+        }
+
+        public Builder fields(List<GraphQLFieldDefinition> fieldDefinitions) {
+            assertNotNull(fieldDefinitions, () -> "fieldDefinitions can't be null");
+            fieldDefinitions.forEach(this::field);
 ```
 
 ### BoundedWildcard
@@ -3924,75 +3924,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRul
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+Can generalize to `? super GraphQLType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/transform/FieldVisibilitySchemaTransformation.java`
 #### Snippet
 ```java
-    }
 
-    String directivesString(Class<? extends GraphQLSchemaElement> parent, List<GraphQLDirective> directives) {
-        directives = directives.stream()
-            // @deprecated is special - we always print it if something is deprecated
-```
 
-### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    }
-
-    private String directiveDefinitions(List<GraphQLDirective> directives) {
-        StringBuilder sb = new StringBuilder();
-        directives.stream().filter(options.getIncludeSchemaElement()).forEach(directive -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasDeprecatedDirective(List<GraphQLDirective> directives) {
-        return directives.stream()
-            .filter(this::isDeprecatedDirective)
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLArgument`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    }
-
-    String argsString(Class<? extends GraphQLSchemaElement> parent, List<GraphQLArgument> arguments) {
-        boolean hasDescriptions = arguments.stream().anyMatch(this::hasDescription);
-        String indent = hasDescriptions ? calcIndent(1) : "";
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    }
-
-    private void printType(PrintWriter out, List<GraphQLType> typesAsList, Class<?>
-        typeClazz, GraphqlFieldVisibility visibility) {
-        typesAsList.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLFieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    private void printFieldDefinitions(PrintWriter out,
-                                       Comparator<? super GraphQLSchemaElement> comparator,
-                                       List<GraphQLFieldDefinition> fieldDefinitions) {
-        if (fieldDefinitions.size() == 0) {
-            return;
+        private TypeObservingVisitor(Set<GraphQLType> observedTypes, GraphQLSchema graphQLSchema) {
+            this.observedTypes = observedTypes;
+            this.graphQLSchema = graphQLSchema;
 ```
 
 ### BoundedWildcard
@@ -4020,15 +3960,75 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/transform/FieldVisibilityS
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/transform/FieldVisibilitySchemaTransformation.java`
+Can generalize to `? extends GraphQLFieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 #### Snippet
 ```java
+    private void printFieldDefinitions(PrintWriter out,
+                                       Comparator<? super GraphQLSchemaElement> comparator,
+                                       List<GraphQLFieldDefinition> fieldDefinitions) {
+        if (fieldDefinitions.size() == 0) {
+            return;
+```
 
+### BoundedWildcard
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+    }
 
-        private TypeObservingVisitor(Set<GraphQLType> observedTypes, GraphQLSchema graphQLSchema) {
-            this.observedTypes = observedTypes;
-            this.graphQLSchema = graphQLSchema;
+    private String directiveDefinitions(List<GraphQLDirective> directives) {
+        StringBuilder sb = new StringBuilder();
+        directives.stream().filter(options.getIncludeSchemaElement()).forEach(directive -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLArgument`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+    }
+
+    String argsString(Class<? extends GraphQLSchemaElement> parent, List<GraphQLArgument> arguments) {
+        boolean hasDescriptions = arguments.stream().anyMatch(this::hasDescription);
+        String indent = hasDescriptions ? calcIndent(1) : "";
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+    }
+
+    private void printType(PrintWriter out, List<GraphQLType> typesAsList, Class<?>
+        typeClazz, GraphqlFieldVisibility visibility) {
+        typesAsList.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+    }
+
+    String directivesString(Class<? extends GraphQLSchemaElement> parent, List<GraphQLDirective> directives) {
+        directives = directives.stream()
+            // @deprecated is special - we always print it if something is deprecated
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+    }
+
+    private boolean hasDeprecatedDirective(List<GraphQLDirective> directives) {
+        return directives.stream()
+            .filter(this::isDeprecatedDirective)
 ```
 
 ### BoundedWildcard
@@ -4041,6 +4041,114 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/NoUnbrokenInput
     private void check(GraphQLInputObjectType type, Set<GraphQLType> seen, List<String> path, SchemaValidationErrorCollector validationErrorCollector) {
         if (seen.contains(type)) {
             validationErrorCollector.addError(
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+                                                     Set<GraphQLDirective> runtimeDirectives,
+                                                     GraphqlTypeComparatorRegistry comparatorRegistry,
+                                                     Set<String> previousNames) {
+        GraphQLDirective gqlDirective = buildDirective(buildCtx, directive, runtimeDirectives, directiveLocation, comparatorRegistry);
+        if (previousNames.contains(directive.getName()) && gqlDirective.isNonRepeatable()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+
+    GraphQLDirective @NotNull [] buildDirectives(BuildContext buildCtx,
+                                       List<Directive> directives,
+                                       List<Directive> extensionDirectives,
+                                       DirectiveLocation directiveLocation,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+    GraphQLDirective @NotNull [] buildDirectives(BuildContext buildCtx,
+                                       List<Directive> directives,
+                                       List<Directive> extensionDirectives,
+                                       DirectiveLocation directiveLocation,
+                                       Set<GraphQLDirective> runtimeDirectives,
+```
+
+### BoundedWildcard
+Can generalize to `? super Type`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+    private @NotNull Optional<GraphQLArgument> buildDirectiveArgumentFromDefinition(BuildContext buildCtx,
+                                                                 InputValueDefinition arg,
+                                                                 Function<Type, Optional<GraphQLInputType>> inputTypeFactory) {
+        GraphQLArgument.Builder builder = GraphQLArgument.newArgument()
+                .name(arg.getName())
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScalarTypeExtensionDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+    }
+
+    @Nullable String getSpecifiedByUrl(ScalarTypeDefinition scalarTypeDefinition, List<ScalarTypeExtensionDefinition> extensions) {
+        List<Directive> allDirectives = new ArrayList<>(scalarTypeDefinition.getDirectives());
+        extensions.forEach(extension -> allDirectives.addAll(extension.getDirectives()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLDirective`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+
+        @SuppressWarnings("unused")
+        public void addDirectives(Set<GraphQLDirective> directives) {
+            this.directives.addAll(directives);
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends OperationTypeDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+    }
+
+    private @NotNull Optional<OperationTypeDefinition> getOperationNamed(String name, Map<String, OperationTypeDefinition> operationTypeDefs) {
+        return Optional.ofNullable(operationTypeDefs.get(name));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends InterfaceTypeExtensionDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+                                              InterfaceTypeDefinition typeDefinition,
+                                              GraphQLInterfaceType.Builder builder,
+                                              List<InterfaceTypeExtensionDefinition> extensions) {
+        Map<String, GraphQLOutputType> interfaces = new LinkedHashMap<>();
+        typeDefinition.getImplements().forEach(type -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ObjectTypeExtensionDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+                                           ObjectTypeDefinition typeDefinition,
+                                           GraphQLObjectType.Builder builder,
+                                           List<ObjectTypeExtensionDefinition> extensions) {
+        Map<String, GraphQLOutputType> interfaces = new LinkedHashMap<>();
+        typeDefinition.getImplements().forEach(type -> {
 ```
 
 ### BoundedWildcard
@@ -4060,23 +4168,23 @@ Can generalize to `? super GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
 #### Snippet
 ```java
-    }
 
-    private void checkForFieldRedefinition(List<GraphQLError> errors, TypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, List<FieldDefinition> referenceFieldDefinitions) {
-
-        Map<String, FieldDefinition> referenceMap = FpKit.getByName(referenceFieldDefinitions, FieldDefinition::getName, mergeFirst());
+    @SuppressWarnings("unchecked")
+    private void checkTypeExtensionDirectiveRedefinition(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, String name, List<? extends TypeDefinition> extensions, Class<? extends TypeDefinition> targetClass, Map<String, DirectiveDefinition> directiveDefinitionMap) {
+        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
+        if (typeDefinition.isPresent() && typeDefinition.get().getClass().equals(targetClass)) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
+Can generalize to `? super GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
 #### Snippet
 ```java
-    }
 
-    private void checkForFieldRedefinition(List<GraphQLError> errors, TypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, List<FieldDefinition> referenceFieldDefinitions) {
 
-        Map<String, FieldDefinition> referenceMap = FpKit.getByName(referenceFieldDefinitions, FieldDefinition::getName, mergeFirst());
+    private void checkTypeExtensionHasCorrespondingType(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, String name, List<? extends TypeDefinition> extTypeList, Class<? extends TypeDefinition> targetClass) {
+        TypeDefinition extensionDefinition = extTypeList.get(0);
+        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
 ```
 
 ### BoundedWildcard
@@ -4101,6 +4209,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsCh
     private <T> void forEachBut(T butThisOne, List<T> list, Consumer<T> consumer) {
         for (T t : list) {
             if (t == butThisOne) {
+```
+
+### BoundedWildcard
+Can generalize to `? super GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
+#### Snippet
+```java
+    }
+
+    private void checkForFieldRedefinition(List<GraphQLError> errors, TypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, List<FieldDefinition> referenceFieldDefinitions) {
+
+        Map<String, FieldDefinition> referenceMap = FpKit.getByName(referenceFieldDefinitions, FieldDefinition::getName, mergeFirst());
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
+#### Snippet
+```java
+    }
+
+    private void checkForFieldRedefinition(List<GraphQLError> errors, TypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, List<FieldDefinition> referenceFieldDefinitions) {
+
+        Map<String, FieldDefinition> referenceMap = FpKit.getByName(referenceFieldDefinitions, FieldDefinition::getName, mergeFirst());
 ```
 
 ### BoundedWildcard
@@ -4152,138 +4284,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsCh
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
-#### Snippet
-```java
-
-
-    private void checkTypeExtensionHasCorrespondingType(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, String name, List<? extends TypeDefinition> extTypeList, Class<? extends TypeDefinition> targetClass) {
-        TypeDefinition extensionDefinition = extTypeList.get(0);
-        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private void checkTypeExtensionDirectiveRedefinition(List<GraphQLError> errors, TypeDefinitionRegistry typeRegistry, String name, List<? extends TypeDefinition> extensions, Class<? extends TypeDefinition> targetClass, Map<String, DirectiveDefinition> directiveDefinitionMap) {
-        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
-        if (typeDefinition.isPresent() && typeDefinition.get().getClass().equals(targetClass)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Type`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-    private @NotNull Optional<GraphQLArgument> buildDirectiveArgumentFromDefinition(BuildContext buildCtx,
-                                                                 InputValueDefinition arg,
-                                                                 Function<Type, Optional<GraphQLInputType>> inputTypeFactory) {
-        GraphQLArgument.Builder builder = GraphQLArgument.newArgument()
-                .name(arg.getName())
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-                                                     Set<GraphQLDirective> runtimeDirectives,
-                                                     GraphqlTypeComparatorRegistry comparatorRegistry,
-                                                     Set<String> previousNames) {
-        GraphQLDirective gqlDirective = buildDirective(buildCtx, directive, runtimeDirectives, directiveLocation, comparatorRegistry);
-        if (previousNames.contains(directive.getName()) && gqlDirective.isNonRepeatable()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ObjectTypeExtensionDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-                                           ObjectTypeDefinition typeDefinition,
-                                           GraphQLObjectType.Builder builder,
-                                           List<ObjectTypeExtensionDefinition> extensions) {
-        Map<String, GraphQLOutputType> interfaces = new LinkedHashMap<>();
-        typeDefinition.getImplements().forEach(type -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLDirective`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-
-        @SuppressWarnings("unused")
-        public void addDirectives(Set<GraphQLDirective> directives) {
-            this.directives.addAll(directives);
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends OperationTypeDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-    }
-
-    private @NotNull Optional<OperationTypeDefinition> getOperationNamed(String name, Map<String, OperationTypeDefinition> operationTypeDefs) {
-        return Optional.ofNullable(operationTypeDefs.get(name));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScalarTypeExtensionDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-    }
-
-    @Nullable String getSpecifiedByUrl(ScalarTypeDefinition scalarTypeDefinition, List<ScalarTypeExtensionDefinition> extensions) {
-        List<Directive> allDirectives = new ArrayList<>(scalarTypeDefinition.getDirectives());
-        extensions.forEach(extension -> allDirectives.addAll(extension.getDirectives()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends InterfaceTypeExtensionDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-                                              InterfaceTypeDefinition typeDefinition,
-                                              GraphQLInterfaceType.Builder builder,
-                                              List<InterfaceTypeExtensionDefinition> extensions) {
-        Map<String, GraphQLOutputType> interfaces = new LinkedHashMap<>();
-        typeDefinition.getImplements().forEach(type -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-
-    GraphQLDirective @NotNull [] buildDirectives(BuildContext buildCtx,
-                                       List<Directive> directives,
-                                       List<Directive> extensionDirectives,
-                                       DirectiveLocation directiveLocation,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-    GraphQLDirective @NotNull [] buildDirectives(BuildContext buildCtx,
-                                       List<Directive> directives,
-                                       List<Directive> extensionDirectives,
-                                       DirectiveLocation directiveLocation,
-                                       Set<GraphQLDirective> runtimeDirectives,
-```
-
-### BoundedWildcard
 Can generalize to `? super QueryDepthInfo`
 in `src/main/com/intellij/lang/jsgraphql/types/analysis/MaxQueryDepthInstrumentation.java`
 #### Snippet
@@ -4293,18 +4293,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/analysis/MaxQueryDepthInstrumenta
     public MaxQueryDepthInstrumentation(int maxDepth, Function<QueryDepthInfo, Boolean> maxQueryDepthExceededFunction) {
         this.maxDepth = maxDepth;
         this.maxQueryDepthExceededFunction = maxQueryDepthExceededFunction;
-```
-
-### BoundedWildcard
-Can generalize to `? super QueryComplexityInfo`
-in `src/main/com/intellij/lang/jsgraphql/types/analysis/MaxQueryComplexityInstrumentation.java`
-#### Snippet
-```java
-     */
-    public MaxQueryComplexityInstrumentation(int maxComplexity, FieldComplexityCalculator fieldComplexityCalculator,
-                                             Function<QueryComplexityInfo, Boolean> maxQueryComplexityExceededFunction) {
-        this.maxComplexity = maxComplexity;
-        this.fieldComplexityCalculator = assertNotNull(fieldComplexityCalculator, () -> "calculator can't be null");
 ```
 
 ### BoundedWildcard
@@ -4320,6 +4308,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/analysis/QueryTransformer.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super QueryComplexityInfo`
+in `src/main/com/intellij/lang/jsgraphql/types/analysis/MaxQueryComplexityInstrumentation.java`
+#### Snippet
+```java
+     */
+    public MaxQueryComplexityInstrumentation(int maxComplexity, FieldComplexityCalculator fieldComplexityCalculator,
+                                             Function<QueryComplexityInfo, Boolean> maxQueryComplexityExceededFunction) {
+        this.maxComplexity = maxComplexity;
+        this.fieldComplexityCalculator = assertNotNull(fieldComplexityCalculator, () -> "calculator can't be null");
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
 #### Snippet
@@ -4364,6 +4364,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
 
     public static <T> ImmutableList<T> concatLists(List<T> l1, List<T> l2) {
         return ImmutableList.<T>builder().addAll(l1).addAll(l2).build();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
+        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
+        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
+        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
+        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
     }
 ```
 
@@ -4376,54 +4424,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
 
     public static <T> ImmutableList<T> nonNullCopyOf(Collection<T> collection) {
         return collection == null ? emptyList() : ImmutableList.copyOf(collection);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
-        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
-        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
-        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/com/intellij/lang/jsgraphql/types/collect/ImmutableKit.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> ImmutableMap<K, V> mergeMaps(Map<K, V> m1, Map<K, V> m2) {
-        return ImmutableMap.<K, V>builder().putAll(m1).putAll(m2).build();
     }
 ```
 
@@ -4452,13 +4452,37 @@ in `src/main/com/intellij/lang/jsgraphql/types/analysis/QueryTraverser.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends EnumValueDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
+#### Snippet
+```java
+    }
+
+    private void checkEnumValues(List<GraphQLError> errors, EnumTypeDefinition enumType, List<EnumValueDefinition> enumValueDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
+
+        // enum unique ness
+```
+
+### BoundedWildcard
+Can generalize to `? super GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
+#### Snippet
+```java
+    }
+
+    private Consumer<Type> checkTypeExists(TypeDefinitionRegistry typeRegistry, List<GraphQLError> errors, String typeOfType, Node element, String elementName) {
+        return ivType -> {
+            TypeName unwrapped = TypeInfo.typeInfo(ivType).getTypeName();
+```
+
+### BoundedWildcard
 Can generalize to `? extends FieldDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
 #### Snippet
 ```java
     }
 
-    private void checkInterfaceFields(List<GraphQLError> errors, InterfaceTypeDefinition interfaceType, List<FieldDefinition> fieldDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
+    private void checkObjTypeFields(List<GraphQLError> errors, ObjectTypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
         // field unique ness
         checkNamedUniqueness(errors, fieldDefinitions, FieldDefinition::getName,
 ```
@@ -4476,6 +4500,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends InputValueDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
+#### Snippet
+```java
+    }
+
+    private void checkInputValues(List<GraphQLError> errors, InputObjectTypeDefinition inputType, List<InputValueDefinition> inputValueDefinitions, Introspection.DirectiveLocation directiveLocation, Map<String, DirectiveDefinition> directiveDefinitionMap) {
+
+        // field unique ness
+```
+
+### BoundedWildcard
 Can generalize to `? super GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
 #### Snippet
@@ -4488,15 +4524,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GraphQLError`
+Can generalize to `? extends FieldDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
 #### Snippet
 ```java
     }
 
-    private Consumer<Type> checkTypeExists(TypeDefinitionRegistry typeRegistry, List<GraphQLError> errors, String typeOfType, Node element, String elementName) {
-        return ivType -> {
-            TypeName unwrapped = TypeInfo.typeInfo(ivType).getTypeName();
+    private void checkInterfaceFields(List<GraphQLError> errors, InterfaceTypeDefinition interfaceType, List<FieldDefinition> fieldDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
+        // field unique ness
+        checkNamedUniqueness(errors, fieldDefinitions, FieldDefinition::getName,
 ```
 
 ### BoundedWildcard
@@ -4509,18 +4545,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
     private Consumer<Type> checkTypeExists(String typeOfType, TypeDefinitionRegistry typeRegistry, List<GraphQLError> errors, TypeDefinition typeDefinition) {
         return t -> {
             TypeName unwrapped = TypeInfo.typeInfo(t).getTypeName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends InputValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
-#### Snippet
-```java
-    }
-
-    private void checkInputValues(List<GraphQLError> errors, InputObjectTypeDefinition inputType, List<InputValueDefinition> inputValueDefinitions, Introspection.DirectiveLocation directiveLocation, Map<String, DirectiveDefinition> directiveDefinitionMap) {
-
-        // field unique ness
 ```
 
 ### BoundedWildcard
@@ -4584,39 +4608,99 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
+#### Snippet
+```java
+    }
+
+    public ScalarTypeDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends EnumValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder enumValueDefinitions(List<EnumValueDefinition> enumValueDefinitions) {
+            this.enumValueDefinitions = ImmutableList.copyOf(enumValueDefinitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
 #### Snippet
 ```java
     }
 
-    private void checkEnumValues(List<GraphQLError> errors, EnumTypeDefinition enumType, List<EnumValueDefinition> enumValueDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
-
-        // enum unique ness
+    public EnumTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
-#### Snippet
-```java
-    }
-
-    private void checkObjTypeFields(List<GraphQLError> errors, ObjectTypeDefinition typeDefinition, List<FieldDefinition> fieldDefinitions, Map<String, DirectiveDefinition> directiveDefinitionMap) {
-        // field unique ness
-        checkNamedUniqueness(errors, fieldDefinitions, FieldDefinition::getName,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
+Can generalize to `? super Type`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 #### Snippet
 ```java
-        DiffCtx ctx,
-        TypeDefinition newDef,
-        Map<String, FieldDefinition> oldFields,
-        Map<String, FieldDefinition> newFields) {
+    // looks for a type called `Query|Mutation|Subscription` and if it exist then assumes it as an operation def
 
+    private Optional<OperationTypeDefinition> synthOperationTypeDefinition(Function<Type, Optional<ObjectTypeDefinition>> typeReteriver,
+                                                                           String opName) {
+        TypeName type = TypeName.newTypeName().name(capitalize(opName)).build();
 ```
 
 ### BoundedWildcard
@@ -4644,6 +4728,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+        DiffCtx ctx,
+        TypeDefinition newDef,
+        Map<String, FieldDefinition> oldFields,
+        Map<String, FieldDefinition> newFields) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+        TypeDefinition oldDef,
+        Map<String, FieldDefinition> oldFields,
+        Map<String, FieldDefinition> newFields) {
+
+        for (Map.Entry<String, FieldDefinition> entry : oldFields.entrySet()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends SchemaDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 #### Snippet
@@ -4668,90 +4776,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Type`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-    // looks for a type called `Query|Mutation|Subscription` and if it exist then assumes it as an operation def
-
-    private Optional<OperationTypeDefinition> synthOperationTypeDefinition(Function<Type, Optional<ObjectTypeDefinition>> typeReteriver,
-                                                                           String opName) {
-        TypeName type = TypeName.newTypeName().name(capitalize(opName)).build();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-        TypeDefinition oldDef,
-        Map<String, FieldDefinition> oldFields,
-        Map<String, FieldDefinition> newFields) {
-
-        for (Map.Entry<String, FieldDefinition> entry : oldFields.entrySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EnumValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder enumValueDefinitions(List<EnumValueDefinition> enumValueDefinitions) {
-            this.enumValueDefinitions = ImmutableList.copyOf(enumValueDefinitions);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeExtensionDefinition.java`
-#### Snippet
-```java
-    }
-
-    public EnumTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends FragmentDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/analysis/NodeVisitorWithTypeTracking.java`
-#### Snippet
-```java
-
-
-    public NodeVisitorWithTypeTracking(QueryVisitor preOrderCallback, QueryVisitor postOrderCallback, Map<String, Object> variables, GraphQLSchema schema, Map<String, FragmentDefinition> fragmentsByName) {
-        this.preOrderCallback = preOrderCallback;
-        this.postOrderCallback = postOrderCallback;
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/com/intellij/lang/jsgraphql/types/language/AstNodeAdapter.java`
 #### Snippet
@@ -4764,171 +4788,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstNodeAdapter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
+Can generalize to `? extends FragmentDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/analysis/NodeVisitorWithTypeTracking.java`
 #### Snippet
 ```java
 
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
 
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeDefinition.java`
-#### Snippet
-```java
-    }
-
-    public ScalarTypeDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
-#### Snippet
-```java
-    }
-
-    public InlineFragment transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValue.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValue.java`
-#### Snippet
-```java
-    }
-
-    public EnumValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder fieldDefinitions(List<FieldDefinition> fieldDefinitions) {
-            this.fieldDefinitions = ImmutableList.copyOf(fieldDefinitions);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
-#### Snippet
-```java
-    }
-
-    public ObjectTypeDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder implementz(List<Type> implementz) {
-            this.implementz = ImmutableList.copyOf(implementz);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeExtensionDefinition.java`
-#### Snippet
-```java
-    }
-
-    public UnionTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+    public NodeVisitorWithTypeTracking(QueryVisitor preOrderCallback, QueryVisitor postOrderCallback, Map<String, Object> variables, GraphQLSchema schema, Map<String, FragmentDefinition> fragmentsByName) {
+        this.preOrderCallback = preOrderCallback;
+        this.postOrderCallback = postOrderCallback;
 ```
 
 ### BoundedWildcard
@@ -4956,6 +4824,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeExtensionDefini
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeExtensionDefinition.java`
+#### Snippet
+```java
+    }
+
+    public UnionTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
 in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeExtensionDefinition.java`
 #### Snippet
@@ -4965,6 +4845,90 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeExtensionDefini
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder fieldDefinitions(List<FieldDefinition> fieldDefinitions) {
+            this.fieldDefinitions = ImmutableList.copyOf(fieldDefinitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder implementz(List<Type> implementz) {
+            this.implementz = ImmutableList.copyOf(implementz);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeDefinition.java`
+#### Snippet
+```java
+    }
+
+    public ObjectTypeDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValue.java`
+#### Snippet
+```java
+    }
+
+    public EnumValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -4992,8 +4956,20 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectField.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
 #### Snippet
 ```java
         }
@@ -5004,27 +4980,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinitio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InputValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InlineFragment.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public Builder inputValueDefinitions(List<InputValueDefinition> inputValueDefinitions) {
-            this.inputValueDefinitions = ImmutableList.copyOf(inputValueDefinitions);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
+    public InlineFragment transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -5040,8 +5004,20 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinitio
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends InputValueDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder inputValueDefinitions(List<InputValueDefinition> inputValueDefinitions) {
+            this.inputValueDefinitions = ImmutableList.copyOf(inputValueDefinitions);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
 #### Snippet
 ```java
         }
@@ -5052,50 +5028,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder implementz(List<Type> implementz) {
-            this.implementz = ImmutableList.copyOf(implementz);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeDefinition.java`
 #### Snippet
 ```java
 
         @Override
         public Builder directives(List<Directive> directives) {
             this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
-#### Snippet
-```java
-    }
-
-    public ObjectTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder fieldDefinitions(List<FieldDefinition> fieldDefinitions) {
-            this.fieldDefinitions = ImmutableList.copyOf(fieldDefinitions);
             return this;
 ```
 
@@ -5124,14 +5064,26 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/IntValue.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comment`
+Can generalize to `? super Builder`
 in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
+    public OperationDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
             return this;
 ```
 
@@ -5148,44 +5100,8 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java`
-#### Snippet
-```java
-    }
-
-    public OperationDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/TypeName.java`
-#### Snippet
-```java
-    }
-
-    public TypeName transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/TypeName.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/OperationDefinition.java`
 #### Snippet
 ```java
         }
@@ -5220,20 +5136,32 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/Argument.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OperationTypeDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
         }
 
-        public Builder operationTypeDefinitions(List<OperationTypeDefinition> operationTypeDefinitions) {
-            this.operationTypeDefinitions = ImmutableList.copyOf(operationTypeDefinitions);
+        public Builder fieldDefinitions(List<FieldDefinition> fieldDefinitions) {
+            this.fieldDefinitions = ImmutableList.copyOf(fieldDefinitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder implementz(List<Type> implementz) {
+            this.implementz = ImmutableList.copyOf(implementz);
             return this;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
         }
@@ -5244,146 +5172,50 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinitio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
     }
 
-    public SchemaExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
+    public ObjectTypeExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
         Builder builder = new Builder(this);
         builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstTransformer.java`
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
-        TraverserVisitor<Node> traverserVisitor = new TraverserVisitorStub<Node>() {
-            @Override
-            public TraversalControl enter(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
-```
 
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstTransformer.java`
-#### Snippet
-```java
-        TraverserVisitor<Node> traverserVisitor = new TraverserVisitor<Node>() {
-            @Override
-            public TraversalControl enter(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/TypeName.java`
 #### Snippet
 ```java
     }
 
-    public FieldDefinition transform(Consumer<Builder> builderConsumer) {
+    public TypeName transform(Consumer<Builder> builderConsumer) {
         Builder builder = new Builder(this);
         builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends InputValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder inputValueDefinitions(List<InputValueDefinition> inputValueDefinitions) {
-            this.inputValueDefinitions = ImmutableList.copyOf(inputValueDefinitions);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/TypeName.java`
 #### Snippet
 ```java
         }
 
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
-#### Snippet
-```java
-
-
-    public FragmentSpread transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Definition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Document.java`
-#### Snippet
-```java
-        }
-
-        public Builder definitions(List<Definition> definitions) {
-            this.definitions = ImmutableList.copyOf(definitions);
             return this;
 ```
 
@@ -5412,6 +5244,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/Document.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Definition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Document.java`
+#### Snippet
+```java
+        }
+
+        public Builder definitions(List<Definition> definitions) {
+            this.definitions = ImmutableList.copyOf(definitions);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/com/intellij/lang/jsgraphql/types/language/Document.java`
 #### Snippet
@@ -5424,8 +5268,152 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/Document.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstTransformer.java`
+#### Snippet
+```java
+        TraverserVisitor<Node> traverserVisitor = new TraverserVisitor<Node>() {
+            @Override
+            public TraversalControl enter(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstTransformer.java`
+#### Snippet
+```java
+        TraverserVisitor<Node> traverserVisitor = new TraverserVisitorStub<Node>() {
+            @Override
+            public TraversalControl enter(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/VariableReference.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+#### Snippet
+```java
+    }
+
+    public SchemaExtensionDefinition transformExtension(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends OperationTypeDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder operationTypeDefinitions(List<OperationTypeDefinition> operationTypeDefinitions) {
+            this.operationTypeDefinitions = ImmutableList.copyOf(operationTypeDefinitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentSpread.java`
+#### Snippet
+```java
+
+
+    public FragmentSpread transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
+#### Snippet
+```java
+    }
+
+    public FieldDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends InputValueDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder inputValueDefinitions(List<InputValueDefinition> inputValueDefinitions) {
+            this.inputValueDefinitions = ImmutableList.copyOf(inputValueDefinitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FieldDefinition.java`
 #### Snippet
 ```java
         }
@@ -5448,15 +5436,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/VariableReference.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaDefinition.java`
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/VariableReference.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public SchemaDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
 ```
 
 ### BoundedWildcard
@@ -5469,6 +5457,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaDefinition.java`
         public Builder operationTypeDefinitions(List<OperationTypeDefinition> operationTypeDefinitions) {
             this.operationTypeDefinitions = ImmutableList.copyOf(operationTypeDefinitions);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaDefinition.java`
+#### Snippet
+```java
+    }
+
+    public SchemaDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -5496,39 +5496,75 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaDefinition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NullValue.java`
 #### Snippet
 ```java
+        }
 
-            @Override
-            public TraversalControl visitFloatValue(FloatValue node, TraverserContext<Node> context) {
-                return changeNode(context, node.transform(builder -> builder.value(BigDecimal.ZERO)));
-            }
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NullValue.java`
 #### Snippet
 ```java
 
-            @Override
-            public TraversalControl visitVariableReference(VariableReference node, TraverserContext<Node> context) {
-                String varName = remapVariable(node.getName(), variableRemapping, variableCount);
-                return changeNode(context, node.transform(builder -> builder.name(varName)));
+
+    public NullValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Node`
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NonNullType.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NonNullType.java`
+#### Snippet
+```java
+    }
+
+    public NonNullType transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+#### Snippet
+```java
+    }
+
+    private String directives(List<Directive> directives) {
+        return join(nvl(directives), " ");
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-        NodeVisitorStub visitor = new NodeVisitorStub() {
-            @Override
-            public TraversalControl visitField(Field node, TraverserContext<Node> context) {
-                return changeNode(context, node.transform(builder -> builder.alias(null)));
-            }
+    }
+
+    private String remapVariable(String varName, Map<String, String> variableRemapping, AtomicInteger variableCount) {
+        String mappedName = variableRemapping.get(varName);
+        if (mappedName == null) {
 ```
 
 ### BoundedWildcard
@@ -5553,42 +5589,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
             public TraversalControl visitIntValue(IntValue node, TraverserContext<Node> context) {
                 return changeNode(context, node.transform(builder -> builder.value(BigInteger.ZERO)));
             }
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitArrayValue(ArrayValue node, TraverserContext<Node> context) {
-                return changeNode(context, node.transform(builder -> builder.values(Collections.emptyList())));
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitVariableDefinition(VariableDefinition node, TraverserContext<Node> context) {
-                String varName = remapVariable(node.getName(), variableRemapping, variableCount);
-                return changeNode(context, node.transform(builder -> builder.name(varName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
-#### Snippet
-```java
-    }
-
-    private String remapVariable(String varName, Map<String, String> variableRemapping, AtomicInteger variableCount) {
-        String mappedName = variableRemapping.get(varName);
-        if (mappedName == null) {
 ```
 
 ### BoundedWildcard
@@ -5628,123 +5628,63 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-    }
-
-    private String directives(List<Directive> directives) {
-        return join(nvl(directives), " ");
-    }
+        NodeVisitorStub visitor = new NodeVisitorStub() {
+            @Override
+            public TraversalControl visitField(Field node, TraverserContext<Node> context) {
+                return changeNode(context, node.transform(builder -> builder.alias(null)));
+            }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Value`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-        }
 
-        public Builder values(List<Value> values) {
-            this.values = ImmutableList.copyOf(values);
-            return this;
+            @Override
+            public TraversalControl visitArrayValue(ArrayValue node, TraverserContext<Node> context) {
+                return changeNode(context, node.transform(builder -> builder.values(Collections.emptyList())));
+            }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-    }
 
-    public ArrayValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+            @Override
+            public TraversalControl visitFloatValue(FloatValue node, TraverserContext<Node> context) {
+                return changeNode(context, node.transform(builder -> builder.value(BigDecimal.ZERO)));
+            }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-        }
 
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
+            @Override
+            public TraversalControl visitVariableReference(VariableReference node, TraverserContext<Node> context) {
+                String varName = remapVariable(node.getName(), variableRemapping, variableCount);
+                return changeNode(context, node.transform(builder -> builder.name(varName)));
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NullValue.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
 
-
-    public NullValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NullValue.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NonNullType.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NonNullType.java`
-#### Snippet
-```java
-    }
-
-    public NonNullType transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/BooleanValue.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/BooleanValue.java`
-#### Snippet
-```java
-    }
-
-    public BooleanValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+            @Override
+            public TraversalControl visitVariableDefinition(VariableDefinition node, TraverserContext<Node> context) {
+                String varName = remapVariable(node.getName(), variableRemapping, variableCount);
+                return changeNode(context, node.transform(builder -> builder.name(varName)));
 ```
 
 ### BoundedWildcard
@@ -5772,6 +5712,66 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/NodeChildrenContainer.ja
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+#### Snippet
+```java
+    }
+
+    public ArrayValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Value`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ArrayValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder values(List<Value> values) {
+            this.values = ImmutableList.copyOf(values);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/BooleanValue.java`
+#### Snippet
+```java
+    }
+
+    public BooleanValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/BooleanValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
 in `src/main/com/intellij/lang/jsgraphql/types/language/ListType.java`
 #### Snippet
@@ -5791,54 +5791,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ListType.java`
     }
 
     public ListType transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
-#### Snippet
-```java
-    }
-
-    public SelectionSet transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
-#### Snippet
-```java
-     * @return a list of selections of that class or empty list
-     */
-    public <T extends Selection> List<T> getSelectionsOfType(Class<T> selectionClass) {
-        return selections.stream()
-            .filter(d -> selectionClass.isAssignableFrom(d.getClass()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeDefinition.java`
-#### Snippet
-```java
-    }
-
-    public UnionTypeDefinition transform(Consumer<Builder> builderConsumer) {
         Builder builder = new Builder(this);
         builderConsumer.accept(builder);
 ```
@@ -5868,6 +5820,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeDefinition.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeDefinition.java`
+#### Snippet
+```java
+    }
+
+    public UnionTypeDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Directive`
 in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeDefinition.java`
 #### Snippet
@@ -5880,51 +5844,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/UnionTypeDefinition.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeExtensionDefinition.java`
 #### Snippet
 ```java
 
-            @Override
-            public TraversalControl leave(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl enter(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl leave(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl enter(TraverserContext<Node> context) {
-                return context.thisNode().accept(context, nodeVisitor);
-            }
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
 ```
 
 ### BoundedWildcard
@@ -5940,18 +5868,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeExtensionDefin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeExtensionDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Comment`
 in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeExtensionDefinition.java`
 #### Snippet
@@ -5964,8 +5880,32 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ScalarTypeExtensionDefin
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
+#### Snippet
+```java
+     * @return a list of selections of that class or empty list
+     */
+    public <T extends Selection> List<T> getSelectionsOfType(Class<T> selectionClass) {
+        return selections.stream()
+            .filter(d -> selectionClass.isAssignableFrom(d.getClass()))
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
+#### Snippet
+```java
+    }
+
+    public SelectionSet transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/SelectionSet.java`
 #### Snippet
 ```java
         }
@@ -5973,6 +5913,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl leave(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl leave(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl enter(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/NodeTraverser.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl enter(TraverserContext<Node> context) {
+                return context.thisNode().accept(context, nodeVisitor);
+            }
 ```
 
 ### BoundedWildcard
@@ -6000,6 +5988,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends InputValueDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java`
 #### Snippet
@@ -6012,8 +6012,44 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveDefinition.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
+#### Snippet
+```java
+    }
+
+    public EnumTypeDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends EnumValueDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder enumValueDefinitions(List<EnumValueDefinition> enumValueDefinitions) {
+            this.enumValueDefinitions = ImmutableList.copyOf(enumValueDefinitions);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeExtensionDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
 #### Snippet
 ```java
         }
@@ -6036,14 +6072,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeExtension
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
+Can generalize to `? extends Comment`
 in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
+        }
 
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
             return this;
 ```
 
@@ -6060,110 +6096,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeExtension
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EnumValueDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder enumValueDefinitions(List<EnumValueDefinition> enumValueDefinitions) {
-            this.enumValueDefinitions = ImmutableList.copyOf(enumValueDefinitions);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputObjectTypeExtensionDefinition.java`
 #### Snippet
 ```java
 
         @Override
         public Builder directives(List<Directive> directives) {
             this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumTypeDefinition.java`
-#### Snippet
-```java
-    }
-
-    public EnumTypeDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
-#### Snippet
-```java
-    }
-
-    public InterfaceTypeDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder implementz(List<Type> implementz) {
-            this.implementz = ImmutableList.copyOf(implementz);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
-#### Snippet
-```java
-
-
-        public Builder definitions(List<FieldDefinition> definitions) {
-            this.definitions = ImmutableList.copyOf(definitions);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
             return this;
 ```
 
@@ -6216,6 +6156,66 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/OperationTypeDefinition.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder implementz(List<Type> implementz) {
+            this.implementz = ImmutableList.copyOf(implementz);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
+#### Snippet
+```java
+
+
+        public Builder definitions(List<FieldDefinition> definitions) {
+            this.definitions = ImmutableList.copyOf(definitions);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
+#### Snippet
+```java
+    }
+
+    public InterfaceTypeDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? super Builder`
 in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeExtensionDefinition.java`
 #### Snippet
@@ -6236,6 +6236,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeExtensionDe
         @Override
         public Builder directives(List<Directive> directives) {
             this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeExtensionDefinition.java`
+#### Snippet
+```java
+        }
+
+        public Builder implementz(List<Type> implementz) {
+            this.implementz = ImmutableList.copyOf(implementz);
             return this;
 ```
 
@@ -6264,14 +6276,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeExtensionDe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InterfaceTypeExtensionDefinition.java`
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/FloatValue.java`
 #### Snippet
 ```java
         }
 
-        public Builder implementz(List<Type> implementz) {
-            this.implementz = ImmutableList.copyOf(implementz);
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
             return this;
 ```
 
@@ -6288,8 +6300,44 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/FloatValue.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
+#### Snippet
+```java
+    }
+
+    public Field transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Argument`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
+#### Snippet
+```java
+        }
+
+        public Builder arguments(List<Argument> arguments) {
+            this.arguments = ImmutableList.copyOf(arguments);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/FloatValue.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
 #### Snippet
 ```java
         }
@@ -6297,234 +6345,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/FloatValue.java`
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
             return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitScalarTypeDefinition(ScalarTypeDefinition node, TraverserContext<Node> context) {
-                ScalarTypeDefinition changedNode = node.transform(builder -> {
-                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitDocument(Document node, TraverserContext<Node> context) {
-                Document changedNode = node.transform(builder -> {
-                    List<Definition> definitions = sort(node.getDefinitions(), comparingDefinitions());
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitObjectValue(ObjectValue node, TraverserContext<Node> context) {
-                ObjectValue changedNode = node.transform(builder -> {
-                    List<ObjectField> objectFields = sort(node.getObjectFields(), comparing(ObjectField::getName));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitUnionTypeDefinition(UnionTypeDefinition node, TraverserContext<Node> context) {
-                UnionTypeDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitInlineFragment(InlineFragment node, TraverserContext<Node> context) {
-                InlineFragment changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitInputObjectTypeDefinition(InputObjectTypeDefinition node, TraverserContext<Node> context) {
-                InputObjectTypeDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitField(Field node, TraverserContext<Node> context) {
-                Field changedNode = node.transform(builder -> {
-                    builder.arguments(sort(node.getArguments(), comparing(Argument::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitOperationDefinition(OperationDefinition node, TraverserContext<Node> context) {
-                OperationDefinition changedNode = node.transform(builder -> {
-                    builder.variableDefinitions(sort(node.getVariableDefinitions(), comparing(VariableDefinition::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-    }
-
-    private <T> List<T> sort(List<T> items, Comparator<T> comparing) {
-        items = new ArrayList<>(items);
-        items.sort(comparing);
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitEnumTypeDefinition(EnumTypeDefinition node, TraverserContext<Node> context) {
-                EnumTypeDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitSchemaDefinition(SchemaDefinition node, TraverserContext<Node> context) {
-                SchemaDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitDirective(Directive node, TraverserContext<Node> context) {
-                Directive changedNode = node.transform(builder -> {
-                    List<Argument> arguments = sort(node.getArguments(), comparing(Argument::getName));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitObjectTypeDefinition(ObjectTypeDefinition node, TraverserContext<Node> context) {
-                ObjectTypeDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitInputValueDefinition(InputValueDefinition node, TraverserContext<Node> context) {
-                InputValueDefinition changedNode = node.transform(builder -> {
-                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitFieldDefinition(FieldDefinition node, TraverserContext<Node> context) {
-                FieldDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitFragmentDefinition(FragmentDefinition node, TraverserContext<Node> context) {
-                FragmentDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitDirectiveDefinition(DirectiveDefinition node, TraverserContext<Node> context) {
-                DirectiveDefinition changedNode = node.transform(builder -> {
-                    builder.inputValueDefinitions(sort(node.getInputValueDefinitions(), comparing(InputValueDefinition::getName)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitFragmentSpread(FragmentSpread node, TraverserContext<Node> context) {
-                FragmentSpread changedNode = node.transform(builder -> {
-                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-
-            @Override
-            public TraversalControl visitInterfaceTypeDefinition(InterfaceTypeDefinition node, TraverserContext<Node> context) {
-                InterfaceTypeDefinition changedNode = node.transform(builder -> {
-                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
 ```
 
 ### BoundedWildcard
@@ -6564,78 +6384,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/FragmentDefinition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Argument`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
-#### Snippet
-```java
-        }
-
-        public Builder arguments(List<Argument> arguments) {
-            this.arguments = ImmutableList.copyOf(arguments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Field.java`
-#### Snippet
-```java
-    }
-
-    public Field transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveLocation.java`
-#### Snippet
-```java
-    }
-
-    public DirectiveLocation transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveLocation.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? super Builder`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStepInfo.java`
 #### Snippet
@@ -6648,122 +6396,242 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStepInfo.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExecutionContextBuilder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionContext.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
 #### Snippet
 ```java
-     * @return a new ExecutionContext object based on calling build on that builder
-     */
-    public ExecutionContext transform(Consumer<ExecutionContextBuilder> builderConsumer) {
-        ExecutionContextBuilder builder = ExecutionContextBuilder.newExecutionContextBuilder(this);
-        builderConsumer.accept(builder);
+
+            @Override
+            public TraversalControl visitUnionTypeDefinition(UnionTypeDefinition node, TraverserContext<Node> context) {
+                UnionTypeDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
 #### Snippet
 ```java
-        private final List<GraphQLError> errors = new ArrayList<>();
 
-        public Builder(DataFetcherResult<T> existing) {
-            data = existing.getData();
-            localContext = existing.getLocalContext();
+            @Override
+            public TraversalControl visitFieldDefinition(FieldDefinition node, TraverserContext<Node> context) {
+                FieldDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
 #### Snippet
 ```java
-        }
 
-        public Builder<T> errors(List<GraphQLError> errors) {
-            this.errors.addAll(errors);
-            return this;
+            @Override
+            public TraversalControl visitInputObjectTypeDefinition(InputObjectTypeDefinition node, TraverserContext<Node> context) {
+                InputObjectTypeDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
-#### Snippet
-```java
-     * @return a new instance produced by calling {@code build} on that builder
-     */
-    public DataFetcherResult<T> transform(Consumer<Builder<T>> builderConsumer) {
-        Builder<T> builder = new Builder<>(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends FragmentDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionContextBuilder.java`
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
 #### Snippet
 ```java
     }
 
-    public ExecutionContextBuilder fragmentsByName(Map<String, FragmentDefinition> fragmentsByName) {
-        this.fragmentsByName = ImmutableMap.copyOf(fragmentsByName);
-        return this;
+    private <T> List<T> sort(List<T> items, Comparator<T> comparing) {
+        items = new ArrayList<>(items);
+        items.sort(comparing);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
 #### Snippet
 ```java
-    }
 
-    public InputValueDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+            @Override
+            public TraversalControl visitInputValueDefinition(InputValueDefinition node, TraverserContext<Node> context) {
+                InputValueDefinition changedNode = node.transform(builder -> {
+                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitDirectiveDefinition(DirectiveDefinition node, TraverserContext<Node> context) {
+                DirectiveDefinition changedNode = node.transform(builder -> {
+                    builder.inputValueDefinitions(sort(node.getInputValueDefinitions(), comparing(InputValueDefinition::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitObjectValue(ObjectValue node, TraverserContext<Node> context) {
+                ObjectValue changedNode = node.transform(builder -> {
+                    List<ObjectField> objectFields = sort(node.getObjectFields(), comparing(ObjectField::getName));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitDocument(Document node, TraverserContext<Node> context) {
+                Document changedNode = node.transform(builder -> {
+                    List<Definition> definitions = sort(node.getDefinitions(), comparingDefinitions());
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitSchemaDefinition(SchemaDefinition node, TraverserContext<Node> context) {
+                SchemaDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitInterfaceTypeDefinition(InterfaceTypeDefinition node, TraverserContext<Node> context) {
+                InterfaceTypeDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitEnumTypeDefinition(EnumTypeDefinition node, TraverserContext<Node> context) {
+                EnumTypeDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitObjectTypeDefinition(ObjectTypeDefinition node, TraverserContext<Node> context) {
+                ObjectTypeDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitScalarTypeDefinition(ScalarTypeDefinition node, TraverserContext<Node> context) {
+                ScalarTypeDefinition changedNode = node.transform(builder -> {
+                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitInlineFragment(InlineFragment node, TraverserContext<Node> context) {
+                InlineFragment changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitFragmentDefinition(FragmentDefinition node, TraverserContext<Node> context) {
+                FragmentDefinition changedNode = node.transform(builder -> {
+                    builder.directives(sort(node.getDirectives(), comparing(Directive::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitOperationDefinition(OperationDefinition node, TraverserContext<Node> context) {
+                OperationDefinition changedNode = node.transform(builder -> {
+                    builder.variableDefinitions(sort(node.getVariableDefinitions(), comparing(VariableDefinition::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitFragmentSpread(FragmentSpread node, TraverserContext<Node> context) {
+                FragmentSpread changedNode = node.transform(builder -> {
+                    List<Directive> directives = sort(node.getDirectives(), comparing(Directive::getName));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitField(Field node, TraverserContext<Node> context) {
+                Field changedNode = node.transform(builder -> {
+                    builder.arguments(sort(node.getArguments(), comparing(Argument::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+
+            @Override
+            public TraversalControl visitDirective(Directive node, TraverserContext<Node> context) {
+                Directive changedNode = node.transform(builder -> {
+                    List<Argument> arguments = sort(node.getArguments(), comparing(Argument::getName));
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/VariableDefinition.java`
 #### Snippet
 ```java
         }
 
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValueDefinition.java`
-#### Snippet
-```java
-    }
-
-    public EnumValueDefinition transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directive`
-in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValueDefinition.java`
-#### Snippet
-```java
-
-        @Override
-        public Builder directives(List<Directive> directives) {
-            this.directives = ImmutableList.copyOf(directives);
             return this;
 ```
 
@@ -6792,15 +6660,27 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/VariableDefinition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/VariableDefinition.java`
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValueDefinition.java`
 #### Snippet
 ```java
-        }
 
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
             return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValueDefinition.java`
+#### Snippet
+```java
+    }
+
+    public EnumValueDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -6817,14 +6697,86 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/EnumValueDefinition.java
 
 ### BoundedWildcard
 Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/FetchedValue.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
+#### Snippet
+```java
+     * @return a new instance produced by calling {@code build} on that builder
+     */
+    public DataFetcherResult<T> transform(Consumer<Builder<T>> builderConsumer) {
+        Builder<T> builder = new Builder<>(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
+#### Snippet
+```java
+        }
+
+        public Builder<T> errors(List<GraphQLError> errors) {
+            this.errors.addAll(errors);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherResult.java`
+#### Snippet
+```java
+        private final List<GraphQLError> errors = new ArrayList<>();
+
+        public Builder(DataFetcherResult<T> existing) {
+            data = existing.getData();
+            localContext = existing.getLocalContext();
+```
+
+### BoundedWildcard
+Can generalize to `? super ExecutionContextBuilder`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionContext.java`
+#### Snippet
+```java
+     * @return a new ExecutionContext object based on calling build on that builder
+     */
+    public ExecutionContext transform(Consumer<ExecutionContextBuilder> builderConsumer) {
+        ExecutionContextBuilder builder = ExecutionContextBuilder.newExecutionContextBuilder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends FragmentDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionContextBuilder.java`
 #### Snippet
 ```java
     }
 
-    public FetchedValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = newFetchedValue(this);
+    public ExecutionContextBuilder fragmentsByName(Map<String, FragmentDefinition> fragmentsByName) {
+        this.fragmentsByName = ImmutableMap.copyOf(fragmentsByName);
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveLocation.java`
+#### Snippet
+```java
+    }
+
+    public DirectiveLocation transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
         builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/DirectiveLocation.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
 ```
 
 ### BoundedWildcard
@@ -6840,20 +6792,44 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/FetchedValue.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ObjectField`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/FetchedValue.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public Builder objectFields(List<ObjectField> objectFields) {
-            this.objectFields = ImmutableList.copyOf(objectFields);
+    public FetchedValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = newFetchedValue(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directive`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
+#### Snippet
+```java
+
+        @Override
+        public Builder directives(List<Directive> directives) {
+            this.directives = ImmutableList.copyOf(directives);
             return this;
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
+#### Snippet
+```java
+    }
+
+    public InputValueDefinition transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
 Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
+in `src/main/com/intellij/lang/jsgraphql/types/language/InputValueDefinition.java`
 #### Snippet
 ```java
         }
@@ -6861,18 +6837,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
         public Builder comments(List<Comment> comments) {
             this.comments = ImmutableList.copyOf(comments);
             return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
-#### Snippet
-```java
-    }
-
-    public ObjectValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
 ```
 
 ### BoundedWildcard
@@ -6884,18 +6848,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/Directive.java`
 
         public Builder arguments(List<Argument> arguments) {
             this.arguments = ImmutableList.copyOf(arguments);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comment`
-in `src/main/com/intellij/lang/jsgraphql/types/language/Directive.java`
-#### Snippet
-```java
-        }
-
-        public Builder comments(List<Comment> comments) {
-            this.comments = ImmutableList.copyOf(comments);
             return this;
 ```
 
@@ -6912,6 +6864,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/Directive.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/Directive.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ObjectField`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder objectFields(List<ObjectField> objectFields) {
+            this.objectFields = ImmutableList.copyOf(objectFields);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
+#### Snippet
+```java
+    }
+
+    public ObjectValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comment`
+in `src/main/com/intellij/lang/jsgraphql/types/language/ObjectValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder comments(List<Comment> comments) {
+            this.comments = ImmutableList.copyOf(comments);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherExceptionHandlerResult.java`
 #### Snippet
@@ -6921,18 +6921,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/DataFetcherExceptionHan
         public Builder errors(List<GraphQLError> errors) {
             this.errors.addAll(assertNotNull(errors));
             return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Field`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStrategy.java`
-#### Snippet
-```java
-
-    @Internal
-    public static String mkNameForPath(List<Field> currentField) {
-        Field field = currentField.get(0);
-        return field.getResultKey();
 ```
 
 ### BoundedWildcard
@@ -6961,26 +6949,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStrategy.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Field`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/MergedField.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStrategy.java`
 #### Snippet
 ```java
-        }
 
-        public Builder fields(List<Field> fields) {
-            this.fields.addAll(fields);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/MergedField.java`
-#### Snippet
-```java
-    }
-
-    public MergedField transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
+    @Internal
+    public static String mkNameForPath(List<Field> currentField) {
+        Field field = currentField.get(0);
+        return field.getResultKey();
 ```
 
 ### BoundedWildcard
@@ -6996,6 +6972,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStrategyParame
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/MergedField.java`
+#### Snippet
+```java
+    }
+
+    public MergedField transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Field`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/MergedField.java`
+#### Snippet
+```java
+        }
+
+        public Builder fields(List<Field> fields) {
+            this.fields.addAll(fields);
+            return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExecutionResultNode`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ResultNodesCreator.java`
 #### Snippet
@@ -7005,6 +7005,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ResultNodesCrea
     private Optional<NonNullableFieldWasNullException> getFirstNonNullableException(Collection<ExecutionResultNode> collection) {
         return collection.stream()
                 .filter(executionResultNode -> executionResultNode.getNonNullableFieldWasNullException() != null)
+```
+
+### BoundedWildcard
+Can generalize to `? extends FetchedValueAnalysis`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ExecutionStrategyUtil.java`
+#### Snippet
+```java
+    }
+
+    public List<ExecutionResultNode> fetchedValueAnalysisToNodes(List<FetchedValueAnalysis> fetchedValueAnalysisList) {
+        return map(fetchedValueAnalysisList, fetchedValueAnalysis -> resultNodesCreator.createResultNode(fetchedValueAnalysis));
+    }
 ```
 
 ### BoundedWildcard
@@ -7020,14 +7032,230 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ValueFetcher.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FetchedValueAnalysis`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ExecutionStrategyUtil.java`
+Can generalize to `? extends List`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public ExecutionResultNode withNewChildren(ExecutionResultNode parentNode, Map<String, List<ExecutionResultNode>> newChildren) {
+        assertTrue(newChildren.size() == 1);
+        List<ExecutionResultNode> childrenList = newChildren.get(null);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/FetchedValueAnalysis.java`
+#### Snippet
+```java
+        }
+
+        public Builder errors(List<GraphQLError> errors) {
+            this.errors.addAll(errors);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/FetchedValueAnalysis.java`
 #### Snippet
 ```java
     }
 
-    public List<ExecutionResultNode> fetchedValueAnalysisToNodes(List<FetchedValueAnalysis> fetchedValueAnalysisList) {
-        return map(fetchedValueAnalysisList, fetchedValueAnalysis -> resultNodesCreator.createResultNode(fetchedValueAnalysis));
+    public FetchedValueAnalysis transfrom(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResolvedValue.java`
+#### Snippet
+```java
+
+
+    public ResolvedValue transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResolvedValue.java`
+#### Snippet
+```java
+        }
+
+        public Builder errors(List<GraphQLError> errors) {
+            this.errors = new ArrayList<>(errors);
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/FieldCollector.java`
+#### Snippet
+```java
+    }
+
+    private void collectField(FieldCollectorParameters parameters, Map<String, MergedField> fields, Field field) {
+        if (!conditionalNodes.shouldInclude(parameters.getVariables(), field.getDirectives())) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
+        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
+        return Async.each(collect);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
+        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
+        return Async.each(collect);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
+        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
+        return Async.each(collect);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
+        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <T> CompletableFuture<T> tryCatch(Supplier<CompletableFuture<T>> supplier) {
+        try {
+            return supplier.get();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
+        return values.thenApply(list -> ImmutableKit.map(list, mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
+        return values.thenApply(list -> ImmutableKit.map(list, mapper));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+    }
+
+    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
+        return values.thenApply(list -> ImmutableKit.map(list, mapper));
     }
 ```
 
@@ -7080,54 +7308,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <T> CompletableFuture<T> tryCatch(Supplier<CompletableFuture<T>> supplier) {
-        try {
-            return supplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> mapCompose(List<CompletableFuture<T>> values, Function<T, CompletableFuture<U>> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenCompose(mapper));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
 #### Snippet
@@ -7164,174 +7344,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
-        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
-        return Async.each(collect);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
-        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
-        return Async.each(collect);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> flatMap(List<T> inputs, Function<T, CompletableFuture<U>> mapper) {
-        List<CompletableFuture<U>> collect = ImmutableKit.map(inputs, mapper);
-        return Async.each(collect);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> List<CompletableFuture<U>> map(List<CompletableFuture<T>> values, Function<T, U> mapper) {
-        return ImmutableKit.map(values, cf -> cf.thenApply(mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
-        return values.thenApply(list -> ImmutableKit.map(list, mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
-        return values.thenApply(list -> ImmutableKit.map(list, mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-    }
-
-    public static <U, T> CompletableFuture<List<U>> map(CompletableFuture<List<T>> values, Function<T, U> mapper) {
-        return values.thenApply(list -> ImmutableKit.map(list, mapper));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/FetchedValueAnalysis.java`
-#### Snippet
-```java
-        }
-
-        public Builder errors(List<GraphQLError> errors) {
-            this.errors.addAll(errors);
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/FetchedValueAnalysis.java`
-#### Snippet
-```java
-    }
-
-    public FetchedValueAnalysis transfrom(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public ExecutionResultNode withNewChildren(ExecutionResultNode parentNode, Map<String, List<ExecutionResultNode>> newChildren) {
-        assertTrue(newChildren.size() == 1);
-        List<ExecutionResultNode> childrenList = newChildren.get(null);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResolvedValue.java`
-#### Snippet
-```java
-
-
-    public ResolvedValue transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResolvedValue.java`
-#### Snippet
-```java
-        }
-
-        public Builder errors(List<GraphQLError> errors) {
-            this.errors = new ArrayList<>(errors);
-            return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLError`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/LeafExecutionResultNode.java`
 #### Snippet
@@ -7344,50 +7356,110 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/LeafExec
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/FieldCollector.java`
-#### Snippet
-```java
-    }
-
-    private void collectField(FieldCollectorParameters parameters, Map<String, MergedField> fields, Field field) {
-        if (!conditionalNodes.shouldInclude(parameters.getVariables(), field.getDirectives())) {
-            return;
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ListExecutionResultNode.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/RootExecutionResultNode.java`
 #### Snippet
 ```java
 
     @Override
     public ExecutionResultNode withNewErrors(List<GraphQLError> errors) {
-        return new ListExecutionResultNode(getExecutionStepInfo(), getResolvedValue(), getChildren(), new ArrayList<>(errors));
+        return new RootExecutionResultNode(getChildren(), new ArrayList<>(errors));
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExecutionResultNode`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeTraverser.java`
+Can generalize to `? extends NodeMultiZipper`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+#### Snippet
+```java
+
+    // all multizipper have the same root
+    private CompletableFuture<NodeMultiZipper<ExecutionResultNode>> resolveNodes(ExecutionContext executionContext, List<NodeMultiZipper<ExecutionResultNode>> unresolvedNodes) {
+        assertNotEmpty(unresolvedNodes, () -> "unresolvedNodes can't be empty");
+        ExecutionResultNode commonRoot = unresolvedNodes.get(0).getCommonRoot();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldSubSelection`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
 #### Snippet
 ```java
     }
 
-    public void traverse(TraverserVisitor<ExecutionResultNode> visitor, Collection<? extends ExecutionResultNode> roots) {
-        traverser.traverse(roots, visitor);
+    private List<ExecutionStepInfo> newExecutionInfos(ExecutionContext executionContext, List<FieldSubSelection> fieldSubSelections, MergedField mergedField) {
+        return map(fieldSubSelections,
+                subSelection -> executionInfoFactory.newExecutionStepInfoForSubField(executionContext, mergedField, subSelection.getExecutionStepInfo()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends NodeZipper`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+#### Snippet
+```java
+    }
+
+    private CompletableFuture<List<NodeZipper<ExecutionResultNode>>> mapBatchedResultsBack(List<NodeZipper<ExecutionResultNode>> unresolvedNodes, List<CompletableFuture<List<FetchedValueAnalysis>>> fetchedValues) {
+        return Async.each(fetchedValues).thenApply(fetchedValuesMatrix -> {
+            List<NodeZipper<ExecutionResultNode>> result = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExecutionResultNode`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+#### Snippet
+```java
+
+
+    private CompletableFuture<NodeMultiZipper<ExecutionResultNode>> nextStep(ExecutionContext executionContext, NodeMultiZipper<ExecutionResultNode> multizipper) {
+        NodeMultiZipper<ExecutionResultNode> nextUnresolvedNodes = ResultNodesUtil.getUnresolvedNodes(multizipper.toRootNode());
+        if (nextUnresolvedNodes.getZippers().size() == 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FetchedValue`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+#### Snippet
+```java
+
+
+    private List<FetchedValueAnalysis> analyseValues(ExecutionContext executionContext, List<FetchedValue> fetchedValues, List<ExecutionStepInfo> executionInfos) {
+        List<FetchedValueAnalysis> result = new ArrayList<>();
+        for (int i = 0; i < fetchedValues.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExecutionStepInfo`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+#### Snippet
+```java
+
+
+    private List<FetchedValueAnalysis> analyseValues(ExecutionContext executionContext, List<FetchedValue> fetchedValues, List<ExecutionStepInfo> executionInfos) {
+        List<FetchedValueAnalysis> result = new ArrayList<>();
+        for (int i = 0; i < fetchedValues.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ExecutionInput`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/preparsed/NoOpPreparsedDocumentProvider.java`
+#### Snippet
+```java
+
+    @Override
+    public PreparsedDocumentEntry getDocument(ExecutionInput executionInput, Function<ExecutionInput, PreparsedDocumentEntry> parseAndValidateFunction) {
+        return parseAndValidateFunction.apply(executionInput);
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExecutionResultNode`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeTraverser.java`
+Can generalize to `? extends PreparsedDocumentEntry`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/preparsed/NoOpPreparsedDocumentProvider.java`
 #### Snippet
 ```java
-    }
 
-    public void traverse(TraverserVisitor<ExecutionResultNode> visitor, ExecutionResultNode root) {
-        traverser.traverse(root, visitor);
+    @Override
+    public PreparsedDocumentEntry getDocument(ExecutionInput executionInput, Function<ExecutionInput, PreparsedDocumentEntry> parseAndValidateFunction) {
+        return parseAndValidateFunction.apply(executionInput);
     }
 ```
 
@@ -7428,111 +7500,51 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/CompletionStag
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExecutionInput`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/preparsed/NoOpPreparsedDocumentProvider.java`
+Can generalize to `? super ExecutionResultNode`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeTraverser.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public PreparsedDocumentEntry getDocument(ExecutionInput executionInput, Function<ExecutionInput, PreparsedDocumentEntry> parseAndValidateFunction) {
-        return parseAndValidateFunction.apply(executionInput);
+    public void traverse(TraverserVisitor<ExecutionResultNode> visitor, Collection<? extends ExecutionResultNode> roots) {
+        traverser.traverse(roots, visitor);
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PreparsedDocumentEntry`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/preparsed/NoOpPreparsedDocumentProvider.java`
+Can generalize to `? super ExecutionResultNode`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNodeTraverser.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public PreparsedDocumentEntry getDocument(ExecutionInput executionInput, Function<ExecutionInput, PreparsedDocumentEntry> parseAndValidateFunction) {
-        return parseAndValidateFunction.apply(executionInput);
+    public void traverse(TraverserVisitor<ExecutionResultNode> visitor, ExecutionResultNode root) {
+        traverser.traverse(root, visitor);
     }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/RootExecutionResultNode.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ObjectExecutionResultNode.java`
 #### Snippet
 ```java
 
     @Override
     public ExecutionResultNode withNewErrors(List<GraphQLError> errors) {
-        return new RootExecutionResultNode(getChildren(), new ArrayList<>(errors));
+        return new ObjectExecutionResultNode(getExecutionStepInfo(), getResolvedValue(), getChildren(), new ArrayList<>(errors));
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FetchedValue`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
+Can generalize to `? extends GraphQLError`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ListExecutionResultNode.java`
 #### Snippet
 ```java
 
-
-    private List<FetchedValueAnalysis> analyseValues(ExecutionContext executionContext, List<FetchedValue> fetchedValues, List<ExecutionStepInfo> executionInfos) {
-        List<FetchedValueAnalysis> result = new ArrayList<>();
-        for (int i = 0; i < fetchedValues.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionStepInfo`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
-#### Snippet
-```java
-
-
-    private List<FetchedValueAnalysis> analyseValues(ExecutionContext executionContext, List<FetchedValue> fetchedValues, List<ExecutionStepInfo> executionInfos) {
-        List<FetchedValueAnalysis> result = new ArrayList<>();
-        for (int i = 0; i < fetchedValues.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends NodeZipper`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
-#### Snippet
-```java
+    @Override
+    public ExecutionResultNode withNewErrors(List<GraphQLError> errors) {
+        return new ListExecutionResultNode(getExecutionStepInfo(), getResolvedValue(), getChildren(), new ArrayList<>(errors));
     }
-
-    private CompletableFuture<List<NodeZipper<ExecutionResultNode>>> mapBatchedResultsBack(List<NodeZipper<ExecutionResultNode>> unresolvedNodes, List<CompletableFuture<List<FetchedValueAnalysis>>> fetchedValues) {
-        return Async.each(fetchedValues).thenApply(fetchedValuesMatrix -> {
-            List<NodeZipper<ExecutionResultNode>> result = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionResultNode`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
-#### Snippet
-```java
-
-
-    private CompletableFuture<NodeMultiZipper<ExecutionResultNode>> nextStep(ExecutionContext executionContext, NodeMultiZipper<ExecutionResultNode> multizipper) {
-        NodeMultiZipper<ExecutionResultNode> nextUnresolvedNodes = ResultNodesUtil.getUnresolvedNodes(multizipper.toRootNode());
-        if (nextUnresolvedNodes.getZippers().size() == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldSubSelection`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
-#### Snippet
-```java
-    }
-
-    private List<ExecutionStepInfo> newExecutionInfos(ExecutionContext executionContext, List<FieldSubSelection> fieldSubSelections, MergedField mergedField) {
-        return map(fieldSubSelections,
-                subSelection -> executionInfoFactory.newExecutionStepInfoForSubField(executionContext, mergedField, subSelection.getExecutionStepInfo()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends NodeMultiZipper`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/BatchedExecutionStrategy.java`
-#### Snippet
-```java
-
-    // all multizipper have the same root
-    private CompletableFuture<NodeMultiZipper<ExecutionResultNode>> resolveNodes(ExecutionContext executionContext, List<NodeMultiZipper<ExecutionResultNode>> unresolvedNodes) {
-        assertNotEmpty(unresolvedNodes, () -> "unresolvedNodes can't be empty");
-        ExecutionResultNode commonRoot = unresolvedNodes.get(0).getCommonRoot();
 ```
 
 ### BoundedWildcard
@@ -7557,42 +7569,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/preparsed/persisted/Per
     public PreparsedDocumentEntry getDocument(ExecutionInput executionInput, Function<ExecutionInput, PreparsedDocumentEntry> parseAndValidateFunction) {
         Optional<Object> queryIdOption = getPersistedQueryId(executionInput);
         assertNotNull(queryIdOption, () -> String.format("The class %s MUST return a non null optional query id", this.getClass().getName()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends VariableDefinition`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
-#### Snippet
-```java
-     * @return coerced variable values as a map
-     */
-    public Map<String, Object> coerceVariableValues(GraphQLSchema schema, List<VariableDefinition> variableDefinitions, Map<String, Object> variableValues) {
-        GraphqlFieldVisibility fieldVisibility = schema.getCodeRegistry().getFieldVisibility();
-        Map<String, Object> coercedValues = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Argument`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
-#### Snippet
-```java
-
-
-    private Map<String, Argument> argumentMap(List<Argument> arguments) {
-        Map<String, Argument> result = new LinkedHashMap<>(arguments.size());
-        for (Argument argument : arguments) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLArgument`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, Object> getArgumentValuesImpl(GraphQLCodeRegistry codeRegistry, List<GraphQLArgument> argumentTypes, List<Argument> arguments, Map<String, Object> variables) {
-        if (argumentTypes.isEmpty()) {
-            return Collections.emptyMap();
 ```
 
 ### BoundedWildcard
@@ -7644,18 +7620,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/SimpleI
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GraphQLError`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ObjectExecutionResultNode.java`
-#### Snippet
-```java
-
-    @Override
-    public ExecutionResultNode withNewErrors(List<GraphQLError> errors) {
-        return new ObjectExecutionResultNode(getExecutionStepInfo(), getResolvedValue(), getChildren(), new ArrayList<>(errors));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/tracing/TracingSupport.java`
 #### Snippet
@@ -7704,6 +7668,42 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/dataloa
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Argument`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
+#### Snippet
+```java
+
+
+    private Map<String, Argument> argumentMap(List<Argument> arguments) {
+        Map<String, Argument> result = new LinkedHashMap<>(arguments.size());
+        for (Argument argument : arguments) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLArgument`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
+#### Snippet
+```java
+    }
+
+    private Map<String, Object> getArgumentValuesImpl(GraphQLCodeRegistry codeRegistry, List<GraphQLArgument> argumentTypes, List<Argument> arguments, Map<String, Object> variables) {
+        if (argumentTypes.isEmpty()) {
+            return Collections.emptyMap();
+```
+
+### BoundedWildcard
+Can generalize to `? extends VariableDefinition`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
+#### Snippet
+```java
+     * @return coerced variable values as a map
+     */
+    public Map<String, Object> coerceVariableValues(GraphQLSchema schema, List<VariableDefinition> variableDefinitions, Map<String, Object> variableValues) {
+        GraphqlFieldVisibility fieldVisibility = schema.getCodeRegistry().getFieldVisibility();
+        Map<String, Object> coercedValues = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
 Can generalize to `? extends FragmentDefinition`
 in `src/main/com/intellij/lang/jsgraphql/types/normalized/FieldCollectorNormalizedQueryParams.java`
 #### Snippet
@@ -7713,54 +7713,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/normalized/FieldCollectorNormaliz
         public Builder fragments(Map<String, FragmentDefinition> fragmentsByName) {
             this.fragmentsByName.putAll(fragmentsByName);
             return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super NormalizedField`
-in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
-#### Snippet
-```java
-
-    private void traverseImpl(NormalizedField root,
-                              Consumer<NormalizedField> consumer,
-                              int curRelativeLevel,
-                              int abortAfter) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends NormalizedField`
-in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
-#### Snippet
-```java
-
-
-        public Builder children(List<NormalizedField> children) {
-            this.children.clear();
-            this.children.addAll(children);
-```
-
-### BoundedWildcard
-Can generalize to `? super Builder`
-in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
-#### Snippet
-```java
-
-
-    public NormalizedField transform(Consumer<Builder> builderConsumer) {
-        Builder builder = new Builder(this);
-        builderConsumer.accept(builder);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLArgument`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
-#### Snippet
-```java
-    }
-
-    private GraphQLArgument find(List<GraphQLArgument> arguments, String name) {
-        for (GraphQLArgument argument : arguments) {
-            if (argument.getName().equals(name)) return argument;
 ```
 
 ### BoundedWildcard
@@ -7812,6 +7764,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNo
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Builder`
+in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
+#### Snippet
+```java
+
+
+    public NormalizedField transform(Consumer<Builder> builderConsumer) {
+        Builder builder = new Builder(this);
+        builderConsumer.accept(builder);
+```
+
+### BoundedWildcard
+Can generalize to `? super NormalizedField`
+in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
+#### Snippet
+```java
+
+    private void traverseImpl(NormalizedField root,
+                              Consumer<NormalizedField> consumer,
+                              int curRelativeLevel,
+                              int abortAfter) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends NormalizedField`
+in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
+#### Snippet
+```java
+
+
+        public Builder children(List<NormalizedField> children) {
+            this.children.clear();
+            this.children.addAll(children);
+```
+
+### BoundedWildcard
+Can generalize to `? extends GraphQLArgument`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
+#### Snippet
+```java
+    }
+
+    private GraphQLArgument find(List<GraphQLArgument> arguments, String name) {
+        for (GraphQLArgument argument : arguments) {
+            if (argument.getName().equals(name)) return argument;
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/NoUnusedFragments.java`
 #### Snippet
@@ -7821,6 +7821,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/NoUnusedFragment
     private void collectUsedFragmentsInDefinition(List<String> result, String fragmentName) {
         if (result.contains(fragmentName)) return;
         result.add(fragmentName);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Argument`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/ProvidedNonNullArguments.java`
+#### Snippet
+```java
+    }
+
+    private Map<String, Argument> argumentMap(List<Argument> arguments) {
+        Map<String, Argument> result = new LinkedHashMap<>();
+        for (Argument argument : arguments) {
 ```
 
 ### BoundedWildcard
@@ -7848,42 +7860,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/KnownDirectives.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Argument`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/ProvidedNonNullArguments.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, Argument> argumentMap(List<Argument> arguments) {
-        Map<String, Argument> result = new LinkedHashMap<>();
-        for (Argument argument : arguments) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-    }
-
-    private void checkOperationDefinition(OperationDefinition operationDefinition, List<AbstractRule> rules) {
-        for (AbstractRule rule : rules) {
-            rule.checkOperationDefinition(operationDefinition);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-    }
-
-    private void checkSelectionSet(SelectionSet selectionSet, List<AbstractRule> rules) {
-        for (AbstractRule rule : rules) {
-            rule.checkSelectionSet(selectionSet);
-```
-
-### BoundedWildcard
 Can generalize to `? extends AbstractRule`
 in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 #### Snippet
@@ -7893,42 +7869,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
     private List<AbstractRule> getRulesVisitingFragmentSpreads(List<AbstractRule> rules) {
         List<AbstractRule> result = new ArrayList<>();
         for (AbstractRule rule : rules) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-
-
-    private void checkFragmentDefinition(FragmentDefinition fragmentDefinition, List<AbstractRule> rules) {
-        if (!subVisitor) {
-            rulesToSkipByUntilNode.put(fragmentDefinition, new ArrayList<>(rulesVisitingFragmentSpreads));
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-    }
-
-    private void checkDocument(Document node, List<AbstractRule> rules) {
-        for (AbstractRule rule : rules) {
-            rule.checkDocument(node);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-
-
-    private void checkVariableDefinition(VariableDefinition variableDefinition, List<AbstractRule> rules) {
-        for (AbstractRule rule : rules) {
-            rule.checkVariableDefinition(variableDefinition);
 ```
 
 ### BoundedWildcard
@@ -7950,18 +7890,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 ```java
     }
 
-    private void checkVariable(VariableReference variableReference, List<AbstractRule> rules) {
-        for (AbstractRule rule : rules) {
-            rule.checkVariable(variableReference);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRule`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
-#### Snippet
-```java
-    }
-
     private void checkDirective(Directive directive, List<Node> ancestors, List<AbstractRule> rules) {
         for (AbstractRule rule : rules) {
             rule.checkDirective(directive, ancestors);
@@ -7974,9 +7902,33 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 ```java
     }
 
-    private void checkTypeName(TypeName node, List<AbstractRule> rules) {
+    private void checkDocument(Document node, List<AbstractRule> rules) {
         for (AbstractRule rule : rules) {
-            rule.checkTypeName(node);
+            rule.checkDocument(node);
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
+#### Snippet
+```java
+    }
+
+    private void checkSelectionSet(SelectionSet selectionSet, List<AbstractRule> rules) {
+        for (AbstractRule rule : rules) {
+            rule.checkSelectionSet(selectionSet);
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
+#### Snippet
+```java
+
+
+    private void checkArgument(Argument node, List<AbstractRule> rules) {
+        for (AbstractRule rule : rules) {
+            rule.checkArgument(node);
 ```
 
 ### BoundedWildcard
@@ -7998,105 +7950,57 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 ```java
 
 
-    private void checkArgument(Argument node, List<AbstractRule> rules) {
+    private void checkFragmentDefinition(FragmentDefinition fragmentDefinition, List<AbstractRule> rules) {
+        if (!subVisitor) {
+            rulesToSkipByUntilNode.put(fragmentDefinition, new ArrayList<>(rulesVisitingFragmentSpreads));
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
+#### Snippet
+```java
+    }
+
+    private void checkTypeName(TypeName node, List<AbstractRule> rules) {
         for (AbstractRule rule : rules) {
-            rule.checkArgument(node);
+            rule.checkTypeName(node);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    public static Map<String, Type> mapTypeNodesByKey(@NotNull List<Type> nodes) {
-        //noinspection unchecked
-        return mapNodesByKey(nodes, AstPrinter::printAst);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 #### Snippet
 ```java
     }
 
-    public static <T extends Node<?>> List<T> toList(@NotNull Map<String, T> target) {
-        return new ArrayList<>(target.values());
-    }
+    private void checkVariable(VariableReference variableReference, List<AbstractRule> rules) {
+        for (AbstractRule rule : rules) {
+            rule.checkVariable(variableReference);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
+#### Snippet
+```java
+
+
+    private void checkVariableDefinition(VariableDefinition variableDefinition, List<AbstractRule> rules) {
+        for (AbstractRule rule : rules) {
+            rule.checkVariableDefinition(variableDefinition);
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractRule`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/RulesVisitor.java`
 #### Snippet
 ```java
     }
 
-    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
-        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
-#### Snippet
-```java
-    }
-
-    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
-        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
-#### Snippet
-```java
-    }
-
-    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
-        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
-#### Snippet
-```java
-    }
-
-    public static <T extends Node<T>> Map<String, T> mapNodesByKey(@NotNull List<T> nodes, @NotNull Function<T, String> keyMapper) {
-        return nodes.stream().collect(Collectors.toMap(keyMapper, value -> value, (oldValue, newValue) -> oldValue));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
-#### Snippet
-```java
-    }
-
-    public static <T extends Node<T>> Map<String, T> mapNodesByKey(@NotNull List<T> nodes, @NotNull Function<T, String> keyMapper) {
-        return nodes.stream().collect(Collectors.toMap(keyMapper, value -> value, (oldValue, newValue) -> oldValue));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Field`
-in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedQueryTreeFactory.java`
-#### Snippet
-```java
-    }
-
-    private void updateByAstFieldMap(NormalizedField normalizedField, MergedField mergedField, Map<Field, List<NormalizedField>> fieldToNormalizedField) {
-        for (Field astField : mergedField.getFields()) {
-            fieldToNormalizedField.computeIfAbsent(astField, ignored -> new ArrayList<>()).add(normalizedField);
+    private void checkOperationDefinition(OperationDefinition operationDefinition, List<AbstractRule> rules) {
+        for (AbstractRule rule : rules) {
+            rule.checkOperationDefinition(operationDefinition);
 ```
 
 ### BoundedWildcard
@@ -8136,6 +8040,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedQueryTreeFac
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Field`
+in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedQueryTreeFactory.java`
+#### Snippet
+```java
+    }
+
+    private void updateByAstFieldMap(NormalizedField normalizedField, MergedField mergedField, Map<Field, List<NormalizedField>> fieldToNormalizedField) {
+        for (Field astField : mergedField.getFields()) {
+            fieldToNormalizedField.computeIfAbsent(astField, ignored -> new ArrayList<>()).add(normalizedField);
+```
+
+### BoundedWildcard
 Can generalize to `? extends GraphQLDirective`
 in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
 #### Snippet
@@ -8160,6 +8076,138 @@ in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<?>> List<T> toList(@NotNull Map<String, T> target) {
+        return new ArrayList<>(target.values());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<T>> Map<String, T> mapNodesByKey(@NotNull List<T> nodes, @NotNull Function<T, String> keyMapper) {
+        return nodes.stream().collect(Collectors.toMap(keyMapper, value -> value, (oldValue, newValue) -> oldValue));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<T>> Map<String, T> mapNodesByKey(@NotNull List<T> nodes, @NotNull Function<T, String> keyMapper) {
+        return nodes.stream().collect(Collectors.toMap(keyMapper, value -> value, (oldValue, newValue) -> oldValue));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    public static Map<String, Type> mapTypeNodesByKey(@NotNull List<Type> nodes) {
+        //noinspection unchecked
+        return mapNodesByKey(nodes, AstPrinter::printAst);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
+        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
+        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLTypeDefinitionUtil.java`
+#### Snippet
+```java
+    }
+
+    public static <T extends Node<?>> void mergeNodes(@NotNull Map<String, T> target, @NotNull Map<String, T> source) {
+        source.forEach((key, value) -> target.merge(key, value, (oldValue, newValue) -> oldValue));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Argument`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+    }
+
+    private boolean sameArguments(List<Argument> arguments1, List<Argument> arguments2) {
+        if (arguments1.size() != arguments2.size()) {
+            return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+    }
+
+    private List<Conflict> findConflicts(Map<String, List<FieldAndType>> fieldMap) {
+        List<Conflict> result = new ArrayList<>();
+        for (String name : fieldMap.keySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+    }
+
+    private void collectFieldsForField(Map<String, List<FieldAndType>> fieldMap, GraphQLType parentType, Field field) {
+        String responseName = field.getResultKey();
+        if (!fieldMap.containsKey(responseName)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Conflict`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+    }
+
+    private String joinReasons(List<Conflict> conflicts) {
+        StringBuilder result = new StringBuilder();
+        result.append("(");
+```
+
+### BoundedWildcard
 Can generalize to `? extends Argument`
 in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
 #### Snippet
@@ -8181,54 +8229,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingField
     private List<Field> collectFields(List<Conflict> conflicts) {
         List<Field> result = new ArrayList<>();
         for (Conflict conflict : conflicts) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Conflict`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-    }
-
-    private String joinReasons(List<Conflict> conflicts) {
-        StringBuilder result = new StringBuilder();
-        result.append("(");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-    }
-
-    private void collectFieldsForField(Map<String, List<FieldAndType>> fieldMap, GraphQLType parentType, Field field) {
-        String responseName = field.getResultKey();
-        if (!fieldMap.containsKey(responseName)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-    }
-
-    private List<Conflict> findConflicts(Map<String, List<FieldAndType>> fieldMap) {
-        List<Conflict> result = new ArrayList<>();
-        for (String name : fieldMap.keySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Argument`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-    }
-
-    private boolean sameArguments(List<Argument> arguments1, List<Argument> arguments2) {
-        if (arguments1.size() != arguments2.size()) {
-            return false;
 ```
 
 ### BoundedWildcard
@@ -8309,11 +8309,11 @@ Missorted modifiers `final static`
 in `src/main/com/intellij/lang/jsgraphql/ui/GraphQLUIProjectService.java`
 #### Snippet
 ```java
-    public static final Key<JPanel> GRAPH_QL_QUERY_COMPONENT = Key.create(GRAPH_QL_VARIABLES_JSON + ".query.component");
-
     public final static Key<GraphQLEndpointsModel> GRAPH_QL_ENDPOINTS_MODEL = Key.create("graphql.endpoints.model");
 
     public final static Key<Boolean> GRAPH_QL_EDITOR_QUERYING = Key.create("graphql.editor.querying");
+
+    private static final int UPDATE_MS = 500;
 ```
 
 ### MissortedModifiers
@@ -8321,11 +8321,11 @@ Missorted modifiers `final static`
 in `src/main/com/intellij/lang/jsgraphql/ui/GraphQLUIProjectService.java`
 #### Snippet
 ```java
+    public static final Key<JPanel> GRAPH_QL_QUERY_COMPONENT = Key.create(GRAPH_QL_VARIABLES_JSON + ".query.component");
+
     public final static Key<GraphQLEndpointsModel> GRAPH_QL_ENDPOINTS_MODEL = Key.create("graphql.endpoints.model");
 
     public final static Key<Boolean> GRAPH_QL_EDITOR_QUERYING = Key.create("graphql.editor.querying");
-
-    private static final int UPDATE_MS = 500;
 ```
 
 ### MissortedModifiers
@@ -8381,18 +8381,6 @@ Missorted modifiers `final static`
 in `src/main/com/intellij/lang/jsgraphql/types/parser/StringValueParsing.java`
 #### Snippet
 ```java
-@Internal
-public class StringValueParsing {
-    private final static String ESCAPED_TRIPLE_QUOTES = "\\\\\"\"\""; // ahh Java + Regex
-    private final static String THREE_QUOTES = "\"\"\"";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/com/intellij/lang/jsgraphql/types/parser/StringValueParsing.java`
-#### Snippet
-```java
 public class StringValueParsing {
     private final static String ESCAPED_TRIPLE_QUOTES = "\\\\\"\"\""; // ahh Java + Regex
     private final static String THREE_QUOTES = "\"\"\"";
@@ -8402,14 +8390,14 @@ public class StringValueParsing {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
+in `src/main/com/intellij/lang/jsgraphql/types/parser/StringValueParsing.java`
 #### Snippet
 ```java
-    private final static String SEP = "/";
+@Internal
+public class StringValueParsing {
+    private final static String ESCAPED_TRIPLE_QUOTES = "\\\\\"\"\""; // ahh Java + Regex
+    private final static String THREE_QUOTES = "\"\"\"";
 
-    private final static DataFetchingFieldSelectionSet NOOP = new DataFetchingFieldSelectionSet() {
-
-        @Override
 ```
 
 ### MissortedModifiers
@@ -8422,6 +8410,18 @@ public class DataFetchingFieldSelectionSetImpl implements DataFetchingFieldSelec
     private final static String SEP = "/";
 
     private final static DataFetchingFieldSelectionSet NOOP = new DataFetchingFieldSelectionSet() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
+#### Snippet
+```java
+    private final static String SEP = "/";
+
+    private final static DataFetchingFieldSelectionSet NOOP = new DataFetchingFieldSelectionSet() {
+
+        @Override
 ```
 
 ### MissortedModifiers
@@ -8523,13 +8523,13 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeCollectingVisit
 ```
 
 ### RedundantMethodOverride
-Method `getScalar()` is identical to its super method
+Method `getTypeResolver()` is identical to its super method
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
 #### Snippet
 ```java
 
     @Override
-    public GraphQLScalarType getScalar(ScalarWiringEnvironment environment) {
+    public TypeResolver getTypeResolver(InterfaceWiringEnvironment environment) {
         return assertShouldNeverHappen();
     }
 ```
@@ -8553,32 +8553,8 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java
 ```java
 
     @Override
-    public boolean providesTypeResolver(InterfaceWiringEnvironment environment) {
-        return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `providesTypeResolver()` is identical to its super method
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
-#### Snippet
-```java
-
-    @Override
     public boolean providesTypeResolver(UnionWiringEnvironment environment) {
         return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `getTypeResolver()` is identical to its super method
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public TypeResolver getTypeResolver(InterfaceWiringEnvironment environment) {
-        return assertShouldNeverHappen();
     }
 ```
 
@@ -8591,6 +8567,42 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java
     @Override
     public boolean providesScalar(ScalarWiringEnvironment environment) {
         return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `providesDataFetcher()` is identical to its super method
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean providesDataFetcher(FieldWiringEnvironment environment) {
+        return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `providesTypeResolver()` is identical to its super method
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean providesTypeResolver(InterfaceWiringEnvironment environment) {
+        return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `getScalar()` is identical to its super method
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public GraphQLScalarType getScalar(ScalarWiringEnvironment environment) {
+        return assertShouldNeverHappen();
     }
 ```
 
@@ -8615,18 +8627,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java
     @Override
     public DataFetcher getDataFetcher(FieldWiringEnvironment environment) {
         return assertShouldNeverHappen();
-    }
-```
-
-### RedundantMethodOverride
-Method `providesDataFetcher()` is identical to its super method
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/NoopWiringFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean providesDataFetcher(FieldWiringEnvironment environment) {
-        return false;
     }
 ```
 
@@ -8766,30 +8766,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaExtensionsChecke
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
-#### Snippet
-```java
-        TypeDefinition extensionDefinition = extTypeList.get(0);
-        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
-        if (!typeDefinition.isPresent()) {
-            errors.add(new TypeExtensionMissingBaseTypeError(extensionDefinition));
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
-#### Snippet
-```java
-                                memberType -> {
-                                    Optional<ObjectTypeDefinition> unionTypeDefinition = typeRegistry.getType(memberType, ObjectTypeDefinition.class);
-                                    if (!unionTypeDefinition.isPresent()) {
-                                        errors.add(new MissingTypeError("union member", extension, memberType));
-                                    }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
 #### Snippet
 ```java
@@ -8822,6 +8798,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.
         if (!subscriptionOperation.isPresent()) {
             Optional<TypeDefinition> subscriptionTypeDef = typeRegistry.getType("Subscription");
             if (subscriptionTypeDef.isPresent()) {
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
+#### Snippet
+```java
+        TypeDefinition extensionDefinition = extTypeList.get(0);
+        Optional<? extends TypeDefinition> typeDefinition = typeRegistry.getType(TypeName.newTypeName().name(name).build(), targetClass);
+        if (!typeDefinition.isPresent()) {
+            errors.add(new TypeExtensionMissingBaseTypeError(extensionDefinition));
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeExtensionsChecker.java`
+#### Snippet
+```java
+                                memberType -> {
+                                    Optional<ObjectTypeDefinition> unionTypeDefinition = typeRegistry.getType(memberType, ObjectTypeDefinition.class);
+                                    if (!unionTypeDefinition.isPresent()) {
+                                        errors.add(new MissingTypeError("union member", extension, memberType));
+                                    }
 ```
 
 ### SimplifyOptionalCallChains
@@ -8877,6 +8877,30 @@ Can be replaced with 'isEmpty()'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 #### Snippet
 ```java
+            Directive oldDirective = oldDirectivesMap.get(directiveName);
+            Optional<Directive> newDirective = Optional.ofNullable(newDirectivesMap.get(directiveName));
+            if (!newDirective.isPresent()) {
+                ctx.report(DiffEvent.apiBreakage()
+                    .category(DiffCategory.MISSING)
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+                Optional<Argument> newArgument = Optional.ofNullable(newArgumentsByName.get(argName));
+
+                if (!newArgument.isPresent()) {
+                    ctx.report(DiffEvent.apiBreakage()
+                        .category(DiffCategory.MISSING)
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
         Optional<TypeDefinition> newTD = ctx.getNewTypeDef(newType, TypeDefinition.class);
 
         if (!oldTD.isPresent()) {
@@ -8894,6 +8918,42 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
         if (!newTD.isPresent()) {
             ctx.report(DiffEvent.apiBreakage()
                 .category(DiffCategory.MISSING)
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+
+
+            if (!newField.isPresent()) {
+                DiffCategory category;
+                String message;
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+            Optional<InputValueDefinition> oldField = Optional.ofNullable(oldDefinitionMap.get(inputFieldName));
+
+            if (!oldField.isPresent()) {
+                // new fields MUST not be mandatory
+                if (typeInfo(newField.getType()).isNonNull()) {
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
+#### Snippet
+```java
+            Optional<EnumValueDefinition> newEnum = Optional.ofNullable(newDefinitionMap.get(enumName));
+
+            if (!newEnum.isPresent()) {
+                DiffCategory category;
+                String message;
 ```
 
 ### SimplifyOptionalCallChains
@@ -8930,66 +8990,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
         if (!oldTD.isPresent()) {
             return;
         }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-
-
-            if (!newField.isPresent()) {
-                DiffCategory category;
-                String message;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-            Optional<InputValueDefinition> oldField = Optional.ofNullable(oldDefinitionMap.get(inputFieldName));
-
-            if (!oldField.isPresent()) {
-                // new fields MUST not be mandatory
-                if (typeInfo(newField.getType()).isNonNull()) {
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-            Directive oldDirective = oldDirectivesMap.get(directiveName);
-            Optional<Directive> newDirective = Optional.ofNullable(newDirectivesMap.get(directiveName));
-            if (!newDirective.isPresent()) {
-                ctx.report(DiffEvent.apiBreakage()
-                    .category(DiffCategory.MISSING)
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-                Optional<Argument> newArgument = Optional.ofNullable(newArgumentsByName.get(argName));
-
-                if (!newArgument.isPresent()) {
-                    ctx.report(DiffEvent.apiBreakage()
-                        .category(DiffCategory.MISSING)
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
-#### Snippet
-```java
-            Optional<EnumValueDefinition> newEnum = Optional.ofNullable(newDefinitionMap.get(enumName));
-
-            if (!newEnum.isPresent()) {
-                DiffCategory category;
-                String message;
 ```
 
 ### SimplifyOptionalCallChains
@@ -13705,30 +13705,6 @@ Result of assignment expression used
 in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 #### Snippet
 ```java
-  public void reset(CharSequence buffer, int start, int end, int initialState) {
-    zzBuffer = buffer;
-    zzCurrentPos = zzMarkedPos = zzStartRead = start;
-    zzAtEOF  = false;
-    zzAtBOL = true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
-  public void reset(CharSequence buffer, int start, int end, int initialState) {
-    zzBuffer = buffer;
-    zzCurrentPos = zzMarkedPos = zzStartRead = start;
-    zzAtEOF  = false;
-    zzAtBOL = true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
@@ -13746,6 +13722,30 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
 
       zzState = ZZ_LEXSTATE[zzLexicalState];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+  public void reset(CharSequence buffer, int start, int end, int initialState) {
+    zzBuffer = buffer;
+    zzCurrentPos = zzMarkedPos = zzStartRead = start;
+    zzAtEOF  = false;
+    zzAtBOL = true;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+  public void reset(CharSequence buffer, int start, int end, int initialState) {
+    zzBuffer = buffer;
+    zzCurrentPos = zzMarkedPos = zzStartRead = start;
+    zzAtEOF  = false;
+    zzAtBOL = true;
 ```
 
 ### NestedAssignment
@@ -13802,23 +13802,11 @@ Interface 'com.intellij.psi.PsiLanguageInjectionHost.Shred' must not be implemen
 in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptInjectedLanguageBlockBuilder.java`
 #### Snippet
 ```java
-    private List<PsiLanguageInjectionHost.Shred> mergePlacesIntoOne(List<PsiLanguageInjectionHost.Shred> places) {
-
         final PsiLanguageInjectionHost.Shred mergedShred = new PsiLanguageInjectionHost.Shred() {
 
             private PsiLanguageInjectionHost.Shred getFirst() {
-```
-
-### NonExtendableApiUsage
-Interface 'com.intellij.psi.PsiLanguageInjectionHost.Shred' must not be implemented
-in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptInjectedLanguageBlockBuilder.java`
-#### Snippet
-```java
-            @Override
-            public boolean isValid() {
-                for (PsiLanguageInjectionHost.Shred place : places) {
-                    if (!place.isValid()) {
-                        return false;
+                return places.get(0);
+            }
 ```
 
 ### NonExtendableApiUsage
@@ -13838,11 +13826,23 @@ Interface 'com.intellij.psi.PsiLanguageInjectionHost.Shred' must not be implemen
 in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptInjectedLanguageBlockBuilder.java`
 #### Snippet
 ```java
+            @Override
+            public void dispose() {
+                places.forEach(PsiLanguageInjectionHost.Shred::dispose);
+            }
+
+```
+
+### NonExtendableApiUsage
+Interface 'com.intellij.psi.PsiLanguageInjectionHost.Shred' must not be implemented
+in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptInjectedLanguageBlockBuilder.java`
+#### Snippet
+```java
+    private List<PsiLanguageInjectionHost.Shred> mergePlacesIntoOne(List<PsiLanguageInjectionHost.Shred> places) {
+
         final PsiLanguageInjectionHost.Shred mergedShred = new PsiLanguageInjectionHost.Shred() {
 
             private PsiLanguageInjectionHost.Shred getFirst() {
-                return places.get(0);
-            }
 ```
 
 ### NonExtendableApiUsage
@@ -13851,10 +13851,10 @@ in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptI
 #### Snippet
 ```java
             @Override
-            public void dispose() {
-                places.forEach(PsiLanguageInjectionHost.Shred::dispose);
-            }
-
+            public boolean isValid() {
+                for (PsiLanguageInjectionHost.Shred place : places) {
+                    if (!place.isValid()) {
+                        return false;
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -13868,18 +13868,6 @@ in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionS
         DumbService.getInstance(myProject).smartInvokeLater(() -> {
             ApplicationManager.getApplication().executeOnPooledThread(() -> {
                 Set<String> visitedUrls = new HashSet<>();
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
-#### Snippet
-```java
-                .collect(toMap(FieldDefinition::getName, Function.identity(), mergeFirstValue()));
-
-        implementedInterfaces.forEach((implementedInterface, implementingType) -> {
-            implementedInterface.getFieldDefinitions().forEach(interfaceFieldDef -> {
-                FieldDefinition typeFieldDef = typeFields.get(interfaceFieldDef.getName());
 ```
 
 ### CodeBlock2Expr
@@ -13904,6 +13892,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesCheck
                     entry.getValue().forEach(offendingType -> {
                         errors.add(new InterfaceImplementedMoreThanOnceError(TYPE_OF_MAP.get(offendingType.getClass()), offendingType, entry.getKey()));
                     });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesChecker.java`
+#### Snippet
+```java
+                .collect(toMap(FieldDefinition::getName, Function.identity(), mergeFirstValue()));
+
+        implementedInterfaces.forEach((implementedInterface, implementingType) -> {
+            implementedInterface.getFieldDefinitions().forEach(interfaceFieldDef -> {
+                FieldDefinition typeFieldDef = typeFields.get(interfaceFieldDef.getName());
 ```
 
 ### CodeBlock2Expr
@@ -13956,6 +13956,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+#### Snippet
+```java
+
+    private NodePrinter<SelectionSet> selectionSet() {
+        return (out, node) -> {
+            out.append(block(node.getSelections()));
+        };
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
@@ -13968,14 +13980,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
 #### Snippet
 ```java
+        Assert.assertTrue(includingRelativeLevel >= 1, () -> "relative level must be >= 1");
 
-    private NodePrinter<SelectionSet> selectionSet() {
-        return (out, node) -> {
-            out.append(block(node.getSelections()));
-        };
+        this.getChildren().forEach(child -> {
+            traverseImpl(child, result::add, 1, includingRelativeLevel);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -13999,18 +14011,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
     public void traverseSubTree(Consumer<NormalizedField> consumer) {
         this.getChildren().forEach(child -> {
             traverseImpl(child, consumer, 1, Integer.MAX_VALUE);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/com/intellij/lang/jsgraphql/types/normalized/NormalizedField.java`
-#### Snippet
-```java
-        Assert.assertTrue(includingRelativeLevel >= 1, () -> "relative level must be >= 1");
-
-        this.getChildren().forEach(child -> {
-            traverseImpl(child, result::add, 1, includingRelativeLevel);
         });
 ```
 
@@ -14088,6 +14088,30 @@ in `src/main/com/intellij/lang/jsgraphql/ide/introspection/remote/GraphQLRemoteS
 ```
 
 ### MemberVisibilityCanBePrivate
+Function 'addDefinition' could be private
+in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry.kt`
+#### Snippet
+```java
+    }
+
+    fun addDefinition(definition: SDLDefinition<*>) {
+        if (GraphQLTypeDefinitionUtil.isExtension(definition)) {
+            addExtensionDefinition(definition)
+```
+
+### MemberVisibilityCanBePrivate
+Function 'getCompositeDefinition' could be private
+in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry.kt`
+#### Snippet
+```java
+    }
+
+    fun getCompositeDefinition(definition: SDLDefinition<*>): GraphQLCompositeDefinition<*>? {
+        if (definition is SchemaDefinition) {
+            return schemaCompositeDefinition
+```
+
+### MemberVisibilityCanBePrivate
 Function 'addExtensionDefinition' could be private
 in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry.kt`
 #### Snippet
@@ -14109,30 +14133,6 @@ in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry
     fun addTypeDefinition(definition: SDLDefinition<*>) {
         LOG.assertTrue(!GraphQLTypeDefinitionUtil.isExtension(definition))
 
-```
-
-### MemberVisibilityCanBePrivate
-Function 'getCompositeDefinition' could be private
-in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry.kt`
-#### Snippet
-```java
-    }
-
-    fun getCompositeDefinition(definition: SDLDefinition<*>): GraphQLCompositeDefinition<*>? {
-        if (definition is SchemaDefinition) {
-            return schemaCompositeDefinition
-```
-
-### MemberVisibilityCanBePrivate
-Function 'addDefinition' could be private
-in `src/main/com/intellij/lang/jsgraphql/schema/builder/GraphQLCompositeRegistry.kt`
-#### Snippet
-```java
-    }
-
-    fun addDefinition(definition: SDLDefinition<*>) {
-        if (GraphQLTypeDefinitionUtil.isExtension(definition)) {
-            addExtensionDefinition(definition)
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -14162,18 +14162,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/InterThreadMemoizedSupplier.
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `immediateFields` is accessed in both synchronized and unsynchronized contexts
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
-#### Snippet
-```java
-
-    private volatile boolean computedValues;
-    private List<SelectedField> immediateFields;
-    private Map<String, List<SelectedField>> normalisedSelectionSetFields;
-    private Set<String> flattenedFieldsForGlobSearching;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `flattenedFieldsForGlobSearching` is accessed in both synchronized and unsynchronized contexts
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
 #### Snippet
@@ -14195,6 +14183,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelection
     private Map<String, List<SelectedField>> normalisedSelectionSetFields;
     private Set<String> flattenedFieldsForGlobSearching;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `immediateFields` is accessed in both synchronized and unsynchronized contexts
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
+#### Snippet
+```java
+
+    private volatile boolean computedValues;
+    private List<SelectedField> immediateFields;
+    private Map<String, List<SelectedField>> normalisedSelectionSetFields;
+    private Set<String> flattenedFieldsForGlobSearching;
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -14276,11 +14276,11 @@ Field initialization to `false` is redundant
 in `src/main/com/intellij/lang/jsgraphql/GraphQLSettings.java`
 #### Snippet
 ```java
-        public String introspectionQuery = "";
-        public boolean enableIntrospectionDefaultValues = true;
-        public boolean enableIntrospectionRepeatableDirectives = false;
-        public boolean openEditorWithIntrospectionResult = true;
 
+        public boolean enableRelayModernFrameworkSupport;
+        public boolean enableFederationSupport = false;
+        public boolean enableApolloKotlinSupport = false;
+    }
 ```
 
 ### RedundantFieldInitialization
@@ -14288,11 +14288,11 @@ Field initialization to `false` is redundant
 in `src/main/com/intellij/lang/jsgraphql/GraphQLSettings.java`
 #### Snippet
 ```java
+        public String introspectionQuery = "";
+        public boolean enableIntrospectionDefaultValues = true;
+        public boolean enableIntrospectionRepeatableDirectives = false;
+        public boolean openEditorWithIntrospectionResult = true;
 
-        public boolean enableRelayModernFrameworkSupport;
-        public boolean enableFederationSupport = false;
-        public boolean enableApolloKotlinSupport = false;
-    }
 ```
 
 ### RedundantFieldInitialization
@@ -14332,14 +14332,14 @@ in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionS
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
+Field initialization to `null` is redundant
+in `src/main/com/intellij/lang/jsgraphql/types/GraphqlErrorBuilder.java`
 #### Snippet
 ```java
-        private Instrumentation instrumentation = null; // deliberate default here
-        private PreparsedDocumentProvider preparsedDocumentProvider = NoOpPreparsedDocumentProvider.INSTANCE;
-        private boolean doNotAddDefaultInstrumentations = false;
-        private ValueUnboxer valueUnboxer = ValueUnboxer.DEFAULT;
+    private List<SourceLocation> locations = new ArrayList<>();
+    private ErrorClassification errorType = ErrorType.DataFetchingException;
+    private Map<String, Object> extensions = null;
+
 
 ```
 
@@ -14356,14 +14356,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/com/intellij/lang/jsgraphql/types/GraphqlErrorBuilder.java`
+Field initialization to `false` is redundant
+in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
 #### Snippet
 ```java
-    private List<SourceLocation> locations = new ArrayList<>();
-    private ErrorClassification errorType = ErrorType.DataFetchingException;
-    private Map<String, Object> extensions = null;
-
+        private Instrumentation instrumentation = null; // deliberate default here
+        private PreparsedDocumentProvider preparsedDocumentProvider = NoOpPreparsedDocumentProvider.INSTANCE;
+        private boolean doNotAddDefaultInstrumentations = false;
+        private ValueUnboxer valueUnboxer = ValueUnboxer.DEFAULT;
 
 ```
 
@@ -14428,18 +14428,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/SingleSubscrib
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/SingleSubscriberPublisher.java`
-#### Snippet
-```java
-
-    private Subscriber<? super T> subscriber;
-    private Throwable pendingThrowable = null;
-    private boolean running = true;
-    private boolean noMoreData = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/SingleSubscriberPublisher.java`
 #### Snippet
@@ -14449,6 +14437,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/SingleSubscrib
     private long demand = 0;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/SingleSubscriberPublisher.java`
+#### Snippet
+```java
+
+    private Subscriber<? super T> subscriber;
+    private Throwable pendingThrowable = null;
+    private boolean running = true;
+    private boolean noMoreData = false;
 ```
 
 ### RedundantFieldInitialization
@@ -14552,24 +14552,24 @@ class GraphQLJavaScriptConfigLoader : GraphQLConfigCustomLoader {
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `GraphQLTypeDefinition`
-in `gen/com/intellij/lang/jsgraphql/psi/GraphQLUnionTypeDefinition.java`
-#### Snippet
-```java
-import com.intellij.psi.PsiElement;
-
-public interface GraphQLUnionTypeDefinition extends GraphQLTypeDefinition, GraphQLDirectivesAware, GraphQLNamedTypeDefinition {
-
-  @Nullable
-```
-
-### RedundantImplements
-Redundant interface declaration `GraphQLTypeDefinition`
 in `gen/com/intellij/lang/jsgraphql/psi/GraphQLInterfaceTypeDefinition.java`
 #### Snippet
 ```java
 import com.intellij.psi.PsiElement;
 
 public interface GraphQLInterfaceTypeDefinition extends GraphQLTypeDefinition, GraphQLDirectivesAware, GraphQLNamedTypeDefinition {
+
+  @Nullable
+```
+
+### RedundantImplements
+Redundant interface declaration `GraphQLTypeDefinition`
+in `gen/com/intellij/lang/jsgraphql/psi/GraphQLUnionTypeDefinition.java`
+#### Snippet
+```java
+import com.intellij.psi.PsiElement;
+
+public interface GraphQLUnionTypeDefinition extends GraphQLTypeDefinition, GraphQLDirectivesAware, GraphQLNamedTypeDefinition {
 
   @Nullable
 ```
@@ -14587,18 +14587,6 @@ public interface GraphQLEnumTypeDefinition extends GraphQLTypeDefinition, GraphQ
 ```
 
 ### RedundantImplements
-Redundant interface declaration `GraphQLTypeExtension`
-in `gen/com/intellij/lang/jsgraphql/psi/GraphQLEnumTypeExtensionDefinition.java`
-#### Snippet
-```java
-import com.intellij.psi.PsiElement;
-
-public interface GraphQLEnumTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
-
-  @Nullable
-```
-
-### RedundantImplements
 Redundant interface declaration `GraphQLTypeDefinition`
 in `gen/com/intellij/lang/jsgraphql/psi/GraphQLInputObjectTypeDefinition.java`
 #### Snippet
@@ -14606,6 +14594,18 @@ in `gen/com/intellij/lang/jsgraphql/psi/GraphQLInputObjectTypeDefinition.java`
 import com.intellij.psi.PsiElement;
 
 public interface GraphQLInputObjectTypeDefinition extends GraphQLTypeDefinition, GraphQLDirectivesAware, GraphQLNamedTypeDefinition {
+
+  @Nullable
+```
+
+### RedundantImplements
+Redundant interface declaration `GraphQLTypeExtension`
+in `gen/com/intellij/lang/jsgraphql/psi/GraphQLEnumTypeExtensionDefinition.java`
+#### Snippet
+```java
+import com.intellij.psi.PsiElement;
+
+public interface GraphQLEnumTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
 
   @Nullable
 ```
@@ -14648,18 +14648,6 @@ public interface GraphQLInputObjectTypeExtensionDefinition extends GraphQLTypeEx
 
 ### RedundantImplements
 Redundant interface declaration `GraphQLTypeExtension`
-in `gen/com/intellij/lang/jsgraphql/psi/GraphQLScalarTypeExtensionDefinition.java`
-#### Snippet
-```java
-import com.intellij.psi.PsiElement;
-
-public interface GraphQLScalarTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
-
-  @Nullable
-```
-
-### RedundantImplements
-Redundant interface declaration `GraphQLTypeExtension`
 in `gen/com/intellij/lang/jsgraphql/psi/GraphQLUnionTypeExtensionDefinition.java`
 #### Snippet
 ```java
@@ -14672,12 +14660,12 @@ public interface GraphQLUnionTypeExtensionDefinition extends GraphQLTypeExtensio
 
 ### RedundantImplements
 Redundant interface declaration `GraphQLTypeExtension`
-in `gen/com/intellij/lang/jsgraphql/psi/GraphQLInterfaceTypeExtensionDefinition.java`
+in `gen/com/intellij/lang/jsgraphql/psi/GraphQLScalarTypeExtensionDefinition.java`
 #### Snippet
 ```java
 import com.intellij.psi.PsiElement;
 
-public interface GraphQLInterfaceTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
+public interface GraphQLScalarTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
 
   @Nullable
 ```
@@ -14690,6 +14678,18 @@ in `gen/com/intellij/lang/jsgraphql/psi/GraphQLScalarTypeDefinition.java`
 import com.intellij.psi.PsiElement;
 
 public interface GraphQLScalarTypeDefinition extends GraphQLTypeDefinition, GraphQLDirectivesAware, GraphQLNamedTypeDefinition {
+
+  @Nullable
+```
+
+### RedundantImplements
+Redundant interface declaration `GraphQLTypeExtension`
+in `gen/com/intellij/lang/jsgraphql/psi/GraphQLInterfaceTypeExtensionDefinition.java`
+#### Snippet
+```java
+import com.intellij.psi.PsiElement;
+
+public interface GraphQLInterfaceTypeExtensionDefinition extends GraphQLTypeExtension, GraphQLDirectivesAware, GraphQLNamedTypeExtension {
 
   @Nullable
 ```
@@ -14791,6 +14791,18 @@ public class GraphQLInputValueDefinitionImpl extends GraphQLInputValueDefinition
 ```
 
 ### RedundantImplements
+Redundant interface declaration `GraphQLArgument`
+in `gen/com/intellij/lang/jsgraphql/psi/impl/GraphQLArgumentImpl.java`
+#### Snippet
+```java
+import com.intellij.lang.jsgraphql.psi.*;
+
+public class GraphQLArgumentImpl extends GraphQLArgumentMixin implements GraphQLArgument {
+
+  public GraphQLArgumentImpl(@NotNull ASTNode node) {
+```
+
+### RedundantImplements
 Redundant interface declaration `GraphQLStringLiteral`
 in `gen/com/intellij/lang/jsgraphql/psi/impl/GraphQLStringLiteralImpl.java`
 #### Snippet
@@ -14812,18 +14824,6 @@ import com.intellij.lang.jsgraphql.psi.*;
 public class GraphQLTypeNameImpl extends GraphQLTypeNameMixin implements GraphQLTypeName {
 
   public GraphQLTypeNameImpl(@NotNull ASTNode node) {
-```
-
-### RedundantImplements
-Redundant interface declaration `GraphQLArgument`
-in `gen/com/intellij/lang/jsgraphql/psi/impl/GraphQLArgumentImpl.java`
-#### Snippet
-```java
-import com.intellij.lang.jsgraphql.psi.*;
-
-public class GraphQLArgumentImpl extends GraphQLArgumentMixin implements GraphQLArgument {
-
-  public GraphQLArgumentImpl(@NotNull ASTNode node) {
 ```
 
 ### RedundantImplements
@@ -14875,18 +14875,6 @@ public class GraphQLArgument implements GraphQLNamedSchemaElement, GraphQLInputV
 ```
 
 ### RedundantImplements
-Redundant interface declaration `GraphQLNamedSchemaElement`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
-#### Snippet
-```java
- */
-@PublicApi
-public class GraphQLEnumValueDefinition implements GraphQLNamedSchemaElement, GraphQLDirectiveContainer {
-
-    private final String name;
-```
-
-### RedundantImplements
 Redundant interface declaration `DataFetcher`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/PropertyDataFetcher.java`
 #### Snippet
@@ -14896,6 +14884,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/PropertyDataFetcher.java`
 public class PropertyDataFetcher<T> implements DataFetcher<T>, TrivialDataFetcher<T> {
 
     private final String propertyName;
+```
+
+### RedundantImplements
+Redundant interface declaration `GraphQLType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLNonNull.java`
+#### Snippet
+```java
+ */
+@PublicApi
+public class GraphQLNonNull implements GraphQLType, GraphQLInputType, GraphQLOutputType, GraphQLModifiedType {
+
+    /**
 ```
 
 ### RedundantImplements
@@ -14911,15 +14911,15 @@ public class StaticDataFetcher implements DataFetcher, TrivialDataFetcher {
 ```
 
 ### RedundantImplements
-Redundant interface declaration `GraphQLType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLNonNull.java`
+Redundant interface declaration `GraphQLNamedSchemaElement`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
 #### Snippet
 ```java
  */
 @PublicApi
-public class GraphQLNonNull implements GraphQLType, GraphQLInputType, GraphQLOutputType, GraphQLModifiedType {
+public class GraphQLEnumValueDefinition implements GraphQLNamedSchemaElement, GraphQLDirectiveContainer {
 
-    /**
+    private final String name;
 ```
 
 ### RedundantImplements
@@ -15236,18 +15236,6 @@ public class NonSDLDefinitionError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `QueryOperationMissingError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/QueryOperationMissingError.java`
-#### Snippet
-```java
-
-@Internal
-public class QueryOperationMissingError extends BaseError {
-
-    public QueryOperationMissingError() {
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `MissingTransitiveInterfaceError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingTransitiveInterfaceError.java`
 #### Snippet
@@ -15260,6 +15248,18 @@ public class MissingTransitiveInterfaceError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `QueryOperationMissingError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/QueryOperationMissingError.java`
+#### Snippet
+```java
+
+@Internal
+public class QueryOperationMissingError extends BaseError {
+
+    public QueryOperationMissingError() {
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `TypeRedefinitionError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/TypeRedefinitionError.java`
 #### Snippet
@@ -15269,6 +15269,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/TypeRedefinitio
 public class TypeRedefinitionError extends BaseError {
 
     public TypeRedefinitionError(TypeDefinition newEntry, TypeDefinition oldEntry) {
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `NonUniqueArgumentError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/NonUniqueArgumentError.java`
+#### Snippet
+```java
+
+@Internal
+public class NonUniqueArgumentError extends BaseError {
+
+    public NonUniqueArgumentError(TypeDefinition typeDefinition, FieldDefinition fieldDefinition, String argumentName) {
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15296,15 +15308,15 @@ public class IllegalNameError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `NonUniqueArgumentError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/NonUniqueArgumentError.java`
+Exception class name `NonUniqueDirectiveError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/NonUniqueDirectiveError.java`
 #### Snippet
 ```java
 
 @Internal
-public class NonUniqueArgumentError extends BaseError {
+public class NonUniqueDirectiveError extends BaseError {
 
-    public NonUniqueArgumentError(TypeDefinition typeDefinition, FieldDefinition fieldDefinition, String argumentName) {
+    public NonUniqueDirectiveError(TypeDefinition typeDefinition, FieldDefinition fieldDefinition, String directiveName) {
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15332,6 +15344,18 @@ public class MissingTypeError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `DirectiveIllegalLocationError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalLocationError.java`
+#### Snippet
+```java
+
+@Internal
+public class DirectiveIllegalLocationError extends BaseError {
+
+    public DirectiveIllegalLocationError(Node element, String elementName, String directiveName, String locationName) {
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `InterfaceWithCircularImplementationHierarchyError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceWithCircularImplementationHierarchyError.java`
 #### Snippet
@@ -15341,18 +15365,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceWithCi
 public class InterfaceWithCircularImplementationHierarchyError extends BaseError {
     public InterfaceWithCircularImplementationHierarchyError(String typeOfType,
                                                              ImplementingTypeDefinition typeDefinition,
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `NonUniqueDirectiveError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/NonUniqueDirectiveError.java`
-#### Snippet
-```java
-
-@Internal
-public class NonUniqueDirectiveError extends BaseError {
-
-    public NonUniqueDirectiveError(TypeDefinition typeDefinition, FieldDefinition fieldDefinition, String directiveName) {
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15368,15 +15380,15 @@ public class TypeExtensionMissingBaseTypeError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `DirectiveIllegalLocationError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalLocationError.java`
+Exception class name `InterfaceFieldArgumentNotOptionalError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceFieldArgumentNotOptionalError.java`
 #### Snippet
 ```java
 
 @Internal
-public class DirectiveIllegalLocationError extends BaseError {
-
-    public DirectiveIllegalLocationError(Node element, String elementName, String directiveName, String locationName) {
+public class InterfaceFieldArgumentNotOptionalError extends BaseError {
+    public InterfaceFieldArgumentNotOptionalError(String typeOfType,
+                                                  ImplementingTypeDefinition typeDefinition,
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15392,18 +15404,6 @@ public class DirectiveMissingNonNullArgumentError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `InterfaceFieldArgumentNotOptionalError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceFieldArgumentNotOptionalError.java`
-#### Snippet
-```java
-
-@Internal
-public class InterfaceFieldArgumentNotOptionalError extends BaseError {
-    public InterfaceFieldArgumentNotOptionalError(String typeOfType,
-                                                  ImplementingTypeDefinition typeDefinition,
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `MissingInterfaceFieldError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfaceFieldError.java`
 #### Snippet
@@ -15413,18 +15413,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfac
 public class MissingInterfaceFieldError extends BaseError {
     public MissingInterfaceFieldError(String typeOfType,
                                       ImplementingTypeDefinition objectType,
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `DirectiveRedefinitionError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveRedefinitionError.java`
-#### Snippet
-```java
-
-@Internal
-public class DirectiveRedefinitionError extends BaseError {
-
-    public DirectiveRedefinitionError(DirectiveDefinition newEntry, DirectiveDefinition oldEntry) {
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15440,6 +15428,18 @@ public class SchemaRedefinitionError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `DirectiveRedefinitionError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveRedefinitionError.java`
+#### Snippet
+```java
+
+@Internal
+public class DirectiveRedefinitionError extends BaseError {
+
+    public DirectiveRedefinitionError(DirectiveDefinition newEntry, DirectiveDefinition oldEntry) {
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `DirectiveNonRepeatableError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveNonRepeatableError.java`
 #### Snippet
@@ -15448,6 +15448,30 @@ import static java.lang.String.format;
 
 public class DirectiveNonRepeatableError extends BaseError {
     public DirectiveNonRepeatableError(@NotNull Directive directive) {
+        super(directive,
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `SchemaProblem` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/SchemaProblem.java`
+#### Snippet
+```java
+ */
+@Internal
+public class SchemaProblem extends GraphQLException {
+
+    private final List<GraphQLError> errors;
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `DirectiveIllegalReferenceError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalReferenceError.java`
+#### Snippet
+```java
+
+@Internal
+public class DirectiveIllegalReferenceError extends BaseError {
+    public DirectiveIllegalReferenceError(DirectiveDefinition directive, NamedNode location) {
         super(directive,
 ```
 
@@ -15464,30 +15488,6 @@ public class BaseError extends GraphQLException implements GraphQLError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `OperationRedefinitionError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/OperationRedefinitionError.java`
-#### Snippet
-```java
-
-@Internal
-public class OperationRedefinitionError extends BaseError {
-
-    public OperationRedefinitionError(OperationTypeDefinition oldEntry, OperationTypeDefinition newEntry) {
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `SchemaProblem` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/SchemaProblem.java`
-#### Snippet
-```java
- */
-@Internal
-public class SchemaProblem extends GraphQLException {
-
-    private final List<GraphQLError> errors;
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `EmptyUnionTypeError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/EmptyUnionTypeError.java`
 #### Snippet
@@ -15497,6 +15497,18 @@ import static java.lang.String.format;
 public class EmptyUnionTypeError extends BaseError {
     public EmptyUnionTypeError(UnionTypeDefinition definition) {
         super(definition, format("Union type '%s' must include one or more member types.", definition.getName()));
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `OperationRedefinitionError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/OperationRedefinitionError.java`
+#### Snippet
+```java
+
+@Internal
+public class OperationRedefinitionError extends BaseError {
+
+    public OperationRedefinitionError(OperationTypeDefinition oldEntry, OperationTypeDefinition newEntry) {
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15512,15 +15524,15 @@ public class InterfaceImplementingItselfError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `DirectiveIllegalReferenceError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalReferenceError.java`
+Exception class name `MissingInterfaceFieldArgumentsError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfaceFieldArgumentsError.java`
 #### Snippet
 ```java
 
 @Internal
-public class DirectiveIllegalReferenceError extends BaseError {
-    public DirectiveIllegalReferenceError(DirectiveDefinition directive, NamedNode location) {
-        super(directive,
+public class MissingInterfaceFieldArgumentsError extends BaseError {
+    public MissingInterfaceFieldArgumentsError(String typeOfType,
+                                               ImplementingTypeDefinition typeDefinition,
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15536,15 +15548,15 @@ public class DirectiveUnknownArgumentError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `MissingInterfaceFieldArgumentsError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfaceFieldArgumentsError.java`
+Exception class name `DirectiveIllegalArgumentTypeError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalArgumentTypeError.java`
 #### Snippet
 ```java
 
 @Internal
-public class MissingInterfaceFieldArgumentsError extends BaseError {
-    public MissingInterfaceFieldArgumentsError(String typeOfType,
-                                               ImplementingTypeDefinition typeDefinition,
+public class DirectiveIllegalArgumentTypeError extends BaseError {
+
+    public static final String DUPLICATED_KEYS_MESSAGE = "Argument value object keys [%s] appear more than once.";
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15572,18 +15584,6 @@ public class MissingInterfaceTypeError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `DirectiveIllegalArgumentTypeError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/DirectiveIllegalArgumentTypeError.java`
-#### Snippet
-```java
-
-@Internal
-public class DirectiveIllegalArgumentTypeError extends BaseError {
-
-    public static final String DUPLICATED_KEYS_MESSAGE = "Argument value object keys [%s] appear more than once.";
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `NonUniqueNameError` does not end with 'Exception'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/NonUniqueNameError.java`
 #### Snippet
@@ -15596,15 +15596,15 @@ public class NonUniqueNameError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `InterfaceFieldRedefinitionError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceFieldRedefinitionError.java`
+Exception class name `MissingInterfaceFieldArgumentError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfaceFieldArgumentError.java`
 #### Snippet
 ```java
 
 @Internal
-public class InterfaceFieldRedefinitionError extends BaseError {
-    public InterfaceFieldRedefinitionError(String typeOfType,
-                                           ImplementingTypeDefinition typeDefinition,
+public class MissingInterfaceFieldArgumentError extends BaseError {
+    public MissingInterfaceFieldArgumentError(String typeOfType,
+                                              ImplementingTypeDefinition typeDefinition,
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15620,15 +15620,15 @@ public class UnionMemberNotUniqueError extends BaseError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `MissingInterfaceFieldArgumentError` does not end with 'Exception'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/MissingInterfaceFieldArgumentError.java`
+Exception class name `InterfaceFieldRedefinitionError` does not end with 'Exception'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/errors/InterfaceFieldRedefinitionError.java`
 #### Snippet
 ```java
 
 @Internal
-public class MissingInterfaceFieldArgumentError extends BaseError {
-    public MissingInterfaceFieldArgumentError(String typeOfType,
-                                              ImplementingTypeDefinition typeDefinition,
+public class InterfaceFieldRedefinitionError extends BaseError {
+    public InterfaceFieldRedefinitionError(String typeOfType,
+                                           ImplementingTypeDefinition typeDefinition,
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -15711,6 +15711,18 @@ Redundant call to `format()`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/reporting/PrintStreamReporter.java`
 #### Snippet
 ```java
+            objectName = objectName + "." + event.getFieldName();
+        }
+        out.println(format(
+                "%s%s - '%s' : '%s' : %s",
+                indent, level, event.getTypeKind(), objectName, event.getReasonMsg()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/reporting/PrintStreamReporter.java`
+#### Snippet
+```java
     public void onEnd() {
         out.println("\n");
         out.println(format("%d errors", breakageCount));
@@ -15728,18 +15740,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/reporting/PrintStream
         out.println(format("%d warnings", dangerCount));
         out.println("\n");
     }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/reporting/PrintStreamReporter.java`
-#### Snippet
-```java
-            objectName = objectName + "." + event.getFieldName();
-        }
-        out.println(format(
-                "%s%s - '%s' : '%s' : %s",
-                indent, level, event.getTypeKind(), objectName, event.getReasonMsg()));
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -15855,18 +15855,6 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 ```
 
 ### UnusedAssignment
-The value `zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result)` assigned to `offset` is never used
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
-    int [] result = new int[5900];
-    int offset = 0;
-    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
 The value `zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result)` assigned to `offset` is never used
 in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 #### Snippet
@@ -15886,6 +15874,18 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
     int [] result = new int[159];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result)` assigned to `offset` is never used
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
+#### Snippet
+```java
+    int [] result = new int[5900];
+    int offset = 0;
+    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
   }
 ```
@@ -15952,19 +15952,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/ValueFetcher.ja
             return Async.each(fetchedValues);
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
-#### Snippet
-```java
-    public static void printAst(Writer writer, Node node) {
-        String ast = printAst(node);
-        PrintWriter printer = new PrintWriter(writer);
-        printer.write(ast);
-    }
-```
-
 ## RuleId[id=MismatchedStringCase]
 ### MismatchedStringCase
 Method 'equals()' always returns false: the argument contains an uppercase symbol while the qualifier is lowercase-only
@@ -15976,6 +15963,19 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
             if (isEmpty(name) && isEmpty(directives) && isEmpty(varDefinitions) && op.equals("QUERY")) {
                 out.append(selectionSet);
             } else {
+```
+
+## RuleId[id=IOResource]
+### IOResource
+'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+#### Snippet
+```java
+    public static void printAst(Writer writer, Node node) {
+        String ast = printAst(node);
+        PrintWriter printer = new PrintWriter(writer);
+        printer.write(ast);
+    }
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -16052,27 +16052,15 @@ public class Scalars {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Logos` has only 'static' members, and lacks a 'private' constructor
-in `src/main/com/intellij/lang/jsgraphql/icons/GraphQLIcons.java`
-#### Snippet
-```java
-    public static final Icon FILE = GraphQLIcons.load("/icons/graphql.svg");
-
-    public static class Logos {
-        public static final Icon GraphQL = FILE;
-        public static final Icon Relay = GraphQLIcons.load("/icons/relay.svg");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Files` has only 'static' members, and lacks a 'private' constructor
+Class `Schema` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/icons/GraphQLIcons.java`
 #### Snippet
 ```java
     }
 
-    public static class Files {
-        public static final Icon GraphQL = FILE;
-        public static final Icon GraphQLConfig = GraphQLIcons.load("/icons/graphqlConfig.svg");
+    public static class Schema {
+        public static final Icon Field = GraphQLIcons.load("/icons/field.svg");
+        public static final Icon Scalar = GraphQLIcons.load("/icons/scalar.svg");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16088,15 +16076,15 @@ in `src/main/com/intellij/lang/jsgraphql/icons/GraphQLIcons.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Schema` has only 'static' members, and lacks a 'private' constructor
+Class `Files` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/icons/GraphQLIcons.java`
 #### Snippet
 ```java
     }
 
-    public static class Schema {
-        public static final Icon Field = GraphQLIcons.load("/icons/field.svg");
-        public static final Icon Scalar = GraphQLIcons.load("/icons/scalar.svg");
+    public static class Files {
+        public static final Icon GraphQL = FILE;
+        public static final Icon GraphQLConfig = GraphQLIcons.load("/icons/graphqlConfig.svg");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16109,6 +16097,18 @@ import javax.swing.*;
 public class GraphQLIcons {
 
     public static final Icon FILE = GraphQLIcons.load("/icons/graphql.svg");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Logos` has only 'static' members, and lacks a 'private' constructor
+in `src/main/com/intellij/lang/jsgraphql/icons/GraphQLIcons.java`
+#### Snippet
+```java
+    public static final Icon FILE = GraphQLIcons.load("/icons/graphql.svg");
+
+    public static class Logos {
+        public static final Icon GraphQL = FILE;
+        public static final Icon Relay = GraphQLIcons.load("/icons/relay.svg");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16148,18 +16148,6 @@ public class Assert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DirectivesUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
-#### Snippet
-```java
-
-@Internal
-public class DirectivesUtil {
-
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TreeTransformerUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/types/util/TreeTransformerUtil.java`
 #### Snippet
@@ -16169,6 +16157,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TreeTransformerUtil.java`
 public class TreeTransformerUtil {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DirectivesUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
+#### Snippet
+```java
+
+@Internal
+public class DirectivesUtil {
+
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16208,18 +16208,6 @@ public class GraphQLTypeUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FpKit` has only 'static' members, and lacks a 'private' constructor
-in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
-#### Snippet
-```java
-
-@Internal
-public class FpKit {
-
-    //
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GraphqlTypeComparators` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.java`
 #### Snippet
@@ -16229,6 +16217,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.jav
 public class GraphqlTypeComparators {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FpKit` has only 'static' members, and lacks a 'private' constructor
+in `src/main/com/intellij/lang/jsgraphql/types/util/FpKit.java`
+#### Snippet
+```java
+
+@Internal
+public class FpKit {
+
+    //
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16268,18 +16268,6 @@ public class DirectiveInfo {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TypeUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeUtil.java`
-#### Snippet
-```java
- * This class consists of {@code static} utility methods for operating on {@link com.intellij.lang.jsgraphql.types.language.Type}.
- */
-public class TypeUtil {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Options` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGenerator.java`
 #### Snippet
@@ -16289,6 +16277,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGenerator.java`
     public static class Options {
 
         Options() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TypeUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/TypeUtil.java`
+#### Snippet
+```java
+ * This class consists of {@code static} utility methods for operating on {@link com.intellij.lang.jsgraphql.types.language.Type}.
+ */
+public class TypeUtil {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16376,18 +16376,6 @@ public class TypeFromAST {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Async` has only 'static' members, and lacks a 'private' constructor
-in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
-#### Snippet
-```java
-@Internal
-@SuppressWarnings("FutureReturnValueIgnored")
-public class Async {
-
-    @FunctionalInterface
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Common` has only 'static' members, and lacks a 'private' constructor
 in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/Common.java`
 #### Snippet
@@ -16397,6 +16385,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/Common.java`
 public class Common {
 
     public static GraphQLObjectType getOperationRootType(GraphQLSchema graphQLSchema, OperationDefinition operationDefinition) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Async` has only 'static' members, and lacks a 'private' constructor
+in `src/main/com/intellij/lang/jsgraphql/types/execution/Async.java`
+#### Snippet
+```java
+@Internal
+@SuppressWarnings("FutureReturnValueIgnored")
+public class Async {
+
+    @FunctionalInterface
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -16671,18 +16671,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeDirectivesCh
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
 #### Snippet
 ```java
-        List<EnumTypeExtensionDefinition> enumExtensions = typeRegistry.enumTypeExtensions().getOrDefault(allowedTypeDefinition.getName(), emptyList());
-        Stream<EnumValueDefinition> enumExtStream = enumExtensions.stream().flatMap(enumExt -> enumExt.getEnumValueDefinitions().stream());
-        List<EnumValueDefinition> enumValueDefinitions = Stream.concat(allowedTypeDefinition.getEnumValueDefinitions().stream(), enumExtStream).collect(toList());
-
-        boolean noneMatchAllowedEnumValue = enumValueDefinitions.stream()
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
-#### Snippet
-```java
         List<InputObjectTypeExtensionDefinition> inputObjExt = typeRegistry.inputObjectTypeExtensions().getOrDefault(allowedTypeDefinition.getName(), emptyList());
         Stream<InputValueDefinition> inputObjExtValues = inputObjExt.stream().flatMap(inputObj -> inputObj.getInputValueDefinitions().stream());
         List<InputValueDefinition> inputValueDefinitions = Stream.concat(allowedTypeDefinition.getInputValueDefinitions().stream(), inputObjExtValues).collect(toList());
@@ -16700,6 +16688,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeC
                 .collect(toList());
 
         if (!unknownFields.isEmpty()) {
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
+#### Snippet
+```java
+        List<EnumTypeExtensionDefinition> enumExtensions = typeRegistry.enumTypeExtensions().getOrDefault(allowedTypeDefinition.getName(), emptyList());
+        Stream<EnumValueDefinition> enumExtStream = enumExtensions.stream().flatMap(enumExt -> enumExt.getEnumValueDefinitions().stream());
+        List<EnumValueDefinition> enumValueDefinitions = Stream.concat(allowedTypeDefinition.getEnumValueDefinitions().stream(), enumExtStream).collect(toList());
+
+        boolean noneMatchAllowedEnumValue = enumValueDefinitions.stream()
 ```
 
 ### SimplifyStreamApiCallChains
@@ -16736,6 +16736,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
                     .collect(toList());
                 if (values.size() > 0) {
                     out.format(" {\n");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
+#### Snippet
+```java
+            List<Type> inputValueTypes = arguments.stream()
+                    .map(InputValueDefinition::getType)
+                    .collect(toList());
+
+            inputValueTypes.forEach(
 ```
 
 ### SimplifyStreamApiCallChains
@@ -16784,18 +16796,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java
                     .collect(toList());
 
             inputValueTypes.forEach(checkTypeExists("input value", typeRegistry, errors, inputType));
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaTypeChecker.java`
-#### Snippet
-```java
-            List<Type> inputValueTypes = arguments.stream()
-                    .map(InputValueDefinition::getType)
-                    .collect(toList());
-
-            inputValueTypes.forEach(
 ```
 
 ### SimplifyStreamApiCallChains
@@ -16984,18 +16984,6 @@ in `src/main/com/intellij/lang/jsgraphql/ide/diagnostic/GraphQLSentryErrorReport
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'file' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.java`
-#### Snippet
-```java
-        if (!(psiElement instanceof GraphQLFile)) return;
-
-        final GraphQLFile file = (GraphQLFile) psiElement;
-        final Project project = psiElement.getProject();
-
-```
-
-### PatternVariableCanBeUsed
 Variable 'validationError' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.java`
 #### Snippet
@@ -17005,6 +16993,18 @@ in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.j
             final ValidationError validationError = (ValidationError) error;
             final ValidationErrorType validationErrorType = validationError.getValidationErrorType();
             if (validationErrorType == null) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'file' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.java`
+#### Snippet
+```java
+        if (!(psiElement instanceof GraphQLFile)) return;
+
+        final GraphQLFile file = (GraphQLFile) psiElement;
+        final Project project = psiElement.getProject();
+
 ```
 
 ### PatternVariableCanBeUsed
@@ -17068,18 +17068,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/PropertyFetchingImpl.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'enumValue' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
-#### Snippet
-```java
-            );
-        }
-        EnumValue enumValue = (EnumValue) input;
-        GraphQLEnumValueDefinition enumValueDefinition = valueDefinitionMap.get(enumValue.getName());
-        if (enumValueDefinition == null) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'objectType' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
 #### Snippet
@@ -17089,6 +17077,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
             GraphQLObjectType objectType = (GraphQLObjectType) type;
             if ((objectType).getInterfaces().contains(interfaceType)) {
                 result.add(objectType);
+```
+
+### PatternVariableCanBeUsed
+Variable 'enumValue' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumType.java`
+#### Snippet
+```java
+            );
+        }
+        EnumValue enumValue = (EnumValue) input;
+        GraphQLEnumValueDefinition enumValueDefinition = valueDefinitionMap.get(enumValue.getName());
+        if (enumValueDefinition == null) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -17116,6 +17116,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaTransformer.java`
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'objectValue' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
+#### Snippet
+```java
+        }
+
+        ObjectValue objectValue = ((ObjectValue) instanceValue);
+        // duck typing validation, if it looks like the definition
+        // then it must be the same type as the definition
+```
+
+### PatternVariableCanBeUsed
 Variable 'enumValue' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
 #### Snippet
@@ -17137,18 +17149,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeC
         ArrayValue arrayValue = ((ArrayValue) instanceValue);
         boolean isUnwrappedList = unwrappedAllowedType instanceof ListType;
 
-```
-
-### PatternVariableCanBeUsed
-Variable 'objectValue' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ArgValueOfAllowedTypeChecker.java`
-#### Snippet
-```java
-        }
-
-        ObjectValue objectValue = ((ObjectValue) instanceValue);
-        // duck typing validation, if it looks like the definition
-        // then it must be the same type as the definition
 ```
 
 ### PatternVariableCanBeUsed
@@ -17284,6 +17284,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/SchemaValidatio
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'namedType' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/schema/transform/FieldVisibilitySchemaTransformation.java`
+#### Snippet
+```java
+
+            if (node instanceof GraphQLNamedType) {
+                GraphQLNamedType namedType = (GraphQLNamedType) node;
+                // we encountered a node referencing one of the marked types, so it should not be removed.
+                if (markedForRemovalTypes.contains(node)) {
+```
+
+### PatternVariableCanBeUsed
 Variable 'type' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 #### Snippet
@@ -17416,18 +17428,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'namedType' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/schema/transform/FieldVisibilitySchemaTransformation.java`
-#### Snippet
-```java
-
-            if (node instanceof GraphQLNamedType) {
-                GraphQLNamedType namedType = (GraphQLNamedType) node;
-                // we encountered a node referencing one of the marked types, so it should not be removed.
-                if (markedForRemovalTypes.contains(node)) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'fragmentSpread' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/types/analysis/QueryTraverser.java`
 #### Snippet
@@ -17452,15 +17452,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/analysis/NodeVisitorWithTypeTrack
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'operationDefinition' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
+Variable 'describedNode' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
 #### Snippet
 ```java
-                        .filter(d -> {
-                            if (d instanceof OperationDefinition) {
-                                OperationDefinition operationDefinition = (OperationDefinition) d;
-                                return isThisOperation(operationDefinition, operationName);
-                            }
+        for (Node node : nodes) {
+            if (node instanceof AbstractDescribedNode) {
+                AbstractDescribedNode<?> describedNode = (AbstractDescribedNode<?>) node;
+                if (describedNode.getDescription() != null) {
+                    return true;
 ```
 
 ### PatternVariableCanBeUsed
@@ -17488,15 +17488,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'describedNode' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstPrinter.java`
+Variable 'operationDefinition' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSignature.java`
 #### Snippet
 ```java
-        for (Node node : nodes) {
-            if (node instanceof AbstractDescribedNode) {
-                AbstractDescribedNode<?> describedNode = (AbstractDescribedNode<?>) node;
-                if (describedNode.getDescription() != null) {
-                    return true;
+                        .filter(d -> {
+                            if (d instanceof OperationDefinition) {
+                                OperationDefinition operationDefinition = (OperationDefinition) d;
+                                return isThisOperation(operationDefinition, operationName);
+                            }
 ```
 
 ### PatternVariableCanBeUsed
@@ -17656,6 +17656,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/NoFragmentCycles
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'fieldsContainer' can be replaced with pattern variable
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+        Boolean includeDeprecated = environment.getArgument("includeDeprecated");
+        if (type instanceof GraphQLFieldsContainer) {
+            GraphQLFieldsContainer fieldsContainer = (GraphQLFieldsContainer) type;
+            List<GraphQLFieldDefinition> fieldDefinitions = environment
+                    .getGraphQLSchema()
+```
+
+### PatternVariableCanBeUsed
 Variable 'selectionSetOperation' can be replaced with pattern variable
 in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
 #### Snippet
@@ -17681,14 +17693,14 @@ in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
 
 ### PatternVariableCanBeUsed
 Variable 'fieldsContainer' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
 #### Snippet
 ```java
-        Boolean includeDeprecated = environment.getArgument("includeDeprecated");
-        if (type instanceof GraphQLFieldsContainer) {
-            GraphQLFieldsContainer fieldsContainer = (GraphQLFieldsContainer) type;
-            List<GraphQLFieldDefinition> fieldDefinitions = environment
-                    .getGraphQLSchema()
+        GraphQLUnmodifiedType unwrappedParent = unwrapAll(parentType);
+        if (unwrappedParent instanceof GraphQLFieldsContainer) {
+            GraphQLFieldsContainer fieldsContainer = (GraphQLFieldsContainer) unwrappedParent;
+            GraphQLFieldDefinition fieldDefinition = getVisibleFieldDefinition(fieldsContainer, field);
+            fieldType = fieldDefinition != null ? fieldDefinition.getType() : null;
 ```
 
 ### PatternVariableCanBeUsed
@@ -17701,18 +17713,6 @@ in `src/main/com/intellij/lang/jsgraphql/javascript/formatter/GraphQLJavaScriptB
             JSStringTemplateExpression psi = (JSStringTemplateExpression) myNode.getPsi();
             InjectedLanguageManager.getInstance(psi.getProject()).enumerate(psi, (injectedPsi, places) -> {
                 // NO-OP here, but we need to enumerate for injection blocks to work in AbstractBlock#buildInjectedBlocks
-```
-
-### PatternVariableCanBeUsed
-Variable 'fieldsContainer' can be replaced with pattern variable
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-        GraphQLUnmodifiedType unwrappedParent = unwrapAll(parentType);
-        if (unwrappedParent instanceof GraphQLFieldsContainer) {
-            GraphQLFieldsContainer fieldsContainer = (GraphQLFieldsContainer) unwrappedParent;
-            GraphQLFieldDefinition fieldDefinition = getVisibleFieldDefinition(fieldsContainer, field);
-            fieldType = fieldDefinition != null ? fieldDefinition.getType() : null;
 ```
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
@@ -17753,18 +17753,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/TreeParallelTransformer.java
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'path' in a Serializable class
-in `src/main/com/intellij/lang/jsgraphql/types/execution/NonNullableFieldWasNullException.java`
-#### Snippet
-```java
-
-    private final ExecutionStepInfo executionStepInfo;
-    private final ResultPath path;
-
-
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'executionStepInfo' in a Serializable class
 in `src/main/com/intellij/lang/jsgraphql/types/execution/NonNullableFieldWasNullException.java`
 #### Snippet
@@ -17773,6 +17761,18 @@ public class NonNullableFieldWasNullException extends RuntimeException {
 
     private final ExecutionStepInfo executionStepInfo;
     private final ResultPath path;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'path' in a Serializable class
+in `src/main/com/intellij/lang/jsgraphql/types/execution/NonNullableFieldWasNullException.java`
+#### Snippet
+```java
+
+    private final ExecutionStepInfo executionStepInfo;
+    private final ResultPath path;
+
 
 ```
 
@@ -17807,11 +17807,11 @@ Class member declared `protected` in 'final' class
 in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
 #### Snippet
 ```java
+        private @Nullable List<? extends Node> sourceNodes;
+
+        protected Builder() {
         }
 
-        protected Builder(SchemaDefinition existing) {
-            this.sourceLocation = existing.getSourceLocation();
-            this.comments = ImmutableList.copyOf(existing.getComments());
 ```
 
 ### ProtectedMemberInFinalClass
@@ -17819,11 +17819,11 @@ Class member declared `protected` in 'final' class
 in `src/main/com/intellij/lang/jsgraphql/types/language/SchemaExtensionDefinition.java`
 #### Snippet
 ```java
-        private @Nullable List<? extends Node> sourceNodes;
-
-        protected Builder() {
         }
 
+        protected Builder(SchemaDefinition existing) {
+            this.sourceLocation = existing.getSourceLocation();
+            this.comments = ImmutableList.copyOf(existing.getComments());
 ```
 
 ### ProtectedMemberInFinalClass
@@ -17880,11 +17880,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
 #### Snippet
 ```java
+            () -> String.format("null object kind: %s", type));
 
-        String kind = (String) type.get("kind");
         switch (kind) {
             case "INTERFACE":
-            case "OBJECT":
+                return createInterface(type);
 ```
 
 ### EnhancedSwitchMigration
@@ -17892,11 +17892,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionResultToSchema.java`
 #### Snippet
 ```java
-            () -> String.format("null object kind: %s", type));
 
+        String kind = (String) type.get("kind");
         switch (kind) {
             case "INTERFACE":
-                return createInterface(type);
+            case "OBJECT":
 ```
 
 ### EnhancedSwitchMigration
@@ -17925,6 +17925,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/EscapeUtil.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
+in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
+#### Snippet
+```java
+        String name = locationInParent.getName();
+        List<T> childList = new ArrayList<>(childrenForParent.get(name));
+        switch (modificationType) {
+            case REPLACE:
+                childList.set(ix, curNode);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
 in `src/main/com/intellij/lang/jsgraphql/types/util/NodeMultiZipper.java`
 #### Snippet
 ```java
@@ -17945,18 +17957,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/parser/StringValueParsing.java`
             switch (escaped) {
                 case '"':
                     writer.write('"');
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
-#### Snippet
-```java
-        String name = locationInParent.getName();
-        List<T> childList = new ArrayList<>(childrenForParent.get(name));
-        switch (modificationType) {
-            case REPLACE:
-                childList.set(ix, curNode);
 ```
 
 ### EnhancedSwitchMigration
@@ -18353,13 +18353,13 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/reporting/PrintStream
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
-Condition 'enumValueDefinitionName.length() \>= 2' covered by subsequent condition 'enumValueDefinitionName.startsWith(...)'
+Condition 'fieldName.length() \>= 2' covered by subsequent condition 'fieldName.startsWith(...)'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
 #### Snippet
 ```java
-                                               Node definition,
-                                               SchemaValidationErrorCollector errorCollector) {
-        if (enumValueDefinitionName.length() >= 2 && enumValueDefinitionName.startsWith("__")) {
+                                 Node inputObjectField,
+                                 SchemaValidationErrorCollector errorCollector) {
+        if (fieldName.length() >= 2 && fieldName.startsWith("__")) {
             SchemaValidationError schemaValidationError = new SchemaValidationError(
                 SchemaValidationErrorType.InvalidCustomizedNameError,
 ```
@@ -18377,6 +18377,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRul
 ```
 
 ### ConditionCoveredByFurtherCondition
+Condition 'enumValueDefinitionName.length() \>= 2' covered by subsequent condition 'enumValueDefinitionName.startsWith(...)'
+in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
+#### Snippet
+```java
+                                               Node definition,
+                                               SchemaValidationErrorCollector errorCollector) {
+        if (enumValueDefinitionName.length() >= 2 && enumValueDefinitionName.startsWith("__")) {
+            SchemaValidationError schemaValidationError = new SchemaValidationError(
+                SchemaValidationErrorType.InvalidCustomizedNameError,
+```
+
+### ConditionCoveredByFurtherCondition
 Condition 'typeName.length() \>= 2' covered by subsequent condition 'typeName.startsWith(...)'
 in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
 #### Snippet
@@ -18384,18 +18396,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRul
                                 Node definition,
                                 SchemaValidationErrorCollector validationErrorCollector) {
         if (typeName.length() >= 2 && typeName.startsWith("__")) {
-            SchemaValidationError schemaValidationError = new SchemaValidationError(
-                SchemaValidationErrorType.InvalidCustomizedNameError,
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'fieldName.length() \>= 2' covered by subsequent condition 'fieldName.startsWith(...)'
-in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/TypeAndFieldRule.java`
-#### Snippet
-```java
-                                 Node inputObjectField,
-                                 SchemaValidationErrorCollector errorCollector) {
-        if (fieldName.length() >= 2 && fieldName.startsWith("__")) {
             SchemaValidationError schemaValidationError = new SchemaValidationError(
                 SchemaValidationErrorType.InvalidCustomizedNameError,
 ```
@@ -18516,18 +18516,6 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 #### Snippet
 ```java
-
-  /** the input device */
-  private java.io.Reader zzReader;
-
-  /** the current state of the DFA */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
-#### Snippet
-```java
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
   private boolean zzRefill() throws java.io.IOException {
@@ -18560,15 +18548,15 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary, and can be replaced with an import
-in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLValidationAnnotator.java`
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `gen/com/intellij/lang/jsgraphql/GraphQLLexer.java`
 #### Snippet
 ```java
-        final PsiElement parent = element.getParent();
-        final GraphQLTypeScopeProvider typeScopeProvider = PsiTreeUtil.getParentOfType(parent, GraphQLTypeScopeProvider.class);
-        com.intellij.lang.jsgraphql.types.schema.GraphQLType typeScope = null;
-        if (typeScopeProvider != null) {
-            typeScope = typeScopeProvider.getTypeScope();
+
+  /** the input device */
+  private java.io.Reader zzReader;
+
+  /** the current state of the DFA */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18581,6 +18569,18 @@ in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLValidationAnnotat
     private List<String> getFieldNameSuggestions(String fieldName, com.intellij.lang.jsgraphql.types.schema.GraphQLType typeScope) {
         List<String> fieldNames = null;
         if (typeScope instanceof GraphQLFieldsContainer) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary, and can be replaced with an import
+in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLValidationAnnotator.java`
+#### Snippet
+```java
+        final PsiElement parent = element.getParent();
+        final GraphQLTypeScopeProvider typeScopeProvider = PsiTreeUtil.getParentOfType(parent, GraphQLTypeScopeProvider.class);
+        com.intellij.lang.jsgraphql.types.schema.GraphQLType typeScope = null;
+        if (typeScopeProvider != null) {
+            typeScope = typeScopeProvider.getTypeScope();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18620,15 +18620,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/ExecutionInput.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.execution.instrumentation.dataloader` is unnecessary and can be removed
+Qualifier `com.intellij.lang.jsgraphql.types.execution` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
 #### Snippet
 ```java
+
         /**
-         * For performance reasons you can opt into situation where the default instrumentations (such
-         * as {@link com.intellij.lang.jsgraphql.types.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentation} will not be
-         * automatically added into the graphql instance.
-         * <p>
+         * This allows you to set a default {@link com.intellij.lang.jsgraphql.types.execution.DataFetcherExceptionHandler} that will be used to handle exceptions that happen
+         * in {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} invocations.
+         *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18692,15 +18692,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.execution` is unnecessary and can be removed
+Qualifier `com.intellij.lang.jsgraphql.types.execution.instrumentation.dataloader` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/GraphQL.java`
 #### Snippet
 ```java
-
         /**
-         * This allows you to set a default {@link com.intellij.lang.jsgraphql.types.execution.DataFetcherExceptionHandler} that will be used to handle exceptions that happen
-         * in {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} invocations.
-         *
+         * For performance reasons you can opt into situation where the default instrumentations (such
+         * as {@link com.intellij.lang.jsgraphql.types.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentation} will not be
+         * automatically added into the graphql instance.
+         * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18734,9 +18734,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/relay/Connection.java`
 ```java
 
     /**
-     * @return {@link com.intellij.lang.jsgraphql.types.relay.PageInfo} pagination data about about that list of edges
+     * @return a list of {@link com.intellij.lang.jsgraphql.types.relay.Edge}s that are really a node of data and its cursor
      */
-    PageInfo getPageInfo();
+    List<Edge<T>> getEdges();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18770,9 +18770,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/relay/Connection.java`
 ```java
 
     /**
-     * @return a list of {@link com.intellij.lang.jsgraphql.types.relay.Edge}s that are really a node of data and its cursor
+     * @return {@link com.intellij.lang.jsgraphql.types.relay.PageInfo} pagination data about about that list of edges
      */
-    List<Edge<T>> getEdges();
+    PageInfo getPageInfo();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18801,74 +18801,38 @@ in `src/main/com/intellij/lang/jsgraphql/types/relay/PageInfo.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/FieldCoordinates.java`
 #### Snippet
 ```java
-
 /**
- * The Coercing interface is used by {@link com.intellij.lang.jsgraphql.types.schema.GraphQLScalarType}s to parse and serialise object values.
- * <p>
- * There are two major responsibilities, result coercion and input coercion.
+ * A field in graphql is uniquely located within a parent type and hence code elements
+ * like {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} need to be specified using those coordinates.
+ */
+@PublicApi
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLModifiedType.java`
 #### Snippet
 ```java
-     * Called to convert a Java object result of a DataFetcher to a valid runtime value for the scalar type.
-     * <p>
-     * Note : Throw {@link com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException} if there is fundamental
-     * problem during serialisation, don't return null to indicate failure.
-     * <p>
+ * A modified type wraps another graphql type and modifies it behavior
+ *
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLNonNull
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLList
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLModifiedType.java`
 #### Snippet
 ```java
-     * <p>
-     * Note : You should not allow {@link RuntimeException}s to come out of your serialize method, but rather
-     * catch them and fire them as {@link com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException} instead as per the method contract.
-     *
-     * @param dataFetcherResult is never null
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
-#### Snippet
-```java
-     * @return a serialized value which may be null.
-     *
-     * @throws com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException if value input can't be serialized
-     */
-    O serialize(Object dataFetcherResult) throws CoercingSerializeException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
-#### Snippet
-```java
-     * <p>
-     * Note : You should not allow {@link RuntimeException}s to come out of your parseLiteral method, but rather
-     * catch them and fire them as {@link com.intellij.lang.jsgraphql.types.schema.CoercingParseLiteralException} instead as per the method contract.
-     * <p>
-     * Many scalar types don't need to implement this method because they don't take AST {@link com.intellij.lang.jsgraphql.types.language.VariableReference}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
-#### Snippet
-```java
-     * @return a parsed value which is never null
-     *
-     * @throws com.intellij.lang.jsgraphql.types.schema.CoercingParseLiteralException if input literal can't be parsed
-     */
-    @SuppressWarnings("unused")
+ *
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLNonNull
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLList
+ */
+@PublicApi
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18921,38 +18885,74 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLModifiedType.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
 #### Snippet
 ```java
- * A modified type wraps another graphql type and modifies it behavior
- *
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLNonNull
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLList
- */
+     * Called to convert a Java object result of a DataFetcher to a valid runtime value for the scalar type.
+     * <p>
+     * Note : Throw {@link com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException} if there is fundamental
+     * problem during serialisation, don't return null to indicate failure.
+     * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLModifiedType.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
 #### Snippet
 ```java
- *
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLNonNull
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLList
- */
-@PublicApi
+     * <p>
+     * Note : You should not allow {@link RuntimeException}s to come out of your serialize method, but rather
+     * catch them and fire them as {@link com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException} instead as per the method contract.
+     *
+     * @param dataFetcherResult is never null
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/FieldCoordinates.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
 #### Snippet
 ```java
+     * @return a serialized value which may be null.
+     *
+     * @throws com.intellij.lang.jsgraphql.types.schema.CoercingSerializeException if value input can't be serialized
+     */
+    O serialize(Object dataFetcherResult) throws CoercingSerializeException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+#### Snippet
+```java
+
 /**
- * A field in graphql is uniquely located within a parent type and hence code elements
- * like {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} need to be specified using those coordinates.
- */
-@PublicApi
+ * The Coercing interface is used by {@link com.intellij.lang.jsgraphql.types.schema.GraphQLScalarType}s to parse and serialise object values.
+ * <p>
+ * There are two major responsibilities, result coercion and input coercion.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+#### Snippet
+```java
+     * <p>
+     * Note : You should not allow {@link RuntimeException}s to come out of your parseLiteral method, but rather
+     * catch them and fire them as {@link com.intellij.lang.jsgraphql.types.schema.CoercingParseLiteralException} instead as per the method contract.
+     * <p>
+     * Many scalar types don't need to implement this method because they don't take AST {@link com.intellij.lang.jsgraphql.types.language.VariableReference}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/Coercing.java`
+#### Snippet
+```java
+     * @return a parsed value which is never null
+     *
+     * @throws com.intellij.lang.jsgraphql.types.schema.CoercingParseLiteralException if input literal can't be parsed
+     */
+    @SuppressWarnings("unused")
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19053,18 +19053,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLArgument.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
-#### Snippet
-```java
- * See http://graphql.org/learn/schema/#enumeration-types for more details
- *
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLEnumType
- */
-@PublicApi
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcher.java`
 #### Snippet
 ```java
@@ -19101,18 +19089,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/StaticDataFetcher.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputFieldsContainer.java`
-#### Snippet
-```java
- * Types that can contain input fields are marked with this interface
- *
- * @see com.intellij.lang.jsgraphql.types.schema.GraphQLInputType
- */
-@PublicApi
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactory.java`
 #### Snippet
 ```java
@@ -19137,6 +19113,42 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactory.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLEnumValueDefinition.java`
+#### Snippet
+```java
+ * See http://graphql.org/learn/schema/#enumeration-types for more details
+ *
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLEnumType
+ */
+@PublicApi
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputFieldsContainer.java`
+#### Snippet
+```java
+ * Types that can contain input fields are marked with this interface
+ *
+ * @see com.intellij.lang.jsgraphql.types.schema.GraphQLInputType
+ */
+@PublicApi
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactoryEnvironment.java`
+#### Snippet
+```java
+
+    /**
+     * @return the field that needs a {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher}
+     */
+    public GraphQLFieldDefinition getFieldDefinition() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactoryEnvironment.java`
 #### Snippet
 ```java
@@ -19157,18 +19169,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactoryEnvironm
  * get a {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher}
  */
 @PublicApi
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactoryEnvironment.java`
-#### Snippet
-```java
-
-    /**
-     * @return the field that needs a {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher}
-     */
-    public GraphQLFieldDefinition getFieldDefinition() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19196,15 +19196,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputObjectField.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
+Qualifier `com.intellij.lang.jsgraphql.types.util` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
 #### Snippet
 ```java
 
-/**
- * A utility class that helps work with {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType}s
- */
-@PublicApi
+    /**
+     * Called when a node is visited more than once within a context.  {@link com.intellij.lang.jsgraphql.types.util.TraverserContext#thisNode()} contains
+     * the node
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19220,18 +19220,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputType.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.util` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeVisitor.java`
-#### Snippet
-```java
-
-    /**
-     * Called when a node is visited more than once within a context.  {@link com.intellij.lang.jsgraphql.types.util.TraverserContext#thisNode()} contains
-     * the node
-     *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirectiveContainer.java`
 #### Snippet
@@ -19240,18 +19228,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirectiveContainer.
     /**
      * This will return a Map of the all directives that are associated with a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLNamedSchemaElement}, including both
      * repeatable and non repeatable directives.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirectiveContainer.java`
-#### Snippet
-```java
-
-    /**
-     * This will return a Map of the non repeatable directives that are associated with a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLNamedSchemaElement}.  Any repeatable directives
-     * will be filtered out of this map.
      *
 ```
 
@@ -19274,9 +19250,33 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirectiveContainer.
 ```java
 
     /**
+     * This will return a Map of the non repeatable directives that are associated with a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLNamedSchemaElement}.  Any repeatable directives
+     * will be filtered out of this map.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLDirectiveContainer.java`
+#### Snippet
+```java
+
+    /**
      * This will return a list of all the directives that have been put on {@link com.intellij.lang.jsgraphql.types.schema.GraphQLNamedSchemaElement} as a flat list, which may contain repeatable
      * and non repeatable directives.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
+#### Snippet
+```java
+
+/**
+ * A utility class that helps work with {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType}s
+ */
+@PublicApi
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19382,6 +19382,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.jav
 ```java
 
     /**
+     * This sorts the list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType} objects (by name) and allocates a new sorted
+     * list back.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.java`
+#### Snippet
+```java
+
+    /**
      * Returns a comparator that compares {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType} objects by ascending name
      *
      * @return a comparator that compares {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType} objects by ascending name
@@ -19425,18 +19437,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.jav
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphqlTypeComparators.java`
-#### Snippet
-```java
-
-    /**
-     * This sorts the list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLType} objects (by name) and allocates a new sorted
-     * list back.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputValueDefinition.java`
 #### Snippet
 ```java
@@ -19473,14 +19473,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLInputValueDefinitio
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DelegatingDataFetchingEnvironment.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironmentImpl.java`
 #### Snippet
 ```java
 
-/**
- * DelegatingDataFetchingEnvironment implements {@link com.intellij.lang.jsgraphql.types.schema.DataFetchingEnvironment} by delegating
- * to an underlying instance.  You can use this class to wrap the environment and perhaps change
- * values and behavior more easily.
+    /**
+     * @return a new {@link com.intellij.lang.jsgraphql.types.schema.DataFetchingEnvironmentImpl.Builder}
+     */
+    public static Builder newDataFetchingEnvironment() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19493,6 +19493,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DelegatingDataFetchingEnvi
      * Called to wrap an existing {@link com.intellij.lang.jsgraphql.types.schema.DataFetchingEnvironment}.
      *
      * @param delegateEnvironment the environment to wrap and delegate all method called to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DelegatingDataFetchingEnvironment.java`
+#### Snippet
+```java
+
+/**
+ * DelegatingDataFetchingEnvironment implements {@link com.intellij.lang.jsgraphql.types.schema.DataFetchingEnvironment} by delegating
+ * to an underlying instance.  You can use this class to wrap the environment and perhaps change
+ * values and behavior more easily.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19520,27 +19532,159 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldsContainer.jav
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+Qualifier `org.dataloader` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
 #### Snippet
 ```java
-        /**
-         * This is the default data fetcher factory that will be used for fields that do not have specific data fetchers attached.  By default
-         * {@link com.intellij.lang.jsgraphql.types.schema.PropertyDataFetcher} is used but you can have your own default via this method.
-         *
-         * @param defaultDataFetcherFactory the default data fetcher factory used
+
+    /**
+     * @return the {@link org.dataloader.DataLoaderRegistry} in play
+     */
+    DataLoaderRegistry getDataLoaderRegistry();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.execution.directives` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
+#### Snippet
+```java
+     * This gives you access to the directives related to this field
+     *
+     * @return the {@link com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives} for the currently executing field
+     * @see com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives for more information
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.execution.directives` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
+#### Snippet
+```java
+     *
+     * @return the {@link com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives} for the currently executing field
+     * @see com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives for more information
+     */
+    QueryDirectives getQueryDirectives();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.dataloader` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
+#### Snippet
+```java
+
+    /**
+     * This allows you to retrieve a named dataloader from the underlying {@link org.dataloader.DataLoaderRegistry}
+     *
+     * @param dataLoaderName the name of the data loader to fetch
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.dataloader` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
+#### Snippet
+```java
+     * @param <V>            the value type
+     * @return the named data loader or null
+     * @see org.dataloader.DataLoaderRegistry#getDataLoader(String)
+     */
+    <K, V> DataLoader<K, V> getDataLoader(String dataLoaderName);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
 #### Snippet
 ```java
+/**
+ * Fields are the ways you get data values in graphql and a field definition represents a field, its type, the arguments it takes
+ * and the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} used to get data values for that field.
+ * <p>
+ * Fields can be thought of as functions in graphql, they have a name, take defined arguments and return a value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
+#### Snippet
+```java
+         * @return this builder
          *
-         * @param unionType the union type
-         * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
+         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
          */
-        public TypeResolver getTypeResolver(GraphQLUnionType unionType) {
+        @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
+#### Snippet
+```java
+
+        /**
+         * Sets the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} to use with this field.
+         *
+         * @param dataFetcher the data fetcher to use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
+#### Snippet
+```java
+         * @return this builder
+         *
+         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
+         */
+        @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
+#### Snippet
+```java
+
+        /**
+         * Sets the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcherFactory} to use with this field.
+         *
+         * @param dataFetcherFactory the data fetcher factory
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
+#### Snippet
+```java
+         * @return this builder
+         *
+         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
+         */
+        @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
+#### Snippet
+```java
+ * A union type is a polymorphic type that dynamically represents one of more concrete object types.
+ * <p>
+ * At runtime a {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver} is used to take an union object value and decide what {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType}
+ * represents this union of types.
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
+#### Snippet
+```java
+ * A union type is a polymorphic type that dynamically represents one of more concrete object types.
+ * <p>
+ * At runtime a {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver} is used to take an union object value and decide what {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType}
+ * represents this union of types.
+ * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19568,15 +19712,63 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.visibility` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+
+    /**
+     * @return the {@link com.intellij.lang.jsgraphql.types.schema.visibility.GraphqlFieldVisibility}
+     */
+    public GraphqlFieldVisibility getFieldVisibility() {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
 #### Snippet
 ```java
+        /**
+         * This is the default data fetcher factory that will be used for fields that do not have specific data fetchers attached.  By default
+         * {@link com.intellij.lang.jsgraphql.types.schema.PropertyDataFetcher} is used but you can have your own default via this method.
          *
-         * @param interfaceType the interface type
-         * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
-         */
-        public TypeResolver getTypeResolver(GraphQLInterfaceType interfaceType) {
+         * @param defaultDataFetcherFactory the default data fetcher factory used
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+     *
+     * @param interfaceType the interface type
+     * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
+     */
+    public TypeResolver getTypeResolver(GraphQLInterfaceType interfaceType) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+
+    /**
+     * @return a new builder of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} objects
+     */
+    public static Builder newCodeRegistry() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
+#### Snippet
+```java
+
+    /**
+     * This helps you transform the current {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} object into another one by starting a builder with all
+     * the current values and allows you to transform it how you want.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19632,11 +19824,11 @@ Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be r
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
 #### Snippet
 ```java
-
-    /**
-     * This helps you transform the current {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} object into another one by starting a builder with all
-     * the current values and allows you to transform it how you want.
-     *
+         *
+         * @param unionType the union type
+         * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
+         */
+        public TypeResolver getTypeResolver(GraphQLUnionType unionType) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19644,23 +19836,11 @@ Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be r
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
 #### Snippet
 ```java
-     *
-     * @param interfaceType the interface type
-     * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
-     */
-    public TypeResolver getTypeResolver(GraphQLInterfaceType interfaceType) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.visibility` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-
-    /**
-     * @return the {@link com.intellij.lang.jsgraphql.types.schema.visibility.GraphqlFieldVisibility}
-     */
-    public GraphqlFieldVisibility getFieldVisibility() {
+         *
+         * @param interfaceType the interface type
+         * @return a non null {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver}
+         */
+        public TypeResolver getTypeResolver(GraphQLInterfaceType interfaceType) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19677,186 +19857,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLCodeRegistry.java`
-#### Snippet
-```java
-
-    /**
-     * @return a new builder of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} objects
-     */
-    public static Builder newCodeRegistry() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironmentImpl.java`
-#### Snippet
-```java
-
-    /**
-     * @return a new {@link com.intellij.lang.jsgraphql.types.schema.DataFetchingEnvironmentImpl.Builder}
-     */
-    public static Builder newDataFetchingEnvironment() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-
-        /**
-         * Sets the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcherFactory} to use with this field.
-         *
-         * @param dataFetcherFactory the data fetcher factory
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-         * @return this builder
-         *
-         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
-         */
-        @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-
-        /**
-         * Sets the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} to use with this field.
-         *
-         * @param dataFetcher the data fetcher to use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-         * @return this builder
-         *
-         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
-         */
-        @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-/**
- * Fields are the ways you get data values in graphql and a field definition represents a field, its type, the arguments it takes
- * and the {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} used to get data values for that field.
- * <p>
- * Fields can be thought of as functions in graphql, they have a name, take defined arguments and return a value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLFieldDefinition.java`
-#### Snippet
-```java
-         * @return this builder
-         *
-         * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instead
-         */
-        @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.execution.directives` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
-#### Snippet
-```java
-     * This gives you access to the directives related to this field
-     *
-     * @return the {@link com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives} for the currently executing field
-     * @see com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives for more information
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.execution.directives` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
-#### Snippet
-```java
-     *
-     * @return the {@link com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives} for the currently executing field
-     * @see com.intellij.lang.jsgraphql.types.execution.directives.QueryDirectives for more information
-     */
-    QueryDirectives getQueryDirectives();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.dataloader` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
-#### Snippet
-```java
-
-    /**
-     * @return the {@link org.dataloader.DataLoaderRegistry} in play
-     */
-    DataLoaderRegistry getDataLoaderRegistry();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.dataloader` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
-#### Snippet
-```java
-
-    /**
-     * This allows you to retrieve a named dataloader from the underlying {@link org.dataloader.DataLoaderRegistry}
-     *
-     * @param dataLoaderName the name of the data loader to fetch
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.dataloader` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingEnvironment.java`
-#### Snippet
-```java
-     * @param <V>            the value type
-     * @return the named data loader or null
-     * @see org.dataloader.DataLoaderRegistry#getDataLoader(String)
-     */
-    <K, V> DataLoader<K, V> getDataLoader(String dataLoaderName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
-#### Snippet
-```java
- * A union type is a polymorphic type that dynamically represents one of more concrete object types.
- * <p>
- * At runtime a {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver} is used to take an union object value and decide what {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType}
- * represents this union of types.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLUnionType.java`
-#### Snippet
-```java
- * A union type is a polymorphic type that dynamically represents one of more concrete object types.
- * <p>
- * At runtime a {@link com.intellij.lang.jsgraphql.types.schema.TypeResolver} is used to take an union object value and decide what {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType}
- * represents this union of types.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
 #### Snippet
 ```java
@@ -19865,6 +19865,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaUtil.java`
      * @deprecated use {@link com.intellij.lang.jsgraphql.types.schema.GraphQLSchema#getImplementations(GraphQLInterfaceType)} instead
      */
     @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactories.java`
+#### Snippet
+```java
+
+/**
+ * A helper for {@link com.intellij.lang.jsgraphql.types.schema.DataFetcherFactory}
+ */
+@PublicApi
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19905,14 +19917,26 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactories.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetcherFactories.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
 #### Snippet
 ```java
 
-/**
- * A helper for {@link com.intellij.lang.jsgraphql.types.schema.DataFetcherFactory}
- */
-@PublicApi
+    /**
+     * Called to return a named {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType} from the schema
+     *
+     * @param typeName the name of the type
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
+#### Snippet
+```java
+     * @return a graphql object type or null if there is one
+     *
+     * @throws com.intellij.lang.jsgraphql.types.GraphQLException if the type is NOT a object type
+     */
+    public GraphQLObjectType getObjectType(String typeName) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19965,74 +19989,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/RuntimeWiring.java`
 #### Snippet
 ```java
 
-    /**
-     * Called to return a named {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType} from the schema
-     *
-     * @param typeName the name of the type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLSchema.java`
-#### Snippet
-```java
-     * @return a graphql object type or null if there is one
-     *
-     * @throws com.intellij.lang.jsgraphql.types.GraphQLException if the type is NOT a object type
-     */
-    public GraphQLObjectType getObjectType(String typeName) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
- * <p>
- * It can enhance the graphql runtime element and add new behaviour for example by changing
- * the fields {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher}
- * <p>
- * The SchemaDirectiveWiring objects are called in a specific order based on registration:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
- * The SchemaDirectiveWiring objects are called in a specific order based on registration:
- * <ol>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
- * <ol>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
- * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
-#### Snippet
-```java
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
- * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
- * </ol>
- */
+        /**
+         * You can specify your own sort order of graphql types via {@link com.intellij.lang.jsgraphql.types.schema.GraphqlTypeComparatorRegistry}
+         * which will tell you what type of objects you are to sort when
+         * it asks for a comparator.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20102,18 +20066,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/RuntimeWiring.java`
 ```java
 
         /**
-         * You can specify your own sort order of graphql types via {@link com.intellij.lang.jsgraphql.types.schema.GraphqlTypeComparatorRegistry}
-         * which will tell you what type of objects you are to sort when
-         * it asks for a comparator.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/RuntimeWiring.java`
-#### Snippet
-```java
-
-        /**
          * This allows you to seed in your own {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instance
          *
          * @param codeRegistry the code registry to use
@@ -20129,6 +20081,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/RuntimeWiring.java`
          * This allows you to seed in your own {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry} instance
          *
          * @param codeRegistry the code registry to use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+ * <p>
+ * It can enhance the graphql runtime element and add new behaviour for example by changing
+ * the fields {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher}
+ * <p>
+ * The SchemaDirectiveWiring objects are called in a specific order based on registration:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+ * The SchemaDirectiveWiring objects are called in a specific order based on registration:
+ * <ol>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+ * <ol>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
+ * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiring.java`
+#### Snippet
+```java
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)} which work against a specific named directive are called first</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} which work against all directives are called next</li>
+ * <li>{@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} which work against all directives are called last</li>
+ * </ol>
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20240,63 +20240,15 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/ImplementingTypesCheck
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
-#### Snippet
-```java
-
-    /**
-     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldsContainer} when the element is contained with a fields container
-     */
-    GraphQLFieldsContainer getFieldsContainer();
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
 #### Snippet
 ```java
 
-    /**
-     * This returns the directive that the {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} was registered
-     * against during calls to {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
-#### Snippet
-```java
-    /**
-     * This returns the directive that the {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} was registered
-     * against during calls to {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)}
-     * <p>
-     * If this method of registration is not used (say because
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
-#### Snippet
-```java
-     * <p>
-     * If this method of registration is not used (say because
-     * {@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} or
-     * {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} was used)
-     * then this will return null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
-#### Snippet
-```java
-     * If this method of registration is not used (say because
-     * {@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} or
-     * {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} was used)
-     * then this will return null.
-     *
+/**
+ * This contains the helper code that allows {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} implementations
+ * to be invoked during schema generation.
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20316,11 +20268,23 @@ Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be r
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
 #### Snippet
 ```java
-     * This is useful as a shortcut to get the current fields existing data fetcher
-     *
-     * @return a {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} when the element is as field or is contained within one
-     *
-     * @throws com.intellij.lang.jsgraphql.types.AssertException if there is not field in context at the time of the directive wiring callback
+
+    /**
+     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldsContainer} when the element is contained with a fields container
+     */
+    GraphQLFieldsContainer getFieldsContainer();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
+#### Snippet
+```java
+
+    /**
+     * This is a shortcut method to set a new data fetcher in the underlying {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry}
+     * against the current field.
+     * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20372,27 +20336,63 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringE
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
 #### Snippet
 ```java
 
     /**
-     * This is a shortcut method to set a new data fetcher in the underlying {@link com.intellij.lang.jsgraphql.types.schema.GraphQLCodeRegistry}
-     * against the current field.
+     * This returns the directive that the {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} was registered
+     * against during calls to {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)}
      * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorDirectiveHelper.java`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
 #### Snippet
 ```java
+    /**
+     * This returns the directive that the {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} was registered
+     * against during calls to {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directive(String, SchemaDirectiveWiring)}
+     * <p>
+     * If this method of registration is not used (say because
+```
 
-/**
- * This contains the helper code that allows {@link com.intellij.lang.jsgraphql.types.schema.idl.SchemaDirectiveWiring} implementations
- * to be invoked during schema generation.
- */
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
+#### Snippet
+```java
+     * <p>
+     * If this method of registration is not used (say because
+     * {@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} or
+     * {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} was used)
+     * then this will return null.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema.idl` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
+#### Snippet
+```java
+     * If this method of registration is not used (say because
+     * {@link com.intellij.lang.jsgraphql.types.schema.idl.WiringFactory#providesSchemaDirectiveWiring(SchemaDirectiveWiringEnvironment)} or
+     * {@link com.intellij.lang.jsgraphql.types.schema.idl.RuntimeWiring.Builder#directiveWiring(SchemaDirectiveWiring)} was used)
+     * then this will return null.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaDirectiveWiringEnvironment.java`
+#### Snippet
+```java
+     * This is useful as a shortcut to get the current fields existing data fetcher
+     *
+     * @return a {@link com.intellij.lang.jsgraphql.types.schema.DataFetcher} when the element is as field or is contained within one
+     *
+     * @throws com.intellij.lang.jsgraphql.types.AssertException if there is not field in context at the time of the directive wiring callback
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20405,6 +20405,54 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLObjectType.java`
  * by {@link com.intellij.lang.jsgraphql.types.schema.GraphQLScalarType}s.
  * <p>
  * See http://graphql.org/learn/schema/#object-types-and-fields for more details on the concept.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
+#### Snippet
+```java
+     * @param fieldName       the name of the desired field
+     *
+     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldDefinition} or null if its not visible
+     */
+    GraphQLFieldDefinition getFieldDefinition(GraphQLFieldsContainer fieldsContainer, String fieldName);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
+#### Snippet
+```java
+     * @param fieldsContainer the type in play
+     *
+     * @return a non null list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLInputObjectField}s
+     */
+    default List<GraphQLInputObjectField> getFieldDefinitions(GraphQLInputFieldsContainer fieldsContainer) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
+#### Snippet
+```java
+     * @param fieldsContainer the type in play
+     *
+     * @return a non null list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldDefinition}s
+     */
+    List<GraphQLFieldDefinition> getFieldDefinitions(GraphQLFieldsContainer fieldsContainer);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
+#### Snippet
+```java
+     * @param fieldName       the name of the desired field
+     *
+     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLInputObjectField} or null if its not visible
+     */
+    default GraphQLInputObjectField getFieldDefinition(GraphQLInputFieldsContainer fieldsContainer, String fieldName) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20444,54 +20492,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
-#### Snippet
-```java
-     * @param fieldsContainer the type in play
-     *
-     * @return a non null list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldDefinition}s
-     */
-    List<GraphQLFieldDefinition> getFieldDefinitions(GraphQLFieldsContainer fieldsContainer);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
-#### Snippet
-```java
-     * @param fieldName       the name of the desired field
-     *
-     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLFieldDefinition} or null if its not visible
-     */
-    GraphQLFieldDefinition getFieldDefinition(GraphQLFieldsContainer fieldsContainer, String fieldName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
-#### Snippet
-```java
-     * @param fieldName       the name of the desired field
-     *
-     * @return a {@link com.intellij.lang.jsgraphql.types.schema.GraphQLInputObjectField} or null if its not visible
-     */
-    default GraphQLInputObjectField getFieldDefinition(GraphQLInputFieldsContainer fieldsContainer, String fieldName) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.schema` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/schema/visibility/GraphqlFieldVisibility.java`
-#### Snippet
-```java
-     * @param fieldsContainer the type in play
-     *
-     * @return a non null list of {@link com.intellij.lang.jsgraphql.types.schema.GraphQLInputObjectField}s
-     */
-    default List<GraphQLInputObjectField> getFieldDefinitions(GraphQLInputFieldsContainer fieldsContainer) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.schema.diff.reporting` is unnecessary and can be removed
 in `src/main/com/intellij/lang/jsgraphql/types/schema/diff/SchemaDiff.java`
 #### Snippet
@@ -20522,9 +20522,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectivesContainer.java
 ```java
 
     /**
-     * This will return a list of all the directives that have been put on {@link com.intellij.lang.jsgraphql.types.language.Node} as a flat list, which may contain repeatable
-     * and non repeatable directives.
+     * This will return a Map of the all directives that are associated with a {@link com.intellij.lang.jsgraphql.types.language.Node}, including both repeatable and non repeatable directives.
      *
+     * @return a map of all directives by directive name
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20534,9 +20534,9 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectivesContainer.java
 ```java
 
     /**
-     * This will return a Map of the all directives that are associated with a {@link com.intellij.lang.jsgraphql.types.language.Node}, including both repeatable and non repeatable directives.
+     * This will return a list of all the directives that have been put on {@link com.intellij.lang.jsgraphql.types.language.Node} as a flat list, which may contain repeatable
+     * and non repeatable directives.
      *
-     * @return a map of all directives by directive name
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20549,30 +20549,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/DirectivesContainer.java
  * @see com.intellij.lang.jsgraphql.types.language.DirectiveDefinition
  * @see DirectiveDefinition#isRepeatable()
  */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.language` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-     *
-     * @param nodeToBeSorted the node to be sorted
-     * @param <T>            of type {@link com.intellij.lang.jsgraphql.types.language.Node}
-     *
-     * @return a new sorted node (because {@link com.intellij.lang.jsgraphql.types.language.Node}s are immutable)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.lang.jsgraphql.types.language` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-     * @param <T>            of type {@link com.intellij.lang.jsgraphql.types.language.Node}
-     *
-     * @return a new sorted node (because {@link com.intellij.lang.jsgraphql.types.language.Node}s are immutable)
-     */
-    public <T extends Node> T sort(T nodeToBeSorted) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20597,6 +20573,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStepInfo.java`
      * and turning it into a specific {@link com.intellij.lang.jsgraphql.types.schema.GraphQLObjectType}
      * after type resolution has occurred
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.language` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+     *
+     * @param nodeToBeSorted the node to be sorted
+     * @param <T>            of type {@link com.intellij.lang.jsgraphql.types.language.Node}
+     *
+     * @return a new sorted node (because {@link com.intellij.lang.jsgraphql.types.language.Node}s are immutable)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.lang.jsgraphql.types.language` is unnecessary and can be removed
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+     * @param <T>            of type {@link com.intellij.lang.jsgraphql.types.language.Node}
+     *
+     * @return a new sorted node (because {@link com.intellij.lang.jsgraphql.types.language.Node}s are immutable)
+     */
+    public <T extends Node> T sort(T nodeToBeSorted) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -20733,7 +20733,7 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/SimpleI
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.execution.instrumentation.nextgen` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/nextgen/InstrumentationExecutionParameters.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/nextgen/InstrumentationCreateStateParameters.java`
 #### Snippet
 ```java
 
@@ -20745,7 +20745,7 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/nextgen
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.intellij.lang.jsgraphql.types.execution.instrumentation.nextgen` is unnecessary and can be removed
-in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/nextgen/InstrumentationCreateStateParameters.java`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/nextgen/InstrumentationExecutionParameters.java`
 #### Snippet
 ```java
 
@@ -20976,6 +20976,18 @@ public abstract class GraphQLStringLiteralImpl extends GraphQLStringLiteralMixin
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `GraphQLNamedElementImpl()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLNamedElementImpl.java`
+#### Snippet
+```java
+
+public abstract class GraphQLNamedElementImpl extends GraphQLElementImpl implements GraphQLNamedElement {
+    public GraphQLNamedElementImpl(@NotNull ASTNode node) {
+        super(node);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `GraphQLVariableMixin()` of an abstract class should not be declared 'public'
 in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLVariableMixin.java`
 #### Snippet
@@ -20988,13 +21000,13 @@ public abstract class GraphQLVariableMixin extends GraphQLElementImpl implements
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLNamedElementImpl()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLNamedElementImpl.java`
+Constructor `GraphQLFragmentDefinitionMixin()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFragmentDefinitionMixin.java`
 #### Snippet
 ```java
 
-public abstract class GraphQLNamedElementImpl extends GraphQLElementImpl implements GraphQLNamedElement {
-    public GraphQLNamedElementImpl(@NotNull ASTNode node) {
+public abstract class GraphQLFragmentDefinitionMixin extends GraphQLNamedElementImpl implements GraphQLFragmentDefinition, GraphQLTypeScopeProvider {
+    public GraphQLFragmentDefinitionMixin(@NotNull ASTNode node) {
         super(node);
     }
 ```
@@ -21024,13 +21036,13 @@ public abstract class GraphQLInlineFragmentMixin extends GraphQLElementImpl impl
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLFragmentDefinitionMixin()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFragmentDefinitionMixin.java`
+Constructor `GraphQLStringLiteralMixin()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLStringLiteralMixin.java`
 #### Snippet
 ```java
+public abstract class GraphQLStringLiteralMixin extends GraphQLElementImpl implements GraphQLStringLiteral {
 
-public abstract class GraphQLFragmentDefinitionMixin extends GraphQLNamedElementImpl implements GraphQLFragmentDefinition, GraphQLTypeScopeProvider {
-    public GraphQLFragmentDefinitionMixin(@NotNull ASTNode node) {
+    public GraphQLStringLiteralMixin(ASTNode node) {
         super(node);
     }
 ```
@@ -21048,13 +21060,13 @@ public abstract class GraphQLObjectFieldMixin extends GraphQLNamedElementImpl im
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLStringLiteralMixin()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLStringLiteralMixin.java`
+Constructor `GraphQLFieldMixin()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFieldMixin.java`
 #### Snippet
 ```java
-public abstract class GraphQLStringLiteralMixin extends GraphQLElementImpl implements GraphQLStringLiteral {
 
-    public GraphQLStringLiteralMixin(ASTNode node) {
+public abstract class GraphQLFieldMixin extends GraphQLNamedElementImpl implements GraphQLField, GraphQLTypeScopeProvider {
+    public GraphQLFieldMixin(@NotNull ASTNode node) {
         super(node);
     }
 ```
@@ -21072,18 +21084,6 @@ in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLReferenceMixin.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLFieldMixin()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFieldMixin.java`
-#### Snippet
-```java
-
-public abstract class GraphQLFieldMixin extends GraphQLNamedElementImpl implements GraphQLField, GraphQLTypeScopeProvider {
-    public GraphQLFieldMixin(@NotNull ASTNode node) {
-        super(node);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `GraphQLElementImpl()` of an abstract class should not be declared 'public'
 in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLElementImpl.java`
 #### Snippet
@@ -21091,6 +21091,18 @@ in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLElementImpl.java`
 
 public abstract class GraphQLElementImpl extends ASTWrapperPsiElement implements GraphQLElement {
     public GraphQLElementImpl(@NotNull ASTNode node) {
+        super(node);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GraphQLDirectiveLocationMixin()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLDirectiveLocationMixin.java`
+#### Snippet
+```java
+public abstract class GraphQLDirectiveLocationMixin extends GraphQLElementImpl implements GraphQLDirectiveLocation {
+
+    public GraphQLDirectiveLocationMixin(@NotNull ASTNode node) {
         super(node);
     }
 ```
@@ -21108,18 +21120,6 @@ public abstract class GraphQLTypeNameMixin extends GraphQLNamedElementImpl imple
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLArgumentMixin()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLArgumentMixin.java`
-#### Snippet
-```java
-
-public abstract class GraphQLArgumentMixin extends GraphQLNamedElementImpl implements GraphQLArgument, GraphQLTypeScopeProvider {
-    public GraphQLArgumentMixin(@NotNull ASTNode node) {
-        super(node);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `GraphQLSelectionSetOperationDefinitionMixin()` of an abstract class should not be declared 'public'
 in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLSelectionSetOperationDefinitionMixin.java`
 #### Snippet
@@ -21132,13 +21132,13 @@ public abstract class GraphQLSelectionSetOperationDefinitionMixin extends GraphQ
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GraphQLDirectiveLocationMixin()` of an abstract class should not be declared 'public'
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLDirectiveLocationMixin.java`
+Constructor `GraphQLArgumentMixin()` of an abstract class should not be declared 'public'
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLArgumentMixin.java`
 #### Snippet
 ```java
-public abstract class GraphQLDirectiveLocationMixin extends GraphQLElementImpl implements GraphQLDirectiveLocation {
 
-    public GraphQLDirectiveLocationMixin(@NotNull ASTNode node) {
+public abstract class GraphQLArgumentMixin extends GraphQLNamedElementImpl implements GraphQLArgument, GraphQLTypeScopeProvider {
+    public GraphQLArgumentMixin(@NotNull ASTNode node) {
         super(node);
     }
 ```
@@ -21253,6 +21253,18 @@ in `gen/com/intellij/lang/jsgraphql/GraphQLParser.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `editor`
+in `src/main/com/intellij/lang/jsgraphql/ide/validation/fixes/GraphQLMissingTypeFix.java`
+#### Snippet
+```java
+                       @NotNull PsiElement endElement) {
+        if (editor == null) {
+            editor = PsiEditorUtil.getInstance().findEditorByPsiElement(startElement);
+            if (editor == null) {
+                return;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `element`
 in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.java`
 #### Snippet
@@ -21301,18 +21313,6 @@ in `src/main/com/intellij/lang/jsgraphql/ide/validation/GraphQLSchemaAnnotator.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `editor`
-in `src/main/com/intellij/lang/jsgraphql/ide/validation/fixes/GraphQLMissingTypeFix.java`
-#### Snippet
-```java
-                       @NotNull PsiElement endElement) {
-        if (editor == null) {
-            editor = PsiEditorUtil.getInstance().findEditorByPsiElement(startElement);
-            if (editor == null) {
-                return;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `introspection`
 in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionService.java`
 #### Snippet
@@ -21325,18 +21325,6 @@ in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionS
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `introspection`
-in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionService.java`
-#### Snippet
-```java
-    @NotNull
-    public String printIntrospectionAsGraphQL(@NotNull Map<String, Object> introspection) {
-        introspection = getIntrospectionSchemaData(introspection);
-
-        if (!GraphQLSettings.getSettings(myProject).isEnableIntrospectionDefaultValues()) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `endpoint`
 in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionService.java`
 #### Snippet
@@ -21346,6 +21334,18 @@ in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionS
         endpoint = GraphQLIntrospectionUtil.promptForEnvVariables(myProject, endpoint);
         if (endpoint == null) return;
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `introspection`
+in `src/main/com/intellij/lang/jsgraphql/ide/introspection/GraphQLIntrospectionService.java`
+#### Snippet
+```java
+    @NotNull
+    public String printIntrospectionAsGraphQL(@NotNull Map<String, Object> introspection) {
+        introspection = getIntrospectionSchemaData(introspection);
+
+        if (!GraphQLSettings.getSettings(myProject).isEnableIntrospectionDefaultValues()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -21389,18 +21389,6 @@ Assignment to method parameter `type`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
 #### Snippet
 ```java
-    public static GraphQLType unwrapNonNull(GraphQLType type) {
-        while (isNonNull(type)) {
-            type = unwrapOne(type);
-        }
-        return type;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
-#### Snippet
-```java
      */
     public static Stack<GraphQLType> unwrapType(GraphQLType type) {
         type = assertNotNull(type);
@@ -21418,6 +21406,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
             type = unwrapOne(type);
         }
         return decoration;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLTypeUtil.java`
+#### Snippet
+```java
+    public static GraphQLType unwrapNonNull(GraphQLType type) {
+        while (isNonNull(type)) {
+            type = unwrapOne(type);
+        }
+        return type;
 ```
 
 ### AssignmentToMethodParameter
@@ -21473,6 +21473,30 @@ Assignment to method parameter `directives`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 #### Snippet
 ```java
+    private List<GraphQLDirective> addDeprecatedDirectiveIfNeeded(List<GraphQLDirective> directives) {
+        if (!hasDeprecatedDirective(directives)) {
+            directives = new ArrayList<>(directives);
+            directives.add(DeprecatedDirective4Printing);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `arguments`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
+        Comparator<? super GraphQLSchemaElement> comparator = options.comparatorRegistry.getComparator(environment);
+
+        arguments = arguments
+            .stream()
+            .sorted(comparator)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `directives`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
+#### Snippet
+```java
 
     String directivesString(Class<? extends GraphQLSchemaElement> parent, List<GraphQLDirective> directives) {
         directives = directives.stream()
@@ -21493,30 +21517,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `arguments`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-        Comparator<? super GraphQLSchemaElement> comparator = options.comparatorRegistry.getComparator(environment);
-
-        arguments = arguments
-            .stream()
-            .sorted(comparator)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `directives`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaPrinter.java`
-#### Snippet
-```java
-    private List<GraphQLDirective> addDeprecatedDirectiveIfNeeded(List<GraphQLDirective> directives) {
-        if (!hasDeprecatedDirective(directives)) {
-            directives = new ArrayList<>(directives);
-            directives.add(DeprecatedDirective4Printing);
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/NoUnbrokenInputCycles.java`
 #### Snippet
@@ -21526,30 +21526,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/validation/NoUnbrokenInput
                     path = new ArrayList<>(path);
                     path.add(field.getName() + "!");
                     check((GraphQLInputObjectType) unwrapped, new LinkedHashSet<>(seen), path, validationErrorCollector);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `directives`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-
-    String buildDeprecationReason(List<Directive> directives) {
-        directives = Optional.ofNullable(directives).orElse(emptyList());
-        Optional<Directive> directive = directives.stream().filter(d -> "deprecated".equals(d.getName())).findFirst();
-        if (directive.isEmpty()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `requiredType`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
-
-        if (GraphQLTypeUtil.isNonNull(requiredType)) {
-            requiredType = unwrapOne(requiredType);
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -21574,6 +21550,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.
         extensionDirectives = Optional.ofNullable(extensionDirectives).orElse(emptyList());
         Set<String> previousNames = new LinkedHashSet<>();
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `requiredType`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+
+        if (GraphQLTypeUtil.isNonNull(requiredType)) {
+            requiredType = unwrapOne(requiredType);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `directives`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+
+    String buildDeprecationReason(List<Directive> directives) {
+        directives = Optional.ofNullable(directives).orElse(emptyList());
+        Optional<Directive> directive = directives.stream().filter(d -> "deprecated".equals(d.getName())).findFirst();
+        if (directive.isEmpty()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -21649,30 +21649,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/reactive/NonBlockingMut
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `schema`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/ChainedInstrumentation.java`
-#### Snippet
-```java
-        for (Instrumentation instrumentation : instrumentations) {
-            InstrumentationState state = getState(instrumentation, parameters.getInstrumentationState());
-            schema = instrumentation.instrumentSchema(schema, parameters.withNewState(state));
-        }
-        return schema;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `documentAndVariables`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/ChainedInstrumentation.java`
-#### Snippet
-```java
-        for (Instrumentation instrumentation : instrumentations) {
-            InstrumentationState state = getState(instrumentation, parameters.getInstrumentationState());
-            documentAndVariables = instrumentation.instrumentDocumentAndVariables(documentAndVariables, parameters.withNewState(state));
-        }
-        return documentAndVariables;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `dataFetcher`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/ChainedInstrumentation.java`
 #### Snippet
@@ -21682,6 +21658,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/Chained
             dataFetcher = instrumentation.instrumentDataFetcher(dataFetcher, parameters.withNewState(state));
         }
         return dataFetcher;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `schema`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/ChainedInstrumentation.java`
+#### Snippet
+```java
+        for (Instrumentation instrumentation : instrumentations) {
+            InstrumentationState state = getState(instrumentation, parameters.getInstrumentationState());
+            schema = instrumentation.instrumentSchema(schema, parameters.withNewState(state));
+        }
+        return schema;
 ```
 
 ### AssignmentToMethodParameter
@@ -21706,6 +21694,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/Chained
             executionInput = instrumentation.instrumentExecutionInput(executionInput, parameters.withNewState(state));
         }
         return executionInput;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `documentAndVariables`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/ChainedInstrumentation.java`
+#### Snippet
+```java
+        for (Instrumentation instrumentation : instrumentations) {
+            InstrumentationState state = getState(instrumentation, parameters.getInstrumentationState());
+            documentAndVariables = instrumentation.instrumentDocumentAndVariables(documentAndVariables, parameters.withNewState(state));
+        }
+        return documentAndVariables;
 ```
 
 ### AssignmentToMethodParameter
@@ -21750,7 +21750,7 @@ Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/ui/GraphQLUIProjectService.java`
 #### Snippet
 ```java
-        } catch (JsonSyntaxException ignored) {
+            }
         }
         return null;
     }
@@ -21762,7 +21762,7 @@ Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/ui/GraphQLUIProjectService.java`
 #### Snippet
 ```java
-            }
+        } catch (JsonSyntaxException ignored) {
         }
         return null;
     }
@@ -21807,6 +21807,18 @@ in `src/main/com/intellij/lang/jsgraphql/ide/highlighting/query/GraphQLQueryCont
 
 ### ReturnNull
 Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFragmentDefinitionMixin.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLTypedOperationDefinitionMixin.java`
 #### Snippet
 ```java
@@ -21820,18 +21832,6 @@ in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLTypedOperationDefinitio
 ### ReturnNull
 Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLInlineFragmentMixin.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/psi/impl/GraphQLFragmentDefinitionMixin.java`
 #### Snippet
 ```java
             }
@@ -21990,6 +21990,18 @@ Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 #### Snippet
 ```java
+        List<GraphQLDirective> directives = allDirectivesByName.getOrDefault(name, emptyList());
+        if (directives.isEmpty()) {
+            return null;
+        }
+        return directives.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
+#### Snippet
+```java
         List<GraphQLDirective> directiveList = directives.get(directiveName);
         if (directiveList == null || directiveList.isEmpty()) {
             return null;
@@ -21999,14 +22011,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/DirectivesUtil.java`
+in `src/main/com/intellij/lang/jsgraphql/types/util/DefaultTraverserContext.java`
 #### Snippet
 ```java
-        List<GraphQLDirective> directives = allDirectivesByName.getOrDefault(name, emptyList());
-        if (directives.isEmpty()) {
+    public T getParentNode() {
+        if (parent == null) {
             return null;
         }
-        return directives.get(0);
+        return parent.thisNode();
 ```
 
 ### ReturnNull
@@ -22023,14 +22035,14 @@ in `src/main/com/intellij/lang/jsgraphql/types/util/DefaultTraverserContext.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/util/DefaultTraverserContext.java`
+in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
 #### Snippet
 ```java
-    public T getParentNode() {
-        if (parent == null) {
+        }
+        if (breadcrumbs.size() == 0 && modificationType == ModificationType.DELETE) {
             return null;
         }
-        return parent.thisNode();
+        T curNode = this.curNode;
 ```
 
 ### ReturnNull
@@ -22054,6 +22066,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/relay/InvalidPageSizeException.ja
     public List<SourceLocation> getLocations() {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlFloatCoercing.java`
+#### Snippet
+```java
+                value = new BigDecimal(input.toString());
+            } catch (NumberFormatException e) {
+                return null;
+            }
+            return value.doubleValue();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlFloatCoercing.java`
+#### Snippet
+```java
+            return value.doubleValue();
+        } else {
+            return null;
+        }
 
 ```
 
@@ -22091,54 +22127,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlBigIntegerCoercing.
         return null;
 
     }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
-#### Snippet
-```java
-        int index = data.indexOf(object);
-        if (index == -1) {
-            return null;
-        }
-        String cursor = createCursor(index);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlFloatCoercing.java`
-#### Snippet
-```java
-                value = new BigDecimal(input.toString());
-            } catch (NumberFormatException e) {
-                return null;
-            }
-            return value.doubleValue();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlFloatCoercing.java`
-#### Snippet
-```java
-            return value.doubleValue();
-        } else {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/util/NodeZipper.java`
-#### Snippet
-```java
-        }
-        if (breadcrumbs.size() == 0 && modificationType == ModificationType.DELETE) {
-            return null;
-        }
-        T curNode = this.curNode;
 ```
 
 ### ReturnNull
@@ -22227,6 +22215,66 @@ in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlIntCoercing.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
+#### Snippet
+```java
+                value = new BigDecimal(input.toString());
+            } catch (NumberFormatException e) {
+                return null;
+            }
+            try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
+#### Snippet
+```java
+                return value.shortValueExact();
+            } catch (ArithmeticException e) {
+                return null;
+            }
+        } else {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
+#### Snippet
+```java
+            }
+        } else {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlBigDecimalCoercing.java`
+#### Snippet
+```java
+                return new BigDecimal(input.toString());
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlBigDecimalCoercing.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlCharCoercing.java`
 #### Snippet
 ```java
@@ -22235,6 +22283,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlCharCoercing.java`
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/relay/SimpleListConnection.java`
+#### Snippet
+```java
+        int index = data.indexOf(object);
+        if (index == -1) {
+            return null;
+        }
+        String cursor = createCursor(index);
 ```
 
 ### ReturnNull
@@ -22275,66 +22335,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlLongCoercing.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlBigDecimalCoercing.java`
-#### Snippet
-```java
-                return new BigDecimal(input.toString());
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlBigDecimalCoercing.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
-#### Snippet
-```java
-                value = new BigDecimal(input.toString());
-            } catch (NumberFormatException e) {
-                return null;
-            }
-            try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
-#### Snippet
-```java
-                return value.shortValueExact();
-            } catch (ArithmeticException e) {
-                return null;
-            }
-        } else {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/scalar/GraphqlShortCoercing.java`
-#### Snippet
-```java
-            }
-        } else {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/SchemaElementChildrenContainer.java`
 #### Snippet
 ```java
@@ -22359,18 +22359,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/GraphQLArgument.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/PropertyDataFetcher.java`
-#### Snippet
-```java
-        Object source = environment.getSource();
-        if (source == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelectionSetImpl.java`
 #### Snippet
 ```java
@@ -22379,6 +22367,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/DataFetchingFieldSelection
             return normalizedField.getParent() == null ? null :
                     new SelectedFieldImpl(parentSimpleQualifiedName, parentFullyQualifiedName, normalizedField.getParent());
         }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/PropertyDataFetcher.java`
+#### Snippet
+```java
+        Object source = environment.getSource();
+        if (source == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -22518,18 +22518,6 @@ Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
 #### Snippet
 ```java
-        Optional<Directive> directive = directives.stream().filter(d -> "deprecated".equals(d.getName())).findFirst();
-        if (directive.isEmpty()) {
-            return null;
-        }
-        Map<String, String> args = directive.get().getArguments().stream()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
-#### Snippet
-```java
                 try {
                     String name = dl.getName();
                     if (name == null) return null;
@@ -22559,6 +22547,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.
             return null;
         }
         return String.join("\n", lines);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/SchemaGeneratorHelper.java`
+#### Snippet
+```java
+        Optional<Directive> directive = directives.stream().filter(d -> "deprecated".equals(d.getName())).findFirst();
+        if (directive.isEmpty()) {
+            return null;
+        }
+        Map<String, String> args = directive.get().getArguments().stream()
 ```
 
 ### ReturnNull
@@ -22647,18 +22647,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/NodeChildrenContainer.ja
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
-#### Snippet
-```java
-    private SelectionSet sortSelectionSet(SelectionSet selectionSet) {
-        if (selectionSet == null) {
-            return null;
-        }
-        List<Selection> selections = sort(selectionSet.getSelections(), comparingSelections());
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/language/NodeUtil.java`
 #### Snippet
 ```java
@@ -22667,6 +22655,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/language/NodeUtil.java`
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/language/AstSorter.java`
+#### Snippet
+```java
+    private SelectionSet sortSelectionSet(SelectionSet selectionSet) {
+        if (selectionSet == null) {
+            return null;
+        }
+        List<Selection> selections = sort(selectionSet.getSelections(), comparingSelections());
 ```
 
 ### ReturnNull
@@ -22803,18 +22803,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ExecutionStrategy.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ResultPath.java`
-#### Snippet
-```java
-    public ResultPath dropSegment() {
-        if (this == rootPath()) {
-            return null;
-        }
-        return this.parent;
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/InputMapDefinesTooManyFieldsException.java`
 #### Snippet
 ```java
@@ -22839,6 +22827,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/AbortExecutionException
 
 ### ReturnNull
 Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ResultPath.java`
+#### Snippet
+```java
+    public ResultPath dropSegment() {
+        if (this == rootPath()) {
+            return null;
+        }
+        return this.parent;
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/Instrumentation.java`
 #### Snippet
 ```java
@@ -22846,18 +22846,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/Instrum
     default InstrumentationState createState() {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
-#### Snippet
-```java
-
-            if (value == null) {
-                return null;
-            }
 
 ```
 
@@ -22887,6 +22875,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/execution/ValuesResolver.java`
+#### Snippet
+```java
+
+            if (value == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/fieldvalidation/FieldValidationSupport.java`
 #### Snippet
 ```java
@@ -22895,54 +22895,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/instrumentation/fieldva
             return traversalEnv.getParentEnvironment() != null ? new FieldAndArgumentsImpl(traversalEnv.getParentEnvironment()) : null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
-#### Snippet
-```java
-            if (argument.getName().equals(name)) return argument;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
-#### Snippet
-```java
-    public List<String> getQueryPath() {
-        if (nameStack.isEmpty()) {
-            return null;
-        }
-        return new ArrayList<>(nameStack);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
-#### Snippet
-```java
-            return schema.getFieldVisibility().getFieldDefinition((GraphQLFieldsContainer) parentType, field.getName());
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
-#### Snippet
-```java
-
-    private <T> T lastElement(List<T> list) {
-        if (list.size() == 0) return null;
-        return list.get(list.size() - 1);
-    }
 ```
 
 ### ReturnNull
@@ -22967,6 +22919,210 @@ in `src/main/com/intellij/lang/jsgraphql/types/execution/nextgen/result/ResultNo
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
+#### Snippet
+```java
+            return schema.getFieldVisibility().getFieldDefinition((GraphQLFieldsContainer) parentType, field.getName());
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
+#### Snippet
+```java
+    public List<String> getQueryPath() {
+        if (nameStack.isEmpty()) {
+            return null;
+        }
+        return new ArrayList<>(nameStack);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
+#### Snippet
+```java
+
+    private <T> T lastElement(List<T> list) {
+        if (list.size() == 0) return null;
+        return list.get(list.size() - 1);
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/TraversalContext.java`
+#### Snippet
+```java
+            if (argument.getName().equals(name)) return argument;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return GraphQLTypeUtil.unwrapOne((GraphQLModifiedType) type);
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return ((GraphQLNamedSchemaElement) type).getDescription();
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return filtered;
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return filtered;
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return ((GraphQLInterfaceType) type).getInterfaces();
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return ((GraphQLUnionType) type).getTypes();
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return ((GraphQLNamedSchemaElement) type).getName();
+        }
+        return null;
+    };
+    private static final IntrospectionDataFetcher descriptionDataFetcher = environment -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return ((GraphQLScalarType) type).getSpecifiedByUrl();
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            return fieldVisibility.getFieldDefinitions((GraphQLInputObjectType) type);
+        }
+        return null;
+    };
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            if (environment.getSource() instanceof GraphQLArgument) {
+                GraphQLArgument inputField = environment.getSource();
+                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
+            } else if (environment.getSource() instanceof GraphQLInputObjectField) {
+                GraphQLInputObjectField inputField = environment.getSource();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+            } else if (environment.getSource() instanceof GraphQLInputObjectField) {
+                GraphQLInputObjectField inputField = environment.getSource();
+                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
+            }
+            return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
+#### Snippet
+```java
+                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
+            }
+            return null;
+        });
+        register(__InputValue, "name", nameDataFetcher);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
+#### Snippet
+```java
+            GraphQLTemplateSelection templateSelection = selection.getTemplateSelection();
+            // ignore templates
+            if (templateSelection != null) return null;
+
+            GraphQLField field = selection.getField();
 ```
 
 ### ReturnNull
@@ -23079,186 +23235,6 @@ in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/schema/GraphQLPsiToLanguage.java`
-#### Snippet
-```java
-            GraphQLTemplateSelection templateSelection = selection.getTemplateSelection();
-            // ignore templates
-            if (templateSelection != null) return null;
-
-            GraphQLField field = selection.getField();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return ((GraphQLNamedSchemaElement) type).getDescription();
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return GraphQLTypeUtil.unwrapOne((GraphQLModifiedType) type);
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return ((GraphQLScalarType) type).getSpecifiedByUrl();
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return filtered;
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return ((GraphQLUnionType) type).getTypes();
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return ((GraphQLInterfaceType) type).getInterfaces();
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return fieldVisibility.getFieldDefinitions((GraphQLInputObjectType) type);
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return ((GraphQLNamedSchemaElement) type).getName();
-        }
-        return null;
-    };
-    private static final IntrospectionDataFetcher descriptionDataFetcher = environment -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            return filtered;
-        }
-        return null;
-    };
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            if (environment.getSource() instanceof GraphQLArgument) {
-                GraphQLArgument inputField = environment.getSource();
-                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
-            } else if (environment.getSource() instanceof GraphQLInputObjectField) {
-                GraphQLInputObjectField inputField = environment.getSource();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-            } else if (environment.getSource() instanceof GraphQLInputObjectField) {
-                GraphQLInputObjectField inputField = environment.getSource();
-                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
-            }
-            return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/introspection/Introspection.java`
-#### Snippet
-```java
-                return inputField.getDefaultValue() != null ? print(inputField.getDefaultValue(), inputField.getType()) : null;
-            }
-            return null;
-        });
-        register(__InputValue, "name", nameDataFetcher);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
-#### Snippet
-```java
-            typeB = unwrapOne(typeB);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
 #### Snippet
 ```java
@@ -23287,6 +23263,30 @@ in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingField
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/com/intellij/lang/jsgraphql/types/validation/rules/OverlappingFieldsCanBeMerged.java`
+#### Snippet
+```java
+            typeB = unwrapOne(typeB);
         }
         return null;
     }
@@ -23454,18 +23454,6 @@ public class GraphQLIntrospectionTask {
 
 ### ClassCanBeRecord
 Class can be a record
-in `src/main/com/intellij/lang/jsgraphql/types/util/ReplaceNode.java`
-#### Snippet
-```java
- */
-@Internal
-public class ReplaceNode {
-
-    private final Object newNode;
-```
-
-### ClassCanBeRecord
-Class can be a record
 in `src/main/com/intellij/lang/jsgraphql/types/GraphqlErrorBuilder.java`
 #### Snippet
 ```java
@@ -23474,6 +23462,18 @@ in `src/main/com/intellij/lang/jsgraphql/types/GraphqlErrorBuilder.java`
     private static class GraphqlErrorImpl implements GraphQLError {
         private final String message;
         private final List<SourceLocation> locations;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `src/main/com/intellij/lang/jsgraphql/types/util/ReplaceNode.java`
+#### Snippet
+```java
+ */
+@Internal
+public class ReplaceNode {
+
+    private final Object newNode;
 ```
 
 ### ClassCanBeRecord
@@ -23816,18 +23816,6 @@ in `src/main/com/intellij/lang/jsgraphql/types/schema/idl/RuntimeWiring.java`
 
 ## RuleId[id=UnusedSymbol]
 ### UnusedSymbol
-Class "GraphQLConfigPointer" is never used
-in `src/main/com/intellij/lang/jsgraphql/ide/config/model/GraphQLConfigPointer.kt`
-#### Snippet
-```java
-
-
-data class GraphQLConfigPointer(val dir: VirtualFile?, val file: VirtualFile?, val projectName: String?) {
-    fun resolve(project: Project): GraphQLProjectConfig? {
-        val provider = GraphQLConfigProvider.getInstance(project)
-```
-
-### UnusedSymbol
 Function "containsVariables" is never used
 in `src/main/com/intellij/lang/jsgraphql/ide/config/env/GraphQLConfigEnvironmentParser.kt`
 #### Snippet
@@ -23837,6 +23825,18 @@ in `src/main/com/intellij/lang/jsgraphql/ide/config/env/GraphQLConfigEnvironment
     fun containsVariables(raw: String?, isLegacy: Boolean): Boolean {
         return raw?.let { parse(it, isLegacy) }?.variables?.isNotEmpty() ?: false
     }
+```
+
+### UnusedSymbol
+Class "GraphQLConfigPointer" is never used
+in `src/main/com/intellij/lang/jsgraphql/ide/config/model/GraphQLConfigPointer.kt`
+#### Snippet
+```java
+
+
+data class GraphQLConfigPointer(val dir: VirtualFile?, val file: VirtualFile?, val projectName: String?) {
+    fun resolve(project: Project): GraphQLProjectConfig? {
+        val provider = GraphQLConfigProvider.getInstance(project)
 ```
 
 ### UnusedSymbol
