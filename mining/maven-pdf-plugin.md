@@ -1,64 +1,152 @@
 # maven-pdf-plugin 
  
 # Bad smells
-I found 37 bad smells with 2 repairable:
+I found 35 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SynchronizeOnThis | 10 | false |
+| JavadocReference | 16 | false |
 | IgnoreResultOfCall | 8 | false |
-| ReturnNull | 6 | false |
-| UnnecessaryFullyQualifiedName | 2 | false |
-| AssignmentToMethodParameter | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| UnnecessarySuperQualifier | 1 | false |
+| UNCHECKED_WARNING | 4 | false |
+| JavadocDeclaration | 4 | false |
 | DataFlowIssue | 1 | false |
 | CommentedOutCode | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| CallToStringConcatCanBeReplacedByOperator | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
-| ZeroLengthArrayInitialization | 1 | false |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `TocFileHelper` has only 'static' members, and lacks a 'private' constructor
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `src/main/java/org/apache/maven/plugins/pdf/TocFileHelper.java`
 #### Snippet
 ```java
- * @since 1.5
- */
-class TocFileHelper {
-    private static final String FILENAME = "toc.json";
-
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-                tableRows(null, false);
-            }
-            super.tableRow(null);
+    static Map<String, Object> loadToc(File workingDirectory) throws IOException {
+        try (Reader reader = ReaderFactory.newReader(getTocFile(workingDirectory), "UTF-8")) {
+            return (Map) JSONParser.parseJSON(reader);
         }
     }
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.doxia.sink` is unnecessary, and can be replaced with an import
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List\>'
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+        tocItem.setRef(stagedId + "/" + item.get("ref"));
+
+        List<Map<String, Object>> items = (List) item.get("items");
+
+        for (Map<String, Object> it : items) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List\>'
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+        Map<String, Object> toc = loadToc(project);
+
+        List<Map<String, Object>> items = (ArrayList) toc.get("items");
+
+        DocumentTOCItem tocItem = new DocumentTOCItem();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List\>'
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+        if (items.size() == 1 && "project-info".equals(items.get(0).get("ref"))) {
+            // Special case where a sub-project only contains generated reports.
+            items = (List) items.get(0).get("items");
+        }
+
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Developer`
+in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Wrap the list of project {@link Developer} to a list of {@link DocumentAuthor}.
+     *
+     * @param project the MavenProject to extract the authors from.
+```
+
+### JavadocReference
+Cannot resolve symbol `DocumentAuthor`
+in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Wrap the list of project {@link Developer} to a list of {@link DocumentAuthor}.
+     *
+     * @param project the MavenProject to extract the authors from.
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
+#### Snippet
+```java
+     * @param docDescriptor not null, corresponding to non-localized descriptor file.
+     * @return a DocumentModel instance.
+     * @throws XmlPullParserException if an error occurs during parsing.
+     * @throws IOException if an error occurs during reading.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
 #### Snippet
 ```java
+     * @param locale not null
+     * @throws IOException if any
+     * @throws MojoExecutionException if any
      * @since 1.1
      */
-    private static class PdfXdocSink extends XdocSink implements org.codehaus.doxia.sink.Sink {
-        protected PdfXdocSink(Writer writer) {
-            super(writer);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin` is unnecessary and can be removed
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * Copy the generated PDF to outputDirectory.
+     *
+     * @throws MojoExecutionException if any
+     * @throws IOException if any
+     * @since 1.1
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * Generate the PDF.
+     *
+     * @throws MojoExecutionException if any
+     * @throws IOException if any
+     * @since 1.1
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     *
+     * @param locale not null
+     * @throws MojoExecutionException if any
+     * @throws IOException if any
+     * @since 1.1
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
 #### Snippet
 ```java
@@ -67,6 +155,102 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
      * @throws org.apache.maven.plugin.MojoExecutionException if the model could not be read.
      */
     private DocumentModel getDocumentModelFromDescriptor(Locale locale) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @throws MavenReportException
+     */
+    private void renderReportToSink(MavenReportExecution reportExec, Locale locale, PdfXdocSink sink)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+    /**
+     * @return the DecorationModel instance from <code>site.xml</code>
+     * @throws MojoExecutionException if any
+     */
+    private DecorationModel getDefaultDecorationModel() throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.reporting.AbstractMavenReport`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * <br>
+     * <b>Note</b>: try also to fix the content due to some issues in
+     * {@link org.apache.maven.reporting.AbstractMavenReport}.
+     *
+     * @param content the given content
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param locale not null
+     * @return DocumentModel.
+     * @throws MojoExecutionException if any
+     * @see #appendGeneratedReports(DocumentModel, Locale)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DocumentModel`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @return DocumentModel.
+     * @throws MojoExecutionException if any
+     * @see #appendGeneratedReports(DocumentModel, Locale)
+     */
+    private DocumentModel getDocumentModel(Locale locale) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `FileUtils`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param defaultLocale the default locale.
+     * @return the comma separated list of default excludes and locales dir.
+     * @see FileUtils#getDefaultExcludesAsString()
+     * @since 1.1
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `getDefaultExcludesAsString()`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param defaultLocale the default locale.
+     * @return the comma separated list of default excludes and locales dir.
+     * @see FileUtils#getDefaultExcludesAsString()
+     * @since 1.1
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     *
+     * @param locale not null
+     * @throws MojoExecutionException if any
+     * @see #getDefaultDecorationModel()
+     */
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -80,6 +264,55 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
         if (!dstSiteTmp.exists()) {
             getLog().error("Top-level project does not have src.tmp directory");
             return;
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param reportExec` tag description is missing
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * see org.apache.maven.plugins.site.render.ReportDocumentRenderer#renderDocument(...)
+     *
+     * @param reportExec
+     * @param locale
+     * @param sink
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     *
+     * @param reportExec
+     * @param locale
+     * @param sink
+     * @throws MavenReportException
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param reportExec
+     * @param locale
+     * @param sink
+     * @throws MavenReportException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @throws MavenReportException
+     */
+    private void renderReportToSink(MavenReportExecution reportExec, Locale locale, PdfXdocSink sink)
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -108,277 +341,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
     /**
 ```
 
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `date` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-    }
-
-    private Date date;
-
-    /**
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `p`
-in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
-#### Snippet
-```java
-        projectPath.addFirst(p.getArtifactId());
-        while (p.getParent() != null) {
-            p = p.getParent();
-            projectPath.addFirst(p.getArtifactId());
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `docDescriptor`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
-#### Snippet
-```java
-
-            if (localizedDocDescriptor.exists()) {
-                docDescriptor = localizedDocDescriptor;
-            }
-        }
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-        String outputName = getDocumentModel(getDefaultLocale()).getOutputName().trim();
-        if (!outputName.endsWith(".pdf")) {
-            outputName = outputName.concat(".pdf");
-        }
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
-#### Snippet
-```java
-    private static List<DocumentAuthor> getAuthors(MavenProject project) {
-        if (project == null || project.getDevelopers() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
-#### Snippet
-```java
-    private static String getProjectName(MavenProject project) {
-        if (project == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
-#### Snippet
-```java
-    private static String getProjectModelEncoding(MavenProject project) {
-        if (project == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
-#### Snippet
-```java
-                    }
-
-                    return null;
-                }
-            });
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            getLog().error("ParseException: " + e.getMessage());
-            getLog().debug(e);
-            return null;
-        } catch (ParserNotFoundException e) {
-            getLog().error("ParserNotFoundException: " + e.getMessage());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            getLog().error("ParserNotFoundException: " + e.getMessage());
-            getLog().debug(e);
-            return null;
-        }
-
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`files.size() != 0` can be replaced with '!files.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            }
-
-            if (files.size() != 0) {
-                String displayLanguage = locale.getDisplayLanguage(Locale.ENGLISH);
-
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            reportingPlugins.add(mpir);
-        }
-        return reportingPlugins.toArray(new ReportPlugin[0]);
-    }
-
-```
-
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getMonth() {
-        synchronized (this) {
-            return MONTH.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getSecond() {
-        synchronized (this) {
-            return SECOND.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getHour() {
-        synchronized (this) {
-            return HOUR.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getMillisecond() {
-        synchronized (this) {
-            return MILLI_SECOND.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getMinute() {
-        synchronized (this) {
-            return MINUTE.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getTime() {
-        synchronized (this) {
-            return TIME.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getDay() {
-        synchronized (this) {
-            return DAY.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getYear() {
-        synchronized (this) {
-            return YEAR.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getDateTime() {
-        synchronized (this) {
-            return DATE_TIME.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getDate() {
-        synchronized (this) {
-            return DATE.format(date);
-        }
-```
-
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -390,6 +352,18 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
         tmpSiteDir.mkdirs();
     }
 
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+            outDir = new File(new File(getGeneratedSiteDirectoryTmp(), locale.getLanguage()), "xdoc");
+        }
+        outDir.mkdirs();
+
+        File generatedReport = new File(outDir, report.getOutputName() + ".xml");
 ```
 
 ### IgnoreResultOfCall
@@ -414,18 +388,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
                 outputDir.mkdirs();
             }
 
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            outDir = new File(new File(getGeneratedSiteDirectoryTmp(), locale.getLanguage()), "xdoc");
-        }
-        outDir.mkdirs();
-
-        File generatedReport = new File(outDir, report.getOutputName() + ".xml");
 ```
 
 ### IgnoreResultOfCall
