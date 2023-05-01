@@ -40,31 +40,6 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 	// Check for Jackson 2.3's overloaded canDeserialize/canSerialize variants with cause reference
 ```
 
-## RuleId[id=RedundantNullableReturnType]
-### RedundantNullableReturnType
-'getEditParametersUrl' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
-#### Snippet
-```java
-    }
-
-    override fun getEditParametersUrl(): String? {
-        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
-    }
-```
-
-### RedundantNullableReturnType
-'getPropertiesProcessor' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
-#### Snippet
-```java
-    }
-
-    override fun getPropertiesProcessor(): PropertiesProcessor? {
-        return getParametersProcessor()
-    }
-```
-
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `HttpComponents` has only 'static' members, and lacks a 'private' constructor
@@ -100,6 +75,31 @@ import java.io.IOException;
 public class VaultInterceptors {
     public static final String VAULT_NAMESPACE_HEADER = "X-Vault-Namespace";
 
+```
+
+## RuleId[id=RedundantNullableReturnType]
+### RedundantNullableReturnType
+'getPropertiesProcessor' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getPropertiesProcessor(): PropertiesProcessor? {
+        return getParametersProcessor()
+    }
+```
+
+### RedundantNullableReturnType
+'getEditParametersUrl' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getEditParametersUrl(): String? {
+        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
+    }
 ```
 
 ## RuleId[id=StaticCallOnSubclass]
@@ -232,6 +232,18 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSess
 
 ### Convert2Lambda
 Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultInterceptors.java`
+#### Snippet
+```java
+        }
+
+        return new ClientHttpRequestInterceptor() {
+            @Override
+            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+```
+
+### Convert2Lambda
+Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
 in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
 #### Snippet
 ```java
@@ -240,18 +252,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
         final ClientHttpRequestInterceptor interceptor = new ClientHttpRequestInterceptor() {
             @Override
             public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-```
-
-### Convert2Lambda
-Anonymous new RestOperationsCallback() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
-#### Snippet
-```java
-    private <T> T doRead(final String path, final Class<T> responseType) {
-
-        return doWithSession(new RestOperationsCallback<T>() {
-
-            @Override
 ```
 
 ### Convert2Lambda
@@ -267,15 +267,15 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
 ```
 
 ### Convert2Lambda
-Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultInterceptors.java`
+Anonymous new RestOperationsCallback() can be replaced with lambda
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
 #### Snippet
 ```java
-        }
+    private <T> T doRead(final String path, final Class<T> responseType) {
 
-        return new ClientHttpRequestInterceptor() {
+        return doWithSession(new RestOperationsCallback<T>() {
+
             @Override
-            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 ```
 
 ## RuleId[id=KotlinUnusedImport]
@@ -303,6 +303,31 @@ import org.springframework.vault.authentication.SimpleSessionManager
 import org.springframework.vault.client.VaultEndpoint
 ```
 
+## RuleId[id=PrivatePropertyName]
+### PrivatePropertyName
+Private property name `jetty_server` should not contain underscores in the middle or the end
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
+#### Snippet
+```java
+    }
+
+    private var jetty_server: Server? = null
+
+    override fun starting(description: Description?) {
+```
+
+### PrivatePropertyName
+Private property name `jetty_port` should not contain underscores in the middle or the end
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
+#### Snippet
+```java
+    private var _used: Boolean = false
+
+    private val jetty_port: Int by lazy {
+        SocketUtils.findAvailableTcpPort(8222)
+    }
+```
+
 ## RuleId[id=NotNullFieldNotInitialized]
 ### NotNullFieldNotInitialized
 @NonNullFields fields must be initialized
@@ -321,18 +346,6 @@ in `common/src/main/java/org/springframework/vault/authentication/LdapAuthentica
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
-        private String username;
-
-        private CharSequence password;
-
-        private String path;
-```
-
-### NotNullFieldNotInitialized
-@NonNullFields fields must be initialized
-in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
-#### Snippet
-```java
     public static class LdapAuthenticationOptionsBuilder {
 
         private String username;
@@ -340,29 +353,16 @@ in `common/src/main/java/org/springframework/vault/authentication/LdapAuthentica
         private CharSequence password;
 ```
 
-## RuleId[id=PrivatePropertyName]
-### PrivatePropertyName
-Private property name `jetty_port` should not contain underscores in the middle or the end
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
+### NotNullFieldNotInitialized
+@NonNullFields fields must be initialized
+in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
-    private var _used: Boolean = false
+        private String username;
 
-    private val jetty_port: Int by lazy {
-        SocketUtils.findAvailableTcpPort(8222)
-    }
-```
+        private CharSequence password;
 
-### PrivatePropertyName
-Private property name `jetty_server` should not contain underscores in the middle or the end
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
-#### Snippet
-```java
-    }
-
-    private var jetty_server: Server? = null
-
-    override fun starting(description: Description?) {
+        private String path;
 ```
 
 ## RuleId[id=ConvertToStringTemplate]
@@ -578,54 +578,6 @@ class VaultJspKeys {
 ```
 
 ### UnusedSymbol
-Property "AUTH_METHOD_LDAP" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-
-    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
-```
-
-### UnusedSymbol
-Property "VAULT_NAMESPACE" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
-
-    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
-```
-
-### UnusedSymbol
-Property "PASSWORD" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
-
-```
-
-### UnusedSymbol
-Property "USERNAME" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
-```
-
-### UnusedSymbol
 Property "FAIL_ON_ERROR" is never used
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
 #### Snippet
@@ -635,66 +587,6 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
     val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
 
     val AGENT_REQUIREMENT = VaultConstants.FeatureSettings.AGENT_SUPPORT_REQUIREMENT
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD_IAM" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-```
-
-### UnusedSymbol
-Property "ROLE_ID" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
-
-    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val PATH = VaultConstants.FeatureSettings.PATH
-
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-```
-
-### UnusedSymbol
-Property "AGENT_REQUIREMENT" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
-
-    val AGENT_REQUIREMENT = VaultConstants.FeatureSettings.AGENT_SUPPORT_REQUIREMENT
-}
-
-```
-
-### UnusedSymbol
-Property "SECRET_ID" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
 ```
 
 ### UnusedSymbol
@@ -710,15 +602,75 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
 ```
 
 ### UnusedSymbol
-Property "PATH" is never used
+Property "VAULT_NAMESPACE" is never used
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
 #### Snippet
 ```java
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
+    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
+    val URL = VaultConstants.FeatureSettings.URL
+    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
+
+    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
+```
+
+### UnusedSymbol
+Property "ROLE_ID" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
+
+    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
+    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
+
+```
+
+### UnusedSymbol
+Property "AUTH_METHOD_IAM" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
 
     val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
+    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
+    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
+    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
+```
+
+### UnusedSymbol
+Property "AGENT_REQUIREMENT" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
+
+    val AGENT_REQUIREMENT = VaultConstants.FeatureSettings.AGENT_SUPPORT_REQUIREMENT
+}
+
+```
+
+### UnusedSymbol
+Property "AUTH_METHOD_LDAP" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
+    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
+    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
+
+    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
+```
+
+### UnusedSymbol
+Property "SECRET_ID" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+
+    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
+    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
+
+    val USERNAME = VaultConstants.FeatureSettings.USERNAME
 ```
 
 ### UnusedSymbol
@@ -734,18 +686,6 @@ class VaultJspKeys {
 ```
 
 ### UnusedSymbol
-Property "URL" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-class VaultJspKeys {
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
-
-```
-
-### UnusedSymbol
 Property "ENDPOINT" is never used
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
 #### Snippet
@@ -755,6 +695,66 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
     val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
 
     val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
+```
+
+### UnusedSymbol
+Property "PATH" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val USERNAME = VaultConstants.FeatureSettings.USERNAME
+    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
+    val PATH = VaultConstants.FeatureSettings.PATH
+
+    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
+```
+
+### UnusedSymbol
+Property "USERNAME" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
+
+    val USERNAME = VaultConstants.FeatureSettings.USERNAME
+    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
+    val PATH = VaultConstants.FeatureSettings.PATH
+```
+
+### UnusedSymbol
+Property "AUTH_METHOD" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+    val PATH = VaultConstants.FeatureSettings.PATH
+
+    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
+    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
+    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
+```
+
+### UnusedSymbol
+Property "PASSWORD" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+
+    val USERNAME = VaultConstants.FeatureSettings.USERNAME
+    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
+    val PATH = VaultConstants.FeatureSettings.PATH
+
+```
+
+### UnusedSymbol
+Property "URL" is never used
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
+#### Snippet
+```java
+class VaultJspKeys {
+    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
+    val URL = VaultConstants.FeatureSettings.URL
+    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
+
 ```
 
 ### UnusedSymbol
