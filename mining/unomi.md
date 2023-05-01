@@ -1,102 +1,78 @@
 # unomi 
  
 # Bad smells
-I found 1325 bad smells with 143 repairable:
+I found 821 bad smells with 26 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 293 | false |
-| MissortedModifiers | 258 | false |
-| BoundedWildcard | 90 | false |
-| SizeReplaceableByIsEmpty | 78 | true |
-| RedundantFieldInitialization | 62 | false |
-| UNUSED_IMPORT | 55 | false |
-| ConstantValue | 34 | false |
-| DynamicRegexReplaceableByCompiledPattern | 28 | false |
-| ClassNameSameAsAncestorName | 22 | false |
-| UnusedAssignment | 21 | false |
-| SystemOutErr | 21 | false |
+| FieldMayBeFinal | 330 | false |
+| UNCHECKED_WARNING | 117 | false |
+| UNUSED_IMPORT | 48 | false |
+| ConstantValue | 30 | false |
+| UnusedAssignment | 23 | false |
 | DataFlowIssue | 19 | false |
-| UseOfPropertiesAsHashtable | 18 | false |
+| DuplicatedCode | 18 | false |
+| Deprecation | 17 | false |
 | DeprecatedIsStillUsed | 17 | false |
-| UtilityClassWithoutPrivateConstructor | 16 | true |
-| NonProtectedConstructorInAbstractClass | 16 | true |
-| AssignmentToMethodParameter | 15 | false |
-| NonShortCircuitBoolean | 14 | false |
-| UnnecessaryFullyQualifiedName | 13 | false |
-| DefaultAnnotationParam | 11 | false |
-| RedundantImplements | 11 | false |
-| UnnecessaryBoxing | 11 | false |
-| EmptyMethod | 10 | false |
+| FieldCanBeLocal | 16 | false |
+| TrivialIf | 13 | false |
 | MismatchedJavadocCode | 10 | false |
 | RegExpRedundantEscape | 9 | false |
 | StringConcatenationInsideStringBufferAppend | 9 | false |
 | StringBufferReplaceableByString | 8 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 8 | false |
-| NonSerializableFieldInSerializableClass | 8 | false |
+| JavadocLinkAsPlainText | 8 | false |
+| RedundantCast | 8 | false |
+| EmptyStatementBody | 7 | false |
 | BooleanConstructor | 7 | false |
-| UnnecessaryReturn | 6 | true |
-| ZeroLengthArrayInitialization | 6 | false |
+| ArraysAsListWithZeroOrOneArgument | 7 | false |
+| JavadocDeclaration | 6 | false |
+| StringConcatenationInLoops | 5 | false |
 | InnerClassMayBeStatic | 5 | true |
 | UnnecessaryLocalVariable | 5 | true |
 | UnnecessaryModifier | 4 | true |
-| KeySetIterationMayUseEntrySet | 4 | false |
-| UnnecessarySuperQualifier | 4 | false |
-| NestedAssignment | 4 | false |
-| CodeBlock2Expr | 4 | true |
 | TypeParameterExtendsObject | 4 | false |
-| UnnecessaryToStringCall | 4 | true |
-| StringEqualsEmptyString | 4 | false |
-| ThrowablePrintStackTrace | 4 | false |
+| SuspiciousMethodCalls | 4 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 3 | true |
-| ObsoleteCollection | 3 | false |
 | DuplicateBranchesInSwitch | 3 | false |
-| RedundantMethodOverride | 3 | false |
+| UnnecessaryReturn | 3 | true |
 | DuplicateThrows | 3 | false |
 | RedundantLengthCheck | 3 | false |
 | UnnecessarySemicolon | 3 | false |
 | StringOperationCanBeSimplified | 3 | false |
-| Convert2Lambda | 3 | false |
-| WrapperTypeMayBePrimitive | 2 | false |
+| CollectionAddAllCanBeReplacedWithConstructor | 3 | false |
+| UnnecessaryToStringCall | 3 | true |
 | CStyleArrayDeclaration | 2 | false |
-| AbstractClassNeverImplemented | 2 | false |
+| UastIncorrectHttpHeaderInspection | 2 | false |
 | MismatchedCollectionQueryUpdate | 2 | false |
-| StringBufferReplaceableByStringBuilder | 2 | false |
-| Convert2MethodRef | 2 | false |
+| SlowAbstractSetRemoveAll | 2 | false |
 | RedundantCollectionOperation | 2 | false |
+| SwitchStatementWithTooFewBranches | 2 | false |
+| ListIndexOfReplaceableByContains | 2 | false |
 | EqualsWithItself | 1 | false |
 | ConditionalBreakInInfiniteLoop | 1 | false |
 | RedundantClassCall | 1 | false |
-| EmptyStatementBody | 1 | false |
 | CommentedOutCode | 1 | false |
+| NonFinalFieldInEnum | 1 | false |
 | TrivialStringConcatenation | 1 | false |
+| SimplifiableConditionalExpression | 1 | false |
 | NumberEquality | 1 | false |
 | MismatchedStringBuilderQueryUpdate | 1 | false |
-| IgnoreResultOfCall | 1 | false |
-| UnnecessaryUnboxing | 1 | false |
-| WhileLoopSpinsOnField | 1 | false |
+| NullableProblems | 1 | false |
 | MalformedFormatString | 1 | false |
 | IfStatementWithIdenticalBranches | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| InstanceofCatchParameter | 1 | false |
-| DoubleBraceInitialization | 1 | false |
-| NullArgumentToVariableArgMethod | 1 | false |
-| CastConflictsWithInstanceof | 1 | false |
-| MethodOverridesStaticMethod | 1 | false |
-| IOResource | 1 | false |
 | RedundantOperationOnEmptyContainer | 1 | false |
-| Java8MapForEach | 1 | false |
+| JavadocReference | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
 | CatchMayIgnoreException | 1 | false |
+| ProtectedMemberInFinalClass | 1 | true |
+| IOStreamConstructor | 1 | false |
+| DanglingJavadoc | 1 | false |
 | SwitchStatementWithConfusingDeclaration | 1 | false |
-| RedundantSuppression | 1 | false |
-| UtilityClassWithPublicConstructor | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
 | CharsetObjectCanBeUsed | 1 | false |
-| MissingDeprecatedAnnotation | 1 | false |
 | ConditionCoveredByFurtherCondition | 1 | false |
 | ComparatorMethodParameterNotUsed | 1 | false |
-| Anonymous2MethodRef | 1 | false |
 | PointlessBooleanExpression | 1 | true |
+| EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[id=EqualsWithItself]
 ### EqualsWithItself
 `compareTo()` called on itself
@@ -145,31 +121,6 @@ in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/el
         RestClientBuilder clientBuilder = RestClient.builder(nodeList.toArray(new Node[nodeList.size()]));
 
         if (clientSocketTimeout != null) {
-```
-
-## RuleId[id=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionEvaluator.java`
-#### Snippet
-```java
-            String name = condition.getParameter("name") == null ? "properties.location" : (String) condition.getParameter("name");
-
-            Double latitudeProperty = Double.parseDouble(BeanUtils.getProperty(item, name + ".lat"));
-            Double longitudeProperty = Double.parseDouble(BeanUtils.getProperty(item, name + ".lon"));
-
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionEvaluator.java`
-#### Snippet
-```java
-
-            Double latitudeProperty = Double.parseDouble(BeanUtils.getProperty(item, name + ".lat"));
-            Double longitudeProperty = Double.parseDouble(BeanUtils.getProperty(item, name + ".lon"));
-
-
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -249,6 +200,30 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelpe
 
 ## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
+`if` statement has empty body
+in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
+#### Snippet
+```java
+                    // Handle anonymous situation
+                    Boolean requireAnonymousBrowsing = privacyService.isRequireAnonymousBrowsing(eventsRequestContext.getProfile());
+                    if (requireAnonymousBrowsing && anonymousSessionProfile) {
+                        // User wants to browse anonymously, anonymous profile is already set.
+                    } else if (requireAnonymousBrowsing && !anonymousSessionProfile) {
+```
+
+### EmptyStatementBody
+`else` statement has empty body
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
+#### Snippet
+```java
+            }, refreshDbInterval, TimeUnit.MILLISECONDS);
+            return;
+        } else {
+            // let's check that the mappings are correct
+        }
+```
+
+### EmptyStatementBody
 `else` statement has empty body
 in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyTypedObjectDeserializer.java`
 #### Snippet
@@ -258,6 +233,67 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyTyped
         } else {
 
         }
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+#### Snippet
+```java
+            scmBranch = bundle.getHeaders().get("Implementation-ScmBranch");
+        }
+        if (bundle.getHeaders().get("Implementation-UnomiEventTypes") != null) {
+            // to be implemented
+        }
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+#### Snippet
+```java
+            // to be implemented
+        }
+        if (bundle.getHeaders().get("Implementation-UnomiCapabilities") != null) {
+            // to be implemented
+        }
+```
+
+### EmptyStatementBody
+`else` statement has empty body
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                                        searchSourceBuilder.sort(name, SortOrder.ASC);
+                                    }
+                                } else {
+                                    // in the case of no data existing for the property, we will not add the sorting to the request.
+                                }
+```
+
+### EmptyStatementBody
+`else` statement has empty body
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                                }
+                            }
+                        } else {
+                            // field name could be null if no existing data exists
+                        }
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (7 lines)
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonameEntry.java`
+#### Snippet
+```java
+    }
+
+//    public List<String> getAlternatenames() {
+//        return alternatenames;
+//    }
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -285,20 +321,43 @@ in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp
                             Map<String, String> fieldInfo = new HashMap<>();
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (7 lines)
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonameEntry.java`
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
 #### Snippet
 ```java
-    }
-
-//    public List<String> getAlternatenames() {
-//        return alternatenames;
-//    }
+    "sessionId": {
+      "type": ["null", "string"],
+      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
+    },
+    "profileId": {
 ```
 
-## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
+#### Snippet
+```java
+    "profileId": {
+      "type": ["null", "string"],
+      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
+    },
+    "personaId" : {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
+#### Snippet
+```java
+    "personaId" : {
+      "type" : ["null", "string"],
+      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
+    }
+  }
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
 in `extensions/json-schema/services/src/main/resources/META-INF/cxs/schemas/items/item.json`
@@ -371,129 +430,46 @@ in `extensions/json-schema/services/src/main/resources/META-INF/cxs/schemas/even
     "persistent" : {
 ```
 
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
+## RuleId[id=UastIncorrectHttpHeaderInspection]
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
 #### Snippet
 ```java
-    "sessionId": {
-      "type": ["null", "string"],
-      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
-    },
-    "profileId": {
+    public void addAliasToProfile(final @PathParam("profileId") String profileId,
+                                  final @PathParam("aliasId") String aliasId,
+                                  final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
+        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
+        profileService.addAliasToProfile(profileId, aliasId, clientId);
 ```
 
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
 #### Snippet
 ```java
-    "profileId": {
-      "type": ["null", "string"],
-      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
-    },
-    "personaId" : {
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `rest/src/main/resources/META-INF/cxs/schemas/rest/requestIds.json`
-#### Snippet
-```java
-    "personaId" : {
-      "type" : ["null", "string"],
-      "pattern" : "^(\\w|[-_@\\.]){0,60}$"
-    }
-  }
-```
-
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/UnomiEventPublisher.java`
-#### Snippet
-```java
-    public void activate(BundleContext bundleContext) {
-        final String[] interfaces = Arrays.stream(UnomiEventPublisher.class.getInterfaces()).map(Class::getName).toArray(String[]::new);
-        eventServiceRegistration = bundleContext.registerService(interfaces, this, new Hashtable<>());
-    }
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
-#### Snippet
-```java
-
-        private Set<String> eventTypeIds = new HashSet<>();
-        private Stack<String> conditionTypeStack = new Stack<>();
-
-        public void visit(Condition condition) {
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
-#### Snippet
-```java
-
-        private Set<String> eventTypeIds = new HashSet<>();
-        private Stack<String> conditionTypeStack = new Stack<>();
-
-        public void visit(Condition condition) {
-```
-
-## RuleId[id=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `propsMap.keySet()` may be replaced with 'entrySet()' iteration
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-    private boolean processProperties(Profile target, Map<String, Object> propsMap, String strategy) {
-        boolean isProfileOrPersonaUpdated = false;
-        for (String prop : propsMap.keySet()) {
-            PropertyType propType = null;
-            if (prop.startsWith("properties.") || prop.startsWith("systemProperties.")) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `values.keySet()` may be replaced with 'Map.forEach()' iteration
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
-#### Snippet
-```java
-        // create a new Map, with prefix added to each key
-        Map<String, Object> flattenMap = new HashMap<>();
-        values.keySet().forEach(key -> {
-            // use a dot as a joining char
-            flattenMap.put(prefix + "." + key, values.get(key));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `fieldsMapping.keySet()` may be replaced with 'entrySet()' iteration
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
-#### Snippet
-```java
-            logger.debug("$$$$ : LineSplitProcessor : MAPPING : " + fieldsMapping.keySet());
-            Map<String, Object> properties = new HashMap<>();
-            for (String fieldMappingKey : fieldsMapping.keySet()) {
-                PropertyType propertyType = RouterUtils.getPropertyTypeById(profilePropertyTypes, fieldMappingKey);
-
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-
-    private static void addHeaders(Map<String, String> headers, HttpRequestBase httpRequestBase) {
-        for (String key : headers.keySet()) {
-            httpRequestBase.addHeader(key, headers.get(key));
-        }
+    public void removeAliasFromProfile(final @PathParam("profileId") String profileId,
+                                       final @PathParam("aliasId") String aliasId,
+                                       final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
+        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
+        profileService.removeAliasFromProfile(profileId, aliasId, clientId);
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
+#### Snippet
+```java
+                                    break;
+                                case BIRTHDAY:
+                                    if (mergeFieldDefinition.has(OPTIONS) && mergeFieldDefinition.get(OPTIONS).has(DATE_FORMAT)) {
+                                        mergeFields.put(mcTagName, formatDate(mergeFieldDefinition.get(OPTIONS).get(DATE_FORMAT).asText(), profile.getProperty(unomiId)));
+                                    }
+                                    break;
+                                default:
+```
+
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
@@ -518,958 +494,32 @@ in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl
                 managedBundleEvent(event.getBundle(), requiredBundles, false);
 ```
 
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'FilterType'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
 #### Snippet
 ```java
-                                    break;
-                                case BIRTHDAY:
-                                    if (mergeFieldDefinition.has(OPTIONS) && mergeFieldDefinition.get(OPTIONS).has(DATE_FORMAT)) {
-                                        mergeFields.put(mcTagName, formatDate(mergeFieldDefinition.get(OPTIONS).get(DATE_FORMAT).asText(), profile.getProperty(unomiId)));
-                                    }
-                                    break;
-                                default:
-```
+        UNKNOWN("unknown");
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`query.getAggregate().getDateRanges().size() > 0` can be replaced with '!query.getAggregate().getDateRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/queries/QueryServiceImpl.java`
-#### Snippet
-```java
-                        String format = (String) query.getAggregate().getParameters().get("format");
-                        baseAggregate = new DateAggregate(property, interval, format);
-                    } else if (aggregateType.equals("dateRange") && query.getAggregate().getDateRanges() != null && query.getAggregate().getDateRanges().size() > 0) {
-                        String format = (String) query.getAggregate().getParameters().get("format");
-                        baseAggregate = new DateRangeAggregate(query.getAggregate().getProperty(), format, query.getAggregate().getDateRanges());
-```
-
-### SizeReplaceableByIsEmpty
-`query.getAggregate().getNumericRanges().size() > 0` can be replaced with '!query.getAggregate().getNumericRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/queries/QueryServiceImpl.java`
-#### Snippet
-```java
-                        String format = (String) query.getAggregate().getParameters().get("format");
-                        baseAggregate = new DateRangeAggregate(query.getAggregate().getProperty(), format, query.getAggregate().getDateRanges());
-                    } else if (aggregateType.equals("numericRange") && query.getAggregate().getNumericRanges() != null && query.getAggregate().getNumericRanges().size() > 0) {
-                        baseAggregate = new NumericRangeAggregate(query.getAggregate().getProperty(), query.getAggregate().getNumericRanges());
-                    } else if (aggregateType.equals("ipRange") && query.getAggregate().ipRanges() != null && query.getAggregate().ipRanges().size() > 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`query.getAggregate().ipRanges().size() > 0` can be replaced with '!query.getAggregate().ipRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/queries/QueryServiceImpl.java`
-#### Snippet
-```java
-                    } else if (aggregateType.equals("numericRange") && query.getAggregate().getNumericRanges() != null && query.getAggregate().getNumericRanges().size() > 0) {
-                        baseAggregate = new NumericRangeAggregate(query.getAggregate().getProperty(), query.getAggregate().getNumericRanges());
-                    } else if (aggregateType.equals("ipRange") && query.getAggregate().ipRanges() != null && query.getAggregate().ipRanges().size() > 0) {
-                        baseAggregate = new IpRangeAggregate(query.getAggregate().getProperty(), query.getAggregate().ipRanges());
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`query.getAggregate().getDateRanges().size() > 0` can be replaced with '!query.getAggregate().getDateRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-                    String format = (String) query.getAggregate().getParameters().get("format");
-                    aggregate = new DateAggregate(property, interval, format);
-                } else if (query.getAggregate().getType().equals("dateRange") && query.getAggregate().getDateRanges() != null && query.getAggregate().getDateRanges().size() > 0) {
-                    String format = (String) query.getAggregate().getParameters().get("format");
-                    aggregate = new DateRangeAggregate(property, format, query.getAggregate().getDateRanges());
-```
-
-### SizeReplaceableByIsEmpty
-`query.getAggregate().getNumericRanges().size() > 0` can be replaced with '!query.getAggregate().getNumericRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-                    String format = (String) query.getAggregate().getParameters().get("format");
-                    aggregate = new DateRangeAggregate(property, format, query.getAggregate().getDateRanges());
-                } else if (query.getAggregate().getType().equals("numericRange") && query.getAggregate().getNumericRanges() != null && query.getAggregate().getNumericRanges().size() > 0) {
-                    aggregate = new NumericRangeAggregate(property, query.getAggregate().getNumericRanges());
-                } else if (query.getAggregate().getType().equals("ipRange") && query.getAggregate().ipRanges() != null && query.getAggregate().ipRanges().size() > 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`query.getAggregate().ipRanges().size() > 0` can be replaced with '!query.getAggregate().ipRanges().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-                } else if (query.getAggregate().getType().equals("numericRange") && query.getAggregate().getNumericRanges() != null && query.getAggregate().getNumericRanges().size() > 0) {
-                    aggregate = new NumericRangeAggregate(property, query.getAggregate().getNumericRanges());
-                } else if (query.getAggregate().getType().equals("ipRange") && query.getAggregate().ipRanges() != null && query.getAggregate().ipRanges().size() > 0) {
-                    aggregate = new IpRangeAggregate(property, query.getAggregate().ipRanges());
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`result.getContentIds().size() > 0` can be replaced with '!result.getContentIds().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/personalization/PersonalizationServiceImpl.java`
-#### Snippet
-```java
-    public String bestMatch(Profile profile, Session session, PersonalizationRequest personalizationRequest) {
-        PersonalizationResult result = personalizeList(profile,session,personalizationRequest);
-        if (result.getContentIds().size() > 0) {
-            return result.getContentIds().get(0);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`childProperties.size() > 0` can be replaced with '!childProperties.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
-#### Snippet
-```java
-                childProperties = getEventPropertyTypes((Map<String, Map<String, Object>>) e.getValue().get("properties"));
-                valueType = definitionsService.getValueType("set");
-                if (childProperties != null && childProperties.size() > 0) {
-                    propertyType.setChildPropertyTypes(childProperties);
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`profileToMerge.getNestedProperty(propertyName).toString().length() > 0` can be replaced with '!profileToMerge.getNestedProperty(propertyName).toString().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/mergers/DefaultPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-        for (Profile profileToMerge : profilesToMerge) {
-            if (profileToMerge.getNestedProperty(propertyName) != null &&
-                    profileToMerge.getNestedProperty(propertyName).toString().length() > 0) {
-                PropertyHelper.setProperty(targetProfile, "properties." + propertyName, profileToMerge.getNestedProperty(propertyName), "alwaysSet");
-                modified = true;
-```
-
-### SizeReplaceableByIsEmpty
-`trackedCondition.getConditionType().getParameters().size() > 0` can be replaced with '!trackedCondition.getConditionType().getParameters().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-                        trackedCondition.getConditionType() != null &&
-                                trackedCondition.getConditionType().getParameters() != null &&
-                                trackedCondition.getConditionType().getParameters().size() > 0
-                ) {
-                    // lookup for track parameters
-```
-
-### SizeReplaceableByIsEmpty
-`trackedParameters.size() > 0` can be replaced with '!trackedParameters.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-                        }
-                    });
-                    if (trackedParameters.size() > 0) {
-                        evalCondition = new Condition(definitionsService.getConditionType("booleanCondition"));
-                        evalCondition.setParameter("operator", "and");
-```
-
-### SizeReplaceableByIsEmpty
-`matchingConditions.size() == 0` can be replaced with 'matchingConditions.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
-#### Snippet
-```java
-                }
-            }
-            if (matchingConditions.size() == 0) {
-                return null;
-            } else if (matchingConditions.equals(subConditions)) {
-```
-
-### SizeReplaceableByIsEmpty
-`matchingConditions.size() == 0` can be replaced with 'matchingConditions.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
-#### Snippet
-```java
-                }
-            }
-            if (matchingConditions.size() == 0) {
-                return null;
-            } else if (matchingConditions.equals(subConditions)) {
-```
-
-### SizeReplaceableByIsEmpty
-`newListIdentifiers.size() == 0` can be replaced with 'newListIdentifiers.isEmpty()'
-in `extensions/lists-extension/actions/src/main/java/org/apache/unomi/lists/actions/AddToListsAction.java`
-#### Snippet
-```java
-    public int execute(Action action, Event event) {
-        List<String> newListIdentifiers = (List<String>) action.getParameterValues().get("listIdentifiers");
-        if (newListIdentifiers == null || newListIdentifiers.size() == 0) {
-            return EventService.NO_CHANGE;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`batch.size() > 0` can be replaced with '!batch.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-            }
-
-            if (batch.size() == segmentUpdateBatchSize || (!entryIterator.hasNext() && batch.size() > 0)) {
-                try {
-                    persistenceService.update(batch, Profile.class);
-```
-
-### SizeReplaceableByIsEmpty
-`rule.getActions().size() > 0` can be replaced with '!rule.getActions().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-        // reevaluate auto generated rules used to store the event occurrence count on the profile
-        for (Rule rule : rulesService.getAllRules()) {
-            if (rule.getActions() != null && rule.getActions().size() > 0) {
-                for (Action action : rule.getActions()) {
-                    if (action.getActionTypeId().equals("setEventOccurenceCountAction")) {
-```
-
-### SizeReplaceableByIsEmpty
-`rule.getLinkedItems().size() > 0` can be replaced with '!rule.getLinkedItems().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-                            recalculatePastEventOccurrencesOnProfiles(rule.getCondition(), pastEventCondition, true, true);
-                            logger.info("Event occurrence count on profiles updated for rule: {}", rule.getItemId());
-                            if (rule.getLinkedItems() != null && rule.getLinkedItems().size() > 0) {
-                                segmentOrScoringIdsToReevaluate.addAll(rule.getLinkedItems());
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`scoring.getElements().size() > 0` can be replaced with '!scoring.getElements().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-
-        segmentOrScoringIdsToReevaluate.addAll(allScoring.stream()
-                .filter(scoring -> scoring.getElements() != null && scoring.getElements().size() > 0 && scoring.getElements().stream()
-                        .anyMatch(scoringElement -> scoringElement != null && scoringElement.getCondition() != null && scoringElement.getCondition().toString().contains("propertyValueDateExpr")))
-                .map(Item::getItemId)
-```
-
-### SizeReplaceableByIsEmpty
-`segmentOrScoringIdsToReevaluate.size() > 0` can be replaced with '!segmentOrScoringIdsToReevaluate.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-
-        // reevaluate segments and scoring.
-        if (segmentOrScoringIdsToReevaluate.size() > 0) {
-            persistenceService.refreshIndex(Profile.class, null);
-            for (String linkedItem : segmentOrScoringIdsToReevaluate) {
-```
-
-### SizeReplaceableByIsEmpty
-`profiles.getList().size() > 0` can be replaced with '!profiles.getList().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-        PartialList<Profile> profiles = persistenceService.query(profilesToUpdateCondition, null, Profile.class, 0, segmentUpdateBatchSize, "10m");
-
-        while (profiles != null && profiles.getList().size() > 0) {
-            long startTime = System.currentTimeMillis();
-            if (batchSegmentProfileUpdate) {
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() != 0` can be replaced with '!name.isEmpty()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/StringUtils.java`
-#### Snippet
-```java
-
-    public static String decapitalize(String name) {
-        if (name != null && name.length() != 0) {
-            if (name.length() > 1 && Character.isUpperCase(name.charAt(1)) && Character.isUpperCase(name.charAt(0))) {
-                return name;
-```
-
-### SizeReplaceableByIsEmpty
-`propertyMergeStrategyId.length() > 0` can be replaced with '!propertyMergeStrategyId.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            String propertyMergeStrategyId = "defaultMergeStrategy";
-            if (propertyType != null) {
-                if (propertyType.getMergeStrategy() != null && propertyMergeStrategyId.length() > 0) {
-                    propertyMergeStrategyId = propertyType.getMergeStrategy();
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`profile.getSegments().size() > 0` can be replaced with '!profile.getSegments().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        // we now have to merge the profile's segments
-        for (Profile profile : profilesToMerge) {
-            if (profile.getSegments() != null && profile.getSegments().size() > 0) {
-                masterProfile.getSegments().addAll(profile.getSegments());
-                // TODO better segments diff calculation
-```
-
-### SizeReplaceableByIsEmpty
-`profile.getConsents().size() > 0` can be replaced with '!profile.getConsents().isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        // we now have to merge the profile's consents
-        for (Profile profile : profilesToMerge) {
-            if (profile.getConsents() != null && profile.getConsents().size() > 0) {
-                for (String consentId : profile.getConsents().keySet()) {
-                    if (masterProfile.getConsents().containsKey(consentId)) {
-```
-
-### SizeReplaceableByIsEmpty
-`subConditions.size() > 0` can be replaced with '!subConditions.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-                }
-            }
-            return subConditions.size() > 0 && isAnd;
-        } else {
-            Condition profileCondition = definitionsService.extractConditionBySystemTag(condition, "profileCondition");
-```
-
-### SizeReplaceableByIsEmpty
-`types.size() > 0` can be replaced with '!types.isEmpty()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    public String getPropertyTypeMapping(String fromPropertyTypeId) {
-        Collection<PropertyType> types = getPropertyTypeByMapping(fromPropertyTypeId);
-        if (types.size() > 0) {
-            return types.iterator().next().getMetadata().getId();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`variableStr.trim().length() > 0` can be replaced with '!variableStr.trim().isEmpty()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-        String variableStr = req.getParameter("variables");
-        Map<String, Object> variables = new HashMap<>();
-        if ((variableStr != null) && (variableStr.trim().length() > 0)) {
-            TypeReference<Map<String, Object>> typeRef = new TypeReference<Map<String, Object>>() {
-            };
-```
-
-### SizeReplaceableByIsEmpty
-`query.trim().length() == 0` can be replaced with 'query.trim().isEmpty()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-    private void executeGraphQLRequest(
-            HttpServletResponse resp, String query, String operationName, Map<String, Object> variables) throws IOException {
-        if (query == null || query.trim().length() == 0) {
-            throw new IllegalArgumentException("Query cannot be empty or null");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`properties.size() == 0` can be replaced with 'properties.isEmpty()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/PropertiesConnectionDataFetcher.java`
-#### Snippet
-```java
-        final int startIndex = Math.max(0, params.getOffset());
-        final int lastIndex = Math.min(params.getOffset() + params.getSize(), properties.size());
-        if (properties == null || properties.size() == 0 || properties.size() < startIndex || lastIndex <= 0) {
-            return new CDPPropertyConnection();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`targetId.trim().length() > 0` can be replaced with '!targetId.trim().isEmpty()'
-in `plugins/hover-event/src/main/java/org/apache/unomi/plugins/events/hover/querybuilders/HoverEventConditionESQueryBuilder.java`
-#### Snippet
-```java
-        String targetPath = (String) condition.getParameter("targetPath");
-
-        if (targetId != null && targetId.trim().length() > 0) {
-            queryBuilders.add(QueryBuilders.termQuery("target.itemId", targetId));
-        } else if (targetPath != null && targetPath.trim().length() > 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`targetPath.trim().length() > 0` can be replaced with '!targetPath.trim().isEmpty()'
-in `plugins/hover-event/src/main/java/org/apache/unomi/plugins/events/hover/querybuilders/HoverEventConditionESQueryBuilder.java`
-#### Snippet
-```java
-        if (targetId != null && targetId.trim().length() > 0) {
-            queryBuilders.add(QueryBuilders.termQuery("target.itemId", targetId));
-        } else if (targetPath != null && targetPath.trim().length() > 0) {
-            queryBuilders.add(QueryBuilders.termQuery("target.properties.pageInfo.pagePath", targetPath));
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`list.size() == 0` can be replaced with 'list.isEmpty()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-    private static <T> T extractWithPriority(List<T> list) {
-        boolean anyBlocks = list.stream().anyMatch(Objects::isNull);
-        boolean noItems = list.size() == 0;
-        if (anyBlocks || noItems) {
-            // some provider blocks it or none describes at all
-```
-
-### SizeReplaceableByIsEmpty
-`existingMergedProfiles.size() > 0` can be replaced with '!existingMergedProfiles.isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/MergeProfilesOnPropertyAction.java`
-#### Snippet
-```java
-        Profile eventProfile = event.getProfile();
-
-        if (existingMergedProfiles.size() > 0) {
-            // Take existing profile
-            eventProfile = existingMergedProfiles.get(0);
-```
-
-### SizeReplaceableByIsEmpty
-`mandatoryPropTypeSystemTags.size() > 0` can be replaced with '!mandatoryPropTypeSystemTags.isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/CopyPropertiesAction.java`
-#### Snippet
-```java
-            PropertyType propertyType = profileService.getPropertyType(mappedProperty);
-            Object previousValue = event.getProfile().getProperty(mappedProperty);
-            if (mandatoryPropTypeSystemTags != null && mandatoryPropTypeSystemTags.size() > 0) {
-                if (propertyType == null || propertyType.getMetadata() == null || propertyType.getMetadata().getSystemTags() == null
-                        || !propertyType.getMetadata().getSystemTags().containsAll(mandatoryPropTypeSystemTags)) {
-```
-
-### SizeReplaceableByIsEmpty
-`conditions.size() > 0` can be replaced with '!conditions.isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/SourceEventPropertyConditionEvaluator.java`
-#### Snippet
-```java
-        }
-
-        if(conditions.size() > 0){
-            if (item != null) {
-                andCondition.setParameter("subConditions", conditions);
-```
-
-### SizeReplaceableByIsEmpty
-`propertiesToOverwrite.size() > 0` can be replaced with '!propertiesToOverwrite.isEmpty()'
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileImportServiceImpl.java`
-#### Snippet
-```java
-                }
-                List<String> propertiesToOverwrite = profileToImport.getPropertiesToOverwrite();
-                if (profileToImport.isOverwriteExistingProfiles() && propertiesToOverwrite != null && propertiesToOverwrite.size() > 0) { // We overwrite only properties marked to overwrite
-                    logger.debug("Properties to overwrite: {}", propertiesToOverwrite);
-                    for (String propName : propertiesToOverwrite) {
-```
-
-### SizeReplaceableByIsEmpty
-`existingProfiles.size() == 0` can be replaced with 'existingProfiles.isEmpty()'
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileImportServiceImpl.java`
-#### Snippet
-```java
-                existingProfile.setSegments(profileToImport.getSegments());
-                existingProfile.setScores(profileToImport.getScores());
-            } else if (existingProfiles.size() == 0 && !profileToImport.isProfileToDelete()) {
-                logger.debug("New profile to add...");
-                BeanUtils.copyProperties(existingProfile, profileToImport);
-```
-
-### SizeReplaceableByIsEmpty
-`((List) actualValue).size() > 0` can be replaced with '!((List) actualValue).isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
-#### Snippet
-```java
-        } else if (op.equals("exists")) {
-            if (actualValue instanceof List) {
-                return ((List) actualValue).size() > 0;
-            }
-            return true;
-```
-
-### SizeReplaceableByIsEmpty
-`locale.getCountry().length() > 0` can be replaced with '!locale.getCountry().isEmpty()'
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/ResourceBundleHelper.java`
-#### Snippet
-```java
-        }
-
-        if (locale.getCountry().length() > 0) {
-            // try the locale without the country
-            return getBundle(locale.getLanguage(), bundle, loader);
-```
-
-### SizeReplaceableByIsEmpty
-`exportConfiguration.getProperties().size() > 0` can be replaced with '!exportConfiguration.getProperties().isEmpty()'
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
-#### Snippet
-```java
-        for (final ExportConfiguration exportConfiguration : exportConfigurationList) {
-            if (RouterConstants.IMPORT_EXPORT_CONFIG_TYPE_RECURRENT.equals(exportConfiguration.getConfigType()) &&
-                    exportConfiguration.getProperties() != null && exportConfiguration.getProperties().size() > 0) {
-                if ((Map<String, String>) exportConfiguration.getProperties().get("mapping") != null) {
-                    String destinationEndpoint = (String) exportConfiguration.getProperties().get("destination");
-```
-
-### SizeReplaceableByIsEmpty
-`importConfiguration.getProperties().size() > 0` can be replaced with '!importConfiguration.getProperties().isEmpty()'
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportFromSourceRouteBuilder.java`
-#### Snippet
-```java
-        for (final ImportConfiguration importConfiguration : importConfigurationList) {
-            if (RouterConstants.IMPORT_EXPORT_CONFIG_TYPE_RECURRENT.equals(importConfiguration.getConfigType()) &&
-                    importConfiguration.getProperties() != null && importConfiguration.getProperties().size() > 0) {
-                //Prepare Split Processor
-                LineSplitProcessor lineSplitProcessor = new LineSplitProcessor();
-```
-
-### SizeReplaceableByIsEmpty
-`interval.length() > 0` can be replaced with '!interval.isEmpty()'
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/aggregate/DateAggregate.java`
-#### Snippet
-```java
-    public DateAggregate(String field, String interval, String format) {
-        super(field);
-        this.interval = (interval != null && interval.length() > 0) ? interval : DEFAULT_INTERVAL;
-        this.format = format;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`interval.length() > 0` can be replaced with '!interval.isEmpty()'
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/aggregate/DateAggregate.java`
-#### Snippet
-```java
-    public DateAggregate(String field, String interval) {
-        super(field);
-        this.interval = (interval != null && interval.length() > 0) ? interval : DEFAULT_INTERVAL;
-    }
-    public DateAggregate(String field, String interval, String format) {
-```
-
-### SizeReplaceableByIsEmpty
-`statusDateStr.trim().length() > 0` can be replaced with '!statusDateStr.trim().isEmpty()'
-in `api/src/main/java/org/apache/unomi/api/Consent.java`
-#### Snippet
-```java
-        if (consentMap.containsKey("statusDate")) {
-            String statusDateStr = (String) consentMap.get("statusDate");
-            if (statusDateStr != null && statusDateStr.trim().length() > 0) {
-                setStatusDate(dateFormat.parse(statusDateStr));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`revokeDateStr.trim().length() > 0` can be replaced with '!revokeDateStr.trim().isEmpty()'
-in `api/src/main/java/org/apache/unomi/api/Consent.java`
-#### Snippet
-```java
-        if (consentMap.containsKey("revokeDate")) {
-            String revokeDateStr = (String) consentMap.get("revokeDate");
-            if (revokeDateStr != null && revokeDateStr.trim().length() > 0) {
-                setRevokeDate(dateFormat.parse(revokeDateStr));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`sessions.size()>0` can be replaced with '!sessions.isEmpty()'
-in `api/src/main/java/org/apache/unomi/api/PersonaWithSessions.java`
-#### Snippet
-```java
-    @XmlTransient
-    public PersonaSession getLastSession() {
-        return sessions.size()>0?sessions.get(0):null;
-    }
-}
-```
-
-### SizeReplaceableByIsEmpty
-`input.trim().length() == 0` can be replaced with 'input.trim().isEmpty()'
-in `api/src/main/java/org/apache/unomi/api/GeoPoint.java`
-#### Snippet
-```java
-     */
-    public static GeoPoint fromString(final String input) {
-        if (input == null || input.trim().length() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`cc.length() > 0` can be replaced with '!cc.isEmpty()'
-in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
-#### Snippet
-```java
-            email.addTo(to);
-            email.setFrom(from);
-            if (cc != null && cc.length() > 0) {
-                email.addCc(cc);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`bcc.length() > 0` can be replaced with '!bcc.isEmpty()'
-in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
-#### Snippet
-```java
-                email.addCc(cc);
-            }
-            if (bcc != null && bcc.length() > 0) {
-                email.addBcc(bcc);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`remoteAddrParameter.length() > 0` can be replaced with '!remoteAddrParameter.isEmpty()'
-in `plugins/request/src/main/java/org/apache/unomi/plugins/request/actions/SetRemoteHostInfoAction.java`
-#### Snippet
-```java
-            logger.debug("X-Forwarded-For is " + xff);
-        }
-        if (remoteAddrParameter != null && remoteAddrParameter.length() > 0) {
-            remoteAddr = remoteAddrParameter;
-        } else if (xff != null && !xff.equals("")) {
-```
-
-### SizeReplaceableByIsEmpty
-`cityResponse.getSubdivisions().size() > 0` can be replaced with '!cityResponse.getSubdivisions().isEmpty()'
-in `plugins/request/src/main/java/org/apache/unomi/plugins/request/actions/SetRemoteHostInfoAction.java`
-#### Snippet
-```java
-            }
-
-            if (cityResponse.getSubdivisions().size() > 0) {
-                session.setProperty("sessionAdminSubDiv1", cityResponse.getSubdivisions().get(0).getGeoNameId());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`systemAllowedClasses.trim().length() > 0` can be replaced with '!systemAllowedClasses.trim().isEmpty()'
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-                defaultAllowedClasses = null;
-            } else {
-                if (systemAllowedClasses.trim().length() > 0) {
-                    String[] systemAllowedClassesParts = systemAllowedClasses.split(",");
-                    defaultAllowedClasses = new HashSet<>();
-```
-
-### SizeReplaceableByIsEmpty
-`systemForbiddenClasses.trim().length() > 0` can be replaced with '!systemForbiddenClasses.trim().isEmpty()'
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-        String systemForbiddenClasses = System.getProperty("org.apache.unomi.scripting.forbid", null);
-        if (systemForbiddenClasses != null) {
-            if (systemForbiddenClasses.trim().length() > 0) {
-                String[] systemForbiddenClassesParts = systemForbiddenClasses.split(",");
-                defaultForbiddenClasses = new HashSet<>();
-```
-
-### SizeReplaceableByIsEmpty
-`extensionIds.size() > 0` can be replaced with '!extensionIds.isEmpty()'
-in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/impl/SchemaServiceImpl.java`
-#### Snippet
-```java
-    private String generateExtendedSchema(String id, String schema) throws JsonProcessingException {
-        Set<String> extensionIds = extensions.get(id);
-        if (extensionIds != null && extensionIds.size() > 0) {
-            // This schema need to be extends !
-            ObjectNode jsonSchema = (ObjectNode) objectMapper.readTree(schema);
-```
-
-### SizeReplaceableByIsEmpty
-`weatherLike.size() > 0` can be replaced with '!weatherLike.isEmpty()'
-in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
-#### Snippet
-```java
-        if (currentWeatherData.has(WEATHER_LIKE_INFO)) {
-            weatherLike = currentWeatherData.get(WEATHER_LIKE_INFO);
-            if (weatherLike.size() > 0) {
-                weatherLike = weatherLike.get(0).get(MAIN_INFO_WEATHER);
-                logger.debug("Weather like: {}", weatherLike);
-```
-
-### SizeReplaceableByIsEmpty
-`typeMappings.size() == 0` can be replaced with 'typeMappings.isEmpty()'
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-    private void importGeoNameDatabase(final File f) {
-        Map<String,Map<String,Object>> typeMappings = persistenceService.getPropertiesMapping(GeonameEntry.ITEM_TYPE);
-        if (typeMappings == null || typeMappings.size() == 0) {
-            logger.warn("Type mappings for type {} are not yet installed, delaying import until they are ready!", GeonameEntry.ITEM_TYPE);
-            schedulerService.getSharedScheduleExecutorService().schedule(new TimerTask() {
-```
-
-### SizeReplaceableByIsEmpty
-`items.size() > 0` can be replaced with '!items.isEmpty()'
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-        l.add(featureCodeCondition);
-
-        if (items.size() > 0) {
-            l.add(getPropertyCondition("countryCode", "propertyValue", items.get(0), "equals"));
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`entries.size() == 0` can be replaced with 'entries.isEmpty()'
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-        l.add(featureCodeCondition);
-        List<GeonameEntry> entries = persistenceService.query(andCondition, null, GeonameEntry.class);
-        if (entries.size() == 0) {
-            featureCodeCondition.setParameter("propertyValues", CITIES_FEATURE_CODES);
-            entries = persistenceService.query(andCondition, "population:desc", GeonameEntry.class, 0, 1).getList();
-```
-
-### SizeReplaceableByIsEmpty
-`entries.size() > 0` can be replaced with '!entries.isEmpty()'
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-            entries = persistenceService.query(andCondition, "population:desc", GeonameEntry.class, 0, 1).getList();
-        }
-        if (entries.size() > 0) {
-            return getHierarchy(entries.get(0));
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`response.get(LISTS).size() > 0` can be replaced with '!response.get(LISTS).isEmpty()'
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-            JsonNode response = HttpUtils.executeGetRequest(httpClient, getBaseUrl() + "/lists", getHeaders(), false);
-            if (response != null) {
-                if (response.has(LISTS) && response.get(LISTS).size() > 0) {
-                    for (JsonNode list : response.get(LISTS)) {
-                        if (list.has(ID) && list.has(NAME)) {
-```
-
-### SizeReplaceableByIsEmpty
-`response.get(ERRORS).size() > 0` can be replaced with '!response.get(ERRORS).isEmpty()'
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-
-        JsonNode response = HttpUtils.executeDeleteRequest(httpClient, getBaseUrl() + "/lists/" + listIdentifier + "/members/" + currentMember.get(ID).asText(), getHeaders());
-        if (response == null || (response.has(ERRORS) && response.get(ERRORS).size() > 0)) {
-            logger.error("Couldn't remove the visitor from the MailChimp list, list identifier was {} and response was {}", listIdentifier, response);
-            return MailChimpResult.ERROR;
-```
-
-### SizeReplaceableByIsEmpty
-`response.get(ERRORS).size() > 0` can be replaced with '!response.get(ERRORS).isEmpty()'
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-
-        JsonNode response = HttpUtils.executePostRequest(httpClient, getBaseUrl() + "/lists/" + listIdentifier + "/members", getHeaders(), userData.toString());
-        if (response == null || (response.has(ERRORS) && response.get(ERRORS).size() > 0)) {
-            logger.error("Error when adding user to MailChimp list, list identifier was {} and response was {}", listIdentifier, response);
-            return MailChimpResult.ERROR;
-```
-
-### SizeReplaceableByIsEmpty
-`response.get(ERRORS).size() > 0` can be replaced with '!response.get(ERRORS).isEmpty()'
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-
-        JsonNode response = HttpUtils.executePatchRequest(httpClient, getBaseUrl() + "/lists/" + listIdentifier + "/members/" + currentMember.get(ID).asText(), getHeaders(), body.toString());
-        if (response == null || (response.has(ERRORS) && response.get(ERRORS).size() > 0)) {
-            logger.error("Error when updating visitor properties to MailChimp list, list identifier was {} and response was {}", listIdentifier, response);
-            return MailChimpResult.ERROR;
-```
-
-### SizeReplaceableByIsEmpty
-`queryResult.size() > 0` can be replaced with '!queryResult.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                    "='" + identifierFieldValue + "'");
-            queryResult = mappingResponse(response, queryResult);
-            if (queryResult.size() > 0) {
-                return true;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`foundExistingSfdcLeadIds.size() > 0` can be replaced with '!foundExistingSfdcLeadIds.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        if (foundExistingSfdcLeadIds.size() > 0) {
-            logger.info("Found an existing lead, attempting to update it...");
-            // we found an existing lead we must update it
-```
-
-### SizeReplaceableByIsEmpty
-`sfdcLeadFields.size() == 0` can be replaced with 'sfdcLeadFields.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        addConsents(profile, sfdcLeadFields);
-
-        if (sfdcLeadFields.size() == 0) {
-            logger.info("No SFDC field value to send, will not send anything to Salesforce.");
-            if (foundExistingSfdcLeadIds.size() == 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`foundExistingSfdcLeadIds.size() == 0` can be replaced with 'foundExistingSfdcLeadIds.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        if (sfdcLeadFields.size() == 0) {
-            logger.info("No SFDC field value to send, will not send anything to Salesforce.");
-            if (foundExistingSfdcLeadIds.size() == 0) {
-                return null;
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`existingSfdcLeadFields.size() == 0` can be replaced with 'existingSfdcLeadFields.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        if (existingSfdcLeadFields.size() == 0) {
-            // if we are creating a lead, let's make sure we have all the mandatory fields before sending the request
-            boolean missingMandatoryFields = false;
-```
-
-### SizeReplaceableByIsEmpty
-`foundExistingSfdcLeadIds.size() > 0` can be replaced with '!foundExistingSfdcLeadIds.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        String baseUrl = sfdcSession.getEndPoint() + REST_ENDPOINT_URI + "/sobjects/Lead";
-        HttpEntityEnclosingRequestBase request = new HttpPost(baseUrl);
-        if (foundExistingSfdcLeadIds.size() > 0) {
-            baseUrl = sfdcSession.getEndPoint() + REST_ENDPOINT_URI + "/sobjects/Lead/" + foundExistingSfdcLeadIds
-                    .iterator().next();
-```
-
-### SizeReplaceableByIsEmpty
-`foundExistingSfdcLeadIds.size() == 0` can be replaced with 'foundExistingSfdcLeadIds.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        if (foundExistingSfdcLeadIds.size() == 0) {
-            return null;
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`foundSfdcLeadIds.size() == 0` can be replaced with 'foundSfdcLeadIds.isEmpty()'
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        String unomiIdentifierValue = (String) profile.getProperty(sfdcConfiguration.getUnomiIdentifierField());
-        Set<String> foundSfdcLeadIds = findLeadIdsByIdentifierValue(unomiIdentifierValue);
-        if (foundSfdcLeadIds.size() == 0) {
-            logger.info("No lead found in Salesforce corresponding to profile {}", profile);
-            // we didn't find a corresponding lead in salesforce.
-```
-
-### SizeReplaceableByIsEmpty
-`items.size() == 0` can be replaced with 'items.isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    @Override
-    public List<String> update(final Map<Item, Map> items, final Date dateHint, final Class clazz) {
-        if (items.size() == 0)
-            return new ArrayList<>();
-
-```
-
-### SizeReplaceableByIsEmpty
-`bulkByScrollResponse.getSearchFailures().size() > 0` can be replaced with '!bulkByScrollResponse.getSearchFailures().isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-            }
-
-            if ((bulkByScrollResponse.getSearchFailures() != null && bulkByScrollResponse.getSearchFailures().size() > 0) ||
-                    bulkByScrollResponse.getBulkFailures() != null && bulkByScrollResponse.getBulkFailures().size() > 0) {
-                logger.warn("Remove by query: we found some failure during the process of query: {}", queryBuilder);
-```
-
-### SizeReplaceableByIsEmpty
-`bulkByScrollResponse.getBulkFailures().size() > 0` can be replaced with '!bulkByScrollResponse.getBulkFailures().isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-
-            if ((bulkByScrollResponse.getSearchFailures() != null && bulkByScrollResponse.getSearchFailures().size() > 0) ||
-                    bulkByScrollResponse.getBulkFailures() != null && bulkByScrollResponse.getBulkFailures().size() > 0) {
-                logger.warn("Remove by query: we found some failure during the process of query: {}", queryBuilder);
-
-```
-
-### SizeReplaceableByIsEmpty
-`bulkByScrollResponse.getSearchFailures().size() > 0` can be replaced with '!bulkByScrollResponse.getSearchFailures().isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                logger.warn("Remove by query: we found some failure during the process of query: {}", queryBuilder);
-
-                if (bulkByScrollResponse.getSearchFailures() != null && bulkByScrollResponse.getSearchFailures().size() > 0) {
-                    for (ScrollableHitSource.SearchFailure searchFailure : bulkByScrollResponse.getSearchFailures()) {
-                        logger.warn("Remove by query, search failure: {}", searchFailure.toString());
-```
-
-### SizeReplaceableByIsEmpty
-`bulkByScrollResponse.getBulkFailures().size() > 0` can be replaced with '!bulkByScrollResponse.getBulkFailures().isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                }
-
-                if (bulkByScrollResponse.getBulkFailures() != null && bulkByScrollResponse.getBulkFailures().size() > 0) {
-                    for (BulkItemResponse.Failure bulkFailure : bulkByScrollResponse.getBulkFailures()) {
-                        logger.warn("Remove by query, bulk failure: {}", bulkFailure.toString());
-```
-
-### SizeReplaceableByIsEmpty
-`backoffPolicyStr.length() > 0` can be replaced with '!backoffPolicyStr.isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-        if (bulkProcessorBackoffPolicy != null) {
-            String backoffPolicyStr = bulkProcessorBackoffPolicy;
-            if (backoffPolicyStr != null && backoffPolicyStr.length() > 0) {
-                backoffPolicyStr = backoffPolicyStr.toLowerCase();
-                if ("nobackoff".equals(backoffPolicyStr)) {
-```
-
-### SizeReplaceableByIsEmpty
-`response.getBulkFailures().size() > 0` can be replaced with '!response.getBulkFailures().isEmpty()'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                        BulkByScrollResponse response = client.updateByQuery(updateByQueryRequest, RequestOptions.DEFAULT);
+        private String value;
 
-                        if (response.getBulkFailures().size() > 0) {
-                            for (BulkItemResponse.Failure failure : response.getBulkFailures()) {
-                                logger.error("Failure : cause={} , message={}", failure.getCause(), failure.getMessage());
+        FilterType(String value) {
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `api/src/main/java/org/apache/unomi/api/EventTarget.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("EventTarget{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", type='").append(type).append('\'');
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `common/src/main/java/org/apache/unomi/common/DataTable.java`
@@ -1492,6 +542,42 @@ in `common/src/main/java/org/apache/unomi/common/DataTable.java`
         final StringBuilder sb = new StringBuilder("[");
         sb.append(rows);
         sb.append(']');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `api/src/main/java/org/apache/unomi/api/Profile.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Profile{");
+        sb.append("properties=").append(properties);
+        sb.append(", systemProperties=").append(systemProperties);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `api/src/main/java/org/apache/unomi/api/Consent.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Consent{");
+        sb.append("scope='").append(scope).append('\'');
+        sb.append(", typeIdentifier='").append(typeIdentifier).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `api/src/main/java/org/apache/unomi/api/conditions/Condition.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Condition{");
+        sb.append("conditionType=").append(conditionType);
+        sb.append(", conditionTypeId='").append(conditionTypeId).append('\'');
 ```
 
 ### StringBufferReplaceableByString
@@ -1518,221 +604,209 @@ in `rest/src/main/java/org/apache/unomi/utils/HttpUtils.java`
         stringBuilder.append("======================================================================================\n");
 ```
 
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `api/src/main/java/org/apache/unomi/api/EventTarget.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'refreshIndex(java.lang.Class, java.util.Date)' is deprecated
+in `services/src/main/java/org/apache/unomi/services/impl/topics/TopicServiceImpl.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("EventTarget{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", type='").append(type).append('\'');
+    public Topic save(final Topic topic) {
+        if (persistenceService.save(topic)) {
+            persistenceService.refreshIndex(Topic.class, null);
+
+            return topic;
 ```
 
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `api/src/main/java/org/apache/unomi/api/Consent.java`
+### Deprecation
+'aggregateQuery(org.apache.unomi.api.conditions.Condition, org.apache.unomi.persistence.spi.aggregate.BaseAggregate, java.lang.String)' is deprecated
+in `services/src/main/java/org/apache/unomi/services/impl/queries/QueryServiceImpl.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Consent{");
-        sb.append("scope='").append(scope).append('\'');
-        sb.append(", typeIdentifier='").append(typeIdentifier).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `api/src/main/java/org/apache/unomi/api/Profile.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Profile{");
-        sb.append("properties=").append(properties);
-        sb.append(", systemProperties=").append(systemProperties);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `api/src/main/java/org/apache/unomi/api/conditions/Condition.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Condition{");
-        sb.append("conditionType=").append(conditionType);
-        sb.append(", conditionTypeId='").append(conditionTypeId).append('\'');
-```
-
-## RuleId[id=NonShortCircuitBoolean]
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `result &= profileService.matchCondition(condition, profile, session)`
-in `services/src/main/java/org/apache/unomi/services/impl/personalization/PersonalizationServiceImpl.java`
-#### Snippet
-```java
-                Condition condition = filter.getCondition();
-                if (condition != null && condition.getConditionTypeId() != null) {
-                    result &= profileService.matchCondition(condition, profile, session);
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `result &= profileService.matchCondition(condition, profile, session)`
-in `services/src/main/java/org/apache/unomi/services/sorts/FilterPersonalizationStrategy.java`
-#### Snippet
-```java
-                for (PersonalizationService.Filter filter : personalizedContent.getFilters()) {
-                    Condition condition = filter.getCondition();
-                    result &= profileService.matchCondition(condition, profile, session);
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= merge(currentMap, (Map) newEntry.getValue())`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-                        changed = true;
-                    } else {
-                        changed |= merge(currentMap, (Map) newEntry.getValue());
-                    }
-                } else if (StringUtils.equals(packageName, "java.lang")) {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= merge(target.get(newEntry.getKey()), newEntry.getValue())`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-                } else {
-                    if (target.get(newEntry.getKey()) != null) {
-                        changed |= merge(target.get(newEntry.getKey()), newEntry.getValue());
-                    } else {
-                        target.put(newEntry.getKey(), newEntry.getValue());
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `masterProfileChanged |= propertyMergeStrategyExecutor.mergeProperty(profileProperty, propertyType, p...`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-                for (ServiceReference<PropertyMergeStrategyExecutor> propertyMergeStrategyExecutorReference : matchingPropertyMergeStrategyExecutors) {
-                    PropertyMergeStrategyExecutor propertyMergeStrategyExecutor = bundleContext.getService(propertyMergeStrategyExecutorReference);
-                    masterProfileChanged |= propertyMergeStrategyExecutor.mergeProperty(profileProperty, propertyType, profilesToMerge, masterProfile);
-                }
-            } catch (InvalidSyntaxException e) {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= processProperties(target, propsToAdd, "setIfMissing")`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-
-        if (propsToAdd != null) {
-            isProfileOrPersonaUpdated |= processProperties(target, propsToAdd, "setIfMissing");
-        }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= processProperties(target, propsToUpdate, "alwaysSet")`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-        Map<String, Object> propsToUpdate = (HashMap<String, Object>) event.getProperties().get(PROPS_TO_UPDATE);
-        if (propsToUpdate != null) {
-            isProfileOrPersonaUpdated |= processProperties(target, propsToUpdate, "alwaysSet");
-        }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= processProperties(target, propsToAddToSet, "addValues")`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-        Map<String, Object> propsToAddToSet = (HashMap<String, Object>) event.getProperties().get(PROPS_TO_ADD_TO_SET);
-        if (propsToAddToSet != null) {
-            isProfileOrPersonaUpdated |= processProperties(target, propsToAddToSet, "addValues");
-        }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, null, "remove")`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-        if (propsToDelete != null) {
-            for (String prop : propsToDelete) {
-                isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, null, "remove");
-            }
-        }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, PropertyHelper.getValueByTypeI...`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-            }
-            if (propType != null) {
-                isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, PropertyHelper.getValueByTypeId(propsMap.get(prop), propType.getValueTypeId()), strategy);
+                return persistenceService.aggregateWithOptimizedQuery(query.getCondition(), baseAggregate, itemType);
             } else {
-                isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, propsMap.get(prop), strategy);
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, propsMap.get(prop), strategy)`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-                isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, PropertyHelper.getValueByTypeId(propsMap.get(prop), propType.getValueTypeId()), strategy);
-            } else {
-                isProfileOrPersonaUpdated |= PropertyHelper.setProperty(target, prop, propsMap.get(prop), strategy);
+                return persistenceService.aggregateQuery(query.getCondition(), baseAggregate, itemType);
             }
         }
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `saved |= profileService.setPropertyType(property)`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
+### Deprecation
+'purge(java.util.Date)' is deprecated
+in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
 #### Snippet
 ```java
-        boolean saved = false;
-        for (PropertyType property : properties) {
-            saved |= profileService.setPropertyType(property);
-        }
-        return saved;
+    @Override
+    public void purge(Date date) {
+        persistenceService.purge(date);
+    }
+
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `result &= ParserHelper.resolveActionType(definitionsService, action)`
-in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
+### Deprecation
+'refreshIndex(java.lang.Class, java.util.Date)' is deprecated
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
 #### Snippet
 ```java
-        }
-        for (Action action : rule.getActions()) {
-            result &= ParserHelper.resolveActionType(definitionsService, action);
-        }
-        return result;
+        // reevaluate segments and scoring.
+        if (segmentOrScoringIdsToReevaluate.size() > 0) {
+            persistenceService.refreshIndex(Profile.class, null);
+            for (String linkedItem : segmentOrScoringIdsToReevaluate) {
+                Segment linkedSegment = getSegmentDefinition(linkedItem);
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `executedSuccessfully &= response.isAcknowledged()`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+### Deprecation
+'refreshIndex(java.lang.Class, java.util.Date)' is deprecated
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
 ```java
-                    putStoredScriptRequest.id(script.getKey());
-                    AcknowledgedResponse response = client.putScript(putStoredScriptRequest, RequestOptions.DEFAULT);
-                    executedSuccessfully &= response.isAcknowledged();
-                    if (response.isAcknowledged()) {
-                        logger.info("Successfully stored painless script: {}", script.getKey());
+        if (persistenceService.save(profile)) {
+            if (forceRefresh) {
+                persistenceService.refreshIndex(Profile.class, null);
+            }
+            return profile;
+```
+
+### Deprecation
+'getAggregate(java.lang.String, java.lang.String, org.apache.unomi.api.query.AggregateQuery)' is deprecated
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/QueryServiceEndPoint.java`
+#### Snippet
+```java
+            return queryService.getAggregateWithOptimizedQuery(type, property, aggregateQuery);
+        } else {
+            return queryService.getAggregate(type, property, aggregateQuery);
+        }
+    }
+```
+
+### Deprecation
+'setPersonalizations(java.util.Map\>)' is deprecated
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
+#### Snippet
+```java
+        if (personalizations != null) {
+            data.setPersonalizationResults(new HashMap<>());
+            data.setPersonalizations(new HashMap<>());
+            for (PersonalizationService.PersonalizationRequest personalization : sanitizePersonalizations(personalizations)) {
+                PersonalizationResult personalizationResult = personalizationService.personalizeList(eventsRequestContext.getProfile(), eventsRequestContext.getSession(), personalization);
+```
+
+### Deprecation
+'getPersonalizations()' is deprecated
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
+#### Snippet
+```java
+                eventsRequestContext.addChanges(personalizationResult.getChangeType());
+                data.getPersonalizationResults().put(personalization.getId(), personalizationResult);
+                data.getPersonalizations().put(personalization.getId(), personalizationResult.getContentIds());
+            }
+        }
+```
+
+### Deprecation
+'refreshIndex(java.lang.Class, java.util.Date)' is deprecated
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/AddAliasToProfileCommand.java`
+#### Snippet
+```java
+
+        PersistenceService persistenceService = serviceManager.getService(PersistenceService.class);
+        persistenceService.refreshIndex(ProfileAlias.class, null);
+
+        return new CDPProfileAlias(persistenceService.load(profileAliasInput.getAlias(), ProfileAlias.class));
+```
+
+### Deprecation
+'setMergedWith(java.lang.String)' is deprecated
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdatePersonaCommand.java`
+#### Snippet
+```java
+        if (personaInput.getCdp_profileIDs() != null && !personaInput.getCdp_profileIDs().isEmpty()) {
+            final String profileIds = personaInput.getCdp_profileIDs().stream().map(CDPProfileIDInput::getId).collect(Collectors.joining(","));
+            persona.setMergedWith(profileIds);
+        }
+
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/ModifyConsentAction.java`
+#### Snippet
+```java
+        boolean isProfileUpdated = false;
+
+        ISO8601DateFormat dateFormat = new ISO8601DateFormat();
+        Map consentMap = (Map) event.getProperties().get(CONSENT_PROPERTY_NAME);
+        if (consentMap != null) {
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/ModifyConsentAction.java`
+#### Snippet
+```java
+        boolean isProfileUpdated = false;
+
+        ISO8601DateFormat dateFormat = new ISO8601DateFormat();
+        Map consentMap = (Map) event.getProperties().get(CONSENT_PROPERTY_NAME);
+        if (consentMap != null) {
+```
+
+### Deprecation
+'getMergedWith()' is deprecated
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/accessors/ProfileAccessor.java`
+#### Snippet
+```java
+        }
+        if ("mergedWith".equals(propertyName)) {
+            return object.getMergedWith();
+        }
+        return PROPERTY_NOT_FOUND_MARKER;
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
+#### Snippet
+```java
+        configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        ISO8601DateFormat dateFormat = new ISO8601DateFormat();
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        setDateFormat(dateFormat);
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
+#### Snippet
+```java
+        configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        ISO8601DateFormat dateFormat = new ISO8601DateFormat();
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        setDateFormat(dateFormat);
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+
+    private SFDCSession sfdcSession;
+    private DateFormat iso8601DateFormat = new ISO8601DateFormat();
+
+    private PersistenceService persistenceService;
+```
+
+### Deprecation
+'com.fasterxml.jackson.databind.util.ISO8601DateFormat' is deprecated
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+    public void start() {
+        try {
+            iso8601DateFormat = new ISO8601DateFormat();
+
+            SFDCConfiguration sfdcConfiguration = loadConfiguration();
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -1772,42 +846,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServic
     }
 ```
 
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/AbstractConfigurationServiceImpl.java`
-#### Snippet
-```java
-    private void processBundleStartup(BundleContext bundleContext) {
-        if (bundleContext == null) {
-            return;
-        }
-    }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/AbstractCustomServiceImpl.java`
-#### Snippet
-```java
-    private void processBundleStartup(BundleContext bundleContext) {
-        if (bundleContext == null) {
-            return;
-        }
-    }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
-#### Snippet
-```java
-    private void processBundleStartup(BundleContext bundleContext) {
-        if (bundleContext == null) {
-            return;
-        }
-    }
-```
-
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -1821,17 +859,17 @@ in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/el
                         "    \"analysis\": {\n" +
 ```
 
-## RuleId[id=NumberEquality]
-### NumberEquality
-Number objects are compared using `==`, not 'equals()'
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`action.getParameterValues().containsKey("forceEventProfileAsMaster") ? (boolean) action.getParameterValues().get("forceEventProfileAsMaster") : false` can be simplified to 'action.getParameterValues().containsKey("forceEventProfileAsMaster") \&\& (boolean) action.getParameterValues().get("forceEventProfileAsMaster")'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/MergeProfilesOnPropertyAction.java`
 #### Snippet
 ```java
-            @Override
-            public int compare(PropertyType o1, PropertyType o2) {
-                if (o1.getRank() == o2.getRank()) {
-                    return o1.getMetadata().getName().compareTo(o1.getMetadata().getName());
-                } else if (o1.getRank() < o2.getRank()) {
+        final String clientIdFromEvent = (String) event.getAttributes().get(Event.CLIENT_ID_ATTRIBUTE);
+        final String clientId = clientIdFromEvent != null ? clientIdFromEvent : "defaultClientId";
+        boolean forceEventProfileAsMaster = action.getParameterValues().containsKey("forceEventProfileAsMaster") ? (boolean) action.getParameterValues().get("forceEventProfileAsMaster") : false;
+        final String currentProfileMergeValue = (String) eventProfile.getSystemProperties().get(mergePropName);
+
 ```
 
 ## RuleId[id=BooleanConstructor]
@@ -1857,6 +895,18 @@ in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/pro
         exchange.getIn().setHeader(RouterConstants.HEADER_FAILED_MESSAGE, new Boolean(true));
         exchange.getIn().setBody(importLineError, ImportLineError.class);
     }
+```
+
+### BooleanConstructor
+Boolean constructor call
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
+#### Snippet
+```java
+                            }
+                        } else if (propertyType.getValueTypeId().equals("boolean")) {
+                            properties.put(fieldMappingKey, new Boolean(profileData[fieldsMapping.get(fieldMappingKey)].trim()));
+                        } else if (propertyType.getValueTypeId().equals("integer")) {
+                            properties.put(fieldMappingKey, new Integer(profileData[fieldsMapping.get(fieldMappingKey)].trim()));
 ```
 
 ### BooleanConstructor
@@ -1907,16 +957,17 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelpe
         }
 ```
 
-### BooleanConstructor
-Boolean constructor call
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
+## RuleId[id=NumberEquality]
+### NumberEquality
+Number objects are compared using `==`, not 'equals()'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
 ```java
-                            }
-                        } else if (propertyType.getValueTypeId().equals("boolean")) {
-                            properties.put(fieldMappingKey, new Boolean(profileData[fieldsMapping.get(fieldMappingKey)].trim()));
-                        } else if (propertyType.getValueTypeId().equals("integer")) {
-                            properties.put(fieldMappingKey, new Integer(profileData[fieldsMapping.get(fieldMappingKey)].trim()));
+            @Override
+            public int compare(PropertyType o1, PropertyType o2) {
+                if (o1.getRank() == o2.getRank()) {
+                    return o1.getMetadata().getName().compareTo(o1.getMetadata().getName());
+                } else if (o1.getRank() < o2.getRank()) {
 ```
 
 ## RuleId[id=MismatchedStringBuilderQueryUpdate]
@@ -1932,4548 +983,307 @@ in `plugins/request/src/main/java/org/apache/unomi/plugins/request/useragent/Use
         sb.append("agent.name: " + this.getUserAgentName() + ",\n");
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `ESItemMixIn` has no concrete subclass
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ESItemMixIn.java`
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `common/src/main/java/org/apache/unomi/common/DataTable.java`
 #### Snippet
 ```java
- * @author dgaillard
+    public static class EmptyCell implements Comparable {
+        @Override
+        public int compareTo(Object o) {
+            if (o instanceof EmptyCell) {
+                return 0;
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `api/src/main/java/org/apache/unomi/api/BatchUpdate.java`
+#### Snippet
+```java
+    /**
+     * Retrieves the property name which value needs to be updated. Note that the property name follows the
+     * <a href='https://commons.apache.org/proper/commons-beanutils/apidocs/org/apache/commons/beanutils/expression/DefaultResolver.html'>Apache Commons BeanUtils expression
+     * format</a>
+     *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `api/src/main/java/org/apache/unomi/api/services/SchedulerService.java`
+#### Snippet
+```java
+ * A service to centralize scheduling of tasks instead of using Timers or executors in each service
+ *
+ * https://stackoverflow.com/questions/409932/java-timer-vs-executorservice
  */
-public abstract class ESItemMixIn {
-
-    public ESItemMixIn() { }
+public interface SchedulerService {
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `ESEventMixIn` has no concrete subclass
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ESEventMixIn.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/GraphQLFieldVisibilityProvider.java`
 #### Snippet
 ```java
- * This mixin is used in ESCustomObjectMapper to prevent the persistent parameter from being registered in ES
+/**
+ * Provider of {@link GraphqlFieldVisibility} to limit graphql schema fields visibility
+ * More about it here https://www.graphql-java.com/documentation/v14/fieldvisibility/
  */
-public abstract class ESEventMixIn {
-
-    public ESEventMixIn() { }
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
-#### Snippet
-```java
-    }
-
-    public static PropertyType getPropertyTypeById(Collection<PropertyType> propertyTypes, String propertyTypeId) {
-        for (PropertyType propertyType : propertyTypes) {
-            if (propertyType.getMetadata().getId().equals(propertyTypeId)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Collection<T> foldToASCII(Collection<T> s) {
-        if (s != null) {
-            return Collections2.transform(s, new Function<T, T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PersonalizationStrategy`
-in `services/src/main/java/org/apache/unomi/services/impl/personalization/PersonalizationServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void addPersonalizationStrategy(ServiceReference<PersonalizationStrategy> personalizationStrategyRef) {
-        PersonalizationStrategy personalizationStrategy = bundleContext.getService(personalizationStrategyRef);
-        personalizationStrategies.put(personalizationStrategyRef.getProperty("personalizationStrategyId").toString(), personalizationStrategy);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActionDispatcher`
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    public void unbindDispatcher(ServiceReference<ActionDispatcher> actionDispatcherServiceReference) {
-        if (actionDispatcherServiceReference == null) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActionExecutor`
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bindExecutor(ServiceReference<ActionExecutor> actionExecutorServiceReference) {
-        ActionExecutor actionExecutor = bundleContext.getService(actionExecutorServiceReference);
-        executors.put(actionExecutorServiceReference.getProperty("actionExecutorId").toString(), actionExecutor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ActionDispatcher`
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bindDispatcher(ServiceReference<ActionDispatcher> actionDispatcherServiceReference) {
-        ActionDispatcher actionDispatcher = bundleContext.getService(actionDispatcherServiceReference);
-        actionDispatchers.put(actionDispatcher.getPrefix(), actionDispatcher);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void setRestrictedEventTypeIds(Set<String> restrictedEventTypeIds) {
-        this.restrictedEventTypeIds = restrictedEventTypeIds;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventListenerService`
-in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bind(ServiceReference<EventListenerService> serviceReference) {
-        EventListenerService eventListenerService = bundleContext.getService(serviceReference);
-        eventListeners.add(eventListenerService);
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventListenerService`
-in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void unbind(ServiceReference<EventListenerService> serviceReference) {
-        if (serviceReference != null) {
-            EventListenerService eventListenerService = bundleContext.getService(serviceReference);
-```
-
-### BoundedWildcard
-Can generalize to `? super EventProperty`
-in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private void getEventProperties(Map<String, Map<String, Object>> mappings, List<EventProperty> props, String prefix) {
-        for (Map.Entry<String, Map<String, Object>> e : mappings.entrySet()) {
-            if (e.getValue().get("properties") != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `services/src/main/java/org/apache/unomi/services/mergers/DefaultPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-
-public class DefaultPropertyMergeStrategyExecutor implements PropertyMergeStrategyExecutor {
-    public boolean mergeProperty(String propertyName, PropertyType propertyType, List<Profile> profilesToMerge, Profile targetProfile) {
-        boolean modified = false;
-        for (Profile profileToMerge : profilesToMerge) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `services/src/main/java/org/apache/unomi/services/mergers/MostRecentPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-
-public class MostRecentPropertyMergeStrategyExecutor implements PropertyMergeStrategyExecutor {
-    public boolean mergeProperty(String propertyName, PropertyType propertyType, List<Profile> profilesToMerge, Profile targetProfile) {
-        Object result = null;
-        int i = profilesToMerge.size() - 1;
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleListenerService`
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void unbind(ServiceReference<RuleListenerService> serviceReference) {
-        if (serviceReference != null) {
-            RuleListenerService ruleListenerService = bundleContext.getService(serviceReference);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleListenerService`
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bind(ServiceReference<RuleListenerService> serviceReference) {
-        RuleListenerService ruleListenerService = bundleContext.getService(serviceReference);
-        ruleListeners.add(ruleListenerService);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rule`
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, Set<Rule>> getRulesByEventType(List<Rule> rules) {
-        Map<String, Set<Rule>> newRulesByEventType = new HashMap<>();
-        for (Rule rule : rules) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void updateRulesByEventType(Map<String, Set<Rule>> rulesByEventType, Rule rule) {
-        Set<String> eventTypeIds = ParserHelper.resolveConditionEventTypes(rule.getCondition());
-        if (eventTypeIds.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-
-public class AddPropertyMergeStrategyExecutor implements PropertyMergeStrategyExecutor {
-    public boolean mergeProperty(String propertyName, PropertyType propertyType, List<Profile> profilesToMerge, Profile targetProfile) {
-        Object targetPropertyValue = targetProfile.getProperty(propertyName);
-        Object result = targetPropertyValue;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    private void managedBundleEvent(Bundle bundle, Map<String, Boolean> bundles, Boolean start) {
-        if (bundle.getSymbolicName().startsWith("org.apache.unomi") && bundles.containsKey(bundle.getSymbolicName())) {
-            logger.info("Bundle {} was {}.", bundle.getSymbolicName(), start ? "started" : "stopped");
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    private void managedBundleEvent(Bundle bundle, Map<String, Boolean> bundles, Boolean start) {
-        if (bundle.getSymbolicName().startsWith("org.apache.unomi") && bundles.containsKey(bundle.getSymbolicName())) {
-            logger.info("Bundle {} was {}.", bundle.getSymbolicName(), start ? "started" : "stopped");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    private void checkInBundlesList(Bundle bundle, Map<String, Boolean> bundles) {
-        if (bundle.getSymbolicName().startsWith("org.apache.unomi") && bundles.containsKey(bundle.getSymbolicName())) {
-            if (bundle.getState() == Bundle.ACTIVE) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    }
-
-    private void checkInBundlesList(Bundle bundle, Map<String, Boolean> bundles) {
-        if (bundle.getSymbolicName().startsWith("org.apache.unomi") && bundles.containsKey(bundle.getSymbolicName())) {
-            if (bundle.getState() == Bundle.ACTIVE) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Metadata`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListConnection.java`
-#### Snippet
-```java
-    private final PartialList<Metadata> userLists;
-
-    public CDPListConnection(final PartialList<Metadata> userLists) {
-        this.userLists = userLists;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void sendProfileUpdatedEvent(List<Profile> profiles) {
-        for (Profile profileToAdd : profiles) {
-            sendProfileUpdatedEvent(profileToAdd);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rule`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void clearAutoGeneratedRules(List<Rule> rules, String idWithScope) {
-        for (Rule previousRule : rules) {
-            previousRule.getLinkedItems().removeAll(Collections.singleton(idWithScope));
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScoringElement`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void updateExistingProfilesForScoring(String scoringId, List<ScoringElement> scoringElements, boolean isEnabled) {
-        long startTime = System.currentTimeMillis();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void batchUpdateProfilesSegment(String segmentId, List<Profile> profiles, boolean isAdd) {
-        Map<Item, Map> profileToPropertiesMap = new HashMap<>();
-        for (Profile profileToUpdate : profiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Rule`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void getAutoGeneratedRules(Metadata metadata, Condition condition, Condition parentCondition, List<Rule> rules) {
-        Set<String> tags = condition.getConditionType().getMetadata().getSystemTags();
-        if (tags.contains("eventCondition") && !tags.contains("profileCondition")) {
-```
-
-### BoundedWildcard
-Can generalize to `? super GraphQLInputObjectField`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyFilterUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void addFilters(final List<GraphQLInputObjectField> fieldDefinitions, final GraphQLSchemaProvider.DefinitionType propertyType, final GraphQLAnnotations graphQLAnnotations) {
-        final String propertyName = PropertyNameTranslator.translateFromUnomiToGraphQL(propertyType.getName());
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLSchemaProvider.DefinitionType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyFilterUtils.java`
-#### Snippet
-```java
-public class PropertyFilterUtils {
-
-    public static List<GraphQLInputObjectField> buildInputPropertyFilters(final Collection<GraphQLSchemaProvider.DefinitionType> propertyTypes, final GraphQLAnnotations graphQLAnnotations) {
-        if (propertyTypes == null || propertyTypes.isEmpty()) {
-            return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private boolean merge(Map<String, Object> target, Map<String, Object> object) {
-        boolean changed = false;
-        for (Map.Entry<String, Object> newEntry : object.entrySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        private void updateListMap(Map<String, List<PropertyType>> listMap, PropertyType propertyType, String key) {
-            List<PropertyType> propertyTypes = listMap.get(key);
-            if (propertyTypes == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-         * @return new instance
-         */
-        public PropertyTypes with(List<PropertyType> newProperties) {
-            Map<String, PropertyType> updatedProperties = new HashMap<>();
-            for (PropertyType property : newProperties) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        private Map<String, List<PropertyType>> propertyTypesByTarget = new HashMap<>();
-
-        public PropertyTypes(List<PropertyType> allPropertyTypes) {
-            this.allPropertyTypes = new ArrayList<>(allPropertyTypes);
-            propertyTypesById = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private boolean mergeSystemProperties(Map<String, Object> targetProperties, Map<String, Object> sourceProperties) {
-        boolean changed = false;
-        for (Map.Entry<String, Object> sourceProperty : sourceProperties.entrySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CDPPropertyInput`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateProfilePropertiesCommand.java`
-#### Snippet
-```java
-        final List<CDPPropertyInput> properties;
-
-        Builder(final List<CDPPropertyInput> properties) {
-            this.properties = properties;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Segment`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/SegmentConnectionDataFetcher.java`
-#### Snippet
-```java
-public abstract class SegmentConnectionDataFetcher extends BaseConnectionDataFetcher<CDPSegmentConnection> {
-
-    protected CDPSegmentConnection createSegmentConnection(PartialList<Segment> segments) {
-        final List<CDPSegmentEdge> segmentEdges = segments.getList().stream().map(segment -> new CDPSegmentEdge(new CDPSegment(segment), segment.getItemId())).collect(Collectors.toList());
-        final CDPPageInfo pageInfo = new CDPPageInfo(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/EventConnectionDataFetcher.java`
-#### Snippet
-```java
-public abstract class EventConnectionDataFetcher extends BaseConnectionDataFetcher<CDPEventConnection> {
-
-    protected CDPEventConnection createEventConnection(PartialList<Event> events) {
-        final List<CDPEventEdge> eventEdges = events.getList().stream().map(CDPEventEdge::new).collect(Collectors.toList());
-        final CDPPageInfo pageInfo = new CDPPageInfo(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ProfileConnectionDataFetcher.java`
-#### Snippet
-```java
-public abstract class ProfileConnectionDataFetcher extends BaseConnectionDataFetcher<CDPProfileConnection> {
-
-    protected CDPProfileConnection createProfileConnection(PartialList<Profile> profiles) {
-        final List<CDPProfileEdge> eventEdges = profiles.getList().stream()
-                .map(CDPProfileEdge::new)
-```
-
-### BoundedWildcard
-Can generalize to `? extends CDPOrderByInput`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/BaseConnectionDataFetcher.java`
-#### Snippet
-```java
-    }
-
-    protected Query buildQuery(final Condition condition, final List<CDPOrderByInput> orderByInputs, final ConnectionParams params) {
-        final Query query = new Query();
-        query.setCondition(condition);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/PropertiesConnectionDataFetcher.java`
-#### Snippet
-```java
-    }
-
-    private CDPPropertyConnection createPropertiesConnection(Collection<PropertyType> properties, ConnectionParams params) {
-        final int startIndex = Math.max(0, params.getOffset());
-        final int lastIndex = Math.min(params.getOffset() + params.getSize(), properties.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileIDsConditionParser.java`
-#### Snippet
-```java
-    private final List<Condition> conditions;
-
-    public SegmentProfileIDsConditionParser(List<Condition> conditions) {
-        this.conditions = conditions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends CDPNamedFilterInput`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileMatchesDataFetcher.java`
-#### Snippet
-```java
-    private final List<CDPNamedFilterInput> namedFilters;
-
-    public ProfileMatchesDataFetcher(Profile profile, List<CDPNamedFilterInput> namedFilters) {
-        this.profile = profile;
-        this.namedFilters = namedFilters;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileConsentsConditionParser.java`
-#### Snippet
-```java
-    private final List<Condition> conditions;
-
-    public SegmentProfileConsentsConditionParser(List<Condition> conditions) {
-        this.conditions = conditions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileListConditionParser.java`
-#### Snippet
-```java
-    private final List<Condition> conditions;
-
-    public SegmentProfileListConditionParser(List<Condition> conditions) {
-        this.conditions = conditions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileSegmentsConditionParser.java`
-#### Snippet
-```java
-    private final List<Condition> conditions;
-
-    public SegmentProfileSegmentsConditionParser(List<Condition> conditions) {
-        this.conditions = conditions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfilePropertiesConditionParser.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private Map<String, Object> processSetConditions(final List<Condition> conditions) {
-        final Map<Integer, List<Condition>> groupedConditionsByDeepLevels = new TreeMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileEventsConditionParser.java`
-#### Snippet
-```java
-    }
-
-    private void processEventPropertyCondition(final Condition condition, final Map<String, Object> fieldsMap) {
-        final Map<String, Object> fieldAsTuple = createProfileEventPropertyField(condition);
-        if (fieldAsTuple.size() == 2) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileEventsConditionParser.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private void processDynamicEventField(final Condition condition, final Map<String, Object> container) {
-        final List<Condition> subConditions = (List<Condition>) condition.getParameter("subConditions");
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends INPUT`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-
-    public <INPUT> Condition filtersToCondition(
-            final List<INPUT> inputFilters,
-            final List<Map<String, Object>> filterInputAsMap,
-            final BiFunction<INPUT, Map<String, Object>, Condition> function,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-    public <INPUT> Condition filtersToCondition(
-            final List<INPUT> inputFilters,
-            final List<Map<String, Object>> filterInputAsMap,
-            final BiFunction<INPUT, Map<String, Object>, Condition> function,
-            final String operator) {
-```
-
-### BoundedWildcard
-Can generalize to `? super INPUT`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-            final List<INPUT> inputFilters,
-            final List<Map<String, Object>> filterInputAsMap,
-            final BiFunction<INPUT, Map<String, Object>, Condition> function,
-            final String operator) {
-        final List<Condition> subConditions = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-            final List<INPUT> inputFilters,
-            final List<Map<String, Object>> filterInputAsMap,
-            final BiFunction<INPUT, Map<String, Object>, Condition> function,
-            final String operator) {
-        final List<Condition> subConditions = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-            final List<INPUT> inputFilters,
-            final List<Map<String, Object>> filterInputAsMap,
-            final BiFunction<INPUT, Map<String, Object>, Condition> function,
-            final String operator) {
-        final List<Condition> subConditions = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends INPUT`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-
-    public <INPUT> Condition filtersToCondition(
-            final List<INPUT> inputFilters, final Function<INPUT, Condition> function, final String operator) {
-        final List<Condition> subConditions = inputFilters.stream()
-                .map(function)
-```
-
-### BoundedWildcard
-Can generalize to `? super INPUT`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-
-    public <INPUT> Condition filtersToCondition(
-            final List<INPUT> inputFilters, final Function<INPUT, Condition> function, final String operator) {
-        final List<Condition> subConditions = inputFilters.stream()
-                .map(function)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
-#### Snippet
-```java
-
-    public <INPUT> Condition filtersToCondition(
-            final List<INPUT> inputFilters, final Function<INPUT, Condition> function, final String operator) {
-        final List<Condition> subConditions = inputFilters.stream()
-                .map(function)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-    }
-
-    private static <T extends GraphQLNamedSchemaElement> List<T> intersect(List<T> prev, List<T> curr) {
-        return curr.
-                stream().
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphQLFieldVisibilityProvider`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-    private final List<GraphQLFieldVisibilityProvider> providers;
-
-    public CompositeGraphQLFieldVisibility(List<GraphQLFieldVisibilityProvider> providers) {
-        this.providers = providers;
-        if (providers != null && !providers.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/MergeProfilesOnPropertyAction.java`
-#### Snippet
-```java
-    }
-
-    private void reassignSession(Event event, List<Profile> existingMergedProfiles, boolean forceEventProfileAsMaster, String mergePropName, String mergePropValue) {
-        Profile eventProfile = event.getProfile();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super QueryBuilder`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/SourceEventPropertyConditionESQueryBuilder.java`
-#### Snippet
-```java
-    }
-
-    private void appendFilderIfPropExist(List<QueryBuilder> queryBuilders, Condition condition, String prop){
-        final Object parameter = condition.getParameter(prop);
-        if (parameter != null && !"".equals(parameter)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Condition`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/SourceEventPropertyConditionEvaluator.java`
-#### Snippet
-```java
-    private DefinitionsService definitionsService;
-
-    private void appendConditionIfPropExist(List<Condition> conditions, Condition condition, String prop, ConditionType propConditionType) {
-        final Object parameter = condition.getParameter(prop);
-        if (parameter != null && !"".equals(parameter)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefinitionType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-            final GraphQLObjectType graphQLObjectType,
-            final Class<? extends DynamicFieldDataFetcher> fetcherClass,
-            final Collection<DefinitionType> propertyTypes) {
-        final GraphQLCodeRegistry.Builder codeRegisterBuilder = graphQLAnnotations.getContainer().getCodeRegistryBuilder();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefinitionType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-    private void registerDynamicInputFields(final String graphQLTypeName,
-            final GraphQLInputObjectType graphQLInputObjectType,
-            final Collection<DefinitionType> propertyTypes) {
-        final List<GraphQLInputObjectField> fieldDefinitions = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefinitionType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-
-    private GraphQLInputObjectType createDynamicInputType(final String name,
-                                                          final List<DefinitionType> propertyTypes,
-                                                          final boolean isEvent,
-                                                          Deque<String> typeStack) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefinitionType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-    }
-
-    private GraphQLObjectType createDynamicOutputType(final String name, final List<DefinitionType> propertyTypes, final Set<Class> interfaces, final GraphQLCodeRegistry.Builder codeRegisterBuilder) {
-        final String typeName = StringUtils.capitalize(PropertyNameTranslator.translateFromUnomiToGraphQL(name));
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ProfileConditionFactory.java`
-#### Snippet
-```java
-            final Object propertyValue,
-            final String typeName,
-            final Map<String, PropertyType> propertyTypeMap,
-            final Map<String, Object> filterAsMap,
-            final List<Condition> subConditions) {
+public interface GraphQLFieldVisibilityProvider extends GraphQLProvider {
 ```
 
-### BoundedWildcard
-Can generalize to `? super Condition`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ProfileConditionFactory.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
-            final Map<String, PropertyType> propertyTypeMap,
-            final Map<String, Object> filterAsMap,
-            final List<Condition> subConditions) {
-        if (propertyTypeMap.containsKey(propertyName) && "set".equals(propertyTypeMap.get(propertyName).getValueTypeId())) {
-            final Map<String, Object> setFilterAsMap = (Map<String, Object>) filterAsMap.get(propertyName);
+     * @param scrollIdentifier   a scroll identifier obtained by the execution of a first query and returned in the {@link PartialList} object
+     * @param scrollTimeValidity a scroll time validity value for the scroll query to stay valid. This must contain a time unit value such as the ones supported by ElasticSearch, such as
+     *                           the ones declared here : https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units
+     * @return a {@link PartialList} of items matching the specified criteria, with an scroll identifier and the scroll validity used if a scroll query was requested. Note that if
+     * there are no more results the list will be empty but not null.
 ```
 
-### BoundedWildcard
-Can generalize to `? extends PropertyType`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
-    @POST
-    @Path("/properties/bulk")
-    public boolean setPropertyTypes(List<PropertyType> properties) {
-        boolean saved = false;
-        for (PropertyType property : properties) {
+     * @param scrollIdentifier   a scroll identifier obtained by the execution of a first query and returned in the {@link PartialList} object
+     * @param scrollTimeValidity a scroll time validity value for the scroll query to stay valid. This must contain a time unit value such as the ones supported by ElasticSearch, such as
+     *                           the ones declared here : https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units
+     * @param <T>                the type of the Item subclass we want to retrieve
+     * @return a {@link PartialList} of items matching the specified criteria, with an scroll identifier and the scroll validity used if a scroll query was requested. Note that if
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ConditionType`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/LocalizationHelper.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
-     * @return a collection of {@link RESTConditionType}s based on the specified {@link ConditionType}s and localized using the specified language
+     *                           this will be used as the scrolling window size.
+     * @param scrollTimeValidity the time the scrolling query should stay valid. This must contain a time unit value such as the ones supported by ElasticSearch, such as
+     *                           the ones declared here : https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units
+     * @return a {@link PartialList} of items matching the specified criteria, with an scroll identifier and the scroll validity used if a scroll query was requested.
      */
-    public Collection<RESTConditionType> generateConditions(Collection<ConditionType> conditionTypes, String language) {
-        List<RESTConditionType> result = new ArrayList<RESTConditionType>();
-        if (conditionTypes == null) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ActionType`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/LocalizationHelper.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
-     * @return a collection of {@link RESTActionType}s based on the specified {@link ActionType}s and localized using the specified language
+     *                           this will be used as the scrolling window size.
+     * @param scrollTimeValidity the time the scrolling query should stay valid. This must contain a time unit value such as the ones supported by ElasticSearch, such as
+     *                           the ones declared here : https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units
+     * @return a {@link PartialList} of items matching the specified criteria, with an scroll identifier and the scroll validity used if a scroll query was requested.
      */
-    public Collection<RESTActionType> generateActions(Collection<ActionType> actionTypes, String language) {
-        List<RESTActionType> result = new ArrayList<RESTActionType>();
-        if (actionTypes == null) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ValueType`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/LocalizationHelper.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
-     * @return a collection of {@link RESTValueType}s based on the specified {@link ValueType}s and localized using the specified language
+     *                           a column ({@code :}) and an order specifier: {@code asc} or {@code desc}.
+     * @param scrollTimeValidity the time the scrolling query should stay valid. This must contain a time unit value such as the ones supported by ElasticSearch, such as
+     *                           *                     the ones declared here : https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#time-units
+     * @return a {@link PartialList} of pages items with the given type
      */
-    public Collection<RESTValueType> generateValueTypes(Collection<ValueType> valueTypes, String language) {
-        List<RESTValueType> result = new ArrayList<RESTValueType>();
-        if (valueTypes == null) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
 #### Snippet
 ```java
+    private long timeOfLastUpdate = System.currentTimeMillis();
+    private Timer refreshTimer = null;
+    private long startupDelay = 1000L;
 
-    @Override
-    public EventsRequestContext performEventsRequest(List<Event> events, EventsRequestContext eventsRequestContext) {
-        List<String> filteredEventTypes = privacyService.getFilteredEventTypes(eventsRequestContext.getProfile());
-        String thirdPartyId = eventService.authenticateThirdPartyServer(eventsRequestContext.getRequest().getHeader("X-Unomi-Peer"),
+    private static final QName UNOMI_REST_SERVER_END_POINT_NAME = new QName("http://rest.unomi.apache.org/", "UnomiRestServerEndPoint");
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ImportConfiguration`
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportConfigByFileNameProcessor.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/QueryServiceEndPoint.java`
 #### Snippet
 ```java
-    }
 
-    public void setImportConfigurationService(ImportExportConfigurationService<ImportConfiguration> importConfigurationService) {
-        this.importConfigurationService = importConfigurationService;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExportConfiguration`
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
-#### Snippet
-```java
-    }
-
-    public void setExportConfigurationList(List<ExportConfiguration> exportConfigurationList) {
-        this.exportConfigurationList = exportConfigurationList;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImportConfiguration`
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportFromSourceRouteBuilder.java`
-#### Snippet
-```java
-    }
-
-    public void setImportConfigurationList(List<ImportConfiguration> importConfigurationList) {
-        this.importConfigurationList = importConfigurationList;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends StdDeserializer`
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
-#### Snippet
-```java
-    }
-
-    public CustomObjectMapper(Map<Class, StdDeserializer<?>> deserializers) {
-        super();
-        super.registerModule(new JaxbAnnotationModule());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ValueExtractor`
-in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
-#### Snippet
-```java
-    }
-
-    public static Object extractValue(String s, Event event, Map<String, ValueExtractor> valueExtractors) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Object value = null;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends PathSegment`
-in `extensions/geonames/rest/src/main/java/org/apache/unomi/geonames/rest/GeonamesEndPoint.java`
-#### Snippet
-```java
-    @GET
-    @Path("/cities/{items:.*}")
-    public PartialList<GeonameEntry> getChildrenCities(@PathParam("items") List<PathSegment> items, @HeaderParam("Accept-Language") String language) {
-        List<String> l = new ArrayList<>();
-        for (PathSegment item : items) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GeonameEntry`
-in `extensions/geonames/rest/src/main/java/org/apache/unomi/geonames/rest/GeonamesEndPoint.java`
-#### Snippet
-```java
-    }
-
-    private void translate(List<GeonameEntry> l, Locale locale) {
-        for (GeonameEntry entry : l) {
-            if (GeonamesService.COUNTRY_FEATURE_CODES.contains(entry.getFeatureCode())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PathSegment`
-in `extensions/geonames/rest/src/main/java/org/apache/unomi/geonames/rest/GeonamesEndPoint.java`
-#### Snippet
-```java
-    @GET
-    @Path("/entries/{items:.*}")
-    public PartialList<GeonameEntry> getChildrenEntries(@PathParam("items") List<PathSegment> items, @HeaderParam("Accept-Language") String language) {
-        List<String> l = new ArrayList<>();
-        for (PathSegment item : items) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JsonSchemaWrapper`
-in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/impl/SchemaServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void initExtensions(Map<String, JsonSchemaWrapper> schemas) {
-        Map<String, Set<String>> extensionsReloaded = new HashMap<>();
-        // lookup extensions
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void addConsents(Profile profile, Map<String, Object> sfdcLeadFields) {
-        Map<String, Consent> consents = profile.getConsents();
-        String mappingConsentsString = sfdcConfiguration.getSfdcFieldsConsents();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConditionEvaluator`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bindConditionEvaluator(ServiceReference<ConditionEvaluator> conditionEvaluatorServiceReference) {
-        ConditionEvaluator conditionEvaluator = bundleContext.getService(conditionEvaluatorServiceReference);
-        conditionEvaluatorDispatcher.addEvaluator(conditionEvaluatorServiceReference.getProperty("conditionEvaluatorId").toString(), conditionEvaluator);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends Item> PartialList<T> continueScrollQuery(final Class<T> clazz, final String scrollIdentifier, final String scrollTimeValidity) {
-        return new InClassLoaderExecute<PartialList<T>>(metricsService, this.getClass().getName() + ".continueScrollQuery", this.bundleContext, this.fatalIllegalStateErrors, throwExceptions) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Item`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public List<String> update(final Map<Item, Map> items, final Date dateHint, final Class clazz) {
-        if (items.size() == 0)
-            return new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public List<String> update(final Map<Item, Map> items, final Date dateHint, final Class clazz) {
-        if (items.size() == 0)
-            return new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private <T extends Item> PartialList<T> query(final QueryBuilder query, final String sortBy, final Class<T> clazz, final String customItemType, final int offset, final int size, final String[] routing, final String scrollTimeValidity) {
-        return new InClassLoaderExecute<PartialList<T>>(metricsService, this.getClass().getName() + ".query", this.bundleContext, this.fatalIllegalStateErrors, throwExceptions) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, Object> getPropertyMapping(String property, Map<String, Map<String, Object>> mappings) {
-        Map<String, Object> propMapping = null;
-        String[] properties = StringUtils.split(property, '.');
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void mergePropertiesMapping(Map<String, Object> result, Map<String, Object> entry) {
-        if (entry == null || entry.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConditionESQueryBuilder`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void bindConditionESQueryBuilder(ServiceReference<ConditionESQueryBuilder> conditionESQueryBuilderServiceReference) {
-        ConditionESQueryBuilder conditionESQueryBuilder = bundleContext.getService(conditionESQueryBuilderServiceReference);
-        conditionESQueryBuilderDispatcher.addQueryBuilder(conditionESQueryBuilderServiceReference.getProperty("queryBuilderId").toString(), conditionESQueryBuilder);
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPRecommendationInput.java`
-#### Snippet
-```java
-
-    public CDPRecommendationInput(
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.name = name;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileIDInput.java`
-#### Snippet
-```java
-
-    public CDPProfileIDInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLNonNull @GraphQLName("client") CDPClientInput client) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("client")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileIDInput.java`
-#### Snippet
-```java
-    public CDPProfileIDInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLNonNull @GraphQLName("client") CDPClientInput client) {
-        this.id = id;
-        this.client = client;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("identifier")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-
-    public CDPPropertyInput(
-            final @GraphQLName("identifier") CDPIdentifierPropertyInput identifierPropertyTypeInput,
-            final @GraphQLName("string") CDPStringPropertyInput stringPropertyTypeInput,
-            final @GraphQLName("int") CDPIntPropertyInput integerPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("string")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-    public CDPPropertyInput(
-            final @GraphQLName("identifier") CDPIdentifierPropertyInput identifierPropertyTypeInput,
-            final @GraphQLName("string") CDPStringPropertyInput stringPropertyTypeInput,
-            final @GraphQLName("int") CDPIntPropertyInput integerPropertyTypeInput,
-            final @GraphQLName("long") CDPLongPropertyInput longPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("int")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("identifier") CDPIdentifierPropertyInput identifierPropertyTypeInput,
-            final @GraphQLName("string") CDPStringPropertyInput stringPropertyTypeInput,
-            final @GraphQLName("int") CDPIntPropertyInput integerPropertyTypeInput,
-            final @GraphQLName("long") CDPLongPropertyInput longPropertyTypeInput,
-            final @GraphQLName("float") CDPFloatPropertyInput floatPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("long")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("string") CDPStringPropertyInput stringPropertyTypeInput,
-            final @GraphQLName("int") CDPIntPropertyInput integerPropertyTypeInput,
-            final @GraphQLName("long") CDPLongPropertyInput longPropertyTypeInput,
-            final @GraphQLName("float") CDPFloatPropertyInput floatPropertyTypeInput,
-            final @GraphQLName("date") CDPDatePropertyInput datePropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("float")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("int") CDPIntPropertyInput integerPropertyTypeInput,
-            final @GraphQLName("long") CDPLongPropertyInput longPropertyTypeInput,
-            final @GraphQLName("float") CDPFloatPropertyInput floatPropertyTypeInput,
-            final @GraphQLName("date") CDPDatePropertyInput datePropertyTypeInput,
-            final @GraphQLName("boolean") CDPBooleanPropertyInput booleanPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("date")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("long") CDPLongPropertyInput longPropertyTypeInput,
-            final @GraphQLName("float") CDPFloatPropertyInput floatPropertyTypeInput,
-            final @GraphQLName("date") CDPDatePropertyInput datePropertyTypeInput,
-            final @GraphQLName("boolean") CDPBooleanPropertyInput booleanPropertyTypeInput,
-            final @GraphQLName("geopoint") CDPGeoPointPropertyInput geoPointPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("boolean")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("float") CDPFloatPropertyInput floatPropertyTypeInput,
-            final @GraphQLName("date") CDPDatePropertyInput datePropertyTypeInput,
-            final @GraphQLName("boolean") CDPBooleanPropertyInput booleanPropertyTypeInput,
-            final @GraphQLName("geopoint") CDPGeoPointPropertyInput geoPointPropertyTypeInput,
-            final @GraphQLName("set") CDPSetPropertyInput setPropertyTypeInput,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("geopoint")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("date") CDPDatePropertyInput datePropertyTypeInput,
-            final @GraphQLName("boolean") CDPBooleanPropertyInput booleanPropertyTypeInput,
-            final @GraphQLName("geopoint") CDPGeoPointPropertyInput geoPointPropertyTypeInput,
-            final @GraphQLName("set") CDPSetPropertyInput setPropertyTypeInput,
-            final @GraphQLName("json") CDPJsonPropertyInput jsonPropertyTypeInput) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("set")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("boolean") CDPBooleanPropertyInput booleanPropertyTypeInput,
-            final @GraphQLName("geopoint") CDPGeoPointPropertyInput geoPointPropertyTypeInput,
-            final @GraphQLName("set") CDPSetPropertyInput setPropertyTypeInput,
-            final @GraphQLName("json") CDPJsonPropertyInput jsonPropertyTypeInput) {
-        this.identifierPropertyTypeInput = identifierPropertyTypeInput;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("json")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
-#### Snippet
-```java
-            final @GraphQLName("geopoint") CDPGeoPointPropertyInput geoPointPropertyTypeInput,
-            final @GraphQLName("set") CDPSetPropertyInput setPropertyTypeInput,
-            final @GraphQLName("json") CDPJsonPropertyInput jsonPropertyTypeInput) {
-        this.identifierPropertyTypeInput = identifierPropertyTypeInput;
-        this.stringPropertyTypeInput = stringPropertyTypeInput;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("joinLists")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventInput.java`
-#### Snippet
-```java
-    private List<String> leaveLists;
-
-    public CDPListsUpdateEventInput(final @GraphQLName("joinLists") List<String> joinLists,
-                                    final @GraphQLName("leaveLists") List<String> leaveLists) {
-        this.joinLists = joinLists;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("leaveLists")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventInput.java`
-#### Snippet
-```java
-
-    public CDPListsUpdateEventInput(final @GraphQLName("joinLists") List<String> joinLists,
-                                    final @GraphQLName("leaveLists") List<String> leaveLists) {
-        this.joinLists = joinLists;
-        this.leaveLists = leaveLists;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("type")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
-#### Snippet
-```java
-
-    public CDPConsentUpdateEventInput(
-            final @GraphQLNonNull @GraphQLName("type") String type,
-            final @GraphQLName("status") String status,
-            final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("status")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
-#### Snippet
-```java
-    public CDPConsentUpdateEventInput(
-            final @GraphQLNonNull @GraphQLName("type") String type,
-            final @GraphQLName("status") String status,
-            final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-            final @GraphQLName("expiration") OffsetDateTime expiration) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
-#### Snippet
-```java
-            final @GraphQLNonNull @GraphQLName("type") String type,
-            final @GraphQLName("status") String status,
-            final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-            final @GraphQLName("expiration") OffsetDateTime expiration) {
-        this.type = type;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
-#### Snippet
-```java
-            final @GraphQLName("status") String status,
-            final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-            final @GraphQLName("expiration") OffsetDateTime expiration) {
-        this.type = type;
-        this.status = status;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("state")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
-#### Snippet
-```java
-
-    public CDPSessionEventInput(
-            final @GraphQLName("state") CDPSessionState state,
-            final @GraphQLName("unomi_sessionId") String unomi_sessionId,
-            final @GraphQLName("unomi_scope") String unomi_scope) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_sessionId")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
-#### Snippet
-```java
-    public CDPSessionEventInput(
-            final @GraphQLName("state") CDPSessionState state,
-            final @GraphQLName("unomi_sessionId") String unomi_sessionId,
-            final @GraphQLName("unomi_scope") String unomi_scope) {
-        this.state = state;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_scope")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
-#### Snippet
-```java
-            final @GraphQLName("state") CDPSessionState state,
-            final @GraphQLName("unomi_sessionId") String unomi_sessionId,
-            final @GraphQLName("unomi_scope") String unomi_scope) {
-        this.state = state;
-        this.unomi_sessionId = unomi_sessionId;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPViewInput.java`
-#### Snippet
-```java
-    private String name;
-
-    public CDPViewInput(final @GraphQLID @GraphQLNonNull @GraphQLName("name") String name) {
-        this.name = name;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("topic")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestInput.java`
-#### Snippet
-```java
-    private Double score;
-
-    public CDPInterestInput(final @GraphQLID @GraphQLNonNull @GraphQLName("topic") String topic,
-                            final @GraphQLName("score") Double score) {
-        this.topic = topic;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestInput.java`
-#### Snippet
-```java
-
-    public CDPInterestInput(final @GraphQLID @GraphQLNonNull @GraphQLName("topic") String topic,
-                            final @GraphQLName("score") Double score) {
-        this.topic = topic;
-        this.score = score;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("fieldName")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOrderByInput.java`
-#### Snippet
-```java
-
-    public CDPOrderByInput(
-            final @GraphQLName("fieldName") String fieldName,
-            final @GraphQLName("sortOrder") CDPSortOrder sortOrder) {
-        this.fieldName = fieldName;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("sortOrder")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOrderByInput.java`
-#### Snippet
-```java
-    public CDPOrderByInput(
-            final @GraphQLName("fieldName") String fieldName,
-            final @GraphQLName("sortOrder") CDPSortOrder sortOrder) {
-        this.fieldName = fieldName;
-        this.sortOrder = sortOrder;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("center")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
-#### Snippet
-```java
-
-    public CDPGeoDistanceFilterInput(
-            final @GraphQLName("center") GeoPoint center,
-            final @GraphQLName("unit") CDPGeoDistanceFilterUnit unit,
-            final @GraphQLName("distance") Double distance) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unit")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
-#### Snippet
-```java
-    public CDPGeoDistanceFilterInput(
-            final @GraphQLName("center") GeoPoint center,
-            final @GraphQLName("unit") CDPGeoDistanceFilterUnit unit,
-            final @GraphQLName("distance") Double distance) {
-        this.center = center;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("distance")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("center") GeoPoint center,
-            final @GraphQLName("unit") CDPGeoDistanceFilterUnit unit,
-            final @GraphQLName("distance") Double distance) {
-        this.center = center;
-        this.unit = unit;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
-#### Snippet
-```java
-
-    public CDPTopicFilterInput(
-            final @GraphQLName("and") List<CDPTopicFilterInput> and,
-            final @GraphQLName("or") List<CDPTopicFilterInput> or,
-            final @GraphQLName("id_equals") @GraphQLID String id_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
-#### Snippet
-```java
-    public CDPTopicFilterInput(
-            final @GraphQLName("and") List<CDPTopicFilterInput> and,
-            final @GraphQLName("or") List<CDPTopicFilterInput> or,
-            final @GraphQLName("id_equals") @GraphQLID String id_equals,
-            final @GraphQLName("view_equals") String view_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("id_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("and") List<CDPTopicFilterInput> and,
-            final @GraphQLName("or") List<CDPTopicFilterInput> or,
-            final @GraphQLName("id_equals") @GraphQLID String id_equals,
-            final @GraphQLName("view_equals") String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("view_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("or") List<CDPTopicFilterInput> or,
-            final @GraphQLName("id_equals") @GraphQLID String id_equals,
-            final @GraphQLName("view_equals") String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-        this.and = and;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("id_equals") @GraphQLID String id_equals,
-            final @GraphQLName("view_equals") String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-        this.and = and;
-        this.or = or;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-    private CDPEventFilterInput eventFilter;
-
-    public CDPProfileEventsFilterInput(final @GraphQLName("and") List<CDPProfileEventsFilterInput> and,
-                                       final @GraphQLName("or") List<CDPProfileEventsFilterInput> or,
-                                       final @GraphQLName("not") CDPProfileEventsFilterInput not,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-
-    public CDPProfileEventsFilterInput(final @GraphQLName("and") List<CDPProfileEventsFilterInput> and,
-                                       final @GraphQLName("or") List<CDPProfileEventsFilterInput> or,
-                                       final @GraphQLName("not") CDPProfileEventsFilterInput not,
-                                       final @GraphQLName("minimalCount") Integer minimalCount,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("not")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-    public CDPProfileEventsFilterInput(final @GraphQLName("and") List<CDPProfileEventsFilterInput> and,
-                                       final @GraphQLName("or") List<CDPProfileEventsFilterInput> or,
-                                       final @GraphQLName("not") CDPProfileEventsFilterInput not,
-                                       final @GraphQLName("minimalCount") Integer minimalCount,
-                                       final @GraphQLName("maximalCount") Integer maximalCount,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("minimalCount")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-                                       final @GraphQLName("or") List<CDPProfileEventsFilterInput> or,
-                                       final @GraphQLName("not") CDPProfileEventsFilterInput not,
-                                       final @GraphQLName("minimalCount") Integer minimalCount,
-                                       final @GraphQLName("maximalCount") Integer maximalCount,
-                                       final @GraphQLName("eventFilter") CDPEventFilterInput eventFilter) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("maximalCount")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-                                       final @GraphQLName("not") CDPProfileEventsFilterInput not,
-                                       final @GraphQLName("minimalCount") Integer minimalCount,
-                                       final @GraphQLName("maximalCount") Integer maximalCount,
-                                       final @GraphQLName("eventFilter") CDPEventFilterInput eventFilter) {
-        this.and = and;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("eventFilter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
-#### Snippet
-```java
-                                       final @GraphQLName("minimalCount") Integer minimalCount,
-                                       final @GraphQLName("maximalCount") Integer maximalCount,
-                                       final @GraphQLName("eventFilter") CDPEventFilterInput eventFilter) {
-        this.and = and;
-        this.or = or;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("joinLists_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
-#### Snippet
-```java
-    private List<String> leaveLists_contains;
-
-    public CDPListsUpdateEventFilterInput(final @GraphQLName("joinLists_contains") List<String> joinLists_contains,
-                                          final @GraphQLName("leaveLists_contains") List<String> leaveLists_contains) {
-        this.joinLists_contains = joinLists_contains;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("leaveLists_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
-#### Snippet
-```java
-
-    public CDPListsUpdateEventFilterInput(final @GraphQLName("joinLists_contains") List<String> joinLists_contains,
-                                          final @GraphQLName("leaveLists_contains") List<String> leaveLists_contains) {
-        this.joinLists_contains = joinLists_contains;
-        this.leaveLists_contains = leaveLists_contains;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-
-    public CDPEventInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLName("cdp_sourceID") String cdp_sourceID,
-            final @GraphQLNonNull @GraphQLName("cdp_profileID") CDPProfileIDInput cdp_profileID,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_sourceID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-    public CDPEventInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLName("cdp_sourceID") String cdp_sourceID,
-            final @GraphQLNonNull @GraphQLName("cdp_profileID") CDPProfileIDInput cdp_profileID,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID") String cdp_objectID,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("cdp_profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLName("cdp_sourceID") String cdp_sourceID,
-            final @GraphQLNonNull @GraphQLName("cdp_profileID") CDPProfileIDInput cdp_profileID,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID") String cdp_objectID,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventInput cdp_consentUpdateEvent,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_sourceID") String cdp_sourceID,
-            final @GraphQLNonNull @GraphQLName("cdp_profileID") CDPProfileIDInput cdp_profileID,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID") String cdp_objectID,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listUpdateEvent") CDPListsUpdateEventInput cdp_listUpdateEvent,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_consentUpdateEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-            final @GraphQLNonNull @GraphQLName("cdp_profileID") CDPProfileIDInput cdp_profileID,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID") String cdp_objectID,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listUpdateEvent") CDPListsUpdateEventInput cdp_listUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventInput cdp_sessionEvent) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_listUpdateEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLNonNull @GraphQLName("cdp_objectID") String cdp_objectID,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listUpdateEvent") CDPListsUpdateEventInput cdp_listUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventInput cdp_sessionEvent) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_sessionEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listUpdateEvent") CDPListsUpdateEventInput cdp_listUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventInput cdp_sessionEvent) {
-        this.id = id;
-        this.cdp_sourceID = cdp_sourceID;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
-#### Snippet
-```java
-
-    public CDPDateFilterInput(
-            final @GraphQLName("after") long after,
-            final @GraphQLName("includeAfter") boolean includeAfter,
-            final @GraphQLName("before") long before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("includeAfter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
-#### Snippet
-```java
-    public CDPDateFilterInput(
-            final @GraphQLName("after") long after,
-            final @GraphQLName("includeAfter") boolean includeAfter,
-            final @GraphQLName("before") long before,
-            final @GraphQLName("includeBefore") boolean includeBefore) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("after") long after,
-            final @GraphQLName("includeAfter") boolean includeAfter,
-            final @GraphQLName("before") long before,
-            final @GraphQLName("includeBefore") boolean includeBefore) {
-        this.after = after;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("includeBefore")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("includeAfter") boolean includeAfter,
-            final @GraphQLName("before") long before,
-            final @GraphQLName("includeBefore") boolean includeBefore) {
-        this.after = after;
-        this.includeAfter = includeAfter;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
-#### Snippet
-```java
-
-    public CDPTopicInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
-#### Snippet
-```java
-    public CDPTopicInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.id = id;
-        this.view = view;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPNamedFilterInput.java`
-#### Snippet
-```java
-    private CDPProfileFilterInput filter;
-
-    public CDPNamedFilterInput(final @GraphQLName("name") @GraphQLNonNull String name,
-                               final @GraphQLName("filter") CDPProfileFilterInput filter) {
-        this.name = name;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPNamedFilterInput.java`
-#### Snippet
-```java
-
-    public CDPNamedFilterInput(final @GraphQLName("name") @GraphQLNonNull String name,
-                               final @GraphQLName("filter") CDPProfileFilterInput filter) {
-        this.name = name;
-        this.filter = filter;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("type")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
-#### Snippet
-```java
-    private OffsetDateTime expiration;
-
-    public CDPPersonaConsentInput(final @GraphQLNonNull @GraphQLName("type") String type,
-                                  final @GraphQLName("status") String status,
-                                  final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("status")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
-#### Snippet
-```java
-
-    public CDPPersonaConsentInput(final @GraphQLNonNull @GraphQLName("type") String type,
-                                  final @GraphQLName("status") String status,
-                                  final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-                                  final @GraphQLName("expiration") OffsetDateTime expiration) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
-#### Snippet
-```java
-    public CDPPersonaConsentInput(final @GraphQLNonNull @GraphQLName("type") String type,
-                                  final @GraphQLName("status") String status,
-                                  final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-                                  final @GraphQLName("expiration") OffsetDateTime expiration) {
-        this.type = type;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("status") String status,
-                                  final @GraphQLName("lastUpdate") OffsetDateTime lastUpdate,
-                                  final @GraphQLName("expiration") OffsetDateTime expiration) {
-        this.type = type;
-        this.status = status;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
-#### Snippet
-```java
-
-    public UnomiSegmentInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
-#### Snippet
-```java
-    public UnomiSegmentInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLNonNull @GraphQLName("condition") Object condition) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLNonNull @GraphQLName("condition") Object condition) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("condition")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLNonNull @GraphQLName("condition") Object condition) {
-        this.id = id;
-        this.view = view;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-    private Double score_gte;
-
-    public CDPInterestFilterInput(final @GraphQLName("and") List<CDPInterestFilterInput> and,
-                                  final @GraphQLName("or") List<CDPInterestFilterInput> or,
-                                  final @GraphQLName("topic_equals") String topic_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-
-    public CDPInterestFilterInput(final @GraphQLName("and") List<CDPInterestFilterInput> and,
-                                  final @GraphQLName("or") List<CDPInterestFilterInput> or,
-                                  final @GraphQLName("topic_equals") String topic_equals,
-                                  final @GraphQLName("score_equals") Double score_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("topic_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-    public CDPInterestFilterInput(final @GraphQLName("and") List<CDPInterestFilterInput> and,
-                                  final @GraphQLName("or") List<CDPInterestFilterInput> or,
-                                  final @GraphQLName("topic_equals") String topic_equals,
-                                  final @GraphQLName("score_equals") Double score_equals,
-                                  final @GraphQLName("score_lt") Double score_lt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("or") List<CDPInterestFilterInput> or,
-                                  final @GraphQLName("topic_equals") String topic_equals,
-                                  final @GraphQLName("score_equals") Double score_equals,
-                                  final @GraphQLName("score_lt") Double score_lt,
-                                  final @GraphQLName("score_lte") Double score_lte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score_lt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("topic_equals") String topic_equals,
-                                  final @GraphQLName("score_equals") Double score_equals,
-                                  final @GraphQLName("score_lt") Double score_lt,
-                                  final @GraphQLName("score_lte") Double score_lte,
-                                  final @GraphQLName("score_gt") Double score_gt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score_lte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("score_equals") Double score_equals,
-                                  final @GraphQLName("score_lt") Double score_lt,
-                                  final @GraphQLName("score_lte") Double score_lte,
-                                  final @GraphQLName("score_gt") Double score_gt,
-                                  final @GraphQLName("score_gte") Double score_gte) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score_gt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("score_lt") Double score_lt,
-                                  final @GraphQLName("score_lte") Double score_lte,
-                                  final @GraphQLName("score_gt") Double score_gt,
-                                  final @GraphQLName("score_gte") Double score_gte) {
-        this.and = and;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("score_gte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
-#### Snippet
-```java
-                                  final @GraphQLName("score_lte") Double score_lte,
-                                  final @GraphQLName("score_gt") Double score_gt,
-                                  final @GraphQLName("score_gte") Double score_gte) {
-        this.and = and;
-        this.or = or;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOptimizationInput.java`
-#### Snippet
-```java
-    private String name;
-
-    public CDPOptimizationInput(final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.name = name;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPClientInput.java`
-#### Snippet
-```java
-
-    public CDPClientInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLName("title") String title) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("title")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPClientInput.java`
-#### Snippet
-```java
-    public CDPClientInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLName("title") String title) {
-        this.id = id;
-        this.title = title;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileIDs_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-    private CDPProfileEventsFilterInput events;
-
-    public CDPProfileFilterInput(final @GraphQLName("profileIDs_contains") List<String> profileIDs_contains,
-                                 final @GraphQLName("segments_contains") List<String> segments_contains,
-                                 final @GraphQLName("consents_contains") List<String> consents_contains,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("segments_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-
-    public CDPProfileFilterInput(final @GraphQLName("profileIDs_contains") List<String> profileIDs_contains,
-                                 final @GraphQLName("segments_contains") List<String> segments_contains,
-                                 final @GraphQLName("consents_contains") List<String> consents_contains,
-                                 final @GraphQLName("lists_contains") List<String> lists_contains,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("consents_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-    public CDPProfileFilterInput(final @GraphQLName("profileIDs_contains") List<String> profileIDs_contains,
-                                 final @GraphQLName("segments_contains") List<String> segments_contains,
-                                 final @GraphQLName("consents_contains") List<String> consents_contains,
-                                 final @GraphQLName("lists_contains") List<String> lists_contains,
-                                 final @GraphQLName("properties") CDPProfilePropertiesFilterInput properties,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lists_contains")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-                                 final @GraphQLName("segments_contains") List<String> segments_contains,
-                                 final @GraphQLName("consents_contains") List<String> consents_contains,
-                                 final @GraphQLName("lists_contains") List<String> lists_contains,
-                                 final @GraphQLName("properties") CDPProfilePropertiesFilterInput properties,
-                                 final @GraphQLName("interests") CDPInterestFilterInput interests,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("properties")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-                                 final @GraphQLName("consents_contains") List<String> consents_contains,
-                                 final @GraphQLName("lists_contains") List<String> lists_contains,
-                                 final @GraphQLName("properties") CDPProfilePropertiesFilterInput properties,
-                                 final @GraphQLName("interests") CDPInterestFilterInput interests,
-                                 final @GraphQLName("events") CDPProfileEventsFilterInput events) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("interests")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-                                 final @GraphQLName("lists_contains") List<String> lists_contains,
-                                 final @GraphQLName("properties") CDPProfilePropertiesFilterInput properties,
-                                 final @GraphQLName("interests") CDPInterestFilterInput interests,
-                                 final @GraphQLName("events") CDPProfileEventsFilterInput events) {
-        this.profileIDs_contains = profileIDs_contains;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("events")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
-#### Snippet
-```java
-                                 final @GraphQLName("properties") CDPProfilePropertiesFilterInput properties,
-                                 final @GraphQLName("interests") CDPInterestFilterInput interests,
-                                 final @GraphQLName("events") CDPProfileEventsFilterInput events) {
-        this.profileIDs_contains = profileIDs_contains;
-        this.segments_contains = segments_contains;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
-#### Snippet
-```java
-    private List<CDPPropertyInput> properties;
-
-    public CDPEventTypeInput(final @GraphQLName("id") String id,
-                             final @GraphQLName("scope") String scope,
-                             final @GraphQLName("typeName") String typeName,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("scope")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
-#### Snippet
-```java
-
-    public CDPEventTypeInput(final @GraphQLName("id") String id,
-                             final @GraphQLName("scope") String scope,
-                             final @GraphQLName("typeName") String typeName,
-                             final @GraphQLName("properties") List<CDPPropertyInput> properties) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("typeName")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
-#### Snippet
-```java
-    public CDPEventTypeInput(final @GraphQLName("id") String id,
-                             final @GraphQLName("scope") String scope,
-                             final @GraphQLName("typeName") String typeName,
-                             final @GraphQLName("properties") List<CDPPropertyInput> properties) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("properties")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
-#### Snippet
-```java
-                             final @GraphQLName("scope") String scope,
-                             final @GraphQLName("typeName") String typeName,
-                             final @GraphQLName("properties") List<CDPPropertyInput> properties) {
-        this.id = id;
-        this.scope = scope;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSourceInput.java`
-#### Snippet
-```java
-
-    public CDPSourceInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLName("thirdParty") Boolean thirdParty) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("thirdParty")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSourceInput.java`
-#### Snippet
-```java
-    public CDPSourceInput(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("id") String id,
-            final @GraphQLName("thirdParty") Boolean thirdParty) {
-        this.id = id;
-        this.thirdParty = thirdParty;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("state_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
-#### Snippet
-```java
-
-    public CDPSessionEventFilterInput(
-            final @GraphQLName("state_equals") CDPSessionState state_equals,
-            final @GraphQLName("unomi_sessionId_equals") String unomi_sessionId_equals,
-            final @GraphQLName("unomi_scope_equals") String unomi_scope_equals) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_sessionId_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
-#### Snippet
-```java
-    public CDPSessionEventFilterInput(
-            final @GraphQLName("state_equals") CDPSessionState state_equals,
-            final @GraphQLName("unomi_sessionId_equals") String unomi_sessionId_equals,
-            final @GraphQLName("unomi_scope_equals") String unomi_scope_equals) {
-        this.state_equals = state_equals;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_scope_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("state_equals") CDPSessionState state_equals,
-            final @GraphQLName("unomi_sessionId_equals") String unomi_sessionId_equals,
-            final @GraphQLName("unomi_scope_equals") String unomi_scope_equals) {
-        this.state_equals = state_equals;
-        this.unomi_sessionId_equals = unomi_sessionId_equals;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-
-    public CDPEventFilterInput(
-            final @GraphQLName("and") List<CDPEventFilterInput> and,
-            final @GraphQLName("or") List<CDPEventFilterInput> or,
-            final @GraphQLName("id_equals") String id_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-    public CDPEventFilterInput(
-            final @GraphQLName("and") List<CDPEventFilterInput> and,
-            final @GraphQLName("or") List<CDPEventFilterInput> or,
-            final @GraphQLName("id_equals") String id_equals,
-            final @GraphQLName("cdp_clientID_equals") String cdp_clientID_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("id_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("and") List<CDPEventFilterInput> and,
-            final @GraphQLName("or") List<CDPEventFilterInput> or,
-            final @GraphQLName("id_equals") String id_equals,
-            final @GraphQLName("cdp_clientID_equals") String cdp_clientID_equals,
-            final @GraphQLName("cdp_sourceID_equals") String cdp_sourceID_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_clientID_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("or") List<CDPEventFilterInput> or,
-            final @GraphQLName("id_equals") String id_equals,
-            final @GraphQLName("cdp_clientID_equals") String cdp_clientID_equals,
-            final @GraphQLName("cdp_sourceID_equals") String cdp_sourceID_equals,
-            final @GraphQLName("cdp_profileID_equals") String cdp_profileID_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_sourceID_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("id_equals") String id_equals,
-            final @GraphQLName("cdp_clientID_equals") String cdp_clientID_equals,
-            final @GraphQLName("cdp_sourceID_equals") String cdp_sourceID_equals,
-            final @GraphQLName("cdp_profileID_equals") String cdp_profileID_equals,
-            final @GraphQLName("cdp_timestamp_equals") OffsetDateTime cdp_timestamp_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_profileID_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_clientID_equals") String cdp_clientID_equals,
-            final @GraphQLName("cdp_sourceID_equals") String cdp_sourceID_equals,
-            final @GraphQLName("cdp_profileID_equals") String cdp_profileID_equals,
-            final @GraphQLName("cdp_timestamp_equals") OffsetDateTime cdp_timestamp_equals,
-            final @GraphQLName("cdp_timestamp_lt") OffsetDateTime cdp_timestamp_lt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_timestamp_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_sourceID_equals") String cdp_sourceID_equals,
-            final @GraphQLName("cdp_profileID_equals") String cdp_profileID_equals,
-            final @GraphQLName("cdp_timestamp_equals") OffsetDateTime cdp_timestamp_equals,
-            final @GraphQLName("cdp_timestamp_lt") OffsetDateTime cdp_timestamp_lt,
-            final @GraphQLName("cdp_timestamp_lte") OffsetDateTime cdp_timestamp_lte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_timestamp_lt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_profileID_equals") String cdp_profileID_equals,
-            final @GraphQLName("cdp_timestamp_equals") OffsetDateTime cdp_timestamp_equals,
-            final @GraphQLName("cdp_timestamp_lt") OffsetDateTime cdp_timestamp_lt,
-            final @GraphQLName("cdp_timestamp_lte") OffsetDateTime cdp_timestamp_lte,
-            final @GraphQLName("cdp_timestamp_gt") OffsetDateTime cdp_timestamp_gt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_timestamp_lte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_timestamp_equals") OffsetDateTime cdp_timestamp_equals,
-            final @GraphQLName("cdp_timestamp_lt") OffsetDateTime cdp_timestamp_lt,
-            final @GraphQLName("cdp_timestamp_lte") OffsetDateTime cdp_timestamp_lte,
-            final @GraphQLName("cdp_timestamp_gt") OffsetDateTime cdp_timestamp_gt,
-            final @GraphQLName("cdp_timestamp_gte") OffsetDateTime cdp_timestamp_gte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_timestamp_gt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_timestamp_lt") OffsetDateTime cdp_timestamp_lt,
-            final @GraphQLName("cdp_timestamp_lte") OffsetDateTime cdp_timestamp_lte,
-            final @GraphQLName("cdp_timestamp_gt") OffsetDateTime cdp_timestamp_gt,
-            final @GraphQLName("cdp_timestamp_gte") OffsetDateTime cdp_timestamp_gte,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_timestamp_gte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_timestamp_lte") OffsetDateTime cdp_timestamp_lte,
-            final @GraphQLName("cdp_timestamp_gt") OffsetDateTime cdp_timestamp_gt,
-            final @GraphQLName("cdp_timestamp_gte") OffsetDateTime cdp_timestamp_gte,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listsUpdateEvent") CDPListsUpdateEventFilterInput cdp_listsUpdateEvent,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_consentUpdateEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_timestamp_gt") OffsetDateTime cdp_timestamp_gt,
-            final @GraphQLName("cdp_timestamp_gte") OffsetDateTime cdp_timestamp_gte,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listsUpdateEvent") CDPListsUpdateEventFilterInput cdp_listsUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventFilterInput cdp_sessionEvent,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_listsUpdateEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_timestamp_gte") OffsetDateTime cdp_timestamp_gte,
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listsUpdateEvent") CDPListsUpdateEventFilterInput cdp_listsUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventFilterInput cdp_sessionEvent,
-            final @GraphQLName("cdp_profileUpdateEvent") CDPProfileUpdateEventFilterInput cdp_profileUpdateEvent) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_sessionEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_consentUpdateEvent") CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent,
-            final @GraphQLName("cdp_listsUpdateEvent") CDPListsUpdateEventFilterInput cdp_listsUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventFilterInput cdp_sessionEvent,
-            final @GraphQLName("cdp_profileUpdateEvent") CDPProfileUpdateEventFilterInput cdp_profileUpdateEvent) {
-        this.and = and;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_profileUpdateEvent")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("cdp_listsUpdateEvent") CDPListsUpdateEventFilterInput cdp_listsUpdateEvent,
-            final @GraphQLName("cdp_sessionEvent") CDPSessionEventFilterInput cdp_sessionEvent,
-            final @GraphQLName("cdp_profileUpdateEvent") CDPProfileUpdateEventFilterInput cdp_profileUpdateEvent) {
-        this.and = and;
-        this.or = or;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("type_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-
-    public CDPConsentUpdateEventFilterInput(
-            final @GraphQLName("type_equals") String type_equals,
-            final @GraphQLName("status_equals") String status_equals,
-            final @GraphQLName("lastUpdate_equals") OffsetDateTime lastUpdate_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("status_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-    public CDPConsentUpdateEventFilterInput(
-            final @GraphQLName("type_equals") String type_equals,
-            final @GraphQLName("status_equals") String status_equals,
-            final @GraphQLName("lastUpdate_equals") OffsetDateTime lastUpdate_equals,
-            final @GraphQLName("lastUpdate_lt") OffsetDateTime lastUpdate_lt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("type_equals") String type_equals,
-            final @GraphQLName("status_equals") String status_equals,
-            final @GraphQLName("lastUpdate_equals") OffsetDateTime lastUpdate_equals,
-            final @GraphQLName("lastUpdate_lt") OffsetDateTime lastUpdate_lt,
-            final @GraphQLName("lastUpdate_lte") OffsetDateTime lastUpdate_lte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate_lt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("status_equals") String status_equals,
-            final @GraphQLName("lastUpdate_equals") OffsetDateTime lastUpdate_equals,
-            final @GraphQLName("lastUpdate_lt") OffsetDateTime lastUpdate_lt,
-            final @GraphQLName("lastUpdate_lte") OffsetDateTime lastUpdate_lte,
-            final @GraphQLName("lastUpdate_gt") OffsetDateTime lastUpdate_gt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate_lte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("lastUpdate_equals") OffsetDateTime lastUpdate_equals,
-            final @GraphQLName("lastUpdate_lt") OffsetDateTime lastUpdate_lt,
-            final @GraphQLName("lastUpdate_lte") OffsetDateTime lastUpdate_lte,
-            final @GraphQLName("lastUpdate_gt") OffsetDateTime lastUpdate_gt,
-            final @GraphQLName("lastUpdate_gte") OffsetDateTime lastUpdate_gte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate_gt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("lastUpdate_lt") OffsetDateTime lastUpdate_lt,
-            final @GraphQLName("lastUpdate_lte") OffsetDateTime lastUpdate_lte,
-            final @GraphQLName("lastUpdate_gt") OffsetDateTime lastUpdate_gt,
-            final @GraphQLName("lastUpdate_gte") OffsetDateTime lastUpdate_gte,
-            final @GraphQLName("expiration_equals") OffsetDateTime expiration_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("lastUpdate_gte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("lastUpdate_lte") OffsetDateTime lastUpdate_lte,
-            final @GraphQLName("lastUpdate_gt") OffsetDateTime lastUpdate_gt,
-            final @GraphQLName("lastUpdate_gte") OffsetDateTime lastUpdate_gte,
-            final @GraphQLName("expiration_equals") OffsetDateTime expiration_equals,
-            final @GraphQLName("expiration_lt") OffsetDateTime expiration_lt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("lastUpdate_gt") OffsetDateTime lastUpdate_gt,
-            final @GraphQLName("lastUpdate_gte") OffsetDateTime lastUpdate_gte,
-            final @GraphQLName("expiration_equals") OffsetDateTime expiration_equals,
-            final @GraphQLName("expiration_lt") OffsetDateTime expiration_lt,
-            final @GraphQLName("expiration_lte") OffsetDateTime expiration_lte,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration_lt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("lastUpdate_gte") OffsetDateTime lastUpdate_gte,
-            final @GraphQLName("expiration_equals") OffsetDateTime expiration_equals,
-            final @GraphQLName("expiration_lt") OffsetDateTime expiration_lt,
-            final @GraphQLName("expiration_lte") OffsetDateTime expiration_lte,
-            final @GraphQLName("expiration_gt") OffsetDateTime expiration_gt,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration_lte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("expiration_equals") OffsetDateTime expiration_equals,
-            final @GraphQLName("expiration_lt") OffsetDateTime expiration_lt,
-            final @GraphQLName("expiration_lte") OffsetDateTime expiration_lte,
-            final @GraphQLName("expiration_gt") OffsetDateTime expiration_gt,
-            final @GraphQLName("expiration_gte") OffsetDateTime expiration_gte) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration_gt")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("expiration_lt") OffsetDateTime expiration_lt,
-            final @GraphQLName("expiration_lte") OffsetDateTime expiration_lte,
-            final @GraphQLName("expiration_gt") OffsetDateTime expiration_gt,
-            final @GraphQLName("expiration_gte") OffsetDateTime expiration_gte) {
-        this.type_equals = type_equals;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("expiration_gte")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("expiration_lte") OffsetDateTime expiration_lte,
-            final @GraphQLName("expiration_gt") OffsetDateTime expiration_gt,
-            final @GraphQLName("expiration_gte") OffsetDateTime expiration_gte) {
-        this.type_equals = type_equals;
-        this.status_equals = status_equals;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
-#### Snippet
-```java
-
-    public CDPSegmentInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
-#### Snippet
-```java
-    public CDPSegmentInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLName("profiles") CDPProfileFilterInput profiles) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLName("profiles") CDPProfileFilterInput profiles) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profiles")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name,
-            final @GraphQLName("profiles") CDPProfileFilterInput profiles) {
-        this.id = id;
-        this.view = view;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
-#### Snippet
-```java
-
-    public CDPListInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
-#### Snippet
-```java
-    public CDPListInput(
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
-#### Snippet
-```java
-            final @GraphQLID @GraphQLName("id") String id,
-            final @GraphQLID @GraphQLNonNull @GraphQLName("view") String view,
-            final @GraphQLNonNull @GraphQLName("name") String name) {
-        this.id = id;
-        this.view = view;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
-#### Snippet
-```java
-
-    public CDPListFilterInput(
-            final @GraphQLName("and") List<CDPListFilterInput> and,
-            final @GraphQLName("or") List<CDPListFilterInput> or,
-            final @GraphQLName("view_equals") @GraphQLID String view_equals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
-#### Snippet
-```java
-    public CDPListFilterInput(
-            final @GraphQLName("and") List<CDPListFilterInput> and,
-            final @GraphQLName("or") List<CDPListFilterInput> or,
-            final @GraphQLName("view_equals") @GraphQLID String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("view_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("and") List<CDPListFilterInput> and,
-            final @GraphQLName("or") List<CDPListFilterInput> or,
-            final @GraphQLName("view_equals") @GraphQLID String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-        this.and = and;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("or") List<CDPListFilterInput> or,
-            final @GraphQLName("view_equals") @GraphQLID String view_equals,
-            final @GraphQLName("name_equals") String name_equals) {
-        this.and = and;
-        this.or = or;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("and")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-
-    public CDPSegmentFilterInput(
-            final @GraphQLName("and") List<CDPSegmentFilterInput> andFilters,
-            final @GraphQLName("or") List<CDPSegmentFilterInput> orFilters,
-            final @GraphQLName("view_equals") String viewEquals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("or")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-    public CDPSegmentFilterInput(
-            final @GraphQLName("and") List<CDPSegmentFilterInput> andFilters,
-            final @GraphQLName("or") List<CDPSegmentFilterInput> orFilters,
-            final @GraphQLName("view_equals") String viewEquals,
-            final @GraphQLName("view_regexp") String viewRegexp,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("view_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("and") List<CDPSegmentFilterInput> andFilters,
-            final @GraphQLName("or") List<CDPSegmentFilterInput> orFilters,
-            final @GraphQLName("view_equals") String viewEquals,
-            final @GraphQLName("view_regexp") String viewRegexp,
-            final @GraphQLName("name_equals") String nameEquals,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("view_regexp")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("or") List<CDPSegmentFilterInput> orFilters,
-            final @GraphQLName("view_equals") String viewEquals,
-            final @GraphQLName("view_regexp") String viewRegexp,
-            final @GraphQLName("name_equals") String nameEquals,
-            final @GraphQLName("name_regexp") String nameRegexp) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name_equals")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("view_equals") String viewEquals,
-            final @GraphQLName("view_regexp") String viewRegexp,
-            final @GraphQLName("name_equals") String nameEquals,
-            final @GraphQLName("name_regexp") String nameRegexp) {
-        this.andFilters = andFilters;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name_regexp")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
-#### Snippet
-```java
-            final @GraphQLName("view_regexp") String viewRegexp,
-            final @GraphQLName("name_equals") String nameEquals,
-            final @GraphQLName("name_regexp") String nameRegexp) {
-        this.andFilters = andFilters;
-        this.orFilters = orFilters;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-    // # fields will be added here according to registered profile properties
-
-    public CDPPersonaInput(final @GraphQLID @GraphQLName("id") String id,
-                           final @GraphQLNonNull @GraphQLName("cdp_name") String cdp_name,
-                           final @GraphQLNonNull @GraphQLName("cdp_view") String cdp_view,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("cdp_name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-
-    public CDPPersonaInput(final @GraphQLID @GraphQLName("id") String id,
-                           final @GraphQLNonNull @GraphQLName("cdp_name") String cdp_name,
-                           final @GraphQLNonNull @GraphQLName("cdp_view") String cdp_view,
-                           final @GraphQLName("cdp_profileIDs") List<CDPProfileIDInput> cdp_profileIDs,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("cdp_view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-    public CDPPersonaInput(final @GraphQLID @GraphQLName("id") String id,
-                           final @GraphQLNonNull @GraphQLName("cdp_name") String cdp_name,
-                           final @GraphQLNonNull @GraphQLName("cdp_view") String cdp_view,
-                           final @GraphQLName("cdp_profileIDs") List<CDPProfileIDInput> cdp_profileIDs,
-                           final @GraphQLName("cdp_segments") Set<String> cdp_segments,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_profileIDs")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-                           final @GraphQLNonNull @GraphQLName("cdp_name") String cdp_name,
-                           final @GraphQLNonNull @GraphQLName("cdp_view") String cdp_view,
-                           final @GraphQLName("cdp_profileIDs") List<CDPProfileIDInput> cdp_profileIDs,
-                           final @GraphQLName("cdp_segments") Set<String> cdp_segments,
-                           final @GraphQLName("cdp_interests") List<CDPInterestInput> cdp_interests,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_segments")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-                           final @GraphQLNonNull @GraphQLName("cdp_view") String cdp_view,
-                           final @GraphQLName("cdp_profileIDs") List<CDPProfileIDInput> cdp_profileIDs,
-                           final @GraphQLName("cdp_segments") Set<String> cdp_segments,
-                           final @GraphQLName("cdp_interests") List<CDPInterestInput> cdp_interests,
-                           final @GraphQLName("cdp_consents") List<CDPPersonaConsentInput> cdp_consents) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_interests")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-                           final @GraphQLName("cdp_profileIDs") List<CDPProfileIDInput> cdp_profileIDs,
-                           final @GraphQLName("cdp_segments") Set<String> cdp_segments,
-                           final @GraphQLName("cdp_interests") List<CDPInterestInput> cdp_interests,
-                           final @GraphQLName("cdp_consents") List<CDPPersonaConsentInput> cdp_consents) {
-        this.id = id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("cdp_consents")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
-#### Snippet
-```java
-                           final @GraphQLName("cdp_segments") Set<String> cdp_segments,
-                           final @GraphQLName("cdp_interests") List<CDPInterestInput> cdp_interests,
-                           final @GraphQLName("cdp_consents") List<CDPPersonaConsentInput> cdp_consents) {
-        this.id = id;
-        this.cdp_name = cdp_name;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
-#### Snippet
-```java
-    private String defaultValue;
-
-    public CDPDatePropertyInput(final @GraphQLName("name") String name,
-                                final @GraphQLName("minOccurrences") Integer minOccurrences,
-                                final @GraphQLName("maxOccurrences") Integer maxOccurrences,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("minOccurrences")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
-#### Snippet
-```java
-
-    public CDPDatePropertyInput(final @GraphQLName("name") String name,
-                                final @GraphQLName("minOccurrences") Integer minOccurrences,
-                                final @GraphQLName("maxOccurrences") Integer maxOccurrences,
-                                final @GraphQLName("tags") List<String> tags,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("maxOccurrences")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
-#### Snippet
-```java
-    public CDPDatePropertyInput(final @GraphQLName("name") String name,
-                                final @GraphQLName("minOccurrences") Integer minOccurrences,
-                                final @GraphQLName("maxOccurrences") Integer maxOccurrences,
-                                final @GraphQLName("tags") List<String> tags,
-                                final @GraphQLName("defaultValue") String defaultValue) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("tags")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
-#### Snippet
-```java
-                                final @GraphQLName("minOccurrences") Integer minOccurrences,
-                                final @GraphQLName("maxOccurrences") Integer maxOccurrences,
-                                final @GraphQLName("tags") List<String> tags,
-                                final @GraphQLName("defaultValue") String defaultValue) {
-        super(name, minOccurrences, maxOccurrences, tags);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("defaultValue")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
-#### Snippet
-```java
-                                final @GraphQLName("maxOccurrences") Integer maxOccurrences,
-                                final @GraphQLName("tags") List<String> tags,
-                                final @GraphQLName("defaultValue") String defaultValue) {
-        super(name, minOccurrences, maxOccurrences, tags);
-        this.defaultValue = defaultValue;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileInterface.java`
-#### Snippet
-```java
-    @GraphQLField
-    List<CDPInterest> cdp_interests(
-            final @GraphQLName("views") List<String> viewIds,
-            final DataFetchingEnvironment environment) throws Exception;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileInterface.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    List<CDPList> cdp_lists(final @GraphQLName("views") List<String> viewIds,
-                            final DataFetchingEnvironment environment) throws Exception;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileInterface.java`
-#### Snippet
-```java
-    @GraphQLField
-    List<CDPSegment> cdp_segments(
-            final @GraphQLName("views") List<String> viewIds,
-            final DataFetchingEnvironment environment) throws Exception;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @GraphQLField
-    public List<CDPSegment> cdp_segments(
-            final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileSegmentsDataFetcher(persona, viewIds).get(environment) : null;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-
-    @Override
-    public List<CDPList> cdp_lists(final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileListsDataFetcher(persona, viewIds).get(environment) : null;
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @GraphQLField
-    public List<CDPInterest> cdp_interests(
-            final @GraphQLName("views") List<String> viewIds,
-            final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileInterestsDataFetcher(persona, viewIds).get(environment) : null;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileConnection active(
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
-#### Snippet
-```java
-    public CDPProfileConnection active(
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
-#### Snippet
-```java
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment) throws Exception {
-        return new ListProfileConnectionDataFetcher().get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("listID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public Boolean removeProfileFromList(
-            final @GraphQLID @GraphQLName("listID") String listId,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    public Boolean removeProfileFromList(
-            final @GraphQLID @GraphQLName("listID") String listId,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment) {
-        return RemoveProfileFromListCommand.create()
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("topicID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public Boolean deleteTopic(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("topicID") String topicId,
-            final DataFetchingEnvironment environment) {
-        return DeleteTopicCommand.create(topicId)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("view")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPView createOrUpdateView(
-            final @GraphQLName("view") CDPViewInput viewInput,
-            final DataFetchingEnvironment environment) {
-        return CreateOrUpdateViewCommand.create(viewInput)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("propertyNames")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public boolean deleteProfileProperties(
-            final @GraphQLNonNull @GraphQLName("propertyNames") List<String> propertyNames,
-            final DataFetchingEnvironment environment) {
-        return DeleteProfilePropertiesCommand.create(propertyNames)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public boolean deleteProfile(
-            final @GraphQLNonNull @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment) {
-        return DeleteProfileCommand.create()
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("topic")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPTopic createOrUpdateTopic(
-            final @GraphQLName("topic") CDPTopicInput topicInput,
-            final DataFetchingEnvironment environment) {
-        return CreateOrUpdateTopicCommand.create(topicInput)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName(SEGMENT_ARGUMENT_NAME)`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPSegment createOrUpdateSegment(
-            final @GraphQLName(SEGMENT_ARGUMENT_NAME) CDPSegmentInput segmentInput,
-            final DataFetchingEnvironment environment
-    ) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("viewID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public Boolean deleteView(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("viewID") String viewId,
-            final DataFetchingEnvironment environment) {
-        return DeleteViewCommand.create(viewId)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("profileAlias")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileAlias addAliasToProfile(
-            final @GraphQLNonNull @GraphQLName("profileAlias") CDPProfileAliasInput profileAliasInput,
-            final DataFetchingEnvironment environment) {
-        return AddAliasToProfileCommand.create()
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("events")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public int processEvents(
-            final @GraphQLNonNull @GraphQLName("events") List<CDPEventInput> eventInputs,
-            final DataFetchingEnvironment environment
-    ) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("sourceID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public Boolean deleteSource(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("sourceID") String sourceId,
-            final DataFetchingEnvironment environment) {
-        return DeleteSourceCommand.create(sourceId)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public boolean deleteAllPersonalData(
-            final @GraphQLNonNull @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment) {
-        return DeleteAllPersonalDataCommand.create()
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName(SEGMENT_ARGUMENT_NAME)`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public UnomiSegment createOrUpdateUnomiSegment(
-            final @GraphQLName(SEGMENT_ARGUMENT_NAME) UnomiSegmentInput segmentInput,
-            final DataFetchingEnvironment environment
-    ) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("source")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPSource createOrUpdateSource(
-            final @GraphQLName("source") CDPSourceInput sourceInput,
-            final DataFetchingEnvironment environment) {
-        return CreateOrUpdateSourceCommand.create(sourceInput)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("alias")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileAlias removeAliasFromProfile(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("alias") String alias,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    public CDPProfileAlias removeAliasFromProfile(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("alias") String alias,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final DataFetchingEnvironment environment
-    ) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("list")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPList createOrUpdateList(
-            final @GraphQLName("list") CDPListInput listInput,
-            final DataFetchingEnvironment environment) {
-        return CreateOrUpdateListCommand.create(listInput)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("listID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPList addProfileToList(
-            final @GraphQLName("listID") String listId,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final @GraphQLName("active") Boolean active,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    public CDPList addProfileToList(
-            final @GraphQLName("listID") String listId,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final @GraphQLName("active") Boolean active,
-            final DataFetchingEnvironment environment) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("active")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-            final @GraphQLName("listID") String listId,
-            final @GraphQLName("profileID") CDPProfileIDInput profileIDInput,
-            final @GraphQLName("active") Boolean active,
-            final DataFetchingEnvironment environment) {
-        return AddProfileToListCommand.create()
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName(PERSONA_ARGUMENT_NAME)`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPPersona createOrUpdatePersona(
-            final @GraphQLName(PERSONA_ARGUMENT_NAME) CDPPersonaInput personaInput,
-            final DataFetchingEnvironment environment) {
-        return CreateOrUpdatePersonaCommand.create(personaInput)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("properties")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public boolean createOrUpdateProfileProperties(
-            final @GraphQLName("properties") List<CDPPropertyInput> properties,
-            final DataFetchingEnvironment environment) {
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("listID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public Boolean deleteList(
-            final @GraphQLID @GraphQLName("listID") String listId,
-            final DataFetchingEnvironment environment) {
-        return DeleteListCommand.create(listId)
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("segmentID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPMutation.java`
-#### Snippet
-```java
-    @GraphQLField
-    public boolean deleteSegment(
-            final @GraphQLID @GraphQLName("segmentID") String segmentId,
-            final DataFetchingEnvironment environment
-    ) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @Override
-    @GraphQLField
-    public List<CDPList> cdp_lists(final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return new ProfileListsDataFetcher(profile, viewIds).get(environment);
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPEventConnection cdp_lastEvents(
-            final @GraphQLName("profileID") CDPProfileIDInput profileID,
-            final @GraphQLName("count") Integer count,
-            final DataFetchingEnvironment environment
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("count")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    public CDPEventConnection cdp_lastEvents(
-            final @GraphQLName("profileID") CDPProfileIDInput profileID,
-            final @GraphQLName("count") Integer count,
-            final DataFetchingEnvironment environment
-    ) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @Override
-    @GraphQLField
-    public List<CDPSegment> cdp_segments(final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return new ProfileSegmentsDataFetcher(profile, viewIds).get(environment);
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPEventConnection cdp_events(
-            final @GraphQLName("filter") CDPEventFilterInput filterInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    public CDPEventConnection cdp_events(
-            final @GraphQLName("filter") CDPEventFilterInput filterInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-            final @GraphQLName("filter") CDPEventFilterInput filterInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final @GraphQLName("after") String after,
-            final DataFetchingEnvironment environment
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final @GraphQLName("after") String after,
-            final DataFetchingEnvironment environment
-    ) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("views")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @Override
-    @GraphQLField
-    public List<CDPInterest> cdp_interests(final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return new ProfileInterestsDataFetcher(profile, viewIds).get(environment);
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfile getProfile(
-            final @GraphQLName("profileID") @GraphQLNonNull CDPProfileIDInput profileID,
-            final @GraphQLName("createIfMissing") Boolean createIfMissing,
-            final DataFetchingEnvironment environment) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("createIfMissing")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPProfile getProfile(
-            final @GraphQLName("profileID") @GraphQLNonNull CDPProfileIDInput profileID,
-            final @GraphQLName("createIfMissing") Boolean createIfMissing,
-            final DataFetchingEnvironment environment) throws Exception {
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPListConnection findLists(
-            final @GraphQLName("filter") CDPListFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPListConnection findLists(
-            final @GraphQLName("filter") CDPListFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("filter") CDPListFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment) throws Exception {
-        return new ListConnectionDataFetcher(filterInput, orderByInput).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLNonNull @GraphQLName("id")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPEventInterface getEvent(final @GraphQLNonNull @GraphQLName("id") String id, final DataFetchingEnvironment environment) throws Exception {
-        return new EventDataFetcher(id).get(environment);
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPTopicConnection findTopics(final @GraphQLName("filter") CDPTopicFilterInput filterInput,
-                                         final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-                                         final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPTopicConnection findTopics(final @GraphQLName("filter") CDPTopicFilterInput filterInput,
-                                         final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-                                         final @GraphQLName("first") Integer first,
-                                         final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPTopicConnection findTopics(final @GraphQLName("filter") CDPTopicFilterInput filterInput,
-                                         final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-                                         final @GraphQLName("first") Integer first,
-                                         final @GraphQLName("after") String after,
-                                         final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                         final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-                                         final @GraphQLName("first") Integer first,
-                                         final @GraphQLName("after") String after,
-                                         final @GraphQLName("last") Integer last,
-                                         final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                         final @GraphQLName("first") Integer first,
-                                         final @GraphQLName("after") String after,
-                                         final @GraphQLName("last") Integer last,
-                                         final @GraphQLName("before") String before,
-                                         final DataFetchingEnvironment environment) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                         final @GraphQLName("after") String after,
-                                         final @GraphQLName("last") Integer last,
-                                         final @GraphQLName("before") String before,
-                                         final DataFetchingEnvironment environment) throws Exception {
-        return new FindTopicsConnectionDataFetcher(filterInput, orderByInput).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPEventConnection findEvents(
-            final @GraphQLName("filter") CDPEventFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPEventConnection findEvents(
-            final @GraphQLName("filter") CDPEventFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("filter") CDPEventFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-            @GraphQLName("unomi_text")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_text") @GraphQLDescription("The text that the item must have in one of its fields to be considered a match")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-            @GraphQLName("unomi_text")
-            @GraphQLDescription("The text that the item must have in one of its fields to be considered a match")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("segmentID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPSegment getSegment(final @GraphQLID @GraphQLName("segmentID") String segmentId,
-                                 final DataFetchingEnvironment environment) throws Exception {
-        return new SegmentDataFetcher(segmentId).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPPropertyConnection getProfileProperties(final @GraphQLName("first") Integer first,
-                                                      final @GraphQLName("after") String after,
-                                                      final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPPropertyConnection getProfileProperties(final @GraphQLName("first") Integer first,
-                                                      final @GraphQLName("after") String after,
-                                                      final @GraphQLName("last") Integer last,
-                                                      final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPPropertyConnection getProfileProperties(final @GraphQLName("first") Integer first,
-                                                      final @GraphQLName("after") String after,
-                                                      final @GraphQLName("last") Integer last,
-                                                      final @GraphQLName("before") String before,
-                                                      final DataFetchingEnvironment environment) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                                      final @GraphQLName("after") String after,
-                                                      final @GraphQLName("last") Integer last,
-                                                      final @GraphQLName("before") String before,
-                                                      final DataFetchingEnvironment environment) throws Exception {
-        return new PropertiesConnectionDataFetcher().get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("listID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPList getList(
-            final @GraphQLID @GraphQLName("listID") String listId,
-            final DataFetchingEnvironment environment) throws Exception {
-        return new GetListDataFetcher(listId).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileAliasConnection findProfileAliases(
-            final @GraphQLName("filter") CDPProfileAliasFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPProfileAliasConnection findProfileAliases(
-            final @GraphQLName("filter") CDPProfileAliasFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("filter") CDPProfileAliasFilterInput filterInput,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderByInput,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final DataFetchingEnvironment environment
-    ) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("profileID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public List<CDPProfileAlias> getProfileAliases(
-            final @GraphQLID @GraphQLName("profileID") @GraphQLNonNull String profileID,
-            final DataFetchingEnvironment environment) throws Exception {
-        return new GetProfileAliasesDataFetcher(profileID).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPSegmentConnection findSegments(final @GraphQLName("filter") CDPSegmentFilterInput filter,
-                                             final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-                                             final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPSegmentConnection findSegments(final @GraphQLName("filter") CDPSegmentFilterInput filter,
-                                             final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-                                             final @GraphQLName("first") Integer first,
-                                             final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPSegmentConnection findSegments(final @GraphQLName("filter") CDPSegmentFilterInput filter,
-                                             final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-                                             final @GraphQLName("first") Integer first,
-                                             final @GraphQLName("after") String after,
-                                             final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                             final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-                                             final @GraphQLName("first") Integer first,
-                                             final @GraphQLName("after") String after,
-                                             final @GraphQLName("last") Integer last,
-                                             final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                             final @GraphQLName("first") Integer first,
-                                             final @GraphQLName("after") String after,
-                                             final @GraphQLName("last") Integer last,
-                                             final @GraphQLName("before") String before,
-                                             final DataFetchingEnvironment environment) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-                                             final @GraphQLName("after") String after,
-                                             final @GraphQLName("last") Integer last,
-                                             final @GraphQLName("before") String before,
-                                             final DataFetchingEnvironment environment) {
-        return new FindSegmentsConnectionDataFetcher(filter, orderBy).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("filter")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileConnection findProfiles(
-            final @GraphQLName("filter") CDPProfileFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("orderBy")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    public CDPProfileConnection findProfiles(
-            final @GraphQLName("filter") CDPProfileFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("first")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("filter") CDPProfileFilterInput filter,
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("after")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("orderBy") List<CDPOrderByInput> orderBy,
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("last")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("first") Integer first,
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("before")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("after") String after,
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-            @GraphQLName("unomi_text")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("unomi_text") @GraphQLDescription("The text that the item must have in one of its fields to be considered a match")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-            final @GraphQLName("last") Integer last,
-            final @GraphQLName("before") String before,
-            final
-            @GraphQLName("unomi_text")
-            @GraphQLDescription("The text that the item must have in one of its fields to be considered a match")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLNonNull @GraphQLName("alias")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileAlias getProfileAlias(
-            final @GraphQLID @GraphQLNonNull @GraphQLName("alias") String alias,
-            final DataFetchingEnvironment environment) throws Exception {
-        return new ProfileAliasDataFetcher(alias).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("segmentID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public UnomiSegment getUnomiSegment(final @GraphQLID @GraphQLName("segmentID") String segmentId,
-                                        final DataFetchingEnvironment environment) throws Exception {
-        return new UnomiSegmentDataFetcher(segmentId).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLID @GraphQLName("topicID")`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPQuery.java`
-#### Snippet
-```java
-
-    @GraphQLField
-    public CDPTopic getTopic(final @GraphQLID @GraphQLName("topicID") String topicId,
-                             final DataFetchingEnvironment environment) throws Exception {
-        return new TopicDataFetcher(topicId).get(environment);
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/BaseCommand.java`
-#### Snippet
-```java
-    }
-
-    public static abstract class Builder<B extends Builder> {
-
-        protected DataFetchingEnvironment environment;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @GraphQLName("name")`
-in `samples/graphql-providers/src/main/java/org/apache/unomi/graphql/providers/sample/MyEventInput.java`
-#### Snippet
-```java
-    private String name;
+    @Reference
+    private LocalizationHelper localizationHelper;
 
-    public MyEventInput(final @GraphQLName("name") String name) {
-        this.name = name;
-    }
+    @WebMethod(exclude = true)
 ```
 
-### MissortedModifiers
-Missorted modifiers `final @PathParam("profileId")`
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
 #### Snippet
 ```java
-    @DELETE
-    @Path("/{profileId}/aliases/{aliasId}")
-    public void removeAliasFromProfile(final @PathParam("profileId") String profileId,
-                                       final @PathParam("aliasId") String aliasId,
-                                       final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
+
+    @Reference
+    private LocalizationHelper localizationHelper;
+
+    public ProfileServiceEndPoint() {
 ```
 
-### MissortedModifiers
-Missorted modifiers `final @PathParam("aliasId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    @Path("/{profileId}/aliases/{aliasId}")
-    public void removeAliasFromProfile(final @PathParam("profileId") String profileId,
-                                       final @PathParam("aliasId") String aliasId,
-                                       final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
-        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
-```
-
-### MissortedModifiers
-Missorted modifiers `final @HeaderParam("X-Unomi-ClientId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    public void removeAliasFromProfile(final @PathParam("profileId") String profileId,
-                                       final @PathParam("aliasId") String aliasId,
-                                       final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
-        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
-        profileService.removeAliasFromProfile(profileId, aliasId, clientId);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @PathParam("profileId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    @GET
-    @Path("/{profileId}/aliases")
-    public PartialList<ProfileAlias> listAliasesByProfileId(final @PathParam("profileId") String profileId,
-                                                            @QueryParam("offset") @DefaultValue("0") int offset,
-                                                            @QueryParam("size") @DefaultValue("50") int size,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @PathParam("profileId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    @POST
-    @Path("/{profileId}/aliases/{aliasId}")
-    public void addAliasToProfile(final @PathParam("profileId") String profileId,
-                                  final @PathParam("aliasId") String aliasId,
-                                  final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @PathParam("aliasId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    @Path("/{profileId}/aliases/{aliasId}")
-    public void addAliasToProfile(final @PathParam("profileId") String profileId,
-                                  final @PathParam("aliasId") String aliasId,
-                                  final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
-        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
-```
-
-### MissortedModifiers
-Missorted modifiers `final @HeaderParam("X-Unomi-ClientId")`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-    public void addAliasToProfile(final @PathParam("profileId") String profileId,
-                                  final @PathParam("aliasId") String aliasId,
-                                  final @HeaderParam("X-Unomi-ClientId") String headerClientID) {
-        String clientId = headerClientID != null ? headerClientID : "defaultClientId";
-        profileService.addAliasToProfile(profileId, aliasId, clientId);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `api/src/main/java/org/apache/unomi/api/Patch.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 4171966405850833985L;
-
-    public final static Map<String, Class<? extends Item>> PATCHABLE_TYPES;
-
-    static {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `api/src/main/java/org/apache/unomi/api/PersonalizationResult.java`
-#### Snippet
-```java
-public class PersonalizationResult implements Serializable  {
-
-    public final static String ADDITIONAL_RESULT_INFO_IN_CONTROL_GROUP = "inControlGroup";
-
-    List<String> contentIds;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `scripting/src/main/java/org/apache/unomi/scripting/MvelScriptExecutor.java`
-#### Snippet
-```java
-public class MvelScriptExecutor implements ScriptExecutor {
-
-    private final static String INVALID_SCRIPT_MARKER = "--- Invalid Script Marker ---";
-
-    private Map<String, Serializable> mvelExpressions = new ConcurrentHashMap<>();
-```
-
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `ArrayUtils.toPrimitive()` is ignored
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-                if (loadAverage != null) {
-                    Double[] loadAverageArray = loadAverage.toArray(new Double[loadAverage.size()]);
-                    ArrayUtils.toPrimitive(loadAverageArray);
-                    clusterNode.setLoadAverage(ArrayUtils.toPrimitive(loadAverageArray));
-                }
-```
-
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
-#### Snippet
-```java
-        if (profileNotif != null && profileNotif.get(notifType) != null && ((HashMap) profileNotif.get(notifType)).get(notifTypeId) != null) {
-            Integer notifTypeAck = (Integer) ((HashMap) profileNotif.get(notifType) ).get(notifTypeId);
-            if(notifyOnce.booleanValue() && notifTypeAck > 0){
-                logger.info("Notification "+notifType+" already sent for the profile "+event.getProfileId());
-                return EventService.NO_CHANGE;
-```
-
-## RuleId[id=WhileLoopSpinsOnField]
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-    @Override
-    public void run() {
-        while (consuming) {
-            try {
-                consume();
-```
-
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `setRouterCamelContext()` only delegates to its super method
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ExportConfigurationServiceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void setRouterCamelContext(IRouterCamelContext routerCamelContext) {
-        super.setRouterCamelContext(routerCamelContext);
-    }
-```
-
-### RedundantMethodOverride
-Method `setRouterCamelContext()` only delegates to its super method
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ImportConfigurationServiceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void setRouterCamelContext(IRouterCamelContext routerCamelContext) {
-        super.setRouterCamelContext(routerCamelContext);
-    }
-```
-
-### RedundantMethodOverride
-Method `findClass()` only delegates to its super method
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-
-    @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
-        return super.findClass(name);
-    }
-```
-
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateViewCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final CDPViewInput viewInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteViewCommand.java`
 #### Snippet
 ```java
-    }
+public class DeleteViewCommand extends BaseCommand<Boolean> {
 
-    public static class Builder extends BaseCommand.Builder<Builder> {
+    private final String viewId;
 
-        final String viewId;
+    public DeleteViewCommand(Builder builder) {
 ```
 
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteSourceCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final String sourceId;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateSourceCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final CDPSourceInput sourceInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteTopicCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final String topicId;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteAllPersonalDataCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        public Builder() {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/RemoveAliasFromProfileCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private String alias;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteProfileCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        public DeleteProfileCommand build() {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/AddAliasToProfileCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private CDPProfileAliasInput profileAliasInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateTopicCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final CDPTopicInput topicInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/AddProfileToListCommand.java`
 #### Snippet
 ```java
-    }
+    private final String listId;
+    private final CDPProfileIDInput profileIDInput;
+    private final Boolean active;
 
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private String listId;
+    private AddProfileToListCommand(final Builder builder) {
 ```
 
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/DeleteListCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private final String listId;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/RemoveProfileFromListCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private String listId;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/CreateOrUpdateListCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private final CDPListInput listInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/DeleteSegmentCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private final String segmentId;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateProfilePropertiesCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final List<CDPPropertyInput> properties;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteProfilePropertiesCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        private final List<String> propertyNames;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/CreateOrUpdateSegmentCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCreateOrUpdateSegmentCommand.Builder<CDPSegmentInput, Builder> {
-
-        public Builder(CDPSegmentInput segmentInput) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/CreateOrUpdateUnomiSegmentCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCreateOrUpdateSegmentCommand.Builder<UnomiSegmentInput, Builder> {
-
-        public Builder(UnomiSegmentInput segmentInput) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdatePersonaCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends BaseCommand.Builder<Builder> {
-
-        final CDPPersonaInput personaInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/BaseCreateOrUpdateSegmentCommand.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder<INPUT extends BaseSegmentInput, B extends BaseCommand.Builder> extends BaseCommand.Builder<B> {
-
-        private final INPUT segmentInput;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/ProcessEventsCommand.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
 #### Snippet
 ```java
 
+    public class JSONTypeDefinitionType implements DefinitionType {
+        private List<JSONType> jsonTypes;
+        private JSONType firstNonNullType;
+        private String name;
+```
 
-    public static final class Builder extends BaseCommand.Builder<Builder> {
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `samples/graphql-providers/src/main/java/org/apache/unomi/graphql/providers/sample/CDPProfileExtension.java`
+#### Snippet
+```java
+public class CDPProfileExtension {
 
-        private final List<CDPEventInput> eventInputs;
+    private CDPProfile cdpProfile;
+
+    public CDPProfileExtension(CDPProfile cdpProfile) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaInjector.class);
+
+    private Dictionary<String, Object> properties;
+    private KafkaConsumer<String, String> consumer;
+    private String topic;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
+#### Snippet
+```java
+    private Dictionary<String, Object> properties;
+    private KafkaConsumer<String, String> consumer;
+    private String topic;
+    private String messageType;
+    private boolean consuming = false;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/ExportConfigurationServiceEndPoint.java`
+#### Snippet
+```java
+
+    @Reference
+    private ProfileService profileService;
+
+    public ExportConfigurationServiceEndPoint() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
+#### Snippet
+```java
+    private String uploadDir;
+    private String execHistorySize;
+    private String execErrReportSize;
+    private Map<String, String> kafkaProps;
+    private String configType;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
+#### Snippet
+```java
+    // TODO UNOMI-572: when fixing UNOMI-572 please remove the usage of the custom ScheduledExecutorService and re-introduce the Unomi Scheduler Service
+    private ScheduledExecutorService scheduler;
+    private Integer configsRefreshInterval = 1000;
+    private ScheduledFuture<?> scheduledFuture;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+#### Snippet
+```java
+    private FeaturesService featuresService;
+
+    private String requiredServices;
+    private Set<Filter> requiredServicesFilters = new LinkedHashSet<>();
+    private long matchedRequiredServicesCount = 0;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+
+    private Set<String> sfdcLeadMandatoryFields = new TreeSet<>();
+    private Set<String> sfdcLeadUpdateableFields = new TreeSet<>();
+
+    private SFDCSession sfdcSession;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+
+    private Integer defaultQueryLimit = 10;
+    private Integer removeByQueryTimeoutInMinutes = 10;
+
+    private String bulkProcessorConcurrentRequests = "1";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+    private RestHighLevelClient client;
+    private BulkProcessor bulkProcessor;
+    private String elasticSearchAddresses;
+    private List<String> elasticSearchAddressList = new ArrayList<>();
+    private String clusterName;
 ```
 
 ## RuleId[id=MalformedFormatString]
@@ -6489,139 +1299,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServic
         }
 ```
 
-## RuleId[id=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
-#### Snippet
-```java
-public class ViewCommand extends MetricsCommandSupport{
-
-    @Argument(index = 0, name = "metricName", description = "The identifier for the metric", required = true, multiValued = false)
-    String metricName;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
-#### Snippet
-```java
-public class ViewCommand extends MetricsCommandSupport{
-
-    @Argument(index = 0, name = "metricName", description = "The identifier for the metric", required = true, multiValued = false)
-    String metricName;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-    boolean noFormat;
-
-    @Argument(index = 0, name = "metricName", description = "The identifier for the metric", required = false, multiValued = false)
-    String metricName;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-    boolean noFormat;
-
-    @Argument(index = 0, name = "metricName", description = "The identifier for the metric", required = false, multiValued = false)
-    String metricName;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-    boolean noFormat;
-
-    @Argument(index = 0, name = "metricName", description = "The identifier for the metric", required = false, multiValued = false)
-    String metricName;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-public class CallerStatusCommand extends MetricsCommandSupport {
-
-    @Option(name = "--no-format", description = "Disable table rendered output", required = false, multiValued = false)
-    boolean noFormat;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-public class CallerStatusCommand extends MetricsCommandSupport {
-
-    @Option(name = "--no-format", description = "Disable table rendered output", required = false, multiValued = false)
-    boolean noFormat;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-    String metricName;
-
-    @Argument(index = 1, name = "status", description = "The new status for the metric's caller tracing", required = false, multiValued = false)
-    Boolean metricStatus;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-    String metricName;
-
-    @Argument(index = 1, name = "status", description = "The new status for the metric's caller tracing", required = false, multiValued = false)
-    Boolean metricStatus;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-public class ListCommand extends MetricsCommandSupport {
-
-    @Option(name = "--csv", description = "Output table in CSV format", required = false, multiValued = false)
-    boolean csv;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-public class ListCommand extends MetricsCommandSupport {
-
-    @Option(name = "--csv", description = "Output table in CSV format", required = false, multiValued = false)
-    boolean csv;
-
-```
-
 ## RuleId[id=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
@@ -6633,55 +1310,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl
             if (allPersistedRuleStatistics.containsKey(ruleStatistics.getItemId())) {
                 // we must sync with the data coming from the persistence service.
                 RuleStatistics persistedRuleStatistics = allPersistedRuleStatistics.get(ruleStatistics.getItemId());
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/GraphQLObjectMapper.java`
-#### Snippet
-```java
-    private GraphQLObjectMapper() {
-        super();
-        super.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        super.registerModule(new JaxbAnnotationModule());
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/GraphQLObjectMapper.java`
-#### Snippet
-```java
-        super();
-        super.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        super.registerModule(new JaxbAnnotationModule());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
-#### Snippet
-```java
-    public CustomObjectMapper(Map<Class, StdDeserializer<?>> deserializers) {
-        super();
-        super.registerModule(new JaxbAnnotationModule());
-        configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        setSerializationInclusion(JsonInclude.Include.NON_NULL);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
-#### Snippet
-```java
-        propertyTypedObjectDeserializer.registerMapping("itemType=.*", CustomItem.class);
-
-        super.registerModule(deserializerModule);
-    }
-
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -6770,30 +1398,6 @@ import java.util.Comparator;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import groovy.util.GroovyScriptEngine;`
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/services/GroovyActionsService.java`
-#### Snippet
-```java
-import groovy.lang.GroovyCodeSource;
-import groovy.lang.GroovyShell;
-import groovy.util.GroovyScriptEngine;
-import org.apache.unomi.groovy.actions.GroovyAction;
-
-```
-
-### UNUSED_IMPORT
-Unused import `import org.osgi.framework.BundleContext;`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
-#### Snippet
-```java
-import org.apache.unomi.persistence.spi.PersistenceService;
-import org.apache.unomi.persistence.spi.aggregate.TermsAggregate;
-import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-```
-
-### UNUSED_IMPORT
 Unused import `import org.apache.unomi.api.conditions.Condition;`
 in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ExportConfiguration.java`
 #### Snippet
@@ -6854,6 +1458,18 @@ import java.util.Collection;
 ```
 
 ### UNUSED_IMPORT
+Unused import `import org.apache.unomi.api.services.SchedulerService;`
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
+#### Snippet
+```java
+import org.apache.unomi.api.services.ConfigSharingService;
+import org.apache.unomi.api.services.ProfileService;
+import org.apache.unomi.api.services.SchedulerService;
+import org.apache.unomi.persistence.spi.PersistenceService;
+import org.apache.unomi.router.api.ExportConfiguration;
+```
+
+### UNUSED_IMPORT
 Unused import `import org.apache.unomi.api.PropertyType;`
 in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineBuildProcessor.java`
 #### Snippet
@@ -6890,6 +1506,18 @@ import org.apache.unomi.router.api.ProfileToImport;
 ```
 
 ### UNUSED_IMPORT
+Unused import `import org.apache.unomi.router.api.services.ImportExportConfigurationService;`
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
+#### Snippet
+```java
+import org.apache.unomi.router.api.ExportConfiguration;
+import org.apache.unomi.router.api.RouterConstants;
+import org.apache.unomi.router.api.services.ImportExportConfigurationService;
+import org.apache.unomi.router.core.bean.CollectProfileBean;
+import org.slf4j.Logger;
+```
+
+### UNUSED_IMPORT
 Unused import `import org.apache.unomi.api.utils.ValidationPattern;`
 in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/ImportConfigurationServiceEndPoint.java`
 #### Snippet
@@ -6899,30 +1527,6 @@ import org.apache.unomi.api.services.ConfigSharingService;
 import org.apache.unomi.api.utils.ValidationPattern;
 import org.apache.unomi.router.api.ImportConfiguration;
 import org.apache.unomi.router.api.RouterConstants;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.apache.http.ssl.SSLContexts;`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.ssl.SSLContexts;
-import org.apache.http.util.EntityUtils;
-import org.apache.unomi.api.Consent;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.json.JSONObject;`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
-#### Snippet
-```java
-import org.apache.unomi.api.Profile;
-import org.apache.unomi.api.actions.Action;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 ```
 
 ### UNUSED_IMPORT
@@ -7094,18 +1698,6 @@ import org.osgi.framework.ServiceReference;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import org.osgi.service.component.annotations.Reference;`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/services/ServiceManager.java`
-#### Snippet
-```java
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
-@Component(service = ServiceManager.class)
-```
-
-### UNUSED_IMPORT
 Unused import `import java.util.ArrayList;`
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
 #### Snippet
@@ -7114,18 +1706,6 @@ import graphql.annotations.annotationTypes.GraphQLName;
 
 import java.util.ArrayList;
 import java.util.List;
-
-```
-
-### UNUSED_IMPORT
-Unused import `import org.apache.karaf.shell.console.OsgiCommandSupport;`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ResetCommand.java`
-#### Snippet
-```java
-
-import org.apache.karaf.shell.commands.Command;
-import org.apache.karaf.shell.console.OsgiCommandSupport;
-import org.apache.unomi.metrics.MetricsService;
 
 ```
 
@@ -7175,18 +1755,6 @@ import org.apache.commons.beanutils.expression.DefaultResolver;
 import org.apache.unomi.api.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-```
-
-### UNUSED_IMPORT
-Unused import `import org.apache.commons.lang3.StringUtils;`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/SendEventAction.java`
-#### Snippet
-```java
-package org.apache.unomi.plugins.baseplugin.actions;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.unomi.api.Event;
-import org.apache.unomi.api.Item;
 ```
 
 ### UNUSED_IMPORT
@@ -7274,18 +1842,6 @@ import org.apache.unomi.api.Event;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import org.apache.commons.lang3.StringUtils;`
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.unomi.api.Event;
-import org.apache.unomi.api.actions.Action;
-```
-
-### UNUSED_IMPORT
 Unused import `import com.fasterxml.jackson.databind.JsonNode;`
 in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
@@ -7333,116 +1889,6 @@ import java.util.stream.Collectors;
 public class RulesServiceImpl implements RulesService, EventListenerService, SynchronousBundleListener {
 ```
 
-### UNUSED_IMPORT
-Unused import `import org.apache.commons.lang3.CharEncoding;`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.CharEncoding;
-import org.apache.unomi.api.Event;
-import org.apache.unomi.api.Item;
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricImpl.java`
-#### Snippet
-```java
-    @Override
-    public long addTotalTime(long time) {
-        return totalTime += time;
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                bufferedReader = new BufferedReader(new InputStreamReader(logoURL.openStream()));
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    if (!line.trim().startsWith("#")) {
-                        logoLines.add(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-            long lastCharCount = 0;
-            long importStartTime = System.currentTimeMillis();
-            while ((line = reader.readLine()) != null) {
-                String[] values = line.split("\t");
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-        StringBuilder content = new StringBuilder();
-        String l;
-        while ((l = reader.readLine()) != null) {
-            content.append(l);
-        }
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/auth/GraphQLServletSecurityValidator.java`
-#### Snippet
-```java
-            List<Node> children = opDef.getSelectionSet().getChildren();
-            final Field cdp = (Field) children.stream().filter((node) -> {
-                return (node instanceof Field) && "cdp".equals(((Field) node).getName());
-            }).findFirst().orElse(null);
-            if (cdp == null) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/auth/GraphQLServletSecurityValidator.java`
-#### Snippet
-```java
-
-            return cdp.getSelectionSet().getChildren().stream().allMatch((node) -> {
-                return (node instanceof Field) && allowedNodeNames.contains(((Field) node).getName());
-            });
-        }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdatePersonaCommand.java`
-#### Snippet
-```java
-        persona.setSegments(personaInput.getCdp_segments());
-        if (personaInput.getCdp_consents() != null && !personaInput.getCdp_consents().isEmpty()) {
-            personaInput.getCdp_consents().forEach(consentInput -> {
-                persona.setConsent(createConsent(personaInput.getCdp_view(), consentInput));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                if (bulkResponse.hasFailures()) {
-                    Iterator<BulkItemResponse> iterator = bulkResponse.iterator();
-                    iterator.forEachRemaining(bulkItemResponse -> {
-                        failedItemsIds.add(bulkItemResponse.getId());
-                    });
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `newValues` are updated, but never queried
@@ -7468,1368 +1914,29 @@ in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
             Object sanitizedValue = sanitizeValue(parameterEntry.getValue());
 ```
 
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `serverBus` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
+## RuleId[id=SlowAbstractSetRemoveAll]
+### SlowAbstractSetRemoveAll
+Call to 'set.removeAll(list)' may work slowly
+in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
 #### Snippet
 ```java
-
-    // services
-    private Bus serverBus;
-    private RestAuthenticationConfig restAuthenticationConfig;
-    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `refreshTimer` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    // refresh
-    private long timeOfLastUpdate = System.currentTimeMillis();
-    private Timer refreshTimer = null;
-    private long startupDelay = 1000L;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `exceptionMappers` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    private Bus serverBus;
-    private RestAuthenticationConfig restAuthenticationConfig;
-    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
-    private ConfigSharingService configSharingService;
-    private SchemaService schemaService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `schemaService` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
-    private ConfigSharingService configSharingService;
-    private SchemaService schemaService;
-
-    // refresh
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `restAuthenticationConfig` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    // services
-    private Bus serverBus;
-    private RestAuthenticationConfig restAuthenticationConfig;
-    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
-    private ConfigSharingService configSharingService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `configSharingService` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    private RestAuthenticationConfig restAuthenticationConfig;
-    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
-    private ConfigSharingService configSharingService;
-    private SchemaService schemaService;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `timeOfLastUpdate` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-
-    // refresh
-    private long timeOfLastUpdate = System.currentTimeMillis();
-    private Timer refreshTimer = null;
-    private long startupDelay = 1000L;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `server` is accessed in both synchronized and unsynchronized contexts
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(RestServer.class.getName());
-
-    private Server server;
-    private BundleContext bundleContext;
-    private ServiceTracker jaxRSServiceTracker;
-```
-
-## RuleId[id=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String bootstrapServers = getValue(properties, "bootstrap.servers", "localhost:9092");
-        config.put("bootstrap.servers", bootstrapServers);
-
-        String groupId = getValue(properties, "group.id", "unomi");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String groupId = getValue(properties, "group.id", "unomi");
-        config.put("group.id", groupId);
-
-        String enableAutoCommit = getValue(properties, "enable.auto.commit", "true");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String enableAutoCommit = getValue(properties, "enable.auto.commit", "true");
-        config.put("enable.auto.commit", enableAutoCommit);
-
-        String autoCommitIntervalMs = getValue(properties, "auto.commit.interval.ms", "1000");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String autoCommitIntervalMs = getValue(properties, "auto.commit.interval.ms", "1000");
-        config.put("auto.commit.interval.ms", autoCommitIntervalMs);
-
-        String sessionTimeoutMs = getValue(properties,"session.timeout.ms", "30000");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String sessionTimeoutMs = getValue(properties,"session.timeout.ms", "30000");
-        config.put("session.timeout.ms", sessionTimeoutMs);
-
-        String keyDeserializer = getValue(properties, "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String keyDeserializer = getValue(properties, "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        config.put("key.deserializer", keyDeserializer);
-
-        String valueDeserializer = getValue(properties, "value.deserializer", "org.apache.kafka.common.serialization.ValueDeserializer");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-
-        String valueDeserializer = getValue(properties, "value.deserializer", "org.apache.kafka.common.serialization.ValueDeserializer");
-        config.put("value.deserializer", valueDeserializer);
-
-        String securityProtocol = getValue(properties, "security.protocol", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String securityProtocol = getValue(properties, "security.protocol", null);
-        if (securityProtocol != null) {
-            config.put("security.protocol", securityProtocol);
-        }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslTruststoreLocation = getValue(properties, "ssl.truststore.location", null);
-        if (sslTruststoreLocation != null)
-            config.put("ssl.truststore.location", sslTruststoreLocation);
-
-        String sslTruststorePassword = getValue(properties, "ssl.truststore.password", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslTruststorePassword = getValue(properties, "ssl.truststore.password", null);
-        if (sslTruststorePassword != null)
-            config.put("ssl.truststore.password", sslTruststorePassword);
-
-        String sslKeystoreLocation = getValue(properties, "ssl.keystore.location", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslKeystoreLocation = getValue(properties, "ssl.keystore.location", null);
-        if (sslKeystoreLocation != null)
-            config.put("ssl.keystore.location", sslKeystoreLocation);
-
-        String sslKeystorePassword = getValue(properties, "ssl.keystore.password", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslKeystorePassword = getValue(properties, "ssl.keystore.password", null);
-        if (sslKeystorePassword != null)
-            config.put("ssl.keystore.password", sslKeystorePassword);
-
-        String sslKeyPassword = getValue(properties, "ssl.key.password", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslKeyPassword = getValue(properties, "ssl.key.password", null);
-        if (sslKeyPassword != null)
-            config.put("ssl.key.password", sslKeyPassword);
-
-        String sslProvider = getValue(properties, "ssl.provider", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslProvider = getValue(properties, "ssl.provider", null);
-        if (sslProvider != null)
-            config.put("ssl.provider", sslProvider);
-
-        String sslCipherSuites = getValue(properties, "ssl.cipher.suites", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslCipherSuites = getValue(properties, "ssl.cipher.suites", null);
-        if (sslCipherSuites != null)
-            config.put("ssl.cipher.suites", sslCipherSuites);
-
-        String sslEnabledProtocols = getValue(properties, "ssl.enabled.protocols", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslEnabledProtocols = getValue(properties, "ssl.enabled.protocols", null);
-        if (sslEnabledProtocols != null)
-            config.put("ssl.enabled.protocols", sslEnabledProtocols);
-
-        String sslTruststoreType = getValue(properties, "ssl.truststore.type", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslTruststoreType = getValue(properties, "ssl.truststore.type", null);
-        if (sslTruststoreType != null)
-            config.put("ssl.truststore.type", sslTruststoreType);
-
-        String sslKeystoreType = getValue(properties, "ssl.keystore.type", null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-        String sslKeystoreType = getValue(properties, "ssl.keystore.type", null);
-        if (sslKeystoreType != null)
-            config.put("ssl.keystore.type", sslKeystoreType);
-
-        ClassLoader originClassLoader = Thread.currentThread().getContextClassLoader();
-```
-
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-The method is empty
-in `api/src/main/java/org/apache/unomi/api/Parameter.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setChoiceListInitializerFilter(String choiceListInitializerFilter) {
-        // Avoid errors when deploying old definitions
-    }
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `api/src/main/java/org/apache/unomi/api/services/ProfileService.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    void purgeMonthlyItems(int existsNumberOfMonths);
-}
-
-```
-
-### EmptyMethod
-The method is empty
-in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void stop() {
-    }
-
-```
-
-### EmptyMethod
-The method is empty
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/AbstractCustomServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void processBundleStop(BundleContext bundleContext) {
-    }
-
-```
-
-### EmptyMethod
-The method is empty
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    public void stop() {
-    }
-
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    void purge(Date date);
-
-    /**
-```
-
-### EmptyMethod
-The method is empty
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterSystemStatisticsEventHandler.java`
-#### Snippet
-```java
-    }
-
-    public void init() {
-        // nothing to do
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterSystemStatisticsEventHandler.java`
-#### Snippet
-```java
-    }
-
-    public void destroy() {
-        // nothing to do
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void processBundleStop(BundleContext bundleContext) {
-    }
-
-```
-
-### EmptyMethod
-The method is empty
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private void processBundleStop(BundleContext bundleContext) {
-    }
-
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ImportConfiguration.java`
-#### Snippet
-```java
-    private List<String> propertiesToOverwrite;
-    private boolean hasHeader = false;
-    private boolean hasDeleteColumn = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ImportConfiguration.java`
-#### Snippet
-```java
-    private boolean overwriteExistingProfiles = false;
-    private List<String> propertiesToOverwrite;
-    private boolean hasHeader = false;
-    private boolean hasDeleteColumn = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ImportConfiguration.java`
-#### Snippet
-```java
-    public static final String ITEM_TYPE = "importConfig";
-    private String mergingProperty;
-    private boolean overwriteExistingProfiles = false;
-    private List<String> propertiesToOverwrite;
-    private boolean hasHeader = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-    private String internalAddress;
-    private Map<String, Map<String,Serializable>> nodeSystemStatistics = new ConcurrentHashMap<>();
-    private Group group = null;
-    private SchedulerService schedulerService;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricImpl.java`
-#### Snippet
-```java
-
-    private String name;
-    private long totalCount = 0L;
-    private long totalTime = 0L;
-    private Map<String,CallerCount> callerCounts = new ConcurrentHashMap<String, CallerCount>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricImpl.java`
-#### Snippet
-```java
-    private String name;
-    private long totalCount = 0L;
-    private long totalTime = 0L;
-    private Map<String,CallerCount> callerCounts = new ConcurrentHashMap<String, CallerCount>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricsServiceImpl.java`
-#### Snippet
-```java
-public class MetricsServiceImpl implements MetricsService {
-
-    boolean activated = false;
-    Map<String,Metric> metrics = new ConcurrentHashMap<String,Metric>();
-    Map<String,Boolean> callersStatus = new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    private BundleContext bundleContext;
-    private boolean startupMessageAlreadyDisplayed = false;
-    private boolean shutdownMessageAlreadyDisplayed = false;
-
-    private Integer checkStartupStateRefreshInterval = 60;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-    private String requiredServices;
-    private Set<Filter> requiredServicesFilters = new LinkedHashSet<>();
-    private long matchedRequiredServicesCount = 0;
-
-    private BundleContext bundleContext;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-
-    private BundleContext bundleContext;
-    private boolean startupMessageAlreadyDisplayed = false;
-    private boolean shutdownMessageAlreadyDisplayed = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-
-    private Set<String> featuresToInstall = ConcurrentHashMap.newKeySet();
-    private boolean installingFeatureStarted = false;
-    private List<ServerInfo> serverInfos = new ArrayList<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    private boolean sendProfileUpdateEventForSegmentUpdate = true;
-    private int maximumIdsQueryCount = 5000;
-    private boolean pastEventsDisablePartitions = false;
-    private int dailyDateExprEvaluationHourUtc = 5;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    private int maxRetriesForUpdateProfileSegment = 0;
-    private long secondsDelayForRetryUpdateProfileSegment = 1;
-    private boolean batchSegmentProfileUpdate = false;
-    private boolean sendProfileUpdateEventForSegmentUpdate = true;
-    private int maximumIdsQueryCount = 5000;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-    private long segmentRefreshInterval = 1000;
-    private int aggregateQueryBucketSize = 5000;
-    private int maxRetriesForUpdateProfileSegment = 0;
-    private long secondsDelayForRetryUpdateProfileSegment = 1;
-    private boolean batchSegmentProfileUpdate = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    private TimerTask propertyTypeLoadTask = null;
-
-    private boolean forceRefreshOnSave = false;
-
-    public ProfileServiceImpl() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-
-    private PropertyTypes propertyTypes;
-    private TimerTask propertyTypeLoadTask = null;
-
-    private boolean forceRefreshOnSave = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    private Integer purgeEventExistTime = 0;
-    private Integer purgeProfileInterval = 0;
-    private TimerTask purgeTask = null;
-    private long propertiesRefreshInterval = 10000;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/SetPropertyAction.java`
-#### Snippet
-```java
-    private static final AtomicLong nowDeprecatedLogTimestamp = new AtomicLong();
-
-    private boolean useEventToUpdateProfile = false;
-
-    public void setUseEventToUpdateProfile(boolean useEventToUpdateProfile) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PastEventConditionESQueryBuilder.java`
-#### Snippet
-```java
-    private int maximumIdsQueryCount = 5000;
-    private int aggregateQueryBucketSize = 5000;
-    private boolean pastEventsDisablePartitions = false;
-
-    public void setDefinitionsService(DefinitionsService definitionsService) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `common/src/main/java/org/apache/unomi/common/DataTable.java`
-#### Snippet
-```java
-
-    List<Row> rows = new ArrayList<>();
-    int maxColumns = 0;
-
-    public static final EmptyCell EMPTY_CELL = new EmptyCell();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rest/src/main/java/org/apache/unomi/rest/models/RESTParameter.java`
-#### Snippet
-```java
-    private String id;
-    private String type;
-    private boolean multivalued = false;
-    private String defaultValue = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rest/src/main/java/org/apache/unomi/rest/models/RESTParameter.java`
-#### Snippet
-```java
-    private String type;
-    private boolean multivalued = false;
-    private String defaultValue = null;
-
-    public String getId() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-    // refresh
-    private long timeOfLastUpdate = System.currentTimeMillis();
-    private Timer refreshTimer = null;
-    private long startupDelay = 1000L;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rest/src/main/java/org/apache/unomi/utils/EventsRequestContext.java`
-#### Snippet
-```java
-    private Session session;
-
-    private boolean newSession = false;
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/apache/unomi/api/PartialList.java`
-#### Snippet
-```java
-    private long totalSize;
-    private Relation totalSizeRelation;
-    private String scrollIdentifier = null;
-    private String scrollTimeValidity = null;
-
+        anonymousProfile.getSystemProperties().put("isAnonymousProfile", true);
+        anonymousProfile.getProperties().putAll(profile.getProperties());
+        anonymousProfile.getProperties().keySet().removeAll(getDeniedProperties(profile.getItemId()));
+//        profileService.save(anonymousProfile);
+        return anonymousProfile;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/apache/unomi/api/PartialList.java`
+### SlowAbstractSetRemoveAll
+Call to 'set.removeAll(list)' may work slowly
+in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
 #### Snippet
 ```java
-    private Relation totalSizeRelation;
-    private String scrollIdentifier = null;
-    private String scrollTimeValidity = null;
+        eventService.send(new Event("anonymizeProfile", null, profile, scope, null, profile, null, new Date(), false));
 
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/Session.java`
-#### Snippet
-```java
-    private int size = 0;
-
-    private int duration = 0;
-
-    private List<String> originEventTypes = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/Session.java`
-#### Snippet
-```java
-    private Date lastEventDate;
-
-    private int size = 0;
-
-    private int duration = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/Metadata.java`
-#### Snippet
-```java
-    private Set<String> systemTags = new LinkedHashSet<>();
-    private boolean enabled = true;
-    private boolean missingPlugins = false;
-    private boolean hidden = false;
-    private boolean readOnly = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/Metadata.java`
-#### Snippet
-```java
-    private boolean enabled = true;
-    private boolean missingPlugins = false;
-    private boolean hidden = false;
-    private boolean readOnly = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/Metadata.java`
-#### Snippet
-```java
-    private boolean missingPlugins = false;
-    private boolean hidden = false;
-    private boolean readOnly = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/Parameter.java`
-#### Snippet
-```java
-    String id;
-    String type;
-    boolean multivalued = false;
-    String defaultValue = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/apache/unomi/api/Parameter.java`
-#### Snippet
-```java
-    String type;
-    boolean multivalued = false;
-    String defaultValue = null;
-
-    public Parameter() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-    private long executionCount = 0;
-    private long localExecutionCount = 0;
-    private long conditionsTime = 0;
-    private long localConditionsTime = 0;
-    private long actionsTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-
-    private long executionCount = 0;
-    private long localExecutionCount = 0;
-    private long conditionsTime = 0;
-    private long localConditionsTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-    private long localConditionsTime = 0;
-    private long actionsTime = 0;
-    private long localActionsTime = 0;
-    private Date lastSyncDate;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-    private long conditionsTime = 0;
-    private long localConditionsTime = 0;
-    private long actionsTime = 0;
-    private long localActionsTime = 0;
-    private Date lastSyncDate;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-    private long localExecutionCount = 0;
-    private long conditionsTime = 0;
-    private long localConditionsTime = 0;
-    private long actionsTime = 0;
-    private long localActionsTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/RuleStatistics.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private long executionCount = 0;
-    private long localExecutionCount = 0;
-    private long conditionsTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/Rule.java`
-#### Snippet
-```java
-    private List<String> linkedItems;
-
-    private boolean raiseEventOnlyOnceForProfile = false;
-
-    private boolean raiseEventOnlyOnceForSession = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/Rule.java`
-#### Snippet
-```java
-    private boolean raiseEventOnlyOnceForProfile = false;
-
-    private boolean raiseEventOnlyOnceForSession = false;
-
-    private boolean raiseEventOnlyOnce = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `api/src/main/java/org/apache/unomi/api/rules/Rule.java`
-#### Snippet
-```java
-    private boolean raiseEventOnlyOnceForSession = false;
-
-    private boolean raiseEventOnlyOnce = false;
-
-    private int priority;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/apache/unomi/api/Event.java`
-#### Snippet
-```java
-    private String eventType;
-    private String sessionId = null;
-    private String profileId = null;
-    private Date timeStamp;
-    private Map<String, Object> properties;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `api/src/main/java/org/apache/unomi/api/Event.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = -1096874942838593575L;
-    private String eventType;
-    private String sessionId = null;
-    private String profileId = null;
-    private Date timeStamp;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/campaigns/CampaignDetail.java`
-#### Snippet
-```java
-    private long campaignSessionViews = 0;
-    private long campaignSessionSuccess = 0;
-    private long numberOfGoals = 0;
-    private double conversionRate;
-    private Campaign campaign;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/campaigns/CampaignDetail.java`
-#### Snippet
-```java
- */
-public class CampaignDetail {
-    private long engagedProfiles = 0;
-    private long campaignSessionViews = 0;
-    private long campaignSessionSuccess = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/campaigns/CampaignDetail.java`
-#### Snippet
-```java
-public class CampaignDetail {
-    private long engagedProfiles = 0;
-    private long campaignSessionViews = 0;
-    private long campaignSessionSuccess = 0;
-    private long numberOfGoals = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/src/main/java/org/apache/unomi/api/campaigns/CampaignDetail.java`
-#### Snippet
-```java
-    private long engagedProfiles = 0;
-    private long campaignSessionViews = 0;
-    private long campaignSessionSuccess = 0;
-    private long numberOfGoals = 0;
-    private double conversionRate;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
-#### Snippet
-```java
-    private String topic;
-    private String messageType;
-    private boolean consuming = false;
-    private ObjectMapper objectMapper;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/internal/ExpressionFilterFactoryImpl.java`
-#### Snippet
-```java
-    private final Map<String,Set<Pattern>> forbiddenExpressionPatternsByCollection = new HashMap<>();
-
-    private BundleContext bundleContext = null;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-
-    private static Set<String> defaultAllowedClasses = null;
-    private static Set<String> defaultForbiddenClasses = null;
-
-    static {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-
-    private Set<String> allowedClasses = null;
-    private Set<String> forbiddenClasses = null;
-
-    private static Set<String> defaultAllowedClasses = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-    private Set<String> forbiddenClasses = null;
-
-    private static Set<String> defaultAllowedClasses = null;
-    private static Set<String> defaultForbiddenClasses = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
-#### Snippet
-```java
-public class SecureFilteringClassLoader extends ClassLoader {
-
-    private Set<String> allowedClasses = null;
-    private Set<String> forbiddenClasses = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `wab/src/main/java/org/apache/unomi/web/ContextServlet.java`
-#### Snippet
-```java
-    private String profileIdCookieDomain;
-    private int profileIdCookieMaxAgeInSeconds = MAX_COOKIE_AGE_IN_SECONDS;
-    private boolean profileIdCookieHttpOnly = false;
-    private int publicPostRequestBytesLimit = 200000;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private static final String ROLLOVER_LIFECYCLE_NAME = "unomi-rollover-policy";
-
-    private boolean throwExceptions = false;
-    private RestHighLevelClient client;
-    private BulkProcessor bulkProcessor;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private String logLevelRestClient = "ERROR";
-    private boolean alwaysOverwrite = true;
-    private boolean aggQueryThrowOnMissingDocs = false;
-    private Integer aggQueryMaxResponseSizeHttp = null;
-    private Integer clientSocketTimeout = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private boolean aggQueryThrowOnMissingDocs = false;
-    private Integer aggQueryMaxResponseSizeHttp = null;
-    private Integer clientSocketTimeout = null;
-    private Map<String, WriteRequest.RefreshPolicy> itemTypeToRefreshPolicy = new HashMap<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private String password;
-    private boolean sslEnable = false;
-    private boolean sslTrustAllCertificates = false;
-
-    private int aggregateQueryBucketSize = 5000;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private String username;
-    private String password;
-    private boolean sslEnable = false;
-    private boolean sslTrustAllCertificates = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private boolean alwaysOverwrite = true;
-    private boolean aggQueryThrowOnMissingDocs = false;
-    private Integer aggQueryMaxResponseSizeHttp = null;
-    private Integer clientSocketTimeout = null;
-    private Map<String, WriteRequest.RefreshPolicy> itemTypeToRefreshPolicy = new HashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-
-    private MetricsService metricsService;
-    private boolean useBatchingForSave = false;
-    private boolean useBatchingForUpdate = true;
-    private String logLevelRestClient = "ERROR";
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPFloatPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_FloatProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPGeoPointPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPGeoPointPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_GeoPointProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPJsonPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPJsonPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_JsonProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPLongPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_LongProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPStringPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPStringPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_StringProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPSetPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPSetPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_SetProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPIntPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_IntProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPBooleanPropertyType.java`
-#### Snippet
-```java
+        boolean res = profile.getProperties().keySet().removeAll(getDeniedProperties(profile.getItemId()));
 
-@GraphQLName(TYPE_NAME)
-public class CDPBooleanPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_BooleanProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPDatePropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPDatePropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_DateProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `CDPPropertyInterface`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIdentifierPropertyType.java`
-#### Snippet
-```java
-
-@GraphQLName(TYPE_NAME)
-public class CDPIdentifierPropertyType extends CDPPropertyType implements CDPPropertyInterface {
-
-    public static final String TYPE_NAME = "CDP_IdentifierProperty";
-```
-
-### RedundantImplements
-Redundant interface declaration `Bus`
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServerBus.java`
-#### Snippet
-```java
- */
-@Component(service = Bus.class)
-public class RestServerBus extends ExtensionManagerBus implements Bus {
-    public RestServerBus() {
-        this.getFeatures().add(new LoggingFeature());
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-15-36-54.228.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
-#### Snippet
-```java
-                actualValue = null;
-            } catch (Exception e) {
-                if (!(e instanceof OgnlException)
-                        || (!StringUtils.startsWith(e.getMessage(),
-                        "source is null for getProperty(null"))) {
-```
-
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(md5.getBytes());
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < array.length; ++i) {
-                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `plugins/request/src/main/java/org/apache/unomi/plugins/request/useragent/UserAgent.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("User-Agent { \n");
-        sb.append("agent.name: " + this.getUserAgentName() + ",\n");
+        eventService.send(new Event("profileUpdated", null, profile, scope, null, profile, null, new Date(), false));
 ```
 
 ## RuleId[id=DuplicateThrows]
@@ -8869,116 +1976,65 @@ in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.ja
         if (records.isEmpty()) {
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+## RuleId[id=StringConcatenationInLoops]
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
 #### Snippet
 ```java
-    private void displayLogsForInactiveServices() {
-        requiredServicesFilters.forEach(requiredServicesFilter -> {
-            ServiceReference[] serviceReference = new ServiceReference[0];
-            String filterToString = requiredServicesFilter.toString();
-            try {
+                if (propertyValue != null) {
+                    List<String> multiValue = (List<String>) propertyValue;
+                    lineToWrite += StringUtils.isNotBlank(exportConfiguration.getMultiValueDelimiter()) ? exportConfiguration.getMultiValueDelimiter().charAt(0) : "";
+                    int j = 0;
+                    for (String entry : multiValue) {
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/IdsConditionESQueryBuilder.java`
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
 #### Snippet
 ```java
-        }
-
-        IdsQueryBuilder idsQueryBuilder = QueryBuilders.idsQuery().addIds(ids.toArray(new String[0]));
-        if (match) {
-            return idsQueryBuilder;
+                    int j = 0;
+                    for (String entry : multiValue) {
+                        lineToWrite += entry.replaceAll("\"", "\"\"");
+                        if (j + 1 < multiValue.size()) {
+                            lineToWrite += exportConfiguration.getMultiValueSeparator();
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
 #### Snippet
 ```java
-            session.setProfile(newProfile);
-            persistenceService.save(session);
-            List<Event> events = eventService.searchEvents(session.getItemId(), new String[0], null, 0, -1, null).getList();
-            for (Event event : events) {
-                persistenceService.update(event, Event.class, "profileId", newProfile.getItemId());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ClientEndpoint.java`
-#### Snippet
-```java
-                values.add(value.toString().trim().replace("\n", ""));
-            }
-            csvWriter.writeNext(keySet.toArray(new String[0]));
-            csvWriter.writeNext(values.toArray(new String[0]));
-        }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ClientEndpoint.java`
-#### Snippet
-```java
-            }
-            csvWriter.writeNext(keySet.toArray(new String[0]));
-            csvWriter.writeNext(values.toArray(new String[0]));
-        }
-        Response.ResponseBuilder responseBuilder = Response.ok(writer.toString());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
-#### Snippet
-```java
-                                        properties.put(fieldMappingKey, new String[]{multivalueArray});
-                                    } else {
-                                        properties.put(fieldMappingKey, new String[]{});
-                                    }
-                                }
-```
-
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `rest/src/main/java/org/apache/unomi/rest/validation/request/RequestValidatorInterceptor.java`
-#### Snippet
-```java
-    private final ConfigSharingService configSharingService;
-
-    private static final List<String> PROTECTED_URIS = new ArrayList<String>(){{
-        add("/cxs/eventcollector");
-        add("/cxs/context.js");
-```
-
-## RuleId[id=NullArgumentToVariableArgMethod]
-### NullArgumentToVariableArgMethod
-Confusing argument `values.toArray(new String[values.size()])`, unclear if a varargs or non-varargs call is desired
-in `common/src/main/java/org/apache/unomi/common/DataTable.java`
-#### Snippet
-```java
-                    values.add(row.getData(i).toString());
+                    lineToWrite += StringUtils.isNotBlank(exportConfiguration.getMultiValueDelimiter()) ? exportConfiguration.getMultiValueDelimiter().charAt(1) : "";
+                } else {
+                    lineToWrite += "";
                 }
-                printer.printRecord(values.toArray(new String[values.size()]));
-            }
-            printer.close();
+            } else {
 ```
 
-## RuleId[id=CastConflictsWithInstanceof]
-### CastConflictsWithInstanceof
-Cast to 'List\>' type conflicts with preceding 'instanceof Collection' check
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
 #### Snippet
 ```java
-                            // TODO UNOMI-719: move this in a dedicated extension point to handle this kind of merge strategy in a more generic way
-                            List<Map<String, Object>> sourceStatuses = (List<Map<String, Object>>) sourceProperty.getValue();
-                            List<Map<String, Object>> targetStatuses = (List<Map<String, Object>>) targetProperty;
+                        propertyValue = "\"" + propertyValue + "\"";
+                    }
+                    lineToWrite += propertyValue.toString();
+                } else {
+                    lineToWrite += "";
+```
 
-                            for (Map<String, Object> sourceStatus : sourceStatuses) {
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+                    lineToWrite += propertyValue.toString();
+                } else {
+                    lineToWrite += "";
+                }
+            }
 ```
 
 ## RuleId[id=TypeParameterExtendsObject]
@@ -9056,39 +2112,27 @@ in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImp
 ```
 
 ### UnusedAssignment
-Variable `serverIdentifier` initializer `"n/a"` is redundant
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+Variable `allowedClasses` initializer `null` is redundant
+in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
 #### Snippet
 ```java
+public class SecureFilteringClassLoader extends ClassLoader {
 
-    public ServerInfo getBundleServerInfo(Bundle bundle) {
-        String serverIdentifier = "n/a";
-        if (bundle.getHeaders().get("Implementation-ServerIdentifier") != null) {
-            serverIdentifier = bundle.getHeaders().get("Implementation-ServerIdentifier");
+    private Set<String> allowedClasses = null;
+    private Set<String> forbiddenClasses = null;
+
 ```
 
 ### UnusedAssignment
-Variable `types` initializer `null` is redundant
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONTypeFactory.java`
+Variable `forbiddenClasses` initializer `null` is redundant
+in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
 #### Snippet
 ```java
-            return new ArrayList<>();
-        }
-        List<String> types = null;
-        if (typeObject instanceof String) {
-            types = new ArrayList<>();
-```
 
-### UnusedAssignment
-Variable `propertyTypesById` initializer `new HashMap<>()` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    private static class PropertyTypes {
-        private List<PropertyType> allPropertyTypes;
-        private Map<String, PropertyType> propertyTypesById = new HashMap<>();
-        private Map<String, List<PropertyType>> propertyTypesByTags = new HashMap<>();
-        private Map<String, List<PropertyType>> propertyTypesBySystemTags = new HashMap<>();
+    private Set<String> allowedClasses = null;
+    private Set<String> forbiddenClasses = null;
+
+    private static Set<String> defaultAllowedClasses = null;
 ```
 
 ### UnusedAssignment
@@ -9104,6 +2148,30 @@ in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServic
 ```
 
 ### UnusedAssignment
+Variable `propertyTypesBySystemTags` initializer `new HashMap<>()` is redundant
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+        private Map<String, PropertyType> propertyTypesById = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesByTags = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesBySystemTags = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesByTarget = new HashMap<>();
+
+```
+
+### UnusedAssignment
+Variable `propertyTypesById` initializer `new HashMap<>()` is redundant
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+    private static class PropertyTypes {
+        private List<PropertyType> allPropertyTypes;
+        private Map<String, PropertyType> propertyTypesById = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesByTags = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesBySystemTags = new HashMap<>();
+```
+
+### UnusedAssignment
 Variable `propertyTypesByTags` initializer `new HashMap<>()` is redundant
 in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
@@ -9116,15 +2184,27 @@ in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServic
 ```
 
 ### UnusedAssignment
-Variable `propertyTypesBySystemTags` initializer `new HashMap<>()` is redundant
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+Variable `types` initializer `null` is redundant
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONTypeFactory.java`
 #### Snippet
 ```java
-        private Map<String, PropertyType> propertyTypesById = new HashMap<>();
-        private Map<String, List<PropertyType>> propertyTypesByTags = new HashMap<>();
-        private Map<String, List<PropertyType>> propertyTypesBySystemTags = new HashMap<>();
-        private Map<String, List<PropertyType>> propertyTypesByTarget = new HashMap<>();
+            return new ArrayList<>();
+        }
+        List<String> types = null;
+        if (typeObject instanceof String) {
+            types = new ArrayList<>();
+```
 
+### UnusedAssignment
+Variable `objectType` initializer `null` is redundant
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
+#### Snippet
+```java
+                String childPropertyName = PropertyNameTranslator.translateFromUnomiToGraphQL(childPropertyType.getName());
+
+                GraphQLOutputType objectType = null;
+                if (isSet) {
+                    objectType = createDynamicSetOutputType(childPropertyType, codeRegisterBuilder, typeName + "_" + childPropertyName);
 ```
 
 ### UnusedAssignment
@@ -9149,18 +2229,6 @@ in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions
                 Consent consent = null;
                 try {
                     consent = new Consent(consentMap, dateFormat);
-```
-
-### UnusedAssignment
-Variable `objectType` initializer `null` is redundant
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-                String childPropertyName = PropertyNameTranslator.translateFromUnomiToGraphQL(childPropertyType.getName());
-
-                GraphQLOutputType objectType = null;
-                if (isSet) {
-                    objectType = createDynamicSetOutputType(childPropertyType, codeRegisterBuilder, typeName + "_" + childPropertyName);
 ```
 
 ### UnusedAssignment
@@ -9200,27 +2268,27 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectM
 ```
 
 ### UnusedAssignment
-Variable `forbiddenClasses` initializer `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
+Variable `serviceReference` initializer `new ServiceReference[0]` is redundant
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-
-    private Set<String> allowedClasses = null;
-    private Set<String> forbiddenClasses = null;
-
-    private static Set<String> defaultAllowedClasses = null;
+    private void displayLogsForInactiveServices() {
+        requiredServicesFilters.forEach(requiredServicesFilter -> {
+            ServiceReference[] serviceReference = new ServiceReference[0];
+            String filterToString = requiredServicesFilter.toString();
+            try {
 ```
 
 ### UnusedAssignment
-Variable `allowedClasses` initializer `null` is redundant
-in `scripting/src/main/java/org/apache/unomi/scripting/SecureFilteringClassLoader.java`
+Variable `serverIdentifier` initializer `"n/a"` is redundant
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-public class SecureFilteringClassLoader extends ClassLoader {
 
-    private Set<String> allowedClasses = null;
-    private Set<String> forbiddenClasses = null;
-
+    public ServerInfo getBundleServerInfo(Bundle bundle) {
+        String serverIdentifier = "n/a";
+        if (bundle.getHeaders().get("Implementation-ServerIdentifier") != null) {
+            serverIdentifier = bundle.getHeaders().get("Implementation-ServerIdentifier");
 ```
 
 ### UnusedAssignment
@@ -9245,6 +2313,18 @@ in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc
                     sfdcLastModified = iso8601DateFormat.parse((String) existingSfdcLeadFields.get("LastModifiedDate"));
                 } catch (ParseException e) {
                     logger.error("Error parsing date {}", existingSfdcLeadFields.get("LastModifiedDate"), e);
+```
+
+### UnusedAssignment
+The value `false` assigned to `result` is never used
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+            } catch (HttpException e) {
+                logger.warn("Error trying to login with new configuration {}", sfdcConfiguration, e);
+                result = false;
+            } catch (IOException e) {
+                logger.warn("Error trying to login with new configuration {}", sfdcConfiguration, e);
 ```
 
 ### UnusedAssignment
@@ -9297,18 +2377,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterService
 ```
 
 ### ConstantValue
-Condition `query != null` is always `true`
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-        BaseAggregate aggregate = null;
-        String property = query.getAggregate().getProperty();
-        if(query != null && query.getAggregate() != null && property != null) {
-            if (query.getAggregate().getType() != null){
-                // try to guess the aggregate type
-```
-
-### ConstantValue
 Condition `childProperties != null` is always `true`
 in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
@@ -9318,6 +2386,18 @@ in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImp
                 if (childProperties != null && childProperties.size() > 0) {
                     propertyType.setChildPropertyTypes(childProperties);
                 }
+```
+
+### ConstantValue
+Condition `query != null` is always `true`
+in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
+#### Snippet
+```java
+        BaseAggregate aggregate = null;
+        String property = query.getAggregate().getProperty();
+        if(query != null && query.getAggregate() != null && property != null) {
+            if (query.getAggregate().getType() != null){
+                // try to guess the aggregate type
 ```
 
 ### ConstantValue
@@ -9333,75 +2413,15 @@ in `services/src/main/java/org/apache/unomi/services/impl/definitions/Definition
 ```
 
 ### ConstantValue
-Condition `propertyMergeStrategyId.length() > 0` is always `true` when reached
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+Condition `initialFilterCollectionParts != null` is always `true`
+in `scripting/src/main/java/org/apache/unomi/scripting/internal/ExpressionFilterFactoryImpl.java`
 #### Snippet
 ```java
-            String propertyMergeStrategyId = "defaultMergeStrategy";
-            if (propertyType != null) {
-                if (propertyType.getMergeStrategy() != null && propertyMergeStrategyId.length() > 0) {
-                    propertyMergeStrategyId = propertyType.getMergeStrategy();
-                }
-```
-
-### ConstantValue
-Condition `properties == null` is always `false`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/PropertiesConnectionDataFetcher.java`
-#### Snippet
-```java
-        final int startIndex = Math.max(0, params.getOffset());
-        final int lastIndex = Math.min(params.getOffset() + params.getSize(), properties.size());
-        if (properties == null || properties.size() == 0 || properties.size() < startIndex || lastIndex <= 0) {
-            return new CDPPropertyConnection();
-        }
-```
-
-### ConstantValue
-Condition `isProfileOrPersonaUpdated` at the left side of assignment expression is always `false`. Can be simplified
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
-#### Snippet
-```java
-
-        if (propsToAdd != null) {
-            isProfileOrPersonaUpdated |= processProperties(target, propsToAdd, "setIfMissing");
-        }
-
-```
-
-### ConstantValue
-Condition `circleLatitude != null` is always `true`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionESQueryBuilder.java`
-#### Snippet
-```java
-            String distance = condition.getParameter("distance").toString();
-
-            if(circleLatitude != null && circleLongitude != null && distance != null) {
-                return QueryBuilders.geoDistanceQuery(name)
-                        .point(circleLatitude, circleLongitude)
-```
-
-### ConstantValue
-Condition `circleLongitude != null` is always `true`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionESQueryBuilder.java`
-#### Snippet
-```java
-            String distance = condition.getParameter("distance").toString();
-
-            if(circleLatitude != null && circleLongitude != null && distance != null) {
-                return QueryBuilders.geoDistanceQuery(name)
-                        .point(circleLatitude, circleLongitude)
-```
-
-### ConstantValue
-Value `isSystemTag` is always 'true'
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
-#### Snippet
-```java
-        Set<PropertyType> properties;
-        if (isSystemTag) {
-            properties = profileService.getExistingProperties(tag, itemType, isSystemTag);
-        } else {
-            properties = profileService.getExistingProperties(tag, itemType);
+        String initialFilterCollections = System.getProperty("org.apache.unomi.scripting.filter.collections", "mvel,ognl");
+        String[] initialFilterCollectionParts = initialFilterCollections.split(",");
+        if (initialFilterCollectionParts != null) {
+            for (String initialFilterCollection : initialFilterCollectionParts) {
+                allowedExpressionPatternsByCollection.put(initialFilterCollection, loadPatternsFromConfig("org.apache.unomi.scripting.filter."+initialFilterCollection+".allow"));
 ```
 
 ### ConstantValue
@@ -9417,15 +2437,15 @@ in `common/src/main/java/org/apache/unomi/common/DataTable.java`
 ```
 
 ### ConstantValue
-Value `dateValue` is always 'null'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionESQueryBuilder.java`
+Condition `propertyMergeStrategyId.length() > 0` is always `true` when reached
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
 ```java
-    private Object convertDateToISO(Object dateValue) {
-        if (dateValue == null) {
-            return dateValue;
-        }
-        if (dateValue instanceof Date) {
+            String propertyMergeStrategyId = "defaultMergeStrategy";
+            if (propertyType != null) {
+                if (propertyType.getMergeStrategy() != null && propertyMergeStrategyId.length() > 0) {
+                    propertyMergeStrategyId = propertyType.getMergeStrategy();
+                }
 ```
 
 ### ConstantValue
@@ -9453,31 +2473,7 @@ in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.j
 ```
 
 ### ConstantValue
-Value `anonymousSessionProfile` is always 'false'
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
-#### Snippet
-```java
-                    if (requireAnonymousBrowsing && anonymousSessionProfile) {
-                        // User wants to browse anonymously, anonymous profile is already set.
-                    } else if (requireAnonymousBrowsing && !anonymousSessionProfile) {
-                        // User wants to browse anonymously, update the sessionProfile to anonymous profile
-                        sessionProfile = privacyService.getAnonymousProfile(eventsRequestContext.getProfile());
-```
-
-### ConstantValue
 Condition `!requireAnonymousBrowsing` is always `true`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
-#### Snippet
-```java
-                        eventsRequestContext.getSession().setProfile(sessionProfile);
-                        eventsRequestContext.addChanges(EventService.SESSION_UPDATED);
-                    } else if (!requireAnonymousBrowsing && anonymousSessionProfile) {
-                        // User does not want to browse anonymously anymore, update the sessionProfile to real profile
-                        sessionProfile = eventsRequestContext.getProfile();
-```
-
-### ConstantValue
-Value `requireAnonymousBrowsing` is always 'false'
 in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
 #### Snippet
 ```java
@@ -9513,18 +2509,6 @@ in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.j
 ```
 
 ### ConstantValue
-Value `requireAnonymousBrowsing` is always 'false'
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
-#### Snippet
-```java
-                        eventsRequestContext.getSession().setProfile(sessionProfile);
-                        eventsRequestContext.addChanges(EventService.SESSION_UPDATED);
-                    } else if (!requireAnonymousBrowsing && !anonymousSessionProfile) {
-                        // User does not want to browse anonymously, use the real profile. Check that session contains the current profile.
-                        sessionProfile = eventsRequestContext.getProfile();
-```
-
-### ConstantValue
 Condition `!anonymousSessionProfile` is always `true` when reached
 in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
 #### Snippet
@@ -9537,15 +2521,63 @@ in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.j
 ```
 
 ### ConstantValue
-Value `anonymousSessionProfile` is always 'false'
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
+Value `isSystemTag` is always 'true'
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
 #### Snippet
 ```java
-                        eventsRequestContext.getSession().setProfile(sessionProfile);
-                        eventsRequestContext.addChanges(EventService.SESSION_UPDATED);
-                    } else if (!requireAnonymousBrowsing && !anonymousSessionProfile) {
-                        // User does not want to browse anonymously, use the real profile. Check that session contains the current profile.
-                        sessionProfile = eventsRequestContext.getProfile();
+        Set<PropertyType> properties;
+        if (isSystemTag) {
+            properties = profileService.getExistingProperties(tag, itemType, isSystemTag);
+        } else {
+            properties = profileService.getExistingProperties(tag, itemType);
+```
+
+### ConstantValue
+Condition `properties == null` is always `false`
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/PropertiesConnectionDataFetcher.java`
+#### Snippet
+```java
+        final int startIndex = Math.max(0, params.getOffset());
+        final int lastIndex = Math.min(params.getOffset() + params.getSize(), properties.size());
+        if (properties == null || properties.size() == 0 || properties.size() < startIndex || lastIndex <= 0) {
+            return new CDPPropertyConnection();
+        }
+```
+
+### ConstantValue
+Condition `circleLatitude != null` is always `true`
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionESQueryBuilder.java`
+#### Snippet
+```java
+            String distance = condition.getParameter("distance").toString();
+
+            if(circleLatitude != null && circleLongitude != null && distance != null) {
+                return QueryBuilders.geoDistanceQuery(name)
+                        .point(circleLatitude, circleLongitude)
+```
+
+### ConstantValue
+Condition `circleLongitude != null` is always `true`
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionESQueryBuilder.java`
+#### Snippet
+```java
+            String distance = condition.getParameter("distance").toString();
+
+            if(circleLatitude != null && circleLongitude != null && distance != null) {
+                return QueryBuilders.geoDistanceQuery(name)
+                        .point(circleLatitude, circleLongitude)
+```
+
+### ConstantValue
+Value `dateValue` is always 'null'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionESQueryBuilder.java`
+#### Snippet
+```java
+    private Object convertDateToISO(Object dateValue) {
+        if (dateValue == null) {
+            return dateValue;
+        }
+        if (dateValue instanceof Date) {
 ```
 
 ### ConstantValue
@@ -9585,15 +2617,15 @@ in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/pro
 ```
 
 ### ConstantValue
-Condition `initialFilterCollectionParts != null` is always `true`
-in `scripting/src/main/java/org/apache/unomi/scripting/internal/ExpressionFilterFactoryImpl.java`
+Condition `sfdcFieldMappingsIdentifierParts != null` is always `true`
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
 #### Snippet
 ```java
-        String initialFilterCollections = System.getProperty("org.apache.unomi.scripting.filter.collections", "mvel,ognl");
-        String[] initialFilterCollectionParts = initialFilterCollections.split(",");
-        if (initialFilterCollectionParts != null) {
-            for (String initialFilterCollection : initialFilterCollectionParts) {
-                allowedExpressionPatternsByCollection.put(initialFilterCollection, loadPatternsFromConfig("org.apache.unomi.scripting.filter."+initialFilterCollection+".allow"));
+        this.sfdcFieldMappingsIdentifier = sfdcFieldMappingsIdentifier;
+        String[] sfdcFieldMappingsIdentifierParts = sfdcFieldMappingsIdentifier.split("<=>");
+        if (sfdcFieldMappingsIdentifierParts != null && sfdcFieldMappingsIdentifierParts.length == 2) {
+            unomiIdentifierField = sfdcFieldMappingsIdentifierParts[0];
+            sfdcIdentifierField = sfdcFieldMappingsIdentifierParts[1];
 ```
 
 ### ConstantValue
@@ -9621,18 +2653,6 @@ in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc
 ```
 
 ### ConstantValue
-Condition `sfdcFieldMappingsIdentifierParts != null` is always `true`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
-#### Snippet
-```java
-        this.sfdcFieldMappingsIdentifier = sfdcFieldMappingsIdentifier;
-        String[] sfdcFieldMappingsIdentifierParts = sfdcFieldMappingsIdentifier.split("<=>");
-        if (sfdcFieldMappingsIdentifierParts != null && sfdcFieldMappingsIdentifierParts.length == 2) {
-            unomiIdentifierField = sfdcFieldMappingsIdentifierParts[0];
-            sfdcIdentifierField = sfdcFieldMappingsIdentifierParts[1];
-```
-
-### ConstantValue
 Condition `queryResponse != null` is always `true`
 in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
 #### Snippet
@@ -9642,18 +2662,6 @@ in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc
             if (queryResponse != null) {
                 logger.debug("Response received from Salesforce: {}", queryResponse);
                 sobjectMap = new LinkedHashMap<>(queryResponse);
-```
-
-### ConstantValue
-Condition `responseObject != null` is always `true`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                return null;
-            }
-            if (responseObject != null && responseObject instanceof Map) {
-                return (Map<String, Object>) responseObject;
-            }
 ```
 
 ### ConstantValue
@@ -9669,15 +2677,27 @@ in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc
 ```
 
 ### ConstantValue
-Condition `propertyMapping != null` is always `true`
+Condition `responseObject != null` is always `true`
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                return null;
+            }
+            if (responseObject != null && responseObject instanceof Map) {
+                return (Map<String, Object>) responseObject;
+            }
+```
+
+### ConstantValue
+Value `filter` is always 'null'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-            return null;
-        }
-        if (propertyMapping != null
-                && "text".equals(propertyMapping.get("type"))
-                && propertyMapping.containsKey("fields")
+                    return ((IdsQueryBuilder) filter).ids().size();
+                }
+                return queryCount(filter, itemType);
+            } catch (UnsupportedOperationException e1) {
+                return -1;
 ```
 
 ### ConstantValue
@@ -9692,44 +2712,19 @@ in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/el
                 if ("nobackoff".equals(backoffPolicyStr)) {
 ```
 
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `getObjectMapper()` tries to override a static method of a superclass
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ESCustomObjectMapper.java`
+### ConstantValue
+Condition `propertyMapping != null` is always `true`
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-    }
-
-    public static ObjectMapper getObjectMapper() {
-        return ESCustomObjectMapper.Holder.INSTANCE;
-    }
+            return null;
+        }
+        if (propertyMapping != null
+                && "text".equals(propertyMapping.get("type"))
+                && propertyMapping.containsKey("fields")
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/RouterAbstractRouteBuilder.java`
-#### Snippet
-```java
-            kafkaUri.append(kafkaHost).append(":").append(kafkaPort).append("?topic=").append(kafkaTopic);
-            if (StringUtils.isNotBlank(kafkaGroupId)) {
-                kafkaUri.append("&groupId=" + kafkaGroupId);
-            }
-            if (RouterConstants.DIRECTION_TO.equals(direction)) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/RouterAbstractRouteBuilder.java`
-#### Snippet
-```java
-            }
-            if (RouterConstants.DIRECTION_TO.equals(direction)) {
-                kafkaUri.append("&autoCommitEnable=" + kafkaAutoCommit + "&consumersCount=" + kafkaConsumerCount);
-            }
-            KafkaConfiguration kafkaConfiguration = new KafkaConfiguration();
-```
-
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuffer.append()` call
 in `plugins/request/src/main/java/org/apache/unomi/plugins/request/useragent/UserAgent.java`
@@ -9814,17 +2809,28 @@ in `plugins/request/src/main/java/org/apache/unomi/plugins/request/useragent/Use
     }
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'CSVWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ClientEndpoint.java`
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/RouterAbstractRouteBuilder.java`
 #### Snippet
 ```java
-        StringWriter writer = new StringWriter();
-        //using custom delimiter and quote character
-        CSVWriter csvWriter = new CSVWriter(writer);
-        if (vertical) {
-            csvWriter.writeNext(new String[] { "name", "value" });
+            kafkaUri.append(kafkaHost).append(":").append(kafkaPort).append("?topic=").append(kafkaTopic);
+            if (StringUtils.isNotBlank(kafkaGroupId)) {
+                kafkaUri.append("&groupId=" + kafkaGroupId);
+            }
+            if (RouterConstants.DIRECTION_TO.equals(direction)) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/RouterAbstractRouteBuilder.java`
+#### Snippet
+```java
+            }
+            if (RouterConstants.DIRECTION_TO.equals(direction)) {
+                kafkaUri.append("&autoCommitEnable=" + kafkaAutoCommit + "&consumersCount=" + kafkaConsumerCount);
+            }
+            KafkaConfiguration kafkaConfiguration = new KafkaConfiguration();
 ```
 
 ## RuleId[id=RedundantOperationOnEmptyContainer]
@@ -9843,18 +2849,6 @@ in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/el
 ## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
-#### Snippet
-```java
-        this.sfdcFieldMappings = sfdcFieldMappings;
-        String[] mappings = sfdcFieldMappings.split(",");
-        if (mappings != null && mappings.length > 0) {
-            for (String mapping : mappings) {
-                String[] parts = mapping.split("<=>");
-```
-
-### RedundantLengthCheck
-Redundant array length check
 in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
 #### Snippet
 ```java
@@ -9863,6 +2857,18 @@ in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp
             if (mergeFields.length > 0) {
                 for (String mergeField : mergeFields) {
                     if (StringUtils.isNotBlank(mergeField)) {
+```
+
+### RedundantLengthCheck
+Redundant array length check
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
+#### Snippet
+```java
+        this.sfdcFieldMappings = sfdcFieldMappings;
+        String[] mappings = sfdcFieldMappings.split(",");
+        if (mappings != null && mappings.length > 0) {
+            for (String mapping : mappings) {
+                String[] parts = mapping.split("<=>");
 ```
 
 ### RedundantLengthCheck
@@ -9877,210 +2883,1422 @@ in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc
                     String[] mappingConsentArray = mappingConsent.split("<=>");
 ```
 
-## RuleId[id=Java8MapForEach]
-### Java8MapForEach
-Can be replaced with 'Map.forEach()'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONObjectType.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/lists-extension/actions/src/main/java/org/apache/unomi/lists/actions/AddToListsAction.java`
 #### Snippet
 ```java
-        Map<String, Object> propertiesTree = (Map<String, Object>) schemaTree.get("properties");
-        if (propertiesTree != null) {
-            propertiesTree.entrySet().forEach(entry -> {
-                if (entry.getValue() instanceof Map) {
-                    properties.put(entry.getKey(), jsonTypeFactory.getTypes((Map<String, Object>) entry.getValue()));
+    @Override
+    public int execute(Action action, Event event) {
+        List<String> newListIdentifiers = (List<String>) action.getParameterValues().get("listIdentifiers");
+        if (newListIdentifiers == null || newListIdentifiers.size() == 0) {
+            return EventService.NO_CHANGE;
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `RouterUtils` has only 'static' members, and lacks a 'private' constructor
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/lists-extension/actions/src/main/java/org/apache/unomi/lists/actions/AddToListsAction.java`
 #### Snippet
 ```java
- * Created by amidani on 30/06/2017.
- */
-public class RouterUtils {
+        Profile profile = event.getProfile();
 
-    public static ImportExportConfiguration addExecutionEntry(ImportExportConfiguration configuration, Map execution, int executionsHistorySize) {
+        List<String> existingListIdentifiers = (List<String>) profile.getSystemProperties().get("lists");
+        if (existingListIdentifiers == null) {
+            existingListIdentifiers = new ArrayList<>();
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ConditionContextHelper` has only 'static' members, and lacks a 'private' constructor
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.io.Serializable' to 'java.util.List'
+in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
 #### Snippet
 ```java
-import java.util.*;
+                    clusterNode.setCpuLoad(systemCpuLoad);
+                }
+                List<Double> loadAverage = (List<Double>) nodeStatistics.get("systemLoadAverage");
+                if (loadAverage != null) {
+                    Double[] loadAverageArray = loadAverage.toArray(new Double[loadAverage.size()]);
+```
 
-public class ConditionContextHelper {
-    private static final Logger logger = LoggerFactory.getLogger(ConditionContextHelper.class);
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `services/src/main/java/org/apache/unomi/services/sorts/ControlGroupPersonalizationStrategy.java`
+#### Snippet
+```java
+            systemPropertiesItem.getSystemProperties().put(PERSONALIZATION_STRATEGY_STATUS, strategyStatuses);
+        } else {
+            strategyStatuses = (List<Map<String, Object>>) systemPropertiesItem.getSystemProperties().get(PERSONALIZATION_STRATEGY_STATUS);
+        }
 
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `RootMutation` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/RootMutation.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `services/src/main/java/org/apache/unomi/services/sorts/ControlGroupPersonalizationStrategy.java`
 #### Snippet
 ```java
+    public PersonalizationResult personalizeList(Profile profile, Session session, PersonalizationService.PersonalizationRequest personalizationRequest) {
+        if (personalizationRequest.getStrategyOptions() != null && personalizationRequest.getStrategyOptions().containsKey(CONTROL_GROUP_CONFIG)) {
+            Map<String, Object> controlGroupMap = (Map<String, Object>) personalizationRequest.getStrategyOptions().get(CONTROL_GROUP_CONFIG);
 
-@GraphQLName(TYPE_NAME)
-public class RootMutation {
-
-    public static final String TYPE_NAME = "Mutation";
+            return controlGroupMap.containsKey(CONTROL_GROUP_CONFIG_STORE_IN_SESSION) &&
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `RootQuery` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/RootQuery.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.HashSet'
+in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
 ```java
-
-@GraphQLName(TYPE_NAME)
-public class RootQuery {
-
-    public static final String TYPE_NAME = "Query";
+                ThirdPartyServer thirdPartyServer = thirdPartyServers.get(keys[1]);
+                if (keys[2].equals("allowedEvents")) {
+                    HashSet<String> allowedEvents = new HashSet<>(Arrays.asList(StringUtils.split(entry.getValue(), ',')));
+                    restrictedEventTypeIds.addAll(allowedEvents);
+                    thirdPartyServer.setAllowedEvents(allowedEvents);
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/StringUtils.java`
+### UNCHECKED_WARNING
+Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
+in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
 ```java
-import java.util.stream.Stream;
+                ThirdPartyServer thirdPartyServer = thirdPartyServers.get(keys[1]);
+                if (keys[2].equals("allowedEvents")) {
+                    HashSet<String> allowedEvents = new HashSet<>(Arrays.asList(StringUtils.split(entry.getValue(), ',')));
+                    restrictedEventTypeIds.addAll(allowedEvents);
+                    thirdPartyServer.setAllowedEvents(allowedEvents);
+```
 
-public class StringUtils {
-    public StringUtils() {
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `services/src/main/java/org/apache/unomi/services/sorts/ScorePersonalizationStrategy.java`
+#### Snippet
+```java
+            String interestList = (String) (personalizedContent.getProperties() != null ? personalizedContent.getProperties().get("interests") : null);
+            if (interestList != null) {
+                List<Map<String, Object>> profileInterests = (List<Map<String, Object>>) profile.getProperties().get("interests");
+                if (profileInterests != null) {
+                    for (String interest : interestList.split(" ")) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+#### Snippet
+```java
+        List deniedProperties = new ArrayList<String>();
+        Set<PropertyType> personalIdsProps = profileService.getPropertyTypeBySystemTag(ProfileService.PERSONAL_IDENTIFIER_TAG_NAME);
+        personalIdsProps.forEach(propType -> deniedProperties.add(propType.getMetadata().getId()));
+        return deniedProperties;
     }
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ComparisonConditionTranslator` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/ComparisonConditionTranslator.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
 #### Snippet
 ```java
-package org.apache.unomi.graphql.schema;
+        Set<PropertyType> personalIdsProps = profileService.getPropertyTypeBySystemTag(ProfileService.PERSONAL_IDENTIFIER_TAG_NAME);
+        personalIdsProps.forEach(propType -> deniedProperties.add(propType.getMetadata().getId()));
+        return deniedProperties;
+    }
 
-public class ComparisonConditionTranslator {
-
-    public static String translateFromGraphQLToUnomi(final String originalCondition) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyNameTranslator` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyNameTranslator.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
 #### Snippet
 ```java
-package org.apache.unomi.graphql.schema;
+            return new ArrayList<String>();
+        }
+        return (List<String>) profile.getProperty("filteredEventTypes");
+    }
 
-public class PropertyNameTranslator {
-
-    public static String translateFromUnomiToGraphQL(final String propertyName) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ReflectionUtil` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/ReflectionUtil.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
 #### Snippet
 ```java
-import java.util.List;
+        }
 
-public class ReflectionUtil {
-
-    private static final String UNOMI_TYPE_FIELD = "UNOMI_TYPE";
+        Map<String, Double> location = (Map<String, Double>) session.getProperty(LOCATION);
+        JsonNode currentWeatherData = getWeather(location);
+        if (currentWeatherData == null) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyValueTypeHelper` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyValueTypeHelper.java`
+### UNCHECKED_WARNING
+Unchecked call to 'compareTo(T)' as a member of raw type 'java.lang.Comparable'
+in `common/src/main/java/org/apache/unomi/common/DataTable.java`
 #### Snippet
 ```java
-import org.apache.unomi.graphql.scalars.DateTimeFunction;
-
-public class PropertyValueTypeHelper {
-
-    public static String getPropertyValueParameter(
+                        }
+                    }
+                    int rowComparison = row1Data.compareTo(row2Data);
+                    if (rowComparison == 0) {
+                        // rows are equal on this criteria, let's go to the next criteria if it exists
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyFilterUtils` has only 'static' members, and lacks a 'private' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyFilterUtils.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
 #### Snippet
 ```java
-import java.util.List;
 
-public class PropertyFilterUtils {
-
-    public static List<GraphQLInputObjectField> buildInputPropertyFilters(final Collection<GraphQLSchemaProvider.DefinitionType> propertyTypes, final GraphQLAnnotations graphQLAnnotations) {
+        List<Scoring> allScoring = this.allScoring;
+        Map<String, Integer> scoreModifiers = (Map<String, Integer>) profile.getSystemProperties().get("scoreModifiers");
+        for (Scoring scoring : allScoring) {
+            if (scoring.getMetadata().isEnabled()) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
-in `rest/src/main/java/org/apache/unomi/utils/HttpUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap\[\]' to 'java.util.Map\[\]'
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
 #### Snippet
 ```java
- * This is duplicate of the class from the wab bundle, the original file will be removed once endpoints forwarded
- */
-public class HttpUtils {
 
-    private static final int MAX_COOKIE_AGE_IN_SECONDS = 60 * 60 * 24 * 365; // 1 year
+        String[] scripts = new String[scoringElements.size() + 1];
+        Map<String, Object>[] scriptParams = new HashMap[scoringElements.size() + 1];
+        Condition[] conditions = new Condition[scoringElements.size() + 1];
+
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyHelper` has only 'static' members, and lacks a 'private' constructor
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+### UNCHECKED_WARNING
+Unchecked method 'with(P...)' invocation
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
 #### Snippet
 ```java
- * Helper method for properties
- */
-public class PropertyHelper {
+                    .withMaxRetries(maxRetriesForUpdateProfileSegment);
 
-    private static final Logger logger = LoggerFactory.getLogger(PropertyHelper.class.getName());
+            Failsafe.with(retryPolicy).
+                    run(executionContext -> {
+                        logger.warn("retry updating profile segment {}, profile {}, time {}", segmentId, profileId, new Date());
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ValidationPattern` has only 'static' members, and lacks a 'private' constructor
-in `api/src/main/java/org/apache/unomi/api/utils/ValidationPattern.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
 ```java
-package org.apache.unomi.api.utils;
 
-public class ValidationPattern {
-
-    public static final String TEXT_VALID_CHARACTERS_PATTERN = "^(\\w|[-_@\\.]){0,60}$";
+        if (condition.getConditionTypeId().equals("booleanCondition")) {
+            List<Condition> subConditions = (List<Condition>) condition.getParameter("subConditions");
+            boolean isAnd = "and".equals(condition.getParameter("operator"));
+            for (Condition subCondition : subConditions) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
-in `wab/src/main/java/org/apache/unomi/web/HttpUtils.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map\>'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
 #### Snippet
 ```java
-import java.io.IOException;
+        }
 
-public class HttpUtils {
+        Map<String, Map<String, String>> propMapping = (Map<String, Map<String, String>>) itemMapping.get("properties").get("properties");
+        for (PropertyType propertyType : profileProperties) {
+            if (propMapping.containsKey(propertyType.getMetadata().getId())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+                            // Special handling for personalization strategy statuses
+                            // TODO UNOMI-719: move this in a dedicated extension point to handle this kind of merge strategy in a more generic way
+                            List<Map<String, Object>> sourceStatuses = (List<Map<String, Object>>) sourceProperty.getValue();
+                            List<Map<String, Object>> targetStatuses = (List<Map<String, Object>>) targetProperty;
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+                            // TODO UNOMI-719: move this in a dedicated extension point to handle this kind of merge strategy in a more generic way
+                            List<Map<String, Object>> sourceStatuses = (List<Map<String, Object>>) sourceProperty.getValue();
+                            List<Map<String, Object>> targetStatuses = (List<Map<String, Object>>) targetProperty;
+
+                            for (Map<String, Object> sourceStatus : sourceStatuses) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.Collection'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+                                if (!targetCollection.contains(sourceItem)) {
+                                    try {
+                                        targetCollection.add(sourceItem);
+                                        changed = true;
+                                    } catch (Exception e) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+                    changed = true;
+                } else if (newEntry.getValue() instanceof Map) {
+                    Map<String, Object> currentMap = (Map) target.get(newEntry.getKey());
+                    if (currentMap == null) {
+                        target.put(newEntry.getKey(), newEntry.getValue());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+                        changed = true;
+                    } else {
+                        changed |= merge(currentMap, (Map) newEntry.getValue());
+                    }
+                } else if (StringUtils.equals(packageName, "java.lang")) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.Collection'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+            Collection encodedValues = new ArrayList(propertyValues.size());
+            for (Object value : propertyValues) {
+                encodedValues.add(csvEncode(value.toString()));
+            }
+            sb.append(csvEncode(StringUtils.join(encodedValues, ",")));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+        }
+        if (session.getProfile() != null && session.getProfile().getProperties() != null) {
+            session.getProfile().setProperties(removePersonalIdentifiersFromSessionProfile(session.getProfile().getProperties()));
+        }
+        return persistenceService.save(session) ? session : null;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+        Set<PropertyType> personalIdsProps = getPropertyTypeBySystemTag(PERSONAL_IDENTIFIER_TAG_NAME);
+        final List personalIdsPropsNames = new ArrayList<String>();
+        personalIdsProps.forEach(propType -> personalIdsPropsNames.add(propType.getMetadata().getId()));
+        Set propsToRemove = new HashSet<String>();
+        profileProperties.keySet().forEach(propKey -> {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.Set'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+        profileProperties.keySet().forEach(propKey -> {
+            if (personalIdsPropsNames.contains(propKey)) {
+                propsToRemove.add(propKey);
+            }
+        });
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'forEach(Consumer)' as a member of raw type 'java.lang.Iterable'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+            }
+        });
+        propsToRemove.forEach(propId -> profileProperties.remove(propId));
+        return profileProperties;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
+#### Snippet
+```java
+                Object newObject = sanitizeValue(listObject);
+                if (newObject != null) {
+                    newValues.add(newObject);
+                }
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `rest/src/main/java/org/apache/unomi/rest/deserializers/ContextRequestDeserializer.java`
+#### Snippet
+```java
+        }
+        if (node.get("sessionPropertiesOverrides") != null) {
+            cr.setSessionPropertiesOverrides(jsonParser.getCodec().treeToValue(node.get("sessionPropertiesOverrides"), Map.class));
+        }
+        if (node.get("sessionId") != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
+#### Snippet
+```java
+            return null;
+        }
+        final List<String> joinLists = (List<String>) map.get("joinLists_contains");
+        final List<String> leaveLists = (List<String>) map.get("leaveLists_contains");
+        return new CDPListsUpdateEventFilterInput(joinLists, leaveLists);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
+#### Snippet
+```java
+        }
+        final List<String> joinLists = (List<String>) map.get("joinLists_contains");
+        final List<String> leaveLists = (List<String>) map.get("leaveLists_contains");
+        return new CDPListsUpdateEventFilterInput(joinLists, leaveLists);
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+            return null;
+        }
+        return ((List<Map<String, Object>>) list).stream()
+                .map(CDPEventFilterInput::fromMap)
+                .collect(Collectors.toList());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+        final OffsetDateTime timeGt = (OffsetDateTime) map.get("cdp_timestamp_gt");
+        final OffsetDateTime timeGte = (OffsetDateTime) map.get("cdp_timestamp_gte");
+        final CDPConsentUpdateEventFilterInput consentFltr = CDPConsentUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_consentUpdateEvent"));
+        final CDPListsUpdateEventFilterInput listsFltr = CDPListsUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_listsUpdateEvent"));
+        final CDPSessionEventFilterInput sessionFltr = CDPSessionEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_sessionEvent"));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+        final OffsetDateTime timeGte = (OffsetDateTime) map.get("cdp_timestamp_gte");
+        final CDPConsentUpdateEventFilterInput consentFltr = CDPConsentUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_consentUpdateEvent"));
+        final CDPListsUpdateEventFilterInput listsFltr = CDPListsUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_listsUpdateEvent"));
+        final CDPSessionEventFilterInput sessionFltr = CDPSessionEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_sessionEvent"));
+        final CDPProfileUpdateEventFilterInput profileFltr = CDPProfileUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_profileUpdateEvent"));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+        final CDPConsentUpdateEventFilterInput consentFltr = CDPConsentUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_consentUpdateEvent"));
+        final CDPListsUpdateEventFilterInput listsFltr = CDPListsUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_listsUpdateEvent"));
+        final CDPSessionEventFilterInput sessionFltr = CDPSessionEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_sessionEvent"));
+        final CDPProfileUpdateEventFilterInput profileFltr = CDPProfileUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_profileUpdateEvent"));
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+        final CDPListsUpdateEventFilterInput listsFltr = CDPListsUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_listsUpdateEvent"));
+        final CDPSessionEventFilterInput sessionFltr = CDPSessionEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_sessionEvent"));
+        final CDPProfileUpdateEventFilterInput profileFltr = CDPProfileUpdateEventFilterInput.fromMap((Map<String, Object>) map.get("cdp_profileUpdateEvent"));
+
+        return new CDPEventFilterInput(andFltrs, orFltrs, idEq, clientIdEq, sourceIdEq, profileIdEq, timeEq, timeLt,
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
+#### Snippet
+```java
+        }
+
+        List<String> profileIds = (List<String>) persona.getProperty("mergedWith");
+        return profileIds != null ? profileIds.stream().map(CDPProfileID::new).collect(Collectors.toList()) : null;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONType.java`
+#### Snippet
+```java
+
+    public List<JSONType> getAllOf() {
+        List<Map<String, Object>> allOfTree = (List<Map<String, Object>>) schemaTree.get("allOf");
+        List<JSONType> allOfTypes = new ArrayList<>();
+        if (allOfTree != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONTypeFactory.java`
+#### Snippet
+```java
+            types.add((String) typeObject);
+        } else {
+            types = (List<String>) typeObject;
+        }
+        List<JSONType> resultJsonTypes = new ArrayList<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/actions/CDPUpdateListsAction.java`
+#### Snippet
+```java
+    @Override
+    public int execute(Action action, Event event) {
+        List<String> joinLists = (List<String>) event.getProperty("joinLists");
+        List<String> leaveLists = (List<String>) event.getProperty("leaveLists");
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/actions/CDPUpdateListsAction.java`
+#### Snippet
+```java
+    public int execute(Action action, Event event) {
+        List<String> joinLists = (List<String>) event.getProperty("joinLists");
+        List<String> leaveLists = (List<String>) event.getProperty("leaveLists");
+
+        final Profile profile = event.getProfile();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/actions/CDPUpdateListsAction.java`
+#### Snippet
+```java
+
+        final Profile profile = event.getProfile();
+        List<String> existingLists = (List<String>) profile.getSystemProperties().get("lists");
+        if (existingLists == null) {
+            existingLists = new ArrayList<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONObjectType.java`
+#### Snippet
+```java
+        super(schemaTree, jsonTypeFactory);
+        setType("object");
+        Map<String, Object> propertiesTree = (Map<String, Object>) schemaTree.get("properties");
+        if (propertiesTree != null) {
+            propertiesTree.entrySet().forEach(entry -> {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONObjectType.java`
+#### Snippet
+```java
+            propertiesTree.entrySet().forEach(entry -> {
+                if (entry.getValue() instanceof Map) {
+                    properties.put(entry.getKey(), jsonTypeFactory.getTypes((Map<String, Object>) entry.getValue()));
+                } else {
+                    logger.error("Expected map type for property {}, instead found {}", entry.getKey(), entry.getValue().getClass());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONSchema.java`
+#### Snippet
+```java
+        schemaId = (String) schemaTree.get("$id");
+        if (schemaTree.containsKey("self")) {
+            Map<String, Object> self = (Map<String, Object>) schemaTree.get("self");
+            name = (String) self.get("name");
+            vendor = (String) self.get("vendor");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/SubscriptionWebSocket.java`
+#### Snippet
+```java
+        ExecutionInput executionInput = ExecutionInput.newExecutionInput()
+                .query((String) payload.get("query"))
+                .variables((Map<String, Object>) payload.get("variables"))
+                .operationName((String) payload.get("operationName"))
+                .context(serviceManager)
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
+#### Snippet
+```java
+            final JsonNode payloadNode = node.path("payload");
+            if (!payloadNode.isMissingNode()) {
+                Map<String, Object> payload = GraphQLObjectMapper.getInstance().convertValue(payloadNode, Map.class);
+                payload.forEach(builder::field);
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/CreateOrUpdateSegmentCommand.java`
+#### Snippet
+```java
+        final Map<String, Object> segmentArgumentAsMap = environment.getArgument(SEGMENT_ARGUMENT_NAME);
+        if (segmentArgumentAsMap != null) {
+            profileFilterAsMap = (Map<String, Object>) segmentArgumentAsMap.get("profiles");
+        }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.unomi.graphql.types.input.BaseSegmentInput' to 'INPUT'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/BaseCreateOrUpdateSegmentCommand.java`
+#### Snippet
+```java
+        super(builder);
+
+        this.segmentInput = (INPUT) builder.segmentInput;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/DynamicFieldDataFetcher.java`
+#### Snippet
+```java
+                return propertyValue;
+            } else if (propertyValue instanceof Map) {
+                return GeoPoint.fromMap((Map<String, Double>) propertyValue);
+            } else if (propertyValue instanceof String) {
+                return GeoPoint.fromString((String) propertyValue);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/BaseDataFetcher.java`
+#### Snippet
+```java
+
+    protected <K> K parseParam(final String name, K defaultValue, final DataFetchingEnvironment environment) {
+        return (K) Optional.ofNullable(environment.getArgument(name)).orElse(defaultValue);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
+#### Snippet
+```java
+        Map<String, Object> schemaMap;
+        try {
+            schemaMap = GraphQLObjectMapper.getInstance().readValue(jsonSchemaWrapper.getSchema(), Map.class);
+        } catch (JsonProcessingException e) {
+            logger.error("Failed to process Json object, e");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileIDsConditionParser.java`
+#### Snippet
+```java
+                        && "inContains".equals(condition.getParameter("comparisonOperator"))
+                        && Objects.nonNull(condition.getParameter("propertyValues")))
+                .map(condition -> (List<String>) condition.getParameter("propertyValues"))
+                .reduce(new ArrayList<>(), (List<String> all, List<String> ids) -> {
+                    all.addAll(ids);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.HashMap'
+in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
+#### Snippet
+```java
+                return EventService.NO_CHANGE;
+            }else{
+                ((HashMap) profileNotif.get(notifType) ).put(notifTypeId, notifTypeAck+1);
+            }
+        } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
+#### Snippet
+```java
+                profileNotif = new HashMap();
+            }
+            profileNotif.put(notifType, profileNotif.get(notifType)!=null?profileNotif.get(notifType):new HashMap());
+            Integer notifTypeAck = (Integer) ((HashMap) profileNotif.get(notifType) ).get(notifTypeId);
+            if(notifTypeAck == null){
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.HashMap'
+in `plugins/mail/src/main/java/org/apache/unomi/plugins/mail/actions/SendMailAction.java`
+#### Snippet
+```java
+            Integer notifTypeAck = (Integer) ((HashMap) profileNotif.get(notifType) ).get(notifTypeId);
+            if(notifTypeAck == null){
+                ((HashMap) profileNotif.get(notifType) ).put(notifTypeId, 1);
+            }
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/CopyPropertiesAction.java`
+#### Snippet
+```java
+            Object targetProperties = BeanUtilsBean.getInstance().getPropertyUtils().getProperty(event, rootProperty);
+            if (targetProperties instanceof Map) {
+                propsToCopy.putAll((Map) targetProperties);
+            }
+        } catch (Exception e) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.ArrayList'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+                //ideally each property must have a matching propertyType
+                if(prop.equals("segments")) {
+                    propsMap.put(prop, new HashSet<String>((ArrayList<String>)propsMap.get(prop)));
+                }
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+        boolean isProfileOrPersonaUpdated = false;
+
+        Map<String, Object> propsToAdd = (HashMap<String, Object>) event.getProperties().get(PROPS_TO_ADD);
+
+        if (propsToAdd != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+        }
+
+        Map<String, Object> propsToUpdate = (HashMap<String, Object>) event.getProperties().get(PROPS_TO_UPDATE);
+        if (propsToUpdate != null) {
+            isProfileOrPersonaUpdated |= processProperties(target, propsToUpdate, "alwaysSet");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+        }
+
+        Map<String, Object> propsToAddToSet = (HashMap<String, Object>) event.getProperties().get(PROPS_TO_ADD_TO_SET);
+        if (propsToAddToSet != null) {
+            isProfileOrPersonaUpdated |= processProperties(target, propsToAddToSet, "addValues");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+        }
+
+        List<String> propsToDelete = (List<String>) event.getProperties().get(PROPS_TO_DELETE);
+        if (propsToDelete != null) {
+            for (String prop : propsToDelete) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ProfileConditionFactory.java`
+#### Snippet
+```java
+
+        if ("distance".equals(comparisonOperator) && value instanceof Map) {
+            Map<String, Object> distanceFilter = (Map<String, Object>) value;
+
+            ConditionBuilder builder = ConditionBuilder.create(getConditionType(conditionTypeId))
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map\[\]' to 'java.util.Map\[\]'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/MergeProfilesOnPropertyAction.java`
+#### Snippet
+```java
+
+                    String[] scripts = new String[]{"updateProfileId"};
+                    Map<String, Object>[] scriptParams = new Map[]{Collections.singletonMap("profileId", masterProfileId)};
+                    Condition[] conditions = new Condition[]{profileIdsCondition};
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/ModifyConsentAction.java`
+#### Snippet
+```java
+                Consent consent = null;
+                try {
+                    consent = new Consent(consentMap, dateFormat);
+                    isProfileUpdated = profile.setConsent(consent);
+                } catch (ParseException e) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Collection'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/IdsConditionESQueryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public QueryBuilder buildQuery(Condition condition, Map<String, Object> context, ConditionESQueryBuilderDispatcher dispatcher) {
+        Collection<String> ids = (Collection<String>) condition.getParameter("ids");
+        Boolean match = (Boolean) condition.getParameter("match");
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Collection'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/IdsConditionEvaluator.java`
+#### Snippet
+```java
+    @Override
+    public boolean eval(Condition condition, Item item, Map<String, Object> context, ConditionEvaluatorDispatcher dispatcher) {
+        Collection<String> ids = (Collection<String>) condition.getParameter("ids");
+        Boolean match = (Boolean) condition.getParameter("match");
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/IncrementPropertyAction.java`
+#### Snippet
+```java
+                        // Create a new map to avoid modifying the original Object
+                        Map<String, Object> newPropertyValue = new HashMap<>();
+                        Map<String, Object> nestedProperty = (Map<String, Object>) nestedPropertyValue;
+
+                        // increment with target
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/IncrementPropertyAction.java`
+#### Snippet
+```java
+
+                        // increment with target
+                        ((Map<String, Object>) propertyTargetValue).forEach((key, targetValue) -> {
+                            if ((targetValue instanceof Integer && (nestedProperty.containsKey(key) && nestedProperty.get(key) instanceof Integer)) ||
+                                    (targetValue instanceof Integer && !nestedProperty.containsKey(key))) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/IncrementPropertyAction.java`
+#### Snippet
+```java
+                    // Create a new map to avoid modifying the original object
+                    Map<String, Object> newPropertyValue = new HashMap<>();
+                    Map<String, Object> nestedProperty = (Map<String, Object>) nestedPropertyValue;
+                    nestedProperty.forEach((key, propValue) -> newPropertyValue.put(key, propValue instanceof Integer ? (int) propValue + 1 : propValue));
+                    propertyValue = newPropertyValue;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/NestedConditionEvaluator.java`
+#### Snippet
+```java
+
+                // Evaluated each nested items until one match the nested condition
+                for (Object nestedItem : (List<Object>) nestedItems) {
+                    if (nestedItem instanceof Map) {
+                        Map<String, Object> flattenedNestedItem = flattenNestedItem(path, (Map<String, Object>) nestedItem);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/NestedConditionEvaluator.java`
+#### Snippet
+```java
+                for (Object nestedItem : (List<Object>) nestedItems) {
+                    if (nestedItem instanceof Map) {
+                        Map<String, Object> flattenedNestedItem = flattenNestedItem(path, (Map<String, Object>) nestedItem);
+                        Item finalNestedItem = createFinalNestedItemForEvaluation(item, path, flattenedNestedItem);
+                        if (finalNestedItem != null && dispatcher.eval(subCondition, finalNestedItem, context)) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PastEventConditionEvaluator.java`
+#### Snippet
+```java
+            String key = (String) parameters.get("generatedPropertyKey");
+            Profile profile = (Profile) item;
+            Map<String,Object> pastEvents = (Map<String, Object>) profile.getSystemProperties().get("pastEvents");
+            if (pastEvents != null) {
+                Number l = (Number) pastEvents.get(key);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'getProperty(T, String, String)' as a member of raw type 'org.apache.unomi.plugins.baseplugin.conditions.accessors.HardcodedPropertyAccessor'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/HardcodedPropertyAccessorRegistry.java`
+#### Snippet
+```java
+            HardcodedPropertyAccessor propertyAccessor = propertyAccessors.get(lookupClass);
+            if (propertyAccessor != null) {
+                Object result = propertyAccessor.getProperty(object, nextTokens.propertyName, nextTokens.leftoverExpression);
+                if (!HardcodedPropertyAccessor.PROPERTY_NOT_FOUND_MARKER.equals(result)) {
+                    return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+#### Snippet
+```java
+                actualCenter = (GeoPoint) actualValue;
+            } else if (actualValue instanceof Map) {
+                actualCenter = GeoPoint.fromMap((Map<String, Double>) actualValue);
+            } else if (actualValue instanceof String) {
+                actualCenter = GeoPoint.fromString((String) actualValue);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `samples/tweet-button-plugin/src/main/java/org/apache/unomi/samples/tweet_button_plugin/actions/IncrementTweetNumberAction.java`
+#### Snippet
+```java
+        final Profile profile = event.getProfile();
+        Integer tweetNb = (Integer) profile.getProperty(TWEET_NB_PROPERTY);
+        List<String> tweetedFrom = (List<String>) profile.getProperty(TWEETED_FROM_PROPERTY);
+
+        if (tweetNb == null || tweetedFrom == null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List\>'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ImportExportConfiguration.java`
+#### Snippet
+```java
+    private String status;
+
+    private List<Map<String, Object>> executions = new ArrayList();
 
     /**
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ParserHelper` has only 'static' members, and lacks a 'private' constructor
-in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
 #### Snippet
 ```java
- * Helper class to resolve condition, action and values types when loading definitions from JSON files
- */
-public class ParserHelper {
+        }
 
-    private static final Logger logger = LoggerFactory.getLogger(ParserHelper.class);
+        configuration.getExecutions().add(execution);
+        return configuration;
+    }
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
 #### Snippet
 ```java
- * Created by dsalhotra on 27/06/2017.
- */
-public class HttpUtils {
+            if (RouterConstants.IMPORT_EXPORT_CONFIG_TYPE_RECURRENT.equals(exportConfiguration.getConfigType()) &&
+                    exportConfiguration.getProperties() != null && exportConfiguration.getProperties().size() > 0) {
+                if ((Map<String, String>) exportConfiguration.getProperties().get("mapping") != null) {
+                    String destinationEndpoint = (String) exportConfiguration.getProperties().get("destination");
+                    if (StringUtils.isNotBlank(destinationEndpoint) && allowedEndpoints.contains(destinationEndpoint.substring(0, destinationEndpoint.indexOf(':')))) {
+```
 
-    private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
+#### Snippet
+```java
+
+        Map execution = new HashMap();
+        execution.put("date", ((Date) exchange.getProperty("CamelCreatedTimestamp")).getTime());
+        execution.put("totalLinesNb", nbTotal);
+        execution.put("successCount", successCount);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        Map execution = new HashMap();
+        execution.put("date", ((Date) exchange.getProperty("CamelCreatedTimestamp")).getTime());
+        execution.put("totalLinesNb", nbTotal);
+        execution.put("successCount", successCount);
+        execution.put("failureCount", failureCount);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        execution.put("date", ((Date) exchange.getProperty("CamelCreatedTimestamp")).getTime());
+        execution.put("totalLinesNb", nbTotal);
+        execution.put("successCount", successCount);
+        execution.put("failureCount", failureCount);
+        execution.put("errors", errors);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        execution.put("totalLinesNb", nbTotal);
+        execution.put("successCount", successCount);
+        execution.put("failureCount", failureCount);
+        execution.put("errors", errors);
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        execution.put("successCount", successCount);
+        execution.put("failureCount", failureCount);
+        execution.put("errors", errors);
+
+        importConfiguration = (ImportConfiguration) RouterUtils.addExecutionEntry(importConfiguration, execution, executionsHistorySize);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ExportRouteCompletionProcessor.java`
+#### Snippet
+```java
+
+        Map execution = new HashMap();
+        execution.put(RouterConstants.KEY_EXECS_DATE, ((Date) exchange.getProperty("CamelCreatedTimestamp")).getTime());
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, exchange.getProperty("CamelSplitSize"));
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ExportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        Map execution = new HashMap();
+        execution.put(RouterConstants.KEY_EXECS_DATE, ((Date) exchange.getProperty("CamelCreatedTimestamp")).getTime());
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, exchange.getProperty("CamelSplitSize"));
+
+        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, executionsHistorySize);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportFromSourceRouteBuilder.java`
+#### Snippet
+```java
+                //Prepare Split Processor
+                LineSplitProcessor lineSplitProcessor = new LineSplitProcessor();
+                lineSplitProcessor.setFieldsMapping((Map<String, Integer>) importConfiguration.getProperties().get("mapping"));
+                lineSplitProcessor.setOverwriteExistingProfiles(importConfiguration.isOverwriteExistingProfiles());
+                lineSplitProcessor.setPropertiesToOverwrite(importConfiguration.getPropertiesToOverwrite());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
+#### Snippet
+```java
+        String configType = (String) exchange.getIn().getHeader(RouterConstants.HEADER_CONFIG_TYPE);
+        if (importConfigOneShot != null) {
+            fieldsMapping = (Map<String, Integer>) importConfigOneShot.getProperties().get("mapping");
+            propertiesToOverwrite = importConfigOneShot.getPropertiesToOverwrite();
+            mergingProperty = importConfigOneShot.getMergingProperty();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+
+    public String convertProfileToCSVLine(Profile profile, ExportConfiguration exportConfiguration, Collection<PropertyType> propertiesDef) {
+        Map<String, String> mapping = (Map<String, String>) exportConfiguration.getProperty("mapping");
+        String lineToWrite = "";
+        for (int i = 0; i < mapping.size(); i++) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+            if (propType != null && BooleanUtils.isTrue(propType.isMultivalued())) {
+                if (propertyValue != null) {
+                    List<String> multiValue = (List<String>) propertyValue;
+                    lineToWrite += StringUtils.isNotBlank(exportConfiguration.getMultiValueDelimiter()) ? exportConfiguration.getMultiValueDelimiter().charAt(0) : "";
+                    int j = 0;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+
+        Map execution = new HashMap();
+        execution.put(RouterConstants.KEY_EXECS_DATE, new Date().getTime());
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, counter);
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+        Map execution = new HashMap();
+        execution.put(RouterConstants.KEY_EXECS_DATE, new Date().getTime());
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, counter);
+
+        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, Integer.parseInt((String) configSharingService.getProperty(RouterConstants.KEY_HISTORY_SIZE)));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/keyword/ScopeValidator.java`
+#### Snippet
+```java
+            logger.debug("validate( {}, {}, {})", node, rootNode, at);
+        }
+        Set<ValidationMessage> errors = new LinkedHashSet();
+        if (scopeService.getScope(node.textValue()) == null) {
+            errors.add(this.buildValidationMessage(
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
+#### Snippet
+```java
+    public PartialList<GeonameEntry> getChildrenEntries(List<String> items, int offset, int size) {
+        Condition andCondition = getItemsInChildrenQuery(items, CITIES_FEATURE_CODES);
+        Condition featureCodeCondition = ((List<Condition>) andCondition.getParameter("subConditions")).get(0);
+        int level = items.size();
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
+#### Snippet
+```java
+        featureCodeCondition.setParameter("propertyValues", featuresCode);
+
+        List<Condition> l = (List<Condition>) andCondition.getParameter("subConditions");
+        Condition condition = getPropertyCondition(featurePropertyName, "propertyValue", featureValue, "equals");
+        l.add(condition);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.lang.Class' to 'java.lang.Class'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
+#### Snippet
+```java
+
+    public void registerBuiltInItemTypeClass(String itemType, Class clazz) {
+        propertyTypedObjectDeserializer.registerMapping("itemType=" + itemType, clazz);
+        itemDeserializer.registerMapping(itemType, clazz);
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.lang.Class' to 'java.lang.Class'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
+#### Snippet
+```java
+    public void registerBuiltInItemTypeClass(String itemType, Class clazz) {
+        propertyTypedObjectDeserializer.registerMapping("itemType=" + itemType, clazz);
+        itemDeserializer.registerMapping(itemType, clazz);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+#### Snippet
+```java
+        // extract the key prefix for nested objects
+        String prefix = in.getKey();
+        Map<String, Object> values = (Map<String, Object>) in.getValue();
+        // create a new Map, with prefix added to each key
+        Map<String, Object> flattenMap = new HashMap<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.String' to 'T'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
+#### Snippet
+```java
+                public T apply(T o) {
+                    if (o instanceof String) {
+                        return (T) ConditionContextHelper.foldToASCII((String) o);
+                    }
+                    return o;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+
+            if (responseObject instanceof Map) {
+                return (Map<String, Object>) responseObject;
+            }
+            return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                return null;
+            }
+            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
+            if (queryResponse != null) {
+                logger.debug("Response received from Salesforce: {}", queryResponse);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                return null;
+            }
+            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
+            if (queryResponse != null) {
+                logger.debug("Response received from Salesforce: {}", queryResponse);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+            }
+            if (responseObject instanceof Map) {
+                Map<String, Object> responseData = (Map<String, Object>) responseObject;
+                if (responseData.get("id") != null) {
+                    String sfdcId = (String) responseData.get("id");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+        oauthPost.setEntity(new UrlEncodedFormEntity(parametersBody, "UTF-8"));
+
+        Map<String, String> oauthLoginResponse = (Map<String, String>) handleRequest(oauthPost, 0, false);
+        if (oauthLoginResponse == null) {
+            return false;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                return null;
+            }
+            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
+            if (queryResponse.containsKey("recentItems")) {
+                logger.debug("Response received from Salesforce: {}", queryResponse);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                Object[] recentItems = (Object[]) queryResponse.get("recentItems");
+                for (Object recentItem : recentItems) {
+                    Map<String, String> recentItemMap = (Map<String, String>) recentItem;
+                    recentLeadIds.add(recentItemMap.get("Id"));
+                }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+
+    private Set<String> mappingResponse(Object response, Set<String> results) {
+        Map<String, Object> result = (Map<String, Object>) response;
+        Long totalSize = (Long) result.get("totalSize");
+        Boolean done = (Boolean) result.get("done");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+        }
+        for (Object recordObject : recordObjects) {
+            Map<String, Object> record = (Map<String, Object>) recordObject;
+            if (record.containsKey("Id")) {
+                results.add((String) record.get("Id"));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+            }
+            if (responseObject != null && responseObject instanceof Map) {
+                return (Map<String, Object>) responseObject;
+            }
+            return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+        Set<String> compoundFieldNames = new TreeSet<>();
+        for (Object field : fields) {
+            Map<String, Object> fieldDescribe = (Map<String, Object>) field;
+            String fieldName = (String) fieldDescribe.get("name");
+            String compoundFieldName = (String) fieldDescribe.get("compoundFieldName");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+        HttpGet get = new HttpGet(baseUrl);
+
+        Map<String, String> queryResponse = (Map<String, String>) handleRequest(get);
+
+        if (queryResponse != null && queryResponse.containsKey("count")) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+            }
+            Map<String, Object> subMappings = mappings.computeIfAbsent("properties", k -> new HashMap<>());
+            Map<String, Object> subSubMappings = (Map<String, Object>) subMappings.computeIfAbsent("properties", k -> new HashMap<>());
+
+            if (subSubMappings.containsKey(property.getItemId())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                    && result.get(subentry.getKey()) instanceof Map
+                    && subentry.getValue() instanceof Map) {
+                mergePropertiesMapping((Map) result.get(subentry.getKey()), (Map) subentry.getValue());
+            } else {
+                result.put(subentry.getKey(), subentry.getValue());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                    && result.get(subentry.getKey()) instanceof Map
+                    && subentry.getValue() instanceof Map) {
+                mergePropertiesMapping((Map) result.get(subentry.getKey()), (Map) subentry.getValue());
+            } else {
+                result.put(subentry.getKey(), subentry.getValue());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map\>'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                return propMapping;
+            } else {
+                mappings = propMapping != null ? ((Map<String, Map<String, Object>>) propMapping.get("properties")) : null;
+            }
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.unomi.api.CustomItem' to 'T'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+                                    PartialList<CustomItem> r = query(QueryBuilders.idsQuery().addIds(documentId), null, customItemType, 0, 1, null, null);
+                                    if (r.size() > 0) {
+                                        return (T) r.get(0);
+                                    }
+                                }
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `HttpException`
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCService.java`
+#### Snippet
+```java
+     * @param sfdcConfiguration the configuration to use for the login
+     * @return true if the login was successful, false otherwise
+     * @throws HttpException thrown if there was an error communicating with the Salesforce server
+     * @throws IOException thrown if there was an error communicating with the Salesforce server
+     */
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -10146,18 +4364,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl
 ```
 
 ### DataFlowIssue
-Method invocation `execute` may produce `NullPointerException`
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-                logger.warn("Couldn't find any action dispatcher for prefix '{}', action {} won't execute !", actionPrefix, actionKey);
-            }
-            return actionDispatcher.execute(action, event, actionName);
-        } else if (executors.containsKey(actionKey)) {
-            ActionExecutor actionExecutor = executors.get(actionKey);
-```
-
-### DataFlowIssue
 Casting `result` to `Integer` may produce `ClassCastException`
 in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
 #### Snippet
@@ -10218,15 +4424,15 @@ in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStr
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+Method invocation `execute` may produce `NullPointerException`
+in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
 #### Snippet
 ```java
-        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, profileList.size());
-
-        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, Integer.parseInt((String) configSharingService.getProperty(RouterConstants.KEY_HISTORY_SIZE)));
-        persistenceService.save(exportConfiguration);
-
+                logger.warn("Couldn't find any action dispatcher for prefix '{}', action {} won't execute !", actionPrefix, actionKey);
+            }
+            return actionDispatcher.execute(action, event, actionName);
+        } else if (executors.containsKey(actionKey)) {
+            ActionExecutor actionExecutor = executors.get(actionKey);
 ```
 
 ### DataFlowIssue
@@ -10279,18 +4485,6 @@ in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditi
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ExportRouteCompletionProcessor.java`
-#### Snippet
-```java
-        ExportConfiguration exportConfiguration = exportConfigurationService.load(exportConfig.getItemId());
-
-        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, executionsHistorySize);
-        exportConfiguration.setStatus(RouterConstants.CONFIG_STATUS_COMPLETE_SUCCESS);
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ImportRouteCompletionProcessor.java`
 #### Snippet
 ```java
@@ -10299,6 +4493,18 @@ in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/pro
         importConfiguration = (ImportConfiguration) RouterUtils.addExecutionEntry(importConfiguration, execution, executionsHistorySize);
 
         //Set running to false, route is complete
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/ExportRouteCompletionProcessor.java`
+#### Snippet
+```java
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, exchange.getProperty("CamelSplitSize"));
+
+        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, executionsHistorySize);
+        exportConfiguration.setStatus(RouterConstants.CONFIG_STATUS_COMPLETE_SUCCESS);
+
 ```
 
 ### DataFlowIssue
@@ -10323,6 +4529,18 @@ in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/pro
                             throw new BadProfileDataFormatException("Unable to convert '" + profileData[fieldsMapping.get(fieldMappingKey)].trim() + "' to " + propertyType!=null?propertyType.getValueTypeId():"Null propertyType ", new Throwable("DATA_TYPE"));
                         } else {
                             throw new BadProfileDataFormatException("Unable to find profile data for key " + fieldMappingKey, new Throwable("DATA_TYPE"));
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
+#### Snippet
+```java
+        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, counter);
+
+        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, Integer.parseInt((String) configSharingService.getProperty(RouterConstants.KEY_HISTORY_SIZE)));
+        persistenceService.save(exportConfiguration);
+
 ```
 
 ### DataFlowIssue
@@ -10401,27 +4619,39 @@ in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/Con
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'purgeSessionsAndEventsTime' is still used
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    private Integer purgeSessionsAndEventsTime = 0;
-    private Integer purgeSessionExistTime = 0;
-    private Integer purgeEventExistTime = 0;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'AllEventToProfilePropertiesAction' is still used
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/AllEventToProfilePropertiesAction.java`
+Deprecated member 'EventsCollectorServlet' is still used
+in `wab/src/main/java/org/apache/unomi/web/EventsCollectorServlet.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class AllEventToProfilePropertiesAction implements ActionExecutor {
+public class EventsCollectorServlet extends HttpServlet {
+    private static final long serialVersionUID = 2008054804885122957L;
+    private static final Logger logger = LoggerFactory.getLogger(EventsCollectorServlet.class.getName());
+```
 
-    private ProfileService profileService;
+### DeprecatedIsStillUsed
+Deprecated member 'ClientServlet' is still used
+in `wab/src/main/java/org/apache/unomi/web/ClientServlet.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ClientServlet extends HttpServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientServlet.class.getName());
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ContextServlet' is still used
+in `wab/src/main/java/org/apache/unomi/web/ContextServlet.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ContextServlet extends HttpServlet {
+    private static final long serialVersionUID = 2928875830103325238L;
+    private static final Logger logger = LoggerFactory.getLogger(ContextServlet.class.getName());
 ```
 
 ### DeprecatedIsStillUsed
@@ -10449,18 +4679,6 @@ in `api/src/main/java/org/apache/unomi/api/ContextResponse.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'loadSession' is still used
-in `api/src/main/java/org/apache/unomi/api/services/ProfileService.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    Session loadSession(String sessionId, Date dateHint);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getMergedWith' is still used
 in `api/src/main/java/org/apache/unomi/api/Profile.java`
 #### Snippet
@@ -10485,6 +4703,18 @@ in `api/src/main/java/org/apache/unomi/api/Profile.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'loadSession' is still used
+in `api/src/main/java/org/apache/unomi/api/services/ProfileService.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    Session loadSession(String sessionId, Date dateHint);
+
+    /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getAggregate' is still used
 in `api/src/main/java/org/apache/unomi/api/services/QueryService.java`
 #### Snippet
@@ -10497,49 +4727,37 @@ in `api/src/main/java/org/apache/unomi/api/services/QueryService.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'EventsCollectorServlet' is still used
-in `wab/src/main/java/org/apache/unomi/web/EventsCollectorServlet.java`
+Deprecated member 'purgeSessionsAndEventsTime' is still used
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    private Integer purgeSessionsAndEventsTime = 0;
+    private Integer purgeSessionExistTime = 0;
+    private Integer purgeEventExistTime = 0;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AllEventToProfilePropertiesAction' is still used
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/AllEventToProfilePropertiesAction.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class EventsCollectorServlet extends HttpServlet {
-    private static final long serialVersionUID = 2008054804885122957L;
-    private static final Logger logger = LoggerFactory.getLogger(EventsCollectorServlet.class.getName());
+public class AllEventToProfilePropertiesAction implements ActionExecutor {
+
+    private ProfileService profileService;
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ClientServlet' is still used
-in `wab/src/main/java/org/apache/unomi/web/ClientServlet.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ClientServlet extends HttpServlet {
-
-    private static final Logger logger = LoggerFactory.getLogger(ClientServlet.class.getName());
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'purge' is still used
+Deprecated member 'updateWithQueryAndScript' is still used
 in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    void purge(Date date);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'updateWithScript' is still used
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    boolean updateWithScript(Item item, Date dateHint, Class<?> clazz, String script, Map<String, Object> scriptParams);
+    boolean updateWithQueryAndScript(Date dateHint, Class<?> clazz, String[] scripts, Map<String, Object>[] scriptParams, Condition[] conditions);
 
     /**
 ```
@@ -10557,13 +4775,13 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceSe
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'updateWithQueryAndScript' is still used
+Deprecated member 'purge' is still used
 in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    boolean updateWithQueryAndScript(Date dateHint, Class<?> clazz, String[] scripts, Map<String, Object>[] scriptParams, Condition[] conditions);
+    void purge(Date date);
 
     /**
 ```
@@ -10593,137 +4811,15 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceSe
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ContextServlet' is still used
-in `wab/src/main/java/org/apache/unomi/web/ContextServlet.java`
+Deprecated member 'updateWithScript' is still used
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PersistenceService.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class ContextServlet extends HttpServlet {
-    private static final long serialVersionUID = 2928875830103325238L;
-    private static final Logger logger = LoggerFactory.getLogger(ContextServlet.class.getName());
-```
+     */
+    @Deprecated
+    boolean updateWithScript(Item item, Date dateHint, Class<?> clazz, String script, Map<String, Object> scriptParams);
 
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            }
-        });
-        propsToRemove.forEach(propId -> profileProperties.remove(propId));
-        return profileProperties;
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    public void setFatalIllegalStateErrors(String fatalIllegalStateErrors) {
-        this.fatalIllegalStateErrors = Arrays.stream(fatalIllegalStateErrors.split(","))
-                .map(i -> i.trim()).filter(i -> !i.isEmpty()).toArray(String[]::new);
-    }
-
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'serviceManager' in a Serializable class
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-    private GraphQLSchemaUpdater graphQLSchemaUpdater;
-
-    private ServiceManager serviceManager;
-
-    private GraphQLServletSecurityValidator validator;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'graphQLSchemaUpdater' in a Serializable class
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-    public static final String SCHEMA_URL = "/schema.json";
-
-    private GraphQLSchemaUpdater graphQLSchemaUpdater;
-
-    private ServiceManager serviceManager;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'validator' in a Serializable class
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-    private ServiceManager serviceManager;
-
-    private GraphQLServletSecurityValidator validator;
-
-    @Reference
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'configuration' in a Serializable class
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/event/UpdateCamelRouteEvent.java`
-#### Snippet
-```java
-public class UpdateCamelRouteEvent extends Event {
-    private String routeId;
-    private Object configuration;
-
-    public UpdateCamelRouteEvent(String id) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'data' in a Serializable class
-in `api/src/main/java/org/apache/unomi/api/Patch.java`
-#### Snippet
-```java
-    private String operation;
-
-    private Object data;
-
-    private Date lastApplication;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'valueType' in a Serializable class
-in `api/src/main/java/org/apache/unomi/api/PropertyType.java`
-#### Snippet
-```java
-    private String target;
-    private String valueTypeId;
-    private ValueType valueType;
-    private String defaultValue;
-    private List<DateRange> dateRanges = new ArrayList<>();
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'to' in a Serializable class
-in `api/src/main/java/org/apache/unomi/api/query/DateRange.java`
-#### Snippet
-```java
-    private String key;
-    private Object from;
-    private Object to;
-
-    public DateRange() {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'from' in a Serializable class
-in `api/src/main/java/org/apache/unomi/api/query/DateRange.java`
-#### Snippet
-```java
-public class DateRange implements Serializable {
-    private String key;
-    private Object from;
-    private Object to;
-
+    /**
 ```
 
 ## RuleId[id=RedundantCollectionOperation]
@@ -10751,7 +4847,411 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelpe
                                 PropertyUtils.setNestedProperty(target, parentPropertyName, parentPropertyValue);
 ```
 
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `services/src/main/java/org/apache/unomi/services/impl/patches/PatchServiceImpl.java`
+#### Snippet
+```java
+    @Override
+    public void bundleChanged(BundleEvent event) {
+        switch (event.getType()) {
+            case BundleEvent.STARTED:
+                processBundleStartup(event.getBundle().getBundleContext());
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+#### Snippet
+```java
+    @Override
+    public void bundleChanged(BundleEvent event) {
+        switch (event.getType()) {
+            case BundleEvent.STARTING:
+                loadPredefinedMappings(event.getBundle().getBundleContext(), true);
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `api/src/main/java/org/apache/unomi/api/Event.java`
+#### Snippet
+```java
+        if (!name.contains(".")) {
+            return getProperty(name);
+        }
+
+        Map properties = this.properties;
+        String[] propertyPath = StringUtils.substringBeforeLast(name, ".").split("\\.");
+        String propertyName = StringUtils.substringAfterLast(name, ".");
+
+        for (String property: propertyPath) {
+            properties = (Map) properties.get(property);
+            if (properties == null) {
+                return null;
+            }
+        }
+        return properties.get(propertyName);
+```
+
+### DuplicatedCode
+Duplicated code
+in `extensions/lists-extension/services/src/main/java/org/apache/unomi/services/UserListServiceImpl.java`
+#### Snippet
+```java
+        List<Metadata> metadata = new LinkedList<>();
+        for (UserList definition : userLists.getList()) {
+            metadata.add(definition.getMetadata());
+        }
+        return new PartialList<>(metadata, userLists.getOffset(), userLists.getPageSize(), userLists.getTotalSize(), userLists.getTotalSizeRelation());
+```
+
+### DuplicatedCode
+Duplicated code
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportFromSourceRouteBuilder.java`
+#### Snippet
+```java
+        ProcessorDefinition prDefErr = onException(BadProfileDataFormatException.class)
+                .log(LoggingLevel.ERROR, "Error processing record ${exchangeProperty.CamelSplitIndex}++ !")
+                .handled(true)
+                .process(new LineSplitFailureHandler())
+                .onException(Exception.class)
+                .log(LoggingLevel.ERROR, "Failed to process file.")
+                .handled(true);
+
+        if (RouterConstants.CONFIG_TYPE_KAFKA.equals(configType)) {
+            prDefErr.to((KafkaEndpoint) getEndpointURI(RouterConstants.DIRECTION_FROM, RouterConstants.DIRECT_IMPORT_DEPOSIT_BUFFER));
+        } else {
+            prDefErr.to((String) getEndpointURI(RouterConstants.DIRECTION_FROM, RouterConstants.DIRECT_IMPORT_DEPOSIT_BUFFER));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
+#### Snippet
+```java
+        if (!isMailChimpConnectorConfigured() || profile.getProperty(EMAIL) == null) {
+            return MailChimpResult.ERROR;
+        }
+
+        String listIdentifier = (String) action.getParameterValues().get(LIST_IDENTIFIER);
+        if (StringUtils.isBlank(listIdentifier)) {
+            logger.warn("Couldn't get the list identifier from Unomi");
+            return MailChimpResult.ERROR;
+        }
+
+        JsonNode currentMember = isMemberOfMailChimpList(profile, listIdentifier);
+```
+
+### DuplicatedCode
+Duplicated code
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/AddProfileToListCommand.java`
+#### Snippet
+```java
+        final UserList userList = serviceManager.getService(UserListService.class).load(listId);
+
+        if (userList == null) {
+            return null;
+        }
+
+        ProfileService profileService = serviceManager.getService(ProfileService.class);
+        final Profile profile = profileService.load(profileIDInput.getId());
+
+        if (profile == null) {
+            return null;
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/EventConditionFactory.java`
+#### Snippet
+```java
+        if (filterInput.getAnd() != null && !filterInput.getAnd().isEmpty()) {
+            final List<Map<String, Object>> listFilterInputAsMap = (List<Map<String, Object>>) filterInputAsMap.get("and");
+
+            rootSubConditions.add(filtersToCondition(filterInput.getAnd(), listFilterInputAsMap, this::eventFilterInputCondition, "and"));
+        }
+
+        if (filterInput.getOr() != null && !filterInput.getOr().isEmpty()) {
+            final List<Map<String, Object>> listFilterInputAsMap = (List<Map<String, Object>>) filterInputAsMap.get("or");
+
+            rootSubConditions.add(filtersToCondition(filterInput.getOr(), listFilterInputAsMap, this::eventFilterInputCondition, "or"));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ProfileAliasConditionFactory.java`
+#### Snippet
+```java
+        if (filterInputAsMap.get("and") != null) {
+            final List<Map<String, Object>> andFilterInputAsMap = (List<Map<String, Object>>) filterInputAsMap.get("and");
+
+            rootSubConditions.add(filtersToCondition(filterInput.getAnd(), andFilterInputAsMap, this::filterInputCondition, "and"));
+        }
+
+        if (filterInputAsMap.get("or") != null) {
+            final List<Map<String, Object>> orFilterInputAsMap = (List<Map<String, Object>>) filterInputAsMap.get("or");
+
+            rootSubConditions.add(filtersToCondition(filterInput.getOr(), orFilterInputAsMap, this::filterInputCondition, "or"));
+        }
+
+        return booleanCondition("and", rootSubConditions);
+```
+
+### DuplicatedCode
+Duplicated code
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIntPropertyInput.java`
+#### Snippet
+```java
+        if (type == null) {
+            return;
+        }
+        super.updateType(type);
+        type.setDefaultValue(defaultValue != null ? defaultValue.toString() : null);
+        if (minValue != null || maxValue != null) {
+            final Double from = minValue != null ? minValue.doubleValue() : null;
+            final Double to = maxValue != null && (minValue == null || maxValue >= minValue) ? maxValue.doubleValue() : null;
+            updateDefaultNumericRange(type, from, to);
+        } else {
+            deleteDefaultNumericRange(type);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/UpdatePropertiesAction.java`
+#### Snippet
+```java
+                Event profileUpdated = new Event("profileUpdated", null, target, null, null, target, new Date());
+                profileUpdated.setPersistent(false);
+                int changes = eventService.send(profileUpdated);
+                if ((changes & EventService.PROFILE_UPDATED) == EventService.PROFILE_UPDATED) {
+                    profileService.save(target);
+                }
+```
+
+### DuplicatedCode
+Duplicated code
+in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PastEventConditionESQueryBuilder.java`
+#### Snippet
+```java
+        boolean eventsOccurred = getStrategyFromOperator((String) condition.getParameter("operator"));
+        int minimumEventCount = !eventsOccurred || condition.getParameter("minimumEventCount") == null ? 1 : (Integer) condition.getParameter("minimumEventCount");
+        int maximumEventCount = !eventsOccurred || condition.getParameter("maximumEventCount") == null ? Integer.MAX_VALUE : (Integer) condition.getParameter("maximumEventCount");
+        String generatedPropertyKey = (String) condition.getParameter("generatedPropertyKey");
+```
+
+### DuplicatedCode
+Duplicated code
+in `plugins/request/src/main/java/org/apache/unomi/plugins/request/actions/RequestHeaderToProfilePropertyAction.java`
+#### Snippet
+```java
+        if (requestHeaderValue != null) {
+            if (profilePropertyName != null) {
+                if (event.getProfile().getProperty(profilePropertyName) == null || !event.getProfile().getProperty(profilePropertyName).equals(requestHeaderValue)) {
+                    event.getProfile().setProperty(profilePropertyName, requestHeaderValue);
+                    return EventService.PROFILE_UPDATED;
+                }
+            } else if (sessionPropertyName != null) {
+                if (event.getSession().getProperty(sessionPropertyName) == null || !event.getSession().getProperty(sessionPropertyName).equals(requestHeaderValue)) {
+                    event.getSession().setProperty(sessionPropertyName, requestHeaderValue);
+                    return EventService.SESSION_UPDATED;
+                }
+            }
+        }
+        return EventService.NO_CHANGE;
+```
+
+### DuplicatedCode
+Duplicated code
+in `rest/src/main/java/org/apache/unomi/rest/service/impl/LocalizationHelper.java`
+#### Snippet
+```java
+        result.setId(conditionType.getItemId());
+        result.setVersion(conditionType.getVersion());
+
+        result.setName(conditionType.getMetadata().getName());
+        result.setDescription(conditionType.getMetadata().getDescription());
+
+        result.setTags(conditionType.getMetadata().getTags());
+        result.setSystemTags(conditionType.getMetadata().getSystemTags());
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/AbstractServiceImpl.java`
+#### Snippet
+```java
+        List<Metadata> details = new LinkedList<>();
+        for (T definition : items.getList()) {
+            details.add(definition.getMetadata());
+        }
+        return new PartialList<>(details, items.getOffset(), items.getPageSize(), items.getTotalSize(), items.getTotalSizeRelation());
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
+#### Snippet
+```java
+        logger.debug("postConstruct {" + bundleContext.getBundle() + "}");
+
+        processBundleStartup(bundleContext);
+
+        // process already started bundles
+        for (Bundle bundle : bundleContext.getBundles()) {
+            if (bundle.getBundleContext() != null && bundle.getBundleId() != bundleContext.getBundle().getBundleId()) {
+                processBundleStartup(bundle.getBundleContext());
+            }
+        }
+
+        bundleContext.addBundleListener(this);
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
+#### Snippet
+```java
+            if (matchingConditions.size() == 0) {
+                return null;
+            } else if (matchingConditions.equals(subConditions)) {
+                return rootCondition;
+            } else if (rootCondition.getConditionTypeId().equals("booleanCondition") && "and".equals(rootCondition.getParameter("operator"))) {
+                if (matchingConditions.size() == 1) {
+                    return matchingConditions.get(0);
+                } else {
+                    Condition res = new Condition();
+                    res.setConditionType(getConditionType("booleanCondition"));
+                    res.setParameter("operator", "and");
+                    res.setParameter("subConditions", matchingConditions);
+                    return res;
+                }
+            }
+            throw new IllegalArgumentException();
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
+#### Snippet
+```java
+        action1.setParameter("setPropertyName", name);
+        action1.setParameter("setPropertyValueCurrentEventTimestamp", true);
+        action1.setParameter("storeInSession", true);
+        Action action2 = new Action();
+        action2.setActionType(definitionsService.getActionType("setPropertyAction"));
+        action2.setParameter("setPropertyName", name);
+        action2.setParameter("setPropertyValueCurrentEventTimestamp", true);
+        action2.setParameter("storeInSession", false);
+        rule.setActions(Arrays.asList(action1, action2));
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
+#### Snippet
+```java
+                ruleStatistics.setExecutionCount(persistedRuleStatistics.getExecutionCount() + ruleStatistics.getLocalExecutionCount());
+                if (ruleStatistics.getLocalExecutionCount() > 0) {
+                    ruleStatistics.setLocalExecutionCount(0);
+                    mustPersist = true;
+                }
+                ruleStatistics.setConditionsTime(persistedRuleStatistics.getConditionsTime() + ruleStatistics.getLocalConditionsTime());
+                if (ruleStatistics.getLocalConditionsTime() > 0) {
+                    ruleStatistics.setLocalConditionsTime(0);
+                    mustPersist = true;
+                }
+                ruleStatistics.setActionsTime(persistedRuleStatistics.getActionsTime() + ruleStatistics.getLocalActionsTime());
+                if (ruleStatistics.getLocalActionsTime() > 0) {
+                    ruleStatistics.setLocalActionsTime(0);
+                    mustPersist = true;
+                }
+                ruleStatistics.setLastSyncDate(new Date());
+```
+
+### DuplicatedCode
+Duplicated code
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+        List<Metadata> segments = new LinkedList<>();
+        List<Metadata> scorings = new LinkedList<>();
+        for (Segment definition : impactedSegments) {
+            segments.add(definition.getMetadata());
+        }
+        for (Scoring definition : impactedScorings) {
+            scorings.add(definition.getMetadata());
+        }
+        return new DependentMetadata(segments, scorings);
+```
+
+## RuleId[id=CatchMayIgnoreException]
+### CatchMayIgnoreException
+Empty `catch` block
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+#### Snippet
+```java
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                    }
+                }
+```
+
 ## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in MailChimpResult
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+#### Snippet
+```java
+     * @param profile the Unomi profile to unsubscribe from the list @see org.apache.unomi.api.Profile
+     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
+     * @return true if the visitor is successfully unsbscribed to a MailChimp list.
+     */
+    MailChimpResult unsubscribeFromMCList(Profile profile, Action action);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in MailChimpResult
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+#### Snippet
+```java
+     * @param profile the Unomi profile to add to the list @see org.apache.unomi.api.Profile
+     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
+     * @return true if the visitor is successfully added to a MailChimp list.
+     */
+    MailChimpResult addToMCList(Profile profile, Action action);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in MailChimpResult
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+#### Snippet
+```java
+     * @param profile the Unomi profile to remove from the list @see org.apache.unomi.api.Profile
+     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
+     * @return true if the visitor is successfully removed to a MailChimp list.
+     */
+    MailChimpResult removeFromMCList(Profile profile, Action action);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in MailChimpResult
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+#### Snippet
+```java
+     * @param profile the Unomi profile to unsubscribe from the list @see org.apache.unomi.api.Profile
+     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
+     * @return true if the visitor is successfully unsbscribed to a MailChimp list.
+     */
+    MailChimpResult updateMCProfileProperties(Profile profile, Action action);
+```
+
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is set
 in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
@@ -10805,18 +5305,6 @@ Method is specified to return list but the return type is array
 in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/annotations/Action.java`
 #### Snippet
 ```java
-    /**
-     * List of tags that help to classify the action
-     * @return list of system tags
-     */
-    String[] systemTags() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/annotations/Action.java`
-#### Snippet
-```java
      * The value of the parameters can be retrieved in the action like the following:
      * action.getParameterValues().get(parameterName);
      * @return list of parameters
@@ -10825,64 +5313,78 @@ in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/act
 ```
 
 ### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in MailChimpResult
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+Method is specified to return list but the return type is array
+in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/annotations/Action.java`
 #### Snippet
 ```java
-     * @param profile the Unomi profile to unsubscribe from the list @see org.apache.unomi.api.Profile
-     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
-     * @return true if the visitor is successfully unsbscribed to a MailChimp list.
+    /**
+     * List of tags that help to classify the action
+     * @return list of system tags
      */
-    MailChimpResult unsubscribeFromMCList(Profile profile, Action action);
+    String[] systemTags() default {};
 ```
 
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in MailChimpResult
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
 #### Snippet
 ```java
-     * @param profile the Unomi profile to remove from the list @see org.apache.unomi.api.Profile
-     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
-     * @return true if the visitor is successfully removed to a MailChimp list.
-     */
-    MailChimpResult removeFromMCList(Profile profile, Action action);
+
+            @Override
+            protected void customize(Request request) {
+                super.customize(request);
+                request.header("Authorization", "OAuth " + sfdcSession.getSessionId());
 ```
 
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in MailChimpResult
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
 #### Snippet
 ```java
-     * @param profile the Unomi profile to unsubscribe from the list @see org.apache.unomi.api.Profile
-     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
-     * @return true if the visitor is successfully unsbscribed to a MailChimp list.
-     */
-    MailChimpResult updateMCProfileProperties(Profile profile, Action action);
+        try {
+
+            ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(f));
+            ZipEntry zipEntry = zipInputStream.getNextEntry(); // used to advance to the first entry in the ZipInputStream
+            long fileSize = zipEntry.getSize();
 ```
 
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in MailChimpResult
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/MailChimpService.java`
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
 #### Snippet
 ```java
-     * @param profile the Unomi profile to add to the list @see org.apache.unomi.api.Profile
-     * @param action the action used to call this method, to retrieve parameters @see org.apache.unomi.api.actions.Action
-     * @return true if the visitor is successfully added to a MailChimp list.
-     */
-    MailChimpResult addToMCList(Profile profile, Action action);
+        PartialList<Rule> rules = persistenceService.query(query.getCondition(), query.getSortby(), Rule.class, query.getOffset(), query.getLimit());
+        List<Rule> details = new LinkedList<>();
+        details.addAll(rules.getList());
+        return new PartialList<>(details, rules.getOffset(), rules.getPageSize(), rules.getTotalSize(), rules.getTotalSizeRelation());
+    }
 ```
 
-## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
 #### Snippet
 ```java
-                    try {
-                        bufferedReader.close();
-                    } catch (IOException e) {
-                    }
-                }
+        Set<ActionType> actionTypes = new LinkedHashSet<ActionType>();
+        List<ActionType> directActionTypes = persistenceService.query(fieldName, fieldValue,null, ActionType.class);
+        actionTypes.addAll(directActionTypes);
+
+        return actionTypes;
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        conditionTypes.addAll(directConditionTypes);
+
+        return conditionTypes;
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -10912,18 +5414,6 @@ in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/DeleteProfi
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
-#### Snippet
-```java
-                logger.warn("unable to parse date. See debug log level for full stacktrace");
-                if (logger.isDebugEnabled()) {
-                    logger.debug("unable to parse date {}", value.toString(), e);
-                }
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportFromSourceRouteBuilder.java`
 #### Snippet
 ```java
@@ -10935,30 +5425,6 @@ in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/rou
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `EventPublisherListener` may be 'static'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/UnomiEventPublisher.java`
-#### Snippet
-```java
-    }
-
-    class EventPublisherListener {
-
-        private ObservableEmitter<CDPEventInterface> emitter;
-```
-
-### InnerClassMayBeStatic
-Inner class `ConditionDecorator` may be 'static'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
-#### Snippet
-```java
-    }
-
-    private class ConditionDecorator {
-
-        private String id;
-```
-
 ### InnerClassMayBeStatic
 Inner class `PropertyTypeDefinitionType` may be 'static'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
@@ -10984,6 +5450,30 @@ in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchema
 ```
 
 ### InnerClassMayBeStatic
+Inner class `EventPublisherListener` may be 'static'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/UnomiEventPublisher.java`
+#### Snippet
+```java
+    }
+
+    class EventPublisherListener {
+
+        private ObservableEmitter<CDPEventInterface> emitter;
+```
+
+### InnerClassMayBeStatic
+Inner class `ConditionDecorator` may be 'static'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
+#### Snippet
+```java
+    }
+
+    private class ConditionDecorator {
+
+        private String id;
+```
+
+### InnerClassMayBeStatic
 Inner class `ClassLoaderClassResolver` may be 'static'
 in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
 #### Snippet
@@ -10993,6 +5483,68 @@ in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditi
     private class ClassLoaderClassResolver extends DefaultClassResolver {
         private ClassLoader classLoader;
 
+```
+
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/UserListServiceEndPoint.java`
+#### Snippet
+```java
+package org.apache.unomi.rest.endpoints;
+
+/**
+ * Created by amidani on 24/03/2017.
+ */
+```
+
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Map.remove()'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+            }
+        });
+        propsToRemove.forEach(propId -> profileProperties.remove(propId));
+        return profileProperties;
+    }
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Map.get()'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
+#### Snippet
+```java
+        if (configuration.getExecutions().size() >= executionsHistorySize) {
+            int oldestExecIndex = 0;
+            long oldestExecDate = (Long) configuration.getExecutions().get(0).get(RouterConstants.KEY_EXECS_DATE);
+            for (int i = 1; i < configuration.getExecutions().size(); i++) {
+                if ((Long) configuration.getExecutions().get(i).get(RouterConstants.KEY_EXECS_DATE) < oldestExecDate) {
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Map.get()'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
+#### Snippet
+```java
+            long oldestExecDate = (Long) configuration.getExecutions().get(0).get(RouterConstants.KEY_EXECS_DATE);
+            for (int i = 1; i < configuration.getExecutions().size(); i++) {
+                if ((Long) configuration.getExecutions().get(i).get(RouterConstants.KEY_EXECS_DATE) < oldestExecDate) {
+                    oldestExecDate = (Long) configuration.getExecutions().get(i).get(RouterConstants.KEY_EXECS_DATE);
+                    oldestExecIndex = i;
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Map.get()'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
+#### Snippet
+```java
+            for (int i = 1; i < configuration.getExecutions().size(); i++) {
+                if ((Long) configuration.getExecutions().get(i).get(RouterConstants.KEY_EXECS_DATE) < oldestExecDate) {
+                    oldestExecDate = (Long) configuration.getExecutions().get(i).get(RouterConstants.KEY_EXECS_DATE);
+                    oldestExecIndex = i;
+                }
 ```
 
 ## RuleId[id=SwitchStatementWithConfusingDeclaration]
@@ -11008,212 +5560,186 @@ in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditi
                     boolQueryBuilder.must(QueryBuilders.termQuery(name, curValue));
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/HardcodedPropertyAccessorRegistry.java`
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/configsharing/ConfigSharingServiceImpl.java`
 #### Snippet
 ```java
-            nextTokens.propertyName = expression.substring(lookupNameBeginPos, lookupNameEndPos);
-            nextTokens.leftoverExpression = expression.substring(leftoverStartPos);
-            if ("".equals(nextTokens.leftoverExpression)) {
-                nextTokens.leftoverExpression = null;
-            }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/HardcodedPropertyAccessorRegistry.java`
-#### Snippet
-```java
-            return object;
-        }
-        if (expression.trim().equals("")) {
-            return object;
+    public Object removeProperty(String name) {
+        boolean existed = false;
+        if (configProperties.containsKey(name)) {
+            existed = true;
         }
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `plugins/request/src/main/java/org/apache/unomi/plugins/request/actions/SetRemoteHostInfoAction.java`
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/configsharing/ConfigSharingServiceImpl.java`
 #### Snippet
 ```java
-        if (remoteAddrParameter != null && remoteAddrParameter.length() > 0) {
-            remoteAddr = remoteAddrParameter;
-        } else if (xff != null && !xff.equals("")) {
-            if (xff.indexOf(',') > -1) {
-                xff = xff.substring(0, xff.indexOf(','));
+    public Object setProperty(String name, Object newValue) {
+        boolean existed = false;
+        if (configProperties.containsKey(name)) {
+            existed = true;
+        }
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/services/impl/GroovyActionsServiceImpl.java`
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
 #### Snippet
 ```java
-     */
-    private void saveActionType(Action action) {
-        Metadata metadata = new Metadata(null, action.id(), action.name().equals("") ? action.id() : action.name(), action.description());
-        metadata.setHidden(action.hidden());
-        metadata.setReadOnly(true);
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/actions/CopyPropertiesAction.java`
-#### Snippet
-```java
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public int execute(Action action, Event event) {
-        boolean atLeastOnechanged = false;
-        List<String> mandatoryPropTypeSystemTags = (List<String>) action.getParameterValues().get("mandatoryPropTypeSystemTag");
-```
-
-## RuleId[id=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `StringUtils` has only 'static' members, and a 'public' constructor
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/StringUtils.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-public class StringUtils {
-    public StringUtils() {
-    }
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-            if (propertyType.getValueTypeId() != null) {
-                if (propertyType.getValueTypeId().equals("integer")) {
-                    result = new Integer(0);
-                } else if (propertyType.getValueTypeId().equals("long")) {
-                    result = new Long(0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-                    result = new Integer(0);
-                } else if (propertyType.getValueTypeId().equals("long")) {
-                    result = new Long(0);
-                } else if (propertyType.getValueTypeId().equals("double")) {
-                    result = new Double(0.0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-                    result = new Long(0);
-                } else if (propertyType.getValueTypeId().equals("double")) {
-                    result = new Double(0.0);
-                } else if (propertyType.getValueTypeId().equals("float")) {
-                    result = new Float(0.0);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
-#### Snippet
-```java
-                    result = new Double(0.0);
-                } else if (propertyType.getValueTypeId().equals("float")) {
-                    result = new Float(0.0);
+                logger.error("Cluster group " + karafCellarGroupName + " doesn't exist, creating it...");
+                group = karafCellarGroupManager.createGroup(karafCellarGroupName);
+                if (group != null) {
+                    setupConfigOk = true;
                 } else {
-                    result = new Long(0);
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
 ```java
-                    result = new Float(0.0);
-                } else {
-                    result = new Long(0);
+        Event pastEvent = this.persistenceService.load(event.getItemId(), Event.class);
+        if (pastEvent != null && pastEvent.getVersion() >= 1) {
+            if ((pastEvent.getSessionId() != null && pastEvent.getSessionId().equals(event.getSessionId())) ||
+                    (pastEvent.getProfileId() != null && pastEvent.getProfileId().equals(event.getProfileId())))  {
+                return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+                @SuppressWarnings("unchecked") final List<String> referencedSegmentIds = (List<String>) condition.getParameter("segments");
+
+                if (referencedSegmentIds.indexOf(segmentToDeleteId) >= 0) {
+                    return true;
                 }
-            } else {
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `services/src/main/java/org/apache/unomi/services/mergers/AddPropertyMergeStrategyExecutor.java`
+### TrivialIf
+`if` statement can be simplified
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
 #### Snippet
 ```java
                 }
-            } else {
-                result = new Long(0);
+            } else if ("scoringCondition".equals(condition.getConditionTypeId())) {
+                if (scoringToDeleteId.equals(condition.getParameter("scoringPlanId"))) {
+                    return true;
+                }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `api/src/main/java/org/apache/unomi/api/Consent.java`
+#### Snippet
+```java
+    public boolean isConsentGrantedAtDate(Date testDate) {
+        if (getStatusDate().before(testDate) && (getRevokeDate() == null || (getRevokeDate().after(testDate)))) {
+            if (getStatus().equals(ConsentStatus.GRANTED)) {
+                return true;
             }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONType.java`
+#### Snippet
+```java
+
+    public boolean merge(JSONType anotherType) {
+        if (!anotherType.getType().equals(getType())) {
+            return false;
         }
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitFailureHandler.java`
+### TrivialIf
+`if` statement can be simplified
+in `samples/tweet-button-plugin/src/main/java/org/apache/unomi/samples/tweet_button_plugin/actions/IncrementTweetNumberAction.java`
 #### Snippet
 ```java
-        importLineError.setLineContent(exchange.getIn().getBody(String.class));
-        importLineError.setLineNb(((Integer) exchange.getProperty("CamelSplitIndex") + 1));
-        exchange.getIn().setHeader(RouterConstants.HEADER_FAILED_MESSAGE, new Boolean(true));
-        exchange.getIn().setBody(importLineError, ImportLineError.class);
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
-#### Snippet
-```java
-        } else if (setPropertyValueBoolean instanceof Number) {
-            if (((Number) setPropertyValueBoolean).intValue() >= 1) {
-                return new Boolean(true);
-            } else {
-                return new Boolean(false);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
-#### Snippet
-```java
-                return new Boolean(true);
-            } else {
-                return new Boolean(false);
+            CustomItem source = (CustomItem) sourceAsItem;
+            final String url = (String) source.getProperties().get("url");
+            if (url != null) {
+                return url;
             }
-        } else {
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+### TrivialIf
+`if` statement can be simplified
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-            if (((String) setPropertyValueBoolean).equalsIgnoreCase("true") || ((String) setPropertyValueBoolean).equalsIgnoreCase("on") ||
-                    ((String) setPropertyValueBoolean).equalsIgnoreCase("yes") || ((String) setPropertyValueBoolean).equalsIgnoreCase("1")) {
-                return new Boolean(true);
-            } else {
-                return new Boolean(false);
-```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
-#### Snippet
-```java
-                return new Boolean(true);
-            } else {
-                return new Boolean(false);
-            }
+    public boolean isExpired() {
+        if (System.currentTimeMillis() < this.issuedAt + this.timeout) {
+            return false;
         }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
+#### Snippet
+```java
+    private static boolean hasContextualParameter(Object value) {
+        if (value instanceof String) {
+            if (((String) value).startsWith("parameter::") || ((String) value).startsWith("script::")) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+                    "='" + identifierFieldValue + "'");
+            queryResult = mappingResponse(response, queryResult);
+            if (queryResult.size() > 0) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+#### Snippet
+```java
+            return false;
+        }
+        if (sfdcSession.isExpired()) {
+            return false;
+        }
+```
+
+## RuleId[id=ListIndexOfReplaceableByContains]
+### ListIndexOfReplaceableByContains
+`referencedSegmentIds.indexOf(segmentToDeleteId) >= 0` can be replaced with 'referencedSegmentIds.contains(segmentToDeleteId)'
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+                @SuppressWarnings("unchecked") final List<String> referencedSegmentIds = (List<String>) condition.getParameter("segments");
+
+                if (referencedSegmentIds.indexOf(segmentToDeleteId) >= 0) {
+                    return true;
+                }
+```
+
+### ListIndexOfReplaceableByContains
+`referencedSegmentIds.indexOf(segmentId) >= 0` can be replaced with 'referencedSegmentIds.contains(segmentId)'
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+        } else if ("profileSegmentCondition".equals(condition.getConditionTypeId())) {
+            @SuppressWarnings("unchecked") final List<String> referencedSegmentIds = (List<String>) condition.getParameter("segments");
+            if (referencedSegmentIds.indexOf(segmentId) >= 0) {
+                referencedSegmentIds.remove(segmentId);
+                if (referencedSegmentIds.isEmpty()) {
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -11242,272 +5768,6 @@ in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/service
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `extensions/unomi-mailchimp/rest/src/main/java/org/apache/unomi/mailchimp/rest/MailChimpEndPoint.java`
-#### Snippet
-```java
-
-    public MailChimpEndPoint() {
-        System.out.println("Initializing MailChimpEndPoint service endpoint...");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/DeactivateCommand.java`
-#### Snippet
-```java
-    protected Object doExecute() throws Exception {
-        metricsService.setActivated(false);
-        System.out.println("Metrics de-activated successfully.");
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ResetCommand.java`
-#### Snippet
-```java
-    protected Object doExecute() throws Exception {
-        metricsService.resetMetrics();
-        System.out.println("Metrics reset successfully.");
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ActivateCommand.java`
-#### Snippet
-```java
-    protected Object doExecute() throws Exception {
-        metricsService.setActivated(true);
-        System.out.println("Metrics activated successfully.");
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
-#### Snippet
-```java
-        Metric metric = metricsService.getMetrics().get(metricName);
-        if (metric == null) {
-            System.out.println("Couldn't find a metric with name=" + metricName);
-            return null;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
-#### Snippet
-```java
-        defaultPrettyPrinter = defaultPrettyPrinter.withArrayIndenter(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
-        String jsonMetric = CustomObjectMapper.getObjectMapper().writer(defaultPrettyPrinter).writeValueAsString(metric);
-        System.out.println(jsonMetric);
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-        if (metricName != null && metricStatus != null) {
-            metricsService.setCallerActivated(metricName, metricStatus);
-            System.out.println("Metric callers " + metricName + " set to " + metricStatus);
-            return null;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-        }
-
-        shellTable.print(System.out, !noFormat);
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-    protected Object doExecute() throws Exception {
-
-        System.out.println("Metrics service status: " + (metricsService.isActivated() ? "active" : "inactive"));
-
-        Map<String,Metric> metrics = metricsService.getMetrics();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-
-        if (csv) {
-            System.out.println(dataTable.toCSV(headers));
-            return null;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-            row.addContent(rowData);
-        }
-        shellTable.print(System.out);
-        return null;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-            List<String> logoLines = serverInfos.get(serverInfos.size() - 1).getLogoLines();
-            if (logoLines != null && !logoLines.isEmpty()) {
-                logoLines.forEach(System.out::println);
-            }
-            System.out.println("--------------------------------------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                logoLines.forEach(System.out::println);
-            }
-            System.out.println("--------------------------------------------------------------------------------------------");
-            serverInfos.forEach(serverInfo -> {
-                String versionMessage = MessageFormat.format(" {0} {1} ({2,date,yyyy-MM-dd HH:mm:ssZ} // {3} // {4} // {5}) ",
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                        serverInfo.getServerBuildDate(), serverInfo.getServerTimestamp(), serverInfo.getServerScmBranch(),
-                        serverInfo.getServerBuildNumber());
-                System.out.println(versionMessage);
-                logger.info(versionMessage);
-            });
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                logger.info(versionMessage);
-            });
-            System.out.println("--------------------------------------------------------------------------------------------");
-            System.out.println("Server successfully started " + requiredBundles.size() + " bundles and " + requiredServicesFilters.size()
-                    + " required " + "services in " + totalStartupTime + " ms");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-            });
-            System.out.println("--------------------------------------------------------------------------------------------");
-            System.out.println("Server successfully started " + requiredBundles.size() + " bundles and " + requiredServicesFilters.size()
-                    + " required " + "services in " + totalStartupTime + " ms");
-            logger.info("Server successfully started {} bundles and {} required services in {} ms", requiredBundles.size(),
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                long featureStartupTime = System.currentTimeMillis();
-                if (!featuresService.isInstalled(featuresService.getFeature(value))) {
-                    System.out.println("Installing feature " + value);
-                    featuresService.installFeature(value, EnumSet.of(FeaturesService.Option.NoAutoRefreshManagedBundles,
-                            FeaturesService.Option.NoAutoRefreshUnmanagedBundles, FeaturesService.Option.NoAutoRefreshBundles));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-        bundleContext.addServiceListener(this);
-        startupTime = System.currentTimeMillis();
-        System.out.println("Initializing Unomi...");
-        logger.info("Bundle watcher initialized.");
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
-#### Snippet
-```java
-                matchedRequiredServicesCount--;
-                if (!shutdownMessageAlreadyDisplayed) {
-                    System.out.println("Apache Unomi shutting down...");
-                    logger.info("Apache Unomi no longer available, as required service {} is shutdown !", serviceReference);
-                    shutdownMessageAlreadyDisplayed = true;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONTypeFactory.java`
-#### Snippet
-```java
-                schemaTree = GraphQLSchemaProvider.buildJSONSchema(refSchema, schemaService).getSchemaTree();
-            } else {
-                System.err.println("Couldn't find schema for ref " + schemaId);
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `extensions/salesforce-connector/rest/src/main/java/org/apache/unomi/sfdc/rest/SFDCEndPoint.java`
-#### Snippet
-```java
-
-    public SFDCEndPoint() {
-        System.out.println("Initializing SFDC service endpoint...");
-    }
-
-```
-
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `api/src/main/java/org/apache/unomi/api/services/EventService.java`
-#### Snippet
-```java
-     * @deprecated use event types instead
-     */
-    List<EventProperty> getEventProperties();
-
-    /**
-```
-
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'value != null' covered by subsequent condition 'value instanceof List'
@@ -11521,503 +5781,9 @@ in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelpe
         } else if (value != null) {
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyNameTranslator.java`
-#### Snippet
-```java
-
-    public static String translateFromUnomiToGraphQL(final String propertyName) {
-        return propertyName.replaceAll(":", "__COLON__").replaceAll("-", "__DASH__");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyNameTranslator.java`
-#### Snippet
-```java
-
-    public static String translateFromUnomiToGraphQL(final String propertyName) {
-        return propertyName.replaceAll(":", "__COLON__").replaceAll("-", "__DASH__");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyNameTranslator.java`
-#### Snippet
-```java
-
-    public static String translateFromGraphQLToUnomi(final String propertyName) {
-        return propertyName.replaceAll("__DASH__", "-").replaceAll("__COLON__", ":");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/PropertyNameTranslator.java`
-#### Snippet
-```java
-
-    public static String translateFromGraphQLToUnomi(final String propertyName) {
-        return propertyName.replaceAll("__DASH__", "-").replaceAll("__COLON__", ":");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    private String csvEncode(String input) {
-        if (StringUtils.containsAny(input, '\n', '"', ',')) {
-            return "\"" + input.replace("\"", "\"\"") + "\"";
-        }
-        return input;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileInterestsConditionParser.java`
-#### Snippet
-```java
-        }
-
-        tuple.put("topic_equals", condition.getParameter("propertyName").toString().replaceAll("properties.interests.", ""));
-
-        return tuple;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileConsentsConditionParser.java`
-#### Snippet
-```java
-                .map(condition ->
-                        condition.getParameter("propertyName").toString()
-                                .replaceAll("consents.", "")
-                                .replaceAll(".status", "")
-                ).collect(Collectors.toList());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileConsentsConditionParser.java`
-#### Snippet
-```java
-                        condition.getParameter("propertyName").toString()
-                                .replaceAll("consents.", "")
-                                .replaceAll(".status", "")
-                ).collect(Collectors.toList());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfilePropertiesConditionParser.java`
-#### Snippet
-```java
-
-    private Map<String, Object> createProfilePropertiesField(final Condition condition) {
-        final String propertyName = condition.getParameter("propertyName").toString().replaceAll("properties.", "");
-
-        return createProfilePropertiesField(propertyName, condition);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfilePropertiesConditionParser.java`
-#### Snippet
-```java
-
-    private boolean isSimpleCondition(final Condition condition) {
-        final String propertyName = condition.getParameter("propertyName").toString().replaceAll("properties.", "");
-
-        return profilePropertiesAsMap.containsKey(propertyName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfilePropertiesConditionParser.java`
-#### Snippet
-```java
-
-        conditions.forEach(condition -> {
-            final String propertyName = condition.getParameter("propertyName").toString().replaceAll("properties.", "");
-
-            final String[] propertiesPath = propertyName.split("\\.", -1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfilePropertiesConditionParser.java`
-#### Snippet
-```java
-
-        groupedConditionsByDeepLevels.values().forEach(setConditions -> setConditions.forEach(condition -> {
-            final String propertyName = condition.getParameter("propertyName").toString().replaceAll("properties.", "");
-
-            final String[] propertiesPath = propertyName.split("\\.", -1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentProfileEventsConditionParser.java`
-#### Snippet
-```java
-                }
-
-                final String propertyName = subCondition.getParameter("propertyName").toString().replace("properties.", "");
-
-                final String comparisonOperator = subCondition.getParameter("comparisonOperator").toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-        final String eventName = typeName.substring(0, index).toLowerCase() + "_" + new String(chars);
-
-        return eventName.replace("Filter", "")
-                .replace("Input", "");
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-
-        return eventName.replace("Filter", "")
-                .replace("Input", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
-#### Snippet
-```java
-                                final String typeName = ReflectionUtil.resolveTypeName(additionalType);
-
-                                final String fieldName = generateFieldName(typeName.replace("FilterInput", ""));
-
-                                if (!registeredFieldNames.contains(fieldName)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
-#### Snippet
-```java
-                    int j = 0;
-                    for (String entry : multiValue) {
-                        lineToWrite += entry.replaceAll("\"", "\"\"");
-                        if (j + 1 < multiValue.size()) {
-                            lineToWrite += exportConfiguration.getMultiValueSeparator();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
-#### Snippet
-```java
-            } else {
-                if(propertyValue != null) {
-                    propertyValue = propertyValue.toString().replaceAll("\"", "\"\"");
-                    if (StringUtils.contains(propertyValue.toString(), exportConfiguration.getColumnSeparator())) {
-                        propertyValue = "\"" + propertyValue + "\"";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/groovy-actions/rest/src/main/java/org/apache/unomi/groovy/actions/rest/GroovyActionsEndPoint.java`
-#### Snippet
-```java
-        try {
-            groovyActionsService
-                    .save(file.getContentDisposition().getFilename().replace(".groovy", ""), IOUtils.toString(file.getDataHandler().getInputStream()));
-        } catch (IOException e) {
-            logger.error("Error while processing groovy file", e);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ClientEndpoint.java`
-#### Snippet
-```java
-            csvWriter.writeNext(new String[] { "name", "value" });
-            for (Map.Entry<String, Object> entry : currentProfile.getProperties().entrySet()) {
-                csvWriter.writeNext(new String[] { entry.getKey(), entry.getValue().toString().trim().replace("\n", "") });
-            }
-        } else {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ClientEndpoint.java`
-#### Snippet
-```java
-            List<String> values = new ArrayList<>();
-            for (Object value : currentProfile.getProperties().values()) {
-                values.add(value.toString().trim().replace("\n", ""));
-            }
-            csvWriter.writeNext(keySet.toArray(new String[0]));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/json-schema/rest/src/main/java/org/apache/unomi/schema/rest/JsonSchemaEndPoint.java`
-#### Snippet
-```java
-        JsonSchemaWrapper schema = schemaService.getSchema(id);
-        if (schema != null) {
-            return schema.getSchema().replace("\n", "");
-        }
-        return null;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/listener/GroovyActionListener.java`
-#### Snippet
-```java
-    private void addGroovyAction(URL groovyActionURL) {
-        try {
-            groovyActionsService.save(FilenameUtils.getName(groovyActionURL.getPath()).replace(".groovy", ""),
-                    IOUtils.toString(groovyActionURL.openStream()));
-        } catch (IOException e) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/listener/GroovyActionListener.java`
-#### Snippet
-```java
-
-    private void removeGroovyAction(URL groovyActionURL) {
-        String actionName = FilenameUtils.getName(groovyActionURL.getPath()).replace(".groovy", "");
-        groovyActionsService.remove(actionName);
-        logger.info("The script {} has been removed.", actionName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/impl/SchemaServiceImpl.java`
-#### Snippet
-```java
-        String extendsSchemaId = schemaNode.at("/self/extends").asText();
-
-        if (TARGET_EVENTS.equals(target) && !name.matches("[_A-Za-z][_0-9A-Za-z]*")) {
-            throw new IllegalArgumentException(
-                    "The \"/self/name\" value should match the following regular expression [_A-Za-z][_0-9A-Za-z]* for the Json schema on events");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
-#### Snippet
-```java
-        if (mappings != null && mappings.length > 0) {
-            for (String mapping : mappings) {
-                String[] parts = mapping.split("<=>");
-                if (parts != null && parts.length == 2) {
-                    unomiToSfdcFieldMappings.put(parts[0], parts[1]);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
-#### Snippet
-```java
-    public void setSfdcFieldMappingsIdentifier(String sfdcFieldMappingsIdentifier) {
-        this.sfdcFieldMappingsIdentifier = sfdcFieldMappingsIdentifier;
-        String[] sfdcFieldMappingsIdentifierParts = sfdcFieldMappingsIdentifier.split("<=>");
-        if (sfdcFieldMappingsIdentifierParts != null && sfdcFieldMappingsIdentifierParts.length == 2) {
-            unomiIdentifierField = sfdcFieldMappingsIdentifierParts[0];
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            if (mappingConsents.length > 0) {
-                for (String mappingConsent : mappingConsents) {
-                    String[] mappingConsentArray = mappingConsent.split("<=>");
-                    if (mappingConsentArray.length <= 0) {
-                        logger.error("Error with the mapping for field {}, this field will not be mapped please check the cfg file", mappingConsentsString);
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.karaf.cellar.core` is unnecessary and can be removed
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-        Map<String, ClusterNode> clusterNodes = new LinkedHashMap<String, ClusterNode>();
-
-        Set<org.apache.karaf.cellar.core.Node> karafCellarNodes = karafCellarClusterManager.listNodes();
-        org.apache.karaf.cellar.core.Node thisKarafNode = karafCellarClusterManager.getNode();
-        Map<String, Properties> clusterConfigurations = karafCellarClusterManager.getMap(Constants.CONFIGURATION_MAP + Configurations.SEPARATOR + karafCellarGroupName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.karaf.cellar.core` is unnecessary and can be removed
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-
-        Set<org.apache.karaf.cellar.core.Node> karafCellarNodes = karafCellarClusterManager.listNodes();
-        org.apache.karaf.cellar.core.Node thisKarafNode = karafCellarClusterManager.getNode();
-        Map<String, Properties> clusterConfigurations = karafCellarClusterManager.getMap(Constants.CONFIGURATION_MAP + Configurations.SEPARATOR + karafCellarGroupName);
-        Properties karafCellarClusterNodeConfiguration = clusterConfigurations.get(KARAF_CELLAR_CLUSTER_NODE_CONFIGURATION);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.karaf.cellar.core` is unnecessary and can be removed
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-            internalNodeEndpoints = getMapProperty(karafCellarClusterNodeConfiguration, KARAF_CLUSTER_CONFIGURATION_INTERNAL_ENDPOINTS, thisKarafNode.getId() + "=" + internalAddress);
-        }
-        for (org.apache.karaf.cellar.core.Node karafCellarNode : karafCellarNodes) {
-            ClusterNode clusterNode = new ClusterNode();
-            String publicEndpoint = publicNodeEndpoints.get(karafCellarNode.getId());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.karaf.cellar.core` is unnecessary and can be removed
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-            if (setupConfigOk) {
-                Map<String, Properties> configurations = karafCellarClusterManager.getMap(Constants.CONFIGURATION_MAP + Configurations.SEPARATOR + karafCellarGroupName);
-                org.apache.karaf.cellar.core.Node thisKarafNode = karafCellarClusterManager.getNode();
-                Properties karafCellarClusterNodeConfiguration = configurations.get(KARAF_CELLAR_CLUSTER_NODE_CONFIGURATION);
-                if (karafCellarClusterNodeConfiguration == null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-            }
-            return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.subscribers` is unnecessary, and can be replaced with an import
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/ExecutionResultSubscriber.java`
-#### Snippet
-```java
-import java.util.Collections;
-
-public class ExecutionResultSubscriber extends io.reactivex.subscribers.DefaultSubscriber<ExecutionResult> {
-
-    private static final Logger logger = LoggerFactory.getLogger(ExecutionResultSubscriber.class);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary, and can be replaced with an import
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-
-@Component(
-        service = {javax.servlet.http.HttpServlet.class, javax.servlet.Servlet.class},
-        property = {"alias=/graphql"}
-)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary, and can be replaced with an import
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/GraphQLServlet.java`
-#### Snippet
-```java
-
-@Component(
-        service = {javax.servlet.http.HttpServlet.class, javax.servlet.Servlet.class},
-        property = {"alias=/graphql"}
-)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.cxf.metrics` is unnecessary, and can be replaced with an import
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServerBus.java`
-#### Snippet
-```java
-    public RestServerBus() {
-        this.getFeatures().add(new LoggingFeature());
-        this.getFeatures().add(new org.apache.cxf.metrics.MetricsFeature());
-    }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.unomi.api` is unnecessary and can be removed
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ScopeServiceEndPoint.java`
-#### Snippet
-```java
-
-/**
- * A JAX-RS endpoint to manage {@link org.apache.unomi.api.Scope}s.
- */
-@WebService
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.unomi.persistence.spi` is unnecessary, and can be replaced with an import
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-
-        // Build the server
-        ObjectMapper objectMapper = new org.apache.unomi.persistence.spi.CustomObjectMapper(desers);
-        JAXRSServerFactoryBean jaxrsServerFactoryBean = new JAXRSServerFactoryBean();
-        jaxrsServerFactoryBean.setAddress("/");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.cxf.rs.security.cors` is unnecessary, and can be replaced with an import
-in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
-#### Snippet
-```java
-        jaxrsServerFactoryBean.setBus(serverBus);
-        jaxrsServerFactoryBean.setProvider(new JacksonJaxbJsonProvider(objectMapper, JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS));
-        jaxrsServerFactoryBean.setProvider(new org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter());
-        jaxrsServerFactoryBean.setProvider(new RetroCompatibilityParamConverterProvider(objectMapper));
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.unomi.api` is unnecessary, and can be replaced with an import
-in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/services/impl/GroovyActionsServiceImpl.java`
-#### Snippet
-```java
-
-        actionType.setParameters(Stream.of(action.parameters())
-                .map(parameter -> new org.apache.unomi.api.Parameter(parameter.id(), parameter.type(), parameter.multivalued()))
-                .collect(Collectors.toList()));
-        definitionsService.setActionType(actionType);
-```
-
 ## RuleId[id=ComparatorMethodParameterNotUsed]
 ### ComparatorMethodParameterNotUsed
-Comparator never returns positive value
+Comparator never returns positive values
 in `common/src/main/java/org/apache/unomi/common/DataTable.java`
 #### Snippet
 ```java
@@ -12028,3994 +5794,4135 @@ in `common/src/main/java/org/apache/unomi/common/DataTable.java`
                 return 0;
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `subConditionAsMap` to `Object` is redundant
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/CreateOrUpdateUnomiSegmentCommand.java`
 #### Snippet
 ```java
-            mappingCharFilterFactory.inform(new ClasspathResourceLoader(ConditionContextHelper.class.getClassLoader()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+            final List<Condition> subConditionDecorators = subConditions.stream()
+                    .map(subConditionAsMap -> {
+                        final Condition subCondition = GraphQLObjectMapper.getInstance().convertValue((Object) subConditionAsMap, Condition.class);
+
+                        return decorateCondition(subCondition);
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/org/apache/unomi/common/DataTable.java`
+### RedundantCast
+Casting `exportConfiguration.getProperties().get(...)` to `Map` is redundant
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
 #### Snippet
 ```java
-            printer.close();
-        } catch (IOException e) {
-            e.printStackTrace(); // this will probably never happen as we are writing to a String.
-        }
-        return stringBuilder.toString();
+            if (RouterConstants.IMPORT_EXPORT_CONFIG_TYPE_RECURRENT.equals(exportConfiguration.getConfigType()) &&
+                    exportConfiguration.getProperties() != null && exportConfiguration.getProperties().size() > 0) {
+                if ((Map<String, String>) exportConfiguration.getProperties().get("mapping") != null) {
+                    String destinationEndpoint = (String) exportConfiguration.getProperties().get("destination");
+                    if (StringUtils.isNotBlank(destinationEndpoint) && allowedEndpoints.contains(destinationEndpoint.substring(0, destinationEndpoint.indexOf(':')))) {
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+### RedundantCast
+Casting `exportConfiguration.getProperties().get(...)` to `String` is redundant
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
 #### Snippet
 ```java
-                    client.indices().refresh(Requests.refreshRequest(index), RequestOptions.DEFAULT);
-                } catch (IOException e) {
-                    e.printStackTrace();//TODO manage ES7
-                }
-                return true;
+                    String destinationEndpoint = (String) exportConfiguration.getProperties().get("destination");
+                    if (StringUtils.isNotBlank(destinationEndpoint) && allowedEndpoints.contains(destinationEndpoint.substring(0, destinationEndpoint.indexOf(':')))) {
+                        String timerString = "timer://collectProfile?fixedRate=true&period=" + (String) exportConfiguration.getProperties().get("period");
+                        if ((String) exportConfiguration.getProperties().get("delay") != null) {
+                            timerString += "&delay=" + (String) exportConfiguration.getProperties().get("delay");
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+### RedundantCast
+Casting `exportConfiguration.getProperties().get(...)` to `String` is redundant
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
 #### Snippet
 ```java
-                    client.indices().refresh(Requests.refreshRequest(), RequestOptions.DEFAULT);
-                } catch (IOException e) {
-                    e.printStackTrace();//TODO manage ES7
-                }
-                return true;
+                    if (StringUtils.isNotBlank(destinationEndpoint) && allowedEndpoints.contains(destinationEndpoint.substring(0, destinationEndpoint.indexOf(':')))) {
+                        String timerString = "timer://collectProfile?fixedRate=true&period=" + (String) exportConfiguration.getProperties().get("period");
+                        if ((String) exportConfiguration.getProperties().get("delay") != null) {
+                            timerString += "&delay=" + (String) exportConfiguration.getProperties().get("delay");
+                        }
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ESItemMixIn()` of an abstract class should not be declared 'public'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ESItemMixIn.java`
+### RedundantCast
+Casting `exportConfiguration.getProperties().get(...)` to `String` is redundant
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileExportCollectRouteBuilder.java`
 #### Snippet
 ```java
-public abstract class ESItemMixIn {
-
-    public ESItemMixIn() { }
-
-    @JsonIgnore abstract Long getVersion();
+                        String timerString = "timer://collectProfile?fixedRate=true&period=" + (String) exportConfiguration.getProperties().get("period");
+                        if ((String) exportConfiguration.getProperties().get("delay") != null) {
+                            timerString += "&delay=" + (String) exportConfiguration.getProperties().get("delay");
+                        }
+                        ProcessorDefinition prDef = from(timerString)
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `ESEventMixIn()` of an abstract class should not be declared 'public'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ESEventMixIn.java`
+### RedundantCast
+Casting `null` to `Throwable` is redundant
+in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/PartialContentException.java`
 #### Snippet
 ```java
-public abstract class ESEventMixIn {
 
-    public ESEventMixIn() { }
-
-    @JsonIgnore abstract boolean isPersistent();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MetricAdapter()` of an abstract class should not be declared 'public'
-in `metrics/src/main/java/org/apache/unomi/metrics/MetricAdapter.java`
-#### Snippet
-```java
-    public abstract T execute(Object... args) throws Exception;
-
-    public MetricAdapter(MetricsService metricsService, String timerName) {
-        this.metricsService = metricsService;
-        this.timerName = timerName;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseCDPPropertyInput()` of an abstract class should not be declared 'public'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
-#### Snippet
-```java
-    private List<String> tags;
-
-    public BaseCDPPropertyInput(@GraphQLName("name") String name,
-                                @GraphQLName("minOccurrences") Integer minOccurrences,
-                                @GraphQLName("maxOccurrences") Integer maxOccurrences,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseCDPPropertyInput()` of an abstract class should not be declared 'public'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
-#### Snippet
-```java
-    }
-
-    public BaseCDPPropertyInput(BaseCDPPropertyInput input) {
-        this.name = input.name;
-        this.minOccurrences = input.minOccurrences;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseCommand()` of an abstract class should not be declared 'public'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/BaseCommand.java`
-#### Snippet
-```java
-    public abstract T execute();
-
-    public BaseCommand(final Builder builder) {
-        this.environment = builder.environment;
-        this.serviceManager = environment.getContext();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseCreateOrUpdateSegmentCommand()` of an abstract class should not be declared 'public'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/segments/BaseCreateOrUpdateSegmentCommand.java`
-#### Snippet
-```java
-    private final INPUT segmentInput;
-
-    public BaseCreateOrUpdateSegmentCommand(Builder builder) {
-        super(builder);
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `DynamicFieldDataFetcher()` of an abstract class should not be declared 'public'
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/DynamicFieldDataFetcher.java`
-#### Snippet
-```java
-    protected String valueTypeId;
-
-    public DynamicFieldDataFetcher(String fieldName, String valueTypeId) {
-        this.fieldName = PropertyNameTranslator.translateFromGraphQLToUnomi(fieldName);
-        this.valueTypeId = valueTypeId;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `HardcodedPropertyAccessor()` of an abstract class should not be declared 'public'
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/accessors/HardcodedPropertyAccessor.java`
-#### Snippet
-```java
-    protected HardcodedPropertyAccessorRegistry registry;
-
-    public HardcodedPropertyAccessor(HardcodedPropertyAccessorRegistry registry) {
-        this.registry = registry;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RouterAbstractRouteBuilder()` of an abstract class should not be declared 'public'
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/RouterAbstractRouteBuilder.java`
-#### Snippet
-```java
-    protected ProfileService profileService;
-
-    public RouterAbstractRouteBuilder(Map<String, String> kafkaProps, String configType) {
-        this.kafkaHost = kafkaProps.get("kafkaHost");
-        this.kafkaPort = kafkaProps.get("kafkaPort");
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseAggregate()` of an abstract class should not be declared 'public'
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/aggregate/BaseAggregate.java`
-#### Snippet
-```java
-    private String field;
-
-    public BaseAggregate(String field) {
-        this.field = field;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MetadataItem()` of an abstract class should not be declared 'public'
-in `api/src/main/java/org/apache/unomi/api/MetadataItem.java`
-#### Snippet
-```java
-    protected Metadata metadata;
-
-    public MetadataItem() {
+    public PartialContentException(String message, Response response) {
+        super(message, (Throwable) null, Response.Status.PARTIAL_CONTENT);
     }
 
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `MetadataItem()` of an abstract class should not be declared 'public'
-in `api/src/main/java/org/apache/unomi/api/MetadataItem.java`
+### RedundantCast
+Casting `null` to `Throwable` is redundant
+in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/PartialContentException.java`
 #### Snippet
 ```java
+     */
+    public PartialContentException(String message) {
+        super(message, (Throwable) null, Response.Status.PARTIAL_CONTENT);
     }
 
-    public MetadataItem(Metadata metadata) {
-        super(metadata.getId());
-        this.metadata = metadata;
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `Item()` of an abstract class should not be declared 'public'
-in `api/src/main/java/org/apache/unomi/api/Item.java`
+### RedundantCast
+Casting `exchange.getIn().getBody()` to `String` is redundant
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineSplitProcessor.java`
 #### Snippet
 ```java
-    }
+                .build();
 
-    public Item(String itemId) {
-        this();
-        this.itemId = itemId;
+        logger.debug("$$$$ : LineSplitProcessor : BODY : " + (String) exchange.getIn().getBody());
+
+        String[] profileData = rfc4180Parser.parseLine(((String) exchange.getIn().getBody()));
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `Item()` of an abstract class should not be declared 'public'
-in `api/src/main/java/org/apache/unomi/api/Item.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param session` tag description is missing
+in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
 #### Snippet
 ```java
-    protected Map<String, Object> systemMetadata = new HashMap<>();
-
-    public Item() {
-        this.itemType = getItemType(this.getClass());
-        if (itemType == null) {
+     *
+     * @param currentWeatherData the response from the API
+     * @param session
+     */
+    private void updateSessionWithWeatherData(JsonNode currentWeatherData, Session session) {
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `InClassLoaderExecute()` of an abstract class should not be declared 'public'
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
+### JavadocDeclaration
+`@param location` tag description is missing
+in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
 #### Snippet
 ```java
-        private boolean throwExceptions;
-
-        public InClassLoaderExecute(MetricsService metricsService, String timerName, BundleContext bundleContext, String[] fatalIllegalStateErrors, boolean throwExceptions) {
-            this.timerName = timerName;
-            this.metricsService = metricsService;
+     * Do the API call
+     *
+     * @param location
+     * @return the response
+     */
 ```
 
-## RuleId[id=Anonymous2MethodRef]
-### Anonymous2MethodRef
-Anonymous new ParserHelper.ValueExtractor() can be replaced with method reference
-in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
-#### Snippet
-```java
-    public ActionExecutorDispatcherImpl() {
-        valueExtractors.putAll(ParserHelper.DEFAULT_VALUE_EXTRACTORS);
-        valueExtractors.put("script", new ParserHelper.ValueExtractor() {
-            @Override
-            public Object extract(String valueAsString, Event event)
-```
-
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `services/src/main/java/org/apache/unomi/services/impl/patches/PatchServiceImpl.java`
-#### Snippet
-```java
-        if (urls != null) {
-            List<URL> resources = Collections.list(urls);
-            resources.sort(new Comparator<URL>() {
-                @Override public int compare(URL o1, URL o2) {
-                    return o1.getFile().compareTo(o2.getFile());
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-
-    public Collection<PropertyType> getPropertyTypeByMapping(String propertyName) {
-        Collection<PropertyType> l = new TreeSet<PropertyType>(new Comparator<PropertyType>() {
-            @Override
-            public int compare(PropertyType o1, PropertyType o2) {
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `common/src/main/java/org/apache/unomi/common/DataTable.java`
-#### Snippet
-```java
-
-    public void sort(SortCriteria... sortCriterias) {
-        rows.sort(new Comparator<Row>() {
-            @Override
-            public int compare(Row row1, Row row2) {
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-    public static String foldToASCII(String s) {
-        if (s != null) {
-            s = s.toLowerCase();
-            try (StringReader stringReader = new StringReader(s); Reader foldedStringReader = mappingCharFilterFactory.create(stringReader)) {
-                return IOUtils.toString(foldedStringReader);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `metadata`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
-#### Snippet
-```java
-    private Metadata updateMetadata(Metadata metadata) {
-        if (metadata == null) {
-            metadata = new Metadata();
-            final Set<String> systemTags = new HashSet<>();
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `schemaTree`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/json/JSONTypeFactory.java`
-#### Snippet
-```java
-            JsonSchemaWrapper refSchema = schemaService.getSchema(schemaId);
-            if (refSchema != null) {
-                schemaTree = GraphQLSchemaProvider.buildJSONSchema(refSchema, schemaService).getSchemaTree();
-            } else {
-                System.err.println("Couldn't find schema for ref " + schemaId);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `profilesToMerge`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        profilesToMerge = filteredProfilesToMerge;
-
-        Set<String> allProfileProperties = new LinkedHashSet<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `profileId`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        ProfileAlias profileAlias = persistenceService.load(profileId, ProfileAlias.class);
-        if (profileAlias != null) {
-            profileId = profileAlias.getProfileID();
-        }
-        return persistenceService.load(profileId, Profile.class);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `item`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/SourceEventPropertyConditionEvaluator.java`
-#### Snippet
-```java
-        // in case the evaluated item is an event, we switch to his source internal object for further evaluations
-        if (item instanceof Event) {
-            item = ((Event) item).getSource();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `exportConfiguration`
-in `extensions/router/router-service/src/main/java/org/apache/unomi/router/services/ProfileExportServiceImpl.java`
-#### Snippet
-```java
-        execution.put(RouterConstants.KEY_EXECS_EXTRACTED, profileList.size());
-
-        exportConfiguration = (ExportConfiguration) RouterUtils.addExecutionEntry(exportConfiguration, execution, Integer.parseInt((String) configSharingService.getProperty(RouterConstants.KEY_HISTORY_SIZE)));
-        persistenceService.save(exportConfiguration);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `eventsRequestContext`
+### JavadocDeclaration
+`@param contextRequest` tag description is missing
 in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
 #### Snippet
 ```java
-        processOverrides(contextRequest, eventsRequestContext.getProfile(), eventsRequestContext.getSession());
-
-        eventsRequestContext = restServiceUtils.performEventsRequest(contextRequest.getEvents(), eventsRequestContext);
-        data.setProcessedEvents(eventsRequestContext.getProcessedItems());
-
+     * - sessionPropertiesOverrides for session properties
+     *
+     * @param contextRequest
+     * @param profile
+     * @param session
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `sessionId`
+### JavadocDeclaration
+`@param profile` tag description is missing
 in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
 #### Snippet
 ```java
-        if (contextRequest != null) {
-            scope = contextRequest.getSource() != null ? contextRequest.getSource().getScope() : scope;
-            sessionId = contextRequest.getSessionId() != null ? contextRequest.getSessionId() : sessionId;
-            profileId = contextRequest.getProfileId();
-        }
+     *
+     * @param contextRequest
+     * @param profile
+     * @param session
+     */
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `lang`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/ResourceBundleHelper.java`
+### JavadocDeclaration
+`@param session` tag description is missing
+in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
 #### Snippet
 ```java
-        int i = lang.indexOf(';');
-        if (i > -1) {
-            lang = lang.substring(0, i);
-        }
-        return Locale.forLanguageTag(lang);
+     * @param contextRequest
+     * @param profile
+     * @param session
+     */
+    private void processOverrides(ContextRequest contextRequest, Profile profile, Session session) {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `profileId`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/RestServiceUtilsImpl.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/services/impl/GroovyActionsServiceImpl.java`
 #### Snippet
 ```java
-        if (profileId == null) {
-            // Get profile id from the cookie
-            profileId = getProfileIdCookieValue(request);
-        }
-
+     * could be called
+     *
+     * @throws IOException
+     */
+    private void loadBaseScript() throws IOException {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `propertyName`
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/impl/events/ThirdPartyServer.java`
 #### Snippet
 ```java
-                    PropertyUtils.setProperty(target, resolver.next(propertyName), v);
-                }
-                propertyName = resolver.remove(propertyName);
-                target = v;
-            }
+ */
+public class ThirdPartyServer {
+    private String id;
+
+    private String key;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
-#### Snippet
-```java
-                }
-                propertyName = resolver.remove(propertyName);
-                target = v;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                && propertyMapping.containsKey("fields")
-                && ((Map) propertyMapping.get("fields")).containsKey("keyword")) {
-            name += ".keyword";
-        }
-        return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `mappings`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                return propMapping;
-            } else {
-                mappings = propMapping != null ? ((Map<String, Map<String, Object>>) propMapping.get("properties")) : null;
-            }
-        }
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/RouterUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/topics/TopicServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-                Object parameter = parseParameter(context, entry.getValue(), scriptExecutor);
-                if (parameter == null) {
-                    return null;
-                }
-                values.put(entry.getKey(), parameter);
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-            });
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
-#### Snippet
-```java
-        Map<String, Object> values = (Map<String, Object>) parseParameter(context, condition.getParameterValues(), scriptExecutor);
-        if (values == null) {
-            return null;
-        }
-        Condition n = new Condition(condition.getConditionType());
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
-#### Snippet
-```java
-        String oldPropertyValue = (String) properties.setProperty(propertyName, propertyValueBuilder.toString());
-        if (oldPropertyValue == null) {
-            return null;
-        }
-        return getMapProperty(oldPropertyValue);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/goals/GoalsServiceImpl.java`
-#### Snippet
-```java
-    private CampaignDetail getCampaignDetail(Campaign campaign) {
-        if (campaign == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `personalizationStrategies` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/personalization/PersonalizationServiceImpl.java`
 #### Snippet
 ```java
-            return result.getContentIds().get(0);
-        }
-        return null;
-    }
+    private ProfileService profileService;
+
+    private Map<String, PersonalizationStrategy> personalizationStrategies = new ConcurrentHashMap<>();
+    private final PersonalizationStrategy controlGroupStrategy = new ControlGroupPersonalizationStrategy();
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `nodeSystemStatistics` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/impl/cluster/ClusterServiceImpl.java`
+#### Snippet
+```java
+    private String publicAddress;
+    private String internalAddress;
+    private Map<String, Map<String,Serializable>> nodeSystemStatistics = new ConcurrentHashMap<>();
+    private Group group = null;
+    private SchedulerService schedulerService;
+```
+
+### FieldMayBeFinal
+Field `eventListeners` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/events/EventServiceImpl.java`
 #### Snippet
 ```java
-            logger.warn("Could not authenticate any third party servers for key: {}", key);
-        }
-        return null;
-    }
+    private static final int MAX_RECURSION_DEPTH = 10;
 
+    private List<EventListenerService> eventListeners = new CopyOnWriteArrayList<EventListenerService>();
+
+    private PersistenceService persistenceService;
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/DeactivateCommand.java`
+### FieldMayBeFinal
+Field `allRuleStatistics` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
 #### Snippet
 ```java
-        metricsService.setActivated(false);
-        System.out.println("Metrics de-activated successfully.");
-        return null;
-    }
+    private final Set<String> invalidRulesId = new HashSet<>();
 
+    private Map<String, RuleStatistics> allRuleStatistics = new ConcurrentHashMap<>();
+
+    private Integer rulesRefreshInterval = 1000;
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ResetCommand.java`
+### FieldMayBeFinal
+Field `ruleListeners` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/impl/rules/RulesServiceImpl.java`
 #### Snippet
 ```java
-        metricsService.resetMetrics();
-        System.out.println("Metrics reset successfully.");
-        return null;
-    }
-}
+    private Integer rulesStatisticsRefreshInterval = 10000;
+
+    private List<RuleListenerService> ruleListeners = new CopyOnWriteArrayList<RuleListenerService>();
+
+    private Map<String, Set<Rule>> rulesByEventType = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ActivateCommand.java`
+### FieldMayBeFinal
+Field `executors` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
 #### Snippet
 ```java
-        metricsService.setActivated(true);
-        System.out.println("Metrics activated successfully.");
-        return null;
-    }
-
+    private static final Logger logger = LoggerFactory.getLogger(ActionExecutorDispatcherImpl.class.getName());
+    private final Map<String, ParserHelper.ValueExtractor> valueExtractors = new HashMap<>(11);
+    private Map<String, ActionExecutor> executors = new ConcurrentHashMap<>();
+    private MetricsService metricsService;
+    private Map<String, ActionDispatcher> actionDispatchers = new ConcurrentHashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
+### FieldMayBeFinal
+Field `actionDispatchers` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/actions/impl/ActionExecutorDispatcherImpl.java`
 #### Snippet
 ```java
-        if (metric == null) {
-            System.out.println("Couldn't find a metric with name=" + metricName);
-            return null;
-        }
-        // by default pretty printer will use spaces between array values, we change this to linefeeds to make
+    private Map<String, ActionExecutor> executors = new ConcurrentHashMap<>();
+    private MetricsService metricsService;
+    private Map<String, ActionDispatcher> actionDispatchers = new ConcurrentHashMap<>();
+    private BundleContext bundleContext;
+    private ScriptExecutor scriptExecutor;
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ViewCommand.java`
-#### Snippet
-```java
-        String jsonMetric = CustomObjectMapper.getObjectMapper().writer(defaultPrettyPrinter).writeValueAsString(metric);
-        System.out.println(jsonMetric);
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
-#### Snippet
-```java
-            metricsService.setCallerActivated(metricName, metricStatus);
-            System.out.println("Metric callers " + metricName + " set to " + metricStatus);
-            return null;
-        }
-        Map<String,Boolean> callersStatus = metricsService.getCallersStatus();
-```
-
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/CallerStatusCommand.java`
+### FieldMayBeFinal
+Field `secureFilteringClassLoader` may be 'final'
+in `scripting/src/main/java/org/apache/unomi/scripting/MvelScriptExecutor.java`
 #### Snippet
 ```java
 
-        shellTable.print(System.out, !noFormat);
-        return null;
-    }
-}
+    private Map<String, Serializable> mvelExpressions = new ConcurrentHashMap<>();
+    private SecureFilteringClassLoader secureFilteringClassLoader = new SecureFilteringClassLoader(getClass().getClassLoader());
+    private ExpressionFilterFactory expressionFilterFactory;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
+### FieldMayBeFinal
+Field `mvelExpressions` may be 'final'
+in `scripting/src/main/java/org/apache/unomi/scripting/MvelScriptExecutor.java`
 #### Snippet
 ```java
-        if (csv) {
-            System.out.println(dataTable.toCSV(headers));
-            return null;
-        }
+    private final static String INVALID_SCRIPT_MARKER = "--- Invalid Script Marker ---";
 
+    private Map<String, Serializable> mvelExpressions = new ConcurrentHashMap<>();
+    private SecureFilteringClassLoader secureFilteringClassLoader = new SecureFilteringClassLoader(getClass().getClassLoader());
+    private ExpressionFilterFactory expressionFilterFactory;
 ```
 
-### ReturnNull
-Return of `null`
-in `metrics/src/main/java/org/apache/unomi/metrics/commands/ListCommand.java`
-#### Snippet
-```java
-        }
-        shellTable.print(System.out);
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `pluginTypes` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
 #### Snippet
 ```java
-            }
-            if (matchingConditions.size() == 0) {
-                return null;
-            } else if (matchingConditions.equals(subConditions)) {
-                return rootCondition;
+    private Map<String, ValueType> valueTypeById = new HashMap<>();
+    private Map<String, Set<ValueType>> valueTypeByTag = new HashMap<>();
+    private Map<Long, List<PluginType>> pluginTypes = new HashMap<>();
+    private Map<String, PropertyMergeStrategyType> propertyMergeStrategyTypeById = new HashMap<>();
+
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `propertyMergeStrategyTypeById` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
 #### Snippet
 ```java
-            return rootCondition;
-        } else {
-            return null;
-        }
-    }
+    private Map<String, Set<ValueType>> valueTypeByTag = new HashMap<>();
+    private Map<Long, List<PluginType>> pluginTypes = new HashMap<>();
+    private Map<String, PropertyMergeStrategyType> propertyMergeStrategyTypeById = new HashMap<>();
+
+    private long definitionsRefreshInterval = 10000;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `valueTypeByTag` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
 #### Snippet
 ```java
-            }
-            if (matchingConditions.size() == 0) {
-                return null;
-            } else if (matchingConditions.equals(subConditions)) {
-                return rootCondition;
+    private Map<String, ActionType> actionTypeById = new ConcurrentHashMap<>();
+    private Map<String, ValueType> valueTypeById = new HashMap<>();
+    private Map<String, Set<ValueType>> valueTypeByTag = new HashMap<>();
+    private Map<Long, List<PluginType>> pluginTypes = new HashMap<>();
+    private Map<String, PropertyMergeStrategyType> propertyMergeStrategyTypeById = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `valueTypeById` may be 'final'
 in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
 #### Snippet
 ```java
-            return rootCondition;
-        } else {
-            return null;
-        }
-    }
+    private Map<String, ConditionType> conditionTypeById = new ConcurrentHashMap<>();
+    private Map<String, ActionType> actionTypeById = new ConcurrentHashMap<>();
+    private Map<String, ValueType> valueTypeById = new HashMap<>();
+    private Map<String, Set<ValueType>> valueTypeByTag = new HashMap<>();
+    private Map<Long, List<PluginType>> pluginTypes = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/definitions/DefinitionsServiceImpl.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
 #### Snippet
 ```java
-    public ConditionType getConditionType(String id) {
-        if (id == null) {
-            return null;
-        }
-        ConditionType type = conditionTypeById.get(id);
+public class HttpUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
+
+    public static CloseableHttpClient initHttpClient() {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `expressionFiltersActivated` may be 'final'
+in `scripting/src/main/java/org/apache/unomi/scripting/internal/ExpressionFilterFactoryImpl.java`
+#### Snippet
+```java
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private boolean expressionFiltersActivated = Boolean.parseBoolean(System.getProperty("org.apache.unomi.scripting.filter.activated", "true"));
+
+    public void setBundleContext(BundleContext bundleContext) {
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
+#### Snippet
+```java
+    private static final String LOCATION = "location";
+    private static final String MESSAGE = "message";
+    private static Logger logger = LoggerFactory.getLogger(WeatherUpdateAction.class);
+    private CloseableHttpClient httpClient;
+    private String weatherApiKey;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
+#### Snippet
+```java
+public class MailChimpServiceImpl implements MailChimpService {
+
+    private static Logger logger = LoggerFactory.getLogger(MailChimpServiceImpl.class);
+
+    private static final String ACCEPT = "Accept";
+```
+
+### FieldMayBeFinal
+Field `consents` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/Profile.java`
+#### Snippet
+```java
+    private String mergedWith;
+
+    private Map<String, Consent> consents = new LinkedHashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `lon` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/GeoPoint.java`
+#### Snippet
+```java
+     * Longitude of the geo point
+     */
+    private Double lon;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `lat` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/GeoPoint.java`
+#### Snippet
+```java
+     * Latitude of the geo point
+     */
+    private Double lat;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `numericRanges` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/query/Aggregate.java`
+#### Snippet
+```java
+    private Map<String, Object> parameters = new HashMap<>();
+    private List<DateRange> dateRanges = new ArrayList<>();
+    private List<NumericRange> numericRanges = new ArrayList<>();
+    private List<IpRange> ipRanges = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `segments` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/segments/SegmentsAndScores.java`
+#### Snippet
+```java
+ */
+public class SegmentsAndScores implements Serializable {
+    private Set<String> segments;
+    private Map<String,Integer> scores;
+
+```
+
+### FieldMayBeFinal
+Field `scores` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/segments/SegmentsAndScores.java`
+#### Snippet
+```java
+public class SegmentsAndScores implements Serializable {
+    private Set<String> segments;
+    private Map<String,Integer> scores;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `newValue` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/services/ConfigSharingService.java`
+#### Snippet
+```java
+        private String name;
+        private Object oldValue;
+        private Object newValue;
+
+        public ConfigChangeEvent(ConfigChangeEventType eventType, String name, Object oldValue, Object newValue) {
+```
+
+### FieldMayBeFinal
+Field `oldValue` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/services/ConfigSharingService.java`
+#### Snippet
+```java
+        private ConfigChangeEventType eventType;
+        private String name;
+        private Object oldValue;
+        private Object newValue;
+
+```
+
+### FieldMayBeFinal
+Field `eventType` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/services/ConfigSharingService.java`
+#### Snippet
+```java
+    class ConfigChangeEvent {
+        public enum ConfigChangeEventType { ADDED, UPDATED, REMOVED };
+        private ConfigChangeEventType eventType;
+        private String name;
+        private Object oldValue;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/services/ConfigSharingService.java`
+#### Snippet
+```java
+        public enum ConfigChangeEventType { ADDED, UPDATED, REMOVED };
+        private ConfigChangeEventType eventType;
+        private String name;
+        private Object oldValue;
+        private Object newValue;
+```
+
+### FieldMayBeFinal
+Field `updated` may be 'final'
+in `rest/src/main/java/org/apache/unomi/rest/models/EventCollectorResponse.java`
+#### Snippet
+```java
+
+public class EventCollectorResponse implements Serializable {
+    private int updated;
+
+    public EventCollectorResponse(int updated) {
+```
+
+### FieldMayBeFinal
+Field `conditionTypeStack` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
+#### Snippet
+```java
+
+        private Set<String> eventTypeIds = new HashSet<>();
+        private Stack<String> conditionTypeStack = new Stack<>();
+
+        public void visit(Condition condition) {
+```
+
+### FieldMayBeFinal
+Field `eventTypeIds` may be 'final'
+in `api/src/main/java/org/apache/unomi/api/utils/ParserHelper.java`
+#### Snippet
+```java
+    public static class EventTypeConditionVisitor implements ConditionVisitor {
+
+        private Set<String> eventTypeIds = new HashSet<>();
+        private Stack<String> conditionTypeStack = new Stack<>();
+
+```
+
+### FieldMayBeFinal
+Field `exceptionMappers` may be 'final'
+in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
+#### Snippet
+```java
+    private Bus serverBus;
+    private RestAuthenticationConfig restAuthenticationConfig;
+    private List<ExceptionMapper> exceptionMappers = new ArrayList<>();
+    private ConfigSharingService configSharingService;
+    private SchemaService schemaService;
+```
+
+### FieldMayBeFinal
+Field `startupDelay` may be 'final'
+in `rest/src/main/java/org/apache/unomi/rest/server/RestServer.java`
+#### Snippet
+```java
+    private long timeOfLastUpdate = System.currentTimeMillis();
+    private Timer refreshTimer = null;
+    private long startupDelay = 1000L;
+
+    private static final QName UNOMI_REST_SERVER_END_POINT_NAME = new QName("http://rest.unomi.apache.org/", "UnomiRestServerEndPoint");
+```
+
+### FieldMayBeFinal
+Field `allPropertyTypes` may be 'final'
+in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+#### Snippet
+```java
+     */
+    private static class PropertyTypes {
+        private List<PropertyType> allPropertyTypes;
+        private Map<String, PropertyType> propertyTypesById = new HashMap<>();
+        private Map<String, List<PropertyType>> propertyTypesByTags = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPRecommendationInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    public CDPRecommendationInput(
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileIDInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private CDPClientInput client;
+
+    public CDPProfileIDInput(
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileIDInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `leaveLists` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventInput.java`
 #### Snippet
 ```java
 
-        if (profile == null) {
-            return null;
-        }
+    @GraphQLField
+    private List<String> leaveLists;
 
+    public CDPListsUpdateEventInput(final @GraphQLName("joinLists") List<String> joinLists,
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `joinLists` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> joinLists;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPViewInput.java`
+#### Snippet
+```java
+    @GraphQLNonNull
+    @GraphQLField
+    private String name;
+
+    public CDPViewInput(final @GraphQLID @GraphQLNonNull @GraphQLName("name") String name) {
+```
+
+### FieldMayBeFinal
+Field `topic` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String topic;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score;
+
+    public CDPInterestInput(final @GraphQLID @GraphQLNonNull @GraphQLName("topic") String topic,
+```
+
+### FieldMayBeFinal
+Field `leaveLists_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> leaveLists_contains;
+
+    public CDPListsUpdateEventFilterInput(final @GraphQLName("joinLists_contains") List<String> joinLists_contains,
+```
+
+### FieldMayBeFinal
+Field `joinLists_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> joinLists_contains;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `center` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private GeoPoint center;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `distance` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double distance;
+
+    public CDPGeoDistanceFilterInput(
+```
+
+### FieldMayBeFinal
+Field `unit` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPGeoDistanceFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPGeoDistanceFilterUnit unit;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `sortOrder` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOrderByInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPSortOrder sortOrder;
+
+    public CDPOrderByInput(
+```
+
+### FieldMayBeFinal
+Field `fieldName` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOrderByInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String fieldName;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_consentUpdateEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPConsentUpdateEventInput cdp_consentUpdateEvent;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_objectID` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String cdp_objectID;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_sessionEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPSessionEventInput cdp_sessionEvent;
+
+    public CDPEventInput(
+```
+
+### FieldMayBeFinal
+Field `cdp_profileID` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private CDPProfileIDInput cdp_profileID;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `cdp_sourceID` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String cdp_sourceID;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_listUpdateEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPListsUpdateEventInput cdp_listUpdateEvent;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score_lte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score_lte;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score_gt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score_gt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score_lt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score_lt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPInterestFilterInput> or;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `topic_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String topic_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `score_gte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double score_gte;
+
+    public CDPInterestFilterInput(final @GraphQLName("and") List<CDPInterestFilterInput> and,
+```
+
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPInterestFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPInterestFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `name_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String name_equals;
+
+    public CDPTopicFilterInput(
+```
+
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPTopicFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `view_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String view_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPTopicFilterInput> or;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `id_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicFilterInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `after` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private long after;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `before` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private long before;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `includeBefore` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private boolean includeBefore;
+
+    public CDPDateFilterInput(
+```
+
+### FieldMayBeFinal
+Field `includeAfter` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPDateFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private boolean includeAfter;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `lastUpdate` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
 #### Snippet
 ```java
 
-        if (profile == null) {
-            return null;
-        }
+    @GraphQLField
+    private OffsetDateTime lastUpdate;
 
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `status` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String status;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String type;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `expiration` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime expiration;
+
+    public CDPConsentUpdateEventInput(
+```
+
+### FieldMayBeFinal
+Field `maximalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Integer maximalCount;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `minimalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Integer minimalCount;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `eventFilter` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPEventFilterInput eventFilter;
+
+    public CDPProfileEventsFilterInput(final @GraphQLName("and") List<CDPProfileEventsFilterInput> and,
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("or")
+    private List<CDPProfileEventsFilterInput> or;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `not` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPProfileEventsFilterInput not;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileEventsFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("and")
+    private List<CDPProfileEventsFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `filter` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPNamedFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPProfileFilterInput filter;
+
+    public CDPNamedFilterInput(final @GraphQLName("name") @GraphQLNonNull String name,
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPNamedFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `view` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String view;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPTopicInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    public CDPTopicInput(
+```
+
+### FieldMayBeFinal
+Field `unomi_sessionId` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
 #### Snippet
 ```java
 
-        if (profile == null) {
-            return null;
-        }
+    @GraphQLField
+    private String unomi_sessionId;
 
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPUnomiEventInput.java`
+### FieldMayBeFinal
+Field `state` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
 #### Snippet
 ```java
 
-        if (profile == null) {
-            return null;
-        }
-        //TODO: maybe will have to convert manually
+    @GraphQLField
+    private CDPSessionState state;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileUpdateEventFilterInput.java`
-#### Snippet
-```java
-    public static CDPProfileUpdateEventFilterInput fromMap(final Map<String, Object> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        return new CDPProfileUpdateEventFilterInput();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOrderByInput.java`
-#### Snippet
-```java
-    public String asString() {
-        if (Strings.isNullOrEmpty(fieldName)) {
-            return null;
-        } else if (sortOrder == null || CDPSortOrder.UNSPECIFIED == sortOrder) {
-            return fieldName;
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileUpdateEventInput.java`
+### FieldMayBeFinal
+Field `unomi_scope` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventInput.java`
 #### Snippet
 ```java
 
-        if (profile == null) {
-            return null;
-        }
+    @GraphQLField
+    private String unomi_scope;
 
+    public CDPSessionEventInput(
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListsUpdateEventFilterInput.java`
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
 #### Snippet
 ```java
-    public static CDPListsUpdateEventFilterInput fromMap(final Map<String, Object> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        final List<String> joinLists = (List<String>) map.get("joinLists_contains");
+    @GraphQLField
+    @GraphQLNonNull
+    private String type;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `expiration` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime expiration;
+
+    public CDPPersonaConsentInput(final @GraphQLNonNull @GraphQLName("type") String type,
+```
+
+### FieldMayBeFinal
+Field `status` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String status;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `lastUpdate` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaConsentInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime lastUpdate;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `interests` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPInterestFilterInput interests;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `profileIDs_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> profileIDs_contains;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `segments_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> segments_contains;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPProfilePropertiesFilterInput properties;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `consents_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> consents_contains;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `lists_contains` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<String> lists_contains;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `events` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfileFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPProfileEventsFilterInput events;
+
+    public CDPProfileFilterInput(final @GraphQLName("profileIDs_contains") List<String> profileIDs_contains,
+```
+
+### FieldMayBeFinal
+Field `title` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPClientInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String title;
+
+    public CDPClientInput(
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPClientInput.java`
+#### Snippet
+```java
+    @GraphQLNonNull
+    @GraphQLField
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPOptimizationInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    public CDPOptimizationInput(final @GraphQLNonNull @GraphQLName("name") String name) {
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `view` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String view;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `condition` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/UnomiSegmentInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private Object condition;
+
+    public UnomiSegmentInput(
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPPropertyInput> properties;
+
+    public CDPEventTypeInput(final @GraphQLName("id") String id,
+```
+
+### FieldMayBeFinal
+Field `typeName` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String typeName;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `scope` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String scope;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventTypeInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `thirdParty` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSourceInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Boolean thirdParty;
+
+    public CDPSourceInput(
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSourceInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfilePropertiesFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPProfilePropertiesFilterInput> or;
+
+    public CDPProfilePropertiesFilterInput(@GraphQLName("and") List<CDPProfilePropertiesFilterInput> and,
+```
+
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPProfilePropertiesFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPProfilePropertiesFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `unomi_scope_equals` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
 #### Snippet
 ```java
-    public static CDPSessionEventFilterInput fromMap(final Map<String, Object> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        final CDPSessionState state = map.get("state_equals") != null ? CDPSessionState.valueOf((String) map.get("state_equals")) : null;
+
+    @GraphQLField
+    private String unomi_scope_equals;
+
+    public CDPSessionEventFilterInput(
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+### FieldMayBeFinal
+Field `state_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
 #### Snippet
 ```java
-    public static CDPEventFilterInput fromMap(final Map<String, Object> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        final List<CDPEventFilterInput> andFltrs = recursiveList(map.get("and"));
+
+    @GraphQLField
+    private CDPSessionState state_equals;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+### FieldMayBeFinal
+Field `unomi_sessionId_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSessionEventFilterInput.java`
 #### Snippet
 ```java
-    private static List<CDPEventFilterInput> recursiveList(Object list) {
-        if (list == null) {
-            return null;
-        }
-        return ((List<Map<String, Object>>) list).stream()
+
+    @GraphQLField
+    private String unomi_sessionId_equals;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String name;
+
+    public CDPListInput(
+```
+
+### FieldMayBeFinal
+Field `view` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLNonNull
+    private String view;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `datePropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("date")
+    private CDPDatePropertyInput datePropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `integerPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("int")
+    private CDPIntPropertyInput integerPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `setPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("set")
+    private CDPSetPropertyInput setPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `geoPointPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("geopoint")
+    private CDPGeoPointPropertyInput geoPointPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `booleanPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("boolean")
+    private CDPBooleanPropertyInput booleanPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `jsonPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("json")
+    private CDPJsonPropertyInput jsonPropertyTypeInput;
+
+    public CDPPropertyInput(
+```
+
+### FieldMayBeFinal
+Field `longPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("long")
+    private CDPLongPropertyInput longPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `floatPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("float")
+    private CDPFloatPropertyInput floatPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `stringPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("string")
+    private CDPStringPropertyInput stringPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `identifierPropertyTypeInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPropertyInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("identifier")
+    private CDPIdentifierPropertyInput identifierPropertyTypeInput;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPListFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `name_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String name_equals;
+
+    public CDPListFilterInput(
+```
+
+### FieldMayBeFinal
+Field `lastUpdate_lt` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-    public static CDPConsentUpdateEventFilterInput fromMap(final Map<String, Object> map) {
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        final String typeEq = (String) map.get("type_equals");
+
+    @GraphQLField
+    private OffsetDateTime lastUpdate_lt;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+### FieldMayBeFinal
+Field `lastUpdate_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-            serverIdentifier = bundle.getHeaders().get("Implementation-ServerIdentifier");
-        } else {
-            return null;
-        }
-        List<String> logoLines = loadLogo(bundle);
+
+    @GraphQLField
+    private OffsetDateTime lastUpdate_equals;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
+### FieldMayBeFinal
+Field `lastUpdate_gte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
 
+    @GraphQLField
+    private OffsetDateTime lastUpdate_gte;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyInterface.java`
+### FieldMayBeFinal
+Field `lastUpdate_lte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-        final PropertyType type = getType();
-        if (type == null) {
-            return null;
-        }
-        final Metadata meta = type.getMetadata();
+
+    @GraphQLField
+    private OffsetDateTime lastUpdate_lte;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyInterface.java`
+### FieldMayBeFinal
+Field `expiration_lt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-        }
-        final Metadata meta = type.getMetadata();
-        return meta != null ? meta.getTags() : null;
-    }
-}
+
+    @GraphQLField
+    private OffsetDateTime expiration_lt;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyInterface.java`
+### FieldMayBeFinal
+Field `status_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-        final PropertyType type = getType();
-        if (type == null) {
-            return null;
-        }
-        // Using 0-1 for regular field and 0-1000 for multivalued
+
+    @GraphQLField
+    private String status_equals;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyInterface.java`
+### FieldMayBeFinal
+Field `type_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-        final PropertyType type = getType();
-        if (type == null) {
-            return null;
-        }
-        final Metadata meta = type.getMetadata();
+
+    @GraphQLField
+    private String type_equals;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyInterface.java`
+### FieldMayBeFinal
+Field `expiration_lte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
 #### Snippet
 ```java
-        }
-        final Metadata meta = type.getMetadata();
-        return meta != null ? meta.getName() : null;
-    }
 
+    @GraphQLField
+    private OffsetDateTime expiration_lte;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileAlias.java`
+### FieldMayBeFinal
+Field `expiration_gte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime expiration_gte;
+
+    public CDPConsentUpdateEventFilterInput(
+```
+
+### FieldMayBeFinal
+Field `expiration_gt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime expiration_gt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `expiration_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime expiration_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `lastUpdate_gt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPConsentUpdateEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime lastUpdate_gt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPListFilterInput> or;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `view_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPListFilterInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String view_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLID
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
 #### Snippet
 ```java
     @GraphQLField
-    public String alias() {
-        return profileAlias != null ? profileAlias.getItemId() : null;
-    }
+    @GraphQLNonNull
+    private String name;
 
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileAlias.java`
+### FieldMayBeFinal
+Field `profiles` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
 #### Snippet
 ```java
-            return profileID;
-        }
-        return null;
-    }
 
+    @GraphQLField
+    private CDPProfileFilterInput profiles;
+
+    public CDPSegmentInput(
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileAlias.java`
+### FieldMayBeFinal
+Field `view` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentInput.java`
 #### Snippet
 ```java
     @GraphQLField
-    public OffsetDateTime creationTime() {
-        return profileAlias != null ? profileAlias.getCreationTime().toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime() : null;
-    }
+    @GraphQLNonNull
+    private String view;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPGeoPointPropertyInput.java`
+#### Snippet
+```java
+public class CDPGeoPointPropertyInput extends BaseCDPPropertyInput {
+
+    private GeoPoint defaultValue;
+
+    public CDPGeoPointPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `cdp_profileUpdateEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPProfileUpdateEventFilterInput cdp_profileUpdateEvent;
+
+    public CDPEventFilterInput(
+```
+
+### FieldMayBeFinal
+Field `cdp_timestamp_gt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime cdp_timestamp_gt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_sessionEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPSessionEventFilterInput cdp_sessionEvent;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPLongPropertyInput.java`
+#### Snippet
+```java
+    private Long minValue;
+    private Long maxValue;
+    private Long defaultValue;
+
+    public CDPLongPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `minValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPLongPropertyInput.java`
+#### Snippet
+```java
+public class CDPLongPropertyInput extends BaseCDPPropertyInput {
+
+    private Long minValue;
+    private Long maxValue;
+    private Long defaultValue;
+```
+
+### FieldMayBeFinal
+Field `maxValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPLongPropertyInput.java`
+#### Snippet
+```java
+
+    private Long minValue;
+    private Long maxValue;
+    private Long defaultValue;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileAlias.java`
+### FieldMayBeFinal
+Field `and` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPEventFilterInput> and;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_profileID_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String cdp_profileID_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_listsUpdateEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPListsUpdateEventFilterInput cdp_listsUpdateEvent;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_timestamp_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime cdp_timestamp_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_consentUpdateEvent` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPConsentUpdateEventFilterInput cdp_consentUpdateEvent;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_timestamp_lte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime cdp_timestamp_lte;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_timestamp_gte` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime cdp_timestamp_gte;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_sourceID_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String cdp_sourceID_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `or` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPEventFilterInput> or;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_timestamp_lt` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private OffsetDateTime cdp_timestamp_lt;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_clientID_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String cdp_clientID_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id_equals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPEventFilterInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String id_equals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
+#### Snippet
+```java
+    @GraphQLID
+    @GraphQLField
+    private String id;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_consents` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPPersonaConsentInput> cdp_consents;
+
+    // # fields will be added here according to registered profile properties
+```
+
+### FieldMayBeFinal
+Field `cdp_view` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
 #### Snippet
 ```java
     @GraphQLField
-    public OffsetDateTime modifiedTime() {
-        return profileAlias != null ? profileAlias.getModifiedTime().toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime() : null;
-    }
-}
+    @GraphQLNonNull
+    private String cdp_view;
+
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSessionEvent.java`
+### FieldMayBeFinal
+Field `cdp_name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
 #### Snippet
 ```java
-        final Object state = getEvent().getProperty("state");
+    @GraphQLField
+    @GraphQLNonNull
+    private String cdp_name;
 
-        return state != null ? CDPSessionState.valueOf(state.toString()) : null;
-    }
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `andFilters` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("and")
+    private List<CDPSegmentFilterInput> andFilters;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `viewEquals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("view_equals")
+    private String viewEquals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `viewRegexp` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("view_regexp")
+    private String viewRegexp;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `nameRegexp` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("name_regexp")
+    private String nameRegexp;
+
+    public CDPSegmentFilterInput(
+```
+
+### FieldMayBeFinal
+Field `nameEquals` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("name_equals")
+    private String nameEquals;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `orFilters` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPSegmentFilterInput.java`
+#### Snippet
+```java
+    @GraphQLField
+    @GraphQLName("or")
+    private List<CDPSegmentFilterInput> orFilters;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_segments` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Set<String> cdp_segments;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_profileIDs` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPProfileIDInput> cdp_profileIDs;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `cdp_interests` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/CDPPersonaInput.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPInterestInput> cdp_interests;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPBooleanPropertyInput.java`
+#### Snippet
+```java
+public class CDPBooleanPropertyInput extends BaseCDPPropertyInput {
+
+    private Boolean defaultValue;
+
+    public CDPBooleanPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPStringPropertyInput.java`
+#### Snippet
+```java
+
+    private String regexp;
+    private String defaultValue;
+
+    public CDPStringPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `regexp` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPStringPropertyInput.java`
+#### Snippet
+```java
+public class CDPStringPropertyInput extends BaseCDPPropertyInput {
+
+    private String regexp;
+    private String defaultValue;
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPSetPropertyInput.java`
+#### Snippet
+```java
+public class CDPSetPropertyInput extends BaseCDPPropertyInput {
+
+    private List<CDPPropertyInput> properties;
+
+    public CDPSetPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `minValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPFloatPropertyInput.java`
+#### Snippet
+```java
+public class CDPFloatPropertyInput extends BaseCDPPropertyInput {
+
+    private Double minValue;
+    private Double maxValue;
+    private Double defaultValue;
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPFloatPropertyInput.java`
+#### Snippet
+```java
+    private Double minValue;
+    private Double maxValue;
+    private Double defaultValue;
+
+    public CDPFloatPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `maxValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPFloatPropertyInput.java`
+#### Snippet
+```java
+
+    private Double minValue;
+    private Double maxValue;
+    private Double defaultValue;
+
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPJsonPropertyInput.java`
+#### Snippet
+```java
+public class CDPJsonPropertyInput extends BaseCDPPropertyInput {
+
+    private Object defaultValue;
+
+    public CDPJsonPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `distance` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPGeoDistanceFilter.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Double distance;
+
+    public CDPGeoDistanceFilter(GeoPoint center, CDPGeoDistanceFilterUnit unit, Double distance) {
+```
+
+### FieldMayBeFinal
+Field `center` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPGeoDistanceFilter.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private GeoPoint center;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `unit` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPGeoDistanceFilter.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPGeoDistanceFilterUnit unit;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPDatePropertyInput.java`
+#### Snippet
+```java
+public class CDPDatePropertyInput extends BaseCDPPropertyInput {
+
+    private String defaultValue;
+
+    public CDPDatePropertyInput(final @GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `maxValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIntPropertyInput.java`
+#### Snippet
+```java
+
+    private Integer minValue;
+    private Integer maxValue;
+    private Integer defaultValue;
+
+```
+
+### FieldMayBeFinal
+Field `minValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIntPropertyInput.java`
+#### Snippet
+```java
+public class CDPIntPropertyInput extends BaseCDPPropertyInput {
+
+    private Integer minValue;
+    private Integer maxValue;
+    private Integer defaultValue;
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIntPropertyInput.java`
+#### Snippet
+```java
+    private Integer minValue;
+    private Integer maxValue;
+    private Integer defaultValue;
+
+    public CDPIntPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSource.java`
+#### Snippet
+```java
+public class CDPSource {
+
+    private String id;
+
+    private Boolean thirdParty;
+```
+
+### FieldMayBeFinal
+Field `thirdParty` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSource.java`
+#### Snippet
+```java
+    private String id;
+
+    private Boolean thirdParty;
+
+    public CDPSource(String id) {
+```
+
+### FieldMayBeFinal
+Field `defaultValue` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIdentifierPropertyInput.java`
+#### Snippet
+```java
+
+    private String regexp;
+    private String defaultValue;
+
+    public CDPIdentifierPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `regexp` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/CDPIdentifierPropertyInput.java`
+#### Snippet
+```java
+public class CDPIdentifierPropertyInput extends BaseCDPPropertyInput {
+
+    private String regexp;
+    private String defaultValue;
+
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPFilterMatch.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private String name;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `matched` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPFilterMatch.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Boolean matched;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `executionTimeMillis` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPFilterMatch.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private Long executionTimeMillis;
+
+    public CDPFilterMatch(String name, Boolean matched, Long executionTimeMillis) {
+```
+
+### FieldMayBeFinal
+Field `event` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPObject.java`
 #### Snippet
 ```java
-    @GraphQLField
-    public List<CDPTopic> topics(final DataFetchingEnvironment environment) {
-        return null;
-    }
+public class CDPObject {
+
+    private Event event;
+
+    public CDPObject(Event event) {
+```
+
+### FieldMayBeFinal
+Field `minOccurrences` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
+#### Snippet
+```java
+
+    private String name;
+    private Integer minOccurrences;
+    private Integer maxOccurrences;
+    private List<String> tags;
+```
+
+### FieldMayBeFinal
+Field `maxOccurrences` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
+#### Snippet
+```java
+    private String name;
+    private Integer minOccurrences;
+    private Integer maxOccurrences;
+    private List<String> tags;
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `pageInfo` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopicConnection.java`
+#### Snippet
+```java
+    private List<CDPTopicEdge> edges;
+
+    private CDPPageInfo pageInfo;
+
+    public CDPTopicConnection() {
+```
+
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopicConnection.java`
+#### Snippet
+```java
+    private Long totalCount;
+
+    private List<CDPTopicEdge> edges;
+
+    private CDPPageInfo pageInfo;
+```
+
+### FieldMayBeFinal
+Field `totalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopicConnection.java`
+#### Snippet
+```java
+    public static final String TYPE_NAME = "CDP_TopicConnection";
+
+    private Long totalCount;
+
+    private List<CDPTopicEdge> edges;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
+#### Snippet
+```java
+public abstract class BaseCDPPropertyInput {
+
+    private String name;
+    private Integer minOccurrences;
+    private Integer maxOccurrences;
+```
+
+### FieldMayBeFinal
+Field `tags` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/input/property/BaseCDPPropertyInput.java`
+#### Snippet
+```java
+    private Integer minOccurrences;
+    private Integer maxOccurrences;
+    private List<String> tags;
+
+    public BaseCDPPropertyInput(@GraphQLName("name") String name,
+```
+
+### FieldMayBeFinal
+Field `event` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventEdge.java`
+#### Snippet
+```java
+public class CDPEventEdge {
+
+    private Event event;
+
+    public CDPEventEdge(Event event) {
+```
+
+### FieldMayBeFinal
+Field `segment` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegment.java`
 #### Snippet
 ```java
-        }
+    public static final String TYPE_NAME = "CDP_Segment";
 
-        return null;
-    }
+    private Segment segment;
 
+    public CDPSegment(Segment segment) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegment.java`
-#### Snippet
-```java
-    @GraphQLField
-    public String id() {
-        return segment != null ? segment.getItemId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegment.java`
-#### Snippet
-```java
-    public CDPView view() {
-        if (segment == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegment.java`
-#### Snippet
-```java
-        }
-
-        return segment.getScope() != null ? new CDPView(segment.getScope()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `consent` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
 #### Snippet
 ```java
-    @GraphQLField
-    public OffsetDateTime expiration() {
-        return consent != null ? DateUtils.toOffsetDateTime(consent.getRevokeDate()) : null;
-    }
 
+    private String token;
+    private Consent consent;
+
+    public CDPConsent(String token, Consent consent) {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `token` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
 #### Snippet
 ```java
-    @GraphQLField
-    public String type() {
-        return consent != null ? consent.getTypeIdentifier() : null;
-    }
+public class CDPConsent {
+
+    private String token;
+    private Consent consent;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPProfileInterface profile() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPSource source() {
-        return consent != null ? new CDPSource(consent.getScope()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
-#### Snippet
-```java
-    @GraphQLField
-    public OffsetDateTime lastUpdate() {
-        return consent != null ? DateUtils.toOffsetDateTime(consent.getStatusDate()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsent.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPConsentStatus status() {
-        return consent != null ? CDPConsentStatus.from(consent.getStatus()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopic.java`
-#### Snippet
-```java
-    @GraphQLNonNull
-    public CDPView view(final DataFetchingEnvironment environment) {
-        return topic != null ? new CDPView(topic.getScope()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopic.java`
-#### Snippet
-```java
-    @GraphQLNonNull
-    public String name(final DataFetchingEnvironment environment) {
-        return topic != null ? topic.getName() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPTopic.java`
-#### Snippet
-```java
-    @GraphQLNonNull
-    public String id(final DataFetchingEnvironment environment) {
-        return topic != null ? topic.getTopicId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `type` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyEdge.java`
 #### Snippet
 ```java
-    @GraphQLPrettify
-    public String getCursor() {
-        return type != null ? type.getItemId() : null;
-    }
-}
+public class CDPPropertyEdge {
+
+    private PropertyType type;
+
+    public CDPPropertyEdge(final PropertyType type) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileEdge.java`
+### FieldMayBeFinal
+Field `pageInfo` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileConnection.java`
 #### Snippet
 ```java
-    @GraphQLNonNull
-    public String cursor(final DataFetchingEnvironment environment) {
-        return profile != null ? profile.getItemId() : null;
-    }
+    private List<CDPProfileEdge> edges;
 
+    private CDPPageInfo pageInfo;
+
+    public CDPProfileConnection() {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListConnection.java`
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileConnection.java`
 #### Snippet
 ```java
+    private Long totalCount;
+
+    private List<CDPProfileEdge> edges;
+
+    private CDPPageInfo pageInfo;
+```
+
+### FieldMayBeFinal
+Field `totalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileConnection.java`
+#### Snippet
+```java
+public class CDPProfileConnection {
     @GraphQLField
-    public Integer totalCount(final DataFetchingEnvironment environment) {
-        return userLists != null ? (int) userLists.getTotalSize() : null;
-    }
+    private Long totalCount;
 
+    private List<CDPProfileEdge> edges;
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListConnection.java`
-#### Snippet
-```java
-    public CDPPageInfo pageInfo(final DataFetchingEnvironment environment) {
-        if (userLists == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListConnection.java`
-#### Snippet
-```java
-    public List<CDPListEdge> edges(final DataFetchingEnvironment environment) {
-        if (userLists == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfileAliasEdge.java`
-#### Snippet
-```java
-    @GraphQLField
-    public String cursor() {
-        return profileAlias != null ? profileAlias.getItemId() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListEdge.java`
-#### Snippet
-```java
-    @GraphQLNonNull
-    public String cursor(final DataFetchingEnvironment environment) {
-        return userList != null ? userList.getItemId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListEdge.java`
-#### Snippet
-```java
-    @GraphQLField
-    public CDPList node(final DataFetchingEnvironment environment) {
-        return userList != null ? new CDPList(userList) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventInterface.java`
-#### Snippet
-```java
-    @GraphQLField
-    default List<CDPTopic> cdp_topics(final DataFetchingEnvironment environment) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventInterface.java`
-#### Snippet
-```java
-    @GraphQLField
-    default GeoPoint cdp_location(final DataFetchingEnvironment environment) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventInterface.java`
-#### Snippet
-```java
-    @GraphQLField
-    default CDPSource cdp_source(final DataFetchingEnvironment environment) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventInterface.java`
-#### Snippet
-```java
-            return new CDPProfile(profile);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventInterface.java`
-#### Snippet
-```java
-
-    default Object getProperty(final String propertyName) {
-        return getEvent() != null ? getEvent().getProperty(propertyName) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `persona` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
 #### Snippet
 ```java
-    @GraphQLField
-    public String id() {
-        return persona != null ? persona.getItemId() : null;
-    }
+    public static final String TYPE_NAME = "CDP_Persona";
 
+    private Persona persona;
+
+    public CDPPersona(Persona persona) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPView.java`
 #### Snippet
 ```java
-    public CDPView cdp_view() {
-        if (persona == null) {
-            return null;
-        }
+public class CDPView {
 
+    private String name;
+
+    public CDPView(final String name) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-        final Object view = persona.getProperty("cdp_view");
-
-        return view != null ? new CDPView(view.toString()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @GraphQLField
-    public List<CDPConsent> cdp_consents(final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileConsentsDataFetcher(persona).get(environment) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @Override
-    public Object getProperty(final String propertyName) {
-        return persona != null ? persona.getProperty(propertyName) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @GraphQLNonNull
-    public String cdp_name() {
-        return persona != null ? (String) persona.getProperty("cdp_name") : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    public List<CDPSegment> cdp_segments(
-            final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileSegmentsDataFetcher(persona, viewIds).get(environment) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    @Override
-    public List<CDPList> cdp_lists(final @GraphQLName("views") List<String> viewIds, final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileListsDataFetcher(persona, viewIds).get(environment) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-    public List<CDPProfileID> cdp_profileIDs(final DataFetchingEnvironment environment) throws Exception {
-        if (persona == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-
-        List<String> profileIds = (List<String>) persona.getProperty("mergedWith");
-        return profileIds != null ? profileIds.stream().map(CDPProfileID::new).collect(Collectors.toList()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPersona.java`
-#### Snippet
-```java
-            final @GraphQLName("views") List<String> viewIds,
-            final DataFetchingEnvironment environment) throws Exception {
-        return persona != null ? new ProfileInterestsDataFetcher(persona, viewIds).get(environment) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `userList` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
 #### Snippet
 ```java
+    public static final String TYPE_NAME = "CDP_List";
+
+    private UserList userList;
+
+    public CDPList(final UserList userList) {
+```
+
+### FieldMayBeFinal
+Field `node` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegmentEdge.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPSegment node;
+
     @GraphQLNonNull
-    public CDPView view() {
-        return userList.getScope() != null ? new CDPView(userList.getScope()) : null;
-    }
-
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPList.java`
+### FieldMayBeFinal
+Field `cursor` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegmentEdge.java`
 #### Snippet
 ```java
     @GraphQLNonNull
-    public String name() {
-        return userList.getMetadata() != null ? userList.getMetadata().getName() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/UnomiSegment.java`
-#### Snippet
-```java
     @GraphQLField
-    public Object condition() {
-        return segment != null ? segment.getCondition() : null;
-    }
+    private String cursor;
 
+    public CDPSegmentEdge(CDPSegment node, @GraphQLNonNull String cursor) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/UnomiSegment.java`
+### FieldMayBeFinal
+Field `totalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegmentConnection.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/UnomiSegment.java`
-#### Snippet
-```java
+public class CDPSegmentConnection {
     @GraphQLField
-    public String id() {
-        return segment != null ? segment.getItemId() : null;
-    }
+    private Long totalCount;
 
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/UnomiSegment.java`
-#### Snippet
-```java
-    public CDPView view() {
-        if (segment == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/UnomiSegment.java`
-#### Snippet
-```java
-        }
-
-        return segment.getScope() != null ? new CDPView(segment.getScope()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsentUpdateEvent.java`
-#### Snippet
-```java
-    public OffsetDateTime expiration(DataFetchingEnvironment environment) {
-        final Object expiration = getEvent().getProperty("expiration");
-        return expiration != null ? DateUtils.offsetDateTimeFromMap((Map<String, Object>) expiration) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsentUpdateEvent.java`
-#### Snippet
-```java
-    public OffsetDateTime lastUpdate(DataFetchingEnvironment environment) {
-        final Object lastUpdate = getEvent().getProperty("lastUpdate");
-        return lastUpdate != null ? DateUtils.offsetDateTimeFromMap((Map<String, Object>) lastUpdate) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsentUpdateEvent.java`
-#### Snippet
-```java
-    public String type(DataFetchingEnvironment environment) {
-        final Object type = getEvent().getProperty("type");
-        return type != null ? type.toString() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPConsentUpdateEvent.java`
-#### Snippet
-```java
-    public String status(DataFetchingEnvironment environment) {
-        final Object status = getEvent().getProperty("status");
-        return status != null ? status.toString() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListsUpdateEvent.java`
-#### Snippet
-```java
-
-        if (listIds == null || listIds.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPListsUpdateEvent.java`
-#### Snippet
-```java
-
-        if (partialList == null || partialList.getList() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPProfile.java`
-#### Snippet
-```java
-    @Override
-    public Object getProperty(final String propertyName) {
-        return profile != null ? profile.getProperty(propertyName) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-                }
-            } else {
-                return null;
-            }
-        } else if ("profileSegmentCondition".equals(condition.getConditionTypeId())) {
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-                referencedSegmentIds.remove(segmentId);
-                if (referencedSegmentIds.isEmpty()) {
-                    return null;
-                } else {
-                    condition.setParameter("segments", referencedSegmentIds);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-                }
-            } else {
-                return null;
-            }
-        } else if ("scoringCondition".equals(condition.getConditionTypeId())
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-        } else if ("scoringCondition".equals(condition.getConditionTypeId())
-                && scoringId.equals(condition.getParameter("scoringPlanId"))) {
-            return null;
-        }
-        return condition;
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
-#### Snippet
-```java
-        } catch (JsonProcessingException e) {
-            logger.error("Cannot generate key", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-    public Double minValue() {
-        if (type == null) {
-            return null;
-        }
-        final NumericRange defaultRange = getDefaultNumericRange();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-        }
-        final NumericRange defaultRange = getDefaultNumericRange();
-        return defaultRange != null ? defaultRange.getFrom() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-    public Double maxValue() {
-        final NumericRange defaultRange = getDefaultNumericRange();
-        return defaultRange != null ? defaultRange.getTo() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-    public Double defaultValue() {
-        if (type == null) {
-            return null;
-        }
-        final String defaultValue = type.getDefaultValue();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPFloatPropertyType.java`
-#### Snippet
-```java
-        }
-        final String defaultValue = type.getDefaultValue();
-        return !Strings.isNullOrEmpty(defaultValue) ? Double.valueOf(defaultValue) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPGeoPointPropertyType.java`
-#### Snippet
-```java
     @GraphQLField
-    public GeoPoint defaultValue() {
-        return type != null && type.getDefaultValue() != null ? GeoPoint.fromString(type.getDefaultValue()) : null;
-    }
-}
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPJsonPropertyType.java`
+### FieldMayBeFinal
+Field `pageInfo` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegmentConnection.java`
 #### Snippet
 ```java
+
     @GraphQLField
-    public Object defaultValue() {
-        return type != null ? type.getDefaultValue() : null;
-    }
-}
+    private CDPPageInfo pageInfo;
+
+    public CDPSegmentConnection() {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPSegmentConnection.java`
 #### Snippet
 ```java
-        final NumericRange defaultRange = getDefaultNumericRange();
-        final Double to = defaultRange != null ? defaultRange.getTo() : null;
-        return to != null ? to.longValue() : null;
-    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
-#### Snippet
-```java
-    public Long minValue() {
-        if (type == null) {
-            return null;
-        }
-        final NumericRange defaultRange = getDefaultNumericRange();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
-#### Snippet
-```java
-        final NumericRange defaultRange = getDefaultNumericRange();
-        final Double from = defaultRange != null ? defaultRange.getFrom() : null;
-        return from != null ? from.longValue() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
-#### Snippet
-```java
-    public Long defaultValue() {
-        if (type == null) {
-            return null;
-        }
-        final String defaultValue = type.getDefaultValue();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPLongPropertyType.java`
-#### Snippet
-```java
-        }
-        final String defaultValue = type.getDefaultValue();
-        return !Strings.isNullOrEmpty(defaultValue) ? Long.valueOf(defaultValue) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPStringPropertyType.java`
-#### Snippet
-```java
     @GraphQLField
-    public String defaultValue() {
-        return type != null ? type.getDefaultValue() : null;
-    }
-}
-```
+    private List<CDPSegmentEdge> edges;
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPStringPropertyType.java`
-#### Snippet
-```java
-    public String regexp() {
-        //TODO when unomi supports this type
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPSetPropertyType.java`
-#### Snippet
-```java
-        final Set<PropertyType> childPropertyTypes = this.type.getChildPropertyTypes();
-        if (childPropertyTypes == null || childPropertyTypes.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-    public Integer defaultValue() {
-        if (type == null) {
-            return null;
-        }
-        final String defaultValue = type.getDefaultValue();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-        }
-        final String defaultValue = type.getDefaultValue();
-        return !Strings.isNullOrEmpty(defaultValue) ? Integer.valueOf(defaultValue) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-    public Integer minValue() {
-        if (type == null) {
-            return null;
-        }
-        final NumericRange defaultRange = getDefaultNumericRange();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-        final NumericRange defaultRange = getDefaultNumericRange();
-        final Double from = defaultRange != null ? defaultRange.getFrom() : null;
-        return from != null ? from.intValue() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIntPropertyType.java`
-#### Snippet
-```java
-        final NumericRange defaultRange = getDefaultNumericRange();
-        final Double to = defaultRange != null ? defaultRange.getTo() : null;
-        return to != null ? to.intValue() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPBooleanPropertyType.java`
-#### Snippet
-```java
-    public Boolean defaultValue() {
-        final String defaultValue = type.getDefaultValue();
-        return !Strings.isNullOrEmpty(defaultValue) ? Boolean.valueOf(defaultValue) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPPropertyType.java`
-#### Snippet
-```java
-    protected NumericRange getDefaultNumericRange() {
-        if (type == null || type.getNumericRanges() == null) {
-            return null;
-        }
-        return type.getNumericRanges().stream()
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPDatePropertyType.java`
-#### Snippet
-```java
-    public OffsetDateTime defaultValue() {
-        if (type == null) {
-            return null;
-        }
-        final String defaultValue = type.getDefaultValue();
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPDatePropertyType.java`
-#### Snippet
-```java
-        }
-        final String defaultValue = type.getDefaultValue();
-        return !Strings.isNullOrEmpty(defaultValue) ? OffsetDateTime.parse(defaultValue) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIdentifierPropertyType.java`
-#### Snippet
-```java
-    public String regexp() {
-        //TODO when unomi supports this type
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/property/CDPIdentifierPropertyType.java`
-#### Snippet
-```java
     @GraphQLField
-    public String defaultValue() {
-        return type != null ? type.getDefaultValue() : null;
-    }
-}
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/DateUtils.java`
+### FieldMayBeFinal
+Field `score` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPInterest.java`
 #### Snippet
 ```java
-    public static LocalDate toLocalDate(final Date date) {
-        if (date == null) {
-            return null;
-        }
+    private String topic;
 
+    private Double score;
+
+    public CDPInterest(@GraphQLID final String topic, final Double score) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/DateUtils.java`
+### FieldMayBeFinal
+Field `topic` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPInterest.java`
 #### Snippet
 ```java
-    public static Date toDate(final OffsetDateTime offsetDateTime) {
-        if (offsetDateTime == null) {
-            return null;
-        }
+public class CDPInterest {
 
+    private String topic;
+
+    private Double score;
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/DateUtils.java`
+### FieldMayBeFinal
+Field `totalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventConnection.java`
 #### Snippet
 ```java
-    public static OffsetDateTime offsetDateTimeFromMap(final Map<String, Object> parameterValues) {
-        if (parameterValues == null) {
-            return null;
-        }
+public class CDPEventConnection {
+    @GraphQLField
+    private Long totalCount;
 
+    @GraphQLField
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/DateUtils.java`
+### FieldMayBeFinal
+Field `pageInfo` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventConnection.java`
 #### Snippet
 ```java
-    public static OffsetDateTime toOffsetDateTime(final Date date) {
-        if (date == null) {
-            return null;
-        }
+
+    @GraphQLField
+    private CDPPageInfo pageInfo;
+
+    public CDPEventConnection() {
+```
+
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPEventConnection.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPEventEdge> edges;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `totalCount` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyConnection.java`
+#### Snippet
+```java
+public class CDPPropertyConnection {
+    @GraphQLField
+    private Long totalCount;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `pageInfo` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyConnection.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private CDPPageInfo pageInfo;
+
+    public CDPPropertyConnection() {
+```
+
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/types/output/CDPPropertyConnection.java`
+#### Snippet
+```java
+
+    @GraphQLField
+    private List<CDPPropertyEdge> edges;
+
+    @GraphQLField
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/EventBuilder.java`
+#### Snippet
+```java
+    private Map<String, Object> propertiesToUpdate;
+    private List<String> propertiesToDelete;
+    private Map<String, Object> properties = new HashMap<>();
+    private boolean persistent;
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `parameters` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/ConditionBuilder.java`
+#### Snippet
+```java
+    private Object propertyValueInteger;
+
+    private Map<String, Object> parameters = new HashMap<>();
+
+    private ConditionBuilder(final ConditionType conditionType) {
+```
+
+### FieldMayBeFinal
+Field `profiles` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/CDPProfileInterfaceRegister.java`
+#### Snippet
+```java
+public class CDPProfileInterfaceRegister {
+
+    private ConcurrentHashMap<String, Class<? extends CDPProfileInterface>> profiles;
+
+    public CDPProfileInterfaceRegister() {
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/CDPPropertyInterfaceRegister.java`
 #### Snippet
 ```java
-    public CDPPropertyInterface getProperty(final PropertyType type) {
-        if (!properties.containsKey(type.getValueTypeId())) {
-            return null;
-        }
+public class CDPPropertyInterfaceRegister {
 
+    private ConcurrentHashMap<String, Class<? extends CDPPropertyInterface>> properties;
+
+    public CDPPropertyInterfaceRegister() {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/ReflectionUtil.java`
+### FieldMayBeFinal
+Field `events` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/CDPEventInterfaceRegister.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+public class CDPEventInterfaceRegister {
 
+    private ConcurrentHashMap<String, Class<? extends CDPEventInterface>> events;
+
+    public CDPEventInterfaceRegister() {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/utils/ReflectionUtil.java`
+### FieldMayBeFinal
+Field `fieldVisibilityProviders` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaUpdater.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+    private final List<GraphQLTypeFunctionProvider> typeFunctionProviders = new CopyOnWriteArrayList<>();
 
+    private List<GraphQLFieldVisibilityProvider> fieldVisibilityProviders = new CopyOnWriteArrayList<>();
+
+    private GraphQLCodeRegistryProvider codeRegistryProvider;
 ```
 
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+### FieldMayBeFinal
+Field `serviceManager` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/SubscriptionWebSocket.java`
 #### Snippet
 ```java
-                return profile;
-            } else {
-                return null;
-            }
-        } else if (merge(previousProfile, profile)) {
+    private GraphQL graphQL;
+
+    private ServiceManager serviceManager;
+
+    private Map<String, ExecutionResultSubscriber> subscriptions = new HashMap<String, ExecutionResultSubscriber>();
 ```
 
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+### FieldMayBeFinal
+Field `graphQL` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/SubscriptionWebSocket.java`
 #### Snippet
 ```java
-                return previousProfile;
-            } else {
-                return null;
-            }
-        }
+    private static final Logger logger = LoggerFactory.getLogger(SubscriptionWebSocket.class);
+
+    private GraphQL graphQL;
+
+    private ServiceManager serviceManager;
 ```
 
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
+### FieldMayBeFinal
+Field `subscriptions` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/SubscriptionWebSocket.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+    private ServiceManager serviceManager;
 
+    private Map<String, ExecutionResultSubscriber> subscriptions = new HashMap<String, ExecutionResultSubscriber>();
+
+    public SubscriptionWebSocket(GraphQL graphQL, ServiceManager serviceManager) {
 ```
 
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    public Session saveSession(Session session) {
-        if (session.getItemId() == null) {
-            return null;
-        }
-        if (session.getProfile() != null && session.getProfile().getProperties() != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            session.getProfile().setProperties(removePersonalIdentifiersFromSessionProfile(session.getProfile().getProperties()));
-        }
-        return persistenceService.save(session) ? session : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    public Collection<PropertyType> getTargetPropertyTypes(String target) {
-        if (target == null) {
-            return null;
-        }
-        Collection<PropertyType> result = propertyTypes.getByTarget(target);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    private Profile save(Profile profile, boolean forceRefresh) {
-        if (profile.getItemId() == null) {
-            return null;
-        }
-        profile.setSystemProperty("lastUpdated", new Date());
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            return profile;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    public Set<PropertyType> getPropertyTypeByTag(String tag) {
-        if (tag == null) {
-            return null;
-        }
-        List<PropertyType> result = propertyTypes.getByTag(tag);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-        Persona persona = persistenceService.load(personaId, Persona.class);
-        if (persona == null) {
-            return null;
-        }
-        List<PersonaSession> sessions = persistenceService.query("profileId", persona.getItemId(), "timeStamp:desc", PersonaSession.class);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-    public Set<PropertyType> getPropertyTypeBySystemTag(String tag) {
-        if (tag == null) {
-            return null;
-        }
-        List<PropertyType> result = propertyTypes.getBySystemTag(tag);
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            return types.iterator().next().getMetadata().getId();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `services/src/main/java/org/apache/unomi/services/impl/profiles/ProfileServiceImpl.java`
-#### Snippet
-```java
-            return personaToSave;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/scalars/GeoPointFunction.java`
-#### Snippet
-```java
-                        return dataFetcherResult.toString();
-                    }
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/scalars/GeoPointFunction.java`
-#### Snippet
-```java
-                        return GeoPoint.fromString((String) input);
-                    }
-                    return null;
-                }
-            })
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `payload` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
 #### Snippet
 ```java
-            return GraphQLObjectMapper.getInstance().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
-    }
+        private String id;
+        private String type;
+        private Map<String, Object> payload = new HashMap<>();
+
+        public Builder(String id) {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `id` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
 #### Snippet
 ```java
-            final JsonNode node = GraphQLObjectMapper.getInstance().readTree(textMessage);
-            if (node == null || node.isMissingNode()) {
-                return null;
-            }
-            final String id = node.path("id").asText(null);
+public class GraphQLMessage {
+
+    private String id;
+
+    private String type;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `id` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
 #### Snippet
 ```java
-            return builder.build();
-        } catch (IOException e) {
-            return null;
-        }
-    }
+    public static class Builder {
+
+        private String id;
+        private String type;
+        private Map<String, Object> payload = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/RemoveAliasFromProfileCommand.java`
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
 #### Snippet
 ```java
-        ProfileAlias profileAlias = profileService.removeAliasFromProfile(profileIDInput.getId(), alias, profileIDInput.getClient().getId());
+    private String id;
 
-        return profileAlias != null ? new CDPProfileAlias(profileAlias) : null;
-    }
+    private String type;
+
+    private Map<String, Object> payload;
+```
+
+### FieldMayBeFinal
+Field `payload` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/servlet/websocket/GraphQLMessage.java`
+#### Snippet
+```java
+    private String type;
+
+    private Map<String, Object> payload;
+
+    public static final String TYPE_CONNECTION_INIT = "connection_init"; // client->server
+```
+
+### FieldMayBeFinal
+Field `profileService` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/CreateOrUpdateProfilePropertiesCommand.java`
+#### Snippet
+```java
+    private final List<CDPPropertyInput> properties;
+
+    private ProfileService profileService;
+
+    private CreateOrUpdateProfilePropertiesCommand(final Builder builder) {
+```
+
+### FieldMayBeFinal
+Field `before` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ConnectionParams.java`
+#### Snippet
+```java
+    private Integer last;
+    private String after;
+    private String before;
+    private String text;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/AddProfileToListCommand.java`
+### FieldMayBeFinal
+Field `first` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ConnectionParams.java`
+#### Snippet
+```java
+    public static final int DEFAULT_PAGE_SIZE = 10;
+
+    private Integer first;
+    private Integer last;
+    private String after;
+```
+
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ConnectionParams.java`
+#### Snippet
+```java
+    private String after;
+    private String before;
+    private String text;
+
+    private ConnectionParams(final Builder builder) {
+```
+
+### FieldMayBeFinal
+Field `after` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ConnectionParams.java`
+#### Snippet
+```java
+    private Integer first;
+    private Integer last;
+    private String after;
+    private String before;
+    private String text;
+```
+
+### FieldMayBeFinal
+Field `last` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/ConnectionParams.java`
 #### Snippet
 ```java
 
-        if (userList == null) {
-            return null;
-        }
-
+    private Integer first;
+    private Integer last;
+    private String after;
+    private String before;
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/AddProfileToListCommand.java`
+### FieldMayBeFinal
+Field `eventPublisher` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/EventListenerSubscriptionFetcher.java`
 #### Snippet
 ```java
+public class EventListenerSubscriptionFetcher extends BaseDataFetcher<Publisher<CDPEventInterface>> {
 
-        if (profile == null) {
-            return null;
-        }
+    private UnomiEventPublisher eventPublisher;
 
+    public EventListenerSubscriptionFetcher(UnomiEventPublisher eventPublisher) {
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/RemoveProfileFromListCommand.java`
-#### Snippet
-```java
-
-        if (userList == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/commands/list/RemoveProfileFromListCommand.java`
-#### Snippet
-```java
-
-        if (profile == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/TopicDataFetcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/CustomEventOrSetPropertyDataFetcher.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/CustomEventOrSetPropertyDataFetcher.java`
-#### Snippet
-```java
-            return method.invoke(object);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/BaseDataFetcher.java`
-#### Snippet
-```java
-        final Object param = environment.getArgument(name);
-        if (param == null) {
-            return null;
-        }
-        return GraphQLObjectMapper.getInstance().convertValue(param, clazz);
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/list/GetListDataFetcher.java`
-#### Snippet
-```java
-        final UserList userList = serviceManager.getService(UserListService.class).load(listId);
-
-        return userList != null ? new CDPList(UserListConverter.convertToUnomiList(userList)) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/EventDataFetcher.java`
-#### Snippet
-```java
-        final Event event = eventService.getEvent(id);
-
-        return event == null ? null : serviceManager.getService(CDPEventInterfaceRegister.class).getEvent(event);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileAliasDataFetcher.java`
-#### Snippet
-```java
-        PersistenceService persistenceService = serviceManager.getService(PersistenceService.class);
-        ProfileAlias profileAlias = persistenceService.load(alias, ProfileAlias.class);
-        return profileAlias != null ? new CDPProfileAlias(profileAlias) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileDataFetcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileInterestsDataFetcher.java`
-#### Snippet
-```java
-                    final Double score = Double.parseDouble(interest.get("value").toString());
-                    if (viewIds != null && !viewIds.isEmpty()) {
-                        return viewIds.contains(topic) ? new CDPInterest(topic, score) : null;
-                    }
-                    return new CDPInterest(topic, score);
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileListsDataFetcher.java`
-#### Snippet
-```java
-        final Map<String, Object> systemProperties = profile.getSystemProperties();
-        if (systemProperties == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileListsDataFetcher.java`
-#### Snippet
-```java
-        final List<String> listIds = (List<String>) systemProperties.get("lists");
-        if (listIds == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileListsDataFetcher.java`
-#### Snippet
-```java
-        return stream.map(viewId -> {
-            final UserList list = Iterables.tryFind(userLists, userList -> viewId.equals(userList.getItemId())).orNull();
-            return list != null ? new CDPList(list) : null;
-        }).filter(Objects::nonNull).collect(Collectors.toList());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/segment/SegmentDataFetcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/segment/UnomiSegmentDataFetcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-    public GraphQLInputObjectField getFieldDefinition(GraphQLInputFieldsContainer fieldsContainer, String fieldName) {
-        if (providers == null) {
-            return null;
-        }
-        List<GraphQLInputObjectField> list = providers.stream().
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-        if (anyBlocks || noItems) {
-            // some provider blocks it or none describes at all
-            return null;
-        } else {
-            // return first as they are sorted by priority
-```
-
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/providers/CompositeGraphQLFieldVisibility.java`
-#### Snippet
-```java
-    public GraphQLFieldDefinition getFieldDefinition(GraphQLFieldsContainer fieldsContainer, String fieldName) {
-        if (providers == null) {
-            return null;
-        }
-        List<GraphQLFieldDefinition> list = providers.stream().
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/SourceEventPropertyConditionESQueryBuilder.java`
-#### Snippet
-```java
-            }
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/GeoLocationByPointSessionConditionESQueryBuilder.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `jsonTypes` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
 #### Snippet
 ```java
-        public String getTypeId() {
-            if (firstNonNullType == null) {
-                return null;
-            }
-            return firstNonNullType.getType();
+
+    public class JSONTypeDefinitionType implements DefinitionType {
+        private List<JSONType> jsonTypes;
+        private JSONType firstNonNullType;
+        private String name;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `additionalTypes` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
 #### Snippet
 ```java
-        if (typeStack.contains(name)) {
-            logger.error("Loop detected when creating dynamic input types {} !" , typeStack);
-            return null;
-        }
-        typeStack.push(name);
+    private GraphQLAnnotations graphQLAnnotations;
+
+    private Set<Class<?>> additionalTypes = new HashSet<>();
+
+    public interface DefinitionType {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `name` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
 #### Snippet
 ```java
-        } else {
-            typeStack.pop();
-            return null;
-        }
-    }
+        private List<JSONType> jsonTypes;
+        private JSONType firstNonNullType;
+        private String name;
+
+        public JSONTypeDefinitionType(String name, List<JSONType> jsonTypes) {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `propertyType` may be 'final'
 in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/schema/GraphQLSchemaProvider.java`
 #### Snippet
 ```java
-        }
+    public class PropertyTypeDefinitionType implements DefinitionType {
 
-        return null;
-    }
+        private PropertyType propertyType;
 
+        public PropertyTypeDefinitionType(PropertyType propertyType) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/NestedConditionEvaluator.java`
+### FieldMayBeFinal
+Field `filterInput` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/profile/ProfileAllEventsConnectionDataFetcher.java`
 #### Snippet
 ```java
-        }
 
-        return null;
-    }
-}
+    private final Profile profile;
+    private CDPEventFilterInput filterInput;
+
+    public ProfileAllEventsConnectionDataFetcher(Profile profile, CDPEventFilterInput filterInput) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/accessors/MapAccessor.java`
+### FieldMayBeFinal
+Field `listeners` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/fetchers/event/UnomiEventPublisher.java`
 #### Snippet
 ```java
-        Object mapValue = object.get(propertyName);
-        if (mapValue == null) {
-            return null;
-        }
-        if (leftoverExpression != null) {
+    private ServiceRegistration<?> eventServiceRegistration;
+
+    private List<EventPublisherListener> listeners = new CopyOnWriteArrayList<>();
+
+    private CDPEventInterfaceRegister eventRegister;
 ```
 
-### ReturnNull
-Return of `null`
-in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ProfileConditionFactory.java`
+### FieldMayBeFinal
+Field `groupedConditionsByFilterType` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
 #### Snippet
 ```java
-        }
+    private Map<String, ConditionDecorator> conditionsContext = new LinkedHashMap<>();
 
-        return notEmpty ? pastEventConditionBuilder.build() : null;
-    }
-}
+    private Map<FilterType, List<ConditionDecorator>> groupedConditionsByFilterType = new LinkedHashMap<>();
+
+    private Map<FilterType, String> rootConditionIdPerFilterType = new LinkedHashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
+#### Snippet
+```java
+        UNKNOWN("unknown");
+
+        private String value;
+
+        FilterType(String value) {
+```
+
+### FieldMayBeFinal
+Field `conditionsContext` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
+#### Snippet
+```java
+    private final DataFetchingEnvironment environment;
+
+    private Map<String, ConditionDecorator> conditionsContext = new LinkedHashMap<>();
+
+    private Map<FilterType, List<ConditionDecorator>> groupedConditionsByFilterType = new LinkedHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `rootConditionIdPerFilterType` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/parsers/SegmentConditionParser.java`
+#### Snippet
+```java
+    private Map<FilterType, List<ConditionDecorator>> groupedConditionsByFilterType = new LinkedHashMap<>();
+
+    private Map<FilterType, String> rootConditionIdPerFilterType = new LinkedHashMap<>();
+
+    public SegmentConditionParser(final Condition segmentCondition, final DataFetchingEnvironment environment) {
+```
+
+### FieldMayBeFinal
+Field `conditionTypesMap` may be 'final'
+in `graphql/cxs-impl/src/main/java/org/apache/unomi/graphql/condition/factories/ConditionFactory.java`
+#### Snippet
+```java
+    protected String conditionTypeId;
+
+    private Map<String, ConditionType> conditionTypesMap;
+
+    public ConditionFactory(final String conditionTypeId, final DataFetchingEnvironment environment) {
+```
+
+### FieldMayBeFinal
+Field `timerName` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/MetricAdapter.java`
+#### Snippet
+```java
+
+    private MetricsService metricsService;
+    private String timerName;
+
+    public abstract T execute(Object... args) throws Exception;
+```
+
+### FieldMayBeFinal
+Field `metricsService` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/MetricAdapter.java`
+#### Snippet
+```java
+public abstract class MetricAdapter<T> {
+
+    private MetricsService metricsService;
+    private String timerName;
+
+```
+
+### FieldMayBeFinal
+Field `totalTime` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/CallerCountImpl.java`
+#### Snippet
+```java
+    private List<String> caller;
+    private AtomicLong count = new AtomicLong();
+    private AtomicLong totalTime = new AtomicLong();
+
+    public CallerCountImpl(String hash, List<String> caller) {
+```
+
+### FieldMayBeFinal
+Field `count` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/CallerCountImpl.java`
+#### Snippet
+```java
+    private String hash;
+    private List<String> caller;
+    private AtomicLong count = new AtomicLong();
+    private AtomicLong totalTime = new AtomicLong();
+
+```
+
+### FieldMayBeFinal
+Field `caller` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/CallerCountImpl.java`
+#### Snippet
+```java
+
+    private String hash;
+    private List<String> caller;
+    private AtomicLong count = new AtomicLong();
+    private AtomicLong totalTime = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `hash` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/CallerCountImpl.java`
+#### Snippet
+```java
+public class CallerCountImpl implements CallerCount {
+
+    private String hash;
+    private List<String> caller;
+    private AtomicLong count = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricImpl.java`
+#### Snippet
+```java
+public class MetricImpl implements Metric {
+
+    private String name;
+    private long totalCount = 0L;
+    private long totalTime = 0L;
+```
+
+### FieldMayBeFinal
+Field `callerCounts` may be 'final'
+in `metrics/src/main/java/org/apache/unomi/metrics/internal/MetricImpl.java`
+#### Snippet
+```java
+    private long totalCount = 0L;
+    private long totalTime = 0L;
+    private Map<String,CallerCount> callerCounts = new ConcurrentHashMap<String, CallerCount>();
+
+    public MetricImpl(String name) {
+```
+
+### FieldMayBeFinal
+Field `classLoader` may be 'final'
 in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
 #### Snippet
 ```java
-    protected static Date getDate(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Date) {
+
+    private class ClassLoaderClassResolver extends DefaultClassResolver {
+        private ClassLoader classLoader;
+
+        public ClassLoaderClassResolver(ClassLoader classLoader) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `samples/graphql-providers/src/main/java/org/apache/unomi/graphql/providers/sample/MyEventInput.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
 
+    @GraphQLField
+    private String name;
+
+    public MyEventInput(final @GraphQLName("name") String name) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `name_equals` may be 'final'
+in `samples/graphql-providers/src/main/java/org/apache/unomi/graphql/providers/sample/MyEventFilterInput.java`
 #### Snippet
 ```java
-                    @Override
-                    public Object setup(Map context, Object target, Member member, String propertyName) {
-                        return null;
-                    }
 
+    @GraphQLField
+    private String name_equals;
+
+    public MyEventFilterInput(@GraphQLName("name_equals") String name_equals) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `cdpProfile` may be 'final'
+in `samples/graphql-providers/src/main/java/org/apache/unomi/graphql/providers/sample/CDPProfileExtension.java`
 #### Snippet
 ```java
-    private Object getSecond(Collection<?> collection) {
-        if (collection == null) {
-            return null;
-        }
-        if (collection.isEmpty()) {
+public class CDPProfileExtension {
+
+    private CDPProfile cdpProfile;
+
+    public CDPProfileExtension(CDPProfile cdpProfile) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `extensions/router/router-api/src/main/java/org/apache/unomi/router/api/ImportExportConfiguration.java`
 #### Snippet
 ```java
-        }
-        if (collection.isEmpty()) {
-            return null;
-        }
-        Iterator<?> iterator = collection.iterator();
+    private String description;
+    private String configType;
+    private Map<String, Object> properties = new HashMap<>();
+    private String columnSeparator = ",";
+    private String lineSeparator = "\n";
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportToUnomiRouteBuilder.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+public class ProfileImportToUnomiRouteBuilder extends RouterAbstractRouteBuilder {
 
+    private Logger logger = LoggerFactory.getLogger(ProfileImportToUnomiRouteBuilder.class.getName());
+
+    private UnomiStorageProcessor unomiStorageProcessor;
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/route/ProfileImportOneShotRouteBuilder.java`
 #### Snippet
 ```java
-                logger.debug("OGNL Off. Expression not evaluated on item {}: {}", item.getClass().getName(), expression);
-            }
-            return null;
-        }
-    }
+public class ProfileImportOneShotRouteBuilder extends RouterAbstractRouteBuilder {
+
+    private Logger logger = LoggerFactory.getLogger(ProfileImportOneShotRouteBuilder.class.getName());
+    private ImportConfigByFileNameProcessor importConfigByFileNameProcessor;
+    private String uploadDir;
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `profileExportService` may be 'final'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/processor/LineBuildProcessor.java`
 #### Snippet
 ```java
-                logger.debug("OGNL expression filtered because not allowed: {}", expression);
-            }
-            return null;
-        }
-        OgnlContext ognlContext = getOgnlContext(secureFilteringClassLoader);
+    private static final Logger logger = LoggerFactory.getLogger(LineBuildProcessor.class);
+
+    private ProfileExportService profileExportService;
+
+    public LineBuildProcessor(ProfileExportService profileExportService) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `scopeService` may be 'final'
+in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/keyword/ScopeKeyword.java`
 #### Snippet
 ```java
-                }
+public class ScopeKeyword extends AbstractKeyword {
 
-                return null;
-            }
-        }
+    private ScopeService scopeService;
+
+    public ScopeKeyword(ScopeService scopeService) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+public class RouterCamelContext implements IRouterCamelContext {
 
+    private Logger logger = LoggerFactory.getLogger(RouterCamelContext.class.getName());
+    private CamelContext camelContext;
+    private UnomiStorageProcessor unomiStorageProcessor;
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `configsRefreshInterval` may be 'final'
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
 #### Snippet
 ```java
-    private Object getFirst(Collection<?> collection) {
-        if (collection == null) {
-            return null;
-        }
-        if (collection.isEmpty()) {
+    // TODO UNOMI-572: when fixing UNOMI-572 please remove the usage of the custom ScheduledExecutorService and re-introduce the Unomi Scheduler Service
+    private ScheduledExecutorService scheduler;
+    private Integer configsRefreshInterval = 1000;
+    private ScheduledFuture<?> scheduledFuture;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `scopeService` may be 'final'
+in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/keyword/ScopeValidator.java`
 #### Snippet
 ```java
-        }
-        if (collection.isEmpty()) {
-            return null;
-        }
-        Iterator<?> iterator = collection.iterator();
+    private static final Logger logger = LoggerFactory.getLogger(ScopeValidator.class);
+
+    private ScopeService scopeService;
+
+    public ScopeValidator(ScopeService scopeService) {
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionEvaluator.java`
+### FieldMayBeFinal
+Field `bundleContext` may be 'final'
+in `extensions/groovy-actions/services/src/main/java/org/apache/unomi/groovy/actions/GroovyBundleResourceConnector.java`
 #### Snippet
 ```java
-            return iterator.next();
-        }
-        return null;
-    }
+    private static final Logger logger = LoggerFactory.getLogger(GroovyBundleResourceConnector.class.getName());
 
+    private BundleContext bundleContext;
+
+    public GroovyBundleResourceConnector(BundleContext bundleContext) {
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/unomi-mailchimp/actions/src/main/java/org/apache/unomi/mailchimp/actions/RemoveVisitorFromMailChimpListAction.java`
 #### Snippet
 ```java
-    @WebMethod(exclude = true)
-    public PartialList<Session> findProfileSessions(String profileId) {
-        return null;
-    }
+
+public class RemoveVisitorFromMailChimpListAction implements ActionExecutor {
+    private static Logger logger = LoggerFactory.getLogger(RemoveVisitorFromMailChimpListAction.class);
+    private MailChimpService mailChimpService;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ProfileServiceEndPoint.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/unomi-mailchimp/actions/src/main/java/org/apache/unomi/mailchimp/actions/UnsubscribeVisitorFromMailChimpListAction.java`
 #### Snippet
 ```java
-        if (StringUtils.isBlank(tag) || StringUtils.isBlank(itemType)) {
-            response.sendError(Response.Status.BAD_REQUEST.getStatusCode(), "Missing mandatory query parameters when requesting /cxs/profiles/existingProperties, mandatory query parameters are tag and itemType");
-            return null;
-        }
-        Set<PropertyType> properties;
+
+public class UnsubscribeVisitorFromMailChimpListAction implements ActionExecutor {
+    private static Logger logger = LoggerFactory.getLogger(UnsubscribeVisitorFromMailChimpListAction.class);
+    private MailChimpService mailChimpService;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `extensions/unomi-mailchimp/actions/src/main/java/org/apache/unomi/mailchimp/actions/AddVisitorToMailChimpListAction.java`
 #### Snippet
 ```java
-    @Override
-    public Boolean setDeniedPropertyDistribution(String profileId, List<String> propertyNames) {
-        return null;
-    }
+
+public class AddVisitorToMailChimpListAction implements ActionExecutor {
+    private static Logger logger = LoggerFactory.getLogger(AddVisitorToMailChimpListAction.class);
+    private MailChimpService mailChimpService;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### FieldMayBeFinal
+Field `endPoint` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-        Profile profile = profileService.load(profileId);
-        if (profile == null) {
-            return null;
-        }
-        profile.setProperty("filteredEventTypes", eventTypes);
+public class SFDCSession {
+    private String sessionId;
+    private String endPoint;
+    private String signature;
+    private String id;
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### FieldMayBeFinal
+Field `timeout` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-        Profile profile = profileService.load(profileId);
-        if (profile == null) {
-            return null;
-        }
-        if (!profile.getProperties().containsKey(propertyName)) {
+    private String tokenType;
+    private Long issuedAt;
+    private Long timeout;
+
+    public SFDCSession(String sessionId, String endPoint, String signature, String id, String tokenType, String issuedAt, Long timeout) {
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### FieldMayBeFinal
+Field `tokenType` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-    @Override
-    public List<String> getDeniedPropertyDistribution(String profileId) {
-        return null;
-    }
-
+    private String signature;
+    private String id;
+    private String tokenType;
+    private Long issuedAt;
+    private Long timeout;
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/privacy-extension/services/src/main/java/org/apache/unomi/privacy/internal/PrivacyServiceImpl.java`
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-    @Override
-    public Boolean setDeniedProperties(String profileId, List<String> propertyNames) {
-        return null;
-    }
-
+    private String endPoint;
+    private String signature;
+    private String id;
+    private String tokenType;
+    private Long issuedAt;
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/server/provider/RetroCompatibilityParamConverterProvider.java`
+### FieldMayBeFinal
+Field `sessionId` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-}
+ */
+public class SFDCSession {
+    private String sessionId;
+    private String endPoint;
+    private String signature;
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionESQueryBuilder.java`
+### FieldMayBeFinal
+Field `signature` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-                }
-        }
-        return null;
-    }
-
+    private String sessionId;
+    private String endPoint;
+    private String signature;
+    private String id;
+    private String tokenType;
 ```
 
-### ReturnNull
-Return of `null`
-in `plugins/baseplugin/src/main/java/org/apache/unomi/plugins/baseplugin/conditions/PropertyConditionESQueryBuilder.java`
+### FieldMayBeFinal
+Field `issuedAt` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCSession.java`
 #### Snippet
 ```java
-        List<Object> results = new ArrayList<>();
-        if (datesValues == null) {
-            return null;
-        }
-        for (Object dateValue : datesValues) {
+    private String id;
+    private String tokenType;
+    private Long issuedAt;
+    private Long timeout;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/DefinitionsServiceEndPoint.java`
+### FieldMayBeFinal
+Field `classes` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/ItemDeserializer.java`
 #### Snippet
 ```java
-    public RESTConditionType getConditionType(@PathParam("conditionId") String id, @HeaderParam("Accept-Language") String language) {
-        ConditionType conditionType = definitionsService.getConditionType(id);
-        return conditionType != null ? localizationHelper.generateCondition(conditionType, language) : null;
-    }
 
+    private static final long serialVersionUID = -7040054009670771266L;
+    private Map<String,Class<? extends Item>> classes = new HashMap<>();
+
+    public ItemDeserializer() {
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/DefinitionsServiceEndPoint.java`
+### FieldMayBeFinal
+Field `unomiToSfdcFieldMappings` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
 #### Snippet
 ```java
-    public RESTActionType getActionType(@PathParam("actionId") String id, @HeaderParam("Accept-Language") String language) {
-        ActionType actionType = definitionsService.getActionType(id);
-        return actionType != null ? localizationHelper.generateAction(actionType, language) : null;
-    }
+    private long sfdcSessionTimeout = 15 * 60 * 1000L; // 15 minutes by default
+
+    private Map<String, String> unomiToSfdcFieldMappings = new HashMap<>();
+    private Map<String, String> sfdcToUnomiFieldMappings = new HashMap<>();
 
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
+### FieldMayBeFinal
+Field `sfdcToUnomiFieldMappings` may be 'final'
+in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/SFDCConfiguration.java`
 #### Snippet
 ```java
-                    logger.debug("Scripting detected in context request with value {}, filtering out...", value);
-                }
-                return null;
-            } else {
-                return stringValue;
+
+    private Map<String, String> unomiToSfdcFieldMappings = new HashMap<>();
+    private Map<String, String> sfdcToUnomiFieldMappings = new HashMap<>();
+
+    public SFDCConfiguration() { }
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/endpoints/ContextJsonEndpoint.java`
+### FieldMayBeFinal
+Field `field` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/aggregate/BaseAggregate.java`
 #### Snippet
 ```java
-                newParameterValues.put(parameterEntry.getKey(), parameterEntry.getValue());
-            } else {
-                return null;
-            }
-        }
+
+public abstract class BaseAggregate {
+    private String field;
+
+    public BaseAggregate(String field) {
 ```
 
-### ReturnNull
-Return of `null`
-in `rest/src/main/java/org/apache/unomi/rest/service/impl/ResourceBundleHelper.java`
+### FieldMayBeFinal
+Field `fieldValuesToMatch` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyTypedObjectDeserializer.java`
 #### Snippet
 ```java
-        }
+            new LinkedHashMap<String, Class<? extends Object>>();
 
-        return null;
-    }
+    private Map<String,Set<String>> fieldValuesToMatch = new LinkedHashMap<String,Set<String>>();
 
+    public PropertyTypedObjectDeserializer(JavaType listType, JavaType mapType) {
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/event/UpdateCamelRouteEventHandler.java`
+### FieldMayBeFinal
+Field `registry` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyTypedObjectDeserializer.java`
 #### Snippet
 ```java
-    @Override
-    public Switch getSwitch() {
-        return null;
-    }
+    private static final long serialVersionUID = -2561171359946902967L;
+
+    private Map<String, Class<? extends Object>> registry =
+            new LinkedHashMap<String, Class<? extends Object>>();
 
 ```
 
-### ReturnNull
-Return of `null`
-in `api/src/main/java/org/apache/unomi/api/Item.java`
+### FieldMayBeFinal
+Field `propertyTypedObjectDeserializer` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
 #### Snippet
 ```java
-            logger.error("Error resolving itemType for class " + clazz.getName(), e);
-        }
-        return null;
-    }
+    
+    private Map<String,Class<? extends Item>> builtinItemTypeClasses = new HashMap<>();
+    private PropertyTypedObjectDeserializer propertyTypedObjectDeserializer;
+    private ItemDeserializer itemDeserializer;
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `itemDeserializer` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/CustomObjectMapper.java`
+#### Snippet
+```java
+    private Map<String,Class<? extends Item>> builtinItemTypeClasses = new HashMap<>();
+    private PropertyTypedObjectDeserializer propertyTypedObjectDeserializer;
+    private ItemDeserializer itemDeserializer;
+
+    public CustomObjectMapper() {
+```
+
+### FieldMayBeFinal
+Field `interval` may be 'final'
+in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/aggregate/DateAggregate.java`
+#### Snippet
+```java
+    public static final DateAggregate YEAR = new DateAggregate("1y");
+    private static final String DEFAULT_INTERVAL = "1M";
+    private String interval;
+    private String format;
+    public DateAggregate(String field) {
+```
+
+### FieldMayBeFinal
+Field `resolver` may be 'final'
 in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
 
+    private static final Logger logger = LoggerFactory.getLogger(PropertyHelper.class.getName());
+    private static DefaultResolver resolver = new DefaultResolver();
+
+    public static boolean setProperty(Object target, String propertyName, Object propertyValue, String setPropertyStrategy) {
 ```
 
-### ReturnNull
-Return of `null`
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+### FieldMayBeFinal
+Field `evaluators` may be 'final'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionEvaluatorDispatcher.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+    private static final Logger logger = LoggerFactory.getLogger(ConditionEvaluatorDispatcher.class.getName());
 
+    private Map<String, ConditionEvaluator> evaluators = new ConcurrentHashMap<>();
+
+    private MetricsService metricsService;
 ```
 
-### ReturnNull
-Return of `null`
-in `persistence-spi/src/main/java/org/apache/unomi/persistence/spi/PropertyHelper.java`
+### FieldMayBeFinal
+Field `childFirstURLClassLoader` may be 'final'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ChildFirstClassLoader.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+public class ChildFirstClassLoader extends ClassLoader {
 
+    private ChildFirstURLClassLoader childFirstURLClassLoader;
+
+    private static class ChildFirstURLClassLoader extends URLClassLoader {
 ```
 
-### ReturnNull
-Return of `null`
-in `api/src/main/java/org/apache/unomi/api/PersonaWithSessions.java`
-#### Snippet
-```java
-    @XmlTransient
-    public PersonaSession getLastSession() {
-        return sessions.size()>0?sessions.get(0):null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `api/src/main/java/org/apache/unomi/api/GeoPoint.java`
-#### Snippet
-```java
-    public static GeoPoint fromString(final String input) {
-        if (input == null || input.trim().length() == 0) {
-            return null;
-        }
-        final String[] parts = input.split(",");
-```
-
-### ReturnNull
-Return of `null`
-in `api/src/main/java/org/apache/unomi/api/Event.java`
-#### Snippet
-```java
-            properties = (Map) properties.get(property);
-            if (properties == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `api/src/main/java/org/apache/unomi/api/Profile.java`
-#### Snippet
-```java
-            properties = (Map) properties.get(property);
-            if (properties == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `samples/tweet-button-plugin/src/main/java/org/apache/unomi/samples/tweet_button_plugin/actions/IncrementTweetNumberAction.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `scripting/src/main/java/org/apache/unomi/scripting/internal/ExpressionFilterFactoryImpl.java`
-#### Snippet
-```java
-            return patterns;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scripting/src/main/java/org/apache/unomi/scripting/ExpressionFilter.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-        if (allowedExpressionPatterns != null && !expressionMatches(expression, allowedExpressionPatterns)) {
-```
-
-### ReturnNull
-Return of `null`
-in `scripting/src/main/java/org/apache/unomi/scripting/ExpressionFilter.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-        return expression;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/json-schema/rest/src/main/java/org/apache/unomi/schema/rest/JsonSchemaEndPoint.java`
-#### Snippet
-```java
-            return schema.getSchema().replace("\n", "");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scripting/src/main/java/org/apache/unomi/scripting/MvelScriptExecutor.java`
-#### Snippet
-```java
-                return MVEL.executeExpression(mvelExpressions.get(script), context);
-            } else {
-                return null;
-            }
-        } finally {
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/impl/SchemaServiceImpl.java`
-#### Snippet
-```java
-                    if (jsonSchemaWrapper == null) {
-                        logger.error("Couldn't find schema {}", uri);
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/impl/SchemaServiceImpl.java`
-#### Snippet
-```java
-    public JsonSchemaWrapper getSchemaForEventType(String eventType) {
-        if (StringUtils.isEmpty(eventType)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
-#### Snippet
-```java
-        }
-        logger.info("API Response doesn't contains the temperature");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
-#### Snippet
-```java
-        }
-        logger.warn("API Response doesn't contains the weather description");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
-#### Snippet
-```java
-        }
-        logger.warn("API Response doesn't contains the wind direction");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/weather-update/core/src/main/java/org/apache/unomi/weatherupdate/actions/WeatherUpdateAction.java`
-#### Snippet
-```java
-        }
-        logger.info("API Response doesn't contains the wind speed");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Error when executing request", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.error("Error when executing request", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-                EntityUtils.consumeQuietly(response.getEntity());
-                logger.error("Error when communicating with MailChimp server, response code was {} and response message was {}", statusCode, response.getStatusLine().getReasonPhrase());
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-                    EntityUtils.consumeQuietly(response.getEntity());
-                    logger.error("Error when parsing entity response", e);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-                EntityUtils.consumeQuietly(response.getEntity());
-                logger.error("Error when parsing response with ObjectMapper", e);
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/HttpUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-        if (currentMergeFields == null || !currentMergeFields.has(MERGE_FIELDS)) {
-            logger.error("Can't find merge_fields from the response, the response was {}", currentMergeFields);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/unomi-mailchimp/services/src/main/java/org/apache/unomi/mailchimp/services/internal/MailChimpServiceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-    public Map<String, Object> getLimits() {
-        if (!isConnected()) {
-            return null;
-        }
-        String baseUrl = null;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            Object responseObject = handleRequest(get);
-            if (responseObject == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                return (Map<String, Object>) responseObject;
-            }
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-            return null;
-        } catch (ClientProtocolException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (ClientProtocolException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-            return null;
-        } catch (IOException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-            return null;
-        } catch (HttpException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (HttpException e) {
-            logger.error("Error retrieving Salesforce API Limits", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-    public String createOrUpdateLead(Profile profile) {
-        if (!isConnected()) {
-            return null;
-        }
-        // first we must check if an existing contact exists for the profile.
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            logger.info("Contact {}  found in SFDC... No SFDC field value to send, will not send anything to " +
-                    "Salesforce. ", unomiIdentifierValue);
-            return null;
-        }
-        // then we must check if an existing lead exists for the profile.
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            logger.info("No SFDC field value to send, will not send anything to Salesforce.");
-            if (foundExistingSfdcLeadIds.size() == 0) {
-                return null;
-            } else {
-                return foundExistingSfdcLeadIds.iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            }
-            if (missingMandatoryFields) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            Object responseObject = handleRequest(request);
-            if (responseObject == null) {
-                return null;
-            }
-            if (responseObject instanceof Map) {
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `parentClassLoader` may be 'final'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ChildFirstClassLoader.java`
 #### Snippet
 ```java
 
-        if (foundExistingSfdcLeadIds.size() == 0) {
-            return null;
-        } else {
-            return foundExistingSfdcLeadIds.iterator().next();
+    private static class ChildFirstURLClassLoader extends URLClassLoader {
+        private ClassLoader parentClassLoader;
+
+        public ChildFirstURLClassLoader(URL[] urls, ClassLoader parentClassLoader) {
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `queryBuilders` may be 'final'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionESQueryBuilderDispatcher.java`
 #### Snippet
 ```java
-    public SFDCConfiguration loadConfiguration() {
-        if (persistenceService == null) {
-            return null;
-        }
-        SFDCConfiguration sfdcConfiguration = persistenceService.load("sfdcConfiguration", SFDCConfiguration.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConditionESQueryBuilderDispatcher.class.getName());
+
+    private Map<String, ConditionESQueryBuilder> queryBuilders = new ConcurrentHashMap<>();
+    private ScriptExecutor scriptExecutor;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `mappingCharFilterFactory` may be 'final'
+in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/conditions/ConditionContextHelper.java`
 #### Snippet
 ```java
-    public Map<String, Object> getSObject(String sobjectName, String objectId) {
-        if (!isConnected()) {
-            return null;
-        }
-        Map<String, Object> sobjectMap = new LinkedHashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(ConditionContextHelper.class);
+
+    private static MappingCharFilterFactory mappingCharFilterFactory;
+    static {
+        Map<String,String> args = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `featuresToInstall` may be 'final'
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-            if (responseObject == null) {
-                logger.warn("Couldn't retrieve sobject {} with id {}", sobjectName, objectId);
-                return null;
-            }
-            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
+    private Integer checkStartupStateRefreshInterval = 60;
+
+    private Set<String> featuresToInstall = ConcurrentHashMap.newKeySet();
+    private boolean installingFeatureStarted = false;
+    private List<ServerInfo> serverInfos = new ArrayList<>();
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `serverInfos` may be 'final'
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-        Set<String> mandatoryFields = new TreeSet<>();
-        if (!isConnected()) {
-            return null;
-        }
-        Map<String, Object> leadDescribe = getSObjectDescribe("Lead");
+    private Set<String> featuresToInstall = ConcurrentHashMap.newKeySet();
+    private boolean installingFeatureStarted = false;
+    private List<ServerInfo> serverInfos = new ArrayList<>();
+
+    public void setRequiredBundles(Map<String, Boolean> requiredBundles) {
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `requiredServicesFilters` may be 'final'
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-    public Map<String, Object> query(String query) {
-        if (!isConnected()) {
-            return null;
-        }
-        // first we must check if an existing lead exists for the profile.
+
+    private String requiredServices;
+    private Set<Filter> requiredServicesFilters = new LinkedHashSet<>();
+    private long matchedRequiredServicesCount = 0;
+
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
+### FieldMayBeFinal
+Field `requiredBundlesFromFeatures` may be 'final'
+in `lifecycle-watcher/src/main/java/org/apache/unomi/lifecycle/BundleWatcherImpl.java`
 #### Snippet
 ```java
-            Object responseObject = handleRequest(get);
-            if (responseObject == null) {
-                return null;
-            }
-            if (responseObject != null && responseObject instanceof Map) {
+    private long startupTime;
+    private Map<String, Boolean> requiredBundles = new ConcurrentHashMap<>();
+    private Map<String, Boolean> requiredBundlesFromFeatures = new ConcurrentHashMap<>();
+
+    private ScheduledExecutorService scheduler;
 ```
 
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                return (Map<String, Object>) responseObject;
-            }
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Error executing query {}", query, e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Error executing query {}", query, e);
-            return null;
-        } catch (ClientProtocolException e) {
-            logger.error("Error executing query {}", query, e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (ClientProtocolException e) {
-            logger.error("Error executing query {}", query, e);
-            return null;
-        } catch (IOException e) {
-            logger.error("Error executing query {}", query, e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.error("Error executing query {}", query, e);
-            return null;
-        } catch (HttpException e) {
-            logger.error("Error executing query {}", query, e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (HttpException e) {
-            logger.error("Error executing query {}", query, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        Map<String, Object> sobjectDescribe = new LinkedHashMap<>();
-        if (!isConnected()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            if (responseObject == null) {
-                logger.warn("Couldn't retrieve sobject {} describe", sobjectName);
-                return null;
-            }
-            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        if (sfdcSession == null) {
-            logger.error("Invalid session !");
-            return null;
-        }
-        logger.info("Login successful!\nServer URL: " + sfdcSession.getEndPoint()
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            if (sfdcSession == null) {
-                logger.error("Couldn't get a valid session !");
-                return null;
-            }
-            if (request.containsHeader("Authorization")) {
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                if (!loginSuccessful) {
-                    logger.error("Login failed, cannot execute request {}", request);
-                    return null;
-                }
-                logger.warn("Retrying request {} once again...", request);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-        if (response.getEntity() == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        }
-        if (response.getEntity() == null) {
-            return null;
-        }
-        return JSON.parse(EntityUtils.toString(response.getEntity()));
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-    public Set<String> getRecentLeadIds() {
-        if (!isConnected()) {
-            return null;
-        }
-        Set<String> recentLeadIds = new LinkedHashSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            if (responseObject == null) {
-                logger.warn("Couldn't retrieve recent leads");
-                return null;
-            }
-            Map<String, Object> queryResponse = (Map<String, Object>) responseObject;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (HttpException e) {
-            logger.error("Error logging in", e);
-            return null;
-        } catch (IOException e) {
-            logger.error("Error logging in", e);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.error("Error logging in", e);
-            return null;
-        }
-        return null;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/salesforce-connector/services/src/main/java/org/apache/unomi/sfdc/services/internal/SFDCServiceImpl.java`
-#### Snippet
-```java
-            return null;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `bundleContext` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-        Map<String, Object> propertyMapping = getPropertyMapping(name, itemType);
-        if (propertyMapping == null) {
-            return null;
-        }
-        if (propertyMapping != null
+        private String timerName;
+        private MetricsService metricsService;
+        private BundleContext bundleContext;
+        private String[] fatalIllegalStateErrors; // Errors that if occur - stop the application
+        private boolean throwExceptions;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `knownMappings` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                            return value;
-                        } else {
-                            return null;
-                        }
-                    }
+    private Map<String, WriteRequest.RefreshPolicy> itemTypeToRefreshPolicy = new HashMap<>();
+
+    private Map<String, Map<String, Map<String, Object>>> knownMappings = new HashMap<>();
+
+    private static final Map<String, String> itemTypeIndexNameMap = new HashMap<>();
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `removeByQueryTimeoutInMinutes` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                    if (ese.status().equals(RestStatus.NOT_FOUND)) {
-                        // this can happen if we are just testing the existence of the item, it is not always an error.
-                        return null;
-                    }
-                    throw new Exception("Error loading itemType=" + clazz.getName() + " customItemType=" + customItemType + " itemId=" + itemId, ese);
+
+    private Integer defaultQueryLimit = 10;
+    private Integer removeByQueryTimeoutInMinutes = 10;
+
+    private String bulkProcessorConcurrentRequests = "1";
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `mappings` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                } catch (IndexNotFoundException e) {
-                    // this can happen if we are just testing the existence of the item, it is not always an error.
-                    return null;
-                } catch (Exception ex) {
-                    throw new Exception("Error loading itemType=" + clazz.getName() + " customItemType=" + customItemType + " itemId=" + itemId, ex);
+    private String[] fatalIllegalStateErrors;
+    private BundleContext bundleContext;
+    private Map<String, String> mappings = new HashMap<String, String>();
+    private ConditionEvaluatorDispatcher conditionEvaluatorDispatcher;
+    private ConditionESQueryBuilderDispatcher conditionESQueryBuilderDispatcher;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `elasticSearchAddressList` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                                    }
-                                }
-                                return null;
-                            }
-                        }.execute();
+    private BulkProcessor bulkProcessor;
+    private String elasticSearchAddresses;
+    private List<String> elasticSearchAddressList = new ArrayList<>();
+    private String clusterName;
+    private String indexPrefix;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `throwExceptions` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
+        private BundleContext bundleContext;
+        private String[] fatalIllegalStateErrors; // Errors that if occur - stop the application
+        private boolean throwExceptions;
 
+        public InClassLoaderExecute(MetricsService metricsService, String timerName, BundleContext bundleContext, String[] fatalIllegalStateErrors, boolean throwExceptions) {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `timerName` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                    if (tTemp instanceof IllegalStateException && Arrays.stream(this.fatalIllegalStateErrors).anyMatch(tTemp.getMessage()::contains)) {
-                        handleFatalStateError(); // Stop application
-                        return null;
-                    }
-                    tTemp = tTemp.getCause();
+    public abstract static class InClassLoaderExecute<T> {
+
+        private String timerName;
+        private MetricsService metricsService;
+        private BundleContext bundleContext;
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `fatalIllegalStateErrors` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                handleError(t, logError);
-            }
-            return null;
-        }
+        private MetricsService metricsService;
+        private BundleContext bundleContext;
+        private String[] fatalIllegalStateErrors; // Errors that if occur - stop the application
+        private boolean throwExceptions;
 
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `metricsService` may be 'final'
 in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
 #### Snippet
 ```java
-                    client.close();
-                }
-                return null;
-            }
-        }.catchingExecuteInClassLoader(true);
-```
 
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                    sslContext.init(null, new TrustManager[]{new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            return null;
-                        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-                return "text";
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/elasticsearch/ElasticSearchPersistenceServiceImpl.java`
-#### Snippet
-```java
-    private <T extends Item> T load(final String itemId, final Class<T> clazz, final String customItemType) {
-        if (StringUtils.isEmpty(itemId)) {
-            return null;
-        }
-
+        private String timerName;
+        private MetricsService metricsService;
+        private BundleContext bundleContext;
+        private String[] fatalIllegalStateErrors; // Errors that if occur - stop the application
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -16032,18 +9939,6 @@ in `services/src/main/java/org/apache/unomi/services/impl/scheduler/SchedulerSer
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `importConfigSaved` is redundant
-in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/ImportConfigurationServiceEndPoint.java`
-#### Snippet
-```java
-    public ImportConfiguration saveConfiguration(ImportConfiguration importConfiguration) {
-
-        ImportConfiguration importConfigSaved = configurationService.save(importConfiguration, true);
-
-        return importConfigSaved;
-```
-
-### UnnecessaryLocalVariable
 Local variable `exportConfigSaved` is redundant
 in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/ExportConfigurationServiceEndPoint.java`
 #### Snippet
@@ -16053,6 +9948,18 @@ in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/Exp
         ExportConfiguration exportConfigSaved = configurationService.save(exportConfiguration, true);
 
         return exportConfigSaved;
+```
+
+### UnnecessaryLocalVariable
+Local variable `importConfigSaved` is redundant
+in `extensions/router/router-rest/src/main/java/org/apache/unomi/router/rest/ImportConfigurationServiceEndPoint.java`
+#### Snippet
+```java
+    public ImportConfiguration saveConfiguration(ImportConfiguration importConfiguration) {
+
+        ImportConfiguration importConfigSaved = configurationService.save(importConfiguration, true);
+
+        return importConfigSaved;
 ```
 
 ### UnnecessaryLocalVariable
@@ -16079,6 +9986,91 @@ in `persistence-elasticsearch/core/src/main/java/org/apache/unomi/persistence/el
                 long batchRequestStartTime = System.currentTimeMillis();
 ```
 
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+                    action.setParameter("pastEventCondition", parentCondition);
+
+                    rule.setActions(Arrays.asList(action));
+                    rule.setLinkedItems(Arrays.asList(metadata.getId()));
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServiceImpl.java`
+#### Snippet
+```java
+
+                    rule.setActions(Arrays.asList(action));
+                    rule.setLinkedItems(Arrays.asList(metadata.getId()));
+
+                    // it's a new generated rules to keep track of the event count, we should update all the profile that match this past event
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `plugins/kafka-injector/src/main/java/org/apache/unomi/kafka/KafkaInjector.java`
+#### Snippet
+```java
+            Thread.currentThread().setContextClassLoader(null);
+            consumer = new KafkaConsumer<String, String>(config);
+            consumer.subscribe(Arrays.asList(topic));
+        } finally {
+            Thread.currentThread().setContextClassLoader(originClassLoader);
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesService.java`
+#### Snippet
+```java
+    List<String> FEATURES_CLASSES = Arrays.asList("A", "P");
+    List<String> COUNTRY_FEATURE_CODES = Arrays.asList("PCL", "PCLD", "PCLF", "PCL", "PCLI", "PCLIX", "PCLS");
+    List<String> ADM1_FEATURE_CODES = Arrays.asList("ADM1");
+    List<String> ADM2_FEATURE_CODES = Arrays.asList("ADM2");
+    List<String> CITIES_FEATURE_CODES = Arrays.asList("PPL", "PPLA", "PPLA2", "PPLA3", "PPLA4", "PPLC", "PPLCH", "PPLF", "PPLG", "PPLL", "PPLR", "PPLR");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesService.java`
+#### Snippet
+```java
+    List<String> COUNTRY_FEATURE_CODES = Arrays.asList("PCL", "PCLD", "PCLF", "PCL", "PCLI", "PCLIX", "PCLS");
+    List<String> ADM1_FEATURE_CODES = Arrays.asList("ADM1");
+    List<String> ADM2_FEATURE_CODES = Arrays.asList("ADM2");
+    List<String> CITIES_FEATURE_CODES = Arrays.asList("PPL", "PPLA", "PPLA2", "PPLA3", "PPLA4", "PPLC", "PPLCH", "PPLF", "PPLG", "PPLL", "PPLR", "PPLR");
+    List<List<String>> ORDERED_FEATURES = Arrays.asList(COUNTRY_FEATURE_CODES, ADM1_FEATURE_CODES, ADM2_FEATURE_CODES, CITIES_FEATURE_CODES);
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `extensions/router/router-core/src/main/java/org/apache/unomi/router/core/context/RouterCamelContext.java`
+#### Snippet
+```java
+        if (RouterConstants.IMPORT_EXPORT_CONFIG_TYPE_RECURRENT.equals(importConfiguration.getConfigType())) {
+            ProfileImportFromSourceRouteBuilder builder = new ProfileImportFromSourceRouteBuilder(kafkaProps, configType);
+            builder.setImportConfigurationList(Arrays.asList(importConfiguration));
+            builder.setImportConfigurationService(importConfigurationService);
+            builder.setProfileService(profileService);
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `extensions/geonames/services/src/main/java/org/apache/unomi/geonames/services/GeonamesServiceImpl.java`
+#### Snippet
+```java
+
+        if (COUNTRY_FEATURE_CODES.contains(entry.getFeatureCode())) {
+            featureCodes = Arrays.asList("PPLC");
+        } else if (ADM1_FEATURE_CODES.contains(entry.getFeatureCode())) {
+            featureCodes = Arrays.asList("PPLA", "PPLC");
+```
+
 ## RuleId[id=PointlessBooleanExpression]
 ### PointlessBooleanExpression
 `isUpdated == false` can be simplified to '!isUpdated'
@@ -16090,5 +10082,18 @@ in `services/src/main/java/org/apache/unomi/services/impl/segments/SegmentServic
                         if (isUpdated == false)
                             throw new Exception(String.format("failed retry update profile segment {}, profile {}, time {}", segmentId, profileId, new Date()));
                     });
+```
+
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `extensions/json-schema/services/src/main/java/org/apache/unomi/schema/api/ValidationError.java`
+#### Snippet
+```java
+    }
+
+    public boolean equals(Object o) {
+        return validationMessage.equals(o);
+    }
 ```
 
