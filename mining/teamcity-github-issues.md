@@ -40,18 +40,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-  private void patchPropertiesWithToken() {
-    final String token = myProperties.get(PARAM_ACCESS_TOKEN);
-    if (!StringUtil.isEmptyOrSpaces(token)) {
-      if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
-        // oauth token
-```
-
-### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
 #### Snippet
@@ -61,6 +49,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
     }
 }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
+#### Snippet
+```java
+  private void patchPropertiesWithToken() {
+    final String token = myProperties.get(PARAM_ACCESS_TOKEN);
+    if (!StringUtil.isEmptyOrSpaces(token)) {
+      if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
+        // oauth token
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -140,18 +140,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-
-
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
-```
-
-### BoundedWildcard
 Can generalize to `? extends SBuildType`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
@@ -161,6 +149,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
     return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
 ```
 
 ### BoundedWildcard
@@ -176,15 +176,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+Can generalize to `? super InvalidProperty`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
 ```java
-  }
 
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
+
+    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
+                                       @NotNull final Map<String, String> map,
+                                       @NotNull final String propertyName,
 ```
 
 ## RuleId[id=RedundantSuppression]
