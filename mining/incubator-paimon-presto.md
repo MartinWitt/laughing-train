@@ -1,32 +1,28 @@
 # incubator-paimon-presto 
  
 # Bad smells
-I found 21 bad smells with 6 repairable:
+I found 27 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| OptionalContainsCollection | 5 | false |
+| ConstantValue | 19 | false |
 | OptionalUsedAsFieldOrParameterType | 3 | false |
-| ReturnNull | 3 | false |
-| UtilityClassWithoutPrivateConstructor | 3 | true |
-| NonProtectedConstructorInAbstractClass | 3 | true |
-| RedundantFieldInitialization | 1 | false |
+| UNCHECKED_WARNING | 2 | false |
+| Deprecation | 1 | false |
 | DataFlowIssue | 1 | false |
-| NestedAssignment | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSourceBase.java`
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'projectedColumns'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
 #### Snippet
 ```java
-    private final List<DataType> paimonColumnTypes;
+    private final byte[] serializedTable;
+    private final TupleDomain<PrestoColumnHandle> filter;
+    private final Optional<List<ColumnHandle>> projectedColumns;
 
-    private boolean isFinished = false;
-
-    public PrestoPageSourceBase(
+    private Table lazyTable;
 ```
 
-## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'projectedColumns'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
@@ -51,90 +47,42 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
                 schemaName, tableName, serializedTable, filter, projectedColumns);
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'projectedColumns'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-    private final byte[] serializedTable;
-    private final TupleDomain<PrestoColumnHandle> filter;
-    private final Optional<List<ColumnHandle>> projectedColumns;
-
-    private Table lazyTable;
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
 #### Snippet
 ```java
-            ConnectorTableMetadata tableMetadata,
-            Optional<ConnectorNewTableLayout> layout) {
-        return null;
+    private List<String> getPartitionedKeys(Map<String, Object> tableProperties) {
+        List<String> partitionedKeys =
+                (List<String>) tableProperties.get(CoreOptions.PARTITION.key());
+        return partitionedKeys == null ? ImmutableList.of() : ImmutableList.copyOf(partitionedKeys);
     }
-
 ```
 
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
 #### Snippet
 ```java
-            serializedTable = InstantiationUtil.serializeObject(catalog.getTable(tablePath));
-        } catch (Catalog.TableNotExistException e) {
-            return null;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    private List<String> getPrimaryKeys(Map<String, Object> tableProperties) {
+        List<String> primaryKeys =
+                (List<String>) tableProperties.get(CoreOptions.PRIMARY_KEY.key());
+        return primaryKeys == null ? ImmutableList.of() : ImmutableList.copyOf(primaryKeys);
+    }
 ```
 
-### ReturnNull
-Return of `null`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSourceBase.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'getLength()' is deprecated
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
 #### Snippet
 ```java
-        if (batch == null) {
-            isFinished = true;
-            return null;
-        }
-        InternalRow row;
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `FieldNameUtils` has only 'static' members, and lacks a 'private' constructor
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/FieldNameUtils.java`
-#### Snippet
-```java
-
-/** Utils for fieldName. */
-public class FieldNameUtils {
-
-    public static List<String> fieldNames(RowType rowType) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassLoaderUtils` has only 'static' members, and lacks a 'private' constructor
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/ClassLoaderUtils.java`
-#### Snippet
-```java
-
-/** Utils for {@link ClassLoader}. */
-public class ClassLoaderUtils {
-
-    public static <T> T runWithContextClassLoader(Supplier<T> supplier, ClassLoader classLoader) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EncodingUtils` has only 'static' members, and lacks a 'private' constructor
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/EncodingUtils.java`
-#### Snippet
-```java
-
-/** Utils for encoding. */
-public class EncodingUtils {
-
-    private static final Base64.Encoder BASE64_ENCODER = Base64.getUrlEncoder().withoutPadding();
+        } else if (prestoType instanceof VarcharType) {
+            return DataTypes.VARCHAR(
+                    Math.min(Integer.MAX_VALUE, ((VarcharType) prestoType).getLength()));
+        } else if (prestoType instanceof com.facebook.presto.common.type.BooleanType) {
+            return DataTypes.BOOLEAN();
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -150,117 +98,6 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.
             return DataTypes.BOOLEAN();
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSourceBase.java`
-#### Snippet
-```java
-        }
-        InternalRow row;
-        while ((row = batch.next()) != null) {
-            pageBuilder.declarePosition();
-            for (int i = 0; i < prestoColumnTypes.size(); i++) {
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `Set`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
-#### Snippet
-```java
-            ConnectorTableHandle table,
-            Constraint<ColumnHandle> constraint,
-            Optional<Set<ColumnHandle>> desiredColumns) {
-        PrestoTableHandle handle = (PrestoTableHandle) table;
-        ConnectorTableLayout layout =
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-            @JsonProperty("serializedTable") byte[] serializedTable,
-            @JsonProperty("filter") TupleDomain<PrestoColumnHandle> filter,
-            @JsonProperty("projection") Optional<List<ColumnHandle>> projectedColumns) {
-        this.schemaName = schemaName;
-        this.tableName = tableName;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-    }
-
-    public PrestoTableHandle copy(Optional<List<ColumnHandle>> projectedColumns) {
-        return new PrestoTableHandle(
-                schemaName, tableName, serializedTable, filter, projectedColumns);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-
-    @JsonProperty
-    public Optional<List<ColumnHandle>> getProjectedColumns() {
-        return projectedColumns;
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-    private final byte[] serializedTable;
-    private final TupleDomain<PrestoColumnHandle> filter;
-    private final Optional<List<ColumnHandle>> projectedColumns;
-
-    private Table lazyTable;
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `PrestoConnectorBase()` of an abstract class should not be declared 'public'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoConnectorBase.java`
-#### Snippet
-```java
-    private final PrestoMetadataFactory prestoMetadataFactory;
-
-    public PrestoConnectorBase(
-            PrestoTransactionManager transactionManager,
-            PrestoSplitManager prestoSplitManager,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `PrestoSplitBase()` of an abstract class should not be declared 'public'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoSplitBase.java`
-#### Snippet
-```java
-
-    @JsonCreator
-    public PrestoSplitBase(@JsonProperty("splitSerialized") String splitSerialized) {
-        this.splitSerialized = splitSerialized;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `PrestoPageSourceBase()` of an abstract class should not be declared 'public'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoPageSourceBase.java`
-#### Snippet
-```java
-    private boolean isFinished = false;
-
-    public PrestoPageSourceBase(
-            RecordReader<InternalRow> reader, List<ColumnHandle> projectedColumns) {
-        this.reader = reader;
-```
-
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -272,5 +109,234 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.
                                                     field.getName().get(),
                                                     toPaimonType(field.getType())))
                             .collect(Collectors.toList());
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+                            com.facebook.presto.common.type.CharType.MAX_LENGTH,
+                            ((CharType) paimonType).getLength()));
+        } else if (paimonType instanceof VarCharType) {
+            return VarcharType.createUnboundedVarcharType();
+        } else if (paimonType instanceof BooleanType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof VarCharType) {
+            return VarcharType.createUnboundedVarcharType();
+        } else if (paimonType instanceof BooleanType) {
+            return com.facebook.presto.common.type.BooleanType.BOOLEAN;
+        } else if (paimonType instanceof BinaryType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof BooleanType) {
+            return com.facebook.presto.common.type.BooleanType.BOOLEAN;
+        } else if (paimonType instanceof BinaryType) {
+            return VarbinaryType.VARBINARY;
+        } else if (paimonType instanceof VarBinaryType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof BinaryType) {
+            return VarbinaryType.VARBINARY;
+        } else if (paimonType instanceof VarBinaryType) {
+            return VarbinaryType.VARBINARY;
+        } else if (paimonType instanceof DecimalType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof VarBinaryType) {
+            return VarbinaryType.VARBINARY;
+        } else if (paimonType instanceof DecimalType) {
+            return com.facebook.presto.common.type.DecimalType.createDecimalType(
+                    ((DecimalType) paimonType).getPrecision(),
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+                    ((DecimalType) paimonType).getPrecision(),
+                    ((DecimalType) paimonType).getScale());
+        } else if (paimonType instanceof TinyIntType) {
+            return TinyintType.TINYINT;
+        } else if (paimonType instanceof SmallIntType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof TinyIntType) {
+            return TinyintType.TINYINT;
+        } else if (paimonType instanceof SmallIntType) {
+            return SmallintType.SMALLINT;
+        } else if (paimonType instanceof IntType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof SmallIntType) {
+            return SmallintType.SMALLINT;
+        } else if (paimonType instanceof IntType) {
+            return IntegerType.INTEGER;
+        } else if (paimonType instanceof BigIntType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof IntType) {
+            return IntegerType.INTEGER;
+        } else if (paimonType instanceof BigIntType) {
+            return BigintType.BIGINT;
+        } else if (paimonType instanceof FloatType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof BigIntType) {
+            return BigintType.BIGINT;
+        } else if (paimonType instanceof FloatType) {
+            return RealType.REAL;
+        } else if (paimonType instanceof DoubleType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof FloatType) {
+            return RealType.REAL;
+        } else if (paimonType instanceof DoubleType) {
+            return com.facebook.presto.common.type.DoubleType.DOUBLE;
+        } else if (paimonType instanceof DateType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof DoubleType) {
+            return com.facebook.presto.common.type.DoubleType.DOUBLE;
+        } else if (paimonType instanceof DateType) {
+            return com.facebook.presto.common.type.DateType.DATE;
+        } else if (paimonType instanceof TimeType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof DateType) {
+            return com.facebook.presto.common.type.DateType.DATE;
+        } else if (paimonType instanceof TimeType) {
+            return com.facebook.presto.common.type.TimeType.TIME;
+        } else if (paimonType instanceof TimestampType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof TimeType) {
+            return com.facebook.presto.common.type.TimeType.TIME;
+        } else if (paimonType instanceof TimestampType) {
+            return com.facebook.presto.common.type.TimestampType.TIMESTAMP;
+        } else if (paimonType instanceof LocalZonedTimestampType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof TimestampType) {
+            return com.facebook.presto.common.type.TimestampType.TIMESTAMP;
+        } else if (paimonType instanceof LocalZonedTimestampType) {
+            return TimestampWithTimeZoneType.TIMESTAMP_WITH_TIME_ZONE;
+        } else if (paimonType instanceof ArrayType) {
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else if (paimonType instanceof LocalZonedTimestampType) {
+            return TimestampWithTimeZoneType.TIMESTAMP_WITH_TIME_ZONE;
+        } else if (paimonType instanceof ArrayType) {
+            DataType elementType = ((ArrayType) paimonType).getElementType();
+            return new com.facebook.presto.common.type.ArrayType(
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+            return new com.facebook.presto.common.type.ArrayType(
+                    Objects.requireNonNull(toPrestoType(elementType, typeManager)));
+        } else if (paimonType instanceof MapType) {
+            MapType paimonMapType = (MapType) paimonType;
+            TypeSignature keyType =
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+                            TypeSignatureParameter.of(keyType),
+                            TypeSignatureParameter.of(valueType)));
+        } else if (paimonType instanceof RowType) {
+            RowType rowType = (RowType) paimonType;
+            List<com.facebook.presto.common.type.RowType.Field> fields =
+```
+
+### ConstantValue
+Value `paimonType` is always 'null'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+        } else {
+            throw new UnsupportedOperationException(
+                    format("Cannot convert from Paimon type '%s' to Presto type", paimonType));
+        }
+    }
 ```
 
