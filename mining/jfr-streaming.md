@@ -36,6 +36,19 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 
 ```
 
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+     * @param expected This is the state that the Recording should be in for a valid transition to occur
+     * @param others Additional <em>expected</em> states
+     * @return
+     */
+    private static String createIllegalStateExceptionMessage(State actual, State expected, State... others) {
+```
+
 ## RuleId[id=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
 Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
@@ -59,19 +72,6 @@ in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
     public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
 
     /**
-```
-
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@return` tag description is missing
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-     * @param expected This is the state that the Recording should be in for a valid transition to occur
-     * @param others Additional <em>expected</em> states
-     * @return
-     */
-    private static String createIllegalStateExceptionMessage(State actual, State expected, State... others) {
 ```
 
 ## RuleId[id=UnusedAssignment]
