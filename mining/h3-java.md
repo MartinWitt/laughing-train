@@ -1,56 +1,52 @@
 # h3-java 
  
 # Bad smells
-I found 16 bad smells with 3 repairable:
+I found 11 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | IgnoreResultOfCall | 3 | false |
+| FinalMethodInFinalClass | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
-| ZeroLengthArrayInitialization | 2 | false |
 | FinalStaticMethod | 2 | false |
-| BoundedWildcard | 2 | false |
-| RedundantFieldInitialization | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
-| NonFinalFieldOfException | 1 | false |
-| NestedAssignment | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+| DuplicatedCode | 1 | false |
+| FieldMayBeFinal | 1 | false |
+## RuleId[id=FinalMethodInFinalClass]
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-  static final String ARCH_ARM64 = "arm64";
-
-  private static volatile File libraryFile = null;
-
-  /** Read all bytes from <code>in</code> and write them to <code>out</code>. */
+   * @param osName Value of system property "os.name"
+   */
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-30-06-21-26.089.html`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+   * @param osArch Value of system property "os.arch"
+   */
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`loop.size() > 0` can be replaced with '!loop.isEmpty()'
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
 ```java
-        }
-
-        if (geoJson && loop.size() > 0) {
-          // geoJson requires closing the loop
-          loop.add(loop.get(0));
+    List<LatLng> out = new ArrayList<>(numVerts);
+    for (int i = 0; i < numVerts; i++) {
+      LatLng coord = new LatLng(toDegrees(verts[i * 2]), toDegrees(verts[(i * 2) + 1]));
+      out.add(coord);
+    }
+    return out;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -78,57 +74,7 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     return result;
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    double[] verts = new double[points.size() * 2];
-    packGeofenceVertices(verts, points, 0);
-    int[] holeSizes = new int[0];
-    double[] holeVerts = new double[0];
-    if (holes != null) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    packGeofenceVertices(verts, points, 0);
-    int[] holeSizes = new int[0];
-    double[] holeVerts = new double[0];
-    if (holes != null) {
-      holeSizes = new int[holes.size()];
-```
-
-## RuleId[id=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `code` of exception class
-in `src/main/java/com/uber/h3core/exceptions/H3Exception.java`
-#### Snippet
-```java
- */
-public class H3Exception extends RuntimeException {
-  private int code;
-
-  public H3Exception(int code) {
-```
-
 ## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-   * @param osArch Value of system property "os.arch"
-   */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
-```
-
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
@@ -141,42 +87,29 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     // https://developer.android.com/reference/java/lang/System.html
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
+### FinalStaticMethod
+'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
+   * @param osArch Value of system property "os.arch"
+   */
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends LatLng`
-in `src/main/java/com/uber/h3core/H3Core.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/com/uber/h3core/exceptions/H3Exception.java`
 #### Snippet
 ```java
-   * @return Next offset to begin filling from
-   */
-  private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
-    assert arr.length >= (original.size() * 2) + offset;
+ */
+public class H3Exception extends RuntimeException {
+  private int code;
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException Invalid resolution
-   */
-  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
-    checkResolution(res);
-
+  public H3Exception(int code) {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
