@@ -1,118 +1,97 @@
 # teamcity-hashicorp-vault-plugin 
  
 # Bad smells
-I found 60 bad smells with 3 repairable:
+I found 58 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnusedSymbol | 17 | false |
-| Convert2Lambda | 5 | false |
+| Deprecation | 10 | false |
 | ConvertToStringTemplate | 4 | false |
 | ConstantValue | 4 | false |
-| UtilityClassWithoutPrivateConstructor | 3 | true |
+| KotlinDeprecation | 3 | false |
 | NotNullFieldNotInitialized | 3 | false |
 | LeakingThis | 3 | false |
-| RedundantNullableReturnType | 2 | false |
 | DataFlowIssue | 2 | false |
 | JavaMapForEach | 2 | false |
+| UastIncorrectHttpHeaderInspection | 2 | false |
+| RedundantNullableReturnType | 2 | false |
+| FieldMayBeFinal | 2 | false |
 | KotlinUnusedImport | 2 | false |
 | PrivatePropertyName | 2 | false |
-| CharsetObjectCanBeUsed | 1 | false |
-| StaticCallOnSubclass | 1 | false |
-| UNUSED_IMPORT | 1 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
+| SerializableHasSerialVersionUIDField | 2 | false |
+| UnusedSymbol | 2 | false |
+| RedundantConstructorKeyword | 1 | false |
+| JavadocReference | 1 | false |
 | RemoveExplicitTypeArguments | 1 | false |
-| MemberVisibilityCanBePrivate | 1 | false |
 | ReplaceRangeToWithUntil | 1 | false |
 | MoveLambdaOutsideParentheses | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
-| MissortedModifiers | 1 | false |
-| RedundantSuppression | 1 | false |
 | LiftReturnOrAssignment | 1 | false |
-## RuleId[id=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/AbstractJackson2HttpMessageConverter.java`
+| CharsetObjectCanBeUsed | 1 | false |
+| UNUSED_IMPORT | 1 | false |
+| InstanceofChain | 1 | false |
+| MemberVisibilityCanBePrivate | 1 | false |
+| RedundantIf | 1 | false |
+## RuleId[id=RedundantConstructorKeyword]
+### RedundantConstructorKeyword
+Redundant 'constructor' keyword
+in `agent/src/main/kotlin/org/jetbrains/teamcity/vault/agent/VaultParameter.kt`
 #### Snippet
 ```java
-public abstract class AbstractJackson2HttpMessageConverter extends AbstractGenericHttpMessageConverter<Object> {
+import org.jetbrains.teamcity.vault.ensureHasPrefix
 
-	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-
-	// Check for Jackson 2.3's overloaded canDeserialize/canSerialize variants with cause reference
+data class VaultParameter constructor(val vaultPath: String, val jsonPath: String? = null) {
+    companion object {
+        @JvmStatic fun extract(path: String): VaultParameter {
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `HttpComponents` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/ClientHttpRequestFactoryFactory.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Jackson2ObjectMapperFactoryBean`
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
 #### Snippet
 ```java
-     * @author Mark Paluch
-     */
-    static class HttpComponents {
-
-        static ClientHttpRequestFactory usingHttpComponents(@NotNull ClientOptions options,
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClientHttpRequestFactoryFactory` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/ClientHttpRequestFactoryFactory.java`
-#### Snippet
-```java
- * @author Vladislav Rassokhin
+ * @see #build()
+ * @see #configure(ObjectMapper)
+ * @see Jackson2ObjectMapperFactoryBean
  */
-public class ClientHttpRequestFactoryFactory {
-
-    /**
+public class Jackson2ObjectMapperBuilder {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `VaultInterceptors` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultInterceptors.java`
+## RuleId[id=KotlinDeprecation]
+### KotlinDeprecation
+Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
+in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
 #### Snippet
 ```java
-import java.io.IOException;
 
-public class VaultInterceptors {
-    public static final String VAULT_NAMESPACE_HEADER = "X-Vault-Namespace";
+fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
+    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+    val factory = createClientHttpRequestFactory(trustStoreProvider)
+    // HttpComponents.usingHttpComponents(options, sslConfiguration)
+```
+
+### KotlinDeprecation
+Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
+#### Snippet
+```java
+        @JvmStatic
+        fun doRequestToken(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): Pair<String, String> {
+            val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+            val factory = createClientHttpRequestFactory(trustStoreProvider)
 
 ```
 
-## RuleId[id=RedundantNullableReturnType]
-### RedundantNullableReturnType
-'getPropertiesProcessor' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+### KotlinDeprecation
+Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
 #### Snippet
 ```java
-    }
 
-    override fun getPropertiesProcessor(): PropertiesProcessor? {
-        return getParametersProcessor()
-    }
-```
+        @JvmStatic fun doRequestWrappedToken(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): Pair<String, String> {
+            val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+            val factory = createClientHttpRequestFactory(trustStoreProvider)
 
-### RedundantNullableReturnType
-'getEditParametersUrl' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
-#### Snippet
-```java
-    }
-
-    override fun getEditParametersUrl(): String? {
-        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
-    }
-```
-
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultInterceptors.java`
-#### Snippet
-```java
-    @Nullable
-    public static ClientHttpRequestInterceptor createNamespaceInterceptor(@Nullable final String namespace) {
-        if (StringUtil.isEmpty(namespace)) {
-            return null;
-        }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -138,19 +117,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSess
             LoginToken renewed = from(vaultResponse.getAuth());
             LOG.info(String.format("Received token: LoginToken(renewable=%b, lease_duration=%d):", renewed.isRenewable(), renewed.getLeaseDuration().getSeconds()));
 
-```
-
-## RuleId[id=UNUSED_IMPORT]
-### UNUSED_IMPORT
-Unused import `import com.fasterxml.jackson.databind.Module;`
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.Module;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.FatalBeanException;
 ```
 
 ## RuleId[id=RemoveExplicitTypeArguments]
@@ -191,19 +157,6 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultBuildStartCo
                                 val message = "Multiple HashiCorp Vault connections with $nsDescripption present in project '$pid'"
 ```
 
-## RuleId[id=MemberVisibilityCanBePrivate]
-### MemberVisibilityCanBePrivate
-Property 'LOG' could be private
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
-#### Snippet
-```java
-
-    companion object {
-        val LOG = Logger.getInstance(Loggers.SERVER_CATEGORY + "." + VaultConnector::class.java.name)!!
-
-        /**
-```
-
 ## RuleId[id=ReplaceRangeToWithUntil]
 ### ReplaceRangeToWithUntil
 'rangeTo' or the '..' call should be replaced with 'until'
@@ -217,65 +170,352 @@ in `common/src/main/kotlin/org/jetbrains/teamcity/vault/VaultReferencesUtil.kt`
     }
 ```
 
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
-#### Snippet
-```java
-        VaultToken token = this.token;
-        if (token instanceof LoginToken) {
-            final Runnable task = new Runnable() {
-                @Override
-                public void run() {
-```
-
-### Convert2Lambda
-Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
+## RuleId[id=UastIncorrectHttpHeaderInspection]
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
 in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultInterceptors.java`
 #### Snippet
 ```java
+
+public class VaultInterceptors {
+    public static final String VAULT_NAMESPACE_HEADER = "X-Vault-Namespace";
+
+    @Nullable
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
+#### Snippet
+```java
+            @Override
+            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+                request.getHeaders().set("X-Vault-Wrap-TTL", wrapTTL);
+                return execution.execute(request, body);
+            }
+```
+
+## RuleId[id=NotNullFieldNotInitialized]
+### NotNullFieldNotInitialized
+@NonNullFields fields must be initialized
+in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+#### Snippet
+```java
+    public static class LdapAuthenticationOptionsBuilder {
+
+        private String username;
+
+        private CharSequence password;
+```
+
+### NotNullFieldNotInitialized
+@NonNullFields fields must be initialized
+in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+#### Snippet
+```java
+        private CharSequence password;
+
+        private String path;
+
+        LdapAuthenticationOptionsBuilder() {
+```
+
+### NotNullFieldNotInitialized
+@NonNullFields fields must be initialized
+in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+#### Snippet
+```java
+        private String username;
+
+        private CharSequence password;
+
+        private String path;
+```
+
+## RuleId[id=MoveLambdaOutsideParentheses]
+### MoveLambdaOutsideParentheses
+Lambda argument should be moved out of parentheses
+in `agent/src/main/kotlin/org/jetbrains/teamcity/vault/agent/VaultParametersResolver.kt`
+#### Snippet
+```java
+        val endpoint = VaultEndpoint.from(URI.create(settings.url))
+        val factory = createClientHttpRequestFactory(trustStoreProvider)
+        val client = VaultTemplate(endpoint, settings.vaultNamespace, factory, SimpleSessionManager({ VaultToken.of(token) }))
+
+        return doFetchAndPrepareReplacements(client, parameters, logger)
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'constructType(java.lang.reflect.Type, java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/AbstractJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+		// Conditional call because Jackson 2.7 does not support null contextClass anymore
+		// TypeVariable resolution will not work with Jackson 2.7, see SPR-13853 for more details
+		return (contextClass != null ? tf.constructType(type, contextClass) : tf.constructType(type));
+	}
+
+```
+
+### Deprecation
+'org.springframework.vault.config.ClientHttpRequestFactoryFactory' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/ClientHttpRequestFactoryFactory.java`
+#### Snippet
+```java
+
+/**
+ * Simplified copy of {@link org.springframework.vault.config.ClientHttpRequestFactoryFactory}
+ * With proper redirect handling for POST requests
+ * <p>
+```
+
+### Deprecation
+'instantiate(java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+				Class<? extends Module> jdk7Module = (Class<? extends Module>)
+						ClassUtils.forName("com.fasterxml.jackson.datatype.jdk7.Jdk7Module", this.moduleClassLoader);
+				objectMapper.registerModule(BeanUtils.instantiate(jdk7Module));
+			}
+			catch (ClassNotFoundException ignored) {
+```
+
+### Deprecation
+'instantiate(java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+				Class<? extends Module> jdk8Module = (Class<? extends Module>)
+						ClassUtils.forName("com.fasterxml.jackson.datatype.jdk8.Jdk8Module", this.moduleClassLoader);
+				objectMapper.registerModule(BeanUtils.instantiate(jdk8Module));
+			}
+			catch (ClassNotFoundException ignored) {
+```
+
+### Deprecation
+'instantiate(java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+				Class<? extends Module> javaTimeModule = (Class<? extends Module>)
+						ClassUtils.forName("com.fasterxml.jackson.datatype.jsr310.JavaTimeModule", this.moduleClassLoader);
+				objectMapper.registerModule(BeanUtils.instantiate(javaTimeModule));
+			}
+			catch (ClassNotFoundException ignored) {
+```
+
+### Deprecation
+'instantiate(java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+					Class<? extends Module> jsr310Module = (Class<? extends Module>)
+							ClassUtils.forName("com.fasterxml.jackson.datatype.jsr310.JSR310Module", this.moduleClassLoader);
+					objectMapper.registerModule(BeanUtils.instantiate(jsr310Module));
+				}
+				catch (ClassNotFoundException ignored2) {
+```
+
+### Deprecation
+'instantiate(java.lang.Class)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+				Class<? extends Module> jodaModule = (Class<? extends Module>)
+						ClassUtils.forName("com.fasterxml.jackson.datatype.joda.JodaModule", this.moduleClassLoader);
+				objectMapper.registerModule(BeanUtils.instantiate(jodaModule));
+			}
+			catch (ClassNotFoundException ignored) {
+```
+
+### Deprecation
+'renewable(java.lang.String, long)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
+#### Snippet
+```java
+
+        if (renewable != null && renewable) {
+            return LoginToken.renewable(token, leaseDuration.longValue());
         }
 
-        return new ClientHttpRequestInterceptor() {
-            @Override
-            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 ```
 
-### Convert2Lambda
-Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
+### Deprecation
+'APPLICATION_JSON_UTF8' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+	 */
+	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
+				new MediaType("application", "*+json", DEFAULT_CHARSET));
+	}
+```
+
+### Deprecation
+'of(java.lang.String, long)' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
 #### Snippet
 ```java
 
-    public void wrapResponses(@NotNull final String wrapTTL) {
-        final ClientHttpRequestInterceptor interceptor = new ClientHttpRequestInterceptor() {
-            @Override
-            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        if (leaseDuration != null) {
+            return LoginToken.of(token, leaseDuration.longValue());
+        }
+
 ```
 
-### Convert2Lambda
-Anonymous new ClientHttpRequestInterceptor() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
+## RuleId[id=LeakingThis]
+### LeakingThis
+Calling non-final function withExposedPorts in constructor
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
 #### Snippet
 ```java
-        RestTemplate restTemplate = UtilKt.createRestTemplate(endpoint, requestFactory);
-
-        restTemplate.getInterceptors().add(new ClientHttpRequestInterceptor() {
-
-            @Override
+    : GenericContainer<VaultDevContainer>("hashicorp/vault-enterprise:${version}_ent"), VaultDevEnvironment {
+    init {
+        withExposedPorts(8200)
+        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
+    }
 ```
 
-### Convert2Lambda
-Anonymous new RestOperationsCallback() can be replaced with lambda
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java`
+### LeakingThis
+Calling non-final function withEnv in constructor
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
 #### Snippet
 ```java
-    private <T> T doRead(final String path, final Class<T> responseType) {
+    init {
+        withExposedPorts(8200)
+        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
+    }
 
-        return doWithSession(new RestOperationsCallback<T>() {
+```
 
-            @Override
+### LeakingThis
+Accessing non-final property token in constructor
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
+#### Snippet
+```java
+    init {
+        withExposedPorts(8200)
+        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
+    }
+
+```
+
+## RuleId[id=LiftReturnOrAssignment]
+### LiftReturnOrAssignment
+'Assignment' can be lifted out of 'if'
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
+#### Snippet
+```java
+            }
+            var message: String? = "Cannot revoke HashiCorp Vault token: "
+            if (e is HttpStatusCodeException) {
+                message += VaultResponses.getError((e as HttpStatusCodeException?)!!)
+            } else {
+```
+
+## RuleId[id=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/AbstractJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+public abstract class AbstractJackson2HttpMessageConverter extends AbstractGenericHttpMessageConverter<Object> {
+
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
+	// Check for Jackson 2.3's overloaded canDeserialize/canSerialize variants with cause reference
+```
+
+## RuleId[id=RedundantNullableReturnType]
+### RedundantNullableReturnType
+'getEditParametersUrl' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getEditParametersUrl(): String? {
+        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
+    }
+```
+
+### RedundantNullableReturnType
+'getPropertiesProcessor' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getPropertiesProcessor(): PropertiesProcessor? {
+        return getParametersProcessor()
+    }
+```
+
+## RuleId[id=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import com.fasterxml.jackson.databind.Module;`
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.Module;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.FatalBeanException;
+```
+
+## RuleId[id=InstanceofChain]
+### InstanceofChain
+Chain of 'instanceof' checks indicates abstraction failure
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+
+	private void configureFeature(ObjectMapper objectMapper, Object feature, boolean enabled) {
+		if (feature instanceof JsonParser.Feature) {
+			objectMapper.configure((JsonParser.Feature) feature, enabled);
+		}
+```
+
+## RuleId[id=MemberVisibilityCanBePrivate]
+### MemberVisibilityCanBePrivate
+Property 'LOG' could be private
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
+#### Snippet
+```java
+
+    companion object {
+        val LOG = Logger.getInstance(Loggers.SERVER_CATEGORY + "." + VaultConnector::class.java.name)!!
+
+        /**
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `topLevelMounts` may be 'final'
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultSysTemplate.java`
+#### Snippet
+```java
+				VaultResponseSupport<Map<String, VaultMount>> {
+
+			private Map<String, VaultMount> topLevelMounts = new HashMap<String, VaultMount>();
+
+			@JsonIgnore
+```
+
+### FieldMayBeFinal
+Field `moduleClassLoader` may be 'final'
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+#### Snippet
+```java
+public class Jackson2ObjectMapperBuilder {
+
+	private ClassLoader moduleClassLoader = getClass().getClassLoader();
+
+
 ```
 
 ## RuleId[id=KotlinUnusedImport]
@@ -305,18 +545,6 @@ import org.springframework.vault.client.VaultEndpoint
 
 ## RuleId[id=PrivatePropertyName]
 ### PrivatePropertyName
-Private property name `jetty_server` should not contain underscores in the middle or the end
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
-#### Snippet
-```java
-    }
-
-    private var jetty_server: Server? = null
-
-    override fun starting(description: Description?) {
-```
-
-### PrivatePropertyName
 Private property name `jetty_port` should not contain underscores in the middle or the end
 in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
 #### Snippet
@@ -328,41 +556,41 @@ in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiCluster
     }
 ```
 
-## RuleId[id=NotNullFieldNotInitialized]
-### NotNullFieldNotInitialized
-@NonNullFields fields must be initialized
-in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+### PrivatePropertyName
+Private property name `jetty_server` should not contain underscores in the middle or the end
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
 #### Snippet
 ```java
-        private CharSequence password;
+    }
 
-        private String path;
+    private var jetty_server: Server? = null
 
-        LdapAuthenticationOptionsBuilder() {
+    override fun starting(description: Description?) {
 ```
 
-### NotNullFieldNotInitialized
-@NonNullFields fields must be initialized
-in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `server/src/main/resources/META-INF/build-server-plugin.xml`
 #### Snippet
 ```java
-    public static class LdapAuthenticationOptionsBuilder {
-
-        private String username;
-
-        private CharSequence password;
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+    <bean id="vaultConnector" class="org.jetbrains.teamcity.vault.server.VaultConnector"/>
+    <bean id="vaultParametersProvider" class="org.jetbrains.teamcity.vault.server.VaultParametersProvider"/>
 ```
 
-### NotNullFieldNotInitialized
-@NonNullFields fields must be initialized
-in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `agent/src/main/resources/META-INF/build-agent-plugin.xml`
 #### Snippet
 ```java
-        private String username;
-
-        private CharSequence password;
-
-        private String path;
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+    <bean id="vaultParametersResolver" class="org.jetbrains.teamcity.vault.agent.VaultParametersResolver"/>
+    <bean id="vaultBuildFeature" class="org.jetbrains.teamcity.vault.agent.VaultBuildFeature"/>
 ```
 
 ## RuleId[id=ConvertToStringTemplate]
@@ -413,95 +641,47 @@ in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
             return uriTemplate
 ```
 
-## RuleId[id=MoveLambdaOutsideParentheses]
-### MoveLambdaOutsideParentheses
-Lambda argument should be moved out of parentheses
+## RuleId[id=RedundantIf]
+### RedundantIf
+Redundant 'if' statement
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultParametersProvider.kt`
+#### Snippet
+```java
+
+            // It's faster than asking OAuthConectionsManager
+            if (project.getAvailableFeaturesOfType(OAuthConstants.FEATURE_TYPE).any {
+                        VaultConstants.FeatureSettings.FEATURE_TYPE == it.parameters[OAuthConstants.OAUTH_TYPE_PARAM]
+                    }) return true
+
+            return false
+```
+
+## RuleId[id=SerializableHasSerialVersionUIDField]
+### SerializableHasSerialVersionUIDField
+`ResolvingError` does not define a 'serialVersionUID' field
 in `agent/src/main/kotlin/org/jetbrains/teamcity/vault/agent/VaultParametersResolver.kt`
 #### Snippet
 ```java
-        val endpoint = VaultEndpoint.from(URI.create(settings.url))
-        val factory = createClientHttpRequestFactory(trustStoreProvider)
-        val client = VaultTemplate(endpoint, settings.vaultNamespace, factory, SimpleSessionManager({ VaultToken.of(token) }))
+        }
 
-        return doFetchAndPrepareReplacements(client, parameters, logger)
+        private class ResolvingError(message: String) : Exception(message)
+
+        private fun fetch(client: VaultTemplate, paths: Collection<String>): HashMap<String, VaultResponse?> {
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `VaultResponses` has no concrete subclass
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultResponses.java`
+### SerializableHasSerialVersionUIDField
+`ConnectionException` does not define a 'serialVersionUID' field
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
 #### Snippet
 ```java
- * @author Mark Paluch
- */
-public abstract class VaultResponses {
-
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
-#### Snippet
-```java
-@SuppressWarnings("LocalVariableHidesMemberVariable")
-public class LifecycleAwareSessionManager implements SessionManager, DisposableBean {
-    protected final static Logger LOG = Logger.getInstance(Loggers.AGENT_CATEGORY + "." + "VaultLifecycleAwareSessionManager");
-    protected final BuildProgressLogger logger;
-
-```
-
-## RuleId[id=LeakingThis]
-### LeakingThis
-Calling non-final function withExposedPorts in constructor
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
-#### Snippet
-```java
-    : GenericContainer<VaultDevContainer>("hashicorp/vault-enterprise:${version}_ent"), VaultDevEnvironment {
-    init {
-        withExposedPorts(8200)
-        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
-    }
-```
-
-### LeakingThis
-Calling non-final function withEnv in constructor
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
-#### Snippet
-```java
-    init {
-        withExposedPorts(8200)
-        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
     }
 
-```
-
-### LeakingThis
-Accessing non-final property token in constructor
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultDevContainer.kt`
-#### Snippet
-```java
-    init {
-        withExposedPorts(8200)
-        withEnv("VAULT_DEV_ROOT_TOKEN_ID", token)
-    }
+    class ConnectionException(message: String, cause: Throwable) : Exception(message, cause)
+}
 
 ```
 
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `token != null` is always `true`
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
-#### Snippet
-```java
-        if (token instanceof LoginToken) {
-            LOG.info(String.format("Logged in with token: LoginToken(renewable=%b, lease_duration=%d):", ((LoginToken) token).isRenewable(), ((LoginToken) token).getLeaseDuration().getSeconds()));
-        } else if (token != null) {
-            LOG.info("Logged in with token: regular VaultToken");
-        } else {
-```
-
 ### ConstantValue
 Condition `object != null` is always `true`
 in `common/src/main/java/org/jetbrains/teamcity/vault/support/AbstractJackson2HttpMessageConverter.java`
@@ -538,105 +718,19 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
                     }
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapperBuilder.java`
+### ConstantValue
+Condition `token != null` is always `true`
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
 #### Snippet
 ```java
-	 */
-	@SuppressWarnings("deprecation")
-	public void configure(ObjectMapper objectMapper) {
-		Assert.notNull(objectMapper, "ObjectMapper must not be null");
-
-```
-
-## RuleId[id=LiftReturnOrAssignment]
-### LiftReturnOrAssignment
-'Assignment' can be lifted out of 'if'
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
-#### Snippet
-```java
-            }
-            var message: String? = "Cannot revoke HashiCorp Vault token: "
-            if (e is HttpStatusCodeException) {
-                message += VaultResponses.getError((e as HttpStatusCodeException?)!!)
-            } else {
+        if (token instanceof LoginToken) {
+            LOG.info(String.format("Logged in with token: LoginToken(renewable=%b, lease_duration=%d):", ((LoginToken) token).isRenewable(), ((LoginToken) token).getLeaseDuration().getSeconds()));
+        } else if (token != null) {
+            LOG.info("Logged in with token: regular VaultToken");
+        } else {
 ```
 
 ## RuleId[id=UnusedSymbol]
-### UnusedSymbol
-Class "VaultJspKeys" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-@Suppress("PropertyName")
-class VaultJspKeys {
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-```
-
-### UnusedSymbol
-Property "FAIL_ON_ERROR" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-
-    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
-
-    val AGENT_REQUIREMENT = VaultConstants.FeatureSettings.AGENT_SUPPORT_REQUIREMENT
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD_APPROLE" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-
-```
-
-### UnusedSymbol
-Property "VAULT_NAMESPACE" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
-
-    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
-```
-
-### UnusedSymbol
-Property "ROLE_ID" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
-
-    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD_IAM" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-```
-
 ### UnusedSymbol
 Property "AGENT_REQUIREMENT" is never used
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
@@ -646,114 +740,6 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
 
     val AGENT_REQUIREMENT = VaultConstants.FeatureSettings.AGENT_SUPPORT_REQUIREMENT
 }
-
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD_LDAP" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-    val AUTH_METHOD_LDAP = VaultConstants.FeatureSettings.AUTH_METHOD_LDAP
-
-    val FAIL_ON_ERROR = VaultConstants.FeatureSettings.FAIL_ON_ERROR
-```
-
-### UnusedSymbol
-Property "SECRET_ID" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-```
-
-### UnusedSymbol
-Property "NAMESPACE" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-@Suppress("PropertyName")
-class VaultJspKeys {
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
-```
-
-### UnusedSymbol
-Property "ENDPOINT" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
-
-    val ENDPOINT = VaultConstants.FeatureSettings.ENDPOINT
-
-    val ROLE_ID = VaultConstants.FeatureSettings.ROLE_ID
-```
-
-### UnusedSymbol
-Property "PATH" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
-
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-```
-
-### UnusedSymbol
-Property "USERNAME" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val SECRET_ID = VaultConstants.FeatureSettings.SECRET_ID
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
-```
-
-### UnusedSymbol
-Property "AUTH_METHOD" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-    val PATH = VaultConstants.FeatureSettings.PATH
-
-    val AUTH_METHOD = VaultConstants.FeatureSettings.AUTH_METHOD
-    val AUTH_METHOD_IAM = VaultConstants.FeatureSettings.AUTH_METHOD_IAM
-    val AUTH_METHOD_APPROLE = VaultConstants.FeatureSettings.AUTH_METHOD_APPROLE
-```
-
-### UnusedSymbol
-Property "PASSWORD" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-
-    val USERNAME = VaultConstants.FeatureSettings.USERNAME
-    val PASSWORD = VaultConstants.FeatureSettings.PASSWORD
-    val PATH = VaultConstants.FeatureSettings.PATH
-
-```
-
-### UnusedSymbol
-Property "URL" is never used
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultJspKeys.kt`
-#### Snippet
-```java
-class VaultJspKeys {
-    val NAMESPACE = VaultConstants.FeatureSettings.NAMESPACE
-    val URL = VaultConstants.FeatureSettings.URL
-    val VAULT_NAMESPACE = VaultConstants.FeatureSettings.VAULT_NAMESPACE
 
 ```
 
