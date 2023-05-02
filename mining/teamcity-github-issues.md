@@ -1,28 +1,138 @@
 # teamcity-github-issues 
  
 # Bad smells
-I found 15 bad smells with 4 repairable:
+I found 14 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| SpringBeanConstructorArgInspection | 5 | false |
 | UnnecessaryToStringCall | 4 | true |
-| BoundedWildcard | 4 | false |
-| StaticCallOnSubclass | 2 | false |
-| RedundantFieldInitialization | 1 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
 | RegExpSimplifiable | 1 | false |
-| DoubleBraceInitialization | 1 | false |
+| Deprecation | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
-| RedundantSuppression | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/auth/GitHubAuthenticator.java`
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'GitHubIssueProviderType'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------|---|-----------|
+| **GitHubIssueProviderType(...):** |   | **Bean:** |
+| PluginDescriptor pluginDescriptor |   | **???**   |
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
 #### Snippet
 ```java
-public class GitHubAuthenticator implements IssueFetcherAuthenticator {
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderFactory"/>
+```
 
-  private Credentials myCredentials = null;
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'GitHubIssueFetcher'#treeend
 
-  public GitHubAuthenticator(@NotNull final Map<String, String> properties, SProject project, OAuthTokensStorage tokenStorage) {
+*** ** * ** ***
+
+|---------------------------------------------|---|-----------|
+| **GitHubIssueFetcher(...):**                |   | **Bean:** |
+| EhCacheUtil cacheUtil                       |   | **???**   |
+| SSLTrustStoreProvider sslTrustStoreProvider |   | **???**   |
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.IssueTrackerSuggestion"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'GitHubIssueProviderFactory'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------|---|------------------------------------------|
+| **GitHubIssueProviderFactory(...):** |   | **Bean:**                                |
+| IssueProviderType type               |   | Autowired: null(GitHubIssueProviderType) |
+| IssueFetcher fetcher                 |   | Autowired: null(GitHubIssueFetcher)      |
+| OAuthTokensStorage storage           |   | **???**                                  |
+| UserModel userModel                  |   | **???**                                  |
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.IssueTrackerSuggestion"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.PasswordAuthReport"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'IssueTrackerSuggestion'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|-------------------------------------|
+| **IssueTrackerSuggestion(...):**            |   | **Bean:**                           |
+| PluginDescriptor descriptor                 |   | **???**                             |
+| PagePlaces pagePlaces                       |   | **???**                             |
+| IssueProvidersManager issueProvidersManager |   | **???**                             |
+| HealthReportHelper helper                   |   | Autowired: null(HealthReportHelper) |
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.IssueTrackerSuggestion"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.PasswordAuthReport"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.HealthReportHelper"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'PasswordAuthReport'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|-----------|
+| **PasswordAuthReport(...):**                |   | **Bean:** |
+| IssueProvidersManager issueProvidersManager |   | **???**   |
+| PluginDescriptor pluginDescriptor           |   | **???**   |
+| PagePlaces pagePlaces                       |   | **???**   |
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.IssueTrackerSuggestion"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.PasswordAuthReport"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.health.HealthReportHelper"/>
+</beans>
+```
+
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.GitHubIssues-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -38,29 +148,17 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   @NotNull
 ```
 
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'AbstractIssueFetcher(jetbrains.buildServer.util.cache.EhCacheUtil)' is deprecated
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
 #### Snippet
 ```java
-
-    private static String identity(String... parts) {
-        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
-    }
-}
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-  private void patchPropertiesWithToken() {
-    final String token = myProperties.get(PARAM_ACCESS_TOKEN);
-    if (!StringUtil.isEmptyOrSpaces(token)) {
-      if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
-        // oauth token
+  public GitHubIssueFetcher(@NotNull EhCacheUtil cacheUtil,
+                            @NotNull final SSLTrustStoreProvider sslTrustStoreProvider) {
+    super(cacheUtil);
+    mySslTrustStoreProvider = sslTrustStoreProvider;
+  }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -112,19 +210,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:\\.git)`
@@ -136,67 +221,5 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
 
   /* Matches github http and https urls of format https://github.com/owner/repo.git */
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-
-
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-        try {
-          String patternString = map.get(PARAM_PATTERN);
-          //noinspection ResultOfMethodCallIgnored
-          Pattern.compile(patternString);
-        } catch (PatternSyntaxException e) {
 ```
 
