@@ -1,560 +1,41 @@
 # commons-rdf 
  
 # Bad smells
-I found 252 bad smells with 1 repairable:
+I found 418 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 121 | false |
+| JavadocReference | 325 | false |
 | OptionalUsedAsFieldOrParameterType | 15 | false |
 | OptionalAssignedToNull | 15 | false |
-| BoundedWildcard | 14 | false |
-| RedundantFieldInitialization | 11 | false |
-| ConstantValue | 10 | false |
-| DynamicRegexReplaceableByCompiledPattern | 9 | false |
-| ReturnNull | 9 | false |
-| UnnecessarySuperQualifier | 8 | false |
-| DataFlowIssue | 6 | false |
-| OptionalContainsCollection | 6 | false |
+| DataFlowIssue | 8 | false |
+| ConstantValue | 8 | false |
+| JavadocDeclaration | 7 | false |
+| JavadocLinkAsPlainText | 6 | false |
 | DeprecatedIsStillUsed | 5 | false |
+| DuplicatedCode | 5 | false |
+| TrivialIf | 5 | false |
 | OptionalGetWithoutIsPresent | 4 | false |
+| AutoCloseableResource | 3 | false |
 | ConditionCoveredByFurtherCondition | 3 | false |
-| SimplifyStreamApiCallChains | 2 | false |
-| MissortedModifiers | 2 | false |
-| NestedAssignment | 2 | false |
-| EmptyMethod | 2 | false |
+| EmptyStatementBody | 2 | false |
+| SimplifyStreamApiCallChains | 1 | false |
 | DoubleCheckedLocking | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
+| DanglingJavadoc | 1 | false |
+| EqualsWhichDoesntCheckParameterClass | 1 | false |
 | EqualsBetweenInconvertibleTypes | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
-| SynchronizeOnThis | 1 | false |
-| EqualsWhichDoesntCheckParameterClass | 1 | false |
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Condition `subject instanceof BlankNodeOrIRI` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
-#### Snippet
-```java
-        super(triple, salt);
-        // Check the conversion
-        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized triple: " + quad);
-        }
-```
-
-### DataFlowIssue
-Condition `predicate instanceof IRI` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
-#### Snippet
-```java
-        super(triple, salt);
-        // Check the conversion
-        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized triple: " + quad);
-        }
-```
-
-### DataFlowIssue
-Condition `object instanceof RDFTerm` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
-#### Snippet
-```java
-        super(triple, salt);
-        // Check the conversion
-        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized triple: " + quad);
-        }
-```
-
-### DataFlowIssue
-Condition `subject instanceof BlankNodeOrIRI` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        // Check the conversion
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized quad: " + quad);
-```
-
-### DataFlowIssue
-Condition `predicate instanceof IRI` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        // Check the conversion
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized quad: " + quad);
-```
-
-### DataFlowIssue
-Condition `object instanceof RDFTerm` is redundant and can be replaced with a null check
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-            throw new ConversionException("Can't adapt generalized quad: " + quad);
-        }
-```
-
-## RuleId[id=DoubleCheckedLocking]
-### DoubleCheckedLocking
-Double-checked locking
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
-#### Snippet
-```java
-    @Override
-    public Model asJenaModel() {
-        if (model == null) {
-            synchronized (this) {
-                // As Model can be used for locks, we should make sure we don't
-```
-
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'collect(summingLong())' can be replaced with 'mapToLong().sum()'
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdDataset.java`
-#### Snippet
-```java
-    public long size() {
-        return rdfDataSet.graphNames().stream().map(rdfDataSet::getQuads)
-                .collect(Collectors.summingLong(List::size));
-    }
-
-```
-
-### SimplifyStreamApiCallChains
-'collect(summingLong())' can be replaced with 'mapToLong().sum()'
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
-#### Snippet
-```java
-        final long quads = Iter.asStream(datasetGraph.listGraphNodes())
-                .map(datasetGraph::getGraph)
-                .collect(Collectors.summingLong(org.apache.jena.graph.Graph::size));
-        return quads + datasetGraph.getDefaultGraph().size();
-    }
-```
-
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'getTriples' is still used
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default Stream<? extends Triple> getTriples(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return stream(subject, predicate, object);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTriples' is still used
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default Stream<? extends Triple> getTriples() {
-        return stream();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'RDFTermFactory' is still used
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/RDFTermFactory.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface RDFTermFactory {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SimpleRDFTermFactory' is still used
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/SimpleRDFTermFactory.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class SimpleRDFTermFactory implements RDFTermFactory {
-
-    private final SimpleRDF factory = new SimpleRDF();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'RDF_PLAINLITERAL' is still used
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/Types.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final Types RDF_PLAINLITERAL = new Types("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
-
-    /**
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `Model`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraphLike.java`
-#### Snippet
-```java
-     * @return The corresponding RDF4J Model.
-     */
-    Optional<Model> asModel();
-
-    /**
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Model`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/AbstractRepositoryGraphLike.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Model> asModel() {
-        return Optional.empty();
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Model`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ModelGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Model> asModel() {
-        return Optional.of(model);
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Node`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-
-    Predicate<RDFDataset.Quad> quadFilter(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        final Optional<Node> subjectNode = Optional.ofNullable(subject).map(factory::asJsonLdNode);
-        final Optional<Node> predicateNode = Optional.ofNullable(predicate).map(factory::asJsonLdNode);
-        final Optional<Node> objectNode = Optional.ofNullable(object).map(factory::asJsonLdNode);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Node`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-    Predicate<RDFDataset.Quad> quadFilter(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        final Optional<Node> subjectNode = Optional.ofNullable(subject).map(factory::asJsonLdNode);
-        final Optional<Node> predicateNode = Optional.ofNullable(predicate).map(factory::asJsonLdNode);
-        final Optional<Node> objectNode = Optional.ofNullable(object).map(factory::asJsonLdNode);
-
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Node`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-        final Optional<Node> subjectNode = Optional.ofNullable(subject).map(factory::asJsonLdNode);
-        final Optional<Node> predicateNode = Optional.ofNullable(predicate).map(factory::asJsonLdNode);
-        final Optional<Node> objectNode = Optional.ofNullable(object).map(factory::asJsonLdNode);
-
-        return q -> {
-```
-
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-    @Override
-    public JsonLdBlankNode createBlankNode() {
-        final String id = "_:" + UUID.randomUUID().toString();
-        return new JsonLdBlankNodeImpl(new RDFDataset.BlankNode(id), bnodePrefix);
-    }
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super Triple`
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/GraphImpl.java`
-#### Snippet
-```java
-    }
-
-    private Stream<Triple> getTriples(final Predicate<Triple> filter) {
-        return stream().filter(filter);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Statement`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ConvertedStatements.java`
-#### Snippet
-```java
-    private final Function<Statement, T> statementAdapter;
-
-    ConvertedStatements(final Supplier<RepositoryConnection> repositoryConnector, final Function<Statement, T> statementAdapter,
-            final Resource subj, final org.eclipse.rdf4j.model.IRI pred, final Value obj, final Resource... contexts) {
-        this.statementAdapter = statementAdapter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ConvertedStatements.java`
-#### Snippet
-```java
-    private final Function<Statement, T> statementAdapter;
-
-    ConvertedStatements(final Supplier<RepositoryConnection> repositoryConnector, final Function<Statement, T> statementAdapter,
-            final Resource subj, final org.eclipse.rdf4j.model.IRI pred, final Value obj, final Resource... contexts) {
-        this.statementAdapter = statementAdapter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-    }
-
-    Stream<List<RDFDataset.Quad>> filteredGraphs(final Optional<BlankNodeOrIRI> graphName) {
-        return rdfDataSet.graphNames().parallelStream()
-                // if graphName == null (wildcard), select all graphs,
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return datasetGraph.contains(toJenaPattern(graphName), toJenaPattern(subject), toJenaPattern(predicate),
-                toJenaPattern(object));
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public Stream<? extends Quad> stream(final Optional<BlankNodeOrIRI> g, final BlankNodeOrIRI s, final IRI p, final RDFTerm o) {
-        final JenaRDF factory = new JenaRDF(salt);
-        return Iter.asStream(datasetGraph.find(toJenaPattern(g), toJenaPattern(s), toJenaPattern(p), toJenaPattern(o)), true)
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void remove(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        datasetGraph.deleteAny(toJenaPattern(graphName), toJenaPattern(subject),
-                toJenaPattern(predicate), toJenaPattern(object));
-```
-
-### BoundedWildcard
-Can generalize to `? super TripleLike`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
-#### Snippet
-```java
-     *         consumer
-     */
-    public StreamRDF streamJenaToGeneralizedTriple(final Consumer<TripleLike> generalizedConsumer) {
-        return new StreamRDFBase() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super QuadLike`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
-#### Snippet
-```java
-     *         consumer
-     */
-    public StreamRDF streamJenaToGeneralizedQuad(final Consumer<QuadLike<RDFTerm>> generalizedConsumer) {
-        return new StreamRDFBase() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super Quad`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
-#### Snippet
-```java
-     *         consumer
-     */
-    public static StreamRDF streamJenaToQuad(final RDF factory, final Consumer<Quad> consumer) {
-        return new StreamRDFBase() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super Quad`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
-#### Snippet
-```java
-        private final Consumer<Quad> quadTarget;
-
-        private AddToQuadConsumer(final Consumer<Quad> quadTarget) {
-            this.quadTarget = quadTarget;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super Quad`
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
-#### Snippet
-```java
-    }
-
-    private Stream<Quad> getQuads(final Predicate<Quad> filter) {
-        return stream().filter(filter);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public Stream<Quad> stream(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI subject, final IRI predicate,
-            final RDFTerm object) {
-        final Optional<BlankNodeOrIRI> newGraphName;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BlankNodeOrIRI`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
-#### Snippet
-```java
-    }
-
-    private Resource[] asContexts(final Optional<BlankNodeOrIRI> graphName) {
-        Resource[] contexts;
-        if (graphName == null) {
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/W3CRDFSyntax.java`
-#### Snippet
-```java
-     * format</a>.
-     */
-    private final static class FormatIRI implements IRI {
-        private static final String BASE = "http://www.w3.org/ns/formats/";
-        private final String format;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
-#### Snippet
-```java
-    }
-
-    private final static class AddToModel extends AbstractRDFHandler {
-        private final Model model;
-
-```
-
-## RuleId[id=EqualsBetweenInconvertibleTypes]
-### EqualsBetweenInconvertibleTypes
-`isEqual` between objects of inconvertible types 'RDFSyntax' and 'String'
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
-#### Snippet
-```java
-    public JsonLdParser contentType(final String contentType) throws IllegalArgumentException {
-        final JsonLdParser c = super.contentType(contentType);
-        if (c.getContentType().filter(Predicate.isEqual(RDFSyntax.JSONLD).negate()).isPresent()) {
-            throw new IllegalArgumentException("Unsupported contentType: " + contentType);
-        }
-```
-
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `URI.create()` is ignored
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/IRIImpl.java`
-#### Snippet
-```java
-    public IRIImpl(final String iri) {
-        // should throw IllegalArgumentException on most illegal IRIs
-        URI.create(iri);
-        // NOTE: We don't keep the URI as it uses outdated RFC2396 and will get
-        // some IDNs wrong
-```
-
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'ofNullable'
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGeneralizedQuadLikeImpl.java`
-#### Snippet
-```java
-        implements JenaGeneralizedQuadLike {
-
-    JenaGeneralizedQuadLikeImpl(final RDFTerm subject, final RDFTerm predicate, final RDFTerm object, final Optional<RDFTerm> ofNullable) {
-        super(subject, predicate, object, ofNullable);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'graphName'
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-    }
-
-    JsonLdGraphImpl(final RDFDataset rdfDataSet, final Optional<BlankNodeOrIRI> graphName, final String bnodePrefix) {
-        super(rdfDataSet, bnodePrefix);
-        this.graphName = Objects.requireNonNull(graphName);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'graphName'
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-class JsonLdGraphImpl extends AbstractJsonLdGraphLike<Triple> implements JsonLdGraph {
-
-    private final Optional<BlankNodeOrIRI> graphName;
-
-    JsonLdGraphImpl(final RDFDataset rdfDataSet) {
-```
-
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'graphName'
 in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
 #### Snippet
 ```java
-     * @return A {@link Stream} over the matched quads.
+     *         pattern.
      */
-    Stream<? extends Quad> stream(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate,
-            RDFTerm object);
+    boolean contains(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
 
+    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -574,11 +55,11 @@ in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
 in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
 #### Snippet
 ```java
-     *            The quad object (<code>null</code> is a wildcard)
+     * @return A {@link Stream} over the matched quads.
      */
-    void remove(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
+    Stream<? extends Quad> stream(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate,
+            RDFTerm object);
 
-    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -586,9 +67,9 @@ in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
 in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
 #### Snippet
 ```java
-     *         pattern.
+     *            The quad object (<code>null</code> is a wildcard)
      */
-    boolean contains(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
+    void remove(Optional<BlankNodeOrIRI> graphName, BlankNodeOrIRI subject, IRI predicate, RDFTerm object);
 
     /**
 ```
@@ -606,15 +87,27 @@ in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetI
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'graphName'
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+`Optional` used as type for parameter 'ofNullable'
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGeneralizedQuadLikeImpl.java`
 #### Snippet
 ```java
-    // NOTE: This is made public in JsonLdDataset and is used by the other
-    // remove methods.
-    void remove(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        // remove the quads which match our filter (which could have nulls as
-        // wildcards)
+        implements JenaGeneralizedQuadLike {
+
+    JenaGeneralizedQuadLikeImpl(final RDFTerm subject, final RDFTerm predicate, final RDFTerm object, final Optional<RDFTerm> ofNullable) {
+        super(subject, predicate, object, ofNullable);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'graphName'
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+#### Snippet
+```java
+    }
+
+    private Resource[] asContexts(final Optional<BlankNodeOrIRI> graphName) {
+        Resource[] contexts;
+        if (graphName == null) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -634,6 +127,18 @@ in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/Json
 in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
 #### Snippet
 ```java
+    // NOTE: This is made public in JsonLdDataset and is used by the other
+    // remove methods.
+    void remove(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
+        // remove the quads which match our filter (which could have nulls as
+        // wildcards)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'graphName'
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
     // This will be made public in JsonLdDataset
     // and is used by the other methods.
     boolean contains(final Optional<BlankNodeOrIRI> graphName, final BlankNodeOrIRI s, final IRI p, final RDFTerm o) {
@@ -643,14 +148,14 @@ in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/Json
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'graphName'
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
 #### Snippet
 ```java
-class JenaQuadImpl extends AbstractQuadLike<BlankNodeOrIRI, IRI, RDFTerm, BlankNodeOrIRI> implements JenaQuad {
 
-    JenaQuadImpl(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object, final Optional<BlankNodeOrIRI> graphName) {
-        super(subject, predicate, object, graphName);
-    }
+
+    AbstractQuadLike(final S subject, final P predicate, final O object, final Optional<G> graphName) {
+        this.subject = Objects.requireNonNull(subject);
+        this.predicate = Objects.requireNonNull(predicate);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -667,29 +172,90 @@ in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuad
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'graphName'
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
 #### Snippet
 ```java
+class JenaQuadImpl extends AbstractQuadLike<BlankNodeOrIRI, IRI, RDFTerm, BlankNodeOrIRI> implements JenaQuad {
 
+    JenaQuadImpl(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object, final Optional<BlankNodeOrIRI> graphName) {
+        super(subject, predicate, object, graphName);
+    }
+```
 
-    AbstractQuadLike(final S subject, final P predicate, final O object, final Optional<G> graphName) {
-        this.subject = Objects.requireNonNull(subject);
-        this.predicate = Objects.requireNonNull(predicate);
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'graphName'
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
+#### Snippet
+```java
+class JsonLdGraphImpl extends AbstractJsonLdGraphLike<Triple> implements JsonLdGraph {
+
+    private final Optional<BlankNodeOrIRI> graphName;
+
+    JsonLdGraphImpl(final RDFDataset rdfDataSet) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'graphName'
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
 #### Snippet
 ```java
     }
 
-    private Resource[] asContexts(final Optional<BlankNodeOrIRI> graphName) {
-        Resource[] contexts;
-        if (graphName == null) {
+    JsonLdGraphImpl(final RDFDataset rdfDataSet, final Optional<BlankNodeOrIRI> graphName, final String bnodePrefix) {
+        super(rdfDataSet, bnodePrefix);
+        this.graphName = Objects.requireNonNull(graphName);
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'JsonLdGraph' used without 'try'-with-resources statement
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
+#### Snippet
+```java
+            }
+            // TODO: Modify JsonLdProcessor to have an actual triple callback
+            final Graph parsedGraph = getJsonLdFactory().asGraph(rdfDataset);
+            // sequential() as we don't know if destination is thread safe :-/
+            parsedGraph.stream().sequential().forEach(intoGraph::add);
+```
+
+### AutoCloseableResource
+'JsonLdDataset' used without 'try'-with-resources statement
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
+#### Snippet
+```java
+                // appending.
+            }
+            final Dataset fromDataset = getJsonLdFactory().asDataset(rdfDataset);
+            // .sequential() as we don't know if destination is thread-safe :-/
+            fromDataset.stream().sequential().forEach(intoDataset::add);
+```
+
+### AutoCloseableResource
+'JsonLdDataset' used without 'try'-with-resources statement
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
+#### Snippet
+```java
+            fromDataset.stream().sequential().forEach(intoDataset::add);
+        } else {
+            final Dataset fromDataset = getJsonLdFactory().asDataset(rdfDataset);
+            // No need for .sequential() here
+            fromDataset.stream().forEach(getTarget());
 ```
 
 ## RuleId[id=OptionalAssignedToNull]
+### OptionalAssignedToNull
+Optional value is compared with null
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
+#### Snippet
+```java
+        // but because of generics casting rules that doesn't work :(
+
+        if (graphName == null) {
+            return ANY;
+        }
+```
+
 ### OptionalAssignedToNull
 Null is used for 'Optional' type in return statement
 in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetGraphView.java`
@@ -704,98 +270,38 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetGraphV
 
 ### OptionalAssignedToNull
 Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
-#### Snippet
-```java
-        } else if (getTargetDataset().isPresent()) {
-            final Dataset intoDataset = getTargetDataset().get();
-            if (intoDataset instanceof JsonLdDataset && !intoDataset.contains(null, null, null, null)) {
-                final JsonLdDataset jsonLdDataset = (JsonLdDataset) intoDataset;
-                // Empty - we can just do a brave replace!
-```
-
-### OptionalAssignedToNull
-Optional value is compared with null
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-                // otherwise check its jsonld string
-                // (including @default for default graph)
-                .filter(g -> graphName == null || g.equals(graphName.map(factory::asJsonLdString).orElse("@default")))
-                // remove the quads which match our filter (which could have
-                // nulls as wildcards)
-```
-
-### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
 #### Snippet
 ```java
     @Override
-    public void clear() {
-        filteredGraphs(null).forEach(List::clear);
-        // In theory we could use
-        // rdfDataSet.clear();
-```
-
-### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    public void remove(final Triple t) {
-        // Remove from ALL graphs, not just default graph
-        super.remove(null, t.getSubject(), t.getPredicate(), t.getObject());
+    public ClosableIterable<Quad> iterate() throws ConcurrentModificationException, IllegalStateException {
+        return iterate(null, null, null, null);
     }
 
 ```
 
 ### OptionalAssignedToNull
 Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
 #### Snippet
 ```java
     @Override
-    public boolean contains(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return super.contains(null, subject, predicate, object);
-    }
-
-```
-
-### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    @Override
-    public Stream<JsonLdTriple> stream(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return filteredGraphs(null).flatMap(List::stream).filter(quadFilter(subject, predicate, object))
-                .map(factory::asTriple)
-                // Make sure we don't have duplicate triples
-```
-
-### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    @Override
-    public void remove(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        super.remove(null, subject, predicate, object);
+    public Stream<RDF4JQuad> stream() {
+        return stream(null, null, null, null);
     }
 
 ```
 
 ### OptionalAssignedToNull
 Optional value is compared with null
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaDatasetImpl.java`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
 #### Snippet
 ```java
-        // but because of generics casting rules that doesn't work :(
-
+    private Resource[] asContexts(final Optional<BlankNodeOrIRI> graphName) {
+        Resource[] contexts;
         if (graphName == null) {
-            return ANY;
-        }
+            // no contexts == any contexts
+            contexts = new Resource[0];
 ```
 
 ### OptionalAssignedToNull
@@ -835,39 +341,87 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.j
 ```
 
 ### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
-#### Snippet
-```java
-    @Override
-    public ClosableIterable<Quad> iterate() throws ConcurrentModificationException, IllegalStateException {
-        return iterate(null, null, null, null);
-    }
-
-```
-
-### OptionalAssignedToNull
-Null is used for 'Optional' type in parameter
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
-#### Snippet
-```java
-    @Override
-    public Stream<RDF4JQuad> stream() {
-        return stream(null, null, null, null);
-    }
-
-```
-
-### OptionalAssignedToNull
 Optional value is compared with null
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
 #### Snippet
 ```java
-    private Resource[] asContexts(final Optional<BlankNodeOrIRI> graphName) {
-        Resource[] contexts;
-        if (graphName == null) {
-            // no contexts == any contexts
-            contexts = new Resource[0];
+                // otherwise check its jsonld string
+                // (including @default for default graph)
+                .filter(g -> graphName == null || g.equals(graphName.map(factory::asJsonLdString).orElse("@default")))
+                // remove the quads which match our filter (which could have
+                // nulls as wildcards)
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+    @Override
+    public void clear() {
+        filteredGraphs(null).forEach(List::clear);
+        // In theory we could use
+        // rdfDataSet.clear();
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
+#### Snippet
+```java
+    @Override
+    public boolean contains(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
+        return super.contains(null, subject, predicate, object);
+    }
+
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
+#### Snippet
+```java
+    public void remove(final Triple t) {
+        // Remove from ALL graphs, not just default graph
+        super.remove(null, t.getSubject(), t.getPredicate(), t.getObject());
+    }
+
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
+#### Snippet
+```java
+    @Override
+    public Stream<JsonLdTriple> stream(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
+        return filteredGraphs(null).flatMap(List::stream).filter(quadFilter(subject, predicate, object))
+                .map(factory::asTriple)
+                // Make sure we don't have duplicate triples
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
+#### Snippet
+```java
+    @Override
+    public void remove(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
+        super.remove(null, subject, predicate, object);
+    }
+
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in parameter
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
+#### Snippet
+```java
+        } else if (getTargetDataset().isPresent()) {
+            final Dataset intoDataset = getTargetDataset().get();
+            if (intoDataset instanceof JsonLdDataset && !intoDataset.contains(null, null, null, null)) {
+                final JsonLdDataset jsonLdDataset = (JsonLdDataset) intoDataset;
+                // Empty - we can just do a brave replace!
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -884,18 +438,6 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/IRIImpl.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'obj == null' covered by subsequent condition '!(obj instanceof Literal)'
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/LiteralImpl.java`
-#### Snippet
-```java
-            return true;
-        }
-        if (obj == null || !(obj instanceof Literal)) {
-            return false;
-        }
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'obj == null' covered by subsequent condition '!(obj instanceof IRI)'
 in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/W3CRDFSyntax.java`
 #### Snippet
@@ -907,1307 +449,1437 @@ in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/W3CRDFSyntax.java`
             }
 ```
 
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-    @Override
-    public boolean contains(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return super.contains(graphName, subject, predicate, object);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-    @Override
-    public void remove(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        super.remove(graphName, subject, predicate, object);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-    @Override
-    public void add(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        super.add(graphName.orElse(null), subject, predicate, object);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-    public void add(final Triple t) {
-        // Ensure it's added in the correct graph
-        super.add(graphName.orElse(null), t.getSubject(), t.getPredicate(), t.getObject());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    public void remove(final Triple t) {
-        // Remove from ALL graphs, not just default graph
-        super.remove(null, t.getSubject(), t.getPredicate(), t.getObject());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    @Override
-    public boolean contains(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        return super.contains(null, subject, predicate, object);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    @Override
-    public void add(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        super.add(null, subject, predicate, object);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-    @Override
-    public void remove(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
-        super.remove(null, subject, predicate, object);
-    }
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+### ConditionCoveredByFurtherCondition
+Condition 'obj == null' covered by subsequent condition '!(obj instanceof Literal)'
 in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/LiteralImpl.java`
-#### Snippet
-```java
-        sb.append(QUOTE);
-        // Escape special characters
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/LiteralImpl.java`
-#### Snippet
-```java
-        // Escape special characters
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/LiteralImpl.java`
-#### Snippet
-```java
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-        sb.append(QUOTE);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/LiteralImpl.java`
-#### Snippet
-```java
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-        sb.append(QUOTE);
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/RDFSyntax.java`
-#### Snippet
-```java
-     */
-    static Optional<RDFSyntax> byMediaType(final String mediaType) {
-        final String type = mediaType.toLowerCase(Locale.ROOT).split("\\s*;", 2)[0];
-        return w3cSyntaxes().stream().filter(t -> t.mediaTypes().contains(type))
-                .findAny();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdLiteral.java`
-#### Snippet
-```java
-        sb.append('"');
-        // Escape special characters
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdLiteral.java`
-#### Snippet
-```java
-        // Escape special characters
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdLiteral.java`
-#### Snippet
-```java
-        sb.append(getLexicalForm().replace("\\", "\\\\"). // escaped to \\
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-        sb.append('"');
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdLiteral.java`
-#### Snippet
-```java
-                replace("\"", "\\\""). // escaped to \"
-                replace("\r", "\\r"). // escaped to \r
-                replace("\n", "\\n")); // escaped to \n
-        sb.append('"');
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JBlankNode.java`
-#### Snippet
-```java
-/**
- * Marker interface for RDF4J implementations of Commons RDF
- * {@link org.apache.commons.rdf.api.BlankNode}.
- * <p>
- * The underlying RDF4J {@link BNode} instance can be retrieved with
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JBlankNodeOrIRI.java`
-#### Snippet
-```java
- * {@link BlankNodeOrIRI} (e.g. the subject of a {@link Triple}).
- * <p>
- * The underlying RDF4J {@link org.eclipse.rdf4j.model.Resource} instance can be
- * retrieved with {@link #asValue()}.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/TripleImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public org.apache.commons.rdf.api.IRI getPredicate() {
-        return (org.apache.commons.rdf.api.IRI) RDF4J.asRDFTerm(statement.getPredicate(), null);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/TripleImpl.java`
-#### Snippet
-```java
-    @Override
-    public org.apache.commons.rdf.api.IRI getPredicate() {
-        return (org.apache.commons.rdf.api.IRI) RDF4J.asRDFTerm(statement.getPredicate(), null);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/IRIImpl.java`
-#### Snippet
-```java
-import org.apache.commons.rdf.rdf4j.RDF4JIRI;
-
-final class IRIImpl extends AbstractRDFTerm<org.eclipse.rdf4j.model.IRI> implements RDF4JIRI {
-
-    IRIImpl(final org.eclipse.rdf4j.model.IRI iri) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/IRIImpl.java`
-#### Snippet
-```java
-final class IRIImpl extends AbstractRDFTerm<org.eclipse.rdf4j.model.IRI> implements RDF4JIRI {
-
-    IRIImpl(final org.eclipse.rdf4j.model.IRI iri) {
-        super(iri);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/IRIImpl.java`
-#### Snippet
-```java
-            return asValue().equals(impl.asValue());
-        }
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            final org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
-            return value.toString().equals(iri.getIRIString());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/IRIImpl.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            final org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
-            return value.toString().equals(iri.getIRIString());
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/IRIImpl.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            final org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
-            return value.toString().equals(iri.getIRIString());
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
-#### Snippet
-```java
-    }
-
-    public JenaGraph createGraph(final org.apache.jena.graph.Graph graph, final UUID salt) {
-        return new JenaGraphImpl(graph, salt);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
-#### Snippet
-```java
-    }
-
-    public JenaTriple createTriple(final org.apache.jena.graph.Triple triple, final UUID salt) {
-        return new JenaTripleImpl(triple, salt);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
-#### Snippet
-```java
-    }
-
-    public JenaGeneralizedTripleLike createGeneralizedTriple(final org.apache.jena.graph.Triple triple, final UUID salt) {
-        return new JenaGeneralizedTripleLikeImpl(triple, salt);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
-#### Snippet
-```java
-    }
-
-    public JenaGeneralizedQuadLike createGeneralizedQuad(final org.apache.jena.sparql.core.Quad quad, final UUID salt) {
-        return new JenaGeneralizedQuadLikeImpl(quad, salt);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
-#### Snippet
-```java
-    }
-
-    public JenaQuad createQuad(final org.apache.jena.sparql.core.Quad quad, final UUID salt) {
-        return new JenaQuadImpl(quad, salt);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     *
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.IRI} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.IRI}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * @return A {@link RDF4JIRI} that corresponds to the RDF4J IRI
-     */
-    public RDF4JIRI asRDFTerm(final org.eclipse.rdf4j.model.IRI value) {
-        return RDF4J.createIRIImpl(value);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-    @Override
-    public RDF4JLiteral createLiteral(final String lexicalForm) throws IllegalArgumentException {
-        final org.eclipse.rdf4j.model.Literal lit = getValueFactory().createLiteral(lexicalForm);
-        return asRDFTerm(lit);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * <p>
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
-     * {@link org.apache.commons.rdf.api.Literal}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-    public org.apache.commons.rdf.api.Literal createLiteral(final String lexicalForm, final org.apache.commons.rdf.api.IRI dataType)
-            throws IllegalArgumentException {
-        final org.eclipse.rdf4j.model.IRI iri = getValueFactory().createIRI(dataType.getIRIString());
-        final org.eclipse.rdf4j.model.Literal lit = getValueFactory().createLiteral(lexicalForm, iri);
-        return asRDFTerm(lit);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            throws IllegalArgumentException {
-        final org.eclipse.rdf4j.model.IRI iri = getValueFactory().createIRI(dataType.getIRIString());
-        final org.eclipse.rdf4j.model.Literal lit = getValueFactory().createLiteral(lexicalForm, iri);
-        return asRDFTerm(lit);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     *
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.Resource} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.BlankNodeOrIRI}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.Resource} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.BlankNodeOrIRI}
-     * <p>
-     * @param value
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * @return A {@link RDF4JBlankNodeOrIRI} that corresponds to the RDF4J Resource
-     */
-    public RDF4JBlankNodeOrIRI asRDFTerm(final org.eclipse.rdf4j.model.Resource value) {
-        if(value instanceof IRI){
-            return asRDFTerm((IRI)value);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            final RDFTerm object) throws IllegalArgumentException {
-        final Statement statement = getValueFactory().createStatement(
-                (org.eclipse.rdf4j.model.Resource) asValue(subject), (org.eclipse.rdf4j.model.IRI) asValue(predicate),
-                asValue(object), (org.eclipse.rdf4j.model.Resource) asValue(graphName));
-        return asQuad(statement);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            final RDFTerm object) throws IllegalArgumentException {
-        final Statement statement = getValueFactory().createStatement(
-                (org.eclipse.rdf4j.model.Resource) asValue(subject), (org.eclipse.rdf4j.model.IRI) asValue(predicate),
-                asValue(object), (org.eclipse.rdf4j.model.Resource) asValue(graphName));
-        return asQuad(statement);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        final Statement statement = getValueFactory().createStatement(
-                (org.eclipse.rdf4j.model.Resource) asValue(subject), (org.eclipse.rdf4j.model.IRI) asValue(predicate),
-                asValue(object), (org.eclipse.rdf4j.model.Resource) asValue(graphName));
-        return asQuad(statement);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-    public org.apache.commons.rdf.api.Literal createLiteral(final String lexicalForm, final String languageTag)
-            throws IllegalArgumentException {
-        final org.eclipse.rdf4j.model.Literal lit = getValueFactory().createLiteral(lexicalForm, languageTag);
-        return asRDFTerm(lit);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * <p>
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
-     * {@link org.apache.commons.rdf.api.BlankNode}, a
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
-     * {@link org.apache.commons.rdf.api.IRI} and a
-     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
-     * {@link org.apache.commons.rdf.api.Literal}
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            return RDF4J.createBlankNodeImpl((BNode) value, salt);
-        }
-        if (value instanceof org.eclipse.rdf4j.model.Literal) {
-            return RDF4J.createLiteralImpl((org.eclipse.rdf4j.model.Literal) value);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        }
-        if (value instanceof org.eclipse.rdf4j.model.Literal) {
-            return RDF4J.createLiteralImpl((org.eclipse.rdf4j.model.Literal) value);
-        }
-        if (value instanceof org.eclipse.rdf4j.model.IRI) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            return RDF4J.createLiteralImpl((org.eclipse.rdf4j.model.Literal) value);
-        }
-        if (value instanceof org.eclipse.rdf4j.model.IRI) {
-            return RDF4J.createIRIImpl((org.eclipse.rdf4j.model.IRI) value);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        }
-        if (value instanceof org.eclipse.rdf4j.model.IRI) {
-            return RDF4J.createIRIImpl((org.eclipse.rdf4j.model.IRI) value);
-        }
-        throw new IllegalArgumentException("Value is not a BNode, Literal or IRI: " + value.getClass());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     *
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.Literal} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.Literal}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            throws IllegalArgumentException {
-        final Statement statement = getValueFactory().createStatement(
-                (org.eclipse.rdf4j.model.Resource) asValue(subject), (org.eclipse.rdf4j.model.IRI) asValue(predicate),
-                asValue(object));
-        return asTriple(statement);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-            throws IllegalArgumentException {
-        final Statement statement = getValueFactory().createStatement(
-                (org.eclipse.rdf4j.model.Resource) asValue(subject), (org.eclipse.rdf4j.model.IRI) asValue(predicate),
-                asValue(object));
-        return asTriple(statement);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * <p>
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.apache.commons.rdf.api.BlankNode} is converted to a
-     * {@link org.eclipse.rdf4j.model.BNode}, a
-     * {@link org.apache.commons.rdf.api.IRI} is converted to a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * The value will be of the same kind as the term, e.g. a
-     * {@link org.apache.commons.rdf.api.BlankNode} is converted to a
-     * {@link org.eclipse.rdf4j.model.BNode}, a
-     * {@link org.apache.commons.rdf.api.IRI} is converted to a
-     * {@link org.eclipse.rdf4j.model.IRI} and a
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.BNode}, a
-     * {@link org.apache.commons.rdf.api.IRI} is converted to a
-     * {@link org.eclipse.rdf4j.model.IRI} and a
-     * {@link org.apache.commons.rdf.api.Literal} is converted to a
-     * {@link org.eclipse.rdf4j.model.Literal}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * {@link org.eclipse.rdf4j.model.IRI} and a
-     * {@link org.apache.commons.rdf.api.Literal} is converted to a
-     * {@link org.eclipse.rdf4j.model.Literal}.
-     * <p>
-     * If the provided {@link RDFTerm} is <code>null</code>, then the returned
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-                return getValueFactory().createLiteral(label, lang);
-            }
-            final org.eclipse.rdf4j.model.IRI dataType = (org.eclipse.rdf4j.model.IRI) asValue(literal.getDatatype());
-            return getValueFactory().createLiteral(label, dataType);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-                return getValueFactory().createLiteral(label, lang);
-            }
-            final org.eclipse.rdf4j.model.IRI dataType = (org.eclipse.rdf4j.model.IRI) asValue(literal.getDatatype());
-            return getValueFactory().createLiteral(label, dataType);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        }
-
-        final org.eclipse.rdf4j.model.Resource subject = (org.eclipse.rdf4j.model.Resource) asValue(tripleLike.getSubject());
-        final org.eclipse.rdf4j.model.IRI predicate = (org.eclipse.rdf4j.model.IRI) asValue(tripleLike.getPredicate());
-        final Value object = asValue(tripleLike.getObject());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        }
-
-        final org.eclipse.rdf4j.model.Resource subject = (org.eclipse.rdf4j.model.Resource) asValue(tripleLike.getSubject());
-        final org.eclipse.rdf4j.model.IRI predicate = (org.eclipse.rdf4j.model.IRI) asValue(tripleLike.getPredicate());
-        final Value object = asValue(tripleLike.getObject());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-
-        final org.eclipse.rdf4j.model.Resource subject = (org.eclipse.rdf4j.model.Resource) asValue(tripleLike.getSubject());
-        final org.eclipse.rdf4j.model.IRI predicate = (org.eclipse.rdf4j.model.IRI) asValue(tripleLike.getPredicate());
-        final Value object = asValue(tripleLike.getObject());
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-
-        final org.eclipse.rdf4j.model.Resource subject = (org.eclipse.rdf4j.model.Resource) asValue(tripleLike.getSubject());
-        final org.eclipse.rdf4j.model.IRI predicate = (org.eclipse.rdf4j.model.IRI) asValue(tripleLike.getPredicate());
-        final Value object = asValue(tripleLike.getObject());
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        final Value object = asValue(tripleLike.getObject());
-
-        org.eclipse.rdf4j.model.Resource context = null;
-        if (tripleLike instanceof Quad) {
-            final Quad quad = (Quad) tripleLike;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-        if (tripleLike instanceof Quad) {
-            final Quad quad = (Quad) tripleLike;
-            context = (org.eclipse.rdf4j.model.Resource) asValue(quad.getGraphName().orElse(null));
-        }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     *
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.BNode} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.BlankNode}
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
-#### Snippet
-```java
-     * Adapt a RDF4J
-     * {@link org.eclipse.rdf4j.model.BNode} as a Commons RDF
-     * {@link org.apache.commons.rdf.api.BlankNode}
-     * <p>
-     * For the purpose of {@link BlankNode} equivalence, this method will use an
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public org.apache.commons.rdf.api.IRI getDatatype() {
-        return new IRIImpl(value.getDatatype());
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
 #### Snippet
 ```java
             return true;
         }
-        if (obj instanceof org.apache.commons.rdf.api.Literal) {
-            final org.apache.commons.rdf.api.Literal other = (org.apache.commons.rdf.api.Literal) obj;
-            return getLexicalForm().equals(other.getLexicalForm()) &&
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
-#### Snippet
-```java
+        if (obj == null || !(obj instanceof Literal)) {
+            return false;
         }
-        if (obj instanceof org.apache.commons.rdf.api.Literal) {
-            final org.apache.commons.rdf.api.Literal other = (org.apache.commons.rdf.api.Literal) obj;
-            return getLexicalForm().equals(other.getLexicalForm()) &&
-                    getDatatype().equals(other.getDatatype()) &&
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaBlankNode.java`
 #### Snippet
 ```java
-        }
-        if (obj instanceof org.apache.commons.rdf.api.Literal) {
-            final org.apache.commons.rdf.api.Literal other = (org.apache.commons.rdf.api.Literal) obj;
-            return getLexicalForm().equals(other.getLexicalForm()) &&
-                    getDatatype().equals(other.getDatatype()) &&
+ * A Jena-backed {@link BlankNode}.
+ * <p>
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isBlank()
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDFTerm.java`
 #### Snippet
 ```java
-    private static final String QUOTE = "\"";
-
-    LiteralImpl(final org.eclipse.rdf4j.model.Literal literal) {
-        super(literal);
-    }
+ * A Jena-backed {@link RDFTerm}.
+ * <p>
+ * The underlying Jena {@link Node} can be retrieved with {@link #asJenaNode()}.
+ *
+ * @see JenaIRI
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/LiteralImpl.java`
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaBlankNode.java`
 #### Snippet
 ```java
-import org.eclipse.rdf4j.rio.turtle.TurtleUtil;
-
-final class LiteralImpl extends AbstractRDFTerm<org.eclipse.rdf4j.model.Literal> implements RDF4JLiteral {
-
-    private static final String QUOTE = "\"";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ConvertedStatements.java`
-#### Snippet
-```java
-
-    ConvertedStatements(final Supplier<RepositoryConnection> repositoryConnector, final Function<Statement, T> statementAdapter,
-            final Resource subj, final org.eclipse.rdf4j.model.IRI pred, final Value obj, final Resource... contexts) {
-        this.statementAdapter = statementAdapter;
-        this.conn = repositoryConnector.get();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ModelGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public Stream<RDF4JTriple> stream(final BlankNodeOrIRI subject, final org.apache.commons.rdf.api.IRI predicate,
-            final RDFTerm object) {
-        return model.filter((Resource) rdf4jTermFactory.asValue(subject),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ModelGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains(final BlankNodeOrIRI subject, final org.apache.commons.rdf.api.IRI predicate, final RDFTerm object) {
-        return model.contains((Resource) rdf4jTermFactory.asValue(subject),
-                (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate), rdf4jTermFactory.asValue(object));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ModelGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void remove(final BlankNodeOrIRI subject, final org.apache.commons.rdf.api.IRI predicate, final RDFTerm object) {
-        model.remove((Resource) rdf4jTermFactory.asValue(subject),
-                (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate), rdf4jTermFactory.asValue(object));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/ModelGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void add(final BlankNodeOrIRI subject, final org.apache.commons.rdf.api.IRI predicate, final RDFTerm object) {
-        model.add((Resource) rdf4jTermFactory.asValue(subject),
-                (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate), rdf4jTermFactory.asValue(object));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Literal.java`
-#### Snippet
-```java
-     * As the value space for language tags is lower-space, if they are present,
-     * they MUST be compared character by character
-     * using the equivalent of {@link String#toLowerCase(java.util.Locale)} with
-     * the locale {@link Locale#ROOT}.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraph.java`
-#### Snippet
-```java
-
-    @Override
-    JsonLdTriple asTripleOrQuad(final com.github.jsonldjava.core.RDFDataset.Quad jsonldQuad) {
-        return factory.asTriple(jsonldQuad);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaTripleLike.java`
-#### Snippet
-```java
- * @see JenaGeneralizedQuadLike
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isBlank()
  */
-public interface JenaTripleLike extends org.apache.commons.rdf.api.TripleLike {
+public interface JenaBlankNode extends JenaRDFTerm, BlankNode {
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaIRI.java`
+#### Snippet
+```java
+ * A Jena-backed {@link IRI}.
+ * <p>
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isURI()
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaIRI.java`
+#### Snippet
+```java
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isURI()
+ */
+public interface JenaIRI extends JenaRDFTerm, IRI {
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
 
     /**
+     * Return the graph as a Jena {@link Model}.
+     * <p>
+     * Changes to the Jena model are reflected in the Commons RDF graph and vice
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/QuadImpl.java`
+### JavadocReference
+Cannot resolve symbol `isURI()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaIRI.java`
 #### Snippet
 ```java
-
-    @Override
-    public org.apache.commons.rdf.api.IRI getPredicate() {
-        return (org.apache.commons.rdf.api.IRI) RDF4J.asRDFTerm(statement.getPredicate(), null);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/QuadImpl.java`
-#### Snippet
-```java
-    @Override
-    public org.apache.commons.rdf.api.IRI getPredicate() {
-        return (org.apache.commons.rdf.api.IRI) RDF4J.asRDFTerm(statement.getPredicate(), null);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JLiteral.java`
-#### Snippet
-```java
- * @see RDF4J#createLiteral(String)
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isURI()
  */
-public interface RDF4JLiteral extends RDF4JTerm, org.apache.commons.rdf.api.Literal {
-}
-
+public interface JenaIRI extends JenaRDFTerm, IRI {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaBlankNode.java`
+#### Snippet
+```java
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isBlank()
+ */
+public interface JenaBlankNode extends JenaRDFTerm, BlankNode {
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
+     * versa.
+     * <p>
+     * Note that in some cases there is no underlying Jena {@link Model}, in
+     * which case this method will create one. Subsequent calls should return
+     * the same model.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
+     * the same model.
+     *
+     * @return A Jena {@link Model}
+     */
+    Model asJenaModel();
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
+
+    /**
+     * Return the underlying Jena {@link org.apache.jena.graph.Graph}.
+     * <p>
+     * Changes to the Jena graph are reflected in the Commons RDF graph and vice
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
+     * versa.
+     *
+     * @return A Jena {@link org.apache.jena.graph.Graph}
+     */
+    org.apache.jena.graph.Graph asJenaGraph();
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
+#### Snippet
+```java
+ * A Jena-backed {@link org.apache.commons.rdf.api.Graph}.
+ * <p>
+ * The underlying Jena {@link org.apache.jena.graph.Graph} can be accessed with
+ * {@link #asJenaGraph()}.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaQuadLike.java`
+#### Snippet
+```java
+     * Return the adapted Jena quad
+     *
+     * @return Adapted Jena {@link Quad}.
+     */
+    Quad asJenaQuad();
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaQuadLike.java`
+#### Snippet
+```java
+
+/**
+ * A {@link QuadLike} wrapper of a Jena {@link Quad}.
+ * <p>
+ * This is a marker interface common to its specializations {@link JenaQuad} and
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaLiteral.java`
+#### Snippet
+```java
+ * A Jena-backed {@link Literal}
+ *
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isLiteral()
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaLiteral.java`
+#### Snippet
+```java
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isLiteral()
+ */
+public interface JenaLiteral extends JenaRDFTerm, Literal {
+```
+
+### JavadocReference
+Cannot resolve symbol `isLiteral()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaLiteral.java`
+#### Snippet
+```java
+ * The underlying Jena {@link Node} can be accessed from {@link #asJenaNode()}.
+ *
+ * @see Node#isLiteral()
+ */
+public interface JenaLiteral extends JenaRDFTerm, Literal {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaTriple.java`
 #### Snippet
 ```java
+ * A Jena-backed {@link org.apache.commons.rdf.api.Triple}.
+ * <p>
+ * The underlying Jena {@link org.apache.jena.graph.Triple} can be accessed with
  * {@link #asJenaTriple()}.
  */
-public interface JenaTriple extends org.apache.commons.rdf.api.Triple, JenaTripleLike {
-}
-
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-        // add triples to default graph by default
-        BlankNodeOrIRI graphName = null;
-        if (t instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad q = (org.apache.commons.rdf.api.Quad) t;
-            graphName = q.getGraphName().orElse(null);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-        BlankNodeOrIRI graphName = null;
-        if (t instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad q = (org.apache.commons.rdf.api.Quad) t;
-            graphName = q.getGraphName().orElse(null);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-        BlankNodeOrIRI graphName = null;
-        if (t instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad q = (org.apache.commons.rdf.api.Quad) t;
-            graphName = q.getGraphName().orElse(null);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-
-    String graphNameAsJsonLdString(final T tripleOrQuad) {
-        if (tripleOrQuad instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad quad = (org.apache.commons.rdf.api.Quad) tripleOrQuad;
-            return quad.getGraphName().map(factory::asJsonLdString).orElse("@default");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-    String graphNameAsJsonLdString(final T tripleOrQuad) {
-        if (tripleOrQuad instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad quad = (org.apache.commons.rdf.api.Quad) tripleOrQuad;
-            return quad.getGraphName().map(factory::asJsonLdString).orElse("@default");
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
-#### Snippet
-```java
-    String graphNameAsJsonLdString(final T tripleOrQuad) {
-        if (tripleOrQuad instanceof org.apache.commons.rdf.api.Quad) {
-            final org.apache.commons.rdf.api.Quad quad = (org.apache.commons.rdf.api.Quad) tripleOrQuad;
-            return quad.getGraphName().map(factory::asJsonLdString).orElse("@default");
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdDataset.java`
-#### Snippet
-```java
-
-    @Override
-    Quad asTripleOrQuad(final com.github.jsonldjava.core.RDFDataset.Quad jsonldQuad) {
-        return factory.asQuad(jsonldQuad);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdDataset.java`
-#### Snippet
-```java
-import com.github.jsonldjava.core.RDFDataset;
-
-public interface JsonLdDataset extends JsonLdGraphLike<org.apache.commons.rdf.api.Quad>, Dataset {
-}
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdDataset.java`
-#### Snippet
-```java
-}
-
-class JsonLdDatasetImpl extends AbstractJsonLdGraphLike<org.apache.commons.rdf.api.Quad> implements JsonLdDataset {
-
-    JsonLdDatasetImpl(final RDFDataset rdfDataSet) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-
-    @Override
-    JsonLdTriple asTripleOrQuad(final com.github.jsonldjava.core.RDFDataset.Quad jsonldQuad) {
-        return factory.asTriple(jsonldQuad);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
-}
-
-class JsonLdUnionGraphImpl extends AbstractJsonLdGraphLike<org.apache.commons.rdf.api.Triple>
-        implements JsonLdUnionGraph {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdUnionGraph.java`
-#### Snippet
-```java
- * multiple graphs.
- */
-public interface JsonLdUnionGraph extends JsonLdGraphLike<org.apache.commons.rdf.api.Triple>, Graph {
-}
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdQuad.java`
-#### Snippet
-```java
-// Note: To avoid confusion - don't import either Quad
-
-public interface JsonLdQuad extends org.apache.commons.rdf.api.Quad, JsonLdTripleLike {
-
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdQuad.java`
-#### Snippet
-```java
-            return true;
-        }
-        if (!(obj instanceof org.apache.commons.rdf.api.Quad)) {
-            return false;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdQuad.java`
-#### Snippet
-```java
-            return false;
-        }
-        final org.apache.commons.rdf.api.Quad other = (org.apache.commons.rdf.api.Quad) obj;
-        return getGraphName().equals(other.getGraphName()) && getSubject().equals(other.getSubject())
-                && getPredicate().equals(other.getPredicate()) && getObject().equals(other.getObject());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdQuad.java`
-#### Snippet
-```java
-            return false;
-        }
-        final org.apache.commons.rdf.api.Quad other = (org.apache.commons.rdf.api.Quad) obj;
-        return getGraphName().equals(other.getGraphName()) && getSubject().equals(other.getSubject())
-                && getPredicate().equals(other.getPredicate()) && getObject().equals(other.getObject());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdQuad.java`
-#### Snippet
-```java
-        implements JsonLdQuad {
-
-    JsonLdQuadImpl(final com.github.jsonldjava.core.RDFDataset.Quad quad, final String blankNodePrefix) {
-        super(quad, blankNodePrefix);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.rdf.model` is unnecessary, and can be replaced with an import
+### JavadocReference
+Cannot resolve symbol `Node`
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
-     * @return Adapted {@link JenaGraph}
-     */
-    public JenaGraph asGraph(final org.apache.jena.rdf.model.Model model) {
-        return INTERNAL_JENA_FACTORY.createGraph(model, salt());
-    }
+ * <p>
+ * Instances of JenaRDF can also convert existing objects from Jena with methods
+ * like {@link #asRDFTerm(Node)} and
+ * {@link #asGraph(org.apache.jena.graph.Graph)}, and vice versa from any
+ * Commons RDF object to Jena with the <code>asJena*</code> methods like
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary and can be removed
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+ * Instances of JenaRDF can also convert existing objects from Jena with methods
+ * like {@link #asRDFTerm(Node)} and
+ * {@link #asGraph(org.apache.jena.graph.Graph)}, and vice versa from any
+ * Commons RDF object to Jena with the <code>asJena*</code> methods like
+ * {@link #asJenaNode(RDFTerm)} and {@link #asJenaGraph(Graph)}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Lang`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Return {@link RDFSyntax} corresponding to a Jena {@link Lang}.
+     *
+     * @param lang
+```
+
+### JavadocReference
+Cannot resolve symbol `Lang`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param lang
+     *            {@link Lang} to convert
+     * @return Matched {@link RDFSyntax}, otherwise {@link Optional#empty()}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.query.Dataset`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param dataset
+     *            Commons RDF {@link Dataset} to convert
+     * @return Converted Jena {@link org.apache.jena.query.Dataset}
+     */
+    public org.apache.jena.query.Dataset asJenaDataset(final Dataset dataset) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.rdf.model.Model`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an existing Jena {@link org.apache.jena.rdf.model.Model} to
+     * CommonsRDF {@link Graph}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaGraph#asJenaGraph()}.
+     * <p>
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaGraph#asJenaGraph()}.
+     * <p>
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.rdf.model.Model`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param model
+     *            Jena {@link org.apache.jena.rdf.model.Model} to adapt
+     * @return Adapted {@link JenaGraph}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Create a {@link StreamRDF} instance that inserts generalized
+     * {@link TripleLike}s. into a the provided {@link Consumer}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link TripleLike#getObject()}.
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `RDFDataMgr`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `parse(StreamRDF, String)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param generalizedConsumer
+     *            A {@link Consumer} of generalized {@link TripleLike}s
+     * @return A {@link StreamRDF} that will stream generalized triples to the
+     *         consumer
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Lang`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Return Jena {@link Lang} corresponding to a {@link RDFSyntax}.
+     *
+     * @param rdfSyntax
+```
+
+### JavadocReference
+Cannot resolve symbol `Lang`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param rdfSyntax
+     *            {@link RDFSyntax} to convert
+     * @return Matched {@link Lang}, otherwise {@link Optional#empty()}
+     */
+    public Optional<Lang> asJenaLang(final RDFSyntax rdfSyntax) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Adapt an existing Jena Node to CommonsRDF {@link RDFTerm}.
+     * <p>
+     * If {@link Node#isLiteral()}, then the returned value is a
+     * {@link Literal}. If {@link Node#isURI()}, the returned value is a IRI. If
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+```
+
+### JavadocReference
+Cannot resolve symbol `isLiteral()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Adapt an existing Jena Node to CommonsRDF {@link RDFTerm}.
+     * <p>
+     * If {@link Node#isLiteral()}, then the returned value is a
+     * {@link Literal}. If {@link Node#isURI()}, the returned value is a IRI. If
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * If {@link Node#isLiteral()}, then the returned value is a
+     * {@link Literal}. If {@link Node#isURI()}, the returned value is a IRI. If
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+     * will use a {@link UUID} salt from this {@link JenaRDF} instance in
+```
+
+### JavadocReference
+Cannot resolve symbol `isURI()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * If {@link Node#isLiteral()}, then the returned value is a
+     * {@link Literal}. If {@link Node#isURI()}, the returned value is a IRI. If
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+     * will use a {@link UUID} salt from this {@link JenaRDF} instance in
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+     * will use a {@link UUID} salt from this {@link JenaRDF} instance in
+     * combination with {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {$@link Node#isBlank()}, the returned value is a {@link BlankNode}, which
+     * will use a {@link UUID} salt from this {@link JenaRDF} instance in
+     * combination with {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link BlankNode#uniqueReference()}.
+     *
+     * @see #asRDFTerm(RDF, Node)
+     *
+     * @param node
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param node
+     *            The Jena Node to adapt. It's {@link Node#isConcrete()} must be
+     *            <code>true</code>.
+     * @return Adapted {@link JenaRDFTerm}
+```
+
+### JavadocReference
+Cannot resolve symbol `isConcrete()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param node
+     *            The Jena Node to adapt. It's {@link Node#isConcrete()} must be
+     *            <code>true</code>.
+     * @return Adapted {@link JenaRDFTerm}
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @return Adapted {@link JenaRDFTerm}
+     * @throws ConversionException
+     *             If the {@link Node} can't be represented as an
+     *             {@link RDFTerm}, e.g. if the node is not concrete or
+     *             represents a variable in Jena.
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param term
+     *            Commons RDF {@link RDFTerm} to convert
+     * @return Converted Jena {@link Node}
+     */
+    public Node asJenaNode(final RDFTerm term) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.query.Dataset`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an existing Jena {@link org.apache.jena.query.Dataset} to
+     * CommonsRDF {@link Dataset}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaDataset#asJenaDatasetGraph()}.
+     * <p>
+     * If the dataset contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaDataset#asJenaDatasetGraph()}.
+     * <p>
+     * If the dataset contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.query.Dataset`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param datasetGraph
+     *            Jena {@link org.apache.jena.query.Dataset} to adapt
+     * @return Adapted {@link JenaDataset}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Adapt an existing Jena Triple to CommonsRDF {@link Triple}.
+     * <p>
+     * If the triple contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Adapt an existing Jena Triple to CommonsRDF {@link Triple}.
+     * <p>
+     * If the triple contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the triple contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the triple contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+     * @see #asTriple(RDF, org.apache.jena.graph.Triple)
+     *
+     * @param triple
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param triple
+     *            Jena {@link org.apache.jena.graph.Triple} to adapt
+     * @return Adapted {@link JenaTriple}
+     * @throws ConversionException
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an existing Jena {@link org.apache.jena.sparql.core.Quad} to
+     * CommonsRDF {@link Quad}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * CommonsRDF {@link Quad}.
+     * <p>
+     * If the quad contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * CommonsRDF {@link Quad}.
+     * <p>
+     * If the quad contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the quad contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the quad contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuad} has a {@link Quad#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `isDefaultGraph()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuad} has a {@link Quad#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a generalized Jena {@link org.apache.jena.sparql.core.Quad} to a
+     * CommonsRDF {@link QuadLike}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link QuadLike#getPredicate()} or {@link QuadLike#getObject()}.
+     * <p>
+     * If the Jena quad contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link QuadLike#getPredicate()} or {@link QuadLike#getObject()}.
+     * <p>
+     * If the Jena quad contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link BlankNode#uniqueReference()}.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuadLike} has a {@link JenaQuadLike#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `isDefaultGraph()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link BlankNode#uniqueReference()}.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuadLike} has a {@link JenaQuadLike#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * of {@link Optional#empty()}.
+     *
+     * @see #asQuad(org.apache.jena.sparql.core.Quad)
+     * @see #asGeneralizedTriple(org.apache.jena.graph.Triple)
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @see #asQuad(org.apache.jena.sparql.core.Quad)
+     * @see #asGeneralizedTriple(org.apache.jena.graph.Triple)
+     *
+     * @param quad
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a generalized Jena {@link org.apache.jena.graph.Triple} to a
+     * CommonsRDF {@link TripleLike}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link TripleLike#getObject()}.
+     * <p>
+     * If the Jena triple contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link TripleLike#getObject()}.
+     * <p>
+     * If the Jena triple contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link BlankNode#uniqueReference()}.
+     *
+     * @see #asTriple(RDF, org.apache.jena.graph.Triple)
+     *
+     * @param triple
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Convert from Jena {@link Node} to any Commons RDF implementation.
+     * <p>
+     * Note that if the {@link Node#isBlank()}, then the factory's
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Convert from Jena {@link Node} to any Commons RDF implementation.
+     * <p>
+     * Note that if the {@link Node#isBlank()}, then the factory's
+     * {@link RDF#createBlankNode(String)} will be used, meaning that care
+     * should be taken if reusing an {@link RDF} instance for multiple
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * Convert from Jena {@link Node} to any Commons RDF implementation.
+     * <p>
+     * Note that if the {@link Node#isBlank()}, then the factory's
+     * {@link RDF#createBlankNode(String)} will be used, meaning that care
+     * should be taken if reusing an {@link RDF} instance for multiple
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * conversion sessions.
+     *
+     * @see #asRDFTerm(Node)
+     *
+     * @param factory
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *            {@link RDF} to use for creating {@link RDFTerm}.
+     * @param node
+     *            The Jena Node to adapt. It's {@link Node#isConcrete()} must be
+     *            <code>true</code>.
+     * @return Adapted {@link RDFTerm}
+```
+
+### JavadocReference
+Cannot resolve symbol `isConcrete()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *            {@link RDF} to use for creating {@link RDFTerm}.
+     * @param node
+     *            The Jena Node to adapt. It's {@link Node#isConcrete()} must be
+     *            <code>true</code>.
+     * @return Adapted {@link RDFTerm}
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @return Adapted {@link RDFTerm}
+     * @throws ConversionException
+     *             If the {@link Node} can't be represented as an
+     *             {@link RDFTerm}, e.g. if the node is not concrete or
+     *             represents a variable in Jena.
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Create a {@link StreamRDF} instance that inserts generalized
+     * {@link QuadLike}s. into a the provided {@link Consumer}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link QuadLike#getObject()} and {@link QuadLike#getGraphName()} .
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `RDFDataMgr`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `parse(StreamRDF, String)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param generalizedConsumer
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param generalizedConsumer
+     *            A {@link Consumer} of generalized {@link QuadLike}s
+     * @return A {@link StreamRDF} that will stream generalized quads to the
+     *         consumer
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an existing Jena {@link org.apache.jena.graph.Graph} to CommonsRDF
+     * {@link Graph}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaGraph#asJenaGraph()}.
+     * <p>
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaGraph#asJenaGraph()}.
+     * <p>
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * If the graph contains any {@link Node#isBlank()}, then any corresponding
+     * {@link BlankNode} will use a {@link UUID} salt from this {@link JenaRDF}
+     * instance in combination with {@link Node#getBlankNodeId()} for the
+     * purpose of its {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param graph
+     *            Jena {@link org.apache.jena.graph.Graph} to adapt
+     * @return Adapted {@link JenaGraph}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Graph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param graph
+     *            Commons RDF {@link Graph} to convert
+     * @return Converted Jena {@link org.apache.jena.graph.Graph}
+     */
+    public org.apache.jena.graph.Graph asJenaGraph(final Graph graph) {
+```
+
+### JavadocReference
+Cannot resolve symbol `DatasetGraph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an existing Jena {@link DatasetGraph} to CommonsRDF
+     * {@link Dataset}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaDataset#asJenaDatasetGraph()}.
+     * <p>
+     * If the dataset contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link JenaDataset#asJenaDatasetGraph()}.
+     * <p>
+     * If the dataset contains any {@link Node#isBlank()}, then any
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBlankNodeId()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * corresponding {@link BlankNode} will use a {@link UUID} salt from this
+     * {@link JenaRDF} instance in combination with
+     * {@link Node#getBlankNodeId()} for the purpose of its
+     * {@link BlankNode#uniqueReference()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `DatasetGraph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     *
+     * @param datasetGraph
+     *            Jena {@link DatasetGraph} to adapt
+     * @return Adapted {@link JenaDataset}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+
+    /**
+     * Convert from Jena {@link org.apache.jena.graph.Triple} to a Commons RDF
+     * {@link Triple}.
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link Triple}.
+     * <p>
+     * Note that if any of the triple's nodes {@link Node#isBlank()}, then the
+     * factory's {@link RDF#createBlankNode(String)} will be used, meaning that
+     * care should be taken if reusing an {@link RDF} instance for multiple
+```
+
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * {@link Triple}.
+     * <p>
+     * Note that if any of the triple's nodes {@link Node#isBlank()}, then the
+     * factory's {@link RDF#createBlankNode(String)} will be used, meaning that
+     * care should be taken if reusing an {@link RDF} instance for multiple
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * conversion sessions.
+     *
+     * @see #asTriple(org.apache.jena.graph.Triple)
+     *
+     * @param factory
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+    /**
+     * Convert a CommonsRDF {@link Triple} to a Jena
+     * {@link org.apache.jena.graph.Triple}.
+     * <p>
+     * If the triple was from Jena originally, return that original object, else
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.graph.Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param triple
+     *            Commons RDF {@link Triple} to convert
+     * @return Converted Jena {@link org.apache.jena.graph.Triple}
+     */
+    public org.apache.jena.graph.Triple asJenaTriple(final Triple triple) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `isDefaultGraph(Node)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.DatasetGraph`
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
@@ -2218,683 +1890,2867 @@ in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
     public DatasetGraph asJenaDatasetGraph(final Dataset dataset) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
-#### Snippet
-```java
-
-        @Override
-        public void handleStatement(final org.eclipse.rdf4j.model.Statement st) throws RDFHandlerException {
-            // TODO: if getRdfTermFactory() is a non-rdf4j factory, should
-            // we use factory.createQuad() instead?
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
-#### Snippet
-```java
-
-        @Override
-        public void handleStatement(final org.eclipse.rdf4j.model.Statement st) throws RDFHandlerException {
-            model.add(st);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public org.apache.jena.graph.Graph asJenaGraph() {
-        return graph;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
-#### Snippet
-```java
-class JenaGraphImpl implements JenaGraph {
-
-    private final org.apache.jena.graph.Graph graph;
-    private final UUID salt;
-    private final transient JenaRDF factory;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
-#### Snippet
-```java
-    private Model model;
-
-    JenaGraphImpl(final org.apache.jena.graph.Graph graph, final UUID salt) {
-        this.graph = graph;
-        this.salt = salt;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
 
     /**
-     * Adapt a JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad} as a
-     * Commons RDF {@link org.apache.commons.rdf.api.Triple}.
+     * Convert from Jena {@link org.apache.jena.sparql.core.Quad} to a Commons
+     * RDF {@link Quad}.
      * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
-    /**
-     * Adapt a JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad} as a
-     * Commons RDF {@link org.apache.commons.rdf.api.Triple}.
+     * RDF {@link Quad}.
      * <p>
-     * The underlying JsonLd quad can be retrieved with
+     * Note that if any of the quad's nodes {@link Node#isBlank()}, then the
+     * factory's {@link RDF#createBlankNode(String)} will be used, meaning that
+     * care should be taken if reusing an {@link RDF} instance for multiple
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `isBlank()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * RDF {@link Quad}.
+     * <p>
+     * Note that if any of the quad's nodes {@link Node#isBlank()}, then the
+     * factory's {@link RDF#createBlankNode(String)} will be used, meaning that
+     * care should be taken if reusing an {@link RDF} instance for multiple
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * conversion sessions.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuadLike} has a {@link JenaQuadLike#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `isDefaultGraph()`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * conversion sessions.
+     * <p>
+     * If the provided quad {@link org.apache.jena.sparql.core.Quad#isDefaultGraph()},
+     * the returned {@link JenaQuadLike} has a {@link JenaQuadLike#getGraphName()}
+     * of {@link Optional#empty()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * of {@link Optional#empty()}.
+     *
+     * @see #asQuad(org.apache.jena.sparql.core.Quad)
+     * @see #asGeneralizedQuad(org.apache.jena.sparql.core.Quad)
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
      *
-     * @param quad
-     *            A JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad} to
-     *            adapt
-     * @return Adapted {@link JsonLdTriple}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-    /**
-     * Adapt a Commons RDF {@link Triple} as a JsonLd
-     * {@link com.github.jsonldjava.core.RDFDataset.Quad}.
+     * @see #asQuad(org.apache.jena.sparql.core.Quad)
+     * @see #asGeneralizedQuad(org.apache.jena.sparql.core.Quad)
      *
-     * @param triple
+     * @param factory
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
-     * @param triple
-     *            Commons RDF {@link Triple} to adapt
-     * @return Adapted JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad}
-     */
-    public RDFDataset.Quad asJsonLdQuad(final Triple triple) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-    /**
-     * Adapt a Commons RDF {@link org.apache.commons.rdf.api.Quad} as a JsonLd
-     * {@link com.github.jsonldjava.core.RDFDataset.Quad}.
-     *
+     *            {@link RDFTerm}s.
      * @param quad
+     *            Jena {@link org.apache.jena.sparql.core.Quad} to adapt
+     * @return Converted {@link Quad}
+     * @throws ConversionException
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-     * @param quad
-     *            Commons RDF {@link org.apache.commons.rdf.api.Quad} to adapt
-     * @return Adapted JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad}
-     */
-    public RDFDataset.Quad asJsonLdQuad(final org.apache.commons.rdf.api.Quad quad) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-     * @return Adapted JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad}
-     */
-    public RDFDataset.Quad asJsonLdQuad(final org.apache.commons.rdf.api.Quad quad) {
-        final BlankNodeOrIRI g = quad.getGraphName().orElse(null);
-        return createJsonLdQuad(g, quad.getSubject(), quad.getPredicate(), quad.getObject());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
 
     /**
-     * Adapt a JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad} as a
-     * Commons RDF {@link org.apache.commons.rdf.api.Quad}.
+     * Create a {@link StreamRDF} instance that inserts the converted
+     * {@link Quad}s. into a the provided {@link Consumer}.
      * <p>
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary and can be removed
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
 #### Snippet
 ```java
+     * {@link Quad}s. into a the provided {@link Consumer}.
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
      *
+```
+
+### JavadocReference
+Cannot resolve symbol `RDFDataMgr`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param factory
+```
+
+### JavadocReference
+Cannot resolve symbol `parse(StreamRDF, String)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param factory
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * <p>
+     * The returned {@link StreamRDF} can be used for instance with Jena's
+     * {@link RDFDataMgr#parse(StreamRDF, String)}.
+     *
+     * @param factory
+```
+
+### JavadocReference
+Cannot resolve symbol `StreamRDF`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * @param consumer
+     *            A {@link Consumer} of {@link Quad}s
+     * @return A {@link StreamRDF} that will stream converted quads to the
+     *         consumer
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `isDefaultGraph(Node)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `Node`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+     * recognize a {@link JenaIRI} which {@link JenaRDFTerm#asJenaNode()}
+     * represent the default graph according to
+     * {@link org.apache.jena.sparql.core.Quad#isDefaultGraph(Node)}, in which
+     * case the returned JenaQuad will have a {@link Quad#getGraphName()} of
+     * {@link Optional#empty()} rather than the provided IRI.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
+    /**
+     * Convert a CommonsRDF {@link Quad} to a Jena
+     * {@link org.apache.jena.sparql.core.Quad}.
+     * <p>
+     * If the quad was from Jena originally, return that original object,
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+#### Snippet
+```java
      * @param quad
-     *            A JsonLd {@link com.github.jsonldjava.core.RDFDataset.Quad} to
-     *            adapt
-     * @return Adapted {@link JsonLdQuad}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.github.jsonldjava.core` is unnecessary, and can be replaced with an import
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdTripleLike.java`
-#### Snippet
-```java
-     * @return The JsonLD {@link com.github.jsonldjava.core.RDFDataset.Quad}
+     *            Commons RDF {@link Quad} to convert
+     * @return Converted Jena {@link org.apache.jena.sparql.core.Quad}
      */
-    com.github.jsonldjava.core.RDFDataset.Quad asJsonLdQuad();
-
-}
+    public org.apache.jena.sparql.core.Quad asJenaQuad(final Quad quad) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.rdf4j.model` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JIRI.java`
+### JavadocReference
+Cannot resolve symbol `Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaTripleLike.java`
 #### Snippet
 ```java
-
-    @Override
-    org.eclipse.rdf4j.model.IRI asValue();
-
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JIRI.java`
-#### Snippet
-```java
- * @see RDF4J#createIRI(String)
- */
-public interface RDF4JIRI extends RDF4JBlankNodeOrIRI, org.apache.commons.rdf.api.IRI {
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
-#### Snippet
-```java
- * {@link #asJenaGraph()}.
- */
-public interface JenaGraph extends org.apache.commons.rdf.api.Graph {
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaGraph.java`
-#### Snippet
-```java
-     * @return A Jena {@link org.apache.jena.graph.Graph}
+     * Return the adapted Jena triple
+     *
+     * @return Adapted Jena {@link Triple}.
      */
-    org.apache.jena.graph.Graph asJenaGraph();
-
-    /**
+    Triple asJenaTriple();
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.rdf.api` is unnecessary, and can be replaced with an import
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaQuad.java`
-#### Snippet
-```java
- * with {@link #asJenaQuad()}.
- */
-public interface JenaQuad extends org.apache.commons.rdf.api.Quad, JenaQuadLike<BlankNodeOrIRI> {
-}
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `Triple`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaTripleLike.java`
 #### Snippet
 ```java
 
-    @SuppressWarnings("unchecked")
-    AbstractQuadLike(final org.apache.jena.sparql.core.Quad quad, final UUID salt) {
-        this.quad = Objects.requireNonNull(quad);
-        this.subject = (S) INTERNAL_JENA_FACTORY.createRDFTerm(quad.getSubject(), salt);
+/**
+ * A {@link TripleLike} wrapper of a Jena {@link Triple}.
+ * <p>
+ * This is a marker interface common to its specializations {@link JenaTriple},
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-    final P predicate;
-    final O object;
-    org.apache.jena.sparql.core.Quad quad = null;
-    org.apache.jena.graph.Triple triple = null;
-
+ * <p>
+ * Use the {@link org.apache.commons.rdf.rdf4j.RDF4J} to convert between Commons RDF and RDF4J types, for
+ * instance {@link org.apache.commons.rdf.rdf4j.RDF4J#asQuad(org.eclipse.rdf4j.model.Statement)} converts a
+ * RDF4J {@link org.eclipse.rdf4j.model.Statement} to a
+ * {@link org.apache.commons.rdf.api.Quad}. Converted RDF terms implement the
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-
-    @Override
-    public org.apache.jena.graph.Triple asJenaTriple() {
-        final JenaRDF factory = new JenaRDF();
-        if (triple == null) {
+ * Use the {@link org.apache.commons.rdf.rdf4j.RDF4J} to convert between Commons RDF and RDF4J types, for
+ * instance {@link org.apache.commons.rdf.rdf4j.RDF4J#asQuad(org.eclipse.rdf4j.model.Statement)} converts a
+ * RDF4J {@link org.eclipse.rdf4j.model.Statement} to a
+ * {@link org.apache.commons.rdf.api.Quad}. Converted RDF terms implement the
+ * {@link org.apache.commons.rdf.rdf4j.RDF4JTerm} interface, and converted statements the
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-        final JenaRDF factory = new JenaRDF();
-        if (triple == null) {
-            triple = org.apache.jena.graph.Triple.create(
-                    factory.asJenaNode(subject),
-                    factory.asJenaNode(predicate),
+ * underlying RDF4J implementations.
+ * <p>
+ * RDF4J {@link org.eclipse.rdf4j.model.Model}s and
+ * {@link org.eclipse.rdf4j.repository.Repository} instances can be adapted to
+ * Commons RDF {@link org.apache.commons.rdf.api.Graph} and {@link org.apache.commons.rdf.api.Dataset}, e.g. using
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.repository.Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("unchecked")
-    AbstractQuadLike(final org.apache.jena.graph.Triple triple, final UUID salt) {
-        this.triple = Objects.requireNonNull(triple);
-        this.subject = (S) INTERNAL_JENA_FACTORY.createRDFTerm(triple.getSubject(), salt);
+ * <p>
+ * RDF4J {@link org.eclipse.rdf4j.model.Model}s and
+ * {@link org.eclipse.rdf4j.repository.Repository} instances can be adapted to
+ * Commons RDF {@link org.apache.commons.rdf.api.Graph} and {@link org.apache.commons.rdf.api.Dataset}, e.g. using
+ * {@link org.apache.commons.rdf.rdf4j.RDF4J#asGraph(org.eclipse.rdf4j.model.Model)} or
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.graph` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-    final O object;
-    org.apache.jena.sparql.core.Quad quad = null;
-    org.apache.jena.graph.Triple triple = null;
-
-
+ * {@link org.eclipse.rdf4j.repository.Repository} instances can be adapted to
+ * Commons RDF {@link org.apache.commons.rdf.api.Graph} and {@link org.apache.commons.rdf.api.Dataset}, e.g. using
+ * {@link org.apache.commons.rdf.rdf4j.RDF4J#asGraph(org.eclipse.rdf4j.model.Model)} or
+ * {@link org.apache.commons.rdf.rdf4j.RDF4J#asDataset(org.eclipse.rdf4j.repository.Repository, RDF4J.Option...)}
+ * The returned adapted graph/dataset is directly mapped, so changes are
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.repository.Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/package-info.java`
 #### Snippet
 ```java
-
-    @Override
-    public org.apache.jena.sparql.core.Quad asJenaQuad() {
-        final JenaRDF factory = new JenaRDF();
-        if (quad == null) {
+ * Commons RDF {@link org.apache.commons.rdf.api.Graph} and {@link org.apache.commons.rdf.api.Dataset}, e.g. using
+ * {@link org.apache.commons.rdf.rdf4j.RDF4J#asGraph(org.eclipse.rdf4j.model.Model)} or
+ * {@link org.apache.commons.rdf.rdf4j.RDF4J#asDataset(org.eclipse.rdf4j.repository.Repository, RDF4J.Option...)}
+ * The returned adapted graph/dataset is directly mapped, so changes are
+ * propagated both ways. For convenience, the marker interface
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jena.sparql.core` is unnecessary and can be removed
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
-#### Snippet
-```java
-        final JenaRDF factory = new JenaRDF();
-        if (quad == null) {
-            quad = org.apache.jena.sparql.core.Quad.create(
-                    graphName.map(factory::asJenaNode).orElse(Quad.defaultGraphIRI),
-                    factory.asJenaNode(subject),
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/QuadImpl.java`
-#### Snippet
-```java
-            return hashCode;
-        }
-        return hashCode = Objects.hash(getSubject(), getPredicate(), getObject(), getGraphName());
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/BlankNodeImpl.java`
-#### Snippet
-```java
-            return hashCode;
-        }
-        return hashCode = uniqueReference().hashCode();
-    }
-
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `model` is accessed in both synchronized and unsynchronized contexts
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
-#### Snippet
-```java
-    private final UUID salt;
-    private final transient JenaRDF factory;
-    private Model model;
-
-    JenaGraphImpl(final org.apache.jena.graph.Graph graph, final UUID salt) {
-```
-
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-All implementations of this method are empty
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Resource`
 in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JBlankNodeOrIRI.java`
 #### Snippet
 ```java
-
-    @Override
-    Resource asValue();
-
-}
+ * {@link BlankNodeOrIRI} (e.g. the subject of a {@link Triple}).
+ * <p>
+ * The underlying RDF4J {@link org.eclipse.rdf4j.model.Resource} instance can be
+ * retrieved with {@link #asValue()}.
+ */
 ```
 
-### EmptyMethod
-The method is empty
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JBlankNode.java`
 #### Snippet
 ```java
-     *             {@link #getContentTypeSyntax()} is not compatible or invalid
+ * {@link org.apache.commons.rdf.api.BlankNode}.
+ * <p>
+ * The underlying RDF4J {@link BNode} instance can be retrieved with
+ * {@link #asValue()}.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `JsonLdParser`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/package-info.java`
+#### Snippet
+```java
+ * {@link org.apache.commons.rdf.jsonldjava} package.
+ * <ul>
+ * <li>{@link JsonLdParser} - an JSONLD-Java-backed implementations of
+ * {@link org.apache.commons.rdf.experimental.RDFParser}.</li>
+ * </ul>
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JLiteral.java`
+#### Snippet
+```java
+ * {@link org.apache.commons.rdf.api.Literal}.
+ * <p>
+ * The underlying RDF4J {@link org.eclipse.rdf4j.model.Literal} instance can be
+ * retrieved with {@link #asValue()}.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTripleLike.java`
+#### Snippet
+```java
+
+    /**
+     * Return the corresponding RDF4J {@link Statement}.
+     *
+     * @return The corresponding RDF4J Statement.
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTripleLike.java`
+#### Snippet
+```java
+ * {@link RDF4JQuad}.
+ * <p>
+ * This is backed by a {@link Statement} retrievable with
+ * {@link #asStatement()}.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `asDataset(org.eclipse.rdf4j.repository.Repository, Option...)`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JDataset.java`
+#### Snippet
+```java
+ *
+ * @see RDF4J#createDataset()
+ * @see RDF4J#asDataset(org.eclipse.rdf4j.repository.Repository, Option...)
+ */
+public interface RDF4JDataset extends Dataset, RDF4JGraphLike<Quad> {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.repository.Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JDataset.java`
+#### Snippet
+```java
+ *
+ * @see RDF4J#createDataset()
+ * @see RDF4J#asDataset(org.eclipse.rdf4j.repository.Repository, Option...)
+ */
+public interface RDF4JDataset extends Dataset, RDF4JGraphLike<Quad> {
+```
+
+### JavadocReference
+Cannot resolve symbol `Option`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JDataset.java`
+#### Snippet
+```java
+ *
+ * @see RDF4J#createDataset()
+ * @see RDF4J#asDataset(org.eclipse.rdf4j.repository.Repository, Option...)
+ */
+public interface RDF4JDataset extends Dataset, RDF4JGraphLike<Quad> {
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ *
+ * @see RDF4J#createGraph()
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+```
+
+### JavadocReference
+Cannot resolve symbol `asGraph(Repository, Option...)`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#createGraph()
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#createGraph()
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+```
+
+### JavadocReference
+Cannot resolve symbol `Option`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#createGraph()
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+```
+
+### JavadocReference
+Cannot resolve symbol `asGraphUnion(Repository, Option...)`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+ * @see RDF4JDataset#getGraph(BlankNodeOrIRI)
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+ * @see RDF4JDataset#getGraph(BlankNodeOrIRI)
+```
+
+### JavadocReference
+Cannot resolve symbol `Option`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+ * @see RDF4J#asGraph(Model)
+ * @see RDF4J#asGraph(Repository, Option...)
+ * @see RDF4J#asGraphUnion(Repository, Option...)
+ * @see RDF4JDataset#getGraph()
+ * @see RDF4JDataset#getGraph(BlankNodeOrIRI)
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+     * <p>
+     * If the set is not {@link Set#isEmpty()}, the mask determines which
+     * <em>contexts</em> in the corresponding RDF4J {@link Model} or
+     * {@link Repository} that this graph reflect. Modifications to the graph
+     * (e.g. {@link #add(Triple)} will be performed for all the specified
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+     * If the set is not {@link Set#isEmpty()}, the mask determines which
+     * <em>contexts</em> in the corresponding RDF4J {@link Model} or
+     * {@link Repository} that this graph reflect. Modifications to the graph
+     * (e.g. {@link #add(Triple)} will be performed for all the specified
+     * contexts, while retrieval (e.g. {@link #contains(Triple)}) will succeed
+```
+
+### JavadocReference
+Cannot resolve symbol `asGraph(Repository, Set, Option...)`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+     * <p>
+     * The returned set is an immutable copy; to specify a different mask, use
+     * {@link RDF4J#asGraph(Repository, Set, Option...)}
+     *
+     * @return The context mask as a set of {@link BlankNodeOrIRI} graph names,
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+     * <p>
+     * The returned set is an immutable copy; to specify a different mask, use
+     * {@link RDF4J#asGraph(Repository, Set, Option...)}
+     *
+     * @return The context mask as a set of {@link BlankNodeOrIRI} graph names,
+```
+
+### JavadocReference
+Cannot resolve symbol `Option`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraph.java`
+#### Snippet
+```java
+     * <p>
+     * The returned set is an immutable copy; to specify a different mask, use
+     * {@link RDF4J#asGraph(Repository, Set, Option...)}
+     *
+     * @return The context mask as a set of {@link BlankNodeOrIRI} graph names,
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JIRI.java`
+#### Snippet
+```java
+ * {@link org.apache.commons.rdf.api.IRI}.
+ * <p>
+ * The underlying RDF4J {@link org.eclipse.rdf4j.model.IRI} instance can be
+ * retrieved with {@link #asValue()}.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraphLike.java`
+#### Snippet
+```java
+ * <p>
+ * This is a common interface for {@link RDF4JGraph} and {@link RDF4JDataset}
+ * which provides access to the underlying RDF4J {@link Model} and/or
+ * {@link Repository}.
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraphLike.java`
+#### Snippet
+```java
+ * This is a common interface for {@link RDF4JGraph} and {@link RDF4JDataset}
+ * which provides access to the underlying RDF4J {@link Model} and/or
+ * {@link Repository}.
+ * <p>
+ * At least one of {@link #asModel()} or {@link #asRepository()} will always be
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraphLike.java`
+#### Snippet
+```java
+
+    /**
+     * Return the corresponding RDF4J {@link Repository}, if present.
+     * <p>
+     * The return value is {@link Optional#isPresent()} if this is backed by a
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JGraphLike.java`
+#### Snippet
+```java
+
+    /**
+     * Return the corresponding RDF4J {@link Model}, if present.
+     * <p>
+     * The return value is {@link Optional#isPresent()} if this is backed by a
+```
+
+### JavadocReference
+Cannot resolve symbol `Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JLiteral} from a RDF4J {@link Literal}.
+     *
+     * @param literal
+```
+
+### JavadocReference
+Cannot resolve symbol `Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param literal
+     *            RDF4J {@link Literal}
+     * @return Adapted {@link RDF4JLiteral}
      */
-    protected void checkContentType() throws IllegalStateException {
-    }
-
 ```
 
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/QuadImpl.java`
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
 #### Snippet
 ```java
 
-final class QuadImpl implements RDF4JQuad {
-    private transient int hashCode = 0;
-    private final UUID salt;
-    private final Statement statement;
+    /**
+     * Construct a {@link RDF4JDataset} from a RDF4J {@link Repository}.
+     * <p>
+     * Changes in the dataset will be reflected in the repsitory, and vice
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
 #### Snippet
 ```java
-    private String contentType = null;
-    private IRI base = null;
-    private InputStream sourceInputStream = null;
-    private Path sourceFile = null;
-    private IRI sourceIri = null;
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to adapt
+     * @param handleInitAndShutdown
+     *            If <code>true</code>, the {@link RDF4JDataset} will initialize
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
-#### Snippet
-```java
-    private RDFSyntax contentTypeSyntax = null;
-    private String contentType = null;
-    private IRI base = null;
-    private InputStream sourceInputStream = null;
-    private Path sourceFile = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
-#### Snippet
-```java
-    }
-
-    private RDF rdfTermFactory = null;
-    private RDFSyntax contentTypeSyntax = null;
-    private String contentType = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
-#### Snippet
-```java
-    private InputStream sourceInputStream = null;
-    private Path sourceFile = null;
-    private IRI sourceIri = null;
-    private Consumer<Quad> target;
-    private Dataset targetDataset;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
-#### Snippet
-```java
-    private IRI base = null;
-    private InputStream sourceInputStream = null;
-    private Path sourceFile = null;
-    private IRI sourceIri = null;
-    private Consumer<Quad> target;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
-#### Snippet
-```java
-    private RDF rdfTermFactory = null;
-    private RDFSyntax contentTypeSyntax = null;
-    private String contentType = null;
-    private IRI base = null;
-    private InputStream sourceInputStream = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
 #### Snippet
 ```java
 
-    private RDF rdfTermFactory = null;
-    private RDFSyntax contentTypeSyntax = null;
-    private String contentType = null;
-    private IRI base = null;
+    /**
+     * Construct a {@link RDF4JGraph} from a RDF4J {@link Model}.
+     * <p>
+     * Changes in the graph will be reflected in the model, and vice versa.
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/BlankNodeImpl.java`
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
 #### Snippet
 ```java
-final class BlankNodeImpl extends AbstractRDFTerm<BNode> implements RDF4JBlankNode {
-
-    private transient int hashCode = 0;
-    private final long saltUUIDleast;
-    private final long saltUUIDmost;
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to adapt
+     * @param handleInitAndShutdown
+     *            If <code>true</code>, the {@link RDF4JGraph} will initialize
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+### JavadocReference
+Cannot resolve symbol `Resource`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *            If true, any inferred quads are included in the dataset
+     * @param contextMask
+     *            Zero or more {@link Resource}s contexts. The array may contain
+     *            the value <code>null</code> for the default graph - however
+     *            care must be taken to not provide a null-array
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JBlankNode} from a RDF4J {@link BNode}.
+     *
+     * @param bNode
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param bNode
+     *            RDF4J {@link BNode} to adapt
+     * @param salt
+     *            {@link UUID} to use for {@link BlankNode#uniqueReference()} in
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     * @param salt
+     *            {@link UUID} to use for {@link BlankNode#uniqueReference()} in
+     *            combination with {@link BNode#getID()}
+     * @return Adapted {@link RDF4JBlankNode}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     * @param salt
+     *            {@link UUID} to use for {@link BlankNode#uniqueReference()} in
+     *            combination with {@link BNode#getID()}
+     * @return Adapted {@link RDF4JBlankNode}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JGraph} from a RDF4J {@link Model}.
+     * <p>
+     * Changes in the graph will be reflected in the model, and vice versa.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param model
+     *            RDF4J {@link Model} to adapt
+     * @param rdf4jTermFactory
+     *            factory to use for adapting graph triples
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+ * internal use by Commons RDF and may change in any minor update. Use instead
+ * {@link RDF4J} methods like {@link RDF4J#createBlankNode()},
+ * {@link RDF4J#asRDFTerm(org.eclipse.rdf4j.model.Value)} and
+ * {@link RDF4J#asGraph(Repository, Option...)}
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `asGraph(Repository, Option...)`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+ * {@link RDF4J} methods like {@link RDF4J#createBlankNode()},
+ * {@link RDF4J#asRDFTerm(org.eclipse.rdf4j.model.Value)} and
+ * {@link RDF4J#asGraph(Repository, Option...)}
+ * <p>
+ * This class exists as a <code>public</code> bridge between the packages
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+ * {@link RDF4J} methods like {@link RDF4J#createBlankNode()},
+ * {@link RDF4J#asRDFTerm(org.eclipse.rdf4j.model.Value)} and
+ * {@link RDF4J#asGraph(Repository, Option...)}
+ * <p>
+ * This class exists as a <code>public</code> bridge between the packages
+```
+
+### JavadocReference
+Cannot resolve symbol `Option`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+ * {@link RDF4J} methods like {@link RDF4J#createBlankNode()},
+ * {@link RDF4J#asRDFTerm(org.eclipse.rdf4j.model.Value)} and
+ * {@link RDF4J#asGraph(Repository, Option...)}
+ * <p>
+ * This class exists as a <code>public</code> bridge between the packages
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JQuad} from a RDF4J {@link Statement}.
+     *
+     * @param statement
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param statement
+     *            RDF4J {@link Statement} to adapt
+     * @param salt
+     *            {@link UUID} for adapting any {@link BNode}s
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *            RDF4J {@link Statement} to adapt
+     * @param salt
+     *            {@link UUID} for adapting any {@link BNode}s
+     * @return Adapted {@link RDF4JQuad}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JTriple} from a RDF4J {@link Statement}.
+     *
+     * @param statement
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param statement
+     *            RDF4J {@link Statement} to adapt
+     * @param salt
+     *            {@link UUID} for adapting any {@link BNode}s
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *            RDF4J {@link Statement} to adapt
+     * @param salt
+     *            {@link UUID} for adapting any {@link BNode}s
+     * @return Adapted {@link RDF4JTriple}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Construct a {@link RDF4JIRI} from a RDF4J {@link IRI}.
+     *
+     * @param iri
+```
+
+### JavadocReference
+Cannot resolve symbol `IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/InternalRDF4JFactory.java`
+#### Snippet
+```java
+     *
+     * @param iri
+     *            RDF4J {@link IRI} to adapt
+     * @return Adapted {@link RDF4JIRI}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `bnodePrefix()`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+
+    /**
+     * Used by {@link #bnodePrefix()} to get a unique UUID per JVM run
+     */
+    private static final UUID SALT = UUID.randomUUID();
+```
+
+### JavadocReference
+Cannot resolve symbol `asTriple(Quad)`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+     *
+     *
+     * @see JsonLdRDF#asTriple(Quad)
+     * @see JsonLdRDF#asQuad(Quad)
+     * @param jsonldQuad
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+     *
+     *
+     * @see JsonLdRDF#asTriple(Quad)
+     * @see JsonLdRDF#asQuad(Quad)
+     * @param jsonldQuad
+```
+
+### JavadocReference
+Cannot resolve symbol `asQuad(Quad)`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+     *
+     * @see JsonLdRDF#asTriple(Quad)
+     * @see JsonLdRDF#asQuad(Quad)
+     * @param jsonldQuad
+     *            jsonld quad to convert
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+     *
+     * @see JsonLdRDF#asTriple(Quad)
+     * @see JsonLdRDF#asQuad(Quad)
+     * @param jsonldQuad
+     *            jsonld quad to convert
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
 #### Snippet
 ```java
-    final P predicate;
-    final O object;
-    org.apache.jena.sparql.core.Quad quad = null;
-    org.apache.jena.graph.Triple triple = null;
 
+/**
+ * A generalized {@link QuadLike}, backed by a Jena {@link Quad} or
+ * {@link Triple}.
+ * <p>
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
+### JavadocReference
+Cannot resolve symbol `Triple`
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
 #### Snippet
 ```java
-    final O object;
-    org.apache.jena.sparql.core.Quad quad = null;
-    org.apache.jena.graph.Triple triple = null;
-
-
+/**
+ * A generalized {@link QuadLike}, backed by a Jena {@link Quad} or
+ * {@link Triple}.
+ * <p>
+ * This class does not implement any particular {@link #equals(Object)} or
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+### JavadocReference
+Cannot resolve symbol `internalJenaFactory`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+ * @see JenaTripleImpl
+ * @see JenaQuadImpl
+ * @see internalJenaFactory#createGeneralizedTriple(RDFTerm, RDFTerm, RDFTerm)
+ * @see internalJenaFactory#createGeneralizedQuad(RDFTerm, RDFTerm, RDFTerm,
+ *      RDFTerm)
+```
+
+### JavadocReference
+Cannot resolve symbol `createGeneralizedTriple(RDFTerm, RDFTerm, RDFTerm)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+ * @see JenaTripleImpl
+ * @see JenaQuadImpl
+ * @see internalJenaFactory#createGeneralizedTriple(RDFTerm, RDFTerm, RDFTerm)
+ * @see internalJenaFactory#createGeneralizedQuad(RDFTerm, RDFTerm, RDFTerm,
+ *      RDFTerm)
+```
+
+### JavadocReference
+Cannot resolve symbol `internalJenaFactory`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+ * @see JenaQuadImpl
+ * @see internalJenaFactory#createGeneralizedTriple(RDFTerm, RDFTerm, RDFTerm)
+ * @see internalJenaFactory#createGeneralizedQuad(RDFTerm, RDFTerm, RDFTerm,
+ *      RDFTerm)
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `createGeneralizedQuad(RDFTerm, RDFTerm, RDFTerm,
+* RDFTerm)`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+ * @see JenaQuadImpl
+ * @see internalJenaFactory#createGeneralizedTriple(RDFTerm, RDFTerm, RDFTerm)
+ * @see internalJenaFactory#createGeneralizedQuad(RDFTerm, RDFTerm, RDFTerm,
+ *      RDFTerm)
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+     * <urn:x-arq:DefaultGraphNode> from any IRI instance, so they can be
+     * replaced with Optional.empty(). Note that this code does not hardcode the
+     * internal Jena IRIs but uses Jena's constants {@link Quad#defaultGraphIRI}
+     * and {@link Quad#defaultGraphNodeGenerated}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `defaultGraphIRI`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+     * <urn:x-arq:DefaultGraphNode> from any IRI instance, so they can be
+     * replaced with Optional.empty(). Note that this code does not hardcode the
+     * internal Jena IRIs but uses Jena's constants {@link Quad#defaultGraphIRI}
+     * and {@link Quad#defaultGraphNodeGenerated}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+     * replaced with Optional.empty(). Note that this code does not hardcode the
+     * internal Jena IRIs but uses Jena's constants {@link Quad#defaultGraphIRI}
+     * and {@link Quad#defaultGraphNodeGenerated}.
+     */
+    private static class DefaultGraphChecker {
+```
+
+### JavadocReference
+Cannot resolve symbol `defaultGraphNodeGenerated`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/AbstractQuadLike.java`
+#### Snippet
+```java
+     * replaced with Optional.empty(). Note that this code does not hardcode the
+     * internal Jena IRIs but uses Jena's constants {@link Quad#defaultGraphIRI}
+     * and {@link Quad#defaultGraphNodeGenerated}.
+     */
+    private static class DefaultGraphChecker {
+```
+
+### JavadocReference
+Cannot resolve symbol `ValueFactory`
 in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
 #### Snippet
 ```java
+     *
+     * @param valueFactory
+     *            The RDF4J {@link ValueFactory} to use
+     * @param salt
+     *            An {@link UUID} salt to be used by any created
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a Commons RDF {@link RDFTerm} as a RDF4J {@link Value}.
+     * <p>
+     * The value will be of the same kind as the term, e.g. a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * The value will be of the same kind as the term, e.g. a
+     * {@link org.apache.commons.rdf.api.BlankNode} is converted to a
+     * {@link org.eclipse.rdf4j.model.BNode}, a
+     * {@link org.apache.commons.rdf.api.IRI} is converted to a
+     * {@link org.eclipse.rdf4j.model.IRI} and a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.BNode}, a
+     * {@link org.apache.commons.rdf.api.IRI} is converted to a
+     * {@link org.eclipse.rdf4j.model.IRI} and a
+     * {@link org.apache.commons.rdf.api.Literal} is converted to a
+     * {@link org.eclipse.rdf4j.model.Literal}.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.IRI} and a
+     * {@link org.apache.commons.rdf.api.Literal} is converted to a
+     * {@link org.eclipse.rdf4j.model.Literal}.
+     * <p>
+     * If the provided {@link RDFTerm} is <code>null</code>, then the returned
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * If the provided term is an instance of {@link RDF4JTerm}, then the
+     * {@link RDF4JTerm#asValue()} is returned without any conversion. Note that
+     * this could mean that a {@link Value} from a different kind of
+     * {@link ValueFactory} could be returned.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `ValueFactory`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link RDF4JTerm#asValue()} is returned without any conversion. Note that
+     * this could mean that a {@link Value} from a different kind of
+     * {@link ValueFactory} could be returned.
+     *
+     * @param term
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * @param term
+     *            RDFTerm to adapt to RDF4J Value
+     * @return Adapted RDF4J {@link Value}
+     */
     public Value asValue(final RDFTerm term) {
-        if (term == null) {
-            return null;
-        }
-        if (term instanceof RDF4JTerm) {
 ```
 
-### ReturnNull
-Return of `null`
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetGraphView.java`
+### JavadocReference
+Cannot resolve symbol `SimpleValueFactory`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
 #### Snippet
 ```java
-    private Optional<BlankNodeOrIRI> unionOrNamedGraph() {
-        if (unionGraph) {
-            return null;
-        }
-        return Optional.ofNullable(namedGraph);
+ * RDF4J implementation of RDF.
+ * <p>
+ * The {@link #RDF4J()} constructor uses a {@link SimpleValueFactory} to create
+ * corresponding RDF4J {@link Value} instances. Alternatively, this factory can
+ * be constructed with a different {@link ValueFactory} using
 ```
 
-### ReturnNull
-Return of `null`
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
 #### Snippet
 ```java
-        return threadpool.submit(() -> {
-            c.parseSynchronusly();
-            return null;
-        });
+ * <p>
+ * The {@link #RDF4J()} constructor uses a {@link SimpleValueFactory} to create
+ * corresponding RDF4J {@link Value} instances. Alternatively, this factory can
+ * be constructed with a different {@link ValueFactory} using
+ * {@link #RDF4J(ValueFactory)}.
+```
+
+### JavadocReference
+Cannot resolve symbol `ValueFactory`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * The {@link #RDF4J()} constructor uses a {@link SimpleValueFactory} to create
+ * corresponding RDF4J {@link Value} instances. Alternatively, this factory can
+ * be constructed with a different {@link ValueFactory} using
+ * {@link #RDF4J(ValueFactory)}.
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `ValueFactory`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * corresponding RDF4J {@link Value} instances. Alternatively, this factory can
+ * be constructed with a different {@link ValueFactory} using
+ * {@link #RDF4J(ValueFactory)}.
+ * <p>
+ * {@link #asRDFTerm(Value)} can be used to convert any RDF4J {@link Value} to
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #RDF4J(ValueFactory)}.
+ * <p>
+ * {@link #asRDFTerm(Value)} can be used to convert any RDF4J {@link Value} to
+ * an RDFTerm. Note that adapted {@link BNode}s are considered equal if they are
+ * converted with the same {@link RDF4J} instance and have the same
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #RDF4J(ValueFactory)}.
+ * <p>
+ * {@link #asRDFTerm(Value)} can be used to convert any RDF4J {@link Value} to
+ * an RDFTerm. Note that adapted {@link BNode}s are considered equal if they are
+ * converted with the same {@link RDF4J} instance and have the same
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * <p>
+ * {@link #asRDFTerm(Value)} can be used to convert any RDF4J {@link Value} to
+ * an RDFTerm. Note that adapted {@link BNode}s are considered equal if they are
+ * converted with the same {@link RDF4J} instance and have the same
+ * {@link BNode#getID()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * an RDFTerm. Note that adapted {@link BNode}s are considered equal if they are
+ * converted with the same {@link RDF4J} instance and have the same
+ * {@link BNode#getID()}.
+ * <p>
+ * {@link #createGraph()} creates a new Graph backed by {@link LinkedHashModel}.
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * an RDFTerm. Note that adapted {@link BNode}s are considered equal if they are
+ * converted with the same {@link RDF4J} instance and have the same
+ * {@link BNode#getID()}.
+ * <p>
+ * {@link #createGraph()} creates a new Graph backed by {@link LinkedHashModel}.
+```
+
+### JavadocReference
+Cannot resolve symbol `LinkedHashModel`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link BNode#getID()}.
+ * <p>
+ * {@link #createGraph()} creates a new Graph backed by {@link LinkedHashModel}.
+ * To use other models, see {@link #asGraph(Model)}.
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * <p>
+ * {@link #createGraph()} creates a new Graph backed by {@link LinkedHashModel}.
+ * To use other models, see {@link #asGraph(Model)}.
+ * <p>
+ * To adapt a RDF4J {@link Repository} as a {@link Dataset} or {@link Graph},
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * To use other models, see {@link #asGraph(Model)}.
+ * <p>
+ * To adapt a RDF4J {@link Repository} as a {@link Dataset} or {@link Graph},
+ * use {@link #asDataset(Repository, Option...)} or
+ * {@link #asGraph(Repository, Option...)}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * <p>
+ * To adapt a RDF4J {@link Repository} as a {@link Dataset} or {@link Graph},
+ * use {@link #asDataset(Repository, Option...)} or
+ * {@link #asGraph(Repository, Option...)}.
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * To adapt a RDF4J {@link Repository} as a {@link Dataset} or {@link Graph},
+ * use {@link #asDataset(Repository, Option...)} or
+ * {@link #asGraph(Repository, Option...)}.
+ * <p>
+ * {@link #asTriple(Statement)} can be used to convert a RDF4J {@link Statement}
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #asGraph(Repository, Option...)}.
+ * <p>
+ * {@link #asTriple(Statement)} can be used to convert a RDF4J {@link Statement}
+ * to a Commons RDF {@link Triple}, and equivalent {@link #asQuad(Statement)} to
+ * convert a {@link Quad}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #asGraph(Repository, Option...)}.
+ * <p>
+ * {@link #asTriple(Statement)} can be used to convert a RDF4J {@link Statement}
+ * to a Commons RDF {@link Triple}, and equivalent {@link #asQuad(Statement)} to
+ * convert a {@link Quad}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * <p>
+ * {@link #asTriple(Statement)} can be used to convert a RDF4J {@link Statement}
+ * to a Commons RDF {@link Triple}, and equivalent {@link #asQuad(Statement)} to
+ * convert a {@link Quad}.
+ * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * convert a {@link Quad}.
+ * <p>
+ * To convert any {@link Triple} or {@link Quad} to RDF4J {@link Statement},
+ * use {@link #asStatement(TripleLike)}. This recognises previously converted
+ * {@link RDF4JTriple}s and {@link RDF4JQuad}s without re-converting their
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * <p>
+ * Likewise, {@link #asValue(RDFTerm)} can be used to convert any Commons RDF
+ * {@link RDFTerm} to a corresponding RDF4J {@link Value}. This recognises
+ * previously converted {@link RDF4JTerm}s without re-converting their
+ * {@link RDF4JTerm#asValue()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * For the purpose of {@link BlankNode} equivalence, this factory contains an
+ * internal {@link UUID} salt that is used by adapter methods like
+ * {@link #asQuad(Statement)}, {@link #asTriple(Statement)},
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * For the purpose of {@link BlankNode} equivalence, this factory contains an
+ * internal {@link UUID} salt that is used by adapter methods like
+ * {@link #asQuad(Statement)}, {@link #asTriple(Statement)},
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * internal {@link UUID} salt that is used by adapter methods like
+ * {@link #asQuad(Statement)}, {@link #asTriple(Statement)},
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+ * the same {@link BNode#getID()}, converting them with the above methods might
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #asQuad(Statement)}, {@link #asTriple(Statement)},
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+ * the same {@link BNode#getID()}, converting them with the above methods might
+ * cause accidental {@link BlankNode} equivalence. Note that the {@link Graph}
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+ * the same {@link BNode#getID()}, converting them with the above methods might
+ * cause accidental {@link BlankNode} equivalence. Note that the {@link Graph}
+ * and {@link Dataset} adapter methods like
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * {@link #asRDFTerm(Value)} as well as {@link #createBlankNode(String)}. As
+ * RDF4J {@link BNode} instances from multiple repositories or models may have
+ * the same {@link BNode#getID()}, converting them with the above methods might
+ * cause accidental {@link BlankNode} equivalence. Note that the {@link Graph}
+ * and {@link Dataset} adapter methods like
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * cause accidental {@link BlankNode} equivalence. Note that the {@link Graph}
+ * and {@link Dataset} adapter methods like
+ * {@link #asDataset(Repository, Option...)} and
+ * {@link #asGraph(Repository, Option...)} therefore uses a unique {@link RDF4J}
+ * internally.
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+ * and {@link Dataset} adapter methods like
+ * {@link #asDataset(Repository, Option...)} and
+ * {@link #asGraph(Repository, Option...)} therefore uses a unique {@link RDF4J}
+ * internally.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an RDF4J {@link Model} as a Commons RDF {@link Graph}.
+     * <p>
+     * Changes to the graph are reflected in the model, and vice versa.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param model
+     *            RDF4J {@link Model} to adapt.
+     * @return Adapted {@link Graph}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+        includeInferred,
+        /**
+         * The graph/dataset should handle {@link Repository#initialize()} (if
+         * needed) and {@link Repository#shutDown()} on {@link Graph#close()} /
+         * {@link Dataset#close()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `initialize()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+        includeInferred,
+        /**
+         * The graph/dataset should handle {@link Repository#initialize()} (if
+         * needed) and {@link Repository#shutDown()} on {@link Graph#close()} /
+         * {@link Dataset#close()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+        /**
+         * The graph/dataset should handle {@link Repository#initialize()} (if
+         * needed) and {@link Repository#shutDown()} on {@link Graph#close()} /
+         * {@link Dataset#close()}.
+         */
+```
+
+### JavadocReference
+Cannot resolve symbol `shutDown()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+        /**
+         * The graph/dataset should handle {@link Repository#initialize()} (if
+         * needed) and {@link Repository#shutDown()} on {@link Graph#close()} /
+         * {@link Dataset#close()}.
+         */
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+    /**
+     * Adapt a Commons RDF {@link Triple} or {@link Quad} as a RDF4J
+     * {@link Statement}.
+     * <p>
+     * If the <code>tripleLike</code> argument is an {@link RDF4JTriple} or a
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link RDF4JQuad}, then its {@link RDF4JTripleLike#asStatement()} is
+     * returned as-is. Note that this means that a {@link RDF4JTriple} would
+     * preserve its {@link Statement#getContext()}, and that any
+     * {@link BlankNode}s would be deemed equivalent in RDF4J if they have the
+     * same {@link BNode#getID()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `getContext()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link RDF4JQuad}, then its {@link RDF4JTripleLike#asStatement()} is
+     * returned as-is. Note that this means that a {@link RDF4JTriple} would
+     * preserve its {@link Statement#getContext()}, and that any
+     * {@link BlankNode}s would be deemed equivalent in RDF4J if they have the
+     * same {@link BNode#getID()}.
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * preserve its {@link Statement#getContext()}, and that any
+     * {@link BlankNode}s would be deemed equivalent in RDF4J if they have the
+     * same {@link BNode#getID()}.
+     *
+     * @param tripleLike
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * preserve its {@link Statement#getContext()}, and that any
+     * {@link BlankNode}s would be deemed equivalent in RDF4J if they have the
+     * same {@link BNode#getID()}.
+     *
+     * @param tripleLike
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * @param tripleLike
+     *            A {@link Triple} or {@link Quad} to adapt
+     * @return A corresponding {@link Statement}
+     */
+    public Statement asStatement(final TripleLike tripleLike) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a RDF4J {@link Value} as a Commons RDF {@link RDFTerm}.
+     * <p>
+     * The value will be of the same kind as the term, e.g. a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * The value will be of the same kind as the term, e.g. a
+     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
+     * {@link org.apache.commons.rdf.api.BlankNode}, a
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
+     * {@link org.apache.commons.rdf.api.BlankNode}, a
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+     * {@link org.apache.commons.rdf.api.IRI} and a
+     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+     * {@link org.apache.commons.rdf.api.IRI} and a
+     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
+     * {@link org.apache.commons.rdf.api.Literal}
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param value
+     *            The RDF4J {@link Value} to convert.
+     * @param salt
+     *            A {@link UUID} salt to use for uniquely mapping any
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * @param salt
+     *            A {@link UUID} salt to use for uniquely mapping any
+     *            {@link BNode}s. The salt should typically be the same for
+     *            multiple statements in the same {@link Repository} or
+     *            {@link Model} to ensure {@link BlankNode#equals(Object)} and
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *            A {@link UUID} salt to use for uniquely mapping any
+     *            {@link BNode}s. The salt should typically be the same for
+     *            multiple statements in the same {@link Repository} or
+     *            {@link Model} to ensure {@link BlankNode#equals(Object)} and
+     *            {@link BlankNode#uniqueReference()} works as intended.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *            {@link BNode}s. The salt should typically be the same for
+     *            multiple statements in the same {@link Repository} or
+     *            {@link Model} to ensure {@link BlankNode#equals(Object)} and
+     *            {@link BlankNode#uniqueReference()} works as intended.
+     * @return A {@link RDFTerm} that corresponds to the RDF4J value
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositoryConnection`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>Note:</strong> Some operations on the {@link RDF4JDataset}
+     * requires the use of try-with-resources to close underlying
+     * {@link RepositoryConnection}s, including {@link RDF4JDataset#iterate()},
+     * {@link RDF4JDataset#stream()} and {@link RDF4JDataset#getGraphNames()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * Adapt a RDF4J
+     * {@link org.eclipse.rdf4j.model.IRI} as a Commons RDF
+     * {@link org.apache.commons.rdf.api.IRI}
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * @param value
+     *            The RDF4J {@link Value} to convert.
+     * @return A {@link RDF4JIRI} that corresponds to the RDF4J IRI
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Resource`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * Adapt a RDF4J
+     * {@link org.eclipse.rdf4j.model.Resource} as a Commons RDF
+     * {@link org.apache.commons.rdf.api.BlankNodeOrIRI}
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * @param value
+     *            The RDF4J {@link Value} to convert.
+     * @return A {@link RDF4JBlankNodeOrIRI} that corresponds to the RDF4J Resource
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an RDF4J {@link Repository} as a Commons RDF {@link Graph}.
+     * <p>
+     * The graph will include triples in any contexts (e.g. the union graph).
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to connect to.
+     * @param options
+     *            Zero or more {@link Option}
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * This constructor is intended for use with the value factory from
+     * {@link Repository#getValueFactory()} when using Repository-based graphs
+     * and datasets.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getValueFactory()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * This constructor is intended for use with the value factory from
+     * {@link Repository#getValueFactory()} when using Repository-based graphs
+     * and datasets.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `ValueFactory`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param valueFactory
+     *            The RDF4J {@link ValueFactory} to use
+     */
+    public RDF4J(final ValueFactory valueFactory) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an RDF4J {@link Repository} as a Commons RDF {@link Graph}.
+     * <p>
+     * The graph will include triples in the specified contexts.
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositoryConnection`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>Note:</strong> Some operations on the {@link RDF4JGraph} requires
+     * the use of try-with-resources to close underlying
+     * {@link RepositoryConnection}s, including {@link RDF4JGraph#iterate()} and
+     * {@link RDF4JGraph#stream()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to connect to.
+     * @param contexts
+     *            A {@link Set} of {@link BlankNodeOrIRI} specifying the graph
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an RDF4J {@link Repository} as a Commons RDF {@link Dataset}.
+     * <p>
+     * Changes to the dataset are reflected in the repository, and vice versa.
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositoryConnection`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>Note:</strong> Some operations on the {@link RDF4JDataset}
+     * requires the use of try-with-resources to close underlying
+     * {@link RepositoryConnection}s, including {@link RDF4JDataset#iterate()},
+     * {@link RDF4JDataset#stream()} and {@link RDF4JDataset#getGraphNames()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to connect to.
+     * @param options
+     *            Zero or more {@link Option}
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * Adapt a RDF4J
+     * {@link org.eclipse.rdf4j.model.Literal} as a Commons RDF
+     * {@link org.apache.commons.rdf.api.Literal}
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * @param value
+     *            The RDF4J {@link Literal} to convert.
+     * @return A {@link RDF4JLiteral} that corresponds to the RDF4J literal
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+    /**
+     *
+     * Adapt a RDF4J {@link Value} as a Commons RDF {@link RDFTerm}.
+     * <p>
+     * The value will be of the same kind as the term, e.g. a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * The value will be of the same kind as the term, e.g. a
+     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
+     * {@link org.apache.commons.rdf.api.BlankNode}, a
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.BNode} is converted to a
+     * {@link org.apache.commons.rdf.api.BlankNode}, a
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+     * {@link org.apache.commons.rdf.api.IRI} and a
+     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * {@link org.eclipse.rdf4j.model.IRI} is converted to a
+     * {@link org.apache.commons.rdf.api.IRI} and a
+     * {@link org.eclipse.rdf4j.model.Literal}. is converted to a
+     * {@link org.apache.commons.rdf.api.Literal}
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param value
+     *            The RDF4J {@link Value} to convert.
+     * @return A {@link RDFTerm} that corresponds to the RDF4J value
+     * @throws IllegalArgumentException
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.rdf4j.model.BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * Adapt a RDF4J
+     * {@link org.eclipse.rdf4j.model.BNode} as a Commons RDF
+     * {@link org.apache.commons.rdf.api.BlankNode}
+     * <p>
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J values from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param value
+     *            The RDF4J {@link BNode} to convert.
+     * @return A {@link RDF4JBlankNode} that corresponds to the RDF4J BNode
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a RDF4J {@link Statement} as a Commons RDF {@link Triple}.
+     * <p>
+     * For the purpose of {@link BlankNode} equivalence, this method will use an
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * <strong>NOTE:</strong> If combining RDF4J statements from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J statements from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J statements from multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param statement
+     *            The RDF4J {@link Statement} to adapt.
+     * @return A {@link RDF4JTriple} that is equivalent to the statement
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt an RDF4J {@link Repository} as a Commons RDF {@link Graph}.
+     * <p>
+     * The graph will only include triples in the default graph (equivalent to
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositoryConnection`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>Note:</strong> Some operations on the {@link RDF4JGraph} requires
+     * the use of try-with-resources to close underlying
+     * {@link RepositoryConnection}s, including {@link RDF4JGraph#iterate()} and
+     * {@link RDF4JGraph#stream()}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     *
+     * @param repository
+     *            RDF4J {@link Repository} to connect to.
+     * @param options
+     *            Zero or more {@link Option}
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a RDF4J {@link Statement} as a Commons RDF {@link Quad}.
+     * <p>
+     * For the purpose of {@link BlankNode} equivalence, this method will use an
+```
+
+### JavadocReference
+Cannot resolve symbol `Statement`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * internal salt UUID that is unique per instance of {@link RDF4J}.
+     * <p>
+     * <strong>NOTE:</strong> If combining RDF4J {@link Statement}s multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <p>
+     * <strong>NOTE:</strong> If combining RDF4J {@link Statement}s multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J {@link Statement}s multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `getID()`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+     * <strong>NOTE:</strong> If combining RDF4J {@link Statement}s multiple
+     * repositories or models, then their {@link BNode}s may have the same
+     * {@link BNode#getID()}, which with this method would become equivalent
+     * according to {@link BlankNode#equals(Object)} and
+     * {@link BlankNode#uniqueReference()}, unless a separate {@link RDF4J}
+```
+
+### JavadocReference
+Cannot resolve symbol `DatasetGraph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaDataset.java`
+#### Snippet
+```java
+ * A Jena-backed {@link Dataset}.
+ * <p>
+ * The underlying Jena {@link DatasetGraph} can be accessed with
+ * {@link #asJenaDatasetGraph()}.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `DatasetGraph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaDataset.java`
+#### Snippet
+```java
+
+    /**
+     * Return the underlying Jena {@link DatasetGraph}.
+     * <p>
+     * Changes to the Jena <em>dataset graph</em> are reflected in the Commons
+```
+
+### JavadocReference
+Cannot resolve symbol `DatasetGraph`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaDataset.java`
+#### Snippet
+```java
+     * RDF dataset and vice versa.
+     *
+     * @return A Jena {@link DatasetGraph}
+     */
+    DatasetGraph asJenaDatasetGraph();
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.jena.sparql.core.Quad`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaQuad.java`
+#### Snippet
+```java
+ * A Jena-backed {@link org.apache.commons.rdf.api.Quad}.
+ * <p>
+ * The underlying Jena {@link org.apache.jena.sparql.core.Quad} can be accessed
+ * with {@link #asJenaQuad()}.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTerm.java`
+#### Snippet
+```java
+
+    /**
+     * Return the RDF4J {@link Value} that this RDFTerm represents.
+     *
+     * @return The wrapped {@link Value} (e.g. a {@link Literal}, {@link IRI} or
+```
+
+### JavadocReference
+Cannot resolve symbol `Value`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTerm.java`
+#### Snippet
+```java
+     * Return the RDF4J {@link Value} that this RDFTerm represents.
+     *
+     * @return The wrapped {@link Value} (e.g. a {@link Literal}, {@link IRI} or
+     *         {@link BNode}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Literal`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTerm.java`
+#### Snippet
+```java
+     * Return the RDF4J {@link Value} that this RDFTerm represents.
+     *
+     * @return The wrapped {@link Value} (e.g. a {@link Literal}, {@link IRI} or
+     *         {@link BNode}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `IRI`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTerm.java`
+#### Snippet
+```java
+     * Return the RDF4J {@link Value} that this RDFTerm represents.
+     *
+     * @return The wrapped {@link Value} (e.g. a {@link Literal}, {@link IRI} or
+     *         {@link BNode}.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `BNode`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4JTerm.java`
+#### Snippet
+```java
+     *
+     * @return The wrapped {@link Value} (e.g. a {@link Literal}, {@link IRI} or
+     *         {@link BNode}.
+     */
+    Value asValue();
+```
+
+### JavadocReference
+Cannot resolve symbol `ParserConfig`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
+#### Snippet
+```java
+
+    /**
+     * Set an RDF4J {@link ParserConfig} to use
+     *
+     * @param parserConfig
+```
+
+### JavadocReference
+Cannot resolve symbol `ParserConfig`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
+#### Snippet
+```java
+
+    /**
+     * Get the RDF4J {@link ParserConfig} to use.
+     * <p>
+     * If no parser config is set, the default configuration is provided.
+```
+
+### JavadocReference
+Cannot resolve symbol `ParserConfig`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
+#### Snippet
+```java
+     * <strong>Note:</strong> The parser config is mutable - changes in the
+     * returned config is reflected in this instance of the parser. To avoid
+     * mutation, create a new {@link ParserConfig} and set
+     * {@link #setParserConfig(ParserConfig)}.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `ParserConfig`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
+#### Snippet
+```java
+     * returned config is reflected in this instance of the parser. To avoid
+     * mutation, create a new {@link ParserConfig} and set
+     * {@link #setParserConfig(ParserConfig)}.
+     *
+     * @return The RDF4J {@link ParserConfig}
+```
+
+### JavadocReference
+Cannot resolve symbol `ParserConfig`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
+#### Snippet
+```java
+     * {@link #setParserConfig(ParserConfig)}.
+     *
+     * @return The RDF4J {@link ParserConfig}
+     */
+    public ParserConfig getParserConfig() {
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Condition `subject instanceof BlankNodeOrIRI` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
+#### Snippet
+```java
+        super(triple, salt);
+        // Check the conversion
+        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized triple: " + quad);
+        }
+```
+
+### DataFlowIssue
+Condition `predicate instanceof IRI` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
+#### Snippet
+```java
+        super(triple, salt);
+        // Check the conversion
+        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized triple: " + quad);
+        }
+```
+
+### DataFlowIssue
+Condition `object instanceof RDFTerm` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaTripleImpl.java`
+#### Snippet
+```java
+        super(triple, salt);
+        // Check the conversion
+        if (!(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI) || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized triple: " + quad);
+        }
+```
+
+### DataFlowIssue
+Method invocation `getClass` will produce `NullPointerException`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+            return asRDFTerm((BNode)value);
+        }
+        throw new IllegalArgumentException("Value is not a BNode or IRI: " + value.getClass());
     }
+
 ```
 
-### ReturnNull
-Return of `null`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
+### DataFlowIssue
+Method invocation `getClass` will produce `NullPointerException`
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
 #### Snippet
 ```java
-    public static RDFTerm asRDFTerm(final RDF factory, final Node node) {
-        if (node == null) {
-            return null;
+            return RDF4J.createIRIImpl((org.eclipse.rdf4j.model.IRI) value);
         }
-        if (factory instanceof JenaRDF) {
-```
-
-### ReturnNull
-Return of `null`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/JenaRDF.java`
-#### Snippet
-```java
-    public Node asJenaNode(final RDFTerm term) {
-        if (term == null) {
-            return null;
-        }
-        if (term instanceof JenaRDFTerm) {
-```
-
-### ReturnNull
-Return of `null`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-    String asJsonLdString(final BlankNodeOrIRI blankNodeOrIRI) {
-        if (blankNodeOrIRI == null) {
-            return null;
-        }
-        if (blankNodeOrIRI instanceof IRI) {
-```
-
-### ReturnNull
-Return of `null`
-in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
-#### Snippet
-```java
-    JsonLdTerm asRDFTerm(final Node node, final String blankNodePrefix) {
-        if (node == null) {
-            return null; // e.g. default graph
-        }
-        if (node.isIRI()) {
-```
-
-### ReturnNull
-Return of `null`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryGraphImpl.java`
-#### Snippet
-```java
-        }
-        // Make sure the RepositoryConnection is closed
-        return stream == null ? null : stream.onClose(conn::close);
+        throw new IllegalArgumentException("Value is not a BNode, Literal or IRI: " + value.getClass());
     }
 
 ```
 
-### ReturnNull
-Return of `null`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+### DataFlowIssue
+Condition `subject instanceof BlankNodeOrIRI` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
 #### Snippet
 ```java
+        // Check the conversion
+        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
+                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
+                || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized quad: " + quad);
+```
+
+### DataFlowIssue
+Condition `predicate instanceof IRI` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
+#### Snippet
+```java
+        // Check the conversion
+        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
+                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
+                || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized quad: " + quad);
+```
+
+### DataFlowIssue
+Condition `object instanceof RDFTerm` is redundant and can be replaced with a null check
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
+#### Snippet
+```java
+        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
+                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
+                || !(object instanceof RDFTerm)) {
+            throw new ConversionException("Can't adapt generalized quad: " + quad);
         }
-        // Make sure the RepositoryConnection is closed
-        return stream == null ? null : stream.onClose(conn::close);
-
-    }
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+'collect(summingLong())' can be replaced with 'mapToLong().sum()'
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdDataset.java`
 #### Snippet
 ```java
-        if (graphName == null) {
-            // no contexts == any contexts
-            contexts = new Resource[0];
-        } else {
-            final BlankNodeOrIRI g = graphName.orElse(null);
+    public long size() {
+        return rdfDataSet.graphNames().stream().map(rdfDataSet::getQuads)
+                .collect(Collectors.summingLong(List::size));
+    }
+
 ```
 
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
+## RuleId[id=EmptyStatementBody]
+### EmptyStatementBody
+`if` statement has empty body
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
+#### Snippet
+```java
+            return new JenaBlankNodeImpl(node, salt);
+        }
+        if (node.equals(Node.ANY)) {
+            // NOTE: JenaAny no longer supported by Commons RDF
+            // return JenaAnyImpl.Singleton.instance;
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/InternalJenaFactory.java`
+#### Snippet
+```java
+            // return JenaAnyImpl.Singleton.instance;
+        }
+        if (node.isVariable()) {
+            // NOTE: JenaVariable no longer supported by Commons RDF
+            // return new JenaVariableImpl(node);
+```
+
+## RuleId[id=DoubleCheckedLocking]
+### DoubleCheckedLocking
+Double-checked locking
 in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaGraphImpl.java`
 #### Snippet
 ```java
+    @Override
     public Model asJenaModel() {
         if (model == null) {
             synchronized (this) {
                 // As Model can be used for locks, we should make sure we don't
-                // make
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/BlankNode.java`
+#### Snippet
+```java
+     * string.
+     * <p>
+     * The {@link #uniqueReference()} of two <code>BlankNode</code> instances
+     * MUST be equal if and only if the two blank nodes are equal according to
+     * {@link #equals(Object)}.
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
+#### Snippet
+```java
+     * the dataset.
+     * <p>
+     * Implementations might not need {@link #close()}, hence the default
+     * implementation does nothing.
+     */
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/experimental/RDFParser.java`
+#### Snippet
+```java
+     * <p>
+     * Calling this method will override any earlier targets set with
+     * {@link #target(Graph)}, {@link #target(Consumer)} or
+     * {@link #target(Dataset)}.
+     * <p>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/experimental/RDFParser.java`
+#### Snippet
+```java
+     * Calling this method will override any earlier targets set with
+     * {@link #target(Graph)}, {@link #target(Consumer)} or
+     * {@link #target(Dataset)}.
+     * <p>
+     * The default implementation of this method calls {@link #target(Consumer)}
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/experimental/RDFParser.java`
+#### Snippet
+```java
+     * <p>
+     * Calling this method will override any earlier targets set with
+     * {@link #target(Graph)}, {@link #target(Consumer)} or
+     * {@link #target(Dataset)}.
+     * <p>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/experimental/AbstractRDFParser.java`
+#### Snippet
+```java
+     * If this is {@link Optional#isPresent()} and is recognized by
+     * {@link RDFSyntax#byMediaType(String)}, then the corresponding
+     * {@link RDFSyntax} is set on {@link #getContentType()}, otherwise that is
+     * {@link Optional#empty()}.
+     *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
+#### Snippet
+```java
+     * </p>
+     * <p>
+     * Implementations might not need {@link #close()}, hence the default
+     * implementation does nothing.
+     * </p>
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'RDFTermFactory' is still used
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/RDFTermFactory.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface RDFTermFactory {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'RDF_PLAINLITERAL' is still used
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/Types.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final Types RDF_PLAINLITERAL = new Types("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTriples' is still used
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default Stream<? extends Triple> getTriples() {
+        return stream();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTriples' is still used
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default Stream<? extends Triple> getTriples(final BlankNodeOrIRI subject, final IRI predicate, final RDFTerm object) {
+        return stream(subject, predicate, object);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SimpleRDFTermFactory' is still used
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/SimpleRDFTermFactory.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class SimpleRDFTermFactory implements RDFTermFactory {
+
+    private final SimpleRDF factory = new SimpleRDF();
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdLiteral.java`
+#### Snippet
+```java
+        if (getLanguageTag().isPresent()) {
+            sb.append("@");
+            sb.append(getLanguageTag().get());
+        } else if (!getDatatype().equals(Types.XSD_STRING)) {
+            sb.append("^^");
+            sb.append(getDatatype().ntriplesString());
+        }
+        return sb.toString();
+```
+
+### DuplicatedCode
+Duplicated code
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+#### Snippet
+```java
+        final Resource subj = (Resource) rdf4jTermFactory.asValue(subject);
+        final org.eclipse.rdf4j.model.IRI pred = (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate);
+        final Value obj = rdf4jTermFactory.asValue(object);
+        try (RepositoryConnection conn = getRepositoryConnection()) {
+            conn.add(subj, pred, obj, context);
+            conn.commit();
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+#### Snippet
+```java
+        final Resource subj = (Resource) rdf4jTermFactory.asValue(subject);
+        final org.eclipse.rdf4j.model.IRI pred = (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate);
+        final Value obj = rdf4jTermFactory.asValue(object);
+        final Resource[] contexts = asContexts(graphName);
+```
+
+### DuplicatedCode
+Duplicated code
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+#### Snippet
+```java
+        final Resource subj = (Resource) rdf4jTermFactory.asValue(subject);
+        final org.eclipse.rdf4j.model.IRI pred = (org.eclipse.rdf4j.model.IRI) rdf4jTermFactory.asValue(predicate);
+        final Value obj = rdf4jTermFactory.asValue(object);
+        return new ConvertedStatements<>(this::getRepositoryConnection, rdf4jTermFactory::asQuad, subj, pred, obj,
+                contexts);
+```
+
+### DuplicatedCode
+Duplicated code
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
+#### Snippet
+```java
+            if (subject != null && !t.getSubject().equals(newSubject)) {
+                return false;
+            }
+            if (predicate != null && !t.getPredicate().equals(newPredicate)) {
+                return false;
+            }
+            if (object != null && !t.getObject().equals(newObject)) {
+                return false;
+            }
+            return true;
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdRDF.java`
+#### Snippet
+```java
+    @Override
+    public JsonLdBlankNode createBlankNode() {
+        final String id = "_:" + UUID.randomUUID().toString();
+        return new JsonLdBlankNodeImpl(new RDFDataset.BlankNode(id), bnodePrefix);
+    }
+```
+
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+    public RDF4JGraph asGraph(final Repository repository, final Set<? extends BlankNodeOrIRI> contexts, final Option... option) {
+        final EnumSet<Option> opts = optionSet(option);
+        /** NOTE: asValue() deliberately CAN handle <code>null</code> */
+        final Resource[] resources = contexts.stream().map(g -> (Resource) asValue(g)).toArray(Resource[]::new);
+        return RDF4J.createRepositoryGraphImpl(Objects.requireNonNull(repository),
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
@@ -2910,69 +4766,22 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/Types.java`
     }
 ```
 
+## RuleId[id=EqualsBetweenInconvertibleTypes]
+### EqualsBetweenInconvertibleTypes
+`isEqual` between objects of inconvertible types 'RDFSyntax' and 'String'
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/experimental/JsonLdParser.java`
+#### Snippet
+```java
+    public JsonLdParser contentType(final String contentType) throws IllegalArgumentException {
+        final JsonLdParser c = super.contentType(contentType);
+        if (c.getContentType().filter(Predicate.isEqual(RDFSyntax.JSONLD).negate()).isPresent()) {
+            throw new IllegalArgumentException("Unsupported contentType: " + contentType);
+        }
+```
+
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI)` is always `false`
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        super(quad, salt);
-        // Check the conversion
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-```
-
-### ConstantValue
-Condition `!(graphName.get() instanceof BlankNodeOrIRI)` is always `false` when reached
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        super(quad, salt);
-        // Check the conversion
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-```
-
-### ConstantValue
-Condition `graphName.get() instanceof BlankNodeOrIRI` is always `true` when reached
-in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
-#### Snippet
-```java
-        super(quad, salt);
-        // Check the conversion
-        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
-                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
-                || !(object instanceof RDFTerm)) {
-```
-
-### ConstantValue
-Condition `stream == null` is always `false`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryGraphImpl.java`
-#### Snippet
-```java
-        }
-        // Make sure the RepositoryConnection is closed
-        return stream == null ? null : stream.onClose(conn::close);
-    }
-
-```
-
-### ConstantValue
 Condition `!(object instanceof BlankNodeImpl)` is always `true` when reached
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
-#### Snippet
-```java
-            return object;
-        }
-        if (object instanceof BlankNode && !(object instanceof BlankNodeImpl)) {
-            final BlankNode blankNode = (BlankNode) object;
-            // This guarantees that adding the same BlankNode multiple times to
-```
-
-### ConstantValue
-Condition `object instanceof BlankNodeImpl` is always `false` when reached
 in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
 #### Snippet
 ```java
@@ -2996,18 +4805,6 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.j
 ```
 
 ### ConstantValue
-Condition `object instanceof IRIImpl` is always `false` when reached
-in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
-#### Snippet
-```java
-            return factory.createBlankNode(blankNode.uniqueReference());
-        }
-        if (object instanceof IRI && !(object instanceof IRIImpl)) {
-            final IRI iri = (IRI) object;
-            return factory.createIRI(iri.getIRIString());
-```
-
-### ConstantValue
 Condition `object instanceof LiteralImpl` is always `false` when reached
 in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
 #### Snippet
@@ -3020,15 +4817,63 @@ in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.j
 ```
 
 ### ConstantValue
-Condition `stream == null` is always `false`
-in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/impl/RepositoryDatasetImpl.java`
+Value `value` is always 'null'
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
 #### Snippet
 ```java
+            return asRDFTerm((IRI)value);
         }
-        // Make sure the RepositoryConnection is closed
-        return stream == null ? null : stream.onClose(conn::close);
+        if (value instanceof BNode){
+            return asRDFTerm((BNode)value);
+        }
+```
 
-    }
+### ConstantValue
+Value `value` is always 'null'
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+            return RDF4J.createBlankNodeImpl((BNode) value, salt);
+        }
+        if (value instanceof org.eclipse.rdf4j.model.Literal) {
+            return RDF4J.createLiteralImpl((org.eclipse.rdf4j.model.Literal) value);
+        }
+```
+
+### ConstantValue
+Value `value` is always 'null'
+in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/RDF4J.java`
+#### Snippet
+```java
+            return RDF4J.createLiteralImpl((org.eclipse.rdf4j.model.Literal) value);
+        }
+        if (value instanceof org.eclipse.rdf4j.model.IRI) {
+            return RDF4J.createIRIImpl((org.eclipse.rdf4j.model.IRI) value);
+        }
+```
+
+### ConstantValue
+Condition `graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI)` is always `false`
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
+#### Snippet
+```java
+        super(quad, salt);
+        // Check the conversion
+        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
+                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
+                || !(object instanceof RDFTerm)) {
+```
+
+### ConstantValue
+Condition `!(graphName.get() instanceof BlankNodeOrIRI)` is always `false` when reached
+in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/impl/JenaQuadImpl.java`
+#### Snippet
+```java
+        super(quad, salt);
+        // Check the conversion
+        if ((graphName.isPresent() && !(graphName.get() instanceof BlankNodeOrIRI))
+                || !(subject instanceof BlankNodeOrIRI) || !(predicate instanceof IRI)
+                || !(object instanceof RDFTerm)) {
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -3058,6 +4903,18 @@ in `commons-rdf-jena/src/main/java/org/apache/commons/rdf/jena/experimental/Jena
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
+#### Snippet
+```java
+    @Override
+    public Graph getGraph() {
+        return getGraph(null).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RDF4JParser.java`
 #### Snippet
 ```java
@@ -3068,15 +4925,150 @@ in `commons-rdf-rdf4j/src/main/java/org/apache/commons/rdf/rdf4j/experimental/RD
 
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/RDF.java`
+#### Snippet
+```java
+     * {@link Literal#getLanguageTag()} present, and SHOULD return a
+     * {@link Literal#getDatatype()} that is equal to the IRI
+     * <code>http://www.w3.org/2001/XMLSchema#string</code>.
+     *
+     * @param lexicalForm
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
+#### Snippet
+```java
+     *
+     * <pre>
+     * IRI alice = factory.createIRI("http://example.com/alice");
+     * IRI knows = factory.createIRI("http://xmlns.com/foaf/0.1/");
+     * for (Quad t : dataset.iterate(null, alice, knows, null)) {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Dataset.java`
+#### Snippet
+```java
+     * <pre>
+     * IRI alice = factory.createIRI("http://example.com/alice");
+     * IRI knows = factory.createIRI("http://xmlns.com/foaf/0.1/");
+     * for (Quad t : dataset.iterate(null, alice, knows, null)) {
+     *     System.out.println(t.getGraphName());
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/RDFSyntax.java`
+#### Snippet
+```java
+     *
+     * @return Identifying IRI, e.g.
+     *         <code>http://www.w3.org/ns/formats/JSON-LD</code>
+     */
+    IRI iri();
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
+#### Snippet
+```java
+     * </p>
+     * <pre>
+     * IRI alice = factory.createIRI("http://example.com/alice");
+     * IRI knows = factory.createIRI("http://xmlns.com/foaf/0.1/");
+     * for (Triple t : graph.iterate(alice, knows, null)) {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `commons-rdf-api/src/main/java/org/apache/commons/rdf/api/Graph.java`
+#### Snippet
+```java
+     * <pre>
+     * IRI alice = factory.createIRI("http://example.com/alice");
+     * IRI knows = factory.createIRI("http://xmlns.com/foaf/0.1/");
+     * for (Triple t : graph.iterate(alice, knows, null)) {
+     *     System.out.println(t.getObject());
+```
+
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/GraphImpl.java`
+#### Snippet
+```java
+                return false;
+            }
+            if (object != null && !t.getObject().equals(newObject)) {
+                return false;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/DatasetImpl.java`
 #### Snippet
 ```java
-    @Override
-    public Graph getGraph() {
-        return getGraph(null).get();
-    }
+                return false;
+            }
+            if (object != null && !t.getObject().equals(newObject)) {
+                return false;
+            }
+```
 
+### TrivialIf
+`if` statement can be simplified
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+                    // we can use our RDF 1.1-compliant .equals()
+                    final RDFTerm otherObj = factory.asRDFTerm(q.getObject());
+                    if (! (object.equals(otherObj))) {
+                        return false;
+                    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `commons-rdf-jsonld-java/src/main/java/org/apache/commons/rdf/jsonldjava/JsonLdGraphLike.java`
+#### Snippet
+```java
+                } else {
+                    // JSONLD-Java's .compareTo can handle IRI, BlankNode and type-mismatch
+                    if (objectNode.get().compareTo(q.getObject()) != 0) {
+                        return false;
+                    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/BlankNodeImpl.java`
+#### Snippet
+```java
+        }
+        final BlankNodeImpl other = (BlankNodeImpl) obj;
+        if (!Objects.equals(uniqueReference, other.uniqueReference)) {
+            return false;
+        }
+```
+
+## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `URI.create()` is ignored
+in `commons-rdf-simple/src/main/java/org/apache/commons/rdf/simple/IRIImpl.java`
+#### Snippet
+```java
+    public IRIImpl(final String iri) {
+        // should throw IllegalArgumentException on most illegal IRIs
+        URI.create(iri);
+        // NOTE: We don't keep the URI as it uses outdated RFC2396 and will get
+        // some IDNs wrong
 ```
 
