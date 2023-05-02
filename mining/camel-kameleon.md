@@ -1,58 +1,86 @@
 # camel-kameleon 
  
 # Bad smells
-I found 24 bad smells with 3 repairable:
+I found 17 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalGetWithoutIsPresent | 5 | false |
 | ComparatorResultComparison | 4 | false |
-| ThrowablePrintStackTrace | 3 | false |
-| SystemOutErr | 2 | false |
-| NonProtectedConstructorInAbstractClass | 2 | true |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| DuplicatedCode | 1 | false |
+| AutoCloseableResource | 1 | false |
+| Deprecation | 1 | false |
 | DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| SamePackageImport | 1 | false |
-| Convert2MethodRef | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| InnerClassMayBeStatic | 1 | true |
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+| RedundantCast | 1 | false |
+| FieldCanBeLocal | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/camel/kameleon/component/QuarkusComponentService.java`
+#### Snippet
+```java
+        List<CamelComponent> list = new ArrayList<>();
+
+        catalog.findComponentNames().forEach(name -> {
+            String json = catalog.componentJSonSchema(name);
+            CamelComponent component = getCamelComponent(json, "component");
+            if (!component.getDeprecated()) {
+                list.add(component);
+            }
+        });
+
+        catalog.findDataFormatNames().forEach(name -> {
+            String json = catalog.dataFormatJSonSchema(name);
+            CamelComponent component = getCamelComponent(json, "dataformat");
+            if (!component.getDeprecated()) {
+                list.add(component);
+            }
+        });
+
+        catalog.findLanguageNames().forEach(name -> {
+            String json = catalog.languageJSonSchema(name);
+            CamelComponent component = getCamelComponent(json, "language");
+            if (!component.getDeprecated()) {
+                list.add(component);
+            }
+        });
+
+        catalog.findOtherNames().forEach(name -> {
+            String json = catalog.otherJSonSchema(name);
+            CamelComponent component = getCamelComponent(json, "other");
+            if (!component.getDeprecated()) {
+                list.add(component);
+            }
+        });
+
+        return new JsonArray(list);
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'Stream' used without 'try'-with-resources statement
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        try (ZipArchiveOutputStream archive = new ZipArchiveOutputStream(new FileOutputStream(filename))) {
+            File folderToZip = new File(folder);
+            Files.walk(folderToZip.toPath()).forEach(p -> {
+                File file = p.toFile();
+                if (!file.isDirectory()) {
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'SafeConstructor()' is deprecated
 in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.java`
 #### Snippet
 ```java
-
-    public String generate(String filename, String openapi) throws Exception {
-        System.out.println(filename);
-        System.out.println(openapi);
-        final JsonNode node = filename.endsWith("json") ? readNodeFromJson(openapi) : readNodeFromYaml(openapi);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/camel/kameleon/generator/RestDslGeneratorService.java`
-#### Snippet
-```java
-    public String generate(String filename, String openapi) throws Exception {
-        System.out.println(filename);
-        System.out.println(openapi);
-        final JsonNode node = filename.endsWith("json") ? readNodeFromJson(openapi) : readNodeFromYaml(openapi);
-        OasDocument document = (OasDocument) Library.readDocument(node);
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
-                        e.getValue().getSpec().getDefinition().getDescription().split("\\r?\\n")[0],
-                        e.getValue().getMetadata().getAnnotations().get("camel.apache.org/kamelet.support.level"),
-                        List.of(e.getValue().getMetadata().getLabels().get("camel.apache.org/kamelet.type")),
+    private JsonNode readNodeFromYaml(String openapi) throws FileNotFoundException {
+        final ObjectMapper mapper = new ObjectMapper();
+        Yaml loader = new Yaml(new SafeConstructor());
+        Map map = loader.load(openapi);
+        return mapper.convertValue(map, JsonNode.class);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -81,43 +109,6 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
-#### Snippet
-```java
-                kc = objectMapper.readValue(configuration, KameleonConfiguration.class);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-                        archive.closeArchiveEntry();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            archive.finish();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
 ## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with '.values().stream()'
@@ -131,81 +122,17 @@ in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.ja
                         e.getValue().getSpec().getDefinition().getTitle(),
 ```
 
-## RuleId[id=SamePackageImport]
-### SamePackageImport
-Unnecessary import from the same package `import org.apache.camel.kameleon.model.CamelType;`
-in `src/main/java/org/apache/camel/kameleon/model/KameleonConfiguration.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `nf` to `Object` is redundant
+in `src/main/java/org/apache/camel/kameleon/generator/GeneratorResource.java`
 #### Snippet
 ```java
-import java.util.List;
-
-import org.apache.camel.kameleon.model.CamelType;
-
-public class KameleonConfiguration {
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
-#### Snippet
-```java
-    }
-
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
-#### Snippet
-```java
-    protected List<String> labels;
-
-    public AbstractComponent() {
-    }
-
-```
-
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-        try {
-            JsonArray componentArray = componentResource.components(type, version);
-            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
-            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
-            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-12-50-50.281.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `WarmupRequest` may be 'static'
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-    }
-
-    public class WarmupRequest {
-        public String type;
-        public String version;
+        File nf = new File(fileName);
+        if (nf.exists()){
+            return  Response.ok((Object) nf)
+                    .type("application/zip")
+                    .header("Content-Disposition", "attachment; filename=" + nf.getName())
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -238,18 +165,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        Model model = reader.read(new FileReader(pom));
-        List<Plugin> plugins = model.getBuild().getPlugins();
-        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
-        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
-        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
             }
         } else {
             CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
@@ -267,6 +182,31 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
             generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
             String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        Model model = reader.read(new FileReader(pom));
+        List<Plugin> plugins = model.getBuild().getPlugins();
+        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
+        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
+        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/camel/kameleon/config/ConfigurationResource.java`
+#### Snippet
+```java
+    String version;
+
+    private String configuration;
+    private KameleonConfiguration kc;
+
 ```
 
 ## RuleId[id=ComparatorResultComparison]
