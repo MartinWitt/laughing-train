@@ -1,37 +1,142 @@
 # maven-assembly-plugin 
  
 # Bad smells
-I found 122 bad smells with 27 repairable:
+I found 92 bad smells with 8 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SizeReplaceableByIsEmpty | 15 | true |
-| BoundedWildcard | 12 | false |
-| PublicFieldAccessedInSynchronizedContext | 12 | false |
-| AssignmentToMethodParameter | 12 | false |
-| UnnecessaryFullyQualifiedName | 11 | false |
-| RedundantFieldInitialization | 10 | false |
-| ReturnNull | 9 | false |
-| GroovyUnusedAssignment | 6 | false |
-| ZeroLengthArrayInitialization | 5 | false |
-| UtilityClassWithoutPrivateConstructor | 4 | true |
-| UnnecessaryToStringCall | 3 | true |
+| SpringHandlersSchemasHighlighting | 18 | false |
+| UNCHECKED_WARNING | 9 | false |
+| IOStreamConstructor | 9 | false |
+| JavadocReference | 8 | false |
+| FieldMayBeFinal | 8 | false |
+| CdiInjectionPointsInspection | 7 | false |
+| JavadocDeclaration | 4 | false |
+| RedundantCast | 3 | false |
 | UnnecessaryLocalVariable | 3 | true |
+| UnnecessaryToStringCall | 3 | true |
+| FieldCanBeLocal | 3 | false |
 | DataFlowIssue | 2 | false |
 | UnnecessaryStringEscape | 2 | true |
-| RedundantSuppression | 2 | false |
+| WebProperties | 2 | false |
 | UnusedAssignment | 2 | false |
 | RedundantLengthCheck | 1 | false |
-| FieldMayBeStatic | 1 | false |
 | CommentedOutCode | 1 | false |
+| JavaReflectionInvocation | 1 | false |
+| DuplicatedCode | 1 | false |
+| Deprecation | 1 | false |
+| CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | TrivialStringConcatenation | 1 | false |
-| StringEqualsEmptyString | 1 | false |
-| UtilityClassWithPublicConstructor | 1 | false |
-| MissingDeprecatedAnnotation | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| Anonymous2MethodRef | 1 | false |
-| Java8MapApi | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| StringBufferReplaceableByStringBuilder | 1 | false |
+| ArraysAsListWithZeroOrOneArgument | 1 | false |
+| RedundantTypeArguments | 1 | false |
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
+#### Snippet
+```java
+        final Set<MavenProject> singleParentSet = Collections.singleton(project);
+
+        final Set<MavenProject> moduleCandidates = new LinkedHashSet<>(reactorProjects);
+
+        final Set<MavenProject> modules = new LinkedHashSet<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
+#### Snippet
+```java
+        final Set<MavenProject> singleParentSet = Collections.singleton(project);
+
+        final Set<MavenProject> moduleCandidates = new LinkedHashSet<>(reactorProjects);
+
+        final Set<MavenProject> modules = new LinkedHashSet<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
+#### Snippet
+```java
+                Set<MavenProject> currentPotentialParents;
+                if (includeSubModules) {
+                    currentPotentialParents = new LinkedHashSet<>(modules);
+                } else {
+                    currentPotentialParents = singleParentSet;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
+#### Snippet
+```java
+                Set<MavenProject> currentPotentialParents;
+                if (includeSubModules) {
+                    currentPotentialParents = new LinkedHashSet<>(modules);
+                } else {
+                    currentPotentialParents = singleParentSet;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddFileSetsTask.java`
+#### Snippet
+```java
+                    configSource,
+                    fileSet.isFiltered(),
+                    new HashSet<>(fileSet.getNonFilteredFileExtensions()),
+                    fileSet.getLineEnding());
+            if (fileSetTransformers == null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/FileItemAssemblyPhase.java`
+#### Snippet
+```java
+                if (!fileItem.getSources().isEmpty()) {
+                    List<InputStream> content =
+                            new ArrayList<>(fileItem.getSources().size());
+                    for (String contentSourcePath : fileItem.getSources()) {
+                        File contentSource = new File(contentSourcePath);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddDependencySetsTask.java`
+#### Snippet
+```java
+                        configSource,
+                        unpackOptions.isFiltered(),
+                        new HashSet<>(unpackOptions.getNonFilteredFileExtensions()),
+                        unpackOptions.getLineEnding())
+                : null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
+#### Snippet
+```java
+        if (moduleSet.isUseAllReactorProjects()) {
+            if (!moduleSet.isIncludeSubModules()) {
+                moduleProjects = new LinkedHashSet<>(configSource.getReactorProjects());
+            }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
+#### Snippet
+```java
+        if (moduleSet.isUseAllReactorProjects()) {
+            if (!moduleSet.isIncludeSubModules()) {
+                moduleProjects = new LinkedHashSet<>(configSource.getReactorProjects());
+            }
+
+```
+
 ## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
@@ -45,81 +150,104 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
                 if (additionalFilter != null) {
 ```
 
-## RuleId[id=FieldMayBeStatic]
-### FieldMayBeStatic
-Field `commentChars` may be 'static'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/SimpleAggregatingDescriptorHandler.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.archiver.Archiver`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String commentChars = "#";
-
-    private final StringWriter aggregateWriter = new StringWriter();
+     * <li>Calculate the output directory/file for the assembly</li>
+     * <li>Setup any handler components for special descriptor files we may encounter</li>
+     * <li>Lookup and configure the {@link org.codehaus.plexus.archiver.Archiver} to be used</li>
+     * <li>Determine what, if any, dependency resolution will be required, and resolve any dependency-version conflicts
+     * up front to produce a managed-version map for the whole assembly process.</li>
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `Assemblies` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/assembly/model/Assemblies.java`
+### JavadocReference
+Cannot resolve symbol `Assembly`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
 #### Snippet
 ```java
- *
- */
-public class Assemblies {
-
-    public static void forEachModuleSet(Assembly assembly, ModuleSetConsumer moduleSetConsumer)
+     * </ol>
+     *
+     * @param assembly              The {@link Assembly}
+     * @param fullName              The full name.
+     * @param format                The format.
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ReaderFormatter` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/assembly/format/ReaderFormatter.java`
+### JavadocReference
+Cannot resolve symbol `PlexusIoResourceCollection`
+in `src/main/java/org/apache/maven/plugins/assembly/internal/SarPlexusIoResourceCollection.java`
 #### Snippet
 ```java
- *
+
+/**
+ * Provider for "sar" {@link PlexusIoResourceCollection}.
  */
-public class ReaderFormatter {
-    private static Reader createReaderFilter(
-            Reader source,
+@Singleton
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MavenProjects` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
+### JavadocReference
+Cannot resolve symbol `UnArchiver`
+in `src/main/java/org/apache/maven/plugins/assembly/internal/SarUnArchiverProvider.java`
 #### Snippet
 ```java
- *
+
+/**
+ * Provider for "sar" {@link UnArchiver}.
  */
-public class MavenProjects {
-    public static void without(Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer) {
-        for (MavenProject project : source) {
+@Singleton
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `AssemblyInterpolator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/assembly/interpolation/AssemblyInterpolator.java`
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.DebugConfigurationListener`
+in `src/main/java/org/apache/maven/plugins/assembly/internal/DebugConfigurationListener.java`
 #### Snippet
 ```java
- *
- */
-public class AssemblyInterpolator {
-    private static final Set<String> INTERPOLATION_BLACKLIST;
 
+/**
+ * Copy of deprecated {@link org.apache.maven.plugin.DebugConfigurationListener} updated to Slf4j.
+ */
+public class DebugConfigurationListener implements ConfigurationListener {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.archiver.ArchiverException`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+     * @param mergeManifestMode     how to handle already existing Manifest files
+     * @return archiver Archiver generated
+     * @throws org.codehaus.plexus.archiver.ArchiverException
+     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.archiver.manager.NoSuchArchiverException`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+     * @return archiver Archiver generated
+     * @throws org.codehaus.plexus.archiver.ArchiverException
+     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
+     */
+    protected Archiver createArchiver(
+```
+
+### JavadocReference
+Cannot resolve symbol `Archiver`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+/**
+ * Controller component designed to organize the many activities involved in creating an assembly archive. This includes
+ * locating and configuring {@link Archiver} instances, executing multiple {@link org.apache.maven.plugins.assembly
+ * .archive.phase.AssemblyArchiverPhase} instances to
+ * interpret the various sections of the assembly descriptor and determine which files to add, and other associated
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `startsWith` may produce `NullPointerException`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedArchivedFileSet.java`
-#### Snippet
-```java
-    public String getPrefix() {
-        String prefix = fileSet.getPrefix();
-        if (prefix.startsWith("/")) {
-            if (prefix.length() > 1) {
-                prefix = prefix.substring(1);
-```
-
 ### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
@@ -130,6 +258,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
                 final ContainerDescriptorHandler handler = containerDescriptorHandlers.get(hint);
 
                 if (handler == null) {
+```
+
+### DataFlowIssue
+Condition `e.getCause() instanceof ComponentConfigurationException` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+            throw new RuntimeException(e);
+        } catch (final InvocationTargetException e) {
+            if (e.getCause() instanceof ComponentConfigurationException) {
+                throw (ComponentConfigurationException) e.getCause();
+            }
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -157,6 +297,189 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/TypeConversionUtils.ja
     }
 ```
 
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
+#### Snippet
+```java
+     * @param assemblyDir the assembly directory
+     * @param transformer the component interpolator
+     * @throws AssemblyReadException
+     */
+    protected void mergeComponentsWithMainAssembly(
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
+#### Snippet
+```java
+     *                   see org.apache.maven.plugin.assembly.utils.LineEndings#valueOf
+     * @return The proper line ending characters
+     * @throws AssemblyFormattingException
+     */
+    public static String getLineEndingCharacters(/* nullable */ String lineEnding) throws AssemblyFormattingException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+     * @param mergeManifestMode     how to handle already existing Manifest files
+     * @return archiver Archiver generated
+     * @throws org.codehaus.plexus.archiver.ArchiverException
+     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+     * @return archiver Archiver generated
+     * @throws org.codehaus.plexus.archiver.ArchiverException
+     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
+     */
+    protected Archiver createArchiver(
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `LEVEL_NAMES.get(...)` to `String` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/io/MessageLevels.java`
+#### Snippet
+```java
+    static String getLevelLabel(int messageLevel) {
+        if (messageLevel > -1 && LEVEL_NAMES.size() > messageLevel) {
+            return (String) LEVEL_NAMES.get(messageLevel);
+        }
+
+```
+
+### RedundantCast
+Casting `it.next()` to `LocatorStrategy` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/io/Locator.java`
+#### Snippet
+```java
+
+        for (Iterator<LocatorStrategy> it = strategies.iterator(); location == null && it.hasNext(); ) {
+            LocatorStrategy strategy = (LocatorStrategy) it.next();
+
+            location = strategy.resolve(locationSpecification, messageHolder);
+```
+
+### RedundantCast
+Casting `it.next()` to `Message` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+        int counter = 1;
+        for (Iterator<Message> it = messages.iterator(); it.hasNext(); ) {
+            Message message = (Message) it.next();
+
+            int ml = message.getMessageLevel();
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `tempFilePrefix` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+class ClasspathResourceLocatorStrategy implements LocatorStrategy {
+
+    private String tempFilePrefix = "location.";
+
+    private String tempFileSuffix = ".cpurl";
+```
+
+### FieldMayBeFinal
+Field `tempFileDeleteOnExit` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+    private String tempFileSuffix = ".cpurl";
+
+    private boolean tempFileDeleteOnExit = true;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `tempFileSuffix` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+    private String tempFilePrefix = "location.";
+
+    private String tempFileSuffix = ".cpurl";
+
+    private boolean tempFileDeleteOnExit = true;
+```
+
+### FieldMayBeFinal
+Field `strategies` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/Locator.java`
+#### Snippet
+```java
+final class Locator {
+
+    private List<LocatorStrategy> strategies;
+    private final MessageHolder messageHolder;
+
+```
+
+### FieldMayBeFinal
+Field `messageLevelStates` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+    private int defaultMessageLevel = MessageLevels.LEVEL_INFO;
+
+    private boolean[] messageLevelStates;
+
+    private MessageSink onDemandSink;
+```
+
+### FieldMayBeFinal
+Field `message` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+
+    private static final class Message {
+        private StringBuffer message = new StringBuffer();
+
+        private Throwable error;
+```
+
+### FieldMayBeFinal
+Field `defaultMessageLevel` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+    private Message currentMessage;
+
+    private int defaultMessageLevel = MessageLevels.LEVEL_INFO;
+
+    private boolean[] messageLevelStates;
+```
+
+### FieldMayBeFinal
+Field `messages` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+class DefaultMessageHolder implements MessageHolder {
+
+    private List<Message> messages = new ArrayList<Message>();
+
+    private Message currentMessage;
+```
+
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (4 lines)
@@ -170,1221 +493,330 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
         // allFilters.addAll( additionalFilters );
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/io/PrefixedClasspathLocatorStrategy.java`
-#### Snippet
-```java
-        }
-
-        if (prefix.length() > 0 && !prefix.endsWith("/")) {
-            prefix += "/";
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() > 0` can be replaced with '!path.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-        if (path.startsWith(base)) {
-            path = path.substring(base.length());
-            if (path.length() > 0) {
-                if (path.startsWith("/") || path.startsWith("\\")) {
-                    path = path.substring(1);
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-            }
-
-            if (path.length() == 0) {
-                path = ".";
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.java`
-#### Snippet
-```java
-        }
-
-        return leftover != null && leftover.length() > 0;
-    }
-}
-```
-
-### SizeReplaceableByIsEmpty
-`leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfServicesHandler.java`
-#### Snippet
-```java
-        }
-
-        return leftover != null && leftover.length() > 0;
-    }
-}
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-        value = interpolator.interpolate(value);
-
-        if ((value.length() > 0) && !value.endsWith("/") && !value.endsWith("\\")) {
-            value += "/";
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-        }
-
-        if ((value.length() > 0) && (value.startsWith("/") || value.startsWith("\\"))) {
-            value = value.substring(1);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-        }
-
-        if (finalSep != null && value.length() > 0 && !value.endsWith(finalSep)) {
-            value += finalSep;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`classifier.length() == 0` can be replaced with 'classifier.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
-#### Snippet
-```java
-    public static String getClassifier(Artifact artifact) {
-        String classifier = artifact.getClassifier();
-        if (classifier != null && classifier.length() == 0) {
-            classifier = null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`effectiveFormats.size() == 0` can be replaced with 'effectiveFormats.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-
-                List<String> effectiveFormats = formats;
-                if (effectiveFormats == null || effectiveFormats.size() == 0) {
-                    effectiveFormats = assembly.getFormats();
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`effectiveFormats.size() == 0` can be replaced with 'effectiveFormats.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-                    effectiveFormats = assembly.getFormats();
-                }
-                if (effectiveFormats == null || effectiveFormats.size() == 0) {
-                    throw new MojoFailureException(
-                            "No formats specified in the execution parameters or the assembly descriptor.");
-```
-
-### SizeReplaceableByIsEmpty
-`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFileSet.java`
-#### Snippet
-```java
-        this.selectors = selectors;
-
-        if (rootPrefix.length() > 0 && !rootPrefix.endsWith("/")) {
-            this.rootPrefix = rootPrefix + "/";
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedArchivedFileSet.java`
-#### Snippet
-```java
-        this.selectors = selectors;
-
-        if (rootPrefix.length() > 0 && !rootPrefix.endsWith("/")) {
-            this.rootPrefix = rootPrefix + "/";
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`interpolationState.asList().size() > 0` can be replaced with '!interpolationState.asList().isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/interpolation/AssemblyInterpolator.java`
-#### Snippet
-```java
-
-    public static void checkErrors(AssemblyId assemblyId, InterpolationState interpolationState, Logger logger) {
-        if (interpolationState.asList() != null && interpolationState.asList().size() > 0 && logger.isDebugEnabled()) {
-            final StringBuilder sb = new StringBuilder();
-
-```
-
-### SizeReplaceableByIsEmpty
-`outputLocation.length() > 0` can be replaced with '!outputLocation.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddArtifactTask.java`
-#### Snippet
-```java
-        String outputLocation = destDirectory;
-
-        if ((outputLocation.length() > 0) && !outputLocation.endsWith("/")) {
-            outputLocation += "/";
-        }
-```
-
-## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
+## RuleId[id=JavaReflectionInvocation]
+### JavaReflectionInvocation
+Argument is not assignable to 'PlexusConfiguration'
 in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
 #### Snippet
 ```java
-                + (containerDescriptorHandlers == null
-                        ? "none; map is null."
-                        : "" + containerDescriptorHandlers.keySet()));
 
-        if (requestedContainerDescriptorHandlers == null) {
+            configureComponent.invoke(
+                    configurator, component, configuration, expressionEvaluator, containerRealm[0], listener);
+        } catch (final NoSuchMethodException | IllegalAccessException e) {
+            throw new RuntimeException(e);
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+## RuleId[id=WebProperties]
+### WebProperties
+Cannot resolve class or package 'foo'
+in `src/it/projects/dependency-sets/dependencySet-projectArtifactNotIncluded/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
-            if (content.length() > label.length() + 3) {
-                buffer.append('[').append(counter++).append("] ");
-                buffer.append(content.toString());
-
-                if (it.hasNext()) {
+    <servlet>
+        <servlet-name>foobar</servlet-name>
+        <servlet-class>foo.Foo</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+### WebProperties
+Cannot resolve class 'Foo'
+in `src/it/projects/dependency-sets/dependencySet-projectArtifactNotIncluded/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
-                error.printStackTrace(pw);
-
-                buffer.append(sw.toString());
-            }
-
+    <servlet>
+        <servlet-name>foobar</servlet-name>
+        <servlet-class>foo.Foo</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-        }
-
-        LOGGER.debug(message + "\n\n" + sWriter.toString() + "\n\n");
-    }
-
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends LocatorStrategy`
-in `src/main/java/org/apache/maven/plugins/assembly/io/Locator.java`
-#### Snippet
-```java
-     * @param strategies the strategies to be set.
-     */
-    void setStrategies(List<LocatorStrategy> strategies) {
-        this.strategies.clear();
-        this.strategies.addAll(strategies);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
-#### Snippet
-```java
-    public static Set<MavenProject> getProjectModules(
-            final MavenProject project,
-            final List<MavenProject> reactorProjects,
-            final boolean includeSubModules,
-            final Logger logger)
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregatingHandler.java`
-#### Snippet
-```java
-    }
-
-    void readLines(final FileInfo fileInfo, final List<String> lines) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(fileInfo.getContents(), getEncoding()))) {
-            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
-#### Snippet
-```java
-
-    public static Set<MavenProject> filterProjects(
-            final Set<MavenProject> projects,
-            final List<String> includes,
-            final List<String> excludes,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactFilter`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void reportFilteringStatistics(final Collection<ArtifactFilter> filters, final Logger logger) {
-        for (final ArtifactFilter f : filters) {
-            if (f instanceof StatisticsReportingArtifactFilter) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends InputStream`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/FileItemAssemblyPhase.java`
-#### Snippet
-```java
-    }
-
-    private ContentSupplier getContentSupplier(final Collection<InputStream> contentStreams) {
-        return new ContentSupplier() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/assembly/artifact/ResolutionManagementInfo.java`
-#### Snippet
-```java
-    }
-
-    void addArtifacts(final Set<Artifact> a) {
-        for (Artifact artifact : a) {
-            addOneArtifact(artifact);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-
-    public static void select(
-            Iterable<MavenProject> source,
-            String packagingType,
-            MavenProjectConsumer include,
-```
-
-### BoundedWildcard
-Can generalize to `? super MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-    }
-
-    public static MavenProjectConsumer addTo(final Set<MavenProject> set) {
-        return new MavenProjectConsumer() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
- */
-public class MavenProjects {
-    public static void without(Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer) {
-        for (MavenProject project : source) {
-            if (!packagingType.equals(project.getPackaging())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-    }
-
-    public static void select(Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer) {
-        for (MavenProject project : source) {
-            if (packagingType.equals(project.getPackaging())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
 in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
 #### Snippet
 ```java
-    }
+        final int dirMode = TypeConversionUtils.modeToInt(binaries.getDirectoryMode(), LOGGER);
+        if (dirMode != -1) {
+            task.setDirectoryMode(dirMode);
+        }
 
-    private List<MavenProject> validateModuleVersions(Set<MavenProject> moduleProjects) {
-        List<MavenProject> result = new ArrayList<>();
-
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
-        assemblyWorkPath = assemblyWorkDir.getAbsolutePath().replace('\\', '/');
-
-        if (!"".equals(rootPrefix) && !rootPrefix.endsWith("/")) {
-            this.rootPrefix += "/";
+        final int fileMode = TypeConversionUtils.modeToInt(binaries.getFileMode(), LOGGER);
+        if (fileMode != -1) {
+            task.setFileMode(fileMode);
         }
 ```
 
-## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+## RuleId[id=SpringHandlersSchemasHighlighting]
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-    @Override
-    public synchronized FixedStringSearchInterpolator getCommandLinePropsInterpolator() {
-        if (commandLinePropertiesInterpolator == null) {
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getCommandLinePropsInterpolator() {
-        if (commandLinePropertiesInterpolator == null) {
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-        }
-        return commandLinePropertiesInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.commandLinePropertiesInterpolator = createCommandLinePropertiesInterpolator();
-        }
-        return commandLinePropertiesInterpolator;
-    }
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
 
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `rootInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'context'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-    @Override
-    public synchronized FixedStringSearchInterpolator getRepositoryInterpolator() {
-        if (rootInterpolator == null) {
-            this.rootInterpolator = createRepositoryInterpolator();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.rootInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getRepositoryInterpolator() {
-        if (rootInterpolator == null) {
-            this.rootInterpolator = createRepositoryInterpolator();
-        }
-        return rootInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `rootInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.rootInterpolator = createRepositoryInterpolator();
-        }
-        return rootInterpolator;
-    }
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
 
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `envInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-    @Override
-    public synchronized FixedStringSearchInterpolator getEnvInterpolator() {
-        if (envInterpolator == null) {
-            this.envInterpolator = createEnvInterpolator();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.envInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getEnvInterpolator() {
-        if (envInterpolator == null) {
-            this.envInterpolator = createEnvInterpolator();
-        }
-        return envInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `envInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.envInterpolator = createEnvInterpolator();
-        }
-        return envInterpolator;
-    }
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
 
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+### SpringHandlersSchemasHighlighting
+Cannot resolve class 'ContextNamespaceHandler1'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-    @Override
-    public synchronized FixedStringSearchInterpolator getMainProjectInterpolator() {
-        if (mainProjectInterpolator == null) {
-            this.mainProjectInterpolator = mainProjectInterpolator(getProject());
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getMainProjectInterpolator() {
-        if (mainProjectInterpolator == null) {
-            this.mainProjectInterpolator = mainProjectInterpolator(getProject());
-        }
-        return mainProjectInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.mainProjectInterpolator = mainProjectInterpolator(getProject());
-        }
-        return mainProjectInterpolator;
-    }
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
 
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'org'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
 #### Snippet
 ```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
 
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private final Map<String, ContainerDescriptorHandler> containerDescriptorHandlers;
-
-    private final PlexusContainer container;
 ```
 
-### RedundantSuppression
-Redundant suppression
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'aop'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve file 'spring-aop-3.0.xsd'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'aop'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve class 'AopNamespaceHandler1'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'org'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'aop'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve file 'spring-aop-4.0.xsd'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
-     */
-    @SuppressWarnings("resource")
-    public static InputStream lineEndingConverter(InputStream in, LineEndings lineEndings) throws IOException {
-        return lineEndings.isNewLine()
-                ? new LinuxLineFeedInputStream(in, false)
-```
-
-## RuleId[id=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `AssemblyInterpolator` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/maven/plugins/assembly/interpolation/AssemblyInterpolator.java`
-#### Snippet
-```java
- *
- */
-public class AssemblyInterpolator {
-    private static final Set<String> INTERPOLATION_BLACKLIST;
-
-```
-
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(property = "assembly.useJvmChmod", defaultValue = "false")
-    private boolean useJvmChmod;
-
-    /**
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-            if (value.contains("." + sep)) {
-                List<String> parts = new ArrayList<>();
-                parts.addAll(Arrays.asList(value.split(sep.replace("\\", "\\\\"))));
-
-                for (ListIterator<String> it = parts.listIterator(); it.hasNext(); ) {
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.interpolation.fixed` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-            // 5
-            return FixedStringSearchInterpolator.create(
-                    new org.codehaus.plexus.interpolation.fixed.PrefixedObjectValueSource(
-                            InterpolationConstants.PROJECT_PREFIXES, mainProject, true));
+        if (encoding == null) {
+            // platform encoding
+            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest)));
         } else {
+            // MASSEMBLY-371
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
-     * @param fullName              The full name.
-     * @param format                The format.
-     * @param configSource          The {@link org.apache.maven.plugins.assembly.AssemblerConfigurationSource}
-     * @param recompressZippedFiles recompress zipped files.
-     * @param mergeManifestMode     How to handle already existing Manifest files (skip, merge, mergewithoutmain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly.format` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
-#### Snippet
-```java
-     * @return The resulting archive file.
-     * @throws ArchiveCreationException                                                 when creation fails
-     * @throws org.apache.maven.plugins.assembly.format.AssemblyFormattingException     when formatting fails
-     * @throws org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException when the configuration is bad
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
-#### Snippet
-```java
-     * @throws ArchiveCreationException                                                 when creation fails
-     * @throws org.apache.maven.plugins.assembly.format.AssemblyFormattingException     when formatting fails
-     * @throws org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException when the configuration is bad
-     */
-    File createArchive(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly.archive` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/AssemblyArchiverPhase.java`
-#### Snippet
-```java
-     * @param configSource The configuration for this assembly build, normally derived from the plugin that launched
-     *                     the assembly process.
-     * @throws org.apache.maven.plugins.assembly.archive.ArchiveCreationException       in case of an archive
-     *                                                                                  creation error.
-     * @throws org.apache.maven.plugins.assembly.format.AssemblyFormattingException     in case of a assembly
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly.format` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/AssemblyArchiverPhase.java`
-#### Snippet
-```java
-     * @throws org.apache.maven.plugins.assembly.archive.ArchiveCreationException       in case of an archive
-     *                                                                                  creation error.
-     * @throws org.apache.maven.plugins.assembly.format.AssemblyFormattingException     in case of a assembly
-     *                                                                                  formatting exception.
-     * @throws org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException in case of an invalid
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.assembly` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/AssemblyArchiverPhase.java`
-#### Snippet
-```java
-     * @throws org.apache.maven.plugins.assembly.format.AssemblyFormattingException     in case of a assembly
-     *                                                                                  formatting exception.
-     * @throws org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException in case of an invalid
-     *                                                                                  assembler configuration.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.interpolation.fixed` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            // 5
-            return FixedStringSearchInterpolator.create(
-                    new org.codehaus.plexus.interpolation.fixed.PrefixedObjectValueSource(
-                            InterpolationConstants.PROJECT_PREFIXES, mainProject, true),
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.interpolation.fixed` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-
-                    // 6
-                    new org.codehaus.plexus.interpolation.fixed.PrefixedPropertiesValueSource(
-                            InterpolationConstants.PROJECT_PROPERTIES_PREFIXES, mainProject.getProperties(), true));
         } else {
+            // MASSEMBLY-371
+            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest), encoding));
+        }
+    }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.archiver` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
-     * @param mergeManifestMode     how to handle already existing Manifest files
-     * @return archiver Archiver generated
-     * @throws org.codehaus.plexus.archiver.ArchiverException
-     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
-     */
+        if (encoding == null) {
+            // platform encoding
+            return new BufferedReader(new InputStreamReader(new FileInputStream(source)));
+        } else {
+            // MASSEMBLY-371
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.archiver.manager` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
-     * @return archiver Archiver generated
-     * @throws org.codehaus.plexus.archiver.ArchiverException
-     * @throws org.codehaus.plexus.archiver.manager.NoSuchArchiverException
-     */
-    protected Archiver createArchiver(
+        } else {
+            // MASSEMBLY-371
+            return new BufferedReader(new InputStreamReader(new FileInputStream(source), encoding));
+        }
+    }
 ```
 
-## RuleId[id=Anonymous2MethodRef]
-### Anonymous2MethodRef
-Anonymous new MavenProjectConsumer() can be replaced with method reference
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-
-    public static MavenProjectConsumer addTo(final Set<MavenProject> set) {
-        return new MavenProjectConsumer() {
-            @Override
-            public void accept(MavenProject project) {
-```
-
-## RuleId[id=Java8MapApi]
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregatingHandler.java`
 #### Snippet
 ```java
 
-            List<String> lines = catalog.get(name);
-            if (lines == null) {
-                lines = new ArrayList<>();
-                catalog.put(name, lines);
+                try (PrintWriter writer =
+                        new PrintWriter(new OutputStreamWriter(new FileOutputStream(f), getEncoding()))) {
+                    for (final String line : entry.getValue()) {
+                        writer.println(line);
 ```
 
-## RuleId[id=GroovyUnusedAssignment]
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/file-sets/multimodule-unix-lineEndings/verify.groovy`
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/filter/SimpleAggregatingDescriptorHandler.java`
 #### Snippet
 ```java
-FileReader reader = new FileReader( f );
-char[] cbuf = new char[16];
-int read = -1;
-while( ( read = reader.read( cbuf ) ) > -1 )
-{
+        Writer writer;
+        writer = AssemblyFileUtils.isPropertyFile(f)
+                ? new OutputStreamWriter(new FileOutputStream(f), StandardCharsets.ISO_8859_1)
+                : new OutputStreamWriter(new FileOutputStream(f)); // Still platform encoding
+        return writer;
 ```
 
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/file-sets/multimodule-win-lineEndings/verify.groovy`
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/filter/SimpleAggregatingDescriptorHandler.java`
 #### Snippet
 ```java
-FileReader reader = new FileReader( f );
-char[] cbuf = new char[16];
-int read = -1;
-while( ( read = reader.read( cbuf ) ) > -1 )
-{
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/dependency-sets/depSet-enum-vs-wildcard/verify.groovy`
-#### Snippet
-```java
-        InputStream is = jf1.getInputStream( entry1 )
-        byte[] buf = new byte[1024]
-        int read = -1
-
-        while( ( read = is.read( buf ) ) > -1 )
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/dependency-sets/depSet-enum-vs-wildcard/verify.groovy`
-#### Snippet
-```java
-
-        is = jf2.getInputStream( entry2 )
-        read = -1
-
-        while( ( read = is.read( buf ) ) > -1 )
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/descriptor-refs/jar-with-dependencies/deps-unpacked-to-root-dir/verify.groovy`
-#### Snippet
-```java
-import java.util.jar.*;
-
-boolean result = true;
-
-System.out.println( "Creating JarFile java.io.File." )
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/descriptor-refs/jar-with-dependencies/component-descriptors-merged/verify.groovy`
-#### Snippet
-```java
-ByteArrayOutputStream baos = new ByteArrayOutputStream()
-byte[] buf = new byte[16]
-int read = -1
-
-while( ( read = instream.read( buf ) ) > -1 )
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashRSeen = false;
-
-    private boolean eofSeen = false;
-
-    LinuxLineFeedInputStream(InputStream in, boolean ensureLineFeedAtEndOfFile) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashNSeen = false;
-
-    private boolean slashRSeen = false;
-
-    private boolean eofSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
-#### Snippet
-```java
-    private final boolean ensureLineFeedAtEndOfFile;
-
-    private boolean slashNSeen = false;
-
-    private boolean slashRSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashNSeen = false;
-
-    private boolean injectSlashN = false;
-
-    private boolean eofSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean injectSlashN = false;
-
-    private boolean eofSeen = false;
-
-    WindowsLineFeedInputStream(InputStream in, boolean ensureLineFeedAtEndOfFile) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashRSeen = false;
-
-    private boolean slashNSeen = false;
-
-    private boolean injectSlashN = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private final boolean ensureLineFeedAtEndOfFile;
-
-    private boolean slashRSeen = false;
-
-    private boolean slashNSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/filter/ComponentsXmlArchiverFileFilter.java`
-#### Snippet
-```java
-    Map<String, Xpp3Dom> components;
-
-    private boolean excludeOverride = false;
-
-    void addComponentsXml(final Reader componentsReader) throws XmlPullParserException, IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregatingHandler.java`
-#### Snippet
-```java
-    private Map<String, List<String>> catalog = new HashMap<>();
-
-    private boolean excludeOverride = false;
-
-    protected abstract String getOutputPathPrefix(FileInfo fileInfo);
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddArtifactTask.java`
-#### Snippet
-```java
-    private int fileMode = -1;
-
-    private boolean unpack = false;
-
-    private List<String> includes;
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `location`
-in `src/main/java/org/apache/maven/plugins/assembly/io/PrefixedClasspathLocatorStrategy.java`
-#### Snippet
-```java
-    private String formatLocation(String location) {
-        if (location.startsWith("/")) {
-            location = location.substring(1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/maven/plugins/assembly/io/PrefixedClasspathLocatorStrategy.java`
-#### Snippet
-```java
-    private String formatPrefix(String prefix) {
-        if (prefix.startsWith("/")) {
-            prefix = prefix.substring(1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/maven/plugins/assembly/io/PrefixedClasspathLocatorStrategy.java`
-#### Snippet
-```java
-
-        if (prefix.length() > 0 && !prefix.endsWith("/")) {
-            prefix += "/";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-        }
-
-        path = path.trim();
-
-        String base = basedir.getAbsolutePath();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-        String base = basedir.getAbsolutePath();
-        if (path.startsWith(base)) {
-            path = path.substring(base.length());
-            if (path.length() > 0) {
-                if (path.startsWith("/") || path.startsWith("\\")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-            if (path.length() > 0) {
-                if (path.startsWith("/") || path.startsWith("\\")) {
-                    path = path.substring(1);
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-
-            if (path.length() == 0) {
-                path = ".";
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-
-        if (!new File(path).isAbsolute()) {
-            path = path.replace('\\', '/');
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `reader`
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-
-            reader.close();
-            reader = null;
-        } catch (final IOException | XmlPullParserException e) {
-            throw new AssemblyReadException(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `first`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFileSet.java`
-#### Snippet
-```java
-            System.arraycopy(second, 0, temp, first.length, second.length);
-
-            first = temp;
-        } else if ((first == null) && (second != null)) {
-            first = second;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `first`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFileSet.java`
-#### Snippet
-```java
-            first = temp;
-        } else if ((first == null) && (second != null)) {
-            first = second;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `requestedContainerDescriptorHandlers`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
-#### Snippet
-```java
-
-        if (requestedContainerDescriptorHandlers == null) {
-            requestedContainerDescriptorHandlers = new ArrayList<>();
-        }
-
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-21-54-47.127.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java`
-#### Snippet
-```java
-
-        if (path == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-            if (configSource.isIgnoreMissingDescriptor()) {
-                LOGGER.debug("Ignoring missing assembly descriptor with ID '" + ref + "' per configuration.");
-                return null;
-            } else {
-                throw new AssemblyReadException("Descriptor with ID '" + ref + "' not found");
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-                        + "' per configuration.\nLocator output was:\n\n"
-                        + locator.getMessageHolder().render());
-                return null;
-            } else {
-                throw new AssemblyReadException("Error locating assembly descriptor: " + spec + "\n\n"
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-            if (configSource.isIgnoreMissingDescriptor()) {
-                LOGGER.debug("Ignoring missing assembly descriptor: '" + descriptor + "' per configuration.");
-                return null;
-            } else {
-                throw new AssemblyReadException("Descriptor: '" + descriptor + "' not found");
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/ManifestCreationFinalizer.java`
-#### Snippet
-```java
-        }
-
-        return null;
+        writer = AssemblyFileUtils.isPropertyFile(f)
+                ? new OutputStreamWriter(new FileOutputStream(f), StandardCharsets.ISO_8859_1)
+                : new OutputStreamWriter(new FileOutputStream(f)); // Still platform encoding
+        return writer;
     }
-}
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/filter/ComponentsXmlArchiverFileFilter.java`
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/FileItemAssemblyPhase.java`
 #### Snippet
 ```java
+                            contentSource = new File(basedir, contentSourcePath);
+                        }
+                        content.add(new FileInputStream(contentSource));
+                    }
+
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
+#### Snippet
+```java
+        @Override
+        public InputStream getContents() throws IOException {
+            return new FileInputStream(inputFile);
         }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/format/ReaderFormatter.java`
-#### Snippet
-```java
-            };
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    @Override
-    public String getArchiverConfig() {
-        return archiverConfig == null ? null : archiverConfig.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
 
 ```
 
@@ -1425,78 +857,191 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFil
     }
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buffer` may be declared as 'StringBuilder'
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'ReaderInputStream(java.io.Reader)' is deprecated
+in `src/main/java/org/apache/maven/plugins/assembly/format/ReaderFormatter.java`
 #### Snippet
 ```java
-    /** {@inheritDoc} */
-    public String render() {
-        StringBuffer buffer = new StringBuffer();
-
-        int counter = 1;
+                        result = encoding != null
+                                ? new ReaderInputStream(filtered, encoding)
+                                : new ReaderInputStream(filtered);
+                    }
+                    if (transformLineEndings) {
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/utils/TypeConversionUtils.java`
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
 #### Snippet
 ```java
+            if (value.contains("." + sep)) {
+                List<String> parts = new ArrayList<>();
+                parts.addAll(Arrays.asList(value.split(sep.replace("\\", "\\\\"))));
 
-        if ((list != null) && !list.isEmpty()) {
-            result = list.toArray(new String[0]);
-        }
-
+                for (ListIterator<String> it = parts.listIterator(); it.hasNext(); ) {
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+## RuleId[id=CdiInjectionPointsInspection]
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/DependencySetAssemblyPhase.java`
+#### Snippet
+```java
+    @Inject
+    public DependencySetAssemblyPhase(
+            final ProjectBuilder projectBuilder, final DependencyResolver dependencyResolver) {
+        this.projectBuilder = requireNonNull(projectBuilder);
+        this.dependencyResolver = requireNonNull(dependencyResolver);
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
 in `src/main/java/org/apache/maven/plugins/assembly/artifact/DefaultDependencyResolver.java`
 #### Snippet
 ```java
-            if (binaries.isIncludeDependencies()) {
-                updateDependencySetResolutionRequirements(
-                        dependencySet, requirements, projects.toArray(new MavenProject[0]));
-            }
-        }
-```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
-            dfs.setCaseSensitive(fs.isCaseSensitive());
-            dfs.setDirectory(fs.getDirectory());
-            dfs.setExcludes(newEx.toArray(new String[0]));
-            dfs.setFileSelectors(fs.getFileSelectors());
-            dfs.setIncludes(newIn.toArray(new String[0]));
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
-            dfs.setExcludes(newEx.toArray(new String[0]));
-            dfs.setFileSelectors(fs.getFileSelectors());
-            dfs.setIncludes(newIn.toArray(new String[0]));
-            dfs.setIncludingEmptyDirectories(fs.isIncludingEmptyDirectories());
-            dfs.setPrefix(fs.getPrefix());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
-
-        if (!selectors.isEmpty()) {
-            this.selectors = selectors.toArray(new FileSelector[0]);
-        }
+    @Inject
+    public DefaultDependencyResolver(ArtifactHandlerManager artifactHandlerManager) {
+        this.artifactHandlerManager = requireNonNull(artifactHandlerManager);
     }
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssemblyPhase.java`
+#### Snippet
+```java
+     */
+    @Inject
+    public ModuleSetAssemblyPhase(final ProjectBuilder projectBuilder, final DependencyResolver dependencyResolver) {
+        this.projectBuilder = requireNonNull(projectBuilder);
+        this.dependencyResolver = requireNonNull(dependencyResolver);
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+    @Inject
+    public DefaultAssemblyArchiver(
+            ArchiverManager archiverManager,
+            List<AssemblyArchiverPhase> assemblyPhases,
+            Map<String, ContainerDescriptorHandler> containerDescriptorHandlers,
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+    public DefaultAssemblyArchiver(
+            ArchiverManager archiverManager,
+            List<AssemblyArchiverPhase> assemblyPhases,
+            Map<String, ContainerDescriptorHandler> containerDescriptorHandlers,
+            PlexusContainer container) {
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+            ArchiverManager archiverManager,
+            List<AssemblyArchiverPhase> assemblyPhases,
+            Map<String, ContainerDescriptorHandler> containerDescriptorHandlers,
+            PlexusContainer container) {
+        this.archiverManager = requireNonNull(archiverManager);
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+            List<AssemblyArchiverPhase> assemblyPhases,
+            Map<String, ContainerDescriptorHandler> containerDescriptorHandlers,
+            PlexusContainer container) {
+        this.archiverManager = requireNonNull(archiverManager);
+        this.assemblyPhases = requireNonNull(assemblyPhases);
+```
+
+## RuleId[id=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+                + (containerDescriptorHandlers == null
+                        ? "none; map is null."
+                        : "" + containerDescriptorHandlers.keySet()));
+
+        if (requestedContainerDescriptorHandlers == null) {
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
+#### Snippet
+```java
+        }
+
+        LOGGER.debug(message + "\n\n" + sWriter.toString() + "\n\n");
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+            if (content.length() > label.length() + 3) {
+                buffer.append('[').append(counter++).append("] ");
+                buffer.append(content.toString());
+
+                if (it.hasNext()) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+                error.printStackTrace(pw);
+
+                buffer.append(sw.toString());
+            }
+
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddFileSetsTask.java`
+#### Snippet
+```java
+
+    public AddFileSetsTask(final FileSet... fileSets) {
+        this.fileSets = new ArrayList<>(Arrays.asList(fileSets));
+    }
+
+```
+
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
+#### Snippet
+```java
+        if ((descriptorSourceDirectory != null) && descriptorSourceDirectory.isDirectory()) {
+            // CHECKSTYLE_OFF: LineLength
+            locator.setStrategies(Collections.<LocatorStrategy>singletonList(
+                    new RelativeFileLocatorStrategy(descriptorSourceDirectory)));
+            // CHECKSTYLE_ON: LineLength
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1522,5 +1067,42 @@ in `src/main/java/org/apache/maven/plugins/assembly/artifact/DefaultDependencyRe
             Set<Artifact> dependencyArtifacts = null;
             if (set.isUseTransitiveDependencies()) {
                 dependencyArtifacts = project.getArtifacts();
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+class ClasspathResourceLocatorStrategy implements LocatorStrategy {
+
+    private String tempFilePrefix = "location.";
+
+    private String tempFileSuffix = ".cpurl";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+    private String tempFileSuffix = ".cpurl";
+
+    private boolean tempFileDeleteOnExit = true;
+
+    /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+    private String tempFilePrefix = "location.";
+
+    private String tempFileSuffix = ".cpurl";
+
+    private boolean tempFileDeleteOnExit = true;
 ```
 
