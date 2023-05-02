@@ -1,148 +1,111 @@
 # eclipse-collections-kata 
  
 # Bad smells
-I found 28 bad smells with 1 repairable:
+I found 46 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UNUSED_IMPORT | 15 | false |
-| FieldMayBeStatic | 8 | false |
-| ReturnNull | 2 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| UNUSED_IMPORT | 23 | false |
+| FieldMayBeFinal | 14 | false |
+| NonFinalFieldInEnum | 6 | false |
+| DuplicatedCode | 1 | false |
+| Deprecation | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| ZeroLengthArrayInitialization | 1 | false |
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-29-23-47-24.800.html`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+        Pet pet = new Pet(petType, name, age);
+        this.pets.add(pet);
+        this.petsByAge.getIfAbsentPut(pet.getAge(), Lists.mutable::empty).add(pet);
+        this.petsByType.getIfAbsentPut(pet.getType(), Lists.mutable::empty).add(pet);
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `color` in enum 'Fruit'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
 ```java
-    {
-        Assertions.fail("Implement this method as part of Exercise 2");
-        return null;
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+    Fruit(String emoji, Color color)
+```
+
+### NonFinalFieldInEnum
+Non-final field `ALL` in enum 'Fruit'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+    ORANGE("🍊", Color.ORANGE);
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+```
+
+### NonFinalFieldInEnum
+Non-final field `emoji` in enum 'Fruit'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `color` in enum 'Fruit'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+    Fruit(String emoji, Color color)
+```
+
+### NonFinalFieldInEnum
+Non-final field `ALL` in enum 'Fruit'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+    ORANGE("🍊", Color.ORANGE);
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+```
+
+### NonFinalFieldInEnum
+Non-final field `emoji` in enum 'Fruit'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'injectInto(double, org.eclipse.collections.api.block.function.primitive.DoubleObjectToDoubleFunction)' is deprecated
+in `company-kata/src/main/java/org/eclipse/collections/companykata/Order.java`
+#### Snippet
+```java
+        return Lists.adapt(this.lineItems)
+                .collect(LineItem::getValue)
+                .injectInto(0.0, AddFunction.DOUBLE_TO_DOUBLE);
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `pet-kata/src/main/java/org/eclipse/collections/petkata/PetType.java`
-#### Snippet
-```java
-    {
-        // Find the correct PetType based on the String emoji
-        return null;
-    }
-}
-```
-
-## RuleId[id=FieldMayBeStatic]
-### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
-#### Snippet
-```java
-class MinMaxPrimitivesBoxed
-{
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
-#### Snippet
-```java
-{
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-    private final Byte maxbyteValue = Byte.MAX_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-    private final byte maxbyteValue = Byte.MAX_VALUE;
-```
-
-### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-class MinMaxPrimitivesPlain
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-    private final byte maxbyteValue = Byte.MAX_VALUE;
-```
-
-### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-class MinMaxPrimitivesPlain
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
-#### Snippet
-```java
-class MinMaxPrimitivesBoxed
-{
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
-#### Snippet
-```java
-{
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-    private final Byte maxbyteValue = Byte.MAX_VALUE;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -158,20 +121,31 @@ in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/ObjectMapperU
         return objectMapper;
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
+## RuleId[id=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.RichIterable;`
+in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
 #### Snippet
 ```java
+import java.util.stream.IntStream;
 
-    // Suppliers are array based. Refactor to a MutableList<Supplier>
-    private Supplier[] suppliers = new Supplier[0];
-
-    public Company(String name)
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.api.bag.Bag;
+import org.eclipse.collections.api.list.ImmutableList;
 ```
 
-## RuleId[id=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.RichIterable;`
+in `candy-kata-solutions/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+import java.util.stream.IntStream;
+
+import org.eclipse.collections.api.RichIterable;
+import org.eclipse.collections.api.bag.Bag;
+import org.eclipse.collections.api.list.ImmutableList;
+```
+
 ### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.list.mutable.FastList;`
 in `company-kata/src/main/java/org/eclipse/collections/companykata/Company.java`
@@ -182,6 +156,30 @@ import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.list.mutable.FastList;
 import org.junit.jupiter.api.Assertions;
 
+```
+
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.block.function.Function;`
+in `company-kata/src/main/java/org/eclipse/collections/companykata/Customer.java`
+#### Snippet
+```java
+package org.eclipse.collections.companykata;
+
+import org.eclipse.collections.api.block.function.Function;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.impl.block.function.AddFunction;
+```
+
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.list.MutableList;`
+in `company-kata/src/main/java/org/eclipse/collections/companykata/Customer.java`
+#### Snippet
+```java
+
+import org.eclipse.collections.api.block.function.Function;
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.impl.block.function.AddFunction;
+import org.eclipse.collections.impl.utility.ListIterate;
 ```
 
 ### UNUSED_IMPORT
@@ -206,6 +204,30 @@ import org.eclipse.collections.impl.utility.ListIterate;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
+```
+
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.block.function.Function;`
+in `company-kata/src/main/java/org/eclipse/collections/companykata/LineItem.java`
+#### Snippet
+```java
+package org.eclipse.collections.companykata;
+
+import org.eclipse.collections.api.block.function.Function;
+
+/**
+```
+
+### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.block.function.Function;`
+in `company-kata/src/main/java/org/eclipse/collections/companykata/Supplier.java`
+#### Snippet
+```java
+package org.eclipse.collections.companykata;
+
+import org.eclipse.collections.api.block.function.Function;
+
+/**
 ```
 
 ### UNUSED_IMPORT
@@ -317,6 +339,18 @@ import org.eclipse.collections.impl.utility.ListIterate;
 ```
 
 ### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.block.function.Function;`
+in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/LineItem.java`
+#### Snippet
+```java
+package org.eclipse.collections.companykata;
+
+import org.eclipse.collections.api.block.function.Function;
+
+/**
+```
+
+### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.block.function.AddFunction;`
 in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/Order.java`
 #### Snippet
@@ -341,6 +375,18 @@ import org.eclipse.collections.impl.factory.SortedBags;
 ```
 
 ### UNUSED_IMPORT
+Unused import `import org.eclipse.collections.api.block.function.Function;`
+in `company-kata-solutions/src/main/java/org/eclipse/collections/companykata/Supplier.java`
+#### Snippet
+```java
+package org.eclipse.collections.companykata;
+
+import org.eclipse.collections.api.block.function.Function;
+
+/**
+```
+
+### UNUSED_IMPORT
 Unused import `import org.eclipse.collections.impl.utility.ArrayIterate;`
 in `pet-kata/src/main/java/org/eclipse/collections/petkata/PetType.java`
 #### Snippet
@@ -350,5 +396,174 @@ package org.eclipse.collections.petkata;
 import org.eclipse.collections.impl.utility.ArrayIterate;
 
 public enum PetType
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
+#### Snippet
+```java
+public class Pet
+{
+    private PetType type;
+    private String name;
+    private int age;
+```
+
+### FieldMayBeFinal
+Field `age` may be 'final'
+in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
+#### Snippet
+```java
+    private PetType type;
+    private String name;
+    private int age;
+
+    public Pet(PetType type, String name, int age)
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
+#### Snippet
+```java
+{
+    private PetType type;
+    private String name;
+    private int age;
+
+```
+
+### FieldMayBeFinal
+Field `age` may be 'final'
+in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
+#### Snippet
+```java
+    private String firstName;
+    private String lastName;
+    private int age;
+
+    @JsonProperty
+```
+
+### FieldMayBeFinal
+Field `firstName` may be 'final'
+in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
+#### Snippet
+```java
+public class Person
+{
+    private String firstName;
+    private String lastName;
+    private int age;
+```
+
+### FieldMayBeFinal
+Field `lastName` may be 'final'
+in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
+#### Snippet
+```java
+{
+    private String firstName;
+    private String lastName;
+    private int age;
+
+```
+
+### FieldMayBeFinal
+Field `time` may be 'final'
+in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+            new SchoolGroup(HALLOWEEN.atTime(HIGH_SCHOOL_START), CANDY_COUNT);
+
+    private LocalDateTime time;
+    private long candyCount;
+
+```
+
+### FieldMayBeFinal
+Field `candyCount` may be 'final'
+in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+
+    private LocalDateTime time;
+    private long candyCount;
+
+    private SchoolGroup(LocalDateTime time, long candyCount)
+```
+
+### FieldMayBeFinal
+Field `time` may be 'final'
+in `candy-kata-solutions/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+            new SchoolGroup(HALLOWEEN.atTime(HIGH_SCHOOL_START), CANDY_COUNT);
+
+    private LocalDateTime time;
+    private long candyCount;
+
+```
+
+### FieldMayBeFinal
+Field `candyCount` may be 'final'
+in `candy-kata-solutions/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+
+    private LocalDateTime time;
+    private long candyCount;
+
+    private SchoolGroup(LocalDateTime time, long candyCount)
+```
+
+### FieldMayBeFinal
+Field `color` may be 'final'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+    Fruit(String emoji, Color color)
+```
+
+### FieldMayBeFinal
+Field `emoji` may be 'final'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+```
+
+### FieldMayBeFinal
+Field `color` may be 'final'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+    Fruit(String emoji, Color color)
+```
+
+### FieldMayBeFinal
+Field `emoji` may be 'final'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
 ```
 
