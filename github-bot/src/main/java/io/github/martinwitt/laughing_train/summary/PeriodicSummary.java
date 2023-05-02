@@ -80,7 +80,7 @@ public class PeriodicSummary {
         FindPullRequestResult test =
                 issueRequestService.findPullRequests(new FindIssueRequest.WithUserName("MartinWitt"));
         if (test instanceof FindPullRequestResult.MultipleResults multipleResults) {
-            logger.atInfo().log("Found multiple results %s", multipleResults);
+            logger.atInfo().log("Found multiple results %s", multipleResults.pullRequests().size());
             updateBody(issue, multipleResults);
         } else if (test instanceof FindPullRequestResult.NoResult noResult) {
             logger.atInfo().log("Found no results %s", noResult);
