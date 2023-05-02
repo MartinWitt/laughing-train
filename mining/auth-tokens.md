@@ -84,6 +84,31 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.jav
         }
 ```
 
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `destroy()` is identical to its super method
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+#### Snippet
+```java
+
+    @Override
+    public void destroy() {}
+
+    private ServletRequest addBearerTokenIfBasicAuth(ServletRequest request) {
+```
+
+### RedundantMethodOverride
+Method `destroy()` is identical to its super method
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+#### Snippet
+```java
+
+    @Override
+    public void destroy() {}
+
+    private ServletRequest addBearerTokenIfBasicAuth(ServletRequest request) {
+```
+
 ## RuleId[id=DuplicatedCode]
 ### DuplicatedCode
 Duplicated code
@@ -277,31 +302,6 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
             setUnverifiedContext(requestContext, Key.TOKEN_ID, jwt.getUnverifiedTokenId());
             requestContext.setProperty(JSON_WEB_TOKEN_KEY, jwt);
         }
-```
-
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `destroy()` is identical to its super method
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
-#### Snippet
-```java
-
-    @Override
-    public void destroy() {}
-
-    private ServletRequest addBearerTokenIfBasicAuth(ServletRequest request) {
-```
-
-### RedundantMethodOverride
-Method `destroy()` is identical to its super method
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
-#### Snippet
-```java
-
-    @Override
-    public void destroy() {}
-
-    private ServletRequest addBearerTokenIfBasicAuth(ServletRequest request) {
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
