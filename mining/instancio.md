@@ -18,8 +18,8 @@ I found 278 bad smells with 0 repairable:
 | DuplicatedCode | 3 | false |
 | RedundantLengthCheck | 1 | false |
 | ManualArrayToCollectionCopy | 1 | false |
-| SimplifyStreamApiCallChains | 1 | false |
 | MissingSerialAnnotation | 1 | false |
+| SimplifyStreamApiCallChains | 1 | false |
 | SuspiciousToArrayCall | 1 | false |
 | FuseStreamOperations | 1 | false |
 | UseBulkOperation | 1 | false |
@@ -63,54 +63,6 @@ in `instancio-tests/instancio-test-support/src/main/java/org/instancio/test/supp
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        @NotNull
-        @Length(min = 8, max = 8)
-        @LuhnCheck(startIndex = 0, endIndex = 7)
-        private String value0;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        @NotNull
-        @Length(min = 17)
-        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 8)
-        private String value0;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        @NotNull
-        @Length(min = 17)
-        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 7)
-        private String value0;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithStartEndIndices {
-        @LuhnCheck(startIndex = 0, endIndex = 7)
-        private String value0;
-        @LuhnCheck(startIndex = 5, endIndex = 10)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckBV.java`
 #### Snippet
 ```java
@@ -133,6 +85,54 @@ in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/
         @LuhnCheck(startIndex = 5, endIndex = 10, checkDigitIndex = 3)
 ```
 
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithStartEndIndices {
+        @LuhnCheck(startIndex = 0, endIndex = 7)
+        private String value0;
+        @LuhnCheck(startIndex = 5, endIndex = 10)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        @NotNull
+        @Length(min = 17)
+        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 7)
+        private String value0;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        @NotNull
+        @Length(min = 17)
+        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 8)
+        private String value0;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        @NotNull
+        @Length(min = 8, max = 8)
+        @LuhnCheck(startIndex = 0, endIndex = 7)
+        private String value0;
+
+```
+
 ## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
@@ -147,6 +147,18 @@ in `instancio-core/src/main/java/org/instancio/internal/util/StringUtils.java`
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
+#### Snippet
+```java
+                am.getElementValues().forEach((executableElement, annotationValue) -> {
+                    if (attributeName.equals(executableElement.getSimpleName().toString())) {
+                        annotationValues.addAll((List<AnnotationValue>) annotationValue.getValue());
+                    }
+                });
+```
+
 ### UNCHECKED_WARNING
 Unchecked cast: 'org.instancio.generator.GeneratorSpec' to 'org.instancio.generator.Generator'
 in `instancio-core/src/main/java/org/instancio/internal/ApiImpl.java`
@@ -188,18 +200,6 @@ Unchecked cast: 'org.instancio.generator.GeneratorSpec\>' to 'org.instancio.gene
 in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBeanValidationHandlerResolver.java`
 #### Snippet
 ```java
-
-            if (spec instanceof NumberGeneratorSpec<?>) {
-                final NumberGeneratorSpec<Number> numSpec = (NumberGeneratorSpec<Number>) spec;
-                final Function<BigDecimal, Number> converter = NumberUtils.bigDecimalConverter(fieldType);
-                final Number numberMinValue = NumberUtils.getMinValue(fieldType);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.instancio.generator.GeneratorSpec\>' to 'org.instancio.generator.specs.NumberGeneratorSpec'
-in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBeanValidationHandlerResolver.java`
-#### Snippet
-```java
             if (spec instanceof NumberGeneratorSpec<?>) {
                 final Function<Long, Number> fromLongConverter = NumberUtils.longConverter(fieldType);
                 ((NumberGeneratorSpec<Number>) spec).max(fromLongConverter.apply(getValue(annotation)));
@@ -217,18 +217,6 @@ in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBea
                 final NumberGeneratorSpec<Number> numSpec = (NumberGeneratorSpec<Number>) spec;
 
                 final int integer = getInteger(annotation);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.instancio.generator.GeneratorSpec\>' to 'org.instancio.internal.generator.lang.AbstractRandomNumberGeneratorSpec'
-in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBeanValidationHandlerResolver.java`
-#### Snippet
-```java
-                final Function<BigDecimal, Number> converter = NumberUtils.bigDecimalConverter(fieldType);
-                final BigDecimal min = new BigDecimal(value);
-                final AbstractRandomNumberGeneratorSpec<Number> numSpec = (AbstractRandomNumberGeneratorSpec<Number>) spec;
-                numSpec.min(converter.apply(min));
-                BeanValidationUtils.setNonNullablePrimitive(spec, field);
 ```
 
 ### UNCHECKED_WARNING
@@ -268,6 +256,30 @@ in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBea
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'org.instancio.generator.GeneratorSpec\>' to 'org.instancio.generator.specs.NumberGeneratorSpec'
+in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBeanValidationHandlerResolver.java`
+#### Snippet
+```java
+
+            if (spec instanceof NumberGeneratorSpec<?>) {
+                final NumberGeneratorSpec<Number> numSpec = (NumberGeneratorSpec<Number>) spec;
+                final Function<BigDecimal, Number> converter = NumberUtils.bigDecimalConverter(fieldType);
+                final Number numberMinValue = NumberUtils.getMinValue(fieldType);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.instancio.generator.GeneratorSpec\>' to 'org.instancio.internal.generator.lang.AbstractRandomNumberGeneratorSpec'
+in `instancio-core/src/main/java/org/instancio/internal/beanvalidation/CommonBeanValidationHandlerResolver.java`
+#### Snippet
+```java
+                final Function<BigDecimal, Number> converter = NumberUtils.bigDecimalConverter(fieldType);
+                final BigDecimal min = new BigDecimal(value);
+                final AbstractRandomNumberGeneratorSpec<Number> numSpec = (AbstractRandomNumberGeneratorSpec<Number>) spec;
+                numSpec.min(converter.apply(min));
+                BeanValidationUtils.setNonNullablePrimitive(spec, field);
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'org.instancio.settings.SettingKey' to 'org.instancio.settings.SettingKey'
 in `instancio-core/src/main/java/org/instancio/settings/Keys.java`
 #### Snippet
@@ -277,18 +289,6 @@ in `instancio-core/src/main/java/org/instancio/settings/Keys.java`
         ALL_KEYS.add((SettingKey<Object>) settingKey);
         return settingKey;
     }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
-#### Snippet
-```java
-                am.getElementValues().forEach((executableElement, annotationValue) -> {
-                    if (attributeName.equals(executableElement.getSimpleName().toString())) {
-                        annotationValues.addAll((List<AnnotationValue>) annotationValue.getValue());
-                    }
-                });
 ```
 
 ## RuleId[id=ManualArrayToCollectionCopy]
@@ -463,18 +463,6 @@ in `instancio-core/src/main/java/org/instancio/internal/nodes/NodeCreator.java`
 ```
 
 ### DataFlowIssue
-Argument `rootClass` might be null
-in `instancio-core/src/main/java/org/instancio/internal/context/ModelContextHelper.java`
-#### Snippet
-```java
-
-        final Class<?> rootClass = TypeUtils.getRawType(rootType);
-        ApiValidator.validateTypeParameters(rootClass, rootTypeParameters);
-
-        final Class<?> targetClass = rootClass.isArray()
-```
-
-### DataFlowIssue
 Method invocation `getTypeParameters` may produce `NullPointerException`
 in `instancio-core/src/main/java/org/instancio/internal/context/ModelContextHelper.java`
 #### Snippet
@@ -486,17 +474,16 @@ in `instancio-core/src/main/java/org/instancio/internal/context/ModelContextHelp
             final Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `instancio-junit/src/main/java/org/instancio/junit/internal/InstancioArgumentsProvider.java`
+### DataFlowIssue
+Argument `rootClass` might be null
+in `instancio-core/src/main/java/org/instancio/internal/context/ModelContextHelper.java`
 #### Snippet
 ```java
 
-    static Object[] createObjects(final Type[] types, final Random random, final Settings settings) {
-        return Arrays.stream(types).map(type -> createObject(type, random, settings)).collect(Collectors.toList()).toArray();
-    }
+        final Class<?> rootClass = TypeUtils.getRawType(rootType);
+        ApiValidator.validateTypeParameters(rootClass, rootTypeParameters);
 
+        final Class<?> targetClass = rootClass.isArray()
 ```
 
 ## RuleId[id=MissingSerialAnnotation]
@@ -510,6 +497,19 @@ public class WithSerialVersionUID implements Serializable {
     private static final long serialVersionUID = 5516075349620653480L;
 
     private String foo;
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `instancio-junit/src/main/java/org/instancio/junit/internal/InstancioArgumentsProvider.java`
+#### Snippet
+```java
+
+    static Object[] createObjects(final Type[] types, final Random random, final Settings settings) {
+        return Arrays.stream(types).map(type -> createObject(type, random, settings)).collect(Collectors.toList()).toArray();
+    }
+
 ```
 
 ## RuleId[id=SuspiciousToArrayCall]
@@ -564,15 +564,15 @@ public class LargeCyclicSubclass extends LargeClass {
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'InstancioMetamodel' is still used
-in `instancio-core/src/main/java/org/instancio/InstancioMetamodel.java`
+Deprecated member 'InstancioAnnotationProcessor' is still used
+in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
 #### Snippet
 ```java
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)
-public @interface InstancioMetamodel {
-
-    /**
+@SupportedOptions({"instancio.verbose", "instancio.suffix"})
+@SupportedAnnotationTypes("org.instancio.InstancioMetamodel")
+public final class InstancioAnnotationProcessor extends AbstractProcessor {
+    private static final String CLASSES_ATTRIBUTE = "classes";
+    private static final String TRUE = "true";
 ```
 
 ### DeprecatedIsStillUsed
@@ -583,6 +583,18 @@ in `instancio-core/src/main/java/org/instancio/spi/TypeResolver.java`
  */
 @Deprecated
 public interface TypeResolver {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'InstancioMetamodel' is still used
+in `instancio-core/src/main/java/org/instancio/InstancioMetamodel.java`
+#### Snippet
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.SOURCE)
+public @interface InstancioMetamodel {
 
     /**
 ```
@@ -612,18 +624,6 @@ public interface GeneratorProvider {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'MetamodelSelector' is still used
-in `instancio-core/src/main/java/org/instancio/internal/selectors/MetamodelSelector.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class MetamodelSelector extends SelectorImpl {
-
-    private MetamodelSelector(final Class<?> targetClass, final String fieldName) {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'asString' is still used
 in `instancio-core/src/main/java/org/instancio/generator/AsStringGeneratorSpec.java`
 #### Snippet
@@ -636,15 +636,15 @@ in `instancio-core/src/main/java/org/instancio/generator/AsStringGeneratorSpec.j
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'InstancioAnnotationProcessor' is still used
-in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
+Deprecated member 'MetamodelSelector' is still used
+in `instancio-core/src/main/java/org/instancio/internal/selectors/MetamodelSelector.java`
 #### Snippet
 ```java
-@SupportedOptions({"instancio.verbose", "instancio.suffix"})
-@SupportedAnnotationTypes("org.instancio.InstancioMetamodel")
-public final class InstancioAnnotationProcessor extends AbstractProcessor {
-    private static final String CLASSES_ATTRIBUTE = "classes";
-    private static final String TRUE = "true";
+ */
+@Deprecated
+public final class MetamodelSelector extends SelectorImpl {
+
+    private MetamodelSelector(final Class<?> targetClass, final String fieldName) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -912,24 +912,24 @@ public interface URIAsGeneratorSpec
 
 ### Deprecation
 'org.instancio.generator.AsStringGeneratorSpec' is deprecated
-in `instancio-core/src/main/java/org/instancio/generator/specs/TemporalAaStringGeneratorSpec.java`
-#### Snippet
-```java
-
-/**
- * Generator spec for temporal values that supports {@link AsStringGeneratorSpec}.
- *
- * @since 2.6.0
-```
-
-### Deprecation
-'org.instancio.generator.AsStringGeneratorSpec' is deprecated
 in `instancio-core/src/main/java/org/instancio/generator/specs/CharacterAsGeneratorSpec.java`
 #### Snippet
 ```java
  */
 public interface CharacterAsGeneratorSpec
         extends CharacterGeneratorSpec, AsGeneratorSpec<Character>, AsStringGeneratorSpec<Character> {
+
+    @Override
+```
+
+### Deprecation
+'org.instancio.generator.AsStringGeneratorSpec' is deprecated
+in `instancio-core/src/main/java/org/instancio/generator/specs/BigDecimalAsGeneratorSpec.java`
+#### Snippet
+```java
+ */
+public interface BigDecimalAsGeneratorSpec
+        extends BigDecimalGeneratorSpec, AsGeneratorSpec<BigDecimal>, AsStringGeneratorSpec<BigDecimal> {
 
     @Override
 ```
@@ -948,18 +948,6 @@ public interface URLAsGeneratorSpec
 
 ### Deprecation
 'org.instancio.generator.AsStringGeneratorSpec' is deprecated
-in `instancio-core/src/main/java/org/instancio/generator/specs/TemporalAaStringGeneratorSpec.java`
-#### Snippet
-```java
- */
-public interface TemporalAaStringGeneratorSpec<T>
-        extends TemporalGeneratorSpec<T>, AsGeneratorSpec<T>, AsStringGeneratorSpec<T> {
-
-    @Override
-```
-
-### Deprecation
-'org.instancio.generator.AsStringGeneratorSpec' is deprecated
 in `instancio-core/src/main/java/org/instancio/generator/specs/EnumAsGeneratorSpec.java`
 #### Snippet
 ```java
@@ -972,12 +960,24 @@ public interface EnumAsGeneratorSpec<E extends Enum<E>>
 
 ### Deprecation
 'org.instancio.generator.AsStringGeneratorSpec' is deprecated
-in `instancio-core/src/main/java/org/instancio/generator/specs/BigDecimalAsGeneratorSpec.java`
+in `instancio-core/src/main/java/org/instancio/generator/specs/TemporalAaStringGeneratorSpec.java`
+#### Snippet
+```java
+
+/**
+ * Generator spec for temporal values that supports {@link AsStringGeneratorSpec}.
+ *
+ * @since 2.6.0
+```
+
+### Deprecation
+'org.instancio.generator.AsStringGeneratorSpec' is deprecated
+in `instancio-core/src/main/java/org/instancio/generator/specs/TemporalAaStringGeneratorSpec.java`
 #### Snippet
 ```java
  */
-public interface BigDecimalAsGeneratorSpec
-        extends BigDecimalGeneratorSpec, AsGeneratorSpec<BigDecimal>, AsStringGeneratorSpec<BigDecimal> {
+public interface TemporalAaStringGeneratorSpec<T>
+        extends TemporalGeneratorSpec<T>, AsGeneratorSpec<T>, AsStringGeneratorSpec<T> {
 
     @Override
 ```
@@ -1058,14 +1058,14 @@ in `instancio-junit/src/main/java/org/instancio/junit/internal/InstancioArgument
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `instancio-core/src/main/java/org/instancio/internal/ApiValidator.java`
+in `instancio-processor/src/main/java/org/instancio/processor/MetamodelSourceGenerator.java`
 #### Snippet
 ```java
-            "%n\tMap<String, List<Integer>> map = Instancio.of(new TypeToken<Map<String, List<Integer>>>(){}).create();";
-
-    private static final String CREATE_CLASS_HELP = "" +
-            "%n\tExample:" +
-            "%n\tPerson person = Instancio.create(Person.class);" +
+class MetamodelSourceGenerator {
+    private static final String PACKAGE_TEMPLATE = "package %s;";
+    private static final String IMPORTS = String.format(""
+            + "import org.instancio.internal.selectors.MetamodelSelector;%n"
+            + "import org.instancio.Selector;"
 ```
 
 ### TrivialStringConcatenation
@@ -1094,14 +1094,14 @@ in `instancio-core/src/main/java/org/instancio/internal/ApiValidator.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `instancio-core/src/main/java/org/instancio/internal/util/Fail.java`
+in `instancio-core/src/main/java/org/instancio/internal/ApiValidator.java`
 #### Snippet
 ```java
-        final ErrorArgs errorArgs = unpackArgs(args);
-        final String msgWithArgs = String.format(msg, errorArgs.args);
-        final String fullErrorMsg = String.format("" +
-                "%n" +
-                "%s" +
+            "%n\tMap<String, List<Integer>> map = Instancio.of(new TypeToken<Map<String, List<Integer>>>(){}).create();";
+
+    private static final String CREATE_CLASS_HELP = "" +
+            "%n\tExample:" +
+            "%n\tPerson person = Instancio.create(Person.class);" +
 ```
 
 ### TrivialStringConcatenation
@@ -1130,593 +1130,17 @@ public final class Fail {
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `instancio-processor/src/main/java/org/instancio/processor/MetamodelSourceGenerator.java`
+in `instancio-core/src/main/java/org/instancio/internal/util/Fail.java`
 #### Snippet
 ```java
-class MetamodelSourceGenerator {
-    private static final String PACKAGE_TEMPLATE = "package %s;";
-    private static final String IMPORTS = String.format(""
-            + "import org.instancio.internal.selectors.MetamodelSelector;%n"
-            + "import org.instancio.Selector;"
+        final ErrorArgs errorArgs = unpackArgs(args);
+        final String msgWithArgs = String.format(msg, errorArgs.args);
+        final String fullErrorMsg = String.format("" +
+                "%n" +
+                "%s" +
 ```
 
 ## RuleId[id=NullableProblems]
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/AddressBV.java`
-#### Snippet
-```java
-    private String country;
-
-    @NotNull
-    @Size(min = 1, max = 5)
-    private List<PhoneBV> phoneNumbers;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PhoneBV.java`
-#### Snippet
-```java
-    private String countryCode;
-
-    @NotNull
-    @Digits(integer = 7, fraction = 0)
-    private String number;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PersonBV.java`
-#### Snippet
-```java
-public class PersonBV {
-
-    @NotNull
-    @UUID
-    private String uuid;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UrlBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithAttributes {
-        @NotNull
-        @URL(protocol = PROTOCOL, host = HOST, port = PORT)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        private String value0;
-
-        @NotNull
-        @Length(max = 20) // min = 0
-        @LuhnCheck(startIndex = 5, endIndex = 10, checkDigitIndex = 10)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        private String value0;
-
-        @NotNull
-        @Length(max = 20) // min = 0
-        @LuhnCheck(startIndex = 5, endIndex = 10, checkDigitIndex = 3)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithDefaults {
-        @NotNull
-        @Length(min = 10)
-        @LuhnCheck
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithStartEndIndices {
-        @NotNull
-        @Length(min = 8, max = 8)
-        @LuhnCheck(startIndex = 0, endIndex = 7)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PersonBV.java`
-#### Snippet
-```java
-
-    @PersonName // this his not a validation annotation and should be ignored
-    @NotNull
-    @Length(min = 2)
-    private String name;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithStartEndAndCheckDigitIndices {
-        @NotNull
-        @Length(min = 17)
-        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 8)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-        private String value0;
-
-        @NotNull
-        @Length(min = 20, max = 22)
-        @LuhnCheck(startIndex = 5, endIndex = 10)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithEndAndCheckDigitIndicesEqual {
-        @NotNull
-        @Length(min = 17)
-        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 7)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UrlBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithDefaults {
-        @NotNull
-        @URL
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CreditCardNumberBV.java`
-#### Snippet
-```java
-public class CreditCardNumberBV {
-
-    @NotNull
-    @CreditCardNumber
-    private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UniqueElementsWithSizeBV.java`
-#### Snippet
-```java
-        public static final int MAX_SIZE = 2;
-
-        @NotNull
-        @Size(min = MIN_SIZE, max = MAX_SIZE)
-        @UniqueElements
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UniqueElementsWithSizeBV.java`
-#### Snippet
-```java
-    public static class WithUnsupportedType {
-        // Unsupported type for @UniqueElements, the annotation should be ignored.
-        @NotNull
-        @UniqueElements
-        private String string;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EmailComboBV.java`
-#### Snippet
-```java
-    public static class NotNullEmailWithLength {
-        @Email
-        @NotNull
-        @Length(min = 15, max = 20)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EanBV.java`
-#### Snippet
-```java
-
-    @EAN(type = EAN.Type.EAN8)
-    @NotNull
-    private String ean8;
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EanBV.java`
-#### Snippet
-```java
-
-    @EAN
-    @NotNull
-    private String ean13;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/IsbnBV.java`
-#### Snippet
-```java
-
-    @ISBN
-    @NotNull
-    private String isbn13;
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinMaxSize {
-        @NotNull
-        @Length(min = 19, max = 20)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMaxSizeZero {
-        @NotNull
-        @Length(max = 0)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-        @NotNull
-        private String s1;
-        @NotNull
-        @Length(min = 20)
-        private String s2;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-        @Length(min = 20)
-        private String s2;
-        @NotNull
-        private String s3;
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinMaxEqual {
-        @NotNull
-        @Length(min = 5, max = 5)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinSize {
-        @NotNull
-        @Length(min = 8)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class ThreeFieldsOneMin {
-        @NotNull
-        private String s1;
-        @NotNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMaxSize {
-        @NotNull
-        @Length(max = 1)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinSizeZero {
-        @NotNull
-        @Length
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @Range(min = MIN_VAL, max = MAX_VAL) private double primitiveDouble;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
-    //@formatter:on
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
-#### Snippet
-```java
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
-    //@formatter:on
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @Range(min = MIN_VAL, max = MAX_VAL) private double primitiveDouble;
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
-    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `instancio-core/src/main/java/org/instancio/internal/context/SortedSetWithReverseInsertionOrder.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T[] toArray(@NotNull final T[] a) {
-        throw new UnsupportedOperationException();
-    }
-```
-
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringBlanknessBV.java`
@@ -1731,78 +1155,6 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-        @Digits(integer = 0, fraction = 2)
-        private String s0;
-        @NotNull
-        @Digits(integer = 1, fraction = 0)
-        private String s1;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-        @Digits(integer = 1, fraction = 1)
-        private String s3;
-        @NotNull
-        @Digits(integer = 15, fraction = 20)
-        private String s4;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-        @Digits(integer = 1, fraction = 0)
-        private String s1;
-        @NotNull
-        @Digits(integer = 15, fraction = 0)
-        private String s2;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-    @Data
-    public static class OnString {
-        @NotNull
-        @Digits(integer = 0, fraction = 2)
-        private String s0;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-    @Data
-    public static class OnCharSequence {
-        @NotNull
-        @Digits(integer = 3, fraction = 5)
-        private CharSequence value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
-#### Snippet
-```java
-        @Digits(integer = 15, fraction = 0)
-        private String s2;
-        @NotNull
-        @Digits(integer = 1, fraction = 1)
-        private String s3;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
 #### Snippet
 ```java
@@ -1810,30 +1162,6 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
     public static class WithMinMaxEqual {
         @NotNull
         @Size(min = 5, max = 5)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
-#### Snippet
-```java
-        @NotNull
-        private String s1;
-        @NotNull
-        @Size(min = 20)
-        private String s2;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinMaxSize {
-        @NotNull
-        @Size(min = 19, max = 20)
         private String value;
 ```
 
@@ -1854,11 +1182,47 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
 #### Snippet
 ```java
+    @Data
+    public static class WithMaxSizeZero {
+        @NotNull
+        @Size(max = 0)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
+#### Snippet
+```java
         @Size(min = 20)
         private String s2;
         @NotNull
         private String s3;
     }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMaxSize {
+        @NotNull
+        @Size(max = 1)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinMaxSize {
+        @NotNull
+        @Size(min = 19, max = 20)
+        private String value;
 ```
 
 ### NullableProblems
@@ -1879,18 +1243,6 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 #### Snippet
 ```java
     @Data
-    public static class WithMaxSizeZero {
-        @NotNull
-        @Size(max = 0)
-        private String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
-#### Snippet
-```java
-    @Data
     public static class WithMinSizeZero {
         @NotNull
         @Size
@@ -1902,11 +1254,83 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringSizeBV.java`
 #### Snippet
 ```java
-    @Data
-    public static class WithMaxSize {
         @NotNull
-        @Size(max = 1)
-        private String value;
+        private String s1;
+        @NotNull
+        @Size(min = 20)
+        private String s2;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+    @Data
+    public static class OnString {
+        @NotNull
+        @Digits(integer = 0, fraction = 2)
+        private String s0;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+        @Digits(integer = 1, fraction = 1)
+        private String s3;
+        @NotNull
+        @Digits(integer = 15, fraction = 20)
+        private String s4;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+        @Digits(integer = 15, fraction = 0)
+        private String s2;
+        @NotNull
+        @Digits(integer = 1, fraction = 1)
+        private String s3;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+        @Digits(integer = 0, fraction = 2)
+        private String s0;
+        @NotNull
+        @Digits(integer = 1, fraction = 0)
+        private String s1;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+    @Data
+    public static class OnCharSequence {
+        @NotNull
+        @Digits(integer = 3, fraction = 5)
+        private CharSequence value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringDigitsBV.java`
+#### Snippet
+```java
+        @Digits(integer = 1, fraction = 0)
+        private String s1;
+        @NotNull
+        @Digits(integer = 15, fraction = 0)
+        private String s2;
 ```
 
 ### NullableProblems
@@ -1914,11 +1338,107 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @NegativeOrZero private Long longWrapper;
-        @NotNull @NegativeOrZero private Float floatWrapper;
-        @NotNull @NegativeOrZero private Double doubleWrapper;
 
         @NotNull @NegativeOrZero private BigInteger bigInteger;
+        @NotNull @NegativeOrZero private BigDecimal bigDecimal;
+        //@formatter:on
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @Negative private Byte byteWrapper;
+        @NotNull @Negative private Short shortWrapper;
+        @NotNull @Negative private Integer integerWrapper;
+        @NotNull @Negative private Long longWrapper;
+        @NotNull @Negative private Float floatWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+
+        @NotNull @Negative private Byte byteWrapper;
+        @NotNull @Negative private Short shortWrapper;
+        @NotNull @Negative private Integer integerWrapper;
+        @NotNull @Negative private Long longWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @Negative private Short shortWrapper;
+        @NotNull @Negative private Integer integerWrapper;
+        @NotNull @Negative private Long longWrapper;
+        @NotNull @Negative private Float floatWrapper;
+        @NotNull @Negative private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Byte byteWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Short shortWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Short shortWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Integer integerWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigInteger bigInteger;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigDecimal bigDecimal;
+    //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    private double primitiveDouble;
+
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Byte byteWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Long longWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
@@ -1931,6 +1451,66 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
         @NotNull @NegativeOrZero private Float floatWrapper;
         @NotNull @NegativeOrZero private Double doubleWrapper;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @Negative private Double doubleWrapper;
+
+        @NotNull @Negative private BigInteger bigInteger;
+        @NotNull @Negative private BigDecimal bigDecimal;
+        //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @Negative private Integer integerWrapper;
+        @NotNull @Negative private Long longWrapper;
+        @NotNull @Negative private Float floatWrapper;
+        @NotNull @Negative private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @NegativeOrZero private Double doubleWrapper;
+
+        @NotNull @NegativeOrZero private BigInteger bigInteger;
+        @NotNull @NegativeOrZero private BigDecimal bigDecimal;
+        //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @Negative private Long longWrapper;
+        @NotNull @Negative private Float floatWrapper;
+        @NotNull @Negative private Double doubleWrapper;
+
+        @NotNull @Negative private BigInteger bigInteger;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+#### Snippet
+```java
+        @NotNull @NegativeOrZero private Long longWrapper;
+        @NotNull @NegativeOrZero private Float floatWrapper;
+        @NotNull @NegativeOrZero private Double doubleWrapper;
+
+        @NotNull @NegativeOrZero private BigInteger bigInteger;
 ```
 
 ### NullableProblems
@@ -1962,83 +1542,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @Negative private Long longWrapper;
-        @NotNull @Negative private Float floatWrapper;
-        @NotNull @Negative private Double doubleWrapper;
-
-        @NotNull @Negative private BigInteger bigInteger;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
-
-        @NotNull @Negative private Byte byteWrapper;
-        @NotNull @Negative private Short shortWrapper;
-        @NotNull @Negative private Integer integerWrapper;
-        @NotNull @Negative private Long longWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
-        @NotNull @Negative private Byte byteWrapper;
-        @NotNull @Negative private Short shortWrapper;
-        @NotNull @Negative private Integer integerWrapper;
-        @NotNull @Negative private Long longWrapper;
-        @NotNull @Negative private Float floatWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
 
         @NotNull @NegativeOrZero private Byte byteWrapper;
         @NotNull @NegativeOrZero private Short shortWrapper;
         @NotNull @NegativeOrZero private Integer integerWrapper;
         @NotNull @NegativeOrZero private Long longWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
-        @NotNull @Negative private Double doubleWrapper;
-
-        @NotNull @Negative private BigInteger bigInteger;
-        @NotNull @Negative private BigDecimal bigDecimal;
-        //@formatter:on
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
-        @NotNull @Negative private Short shortWrapper;
-        @NotNull @Negative private Integer integerWrapper;
-        @NotNull @Negative private Long longWrapper;
-        @NotNull @Negative private Float floatWrapper;
-        @NotNull @Negative private Double doubleWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
-#### Snippet
-```java
-        @NotNull @Negative private Integer integerWrapper;
-        @NotNull @Negative private Long longWrapper;
-        @NotNull @Negative private Float floatWrapper;
-        @NotNull @Negative private Double doubleWrapper;
-
 ```
 
 ### NullableProblems
@@ -2058,11 +1566,35 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @NegativeOrZero private Double doubleWrapper;
+        @Negative private double primitiveDouble;
 
-        @NotNull @NegativeOrZero private BigInteger bigInteger;
-        @NotNull @NegativeOrZero private BigDecimal bigDecimal;
-        //@formatter:on
+        @NotNull @Negative private Byte byteWrapper;
+        @NotNull @Negative private Short shortWrapper;
+        @NotNull @Negative private Integer integerWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Integer integerWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Long longWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+#### Snippet
+```java
+    private Double doubleWrapper;
+
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigInteger bigInteger;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
@@ -2079,26 +1611,38 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
 #### Snippet
 ```java
-        @Negative private double primitiveDouble;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Double doubleWrapper;
 
-        @NotNull @Negative private Byte byteWrapper;
-        @NotNull @Negative private Short shortWrapper;
-        @NotNull @Negative private Integer integerWrapper;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersNegativeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
 #### Snippet
 ```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Short shortWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Integer integerWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+```
 
-        @NotNull @NegativeOrZero private BigInteger bigInteger;
-        @NotNull @NegativeOrZero private BigDecimal bigDecimal;
-        //@formatter:on
-    }
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+#### Snippet
+```java
+    private Double doubleWrapper;
+
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private BigInteger bigInteger;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
 ```
 
 ### NullableProblems
@@ -2110,6 +1654,42 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
     private Long longWrapper;
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
     private Float floatWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Float floatWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Byte byteWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Short shortWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Integer integerWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Long longWrapper;
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
 ```
 
@@ -2130,42 +1710,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
 #### Snippet
 ```java
-    private Double doubleWrapper;
-
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private BigInteger bigInteger;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Integer integerWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Long longWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Float floatWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
-#### Snippet
-```java
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
     private BigInteger bigInteger;
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
@@ -2175,182 +1719,146 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Short shortWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Integer integerWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+        @NotNull @Digits(integer = 11, fraction = 0)
+        private BigInteger bigInteger;
+        @NotNull @Digits(integer = 12, fraction = 0)
+        private BigDecimal bigDecimal;
+        //@formatter:on
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Byte byteWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Short shortWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+        private double primitiveDouble;
+
+        @NotNull @Digits(integer = 0, fraction = 4)
+        private BigDecimal bigDecimal;
+        //@formatter:on
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private Double doubleWrapper;
-    @NotNull private BigInteger bigInteger;
-    @NotNull private BigDecimal bigDecimal;
-    @NotNull private String[] array;
-    @NotNull private Collection<String> collection;
-```
+        private double primitiveDouble;
 
-### NullableProblems
-Primitive type members cannot be annotated
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
-#### Snippet
-```java
-    @NotNull private short primitiveShort;
-    @NotNull private int primitiveInt;
-    @NotNull private long primitiveLong;
-    @NotNull private float primitiveFloat;
-    @NotNull private double primitiveDouble;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
-#### Snippet
-```java
-    @NotNull private byte primitiveByte;
-    @NotNull private short primitiveShort;
-    @NotNull private int primitiveInt;
-    @NotNull private long primitiveLong;
-    @NotNull private float primitiveFloat;
+        @NotNull @Digits(integer = 5, fraction = 3)
+        private Float floatWrapper;
+        @NotNull @Digits(integer = 6, fraction = 4)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private String[] array;
-    @NotNull private Collection<String> collection;
-    @NotNull private Map<UUID, Integer> map;
-    //@formatter:on
-}
+        private Double doubleWrapper;
+
+        @NotNull @Digits(integer = 9, fraction = 20)
+        private BigDecimal bigDecimal;
+        //@formatter:on
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-
-    //@formatter:off
-    @NotNull private String string;
-    @NotNull private byte primitiveByte;
-    @NotNull private short primitiveShort;
+        @NotNull @Digits(integer = 4, fraction = 0)
+        private Long longWrapper;
+        @NotNull @Digits(integer = 5, fraction = 0)
+        private Float floatWrapper;
+        @NotNull @Digits(integer = 6, fraction = 0)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private Long longWrapper;
-    @NotNull private Float floatWrapper;
-    @NotNull private Double doubleWrapper;
-    @NotNull private BigInteger bigInteger;
-    @NotNull private BigDecimal bigDecimal;
+        private double primitiveDouble;
+
+        @NotNull @Digits(integer = 1, fraction = 0)
+        private Byte byteWrapper;
+        @NotNull @Digits(integer = 2, fraction = 0)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private BigDecimal bigDecimal;
-    @NotNull private String[] array;
-    @NotNull private Collection<String> collection;
-    @NotNull private Map<UUID, Integer> map;
-    //@formatter:on
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
-#### Snippet
-```java
-    //@formatter:off
-    @NotNull private String string;
-    @NotNull private byte primitiveByte;
-    @NotNull private short primitiveShort;
-    @NotNull private int primitiveInt;
+        @NotNull @Digits(integer = 3, fraction = 0)
+        private Integer integerWrapper;
+        @NotNull @Digits(integer = 4, fraction = 0)
+        private Long longWrapper;
+        @NotNull @Digits(integer = 5, fraction = 0)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private Byte byteWrapper;
-    @NotNull private Short shortWrapper;
-    @NotNull private Integer integerWrapper;
-    @NotNull private Long longWrapper;
-    @NotNull private Float floatWrapper;
-```
+        private Double doubleWrapper;
 
-### NullableProblems
-Primitive type members cannot be annotated
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
-#### Snippet
-```java
-    @NotNull private int primitiveInt;
-    @NotNull private long primitiveLong;
-    @NotNull private float primitiveFloat;
-    @NotNull private double primitiveDouble;
-    @NotNull private Byte byteWrapper;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
-#### Snippet
-```java
-    @NotNull private long primitiveLong;
-    @NotNull private float primitiveFloat;
-    @NotNull private double primitiveDouble;
-    @NotNull private Byte byteWrapper;
-    @NotNull private Short shortWrapper;
+        @NotNull @Digits(integer = 11, fraction = 0)
+        private BigInteger bigInteger;
+        @NotNull @Digits(integer = 12, fraction = 0)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private float primitiveFloat;
-    @NotNull private double primitiveDouble;
-    @NotNull private Byte byteWrapper;
-    @NotNull private Short shortWrapper;
-    @NotNull private Integer integerWrapper;
+        @NotNull @Digits(integer = 1, fraction = 0)
+        private Byte byteWrapper;
+        @NotNull @Digits(integer = 2, fraction = 0)
+        private Short shortWrapper;
+        @NotNull @Digits(integer = 3, fraction = 0)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
 #### Snippet
 ```java
-    @NotNull private Short shortWrapper;
-    @NotNull private Integer integerWrapper;
-    @NotNull private Long longWrapper;
-    @NotNull private Float floatWrapper;
-    @NotNull private Double doubleWrapper;
+        @NotNull @Digits(integer = 2, fraction = 0)
+        private Short shortWrapper;
+        @NotNull @Digits(integer = 3, fraction = 0)
+        private Integer integerWrapper;
+        @NotNull @Digits(integer = 4, fraction = 0)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
+#### Snippet
+```java
+        @NotNull @Digits(integer = 5, fraction = 3)
+        private Float floatWrapper;
+        @NotNull @Digits(integer = 6, fraction = 4)
+        private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
+#### Snippet
+```java
+        @NotNull @Digits(integer = 5, fraction = 0)
+        private Float floatWrapper;
+        @NotNull @Digits(integer = 6, fraction = 0)
+        private Double doubleWrapper;
+
 ```
 
 ### NullableProblems
@@ -2378,6 +1886,126 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private BigDecimal bigDecimal;
+    @NotNull private String[] array;
+    @NotNull private Collection<String> collection;
+    @NotNull private Map<UUID, Integer> map;
+    //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private Long longWrapper;
+    @NotNull private Float floatWrapper;
+    @NotNull private Double doubleWrapper;
+    @NotNull private BigInteger bigInteger;
+    @NotNull private BigDecimal bigDecimal;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private int primitiveInt;
+    @NotNull private long primitiveLong;
+    @NotNull private float primitiveFloat;
+    @NotNull private double primitiveDouble;
+    @NotNull private Byte byteWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+
+    //@formatter:off
+    @NotNull private String string;
+    @NotNull private byte primitiveByte;
+    @NotNull private short primitiveShort;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private String[] array;
+    @NotNull private Collection<String> collection;
+    @NotNull private Map<UUID, Integer> map;
+    //@formatter:on
+}
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private byte primitiveByte;
+    @NotNull private short primitiveShort;
+    @NotNull private int primitiveInt;
+    @NotNull private long primitiveLong;
+    @NotNull private float primitiveFloat;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private Short shortWrapper;
+    @NotNull private Integer integerWrapper;
+    @NotNull private Long longWrapper;
+    @NotNull private Float floatWrapper;
+    @NotNull private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private Byte byteWrapper;
+    @NotNull private Short shortWrapper;
+    @NotNull private Integer integerWrapper;
+    @NotNull private Long longWrapper;
+    @NotNull private Float floatWrapper;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    //@formatter:off
+    @NotNull private String string;
+    @NotNull private byte primitiveByte;
+    @NotNull private short primitiveShort;
+    @NotNull private int primitiveInt;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private Integer integerWrapper;
+    @NotNull private Long longWrapper;
+    @NotNull private Float floatWrapper;
+    @NotNull private Double doubleWrapper;
+    @NotNull private BigInteger bigInteger;
+```
+
+### NullableProblems
 Primitive type members cannot be annotated
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
 #### Snippet
@@ -2390,15 +2018,15 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+Primitive type members cannot be annotated
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
 #### Snippet
 ```java
+    @NotNull private short primitiveShort;
+    @NotNull private int primitiveInt;
+    @NotNull private long primitiveLong;
+    @NotNull private float primitiveFloat;
     @NotNull private double primitiveDouble;
-    @NotNull private Byte byteWrapper;
-    @NotNull private Short shortWrapper;
-    @NotNull private Integer integerWrapper;
-    @NotNull private Long longWrapper;
 ```
 
 ### NullableProblems
@@ -2418,155 +2046,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
 #### Snippet
 ```java
+    @NotNull private double primitiveDouble;
+    @NotNull private Byte byteWrapper;
+    @NotNull private Short shortWrapper;
     @NotNull private Integer integerWrapper;
     @NotNull private Long longWrapper;
-    @NotNull private Float floatWrapper;
-    @NotNull private Double doubleWrapper;
-    @NotNull private BigInteger bigInteger;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        private Double doubleWrapper;
-
-        @NotNull @Digits(integer = 11, fraction = 0)
-        private BigInteger bigInteger;
-        @NotNull @Digits(integer = 12, fraction = 0)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 3, fraction = 0)
-        private Integer integerWrapper;
-        @NotNull @Digits(integer = 4, fraction = 0)
-        private Long longWrapper;
-        @NotNull @Digits(integer = 5, fraction = 0)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 2, fraction = 0)
-        private Short shortWrapper;
-        @NotNull @Digits(integer = 3, fraction = 0)
-        private Integer integerWrapper;
-        @NotNull @Digits(integer = 4, fraction = 0)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 5, fraction = 0)
-        private Float floatWrapper;
-        @NotNull @Digits(integer = 6, fraction = 0)
-        private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        private double primitiveDouble;
-
-        @NotNull @Digits(integer = 1, fraction = 0)
-        private Byte byteWrapper;
-        @NotNull @Digits(integer = 2, fraction = 0)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 5, fraction = 3)
-        private Float floatWrapper;
-        @NotNull @Digits(integer = 6, fraction = 4)
-        private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        private double primitiveDouble;
-
-        @NotNull @Digits(integer = 0, fraction = 4)
-        private BigDecimal bigDecimal;
-        //@formatter:on
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 11, fraction = 0)
-        private BigInteger bigInteger;
-        @NotNull @Digits(integer = 12, fraction = 0)
-        private BigDecimal bigDecimal;
-        //@formatter:on
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 1, fraction = 0)
-        private Byte byteWrapper;
-        @NotNull @Digits(integer = 2, fraction = 0)
-        private Short shortWrapper;
-        @NotNull @Digits(integer = 3, fraction = 0)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        private Double doubleWrapper;
-
-        @NotNull @Digits(integer = 9, fraction = 20)
-        private BigDecimal bigDecimal;
-        //@formatter:on
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        private double primitiveDouble;
-
-        @NotNull @Digits(integer = 5, fraction = 3)
-        private Float floatWrapper;
-        @NotNull @Digits(integer = 6, fraction = 4)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDigitsBV.java`
-#### Snippet
-```java
-        @NotNull @Digits(integer = 4, fraction = 0)
-        private Long longWrapper;
-        @NotNull @Digits(integer = 5, fraction = 0)
-        private Float floatWrapper;
-        @NotNull @Digits(integer = 6, fraction = 0)
 ```
 
 ### NullableProblems
@@ -2595,14 +2079,230 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EmailComboBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
 #### Snippet
 ```java
-        private String emailThenSize;
+    @NotNull private Double doubleWrapper;
+    @NotNull private BigInteger bigInteger;
+    @NotNull private BigDecimal bigDecimal;
+    @NotNull private String[] array;
+    @NotNull private Collection<String> collection;
+```
 
-        @NotNull
-        @Size(min = 10, max = 10)
-        @Email
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private float primitiveFloat;
+    @NotNull private double primitiveDouble;
+    @NotNull private Byte byteWrapper;
+    @NotNull private Short shortWrapper;
+    @NotNull private Integer integerWrapper;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NotNullBv.java`
+#### Snippet
+```java
+    @NotNull private long primitiveLong;
+    @NotNull private float primitiveFloat;
+    @NotNull private double primitiveDouble;
+    @NotNull private Byte byteWrapper;
+    @NotNull private Short shortWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @Positive private Integer integerWrapper;
+        @NotNull @Positive private Long longWrapper;
+        @NotNull @Positive private Float floatWrapper;
+        @NotNull @Positive private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @PositiveOrZero private Long longWrapper;
+        @NotNull @PositiveOrZero private Float floatWrapper;
+        @NotNull @PositiveOrZero private Double doubleWrapper;
+
+        @NotNull @PositiveOrZero private BigInteger bigInteger;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @Positive private Short shortWrapper;
+        @NotNull @Positive private Integer integerWrapper;
+        @NotNull @Positive private Long longWrapper;
+        @NotNull @Positive private Float floatWrapper;
+        @NotNull @Positive private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+
+        @NotNull @Positive private BigInteger bigInteger;
+        @NotNull @Positive private BigDecimal bigDecimal;
+        //@formatter:on
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+
+        @NotNull @PositiveOrZero private Byte byteWrapper;
+        @NotNull @PositiveOrZero private Short shortWrapper;
+        @NotNull @PositiveOrZero private Integer integerWrapper;
+        @NotNull @PositiveOrZero private Long longWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+
+        @NotNull @Positive private Byte byteWrapper;
+        @NotNull @Positive private Short shortWrapper;
+        @NotNull @Positive private Integer integerWrapper;
+        @NotNull @Positive private Long longWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @PositiveOrZero private Short shortWrapper;
+        @NotNull @PositiveOrZero private Integer integerWrapper;
+        @NotNull @PositiveOrZero private Long longWrapper;
+        @NotNull @PositiveOrZero private Float floatWrapper;
+        @NotNull @PositiveOrZero private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @Positive private Long longWrapper;
+        @NotNull @Positive private Float floatWrapper;
+        @NotNull @Positive private Double doubleWrapper;
+
+        @NotNull @Positive private BigInteger bigInteger;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @Positive private Byte byteWrapper;
+        @NotNull @Positive private Short shortWrapper;
+        @NotNull @Positive private Integer integerWrapper;
+        @NotNull @Positive private Long longWrapper;
+        @NotNull @Positive private Float floatWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @Positive private double primitiveDouble;
+
+        @NotNull @Positive private Byte byteWrapper;
+        @NotNull @Positive private Short shortWrapper;
+        @NotNull @Positive private Integer integerWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @PositiveOrZero private Integer integerWrapper;
+        @NotNull @PositiveOrZero private Long longWrapper;
+        @NotNull @PositiveOrZero private Float floatWrapper;
+        @NotNull @PositiveOrZero private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @Positive private Double doubleWrapper;
+
+        @NotNull @Positive private BigInteger bigInteger;
+        @NotNull @Positive private BigDecimal bigDecimal;
+        //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+
+        @NotNull @PositiveOrZero private BigInteger bigInteger;
+        @NotNull @PositiveOrZero private BigDecimal bigDecimal;
+        //@formatter:on
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @PositiveOrZero private Double doubleWrapper;
+
+        @NotNull @PositiveOrZero private BigInteger bigInteger;
+        @NotNull @PositiveOrZero private BigDecimal bigDecimal;
+        //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @PositiveOrZero private double primitiveDouble;
+
+        @NotNull @PositiveOrZero private Byte byteWrapper;
+        @NotNull @PositiveOrZero private Short shortWrapper;
+        @NotNull @PositiveOrZero private Integer integerWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+#### Snippet
+```java
+        @NotNull @PositiveOrZero private Byte byteWrapper;
+        @NotNull @PositiveOrZero private Short shortWrapper;
+        @NotNull @PositiveOrZero private Integer integerWrapper;
+        @NotNull @PositiveOrZero private Long longWrapper;
+        @NotNull @PositiveOrZero private Float floatWrapper;
 ```
 
 ### NullableProblems
@@ -2631,74 +2331,26 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EmailComboBV.java`
 #### Snippet
 ```java
-    @Data
-    public static class WithMinMaxSize {
+        private String emailThenSize;
+
         @NotNull
-        @Size(min = 19, max = 20)
-        private Deque<String> value;
+        @Size(min = 10, max = 10)
+        @Email
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/MapSizeBV.java`
 #### Snippet
 ```java
     @Data
     public static class WithMaxSize {
         @NotNull
         @Size(max = 1)
-        private Set<String> value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinMaxEqual {
-        @NotNull
-        @Size(min = 5, max = 5)
-        private Queue<String> value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinSizeZero {
-        @NotNull
-        @Size
-        private List<String> value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMinSize {
-        @NotNull
-        @Size(min = 8)
-        private Collection<String> value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMaxSizeZero {
-        @NotNull
-        @Size(max = 0)
-        private ArrayList<String> value;
+        private HashMap<UUID, BigDecimal> value;
 ```
 
 ### NullableProblems
@@ -2711,6 +2363,18 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
         @NotNull
         @Size(min = 5, max = 5)
         private Map<Long, Double> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/MapSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMaxSizeZero {
+        @NotNull
+        @Size(max = 0)
+        private NavigableMap<Integer, String> value;
 ```
 
 ### NullableProblems
@@ -2751,26 +2415,86 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/MapSizeBV.java`
-#### Snippet
-```java
-    @Data
-    public static class WithMaxSize {
-        @NotNull
-        @Size(max = 1)
-        private HashMap<UUID, BigDecimal> value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/MapSizeBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
 #### Snippet
 ```java
     @Data
     public static class WithMaxSizeZero {
         @NotNull
         @Size(max = 0)
-        private NavigableMap<Integer, String> value;
+        private ArrayList<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMaxSize {
+        @NotNull
+        @Size(max = 1)
+        private Set<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinSizeZero {
+        @NotNull
+        @Size
+        private List<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinMaxEqual {
+        @NotNull
+        @Size(min = 5, max = 5)
+        private Queue<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinMaxSize {
+        @NotNull
+        @Size(min = 19, max = 20)
+        private Deque<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CollectionSizeBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinSize {
+        @NotNull
+        @Size(min = 8)
+        private Collection<String> value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Integer integerWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Long longWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
 ```
 
 ### NullableProblems
@@ -2791,10 +2515,58 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 #### Snippet
 ```java
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Long longWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Float floatWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Float floatWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
     private BigInteger bigInteger;
     @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
     private BigDecimal bigDecimal;
     //@formatter:on
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+#### Snippet
+```java
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Short shortWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private Integer integerWrapper;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+#### Snippet
+```java
+    private Double doubleWrapper;
+
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    private BigInteger bigInteger;
+    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
 ```
 
 ### NullableProblems
@@ -2811,446 +2583,674 @@ in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/te
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Long longWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Float floatWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
-#### Snippet
-```java
-    private Double doubleWrapper;
-
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private BigInteger bigInteger;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
-#### Snippet
-```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Float floatWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Double doubleWrapper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
-#### Snippet
-```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Integer integerWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-    private Long longWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersDecimalMinMaxPositiveBV.java`
-#### Snippet
-```java
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
     private Short shortWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
     private Integer integerWrapper;
-    @NotNull @DecimalMin(MIN_STR) @DecimalMax(MAX_STR)
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @PositiveOrZero private Byte byteWrapper;
-        @NotNull @PositiveOrZero private Short shortWrapper;
-        @NotNull @PositiveOrZero private Integer integerWrapper;
-        @NotNull @PositiveOrZero private Long longWrapper;
-        @NotNull @PositiveOrZero private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Integer integerWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Long longWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @Positive private Integer integerWrapper;
-        @NotNull @Positive private Long longWrapper;
-        @NotNull @Positive private Float floatWrapper;
-        @NotNull @Positive private Double doubleWrapper;
-
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Byte byteWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Short shortWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @PositiveOrZero private Short shortWrapper;
-        @NotNull @PositiveOrZero private Integer integerWrapper;
-        @NotNull @PositiveOrZero private Long longWrapper;
-        @NotNull @PositiveOrZero private Float floatWrapper;
-        @NotNull @PositiveOrZero private Double doubleWrapper;
+    private double primitiveDouble;
+
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Byte byteWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
+    private Double doubleWrapper;
 
-        @NotNull @Positive private Byte byteWrapper;
-        @NotNull @Positive private Short shortWrapper;
-        @NotNull @Positive private Integer integerWrapper;
-        @NotNull @Positive private Long longWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigInteger bigInteger;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
 #### Snippet
 ```java
-        @NotNull @Positive private Byte byteWrapper;
-        @NotNull @Positive private Short shortWrapper;
-        @NotNull @Positive private Integer integerWrapper;
-        @NotNull @Positive private Long longWrapper;
-        @NotNull @Positive private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigInteger bigInteger;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private BigDecimal bigDecimal;
+    //@formatter:on
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Long longWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Float floatWrapper;
+    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    private Double doubleWrapper;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `instancio-core/src/main/java/org/instancio/internal/context/SortedSetWithReverseInsertionOrder.java`
 #### Snippet
 ```java
 
-        @NotNull @PositiveOrZero private BigInteger bigInteger;
-        @NotNull @PositiveOrZero private BigDecimal bigDecimal;
-        //@formatter:on
+    @Override
+    public <T> T[] toArray(@NotNull final T[] a) {
+        throw new UnsupportedOperationException();
     }
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UniqueElementsWithSizeBV.java`
 #### Snippet
 ```java
-        @NotNull @PositiveOrZero private Long longWrapper;
-        @NotNull @PositiveOrZero private Float floatWrapper;
-        @NotNull @PositiveOrZero private Double doubleWrapper;
+        public static final int MAX_SIZE = 2;
 
-        @NotNull @PositiveOrZero private BigInteger bigInteger;
+        @NotNull
+        @Size(min = MIN_SIZE, max = MAX_SIZE)
+        @UniqueElements
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UniqueElementsWithSizeBV.java`
 #### Snippet
 ```java
-        @Positive private double primitiveDouble;
-
-        @NotNull @Positive private Byte byteWrapper;
-        @NotNull @Positive private Short shortWrapper;
-        @NotNull @Positive private Integer integerWrapper;
+    public static class WithUnsupportedType {
+        // Unsupported type for @UniqueElements, the annotation should be ignored.
+        @NotNull
+        @UniqueElements
+        private String string;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
 #### Snippet
 ```java
-        @NotNull @Positive private Long longWrapper;
-        @NotNull @Positive private Float floatWrapper;
-        @NotNull @Positive private Double doubleWrapper;
-
-        @NotNull @Positive private BigInteger bigInteger;
+    @Data
+    public static class WithMaxSize {
+        @NotNull
+        @Length(max = 1)
+        private String value;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
 #### Snippet
 ```java
+        @NotNull
+        private String s1;
+        @NotNull
+        @Length(min = 20)
+        private String s2;
+```
 
-        @NotNull @Positive private BigInteger bigInteger;
-        @NotNull @Positive private BigDecimal bigDecimal;
-        //@formatter:on
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinSizeZero {
+        @NotNull
+        @Length
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinMaxSize {
+        @NotNull
+        @Length(min = 19, max = 20)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinSize {
+        @NotNull
+        @Length(min = 8)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMaxSizeZero {
+        @NotNull
+        @Length(max = 0)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithMinMaxEqual {
+        @NotNull
+        @Length(min = 5, max = 5)
+        private String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class ThreeFieldsOneMin {
+        @NotNull
+        private String s1;
+        @NotNull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/StringLengthBV.java`
+#### Snippet
+```java
+        @Length(min = 20)
+        private String s2;
+        @NotNull
+        private String s3;
     }
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/CreditCardNumberBV.java`
 #### Snippet
 ```java
-        @NotNull @Positive private Double doubleWrapper;
+public class CreditCardNumberBV {
 
-        @NotNull @Positive private BigInteger bigInteger;
-        @NotNull @Positive private BigDecimal bigDecimal;
-        //@formatter:on
+    @NotNull
+    @CreditCardNumber
+    private String value;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/IsbnBV.java`
 #### Snippet
 ```java
 
-        @NotNull @PositiveOrZero private Byte byteWrapper;
-        @NotNull @PositiveOrZero private Short shortWrapper;
-        @NotNull @PositiveOrZero private Integer integerWrapper;
-        @NotNull @PositiveOrZero private Long longWrapper;
+    @ISBN
+    @NotNull
+    private String isbn13;
+}
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EmailComboBV.java`
 #### Snippet
 ```java
-        @NotNull @PositiveOrZero private Integer integerWrapper;
-        @NotNull @PositiveOrZero private Long longWrapper;
-        @NotNull @PositiveOrZero private Float floatWrapper;
-        @NotNull @PositiveOrZero private Double doubleWrapper;
-
+    public static class NotNullEmailWithLength {
+        @Email
+        @NotNull
+        @Length(min = 15, max = 20)
+        private String value;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EanBV.java`
 #### Snippet
 ```java
-        @NotNull @PositiveOrZero private Double doubleWrapper;
 
-        @NotNull @PositiveOrZero private BigInteger bigInteger;
-        @NotNull @PositiveOrZero private BigDecimal bigDecimal;
-        //@formatter:on
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
-#### Snippet
-```java
-        @PositiveOrZero private double primitiveDouble;
-
-        @NotNull @PositiveOrZero private Byte byteWrapper;
-        @NotNull @PositiveOrZero private Short shortWrapper;
-        @NotNull @PositiveOrZero private Integer integerWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersPositiveBV.java`
-#### Snippet
-```java
-        @NotNull @Positive private Short shortWrapper;
-        @NotNull @Positive private Integer integerWrapper;
-        @NotNull @Positive private Long longWrapper;
-        @NotNull @Positive private Float floatWrapper;
-        @NotNull @Positive private Double doubleWrapper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
-#### Snippet
-```java
-    private double primitiveDouble;
-
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Byte byteWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Short shortWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Integer integerWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Long longWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Float floatWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Long longWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Float floatWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
-#### Snippet
-```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Byte byteWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Short shortWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
-#### Snippet
-```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Float floatWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Double doubleWrapper;
+    @EAN
+    @NotNull
+    private String ean13;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/EanBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Integer integerWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Long longWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+
+    @EAN(type = EAN.Type.EAN8)
+    @NotNull
+    private String ean8;
+}
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UrlBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Byte byteWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Short shortWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    @Data
+    public static class WithAttributes {
+        @NotNull
+        @URL(protocol = PROTOCOL, host = HOST, port = PORT)
+        private String value;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/UrlBV.java`
 #### Snippet
 ```java
-    private Double doubleWrapper;
-
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigInteger bigInteger;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    @Data
+    public static class WithDefaults {
+        @NotNull
+        @URL
+        private String value;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Float floatWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Double doubleWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
+#### Snippet
+```java
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxNegativeBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigInteger bigInteger;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigDecimal bigDecimal;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
     //@formatter:on
+}
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Integer integerWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Long longWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigInteger bigInteger;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigDecimal bigDecimal;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
+#### Snippet
+```java
+    @Range(min = MIN_VAL, max = MAX_VAL) private double primitiveDouble;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangePositiveBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PhoneBV.java`
+#### Snippet
+```java
+    private String countryCode;
+
+    @NotNull
+    @Digits(integer = 7, fraction = 0)
+    private String number;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        private String value0;
+
+        @NotNull
+        @Length(max = 20) // min = 0
+        @LuhnCheck(startIndex = 5, endIndex = 10, checkDigitIndex = 10)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        private String value0;
+
+        @NotNull
+        @Length(min = 20, max = 22)
+        @LuhnCheck(startIndex = 5, endIndex = 10)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithEndAndCheckDigitIndicesEqual {
+        @NotNull
+        @Length(min = 17)
+        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 7)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithStartEndAndCheckDigitIndices {
+        @NotNull
+        @Length(min = 17)
+        @LuhnCheck(startIndex = 0, endIndex = 7, checkDigitIndex = 8)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithDefaults {
+        @NotNull
+        @Length(min = 10)
+        @LuhnCheck
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+        private String value0;
+
+        @NotNull
+        @Length(max = 20) // min = 0
+        @LuhnCheck(startIndex = 5, endIndex = 10, checkDigitIndex = 3)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/LuhnCheckAndLengthBV.java`
+#### Snippet
+```java
+    @Data
+    public static class WithStartEndIndices {
+        @NotNull
+        @Length(min = 8, max = 8)
+        @LuhnCheck(startIndex = 0, endIndex = 7)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PersonBV.java`
+#### Snippet
+```java
+public class PersonBV {
+
+    @NotNull
+    @UUID
+    private String uuid;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/PersonBV.java`
+#### Snippet
+```java
+
+    @PersonName // this his not a validation annotation and should be ignored
+    @NotNull
+    @Length(min = 2)
+    private String name;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/person/AddressBV.java`
+#### Snippet
+```java
+    private String country;
+
+    @NotNull
+    @Size(min = 1, max = 5)
+    private List<PhoneBV> phoneNumbers;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
     //@formatter:on
+}
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
 #### Snippet
 ```java
-    private double primitiveDouble;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
 
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Byte byteWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
 #### Snippet
 ```java
-    private Double doubleWrapper;
 
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private BigInteger bigInteger;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
-in `instancio-tests/bean-validation-jakarta-tests/src/main/java/org/instancio/test/pojo/beanvalidation/NumbersMinMaxPositiveBV.java`
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
 #### Snippet
 ```java
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Short shortWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
-    private Integer integerWrapper;
-    @NotNull @Min(MIN_VAL) @Max(MAX_VAL)
+    @Range(min = MIN_VAL, max = MAX_VAL) private double primitiveDouble;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Byte byteWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Short shortWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Integer integerWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private String string;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Long longWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Float floatWrapper;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@jakarta.validation.constraints.NotNull'
+in `instancio-tests/bean-validation-hibernate-tests/src/main/java/org/instancio/test/pojo/beanvalidation/RangeNegativeBV.java`
+#### Snippet
+```java
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private Double doubleWrapper;
+
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigInteger bigInteger;
+    @NotNull @Range(min = MIN_VAL, max = MAX_VAL) private BigDecimal bigDecimal;
+
 ```
 
 ## RuleId[id=UseBulkOperation]
@@ -3267,6 +3267,42 @@ in `instancio-tests/instancio-test-support/src/main/java/org/instancio/test/supp
 ```
 
 ## RuleId[id=BlockingMethodInNonBlockingContext]
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
+#### Snippet
+```java
+        final String filename = metaModelClass.getMetamodelClassName();
+
+        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
+            logger.debug("Generating metamodel class: %s", filename);
+            writer.write(sourceGenerator.getSource(metaModelClass));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
+#### Snippet
+```java
+        final String filename = metaModelClass.getMetamodelClassName();
+
+        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
+            logger.debug("Generating metamodel class: %s", filename);
+            writer.write(sourceGenerator.getSource(metaModelClass));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
+#### Snippet
+```java
+        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
+            logger.debug("Generating metamodel class: %s", filename);
+            writer.write(sourceGenerator.getSource(metaModelClass));
+        } catch (Exception ex) {
+            logger.warn("Error generating metamodel for '%s'", metaModelClass, ex);
+```
+
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
 in `instancio-core/src/main/java/org/instancio/internal/util/IOUtils.java`
@@ -3361,41 +3397,5 @@ in `instancio-core/src/main/java/org/instancio/internal/generator/nio/file/PathG
                 return Files.createDirectory(completePath);
             }
         }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
-#### Snippet
-```java
-        final String filename = metaModelClass.getMetamodelClassName();
-
-        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
-            logger.debug("Generating metamodel class: %s", filename);
-            writer.write(sourceGenerator.getSource(metaModelClass));
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
-#### Snippet
-```java
-        final String filename = metaModelClass.getMetamodelClassName();
-
-        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
-            logger.debug("Generating metamodel class: %s", filename);
-            writer.write(sourceGenerator.getSource(metaModelClass));
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `instancio-processor/src/main/java/org/instancio/processor/InstancioAnnotationProcessor.java`
-#### Snippet
-```java
-        try (Writer writer = new BufferedWriter(filer.createSourceFile(filename, element).openWriter())) {
-            logger.debug("Generating metamodel class: %s", filename);
-            writer.write(sourceGenerator.getSource(metaModelClass));
-        } catch (Exception ex) {
-            logger.warn("Error generating metamodel for '%s'", metaModelClass, ex);
 ```
 
