@@ -24,15 +24,15 @@ in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Per
 
 ## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
-Non-final field `color` in enum 'Fruit'
+Non-final field `emoji` in enum 'Fruit'
 in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
 ```java
+
     public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
     private String emoji;
     private Color color;
 
-    Fruit(String emoji, Color color)
 ```
 
 ### NonFinalFieldInEnum
@@ -48,20 +48,8 @@ in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `emoji` in enum 'Fruit'
-in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
-#### Snippet
-```java
-
-    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
-    private String emoji;
-    private Color color;
-
-```
-
-### NonFinalFieldInEnum
 Non-final field `color` in enum 'Fruit'
-in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
 ```java
     public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
@@ -69,6 +57,18 @@ in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodsk
     private Color color;
 
     Fruit(String emoji, Color color)
+```
+
+### NonFinalFieldInEnum
+Non-final field `emoji` in enum 'Fruit'
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
 ```
 
 ### NonFinalFieldInEnum
@@ -84,15 +84,15 @@ in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodsk
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `emoji` in enum 'Fruit'
+Non-final field `color` in enum 'Fruit'
 in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
 ```java
-
     public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
     private String emoji;
     private Color color;
 
+    Fruit(String emoji, Color color)
 ```
 
 ## RuleId[id=Deprecation]
@@ -412,18 +412,6 @@ public class Pet
 ```
 
 ### FieldMayBeFinal
-Field `age` may be 'final'
-in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
-#### Snippet
-```java
-    private PetType type;
-    private String name;
-    private int age;
-
-    public Pet(PetType type, String name, int age)
-```
-
-### FieldMayBeFinal
 Field `name` may be 'final'
 in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
 #### Snippet
@@ -433,6 +421,18 @@ in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
     private String name;
     private int age;
 
+```
+
+### FieldMayBeFinal
+Field `age` may be 'final'
+in `jackson-kata/src/main/java/org/eclipse/collections/jacksonkata/Pet.java`
+#### Snippet
+```java
+    private PetType type;
+    private String name;
+    private int age;
+
+    public Pet(PetType type, String name, int age)
 ```
 
 ### FieldMayBeFinal
@@ -448,18 +448,6 @@ in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Per
 ```
 
 ### FieldMayBeFinal
-Field `firstName` may be 'final'
-in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
-#### Snippet
-```java
-public class Person
-{
-    private String firstName;
-    private String lastName;
-    private int age;
-```
-
-### FieldMayBeFinal
 Field `lastName` may be 'final'
 in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
 #### Snippet
@@ -472,15 +460,15 @@ in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Per
 ```
 
 ### FieldMayBeFinal
-Field `time` may be 'final'
-in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+Field `firstName` may be 'final'
+in `jackson-kata-solutions/src/main/java/org/eclipse/collections/jacksonkata/Person.java`
 #### Snippet
 ```java
-            new SchoolGroup(HALLOWEEN.atTime(HIGH_SCHOOL_START), CANDY_COUNT);
-
-    private LocalDateTime time;
-    private long candyCount;
-
+public class Person
+{
+    private String firstName;
+    private String lastName;
+    private int age;
 ```
 
 ### FieldMayBeFinal
@@ -520,6 +508,30 @@ in `candy-kata-solutions/src/main/java/org/eclipse/collections/candykata/SchoolG
 ```
 
 ### FieldMayBeFinal
+Field `time` may be 'final'
+in `candy-kata/src/main/java/org/eclipse/collections/candykata/SchoolGroup.java`
+#### Snippet
+```java
+            new SchoolGroup(HALLOWEEN.atTime(HIGH_SCHOOL_START), CANDY_COUNT);
+
+    private LocalDateTime time;
+    private long candyCount;
+
+```
+
+### FieldMayBeFinal
+Field `emoji` may be 'final'
+in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+#### Snippet
+```java
+
+    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
+    private String emoji;
+    private Color color;
+
+```
+
+### FieldMayBeFinal
 Field `color` may be 'final'
 in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
@@ -533,7 +545,7 @@ in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.
 
 ### FieldMayBeFinal
 Field `emoji` may be 'final'
-in `top-methods-kata/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
+in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
 #### Snippet
 ```java
 
@@ -553,17 +565,5 @@ in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodsk
     private Color color;
 
     Fruit(String emoji, Color color)
-```
-
-### FieldMayBeFinal
-Field `emoji` may be 'final'
-in `top-methods-kata-solutions/src/main/java/org/eclipse/collections/topmethodskata/Fruit.java`
-#### Snippet
-```java
-
-    public static ImmutableList<Fruit> ALL = Lists.immutable.with(Fruit.values());
-    private String emoji;
-    private Color color;
-
 ```
 
