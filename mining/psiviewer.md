@@ -1,435 +1,31 @@
 # psiviewer 
  
 # Bad smells
-I found 88 bad smells with 10 repairable:
+I found 107 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| BlockingMethodInNonBlockingContext | 30 | false |
 | CharsetObjectCanBeUsed | 18 | false |
-| NonSerializableFieldInSerializableClass | 8 | false |
-| RedundantFieldInitialization | 7 | false |
-| ReturnNull | 7 | false |
-| UtilityClassWithoutPrivateConstructor | 4 | true |
-| AssignmentToMethodParameter | 4 | false |
+| NullableProblems | 17 | false |
+| UNCHECKED_WARNING | 7 | false |
+| Deprecation | 7 | false |
 | StringOperationCanBeSimplified | 3 | false |
-| UnnecessaryFullyQualifiedName | 3 | false |
-| NestedAssignment | 3 | false |
 | UnnecessaryLocalVariable | 3 | true |
-| IOResource | 2 | false |
+| TrivialIf | 3 | false |
 | StringEquality | 2 | false |
 | MarkedForRemoval | 2 | false |
-| CommentedOutCode | 2 | false |
-| CStyleArrayDeclaration | 2 | false |
-| SizeReplaceableByIsEmpty | 2 | true |
 | UNUSED_IMPORT | 2 | false |
-| ThrowablePrintStackTrace | 2 | false |
-| StringBufferReplaceableByStringBuilder | 2 | false |
-| ZeroLengthArrayInitialization | 2 | false |
+| CStyleArrayDeclaration | 2 | false |
+| CommentedOutCode | 2 | false |
 | MagicConstant | 1 | false |
 | DataFlowIssue | 1 | false |
+| JavadocDeclaration | 1 | false |
+| CachedNumberConstructorCall | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-| RedundantSuppression | 1 | false |
-| UnnecessaryBoxing | 1 | false |
-| UnnecessaryUnboxing | 1 | false |
-| RedundantImplements | 1 | false |
+| SuspiciousMethodCalls | 1 | false |
+| RedundantTypeArguments | 1 | false |
 | UnusedAssignment | 1 | false |
-## RuleId[id=IOResource]
-### IOResource
-'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data.toString());
-            wr.flush();
-```
-
-### IOResource
-'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-            cm.setCookies(conn);
-
-            wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data.toString());
-            wr.flush();
-```
-
-## RuleId[id=StringEquality]
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-            _selectedElement = element;
-            updatePropertySheet();
-            if (reason != TREE_SELECTION_CHANGED)
-                changeTreeSelection();
-            applyHighlighting();
-```
-
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-                changeTreeSelection();
-            applyHighlighting();
-            if (reason != CARET_MOVED && element != null)
-                moveEditorCaret();
-        }
-```
-
-## RuleId[id=MagicConstant]
-### MagicConstant
-Should be one of: ListSelectionModel.SINGLE_SELECTION, ListSelectionModel.SINGLE_INTERVAL_SELECTION, ...
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
-#### Snippet
-```java
-        ;
-        myTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        myTable.getSelectionModel().setSelectionMode(0);
-
-        packColumn(myTable, 0, 2);
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-import java.lang.reflect.Method;
-
-public class IntrospectionUtil
-{
-    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Helpers` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
-#### Snippet
-```java
-import java.net.URL;
-
-public final class Helpers
-{
-    private static final Logger LOG = Logger.getInstance(Helpers.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PluginPsiUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/PluginPsiUtil.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class PluginPsiUtil
-{
-    @Nullable
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ActionEventUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/ActionEventUtil.java`
-#### Snippet
-```java
-import com.intellij.psi.PsiFile;
-
-public class ActionEventUtil
-{
-    public static Project getProject(AnActionEvent event)
-```
-
-## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'Integer(int)' is deprecated and marked for removal
-in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
-#### Snippet
-```java
-        _slider.addChangeListener(it -> {
-                    int value = ((JSlider) it.getSource()).getValue();
-                    _spinner.setValue(new Integer(value));
-                    updateColor(value);
-                }
-```
-
-### MarkedForRemoval
-'findPluginId(java.lang.@org.jetbrains.annotations.NotNull Throwable)' is deprecated and marked for removal
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        Throwable t = ideaLoggingEvents[0].getThrowable();
-        if (t != null) {
-            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
-            if (pluginId != null) {
-                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Result of 'min' is the same as the second argument making the call meaningless
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-                                       String description,
-                                       String user) {
-        this.myDescription = ideaLoggingEvents[0].getThrowableText().substring(0, Math.min(Math.max(80, ideaLoggingEvents[0].getThrowableText().length()), 80));
-
-        @NonNls StringBuilder descBuilder = new StringBuilder();
-```
-
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        if (this.myDescription == null || this.myDescription.length() == 0) throw new RuntimeException("Description");
-
-        StringBuilder response = new StringBuilder("");
-
-        //Create Post String
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-        String token  = st.nextToken();
-        String name = token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR));
-        String value = token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length());
-        domainStore.put(name, cookie);
-        cookie.put(name, value);
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-    while (st.hasMoreTokens()) {
-        String token  = st.nextToken();
-        cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(), token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
-    }
-    }
-```
-
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (7 lines)
-in `src/main/java/idea/plugin/psiviewer/view/IconCache.java`
-#### Snippet
-```java
-        _iconCache.put(PsiDirectory.class, Helpers.getIcon("/nodes/folder.png"));
-
-//        try {
-//            _iconCache.put(PsiField.class, Helpers.getIcon("/nodes/field.png"));
-//            _iconCache.put(PsiMethod.class, Helpers.getIcon("/nodes/method.png"));
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        if (ResultString == null)
-            return new SubmittedReportInfo(SERVER_ISSUE_URL, "", FAILED);
-//        else {
-//            if (ResultString.trim().length() > 0)
-//                status = DUPLICATE;
-```
-
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `args`
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `token`
-in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
-#### Snippet
-```java
-    {
-        int red = 0, green = 0, blue = 0, alpha = 128;
-        String token[] = rgba.split(" ");
-        if (token.length > 0) red = getSample(token[0]);
-        if (token.length > 1) green = getSample(token[1]);
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_elementVisitor' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
-#### Snippet
-```java
-
-class PsiViewerTreeCellRenderer extends DefaultTreeCellRenderer implements PsiViewerConstants {
-    private final ElementVisitor _elementVisitor = new ElementVisitor();
-    private final XmlElementVisitor _elementVisitorXml = new ElementVisitorXml();
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myElementVisitor' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
-#### Snippet
-```java
-
-class PropertySheetHeaderRenderer extends JLabel implements TableCellRenderer, PsiViewerConstants {
-    private final ElementVisitor myElementVisitor = new ElementVisitor();
-    private final XmlElementVisitor myElementVisitorXml = new ElementVisitorXml();
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTarget' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
-#### Snippet
-```java
- */
-public class PropertySheetPanel extends JPanel {
-    private Object myTarget;
-    private JTable myTable;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_highlighter' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_treeSelectionListener' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private ToolWindow _toolWindow;
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_caretMover' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_projectComponent' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
-            new PropertySheetHeaderRenderer(Helpers.getIcon(PsiViewerConstants.ICON_PSI),
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_model' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private String _actionTitle;
-    private PsiViewerTree _tree;
-    private PsiViewerTreeModel _model;
-    private PsiElement _rootElement; // The root element of the tree
-    private PsiElement _selectedElement; // The currently selected element in the tree
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`getFilteredChildren(psi).size() == 0` can be replaced with 'getFilteredChildren(psi).isEmpty()'
-in `src/main/java/idea/plugin/psiviewer/model/PsiViewerTreeModel.java`
-#### Snippet
-```java
-    public boolean isLeaf(Object node) {
-        PsiElement psi = (PsiElement) node;
-        return getFilteredChildren(psi).size() == 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`this.myDescription.length() == 0` can be replaced with 'this.myDescription.isEmpty()'
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-
-    public String submit() {
-        if (this.myDescription == null || this.myDescription.length() == 0) throw new RuntimeException("Description");
-
-        StringBuilder response = new StringBuilder("");
-```
-
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/idea/plugin/psiviewer/controller/project/EditorListener.java`
-#### Snippet
-```java
-
-    public void selectionChanged(@NotNull FileEditorManagerEvent event) {
-        debug("selection changed " + event.toString());
-
-        if (event.getNewFile() == null || myCurrentEditor == null) return;
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        myLanguagesComboBox.removeItemListener(myLanguagesComboBoxListener);
-
-        //noinspection Since15
-        myLanguagesComboBox.setModel(new ListComboBoxModel<>(new ArrayList<>(languages)));
-
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
-#### Snippet
-```java
-        _slider.addChangeListener(it -> {
-                    int value = ((JSlider) it.getSource()).getValue();
-                    _spinner.setValue(new Integer(value));
-                    updateColor(value);
-                }
-```
-
+| JavadocLinkAsPlainText | 1 | false |
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
@@ -647,54 +243,165 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
             // Send Data To Page
 ```
 
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
+## RuleId[id=StringEquality]
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-        try
-        {
-            s = Math.min(Math.abs(Integer.valueOf(sample).intValue()), 255);
-        }
-        catch (NumberFormatException e)
+            _selectedElement = element;
+            updatePropertySheet();
+            if (reason != TREE_SELECTION_CHANGED)
+                changeTreeSelection();
+            applyHighlighting();
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
-in `src/main/java/idea/plugin/psiviewer/view/EditorPsiElementHighlighter.java`
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+                changeTreeSelection();
+            applyHighlighting();
+            if (reason != CARET_MOVED && element != null)
+                moveEditorCaret();
+        }
+```
+
+## RuleId[id=MagicConstant]
+### MagicConstant
+Should be one of: ListSelectionModel.SINGLE_SELECTION, ListSelectionModel.SINGLE_INTERVAL_SELECTION, ...
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
+#### Snippet
+```java
+        ;
+        myTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        myTable.getSelectionModel().setSelectionMode(0);
+
+        packColumn(myTable, 0, 2);
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked call to 'setModel(ComboBoxModel)' as a member of raw type 'javax.swing.JComboBox'
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
 #### Snippet
 ```java
 
-    private boolean isHighlightOn() {
-        return idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(_project).isHighlighted();
+        //noinspection Since15
+        myLanguagesComboBox.setModel(new ListComboBoxModel<>(new ArrayList<>(languages)));
+
+        if (selectedLanguage != null && languages.contains(selectedLanguage))
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+        // we don't, so let's create it and put it in the store
+        domainStore = new HashMap();
+        myStore.put(domain, domainStore);
     }
 
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerToolWindowFactory.java`
-#### Snippet
-```java
-    @Override
-    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        PsiViewerProjectService component = idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(project);
-        ContentManager contentManager = toolWindow.getContentManager();
-        PsiViewerPanel panel = component.initToolWindow(toolWindow);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
 ```java
- *
- * @param conn a java.net.URLConnection - must NOT be open, or IOException will be thrown
- * @throws java.io.IOException Thrown if <i>conn</i> has already been opened.
- */
-public void setCookies(URLConnection conn) throws IOException {
+        String name = token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR));
+        String value = token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length());
+        domainStore.put(name, cookie);
+        cookie.put(name, value);
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+        String value = token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length());
+        domainStore.put(name, cookie);
+        cookie.put(name, value);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+    while (st.hasMoreTokens()) {
+        String token  = st.nextToken();
+        cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(), token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
+    }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'addFirst(E)' as a member of raw type 'java.util.LinkedList'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+        while (element != null && element != _rootElement)
+        {
+            list.addFirst(element);
+            element = element.getParent();
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'addFirst(E)' as a member of raw type 'java.util.LinkedList'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+        }
+        if (element != null)
+            list.addFirst(element);
+        TreePath treePath = new TreePath(list.toArray());
+        debug("root=" + _rootElement + ", treePath=" + treePath);
+```
+
+## RuleId[id=MarkedForRemoval]
+### MarkedForRemoval
+'Integer(int)' is deprecated and marked for removal
+in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
+#### Snippet
+```java
+        _slider.addChangeListener(it -> {
+                    int value = ((JSlider) it.getSource()).getValue();
+                    _spinner.setValue(new Integer(value));
+                    updateColor(value);
+                }
+```
+
+### MarkedForRemoval
+'findPluginId(java.lang.@org.jetbrains.annotations.NotNull Throwable)' is deprecated and marked for removal
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+        Throwable t = ideaLoggingEvents[0].getThrowable();
+        if (t != null) {
+            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
+            if (pluginId != null) {
+                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Result of 'min' is the same as the second argument making the call meaningless
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+                                       String description,
+                                       String user) {
+        this.myDescription = ideaLoggingEvents[0].getThrowableText().substring(0, Math.min(Math.max(80, ideaLoggingEvents[0].getThrowableText().length()), 80));
+
+        @NonNls StringBuilder descBuilder = new StringBuilder();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -722,326 +429,132 @@ import idea.plugin.psiviewer.controller.actions.PropertyToggleAction;
 import idea.plugin.psiviewer.util.Helpers;
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
+## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+Unnecessary string length argument
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
 ```java
-
-String headerName=null;
-for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
-    if (headerName.equalsIgnoreCase(SET_COOKIE)) {
-    Map cookie = new HashMap();
+        String token  = st.nextToken();
+        String name = token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR));
+        String value = token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length());
+        domainStore.put(name, cookie);
+        cookie.put(name, value);
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
+### StringOperationCanBeSimplified
+Unnecessary string length argument
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
 ```java
-    return (now.compareTo(myDateFormat.parse(cookieExpires))) <= 0;
-} catch (ParseException pe) {
-    pe.printStackTrace();
-    return false;
-}
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private static final String TREE_SELECTION_CHANGED = "tree selection changed";
-
-    private boolean inSetSelectedElement = false;
-
-    private void setSelectedElement(PsiElement element, String reason)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-    private static final String PROJECT_NAME = "PSI";
-
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
-    private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    while (st.hasMoreTokens()) {
+        String token  = st.nextToken();
+        cookie.put(token.substring(0, token.indexOf(NAME_VALUE_SEPARATOR)).toLowerCase(), token.substring(token.indexOf(NAME_VALUE_SEPARATOR) + 1, token.length()));
     }
-    private State myState = new State();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
     }
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `rootElement`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-                if( selectedRoot != null )
-                {
-                    rootElement = selectedRoot;
-                }
-            }
+        if (this.myDescription == null || this.myDescription.length() == 0) throw new RuntimeException("Description");
+
+        StringBuilder response = new StringBuilder("");
+
+        //Create Post String
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `element`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param path` tag description is missing
+in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
 #### Snippet
 ```java
+     * return <i>some</i> sort of icon even if it has to build one on-the-fly.
+     *
+     * @param path
+     * @return An Icon almost guaranteed to be usable.
+     */
+```
+
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `token`
+in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
+#### Snippet
+```java
+    {
+        int red = 0, green = 0, blue = 0, alpha = 128;
+        String token[] = rgba.split(" ");
+        if (token.length > 0) red = getSample(token[0]);
+        if (token.length > 1) green = getSample(token[1]);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `args`
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+        try
         {
-            list.addFirst(element);
-            element = element.getParent();
-        }
-        if (element != null)
+            Object args[] = {};
+            getter.setAccessible(true);
+
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (7 lines)
+in `src/main/java/idea/plugin/psiviewer/view/IconCache.java`
+#### Snippet
+```java
+        _iconCache.put(PsiDirectory.class, Helpers.getIcon("/nodes/folder.png"));
+
+//        try {
+//            _iconCache.put(PsiField.class, Helpers.getIcon("/nodes/field.png"));
+//            _iconCache.put(PsiMethod.class, Helpers.getIcon("/nodes/method.png"));
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
 ```java
-        }
-
-        if (user == null) user = "<none>";
-        if (description == null) description = "<none>";
-
+        if (ResultString == null)
+            return new SubmittedReportInfo(SERVER_ISSUE_URL, "", FAILED);
+//        else {
+//            if (ResultString.trim().length() > 0)
+//                status = DUPLICATE;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `description`
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+## RuleId[id=CachedNumberConstructorCall]
+### CachedNumberConstructorCall
+Number constructor call with primitive argument
+in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
 #### Snippet
 ```java
-
-        if (user == null) user = "<none>";
-        if (description == null) description = "<none>";
-
-        descBuilder.append("\n\nDescription: ").append(description).append("\n\nUser: ").append(user);
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `CaretListener`
-in `src/main/java/idea/plugin/psiviewer/controller/project/EditorListener.java`
-#### Snippet
-```java
- * @version $Revision: 1.1 $
- */
-public class EditorListener extends CaretAdapter implements FileEditorManagerListener, CaretListener {
-
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
-#### Snippet
-```java
-    public Icon getSmallDisplayIcon()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
-#### Snippet
-```java
-    public Icon getLargeDisplayIcon()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
-#### Snippet
-```java
-        Editor editor = ActionEventUtil.getEditor(event);
-        if (editor == null)
-            return null;
-        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
-        if (psiFile == null)
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/controller/actions/ViewElementAtCaretAction.java`
-#### Snippet
-```java
-        final PsiFile psiFile = ActionEventUtil.getPsiFile(event);
-        if (psiFile == null)
-            return null;
-        return psiFile.findElementAt(editor.getCaretModel().getOffset());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/view/EditorCaretMover.java`
-#### Snippet
-```java
-        }
-        
-        if (psiFile == null) return null;
-
-        final VirtualFile virtualFile = psiFile.getVirtualFile();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/view/EditorCaretMover.java`
-#### Snippet
-```java
-        final VirtualFile virtualFile = psiFile.getVirtualFile();
-
-        if (virtualFile == null) return null;
-
-        OpenFileDescriptor fileDesc = new OpenFileDescriptor(_project, virtualFile, i);    // 20050826 IDEA 5.0.1 #3461
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private TreePath getPath(PsiElement element)
-    {
-        if (element == null) return null;
-        LinkedList list = new LinkedList();
-        while (element != null && element != _rootElement)
-```
-
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
-#### Snippet
-```java
-        if (object == null) return "null";
-        if (!object.getClass().isArray()) return object.toString();
-        StringBuffer buf = new StringBuffer();
-        buf.append("[");
-        int arrayLength = Array.getLength(object);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer cookieStringBuffer` may be declared as 'StringBuilder'
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-    Map domainStore = (Map) myStore.get(domain);
-if (domainStore == null) return;
-StringBuffer cookieStringBuffer = new StringBuffer();
-
-Iterator cookieNames = domainStore.keySet().iterator();
+        _slider.addChangeListener(it -> {
+                    int value = ((JSlider) it.getSource()).getValue();
+                    _spinner.setValue(new Integer(value));
+                    updateColor(value);
+                }
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `ioe` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+    conn.setRequestProperty(COOKIE, cookieStringBuffer.toString());
+} catch (IllegalStateException ise) {
+    IOException ioe = new IOException("Illegal State! Cookies cannot be set on a URLConnection that is already connected. Only call setCookies(java.net.URLConnection) AFTER calling java.net.URLConnection.connect().");
+    throw ioe;
+}
+```
+
 ### UnnecessaryLocalVariable
 Local variable `filePath` is redundant
 in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
@@ -1066,41 +579,128 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
         if (ResultString == null)
 ```
 
-### UnnecessaryLocalVariable
-Local variable `ioe` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'message(java.util.@org.jetbrains.annotations.NotNull ResourceBundle, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.Object @org.jetbrains.annotations.NotNull ...)' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorReportSubmitterBundle.java`
 #### Snippet
 ```java
-    conn.setRequestProperty(COOKIE, cookieStringBuffer.toString());
-} catch (IllegalStateException ise) {
-    IOException ioe = new IOException("Illegal State! Cookies cannot be set on a URLConnection that is already connected. Only call setCookies(java.net.URLConnection) AFTER calling java.net.URLConnection.connect().");
-    throw ioe;
+    public static String message(@PropertyKey(resourceBundle = "com.sylvanaar.idea.errorreporting.PluginErrorReportSubmitterBundle") String key,
+                                 Object... params) {
+        return CommonBundle.message(OUR_BUNDLE, key, params);
+    }
 }
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+### Deprecation
+'com.intellij.openapi.editor.event.CaretAdapter' is deprecated
+in `src/main/java/idea/plugin/psiviewer/controller/project/EditorListener.java`
 #### Snippet
 ```java
-            LOG.debug("Introspector.getBeanInfo(" + targetClass + ") exception...");
-            LOG.debug(ex);
-            propertyDescriptors = new PropertyDescriptor[0];
-        }
-        return propertyDescriptors;
+ * @version $Revision: 1.1 $
+ */
+public class EditorListener extends CaretAdapter implements FileEditorManagerListener, CaretListener {
+
+
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+### Deprecation
+'loadDocument(java.io.@org.jetbrains.annotations.NotNull File)' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
 #### Snippet
 ```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
+        if (file.exists()) {
+            try {
+                Document document = JDOMUtil.loadDocument(file);
+                Element applicationElement = document.getRootElement();
+                if (applicationElement == null) {
+```
 
+### Deprecation
+'com.intellij.openapi.util.DefaultJDOMExternalizer' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
+#### Snippet
+```java
+                }
+
+                DefaultJDOMExternalizer.readExternal(this, componentElement);
+                myUserTextField.setText(USERNAME);
+            } catch (Exception e) {
+```
+
+### Deprecation
+'com.intellij.openapi.util.DefaultJDOMExternalizer' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
+#### Snippet
+```java
+
+            USERNAME = myUserTextField.getText();
+            DefaultJDOMExternalizer.writeExternal(this, componentElement);
+
+            Document document = new Document(applicationElement);
+```
+
+### Deprecation
+'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `src/main/java/idea/plugin/psiviewer/controller/application/PsiViewerApplicationSettings.java`
+#### Snippet
+```java
+
+    public static PsiViewerApplicationSettings getInstance() {
+        return ServiceManager.getService(PsiViewerApplicationSettings.class);
+    }
+
+```
+
+### Deprecation
+'getPlugin(com.intellij.openapi.extensions.@org.jetbrains.annotations.Nullable PluginId)' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
+            if (pluginId != null) {
+                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+                if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled()) {
+                    descBuilder.append("Plugin ").append(ideaPluginDescriptor.getName()).append(" version: ").append(ideaPluginDescriptor.getVersion()).append("\n");
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/idea/plugin/psiviewer/controller/project/EditorListener.java`
+#### Snippet
+```java
+
+    public void selectionChanged(@NotNull FileEditorManagerEvent event) {
+        debug("selection changed " + event.toString());
+
+        if (event.getNewFile() == null || myCurrentEditor == null) return;
+```
+
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'List.indexOf()'
+in `src/main/java/idea/plugin/psiviewer/model/PsiViewerTreeModel.java`
+#### Snippet
+```java
+        List<PsiElement> psiChildren = getFilteredChildren(psiParent);
+
+        return psiChildren.indexOf(child);
+    }
+
+```
+
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        myLanguagesComboBox = new ComboBox();
+        panel.add(myLanguagesComboBox);
+        updateLanguagesList(Collections.<Language>emptyList());
+
+        myViewerPanel.add(panel, BorderLayout.NORTH);
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1114,5 +714,621 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 String headerName=null;
 for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
     if (headerName.equalsIgnoreCase(SET_COOKIE)) {
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDoctype(XmlDoctype psiElement) {
+        }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlTag(XmlTag psiElement) {
+            setIcon(IconCache.getIcon(XmlTag.class));
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+
+    private class ElementVisitorXml extends XmlElementVisitor {
+        public void visitXmlAttribute(XmlAttribute psiElement) {
+            setIcon(IconCache.getIcon(XmlAttribute.class));
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlAttributeValue(XmlAttributeValue psiElement) {
+        }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlComment(XmlComment psiElement) {
+            setIcon(IconCache.getIcon(XmlComment.class));
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDocument(XmlDocument psiElement) {
+        }
+        
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDecl(XmlDecl psiElement) {
+        }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+        
+        public void visitXmlProlog(XmlProlog psiElement) {
+        }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlFile(XmlFile psiElement) {
+            setIcon(IconCache.getIcon(XmlFile.class));
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlToken(XmlToken psiElement) {
+        }
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDocument(XmlDocument psiElement) {
+            setText("XmlDocument");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDecl(XmlDecl psiElement) {
+            setText("XmlDecl");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDoctype(XmlDoctype psiElement) {
+            setText("XmlDoctype");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlProlog(XmlProlog psiElement) {
+            setText("XmlProlog");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlComment(XmlComment psiElement) {
+            setIcon(IconCache.getIcon(XmlComment.class));
+            setText("XmlComment");
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlAttributeValue(XmlAttributeValue psiElement) {
+            setText("XmlAttributeValue");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean submit(@NotNull IdeaLoggingEvent[] ideaLoggingEvents,
+                          @Nullable String additionalInfo,
+                          @NotNull Component component,
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+ * <code>
+ *     Cookiemanager cm = new CookieManager();
+ *     URL url = new URL("http://www.hccp.org/test/cookieTest.jsp");
+ *
+ *      . . .
+```
+
+## RuleId[id=BlockingMethodInNonBlockingContext]
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            // Build Login
+            data.append(URLEncoder.encode("login", "UTF-8")).append("=").append(URLEncoder.encode(USER_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("password", "UTF-8")).append("=").append(URLEncoder.encode("root", "UTF-8"));
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            // Build Login
+            data.append(URLEncoder.encode("login", "UTF-8")).append("=").append(URLEncoder.encode(USER_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("password", "UTF-8")).append("=").append(URLEncoder.encode("root", "UTF-8"));
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            // Build Login
+            data.append(URLEncoder.encode("login", "UTF-8")).append("=").append(URLEncoder.encode(USER_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("password", "UTF-8")).append("=").append(URLEncoder.encode("root", "UTF-8"));
+
+            // Send Login
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            // Build Login
+            data.append(URLEncoder.encode("login", "UTF-8")).append("=").append(URLEncoder.encode(USER_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("password", "UTF-8")).append("=").append(URLEncoder.encode("root", "UTF-8"));
+
+            // Send Login
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            // Send Login
+            URL url = new URL(LOGIN_URL);
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+
+            // Get The Response
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            // Get The Response
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                response.append(line);
+            }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            data = new StringBuilder();
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            data = new StringBuilder();
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data = new StringBuilder();
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data = new StringBuilder();
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append(URLEncoder.encode("project", "UTF-8")).append("=").append(URLEncoder.encode(PROJECT_NAME, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("assignee", "UTF-8")).append("=").append(URLEncoder.encode("Unassigned", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("summary", "UTF-8")).append("=").append(URLEncoder.encode(myDescription, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+
+            if (this.myAffectedVersion != null)
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            data.append("&").append(URLEncoder.encode("description", "UTF-8")).append("=").append(URLEncoder.encode(myExtraInformation, "UTF-8"));
+            data.append("&").append(URLEncoder.encode("priority", "UTF-8")).append("=").append(URLEncoder.encode("4", "UTF-8"));
+            data.append("&").append(URLEncoder.encode("type", "UTF-8")).append("=").append(URLEncoder.encode("Exception", "UTF-8"));
+
+            if (this.myAffectedVersion != null)
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            if (this.myAffectedVersion != null)
+                data.append("&").append(URLEncoder.encode("affectsVersion", "UTF-8")).append("=").append(URLEncoder.encode(this.myAffectedVersion, "UTF-8"));
+
+            // Send Data To Page
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            if (this.myAffectedVersion != null)
+                data.append("&").append(URLEncoder.encode("affectsVersion", "UTF-8")).append("=").append(URLEncoder.encode(this.myAffectedVersion, "UTF-8"));
+
+            // Send Data To Page
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            url = new URL(SERVER_ISSUE_URL);
+
+            conn = url.openConnection();
+            conn.setDoOutput(true);
+            cm.setCookies(conn);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            cm.setCookies(conn);
+
+            wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data.toString());
+            wr.flush();
+
+            // Get The Response
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+            // Get The Response
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            while ((line = rd.readLine()) != null) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            while ((line = rd.readLine()) != null) {
+                response.append(line);
+            }
+```
+
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/idea/plugin/psiviewer/controller/application/Configuration.java`
+#### Snippet
+```java
+            return true;
+
+        if (!Helpers.encodeColor(myPanel.getReferenceHighlightColor()).equals(mySettings.REFERENCE_HIGHLIGHT_COLOR))
+            return true;
+
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        }
+
+        if (languages.size() < 2) {
+            myLanguagesComboBox.setVisible(false);
+        } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+} else if (cookiePath.equals("/")) {
+    return true;
+} else if (targetPath.regionMatches(0, cookiePath, 0, cookiePath.length())) {
+    return true;
+} else {
 ```
 
