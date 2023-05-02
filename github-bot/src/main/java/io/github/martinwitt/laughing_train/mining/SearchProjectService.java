@@ -10,6 +10,7 @@ import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -29,70 +30,69 @@ public class SearchProjectService {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @SuppressWarnings("NullAway")
-    @ConfigProperty(name = "mining.github.search.orgs")
+    private final Random random = new Random();
     List<String> orgs;
-
-    @Inject
     ProjectRepository projectRepository;
-
-    @Inject
     ProjectConfigRepository projectConfigRepository;
 
-    private final Random random = new Random();
+    public SearchProjectService(
+            ProjectRepository projectRepository,
+            ProjectConfigRepository projectConfigRepository,
+            @ConfigProperty(name = "mining.github.search.orgs") List<String> orgs) {
+        this.projectRepository = projectRepository;
+        this.projectConfigRepository = projectConfigRepository;
+        this.orgs = orgs;
+    }
 
     /**
-     * Searches for a random project on github and returns it as a {@link Uni} of {@link Project}.
+     * Searches for a random project on github and returns it as a {@link Project}.
      * Only projects from the config property {@code mining.github.search.orgs} are considered.
-     * @return {@link Uni} of {@link Project}
+     * @return  a random project from github as a {@link Project}
+     * @throws IOException
      */
-    public Uni<Project> searchProjectOnGithub() {
-        return Uni.createFrom()
-                .item(findRandomRepositoryOnGithub())
-                .onItem()
-                .ifNull()
-                .failWith(() -> new RuntimeException("No project found on github"))
-                .invoke(project -> logger.atInfo().log(
-                        "Found project %s on github now starting mining it", project.getHttpTransportUrl()))
-                .flatMap(this::getProject)
-                .invoke(this::persistProject)
-                .invoke(this::persistProjectConfigIfMissing);
+    public Project searchProjectOnGithub() throws IOException {
+        var repo = findRandomRepositoryOnGithub();
+        if (repo == null) {
+            throw new IOException("No project found on github");
+        }
+        logger.atInfo().log("Found project %s on github now starting mining it", repo.getHttpTransportUrl());
+        var project = persistProject(getProject(repo));
+        persistProjectConfigIfMissing(project);
+        return project;
     }
     /**
      * This searches for the repository in the database and returns it if it exists. If it does not exist, it is created.
      * @param ghRepo  the repository to search for
      * @return the repository if it exists, null otherwise
      */
-    private Uni<Project> getProject(GHRepository ghRepo) {
-        return Uni.createFrom()
-                .item(projectRepository.findByProjectName(ghRepo.getName()))
-                .flatMap(v -> v.isEmpty()
-                        ? Uni.createFrom().item(toProject(ghRepo))
-                        : Uni.createFrom().item(v.get(0)));
+    private Project getProject(GHRepository ghRepo) {
+        var list = projectRepository.findByProjectUrl(ghRepo.getHtmlUrl().toString());
+        if (list.isEmpty()) {
+            return projectRepository.create(toProject(ghRepo));
+        } else {
+            return list.get(0);
+        }
+    }
+    /**
+     * Persists the project in the database if it does not exist yet.
+     * @param project  the project to persist
+     * @return  the persisted project or the project from the database if it already existed
+     */
+    private Project persistProject(Project project) {
+        var list = projectRepository.findByProjectUrl(project.getProjectUrl());
+        if (list.isEmpty()) {
+            return projectRepository.create(project);
+        } else {
+            return project;
+        }
     }
 
-    private Uni<Project> persistProject(Project project) {
-        return Uni.createFrom()
-                .item(projectRepository.findByProjectUrl(project.getProjectUrl()))
-                .flatMap(list -> {
-                    if (list.isEmpty()) {
-                        return Uni.createFrom().item(projectRepository.create(project));
-                    } else {
-                        return Uni.createFrom().item(project);
-                    }
-                });
-    }
-
-    private Uni<Project> persistProjectConfigIfMissing(Project project) {
+    private void persistProjectConfigIfMissing(Project project) {
         String projectUrl = project.getProjectUrl();
-        return Uni.createFrom()
-                .item(projectConfigRepository.findByProjectUrl(projectUrl))
-                .flatMap(list -> {
-                    if (list.isEmpty()) {
-                        projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
-                    }
-                    return Uni.createFrom().item(project);
-                });
+        var projectConfig = projectConfigRepository.findByProjectUrl(projectUrl);
+        if (projectConfig.isEmpty()) {
+            projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
+        }
     }
 
     private @Nullable GHRepository findRandomRepositoryOnGithub() {
