@@ -1,46 +1,134 @@
 # teamcity-fxcop 
  
 # Bad smells
-I found 26 bad smells with 7 repairable:
+I found 17 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ObsoleteCollection | 6 | false |
-| DynamicRegexReplaceableByCompiledPattern | 5 | false |
-| SizeReplaceableByIsEmpty | 3 | true |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| BoundedWildcard | 2 | false |
-| EmptyMethod | 1 | false |
-| RedundantFieldInitialization | 1 | false |
+| SpringBeanConstructorArgInspection | 6 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | CharsetObjectCanBeUsed | 1 | false |
+| DuplicatedCode | 1 | false |
 | RegExpSimplifiable | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
+| IOStreamConstructor | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | ConstantValue | 1 | false |
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-The method is empty
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+| SpringBeanNameConventionInspection | 1 | false |
+| SpringFacetInspection | 1 | false |
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopPropertiesExtension'#treeend
+
+*** ** * ** ***
+
+|------------------------------------|---|-----------------------------------------|
+| **FxCopPropertiesExtension(...):** |   | **Bean:**                               |
+| ExtensionHolder extensionHolder    |   | **???**                                 |
+| FxCopSearcher searcher             |   | Autowired: FxCopSearcher(FxCopSearcher) |
+in `fxcop-agent/src/META-INF/build-agent-plugin-fxcop.xml`
 #### Snippet
 ```java
-  }
-
-  private void handleLocalizedTag() {
-    // Do nothing
-  }
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean name="FxCopPropertiesExtension" class="jetbrains.buildServer.fxcop.agent.FxCopPropertiesExtension" />
+  <bean name="FxCopInspectionsProcessor" class="jetbrains.buildServer.fxcop.agent.FxCopDataProcessor" />
+  <bean name="FxCopRunner" class="jetbrains.buildServer.fxcop.agent.FxCopBuildServiceFactory" />
 ```
 
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopDataProcessor'#treeend
+
+*** ** * ** ***
+
+|------------------------------|---|-----------|
+| **FxCopDataProcessor(...):** |   | **Bean:** |
+| InspectionReporter reporter  |   | **???**   |
+in `fxcop-agent/src/META-INF/build-agent-plugin-fxcop.xml`
 #### Snippet
 ```java
-  private final String mySourceFilePrefixLower;
-  private final InspectionReporter myReporter;
-  private HierarchicalStreamReader myStream = null;
+       default-autowire="constructor">
+  <bean name="FxCopPropertiesExtension" class="jetbrains.buildServer.fxcop.agent.FxCopPropertiesExtension" />
+  <bean name="FxCopInspectionsProcessor" class="jetbrains.buildServer.fxcop.agent.FxCopDataProcessor" />
+  <bean name="FxCopRunner" class="jetbrains.buildServer.fxcop.agent.FxCopBuildServiceFactory" />
+  <bean name="FxCopSearcher" class="jetbrains.buildServer.fxcop.agent.FxCopSearcher"/>
+```
 
-  private int myErrorsCount, myWarningsCount;
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopBuildServiceFactory'#treeend
+
+*** ** * ** ***
+
+|----------------------------------------|---|-----------|
+| **FxCopBuildServiceFactory(...):**     |   | **Bean:** |
+| ArtifactsWatcher artifactsWatcher      |   | **???**   |
+| InspectionReporter inspectionsReporter |   | **???**   |
+in `fxcop-agent/src/META-INF/build-agent-plugin-fxcop.xml`
+#### Snippet
+```java
+  <bean name="FxCopPropertiesExtension" class="jetbrains.buildServer.fxcop.agent.FxCopPropertiesExtension" />
+  <bean name="FxCopInspectionsProcessor" class="jetbrains.buildServer.fxcop.agent.FxCopDataProcessor" />
+  <bean name="FxCopRunner" class="jetbrains.buildServer.fxcop.agent.FxCopBuildServiceFactory" />
+  <bean name="FxCopSearcher" class="jetbrains.buildServer.fxcop.agent.FxCopSearcher"/>
+</beans>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopSearcher'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------|---|-----------|
+| **FxCopSearcher(...):**                         |   | **Bean:** |
+| Win32RegistryAccessor registryAccessor          |   | **???**   |
+| BuildAgentConfiguration buildAgentConfiguration |   | **???**   |
+| ExtensionHolder extensionHolder                 |   | **???**   |
+in `fxcop-agent/src/META-INF/build-agent-plugin-fxcop.xml`
+#### Snippet
+```java
+  <bean name="FxCopInspectionsProcessor" class="jetbrains.buildServer.fxcop.agent.FxCopDataProcessor" />
+  <bean name="FxCopRunner" class="jetbrains.buildServer.fxcop.agent.FxCopBuildServiceFactory" />
+  <bean name="FxCopSearcher" class="jetbrains.buildServer.fxcop.agent.FxCopSearcher"/>
+</beans>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopRunType'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------|---|-----------|
+| **FxCopRunType(...):**            |   | **Bean:** |
+| RunTypeRegistry runTypeRegistry   |   | **???**   |
+| PluginDescriptor pluginDescriptor |   | **???**   |
+in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
+#### Snippet
+```java
+           default-autowire="constructor">
+
+  <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
+  <bean id="FxCopReportTab" class="jetbrains.buildServer.fxcop.server.FxCopReportTab"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'FxCopReportTab'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------------------|---|-----------|
+| **FxCopReportTab(...):**                                    |   | **Bean:** |
+| PagePlaces pagePlaces                                       |   | **???**   |
+| SBuildServer server                                         |   | **???**   |
+| ReportTabsIsolationProtection reportTabsIsolationProtection |   | **???**   |
+in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
+#### Snippet
+```java
+
+  <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
+  <bean id="FxCopReportTab" class="jetbrains.buildServer.fxcop.server.FxCopReportTab"/>
+
+</beans>
 ```
 
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
@@ -69,6 +157,50 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     try {
 ```
 
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `fxcop-agent/src/META-INF/build-agent-plugin-fxcop.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean name="FxCopPropertiesExtension" class="jetbrains.buildServer.fxcop.agent.FxCopPropertiesExtension" />
+  <bean name="FxCopInspectionsProcessor" class="jetbrains.buildServer.fxcop.agent.FxCopDataProcessor" />
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
+#### Snippet
+```java
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+           default-autowire="constructor">
+
+  <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopMsBuildSearch.java`
+#### Snippet
+```java
+    return CollectionsUtil.filterAndConvertCollection(msBuildTools.descendingSet(), new Converter<File, String>() {
+      @Override
+      public File createFrom(@NotNull final String name) {
+        return new File(parameters.get(name), FXCOP_EXE_RELATIVE_PATH);
+      }
+    }, new Filter<String>() {
+      @Override
+      public boolean accept(@NotNull final String name) {
+        return StringUtil.isNotEmpty(parameters.get(name));
+      }
+    });
+```
+
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\\d]` can be simplified to '\\d'
@@ -82,140 +214,17 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopVisualStudioSearch.ja
   @NotNull
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`files.size() == 0` can be replaced with 'files.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
-#### Snippet
-```java
-      files = matchFiles();
-
-      if (files.size() == 0) {
-        throw new RunBuildException("No files matched the pattern");
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`files.size() == 0` can be replaced with 'files.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
-#### Snippet
-```java
-
-    final List<String> result = new ArrayList<String>(files.size());
-    if (files.size() == 0) {
-      getLogger().logMessage(DefaultMessagesInfo.createTextMessage("  none"));
-    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`reportPath.length() > 0` can be replaced with '!reportPath.isEmpty()'
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-        }
+  private void handleFile() throws IOException {
+    Reader reader = new BufferedReader(
+      new InputStreamReader(new FileInputStream(myFxCopReport), "UTF8"));
 
-        if (reportPath.length() > 0) {
-          inspectionFile += " :: " + reportPath + "|" + file;
-        } else {
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ArtifactsUtil` has only 'static' members, and lacks a 'private' constructor
-in `fxcop-common/src/jetbrains/buildServer/fxcop/common/ArtifactsUtil.java`
-#### Snippet
-```java
- * Time: 15:32
- */
-public class ArtifactsUtil {
-  public static String getInternalArtifactPath(final String relativePath){
-    return String.format("%s/%s/%s", ".teamcity", FxCopConstants.RUNNER_TYPE, relativePath);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FxCopRequirementsUtil` has only 'static' members, and lacks a 'private' constructor
-in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRequirementsUtil.java`
-#### Snippet
-```java
- * Time: 16:37
- */
-public class FxCopRequirementsUtil {
-  @NotNull
-  public static List<Requirement> getFxCopRequirements(final Map<String, String> runParameters) {
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private String reformatInOneLine(@NotNull final String source) {
-    return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private String reformatInOneLine(@NotNull final String source) {
-    return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private String reformatInOneLine(@NotNull final String source) {
-    return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-        }
-
-        reportPath = reportPath.replace('/', '|').replace("\\", "|");
-        if (reportPath.startsWith("|")) {
-          reportPath = reportPath.substring(1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
-#### Snippet
-```java
-    }
-
-    return new String[0];
-  }
-}
+    try {
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -231,31 +240,6 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
         // Java 9
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesProcessor.java`
-#### Snippet
-```java
-  }
-
-  private void resetProperty(@NotNull Map<String, String> properties, @NotNull String key) {
-    if (myDefaultParameters.containsKey(key)) {
-      properties.put(key, myDefaultParameters.get(key));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesProcessor.java`
-#### Snippet
-```java
-  }
-
-  private void resetProperty(@NotNull Map<String, String> properties, @NotNull String key) {
-    if (myDefaultParameters.containsKey(key)) {
-      properties.put(key, myDefaultParameters.get(key));
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `fxcopBinary == null` is always `false`
@@ -269,76 +253,49 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopRegistrySearch.java`
       return Collections.emptyList();
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Vector` used
-in `fxcop-server/src/jetbrains/buildServer/fxcop/server/FxCopRunTypePropertiesProcessor.java`
+## RuleId[id=SpringBeanNameConventionInspection]
+### SpringBeanNameConventionInspection
+'FxCopReportTab' should start with lowercase letter
+in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
 #### Snippet
 ```java
 
-  public Collection<InvalidProperty> process(Map<String, String> properties) {
-    List<InvalidProperty> result = new Vector<InvalidProperty>();
+  <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
+  <bean id="FxCopReportTab" class="jetbrains.buildServer.fxcop.server.FxCopReportTab"/>
 
-    final String files = properties.get(FxCopConstants.SETTINGS_FILES);
+</beans>
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+## RuleId[id=SpringFacetInspection]
+### SpringFacetInspection
+Application context not configured for this file
+in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
 #### Snippet
 ```java
-  }
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2000-2023 JetBrains s.r.o.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<beans     xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+           default-autowire="constructor">
 
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-```
+  <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
+  <bean id="FxCopReportTab" class="jetbrains.buildServer.fxcop.server.FxCopReportTab"/>
 
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-  }
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-  private String myCurrentResource;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-  private String myCurrentResource;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Vector` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopCommandLineBuilder.java`
-#### Snippet
-```java
-  @NotNull
-  private List<String> getArguments(List<String> files, boolean escapeAdditionalProp) throws RunBuildException {
-    List<String> arguments = new Vector<String>();
-
-    arguments.add("/forceoutput");
+</beans>
 ```
 
