@@ -1,13 +1,15 @@
 # sls-version-java 
  
 # Bad smells
-I found 14 bad smells with 0 repairable:
+I found 12 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| AbstractClassNeverImplemented | 4 | false |
-| MethodOverridesStaticMethod | 4 | false |
 | OptionalUsedAsFieldOrParameterType | 3 | false |
 | SimplifyOptionalCallChains | 3 | false |
+| DuplicatedCode | 2 | false |
+| JavadocLinkAsPlainText | 2 | false |
+| NullableProblems | 1 | false |
+| TrivialIf | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'major'
@@ -43,6 +45,47 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
             String value, OptionalInt major, OptionalInt minor, OptionalInt patch) {
         SlsVersionMatcher maybeMatcher = ImmutableSlsVersionMatcher.of(value, major, minor, patch);
 
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `sls-versions/src/main/java/com/palantir/sls/versions/ReleaseVersionParser.java`
+#### Snippet
+```java
+        if (Parsers.failed(state)) {
+            return null;
+        }
+        int first = Parsers.getResult(state);
+
+        state = Parsers.literalDot(string, Parsers.getIndex(state));
+        if (Parsers.failed(state)) {
+            return null;
+        }
+
+        state = Parsers.number(string, Parsers.getIndex(state));
+```
+
+### DuplicatedCode
+Duplicated code
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcherParser.java`
+#### Snippet
+```java
+        if (Parsers.failed(result)) {
+            return Optional.empty(); // reject
+        }
+        if (Parsers.getResult(result) != Parsers.MAGIC_X_NUMBER) {
+            major = OptionalInt.of(Parsers.getResult(result));
+        }
+
+        // dot
+        result = Parsers.literalDot(string, Parsers.getIndex(result));
+        if (Parsers.failed(result)) {
+            return Optional.empty();
+        }
+
+        // minor
+        result = Parsers.numberOrX(string, Parsers.getIndex(result));
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -82,101 +125,54 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
             log.info(
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `OrderableSlsVersion` has no concrete subclass
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
 ```java
-@Value.Immutable
-@ImmutablesStyle
-public abstract class OrderableSlsVersion extends SlsVersion implements Comparable<OrderableSlsVersion> {
 
-    private static final SlsVersionType[] ORDERED_VERSION_TYPES = {
+    @Override
+    public final int compareTo(OrderableSlsVersion other) {
+        return VersionComparator.INSTANCE.compare(this, other);
+    }
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `SlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
 ```java
-import org.immutables.value.Value;
-
-public abstract class SlsVersion implements Serializable {
-
-    @JsonCreator
-```
-
-### AbstractClassNeverImplemented
-Abstract class `NonOrderableSlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
+/**
+ * An orderable version string as defined by the [SLS
+ * spec](https://github.com/palantir/sls-version-java#sls-product-version-specification).
+ */
 @Value.Immutable
-@ImmutablesStyle
-public abstract class NonOrderableSlsVersion extends SlsVersion {
-
-    @JsonCreator
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `SlsVersionMatcher` has no concrete subclass
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 #### Snippet
 ```java
+/**
+ * An SLS version matcher as defined by the [SLS
+ * spec](https://github.com/palantir/sls-version-java#sls-product-version-specification).
+ */
 @Value.Immutable
-@ImmutablesStyle
-public abstract class SlsVersionMatcher {
-
-    private static final SafeLogger log = SafeLoggerFactory.get(SlsVersionMatcher.class);
 ```
 
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 #### Snippet
 ```java
-
-    @JsonCreator
-    public static OrderableSlsVersion valueOf(String value) {
-        Optional<OrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not an orderable version: {value}", UnsafeArg.of("value", value));
-```
-
-### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
-#### Snippet
-```java
-
-    /** Returns true iff the given coordinate has a version which can be parsed into a valid orderable SLS version. */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent();
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `check()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-     * orderable one.
-     */
-    public static boolean check(String coordinate) {
-        return safeValueOf(coordinate).isPresent() && !OrderableSlsVersion.check(coordinate);
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `valueOf()` tries to override a static method of a superclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/NonOrderableSlsVersion.java`
-#### Snippet
-```java
-
-    @JsonCreator
-    public static NonOrderableSlsVersion valueOf(String value) {
-        Optional<NonOrderableSlsVersion> optional = safeValueOf(value);
-        checkArgument(optional.isPresent(), "Not a non-orderable version: {value}", UnsafeArg.of("value", value));
+        if (getPatchVersionNumber().isPresent()) {
+            int comparison = Integer.compare(getPatchVersionNumber().getAsInt(), version.getPatchVersionNumber());
+            if (comparison != 0) {
+                return comparison;
+            }
 ```
 
