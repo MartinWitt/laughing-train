@@ -53,10 +53,10 @@ Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
 #### Snippet
 ```java
-    private List<String> getPartitionedKeys(Map<String, Object> tableProperties) {
-        List<String> partitionedKeys =
-                (List<String>) tableProperties.get(CoreOptions.PARTITION.key());
-        return partitionedKeys == null ? ImmutableList.of() : ImmutableList.copyOf(partitionedKeys);
+    private List<String> getPrimaryKeys(Map<String, Object> tableProperties) {
+        List<String> primaryKeys =
+                (List<String>) tableProperties.get(CoreOptions.PRIMARY_KEY.key());
+        return primaryKeys == null ? ImmutableList.of() : ImmutableList.copyOf(primaryKeys);
     }
 ```
 
@@ -65,10 +65,10 @@ Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoMetadata.java`
 #### Snippet
 ```java
-    private List<String> getPrimaryKeys(Map<String, Object> tableProperties) {
-        List<String> primaryKeys =
-                (List<String>) tableProperties.get(CoreOptions.PRIMARY_KEY.key());
-        return primaryKeys == null ? ImmutableList.of() : ImmutableList.copyOf(primaryKeys);
+    private List<String> getPartitionedKeys(Map<String, Object> tableProperties) {
+        List<String> partitionedKeys =
+                (List<String>) tableProperties.get(CoreOptions.PARTITION.key());
+        return partitionedKeys == null ? ImmutableList.of() : ImmutableList.copyOf(partitionedKeys);
     }
 ```
 
