@@ -1,19 +1,16 @@
 # cql-on-beam 
  
 # Bad smells
-I found 15 bad smells with 5 repairable:
+I found 13 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 5 | false |
-| CodeBlock2Expr | 2 | true |
+| JavadocReference | 4 | false |
+| NullableProblems | 4 | false |
 | ReplaceInefficientStreamCount | 1 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| UnnecessarySuperQualifier | 1 | false |
 | DataFlowIssue | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-| NonProtectedConstructorInAbstractClass | 1 | true |
-| MethodOverridesStaticMethod | 1 | false |
+| RedundantTypeArguments | 1 | false |
+| FieldMayBeFinal | 1 | false |
 ## RuleId[id=ReplaceInefficientStreamCount]
 ### ReplaceInefficientStreamCount
 Can be replaced with 'stream.anyMatch()'
@@ -27,30 +24,53 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
         throw new RuntimeException(
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `EvaluateCql` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `https`
+in `src/main/java/com/google/fhir/cql/beam/types/ResourceTypeAndId.java`
 #### Snippet
 ```java
- * <p>See README.md for additional information.
- */
-public final class EvaluateCql {
-  /**
-   * Options supported by {@link EvaluateCql}.
+   * Returns the resource's logical ID.
+   *
+   * @see https://www.hl7.org/fhir/resource.html#id
+   */
+  public String getId() {
 ```
 
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
+### JavadocReference
+Cannot resolve symbol `https`
+in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
 #### Snippet
 ```java
-        Library library, ZonedDateTime evaluationZonedDateTime, ResourceTypeAndId contextValue) {
-      super(library, evaluationZonedDateTime);
-      super.setContextValue(contextValue.getType(), contextValue.getId());
-      super.enterContext(contextValue.getType());
-    }
+   * Returns the library's version.
+   *
+   * @see https://cql.hl7.org/02-authorsguide.html#library
+   */
+  @Nullable
+```
+
+### JavadocReference
+Cannot resolve symbol `https`
+in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
+#### Snippet
+```java
+   * Returns the library's name.
+   *
+   * @see https://cql.hl7.org/02-authorsguide.html#library
+   */
+  @JsonProperty("name")
+```
+
+### JavadocReference
+Cannot resolve symbol `https`
+in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
+#### Snippet
+```java
+ * <p>All references within the resources being processed must be relative (i.e., "Patient/123").
+ *
+ * @see https://cql.hl7.org/02-authorsguide.html#context
+ */
+public final class KeyForContextFn extends DoFn<String, KV<ResourceTypeAndId, String>> {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -66,19 +86,6 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
       Library library = libraryLoader.load(cqlLibraryId);
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.hl7.elm.r1` is unnecessary, and can be replaced with an import
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
-#### Snippet
-```java
-      List<CqlCompilerException> errors = new ArrayList<>();
-      libraryManager.resolveLibrary(
-          new org.hl7.elm.r1.VersionedIdentifier()
-              .withId(libraryIds.getName())
-              .withVersion(libraryIds.getVersion()),
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -92,108 +99,22 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
     }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super EvaluateCqlOptions`
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
 in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
 #### Snippet
 ```java
-  @VisibleForTesting
-  static void runPipeline(
-      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
-      String[] args,
-      ZonedDateTime evaluationDateTime) {
+        .apply("KeyForContext", ParDo.of(new KeyForContextFn(
+            "Patient", new ModelManager().resolveModel("FHIR", "4.0.1").getModelInfo())))
+        .apply("GroupByContext", GroupByKey.<ResourceTypeAndId, String>create())
+        .apply(
+            "EvaluateCql",
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Pipeline`
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static void runPipeline(
-      Function<EvaluateCqlOptions, Pipeline> pipelineCreator,
-      String[] args,
-      ZonedDateTime evaluationDateTime) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Iterable`
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
-#### Snippet
-```java
-  @ProcessElement
-  public void processElement(
-      @Element KV<ResourceTypeAndId, Iterable<String>> contextResources,
-      OutputReceiver<CqlEvaluationResult> out) {
-    RetrieveProvider retrieveProvider = createRetrieveProvider(contextResources.getValue());
-```
-
-### BoundedWildcard
-Can generalize to `? super CqlEvaluationResult`
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
-#### Snippet
-```java
-  public void processElement(
-      @Element KV<ResourceTypeAndId, Iterable<String>> contextResources,
-      OutputReceiver<CqlEvaluationResult> out) {
-    RetrieveProvider retrieveProvider = createRetrieveProvider(contextResources.getValue());
-    for (VersionedIdentifier cqlLibraryId : cqlLibraryVersionedIdentifiers) {
-```
-
-### BoundedWildcard
-Can generalize to `? super KV`
-in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
-#### Snippet
-```java
-  @ProcessElement
-  public void processElement(
-      @Element String element, OutputReceiver<KV<ResourceTypeAndId, String>> out) {
-    JsonObject resourceObject = JsonParser.parseString(element).getAsJsonObject();
-    String resourceType = resourceObject.get("resourceType").getAsString();
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/google/fhir/cql/beam/CachingModelResolver.java`
-#### Snippet
-```java
-        value.getClass(),
-        (key) -> {
-          return super.resolveType(value);
-        });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
-#### Snippet
-```java
-    IParser parser = fhirContext.newJsonParser();
-    jsonResource.forEach(
-        element -> {
-          bundle.addEntry().setResource((Resource) parser.parseResource(element));
-        });
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ForwardingModelResolver()` of an abstract class should not be declared 'public'
-in `src/main/java/com/google/fhir/cql/beam/ForwardingModelResolver.java`
-#### Snippet
-```java
-  private final ModelResolver resolver;
-
-  public ForwardingModelResolver(ModelResolver resolver) {
-    this.resolver = resolver;
-  }
-```
-
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `getCoderProvider()` tries to override a static method of a superclass
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
 in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
 #### Snippet
 ```java
@@ -202,5 +123,54 @@ in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
     public static CoderProvider getCoderProvider() {
       return new CoderProvider() {
         @Override
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
+#### Snippet
+```java
+      return new CoderProvider() {
+        @Override
+        public <T> Coder<T> coderFor(
+            TypeDescriptor<T> typeDescriptor, List<? extends Coder<?>> componentCoders)
+            throws CannotProvideCoderException {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
+#### Snippet
+```java
+        @Override
+        public <T> Coder<T> coderFor(
+            TypeDescriptor<T> typeDescriptor, List<? extends Coder<?>> componentCoders)
+            throws CannotProvideCoderException {
+          if (typeDescriptor.getRawType() != CqlEvaluationResult.class) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
+#### Snippet
+```java
+        @Override
+        public <T> Coder<T> coderFor(
+            TypeDescriptor<T> typeDescriptor, List<? extends Coder<?>> componentCoders)
+            throws CannotProvideCoderException {
+          if (typeDescriptor.getRawType() != CqlEvaluationResult.class) {
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `jsonMapper` may be 'final'
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
+#### Snippet
+```java
+  /** A wrapper around {@link Library} that supports Java serialization. */
+  private static class SerializableLibraryWrapper implements Serializable {
+    private static JsonMapper jsonMapper =
+        JsonCqlMapper.getMapper()
+            .rebuild()
 ```
 
