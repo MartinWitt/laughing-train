@@ -8,23 +8,19 @@ import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
+import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.vertx.ConsumeEvent;
-import io.smallrye.mutiny.Uni;
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.mutiny.core.eventbus.EventBus;
-import io.vertx.mutiny.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -37,34 +33,34 @@ public class PeriodicMiner {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    EventBus eventBus;
-
-    @Inject
     MiningPrinter miningPrinter;
-
-    @Inject
     Vertx vertx;
-
-    @Inject
     SearchProjectService searchProjectService;
-
-    @Inject
     ProjectRepository projectRepository;
-
-    @Inject
     QodanaService qodanaService;
+    ProjectService projectService;
 
-    private final MeterRegistry registry;
+    MeterRegistry registry;
 
     private final Random random = new Random();
     private Queue<Project> queue = new ArrayDeque<>();
 
-    public PeriodicMiner(MeterRegistry registry) {
+    public PeriodicMiner(
+            MeterRegistry registry,
+            Vertx vertx,
+            SearchProjectService searchProjectService,
+            ProjectRepository projectRepository,
+            QodanaService qodanaService,
+            ProjectService projectService) {
         this.registry = registry;
+        this.vertx = vertx;
+        this.searchProjectService = searchProjectService;
+        this.projectRepository = projectRepository;
+        this.qodanaService = qodanaService;
+        this.projectService = projectService;
     }
 
-    private Uni<Project> getRandomProject() {
+    private Project getRandomProject() throws IOException {
         if (random.nextBoolean()) {
             return searchProjectService.searchProjectOnGithub();
         } else {
@@ -72,9 +68,9 @@ public class PeriodicMiner {
         }
     }
 
-    private Uni<Project> getKnownProject() {
+    private Project getKnownProject() {
         var list = projectRepository.getAll();
-        return Uni.createFrom().item(list.get(random.nextInt(list.size())));
+        return list.get(random.nextInt(list.size()));
     }
 
     void mine(@Observes StartupEvent event) {
@@ -82,63 +78,45 @@ public class PeriodicMiner {
     }
 
     private void mineRandomRepo() {
-        Uni.createFrom()
-                .item(queue.poll())
-                .onItem()
-                .ifNull()
-                .switchTo(getRandomProject())
-                .ifNoItem()
-                .after(Duration.ofMinutes(5))
-                .failWith(new IllegalStateException("No project found after 5 minutes"))
-                .onItem()
-                .transformToUni(this::checkoutProject)
-                .onItem()
-                .invoke(this::addOrUpdateCommitHash)
-                .onItem()
-                .transformToUni(this::analyzeProject)
-                .onItem()
-                .invoke(this::saveQodanaResults)
-                .subscribe()
-                .with(
-                        v -> {
-                            if (v instanceof QodanaResult.Success success) {
-                                if (success.result().isEmpty()) {
-                                    registry.counter("qodana.failure").increment();
-                                } else {
-                                    registry.counter("qodana.success").increment();
-                                    logger.atInfo().log(
-                                            "Finished mining with %s results. Next project starting now.",
-                                            success.result().size());
-                                }
-                            } else {
-                                registry.counter("qodana.failure").increment();
-                            }
-                            mineRandomRepo();
-                        },
-                        e -> {
-                            registry.counter("qodana.failure").increment();
-                            logger.atSevere().withCause(e).log("Failed mining");
-                            mineRandomRepo();
-                        });
-    }
-
-    private Uni<Message<ProjectResult>> checkoutProject(Project project) {
-        return eventBus.<ProjectResult>request(
-                ServiceAddresses.PROJECT_REQUEST,
-                new ProjectRequest.WithUrl(project.getProjectUrl()),
-                new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)));
-    }
-
-    private Uni<QodanaResult> analyzeProject(Message<ProjectResult> message) {
-        if (message.body() instanceof ProjectResult.Success project) {
-            return qodanaService
-                    .analyzeUni(new AnalyzerRequest.WithProject(project.project()))
-                    .invoke(ignore -> tryDeleteProject(project));
-
-        } else {
-            logger.atWarning().log("Mining periodic %s failed", message);
-            return Uni.createFrom().failure(new IllegalStateException("No project found"));
+        try {
+            var project = queue.isEmpty() ? getRandomProject() : queue.poll();
+            var checkoutResult = checkoutProject(project);
+            if (checkoutResult instanceof ProjectResult.Error) {
+                logger.atWarning().log("Failed to checkout project %s", project);
+                registry.counter("mining.checkout.error").increment();
+                mineRandomRepo();
+                return;
+            }
+            if (checkoutResult instanceof ProjectResult.Success success) {
+                logger.atInfo().log("Successfully checked out project %s", success.project());
+                var qodanaResult = analyzeProject(success);
+                if (qodanaResult instanceof QodanaResult.Failure) {
+                    logger.atWarning().log("Failed to analyze project %s", success.project());
+                    registry.counter("mining.qodana.error").increment();
+                    tryDeleteProject(success);
+                    return;
+                }
+                if (qodanaResult instanceof QodanaResult.Success successResult) {
+                    logger.atInfo().log("Successfully analyzed project %s", success.project());
+                    registry.counter("mining.qodana.success").increment();
+                    saveQodanaResults(successResult);
+                    addOrUpdateCommitHash(success);
+                }
+            }
+        } catch (Exception e) {
+            logger.atWarning().withCause(e).log("Failed to mine random repo");
+            registry.counter("mining.error").increment();
+        } finally {
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> mineRandomRepo());
         }
+    }
+
+    private ProjectResult checkoutProject(Project project) throws IOException {
+        return projectService.handleProjectRequest(new ProjectRequest.WithUrl(project.getProjectUrl()));
+    }
+
+    private QodanaResult analyzeProject(ProjectResult.Success message) {
+        return qodanaService.analyze(new AnalyzerRequest.WithProject(message.project()));
     }
 
     private void tryDeleteProject(ProjectResult.Success project) {
@@ -150,51 +128,44 @@ public class PeriodicMiner {
         }
     }
 
-    private void addOrUpdateCommitHash(Message<ProjectResult> projectResult) {
-        if (projectResult.body() instanceof ProjectResult.Success project) {
-            String name = project.project().name();
-            String commitHash = project.project().commitHash();
-            var list = projectRepository.findByProjectName(name);
-            if (list.isEmpty()) {
-                Project newProject = new Project(name, project.project().url());
-                newProject.addCommitHash(commitHash);
-                projectRepository.create(newProject);
-            } else {
-                logger.atInfo().log("Updating commit hash for %s", name);
-                var oldProject = list.get(0);
-                oldProject.addCommitHash(commitHash);
-                projectRepository.save(oldProject);
-            }
+    private void addOrUpdateCommitHash(ProjectResult.Success projectResult) {
+        String name = projectResult.project().name();
+        String commitHash = projectResult.project().commitHash();
+        var list = projectRepository.findByProjectName(name);
+        if (list.isEmpty()) {
+            Project newProject = new Project(name, projectResult.project().url());
+            newProject.addCommitHash(commitHash);
+            projectRepository.create(newProject);
+        } else {
+            logger.atInfo().log("Updating commit hash for %s", name);
+            var oldProject = list.get(0);
+            oldProject.addCommitHash(commitHash);
+            projectRepository.save(oldProject);
         }
     }
 
-    private Uni<Void> saveQodanaResults(QodanaResult message) {
-        if (message instanceof QodanaResult.Success success) {
-            return success.project()
-                    .runInContext(() -> {
-                        try {
-                            List<AnalyzerResult> results = success.result();
-                            registry.summary("mining.qodana", "result", Integer.toString(results.size()));
-                            if (results.isEmpty()) {
-                                logger.atInfo().log("No results for %s", success);
-                                return Uni.createFrom().voidItem();
-                            }
-                            String content = "# %s %n %s"
-                                    .formatted(
-                                            success.project().name(),
-                                            miningPrinter.printAllResults(results, success.project()));
+    private void saveQodanaResults(QodanaResult.Success success) {
+        success.project().runInContext(() -> {
+            try {
+                List<AnalyzerResult> results = success.result();
+                registry.summary("mining.qodana", "result", Integer.toString(results.size()));
+                if (results.isEmpty()) {
+                    logger.atInfo().log("No results for %s", success);
+                    return Optional.empty();
+                }
+                String content = printFormattedResults(success, results);
+                var laughingRepo = getLaughingRepo();
+                updateOrCreateContent(laughingRepo, success.project().name(), content);
+            } catch (Exception e) {
+                logger.atSevere().withCause(e).log("Error while updating content");
+            }
+            return Optional.empty();
+        });
+    }
 
-                            var laughingRepo = getLaughingRepo();
-                            updateOrCreateContent(
-                                    laughingRepo, success.project().name(), content);
-                        } catch (Exception e) {
-                            logger.atSevere().withCause(e).log("Error while updating content");
-                        }
-                        return Uni.createFrom().voidItem();
-                    })
-                    .orElse(Uni.createFrom().voidItem());
-        }
-        return Uni.createFrom().voidItem();
+    private String printFormattedResults(QodanaResult.Success success, List<AnalyzerResult> results) {
+        return "# %s %n %s"
+                .formatted(success.project().name(), miningPrinter.printAllResults(results, success.project()));
     }
 
     private GHRepository getLaughingRepo() throws IOException {
