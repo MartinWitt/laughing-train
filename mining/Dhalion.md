@@ -1,270 +1,97 @@
 # Dhalion 
  
 # Bad smells
-I found 55 bad smells with 17 repairable:
+I found 48 bad smells with 10 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 10 | false |
+| FieldMayBeFinal | 16 | false |
 | UnnecessaryToStringCall | 9 | true |
-| PublicFieldAccessedInSynchronizedContext | 6 | false |
+| UNCHECKED_WARNING | 7 | false |
 | OptionalGetWithoutIsPresent | 4 | false |
-| UnnecessarySuperQualifier | 3 | false |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| NonProtectedConstructorInAbstractClass | 2 | true |
-| FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
-| ReturnNull | 2 | false |
+| NonFinalFieldInEnum | 3 | false |
+| SwitchStatementWithTooFewBranches | 2 | false |
 | RegExpSimplifiable | 2 | false |
-| SizeReplaceableByIsEmpty | 2 | true |
-| UNUSED_IMPORT | 1 | false |
-| ThrowablePrintStackTrace | 1 | false |
-| CodeBlock2Expr | 1 | true |
-| RegExpRedundantEscape | 1 | false |
-| RedundantFieldInitialization | 1 | false |
-| NonSerializableFieldInSerializableClass | 1 | false |
-| RedundantImplements | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| DuplicatedCode | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| MissortedModifiers | 1 | false |
+| UNUSED_IMPORT | 1 | false |
 | ConstantValue | 1 | false |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `TableUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/microsoft/dhalion/core/TableUtils.java`
-#### Snippet
-```java
-import static tech.tablesaw.api.QueryHelper.allOf;
-
-class TableUtils {
-  static Table sort(Table table, boolean descending, String[] columns) {
-    Table result;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/microsoft/dhalion/Utils.java`
-#### Snippet
-```java
-package com.microsoft.dhalion;
-
-public class Utils {
-
-  public static String getCompositeName(String... names) {
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
-#### Snippet
-```java
-   */
-  public SymptomsTable expire(Instant expiration) {
-    return new SymptomsTable(super.expireBefore(expiration));
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
-#### Snippet
-```java
-   */
-  public DiagnosisTable expire(Instant expiration) {
-    return new DiagnosisTable(super.expireBefore(expiration));
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
-#### Snippet
-```java
-   */
-  public ActionTable expire(Instant expiration) {
-    return new ActionTable(super.expireBefore(expiration));
-  }
-
-```
-
-## RuleId[id=UNUSED_IMPORT]
-### UNUSED_IMPORT
-Unused import `import com.microsoft.dhalion.core.MeasurementsTable.SortKey;`
-in `src/main/java/com/microsoft/dhalion/core/OutcomeTable.java`
-#### Snippet
-```java
-package com.microsoft.dhalion.core;
-
-import com.microsoft.dhalion.core.MeasurementsTable.SortKey;
-import tech.tablesaw.api.CategoryColumn;
-import tech.tablesaw.api.IntColumn;
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/dhalion/examples/CSVMetricsProvider.java`
-#### Snippet
-```java
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return metrics;
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ResourceAvailabilityDetector()` of an abstract class should not be declared 'public'
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
-#### Snippet
-```java
-  }
-
-  public ResourceAvailabilityDetector(String freeMetric, String demandMetric, String symptomType) {
-    this.freeMetric = freeMetric;
-    this.demandMetric = demandMetric;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ResourceAvailabilityDetector()` of an abstract class should not be declared 'public'
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
-#### Snippet
-```java
-  private final String symptomType;
-
-  public ResourceAvailabilityDetector(PolicyConfig policyConf, String confPrefix, String symptomType) {
-    this.freeMetric = (String) policyConf.getConfig(confPrefix + FREE_METRIC_NAME_KEY);
-    this.demandMetric = (String) policyConf.getConfig(confPrefix + DEMAND_METRIC_NAME_KEY);
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/microsoft/dhalion/examples/AlertResolver.java`
-#### Snippet
-```java
-  @Override
-  public Collection<Action> resolve(Collection<Diagnosis> diagnosis) {
-    diagnosis.forEach(d -> {
-      LOG.info("Alert " + d.toString());
-    });
-```
-
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
-#### Snippet
-```java
-
-  private static final Pattern linePatternData =
-      Pattern.compile("^((?<Node>Node.)\\[(?<Id>\\d+)\\]):" + "Mem=(?<Mem>\\d+)MB," + "Cpu=(?<Cpu>[^,]+)%,"
-                          + "(Time=(?<Time>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2,4}\\.\\d{2,4})" +
-                          "(?<Type>[Z]))");
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `handlers` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/microsoft/dhalion/events/EventDispatcher.java`
-#### Snippet
-```java
-
-public class EventDispatcher<T> implements EventHandler<T> {
-  Set<EventHandler<T>> handlers = new HashSet<>();
-
-  public synchronized void addHandler(EventHandler<T> handler) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `context` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/microsoft/dhalion/sensors/BasicSensor.java`
-#### Snippet
-```java
-  private final Collection<String> components;
-
-  protected ExecutionContext context;
-  protected final MetricsProvider metricsProvider;
-
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/dhalion/policy/HealthPolicyImpl.java`
-#### Snippet
-```java
-  protected Duration interval = Duration.ofMinutes(1);
-  private Instant lastExecutionTimestamp;
-  private Instant oneTimeDelay = null;
-
-  private ExecutionContext executionContext;
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'defaultValue' in a Serializable class
-in `src/main/java/com/microsoft/dhalion/conf/Key.java`
-#### Snippet
-```java
-
-  private final String value;
-  private final Object defaultValue;
-
-  Key(String value) {
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `IHealthPolicy`
+| RegExpRedundantEscape | 1 | false |
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
 in `src/main/java/com/microsoft/dhalion/examples/AlertPolicy.java`
 #### Snippet
 ```java
- * when a node is over utilized or under utilized.
- */
-public class AlertPolicy extends HealthPolicyImpl implements IHealthPolicy {
-  private Instant currentCheckPoint;
-  private static final Pattern timeData =
+    Instant currentTime = null;
+    if (matcher.group("Time") != null && matcher.group("Type") != null) {
+      switch (matcher.group("Type")) {
+        case "Z":
+          currentTime = Instant.parse(matcher.group("Time") + matcher.group("Type"));
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/dhalion/core/OutcomeTable.java`
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
 #### Snippet
 ```java
-  public T get(int index) {
-    if (index < 0 || index >= table.rowCount() || table.isEmpty()) {
-      return null;
+    Instant currentTime = null;
+    if (matcher.group(TIME) != null && matcher.group("Type") != null) {
+      switch (matcher.group("Type")) {
+        case "Z":
+          currentTime = Instant.parse(matcher.group("Time") + matcher.group("Type"));
+```
+
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `text` in enum 'SymptomName'
+in `src/main/java/com/microsoft/dhalion/detectors/SymptomName.java`
+#### Snippet
+```java
+  SCARCE_MEMORY(ScarceMemoryDetector.class.getSimpleName());
+
+  private String text;
+
+  SymptomName(String name) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `text` in enum 'MetricName'
+in `src/main/java/com/microsoft/dhalion/examples/MetricName.java`
+#### Snippet
+```java
+  METRIC_MEMORY("Mem");
+
+  private String text;
+
+  MetricName(String name) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `text` in enum 'CliArgs'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+    CONFIG_DIR("config_dir");
+
+    private String text;
+
+    CliArgs(String name) {
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.java`
+#### Snippet
+```java
+    ArrayList<String> overUtilizedNodes = new ArrayList<>();
+    for (Symptom highCpuSymptom : highCpuUtilization.get()) {
+      for (String node : highCpuSymptom.assignments()) {
+        if (highMemoryUtilization.assignment(node).size() > 0) {
+          overUtilizedNodes.add(node);
+        }
+      }
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
-#### Snippet
-```java
-  public Measurement get(int index) {
-    if (index < 0 || index >= measurements.rowCount() || measurements.isEmpty()) {
-      return null;
-    }
-
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-05-01-01-19-47.100.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -292,29 +119,89 @@ in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
   @VisibleForTesting
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`overUtilizedNodes.size() > 0` can be replaced with '!overUtilizedNodes.isEmpty()'
-in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.Collection'
+in `src/main/java/com/microsoft/dhalion/examples/AlertResolver.java`
 #### Snippet
 ```java
-      }
-    }
-    if (overUtilizedNodes.size() > 0) {
-      LOG.fine(String.format("Overutilized nodes found: %s", overUtilizedNodes.toString()));
-      Diagnosis diagnosis = new Diagnosis(DIAGNOSIS_OVER_UTILIZED_NODE, context.checkpoint(),
+      LOG.info("Alert " + d.toString());
+    });
+    return Collections.EMPTY_LIST;
+  }
+}
 ```
 
-### SizeReplaceableByIsEmpty
-`underUtilizedNodes.size() > 0` can be replaced with '!underUtilizedNodes.isEmpty()'
-in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'com.microsoft.dhalion.events.EventDispatcher\>' to 'com.microsoft.dhalion.events.EventDispatcher'
+in `src/main/java/com/microsoft/dhalion/events/EventManager.java`
 #### Snippet
 ```java
-    }
 
-    if (underUtilizedNodes.size() > 0) {
-      LOG.fine(String.format("Underutilized nodes found: %s", underUtilizedNodes.toString()));
-      Diagnosis diagnosis = new Diagnosis(DIAGNOSIS_UNDER_UTILIZED_NODE, context.checkpoint(),
+  public synchronized <T> void addEventListener(Class<T> eventType, EventHandler<T> handler) {
+    EventDispatcher<T> dispatcher = (EventDispatcher<T>) registry.get(eventType);
+    if (dispatcher == null) {
+      dispatcher = new EventDispatcher<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.microsoft.dhalion.events.EventDispatcher\>' to 'com.microsoft.dhalion.events.EventDispatcher'
+in `src/main/java/com/microsoft/dhalion/events/EventManager.java`
+#### Snippet
+```java
+  public <T> void onEvent(T event) {
+    Class<?> key = event.getClass();
+    EventDispatcher<T> dispatcher = (EventDispatcher<T>) registry.get(event.getClass());
+    if (dispatcher == null) {
+      LOG.info("No dispatcher registered for event");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
+#### Snippet
+```java
+      return new ArrayList<>();
+    } else if (o instanceof List) {
+      return (List<String>) o;
+    } else {
+      throw new IllegalArgumentException("Failed to convert " + o + " to List<String>");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
+#### Snippet
+```java
+    Map<String, Object> ret = loadFile(policyConfigFile);
+    getListOfStrings(ret.get(Key.POLICIES.value()))
+        .forEach(id -> policyConf.add(new PolicyConfig(id, (Map<String, Object>) ret.get(id))));
+    return this;
+  }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Class\>' to 'java.lang.Class'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+    String metricsProviderClass = (String) conf.get(Key.METRICS_PROVIDER_CLASS.value());
+    Class<MetricsProvider> mpClass
+        = (Class<MetricsProvider>) this.getClass().getClassLoader().loadClass(metricsProviderClass);
+    injector = injector.createChildInjector(new AbstractModule() {
+      @Override
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Class\>' to 'java.lang.Class'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+      LOG.info(String.format("Initializing %s with class %s", policyConf.id(), policyClassName));
+      Class<IHealthPolicy> policyClass
+          = (Class<IHealthPolicy>) this.getClass().getClassLoader().loadClass(policyClassName);
+
+      AbstractModule module = constructPolicySpecificModule(policyConf);
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -333,70 +220,10 @@ in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ExcessCpuDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_CPU.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
-#### Snippet
-```java
-        measurements.stream()
-            .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
-            .forEach(m -> LOG.info(m.toString() + "is outside checkpoint window"));
-        context.measurementsTableBuilder.addAll(measurements);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
-#### Snippet
-```java
-    outcomes.stream()
-        .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
-        .forEach(m -> LOG.warning(m.toString() + " is outside checkpoint window"));
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_MEMORY.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/com/microsoft/dhalion/detectors/ScarceMemoryDetector.java`
 #### Snippet
 ```java
     super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_MEMORY.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
     thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
     LOG.info("Detector created: " + this.toString());
   }
@@ -439,211 +266,270 @@ in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.j
     return Collections.singletonList(symptom);
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Measurement`
-in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
 #### Snippet
 ```java
-                 Instant instant,
-                 Collection<String> assignments,
-                 Collection<Measurement> measurements) {
-    super(symptomType, instant, assignments);
-    if (measurements != null) {
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_MEMORY.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
+    LOG.info("Detector created: " + this.toString());
+  }
+
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Measurement`
-in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ExcessCpuDetector.java`
 #### Snippet
 ```java
-          Instant instant,
-          Collection<String> assignments,
-          Collection<Measurement> measurements) {
-    super(id, symptomType, instant, assignments);
-    if (measurements != null) {
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_CPU.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
+    LOG.info("Detector created: " + this.toString());
+  }
+
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Symptom`
-in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
 #### Snippet
 ```java
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
+    LOG.info("Detector created: " + this.toString());
   }
 
-  private void addAll(Collection<Symptom> symptoms) {
-    symptoms.forEach(this::add);
-  }
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Diagnosis`
-in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 #### Snippet
 ```java
+    outcomes.stream()
+        .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
+        .forEach(m -> LOG.warning(m.toString() + " is outside checkpoint window"));
   }
 
-  private void addAll(Collection<Diagnosis> diagnosis) {
-    diagnosis.forEach(this::add);
-  }
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Symptom`
-in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 #### Snippet
 ```java
-  }
+        measurements.stream()
+            .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
+            .forEach(m -> LOG.info(m.toString() + "is outside checkpoint window"));
+        context.measurementsTableBuilder.addAll(measurements);
 
-  Diagnosis(int id, String type, Instant instant, Collection<String> assignments, Collection<Symptom> symptoms) {
-    super(id, type, instant, assignments);
-    if (symptoms != null) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Symptom`
-in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
+## RuleId[id=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import com.microsoft.dhalion.core.MeasurementsTable.SortKey;`
+in `src/main/java/com/microsoft/dhalion/core/OutcomeTable.java`
 #### Snippet
 ```java
-                   Instant instant,
-                   Collection<String> assignments,
-                   Collection<Symptom> symptoms) {
-    super(type, instant, assignments);
-    if (symptoms != null) {
+package com.microsoft.dhalion.core;
+
+import com.microsoft.dhalion.core.MeasurementsTable.SortKey;
+import tech.tablesaw.api.CategoryColumn;
+import tech.tablesaw.api.IntColumn;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/SymptomName.java`
 #### Snippet
 ```java
-  }
+  SCARCE_MEMORY(ScarceMemoryDetector.class.getSimpleName());
 
-  private void addAll(Collection<Action> actions) {
-    actions.forEach(this::add);
-  }
+  private String text;
+
+  SymptomName(String name) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Diagnosis`
-in `src/main/java/com/microsoft/dhalion/core/Action.java`
+### FieldMayBeFinal
+Field `nodeStat` may be 'final'
+in `src/main/java/com/microsoft/dhalion/examples/CSVMetricsProvider.java`
 #### Snippet
 ```java
-  }
+  private static final Logger LOG = Logger.getLogger(CSVMetricsProvider.class.getSimpleName());
 
-  public Action(String type, Instant instant, Collection<String> assignments, Collection<Diagnosis> diagnosis) {
-    super(type, instant, assignments);
-    if (diagnosis != null) {
+  private NodeStat nodeStat;
+  Config sysConf;
+
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Diagnosis`
-in `src/main/java/com/microsoft/dhalion/core/Action.java`
-#### Snippet
-```java
-  }
-
-  Action(int id, String type, Instant instant, Collection<String> assignments, Collection<Diagnosis> diagnosis) {
-    super(id, type, instant, assignments);
-    if (diagnosis != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Measurement`
+### FieldMayBeFinal
+Field `timeStamps` may be 'final'
 in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-  }
-
-  private void addAll(Collection<Measurement> measurements) {
-    measurements.forEach(measurement -> {
-      component.append(measurement.component());
+  private CategoryColumn instance;
+  private CategoryColumn type;
+  private LongColumn timeStamps;
+  private DoubleColumn value;
+  private MeasurementsTable() {
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-  }
-
-  abstract protected boolean evaluate(String instance, double free, double used);
-
-  @Override
+  private CategoryColumn component;
+  private CategoryColumn instance;
+  private CategoryColumn type;
+  private LongColumn timeStamps;
+  private DoubleColumn value;
 ```
 
-## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `handlers` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/events/EventDispatcher.java`
+### FieldMayBeFinal
+Field `noCheckpoints` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
 #### Snippet
 ```java
+  private final double lowThreshold;
+  private String metricName;
+  private double noCheckpoints;
 
-  public synchronized void addHandler(EventHandler<T> handler) {
-    if (handlers.contains(handler)) {
-      throw new IllegalArgumentException("Duplicate hanlder registration");
-    }
+  private static final Logger LOG = Logger.getLogger(BelowThresholdDetector.class.getSimpleName());
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `handlers` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/events/EventDispatcher.java`
+### FieldMayBeFinal
+Field `metricName` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
 #### Snippet
 ```java
-      throw new IllegalArgumentException("Duplicate hanlder registration");
-    }
-    handlers.add(handler);
-  }
+
+  private final double lowThreshold;
+  private String metricName;
+  private double noCheckpoints;
 
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `context` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/sensors/BasicSensor.java`
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-   */
-  protected synchronized Duration getDuration() {
-    if (context.previousCheckpoint() == null || context.previousCheckpoint().equals(Instant.MIN)) {
-      return DEFAULT_METRIC_DURATION;
-    } else {
+  private CategoryColumn type;
+  private LongColumn timeStamps;
+  private DoubleColumn value;
+  private MeasurementsTable() {
+    component = new CategoryColumn(COMPONENT);
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `context` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/sensors/BasicSensor.java`
+### FieldMayBeFinal
+Field `instance` may be 'final'
+in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-   */
-  protected synchronized Duration getDuration() {
-    if (context.previousCheckpoint() == null || context.previousCheckpoint().equals(Instant.MIN)) {
-      return DEFAULT_METRIC_DURATION;
-    } else {
+  private final Table measurements;
+  private CategoryColumn component;
+  private CategoryColumn instance;
+  private CategoryColumn type;
+  private LongColumn timeStamps;
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `context` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/sensors/BasicSensor.java`
+### FieldMayBeFinal
+Field `component` may be 'final'
+in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-      return DEFAULT_METRIC_DURATION;
-    } else {
-      return Duration.between(context.previousCheckpoint(), context.checkpoint());
-    }
-  }
+  private static final String VALUE = SortKey.VALUE.name();
+  private final Table measurements;
+  private CategoryColumn component;
+  private CategoryColumn instance;
+  private CategoryColumn type;
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `context` accessed in synchronized context
-in `src/main/java/com/microsoft/dhalion/sensors/BasicSensor.java`
+### FieldMayBeFinal
+Field `metricName` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/AboveThresholdDetector.java`
 #### Snippet
 ```java
-      return DEFAULT_METRIC_DURATION;
-    } else {
-      return Duration.between(context.previousCheckpoint(), context.checkpoint());
-    }
-  }
+
+  private final double highThreshold;
+  private String metricName;
+  private double noCheckpoints;
+
+```
+
+### FieldMayBeFinal
+Field `noCheckpoints` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/AboveThresholdDetector.java`
+#### Snippet
+```java
+  private final double highThreshold;
+  private String metricName;
+  private double noCheckpoints;
+
+  private static final Logger LOG = Logger.getLogger(AboveThresholdDetector.class.getSimpleName());
+```
+
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `src/main/java/com/microsoft/dhalion/examples/MetricName.java`
+#### Snippet
+```java
+  METRIC_MEMORY("Mem");
+
+  private String text;
+
+  MetricName(String name) {
+```
+
+### FieldMayBeFinal
+Field `policy` may be 'final'
+in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
+#### Snippet
+```java
+    private Instant checkpoint;
+    private Instant previousCheckpoint;
+    private IHealthPolicy policy;
+
+    private ExecutionContext(IHealthPolicy policy) {
+```
+
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+    CONFIG_DIR("config_dir");
+
+    private String text;
+
+    CliArgs(String name) {
+```
+
+### FieldMayBeFinal
+Field `healthPolicies` may be 'final'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+  private Injector injector;
+  private Config config;
+  private List<IHealthPolicy> healthPolicies = new ArrayList<>();
+  private final MetricsProvider metricsProvider;
+
+```
+
+### FieldMayBeFinal
+Field `config` may be 'final'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
+#### Snippet
+```java
+
+  private Injector injector;
+  private Config config;
+  private List<IHealthPolicy> healthPolicies = new ArrayList<>();
+  private final MetricsProvider metricsProvider;
 ```
 
 ## RuleId[id=ConstantValue]
@@ -706,5 +592,18 @@ in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
     if (matcher.group(metric) != null && getTimestamp(matcher).get().equals(instant)) {
       switch (metric) {
         case MEMORY_UTILIZATION:
+```
+
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
+#### Snippet
+```java
+
+  private static final Pattern linePatternData =
+      Pattern.compile("^((?<Node>Node.)\\[(?<Id>\\d+)\\]):" + "Mem=(?<Mem>\\d+)MB," + "Cpu=(?<Cpu>[^,]+)%,"
+                          + "(Time=(?<Time>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2,4}\\.\\d{2,4})" +
+                          "(?<Type>[Z]))");
 ```
 
