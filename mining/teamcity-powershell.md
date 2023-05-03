@@ -1,234 +1,144 @@
 # teamcity-powershell 
  
 # Bad smells
-I found 33 bad smells with 3 repairable:
+I found 19 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| StaticCallOnSubclass | 13 | false |
-| BoundedWildcard | 13 | false |
-| UtilityClassWithoutPrivateConstructor | 3 | true |
-| ReturnNull | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| SpringXmlModelInspection | 5 | false |
+| SpringBeanConstructorArgInspection | 4 | false |
+| JavadocLinkAsPlainText | 4 | false |
+| SpringXmlAutowireExplicitlyInspection | 3 | false |
+| IOStreamConstructor | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CommentedOutCode | 1 | false |
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'PowerShellInfoProvider'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------------------------|---|----------------------------------------------------------------------------------|
+| **PowerShellInfoProvider(...):**                          |   | **Bean:**                                                                        |
+| BuildAgentConfiguration config                            |   | **???**                                                                          |
+| ExtensionHolder extensionHolder                           |   | **???**                                                                          |
+| List\<PowerShellDetector\> detectors                      |   | Autowired: null(RegistryPowerShellDetector); null(CommandLinePowerShellDetector) |
+| EventDispatcher\<AgentLifeCycleListener\> eventDispatcher |   | **???**                                                                          |
+| ShellInfoHolder holder                                    |   | Autowired: null(ShellInfoHolder)                                                 |
+in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.xml`
 #### Snippet
 ```java
-    } catch (IOException e) {
-      LOG.warnAndDebugDetails("Failed to write PowerShell detection script to file [" + result.getAbsolutePath() + "]", e);
-      return null;
-    }
-    return result;
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.powershell.agent.PowerShellInfoProvider"/>
+  <bean class="jetbrains.buildServer.powershell.agent.ShellInfoHolder"/>
+  <bean class="jetbrains.buildServer.powershell.agent.PowerShellCommandLineProvider"/>
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RegistryPowerShellDetector'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------|---|-----------|
+| **RegistryPowerShellDetector(...):** |   | **Bean:** |
+| Win32RegistryAccessor accessor       |   | **???**   |
+in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.xml`
 #### Snippet
 ```java
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
- */
-class LegacyKeys {
+  <bean class="jetbrains.buildServer.powershell.agent.PowerShellServiceFactory"/>
 
-  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
+  <bean class="jetbrains.buildServer.powershell.agent.detect.registry.RegistryPowerShellDetector"/>
+  <bean class="jetbrains.buildServer.powershell.agent.detect.cmd.DetectionRunner"/>
+  <bean class="jetbrains.buildServer.powershell.agent.detect.cmd.DetectionPaths"/>
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `Loggers` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'CommandLinePowerShellDetector'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------|---|----------------------------------|
+| **CommandLinePowerShellDetector(...):** |   | **Bean:**                        |
+| BuildAgentConfiguration configuration   |   | **???**                          |
+| DetectionRunner runner                  |   | Autowired: null(DetectionRunner) |
+| DetectionPaths detectionPaths           |   | Autowired: null(DetectionPaths)  |
+in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.xml`
 #### Snippet
 ```java
-import com.intellij.openapi.diagnostic.Logger;
+  <bean class="jetbrains.buildServer.powershell.agent.detect.cmd.DetectionRunner"/>
+  <bean class="jetbrains.buildServer.powershell.agent.detect.cmd.DetectionPaths"/>
+  <bean class="jetbrains.buildServer.powershell.agent.detect.cmd.CommandLinePowerShellDetector"/>
 
-public class Loggers {
-
-    public static final Logger DETECTION_LOGGER = Logger.getInstance("jetbrains.buildServer.powershell.agent.DETECT");
+</beans>
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PowerShellConstants` has only 'static' members, and lacks a 'private' constructor
-in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellConstants.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'PowerShellRunType'#treeend
+
+*** ** * ** ***
+
+|-----------------------------|---|-----------|
+| **PowerShellRunType(...):** |   | **Bean:** |
+| RunTypeRegistry reg         |   | **???**   |
+| PluginDescriptor descriptor |   | **???**   |
+in `powershell-server/src/main/resources/META-INF/build-server-plugin-powershell.xml`
 #### Snippet
 ```java
- *         03.12.10 15:53
- */
-public class PowerShellConstants {
+       default-autowire="constructor">
 
-  public static final String PLUGIN_NAME = "powershell-runner";
+  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunType"/>
+  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunnerDiscoverer"/>
+
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-      if (info.getBitness() == PowerShellBitness.x64) {
-        if (mySystemBitness.is32bit()) {
-          return info.getExecutablePath().replace(SYSTEM32, NATIVE);
-        }
-      }
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
 ```
 
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.xml`
 #### Snippet
 ```java
-  public String getCMDWrappedCommand(@NotNull final PowerShellInfo info, @NotNull final Map<String, String> env) {
-    final String windir = env.get("windir");
-    if (StringUtil.isEmptyOrSpaces(windir)) {
-      LOG.warn("Failed to find %windir%");
-      return "cmd.exe";
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.powershell.agent.PowerShellInfoProvider"/>
 ```
 
-### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `powershell-server/src/main/resources/META-INF/build-server-plugin-powershell.xml`
 #### Snippet
 ```java
-      if (!propertyPaths.isEmpty()) {
-        LOG.debug("Adding PowerShell detection paths from [teamcity.powershell.detector.search.paths] property.");
-        LOG.debug(StringUtil.join(propertyPaths, "\n"));
-      }
-    }
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunType"/>
 ```
 
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellExecutionMode.java`
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/ScriptGenerator.java`
 #### Snippet
 ```java
-  @Nullable
-  public static PowerShellExecutionMode fromString(@Nullable String sMode) {
-    if (StringUtil.isEmptyOrSpaces(sMode)) return STDIN;
-
-    for (PowerShellExecutionMode mode : values()) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/PowerShellRunType.java`
-#### Snippet
-```java
-          case FILE:
-            final String script = properties.get(RUNNER_SCRIPT_FILE);
-            if (StringUtil.isEmptyOrSpaces(script)) {
-              col.add(new InvalidProperty(RUNNER_SCRIPT_FILE, "Script file is not defined"));
-            } else if (!ReferencesResolverUtil.containsReference(script) && !script.toLowerCase().endsWith(".ps1")) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/PowerShellRunType.java`
-#### Snippet
-```java
-            break;
-          case CODE:
-            if (StringUtil.isEmptyOrSpaces(properties.get(RUNNER_SCRIPT_CODE))) {
-              col.add(new InvalidProperty(RUNNER_SCRIPT_CODE, "Code should not be empty"));
-            }
-```
-
-### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
-#### Snippet
-```java
-    final String command = myCommands.getNativeCommand(info, getRunnerContext());
-    buildLogger.message("Command: " + command);
-    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
-    return new SimpleProgramCommandLine(env, workDir, command, args);
-  }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
-#### Snippet
-```java
-  private boolean isInternalPropertySetExecutionPolicy(@NotNull final String name, boolean def) {
-    final String prop = getConfigParameters().get("teamcity.powershell." + name);
-    if (StringUtil.isEmptyOrSpaces(prop)) {
-      return def;
-    } else {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-    if (isExplicitVersionSupported(info)) {
-      final String minVersion = runnerParams.get(RUNNER_MIN_VERSION);
-      if (!StringUtil.isEmptyOrSpaces(minVersion)) {
-        list.add("-Version");
-        list.add(minVersion);
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-    }
-    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
-    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
-      result.add("-NoProfile");
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-    final List<String> result = new ArrayList<>();
-    final String custom = runnerParams.get(key);
-    if (!StringUtil.isEmptyOrSpaces(custom)) {
-      List<String> lines;
-      if (Boolean.parseBoolean(sharedConfigParams.get(PARAM_ARGS_MULTILINE))) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-      }
-      lines.stream().map(String::trim)
-              .filter(it -> !StringUtil.isEmptyOrSpaces(it))
-              .map(StringUtil::splitHonorQuotes)
-              .forEach(result::addAll);
-```
-
-### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
-#### Snippet
-```java
-        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
-        }
-        if (outputLines.size() == 3) {
-```
-
-### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
-#### Snippet
-```java
-    final List<String> pathsToCheck = myDetectionPaths.getPaths(detectionContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
-    }
-
+    try {
+      file = FileUtil.createTempFile(buildTempDir, "powershell", ".ps1", true);
+      OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
+      handle = w;
+      if (PowerShellExecutionMode.PS1 == PowerShellExecutionMode.fromString(runnerParameters.get(RUNNER_EXECUTION_MODE))) {
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -244,163 +154,6 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.SystemInfo;
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
-#### Snippet
-```java
-  }
-
-  static void fillLegacyKeys(@NotNull final Map<String, String> parameters,
-                             @NotNull final PowerShellBitness bit,
-                             @NotNull final PowerShellInfo info) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
-#### Snippet
-```java
-  }
-
-  static void fillLegacyKeys(@NotNull final Map<String, String> parameters,
-                             @NotNull final PowerShellBitness bit,
-                             @NotNull final PowerShellInfo info) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
-#### Snippet
-```java
-  }
-
-  private void addGlobalToolsPath(@NotNull final List<String> result) {
-    File toolsPath;
-    if (SystemInfo.isWindows) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
-#### Snippet
-```java
-  }
-
-  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
-    if (!isEmptyOrSpaces(path)) {
-      File base = new File(path, "PowerShell");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/PowerShellInfo.java`
-#### Snippet
-```java
-  }
-
-  public void saveInfo(@NotNull final Map<String, String> agentParameters) {
-    if (!myVirtual) {
-      Map<String, String> parameters = toConfigurationParameters();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/PowerShellInfo.java`
-#### Snippet
-```java
-  }
-
-  public void saveInfo(@NotNull final Map<String, String> agentParameters) {
-    if (!myVirtual) {
-      Map<String, String> parameters = toConfigurationParameters();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-   * Helps with agent requirements
-   */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-   * Helps with agent requirements
-   */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PowerShellDetector`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-  }
-
-  private void registerDetectedPowerShells(@NotNull final List<PowerShellDetector> detectors,
-                                           @NotNull final DetectionContext detectionContext,
-                                           Map<String, String> parameters) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-  }
-
-  private void addVersion(@NotNull final List<String> list,
-                          @NotNull final Map<String, String> runnerParams,
-                          @NotNull final PowerShellInfo info) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-   * @param key runner parameter key
-   */
-  private void addCustomArguments(@NotNull final List<String> args,
-                                  @NotNull final Map<String, String> runnerParams,
-                                  Map<String, String> sharedConfigParams,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
-#### Snippet
-```java
-  }
-
-  private void doDetectionCycle(Map<String, PowerShellInfo> shells,
-                                List<String> pathsToCheck,
-                                List<String> executablesToCheck,
-```
-
-### BoundedWildcard
-Can generalize to `? super PowerShellInfo`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
-#### Snippet
-```java
-  }
-
-  private void doDetectionCycle(Map<String, PowerShellInfo> shells,
-                                List<String> pathsToCheck,
-                                List<String> executablesToCheck,
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (4 lines)
@@ -412,5 +165,115 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Script
       /*if (PowerShellExecutionMode.STDIN.equals(PowerShellExecutionMode.fromString(runnerParameters.get(RUNNER_EXECUTION_MODE)))) {
         //some newlines are necessary to workaround -Command - issues, like TW-19771
         sourceScript = "  \r\n  \r\n  \r\n" + sourceScript + "\r\n  \r\n   \r\n   ";
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/registry/PowerShellRegistry.java`
+#### Snippet
+```java
+ *
+ * Implements PowerShell detection logic is described at
+ * http://blogs.msdn.com/b/powershell/archive/2009/06/25/detection-logic-poweshell-installation.aspx
+ *
+ * @author Eugene Petrenko (eugene.petrenko@jetbrains.com)
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
+#### Snippet
+```java
+
+  /**
+   * https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-powershell-core-on-windows?view=powershell-5.1
+   * <p>
+   * By default, the package is installed to $env:ProgramFiles\PowerShell\
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
+#### Snippet
+```java
+  /**
+   * Paths, recommended by the documentation for .tar.gz install
+   * https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
+   */
+  private static final List<String> ADDITIONAL_ROOTS = Collections.singletonList(
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+#### Snippet
+```java
+   * Windows is 64bit, Java process is 32 bit, PowerShell x64 is required
+   *
+   * @link http://www.samlogic.net/articles/sysnative-folder-64-bit-windows.htm
+   *
+   * @param info powershell info
+```
+
+## RuleId[id=SpringXmlModelInspection]
+### SpringXmlModelInspection
+Cannot resolve class or package 'jetbrains'
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'buildServer'
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'web'
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'openapi'
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'PluginDescriptor'
+in `powershell-server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
 ```
 
