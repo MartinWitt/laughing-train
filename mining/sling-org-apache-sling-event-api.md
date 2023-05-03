@@ -1,13 +1,12 @@
 # sling-org-apache-sling-event-api 
  
 # Bad smells
-I found 9 bad smells with 4 repairable:
+I found 13 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| JavadocReference | 8 | false |
 | UnnecessaryModifier | 4 | true |
-| UnnecessaryFullyQualifiedName | 3 | false |
 | UnnecessarySemicolon | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
@@ -57,6 +56,103 @@ in `src/main/java/org/apache/sling/event/jobs/JobBuilder.java`
         /**
 ```
 
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.osgi.service.event.EventConstants`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `TIMESTAMP`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.osgi.service.event.EventConstants`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `TIMESTAMP`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.osgi.service.event.EventConstants`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `TIMESTAMP`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.osgi.service.event.EventConstants`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `TIMESTAMP`
+in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
+#### Snippet
+```java
+     * the property {@link #NOTIFICATION_PROPERTY_JOB_ID} contains the unique job id.
+     * The time stamp of the event (as a Long) is available from the property
+     * {@link org.osgi.service.event.EventConstants#TIMESTAMP}.
+     * The payload of the job is available as additional job specific properties.
+     */
+```
+
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -66,56 +162,6 @@ in `src/main/java/org/apache/sling/event/jobs/Job.java`
         ERROR,      // processing signaled CANCELLED or throw an exception
         DROPPED     // dropped jobs
     };
-
-    /**
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/sling/event/jobs/consumer/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.3.0")
-package org.apache.sling.event.jobs.consumer;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/sling/event/jobs/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("2.0.1")
-package org.apache.sling.event.jobs;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/sling/event/jobs/jmx/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("1.0.1")
-package org.apache.sling.event.jobs.jmx;
-
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `NotificationConstants` has no concrete subclass
-in `src/main/java/org/apache/sling/event/jobs/NotificationConstants.java`
-#### Snippet
-```java
- * @since 1.3
- */
-public abstract class NotificationConstants {
 
     /**
 ```
