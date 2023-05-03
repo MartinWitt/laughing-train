@@ -1,265 +1,25 @@
 # airavata-data-catalog 
  
 # Bad smells
-I found 44 bad smells with 2 repairable:
+I found 73 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SystemOutErr | 20 | false |
-| ReturnNull | 4 | false |
+| JavadocDeclaration | 30 | false |
+| SpringJavaAutowiredFieldsWarningInspection | 15 | false |
+| TrivialIf | 8 | false |
 | DataFlowIssue | 3 | false |
 | DefaultAnnotationParam | 2 | false |
+| JavadocReference | 2 | false |
+| RedundantCast | 2 | false |
 | StringBufferReplaceableByString | 2 | false |
-| EnhancedSwitchMigration | 2 | false |
-| BoundedWildcard | 2 | false |
 | UnusedAssignment | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
+| UNCHECKED_WARNING | 1 | false |
 | UnnecessarySemicolon | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | CommentedOutCode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| SwitchStatementWithTooFewBranches | 1 | false |
+| DuplicatedCode | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                    .build();
-            DataProduct result = client.createDataProduct(dataProduct);
-            System.out.println(MessageFormat.format("Created data product with id [{0}]", result.getDataProductId()));
-
-            DataProduct updatedDataProduct = result.toBuilder().setName("updated name").build();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            DataProduct updatedDataProduct = result.toBuilder().setName("updated name").build();
-            result = client.updateDataProduct(updatedDataProduct);
-            System.out.println(MessageFormat.format("Updated data product with id [{0}] to have name [{1}]",
-                    result.getDataProductId(), result.getName()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-
-            DataProduct retrievedDataProduct = client.getDataProduct(result.getDataProductId());
-            System.out.println(MessageFormat.format("Retrieved data product with id [{0}] to have name [{1}]",
-                    retrievedDataProduct.getDataProductId(), retrievedDataProduct.getName()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                    .build();
-            DataProduct result2 = client.createDataProduct(dataProduct2);
-            System.out.println(
-                    MessageFormat.format("Created second data product [{0}]", result2));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-
-            client.deleteDataProduct(result2.getDataProductId());
-            System.out.println(
-                    MessageFormat.format("Deleted data product with id [{0}]", result2.getDataProductId()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                metadataSchema = MetadataSchema.newBuilder().setSchemaName("my_schema").build();
-                metadataSchema = client.createMetadataSchema(metadataSchema);
-                System.out.println(
-                        MessageFormat.format("Created metadata schema with name [{0}]",
-                                metadataSchema.getSchemaName()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                                metadataSchema.getSchemaName()));
-            } else {
-                System.out.println(
-                        MessageFormat.format("Found metadata schema with name [{0}]",
-                                metadataSchema.getSchemaName()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            if (field1Exists == null) {
-                field1 = client.createMetadataSchemaField(field1);
-                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
-                        field1.getFieldName(), field1.getSchemaName()));
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            } else {
-                field1 = field1Exists;
-                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
-                        field1.getFieldName(), field1.getSchemaName()));
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            if (field2Exists == null) {
-                field2 = client.createMetadataSchemaField(field2);
-                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
-                        field2.getFieldName(), field2.getSchemaName()));
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            } else {
-                field2 = field2Exists;
-                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
-                        field2.getFieldName(), field2.getSchemaName()));
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            if (field3Exists == null) {
-                field3 = client.createMetadataSchemaField(field3);
-                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
-                        field3.getFieldName(), field3.getSchemaName()));
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            } else {
-                field3 = field3Exists;
-                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
-                        field3.getFieldName(), field3.getSchemaName()));
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-
-            List<MetadataSchemaField> fields = client.getMetadataSchemaFields(metadataSchema.getSchemaName());
-            System.out.println(MessageFormat.format("Found {0} fields for schema {1}", fields.size(),
-                    metadataSchema.getSchemaName()));
-            for (MetadataSchemaField field : fields) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                    metadataSchema.getSchemaName()));
-            for (MetadataSchemaField field : fields) {
-                System.out.println(MessageFormat.format("-> field {0}", field.getFieldName()));
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-
-            result = client.addDataProductToMetadataSchema(result.getDataProductId(), metadataSchema.getSchemaName());
-            System.out.println(MessageFormat.format("Added data product [{0}] to metadata schema [{1}]",
-                    result.getDataProductId(), metadataSchema.getSchemaName()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            result = client.removeDataProductFromMetadataSchema(result.getDataProductId(),
-                    metadataSchema.getSchemaName());
-            System.out.println(MessageFormat.format("Removed data product [{0}] from metadata schema [{1}]",
-                    result.getDataProductId(), metadataSchema.getSchemaName()));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                    .build();
-            DataProduct result3 = client.createDataProduct(dataProduct3);
-            System.out.println(
-                    MessageFormat.format("Created third data product [{0}], supporting schemas [{1}]",
-                            result3.getDataProductId(), result3.getMetadataSchemasList()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-                    select * from my_schema where field3 = 'bar'
-                     """);
-            System.out.println(searchResults);
-
-            searchResults = client.searchDataProducts("""
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-            // select * from my_schema where not (field1 < 5 or field3 = 'bar')
-            // """);
-            System.out.println(searchResults);
-        } finally {
-            channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
-```
-
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -285,32 +45,59 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mo
 
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `DataCatalogApiServiceApplication` has only 'static' members, and lacks a 'private' constructor
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/DataCatalogApiServiceApplication.java`
-#### Snippet
-```java
-
-@SpringBootApplication
-public class DataCatalogApiServiceApplication {
-
-    public static void main(String[] args) {
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `accept` may produce `NullPointerException`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-        SqlSelect selectNode = (SqlSelect) validatedSqlNode;
-        Map<String, String> tableAliases = new HashMap<>();
-        selectNode.getFrom().accept(new SqlShuttle() {
+        logger.debug("Metadata schema query final sql: {}", finalSql);
 
-            @Override
+        List<DataProductEntity> dataProductEntities = entityManager.createNativeQuery(finalSql, DataProductEntity.class)
+                .getResultList();
+
+        List<DataProduct> dataProducts = new ArrayList<>();
 ```
 
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.apache.airavata.datacatalog.api.DataProduct`
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
+#### Snippet
+```java
+ * Map to/from
+ * {@link org.apache.airavata.datacatalog.api.model.DataProductEntity}
+ * <-> {@link org.apache.airavata.datacatalog.api.DataProduct}
+ */
+@Component
+```
+
+### JavadocReference
+Cannot resolve symbol `Permission`
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * for each data product. The view should contain the following columns:
+     * data_product_id, user_id, and permission_id where the permission_id
+     * should be a number as defined in the {@link Permission} enum.
+     *
+     * @return
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;;
+
+public class DataCatalogAPIClient {
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `toSqlString` may produce `NullPointerException`
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
@@ -335,30 +122,402 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/qu
             }
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+### DataFlowIssue
+Method invocation `accept` may produce `NullPointerException`
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-import io.grpc.ManagedChannelBuilder;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;;
+        SqlSelect selectNode = (SqlSelect) validatedSqlNode;
+        Map<String, String> tableAliases = new HashMap<>();
+        selectNode.getFrom().accept(new SqlShuttle() {
 
-public class DataCatalogAPIClient {
+            @Override
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.airavata.datacatalog.api.model` is unnecessary and can be removed
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `typeFactory.builder()` to `Builder` is redundant
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-/**
- * Map to/from
- * {@link org.apache.airavata.datacatalog.api.model.DataProductEntity}
- * <-> {@link org.apache.airavata.datacatalog.api.DataProduct}
- */
+            @Override
+            public RelDataType getRowType(RelDataTypeFactory typeFactory) {
+                Builder builder = (Builder) typeFactory.builder();
+                return builder
+                        .add("data_product_id", SqlTypeName.INTEGER)
+```
+
+### RedundantCast
+Casting `typeFactory.builder()` to `Builder` is redundant
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+                @Override
+                public RelDataType getRowType(RelDataTypeFactory typeFactory) {
+                    Builder builder = (Builder) typeFactory.builder();
+
+                    // Add all of the common fields
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param sqlNode` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/MetadataSchemaQueryWriter.java`
+#### Snippet
+```java
+     * Rewrite the query as needed to filter against metadata schema fields.
+     * 
+     * @param sqlNode
+     * @param metadataSchemas
+     * @param tableAliases
+```
+
+### JavadocDeclaration
+`@param metadataSchemas` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/MetadataSchemaQueryWriter.java`
+#### Snippet
+```java
+     * 
+     * @param sqlNode
+     * @param metadataSchemas
+     * @param tableAliases
+     * @return
+```
+
+### JavadocDeclaration
+`@param tableAliases` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/MetadataSchemaQueryWriter.java`
+#### Snippet
+```java
+     * @param sqlNode
+     * @param metadataSchemas
+     * @param tableAliases
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/MetadataSchemaQueryWriter.java`
+#### Snippet
+```java
+     * @param metadataSchemas
+     * @param tableAliases
+     * @return
+     */
+    String rewriteQuery(SqlNode sqlNode, Collection<MetadataSchemaEntity> metadataSchemas,
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * should be a number as defined in the {@link Permission} enum.
+     *
+     * @return
+     */
+    String getDataProductSharingView();
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Grant permission to the user for the given data product.
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+    void grantPermissionToUser(UserInfo userInfo, DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Revoke permission from the user for the given data product.
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+    void revokePermissionFromUser(UserInfo userInfo, DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * permission.
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     * @return
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+    boolean userHasAccess(UserInfo userInfo, DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Get or create a {@link UserEntity}.
+     *
+     * @param userInfo
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @return
+     */
+    UserEntity resolveUser(UserInfo userInfo);
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * provided in the API request.
+     *
+     * @param dataProduct
+     * @param permission
+     * @return
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+    boolean hasPublicAccess(DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param groupInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Grant permission to the group for the given data product.
+     *
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+     */
+    void grantPermissionToGroup(GroupInfo groupInfo, DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param groupInfo` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Revoke permission from the group for the given data product.
+     *
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param groupInfo
+     * @param dataProduct
+     * @param permission
+     */
+    void revokePermissionFromGroup(GroupInfo groupInfo, DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Revoke public access from the given data product.
+     *
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param dataProduct
+     * @param permission
+     */
+    void revokePublicAccess(DataProduct dataProduct, Permission permission);
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Grant public access to the given data product.
+     *
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param dataProduct
+     * @param permission
+     */
+    void grantPublicAccess(DataProduct dataProduct, Permission permission);
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -374,66 +533,230 @@ in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/cl
             // """);
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-        } catch (StatusRuntimeException e) {
-            if (e.getStatus() == Status.NOT_FOUND) {
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
-#### Snippet
-```java
-        } catch (StatusRuntimeException e) {
-            if (e.getStatus() == Status.NOT_FOUND) {
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
 in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
 #### Snippet
 ```java
-                }
+                        sql.append(metadataSchemaField.getJsonPath());
+                        sql.append(" ");
+                        switch (call.getOperator().kind) {
+                            case EQUALS:
+                                sql.append(" == ");
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `data-catalog-api/client/src/main/java/org/apache/airavata/datacatalog/api/client/DataCatalogAPIClient.java`
+#### Snippet
+```java
+            MetadataSchemaField field1Exists = client.getMetadataSchemaField(field1.getSchemaName(),
+                    field1.getFieldName());
+            if (field1Exists == null) {
+                field1 = client.createMetadataSchemaField(field1);
+                System.out.println(MessageFormat.format("Created metadata schema field [{0}] in schema [{1}]",
+                        field1.getFieldName(), field1.getSchemaName()));
+            } else {
+                field1 = field1Exists;
+                System.out.println(MessageFormat.format("Found metadata schema field [{0}] in schema [{1}]",
+                        field1.getFieldName(), field1.getSchemaName()));
             }
-            return null;
-        }
+```
+
+## RuleId[id=SpringJavaAutowiredFieldsWarningInspection]
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/MetadataSchemaFieldMapper.java`
+#### Snippet
+```java
+public class MetadataSchemaFieldMapper {
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
 
 ```
 
-### ReturnNull
-Return of `null`
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
 #### Snippet
 ```java
-            }
-            // If none matched, must not be a metadata schema field
-            return null;
-        }
+public class DataProductMapper {
+
+    @Autowired
+    DataProductRepository dataProductRepository;
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-12-50-22.682.html`
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+    DataProductRepository dataProductRepository;
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/DataCatalogAPIService.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(DataCatalogAPIService.class);
+
+    @Autowired
+    DataCatalogService dataCatalogService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+
+    // Mappers
+    @Autowired
+    DataProductMapper dataProductMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaMapper metadataSchemaMapper;
+
+    @Autowired
+    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    DataProductRepository dataProductRepository;
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+
+    // Repositories
+    @Autowired
+    DataProductRepository dataProductRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
+
+    @Autowired
+    MetadataSchemaQueryExecutor metadataSchemaQueryExecutor;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaRepository metadataSchemaRepository;
+
+    @Autowired
+    MetadataSchemaFieldRepository metadataSchemaFieldRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    DataProductMapper dataProductMapper;
+
+    @Autowired
+    MetadataSchemaMapper metadataSchemaMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    EntityManager entityManager;
+
+    @Autowired
+    DataProductMapper dataProductMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    MetadataSchemaRepository metadataSchemaRepository;
+
+    @Autowired
+    MetadataSchemaQueryWriter metadataSchemaQueryWriter;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    MetadataSchemaQueryWriter metadataSchemaQueryWriter;
+
+    @Autowired
+    EntityManager entityManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(MetadataSchemaQueryExecutorImpl.class);
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
+
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `validator` is redundant
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+                planner.getTypeFactory(), connectionConfig);
+
+        SqlValidator validator = SqlValidatorUtil.newValidator(SqlStdOperatorTable.instance(),
+                catalogReader, planner.getTypeFactory(),
+                config.getSqlValidatorConfig().withIdentifierExpansion(false));
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -459,69 +782,6 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/qu
         StringBuilder sb = new StringBuilder();
         sb.append(metadataSchemaEntity.getSchemaName());
         sb.append(" AS (");
-```
-
-## RuleId[id=EnhancedSwitchMigration]
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
-#### Snippet
-```java
-    private SqlTypeName getSqlTypeName(FieldValueType fieldValueType) {
-
-        switch (fieldValueType) {
-            case BOOLEAN:
-                return SqlTypeName.BOOLEAN;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
-#### Snippet
-```java
-                        sql.append(metadataSchemaField.getJsonPath());
-                        sql.append(" ");
-                        switch (call.getOperator().kind) {
-                            case EQUALS:
-                                sql.append(" == ");
-```
-
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `validator` is redundant
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
-#### Snippet
-```java
-                planner.getTypeFactory(), connectionConfig);
-
-        SqlValidator validator = SqlValidatorUtil.newValidator(SqlStdOperatorTable.instance(),
-                catalogReader, planner.getTypeFactory(),
-                config.getSqlValidatorConfig().withIdentifierExpansion(false));
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends MetadataSchemaEntity`
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
-#### Snippet
-```java
-        Deque<SqlCall> binaryLogicalOperatorNodes = new ArrayDeque<>();
-
-        MetadataSchemaFieldFilterRewriter(Collection<MetadataSchemaEntity> metadataSchemas,
-                Map<String, String> tableAliases) {
-            this.metadataSchemas = metadataSchemas;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetadataSchemaEntity`
-in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/query/impl/PostgresqlMetadataSchemaQueryWriterImpl.java`
-#### Snippet
-```java
-    }
-
-    String writeCommonTableExpressions(Collection<MetadataSchemaEntity> metadataSchemas) {
-        StringBuilder sb = new StringBuilder();
-        List<String> commonTableExpressions = new ArrayList<>();
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -560,5 +820,102 @@ in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/qu
         sb.append("where ms_.metadata_schema_id = " + metadataSchemaEntity.getMetadataSchemaId());
         sb.append(")");
         return sb.toString();
+```
+
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
+#### Snippet
+```java
+        MetadataSchemaFieldEntity other = (MetadataSchemaFieldEntity) obj;
+        if (metadataSchemaFieldId == null) {
+            if (other.metadataSchemaFieldId != null)
+                return false;
+        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
+#### Snippet
+```java
+            if (other.metadataSchemaFieldId != null)
+                return false;
+        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
+#### Snippet
+```java
+        DataProductEntity other = (DataProductEntity) obj;
+        if (dataProductId == null) {
+            if (other.dataProductId != null)
+                return false;
+        } else if (!dataProductId.equals(other.dataProductId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
+#### Snippet
+```java
+            if (other.dataProductId != null)
+                return false;
+        } else if (!dataProductId.equals(other.dataProductId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaEntity.java`
+#### Snippet
+```java
+        MetadataSchemaEntity other = (MetadataSchemaEntity) obj;
+        if (metadataSchemaId == null) {
+            if (other.metadataSchemaId != null)
+                return false;
+        } else if (!metadataSchemaId.equals(other.metadataSchemaId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaEntity.java`
+#### Snippet
+```java
+            if (other.metadataSchemaId != null)
+                return false;
+        } else if (!metadataSchemaId.equals(other.metadataSchemaId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
+#### Snippet
+```java
+        UserEntity other = (UserEntity) obj;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
+#### Snippet
+```java
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
+        return true;
 ```
 
