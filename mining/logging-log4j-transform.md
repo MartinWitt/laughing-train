@@ -1,52 +1,49 @@
 # logging-log4j-transform 
  
 # Bad smells
-I found 9 bad smells with 1 repairable:
+I found 14 bad smells with 5 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RedundantFieldInitialization | 2 | false |
-| BoundedWildcard | 2 | false |
-| NonSerializableFieldInSerializableClass | 1 | false |
-| UnnecessaryModifier | 1 | true |
-| ReturnNull | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationMethodVisitor.java`
+| UnnecessaryModifier | 5 | true |
+| FieldMayBeFinal | 5 | false |
+| DuplicatedCode | 1 | false |
+| SwitchStatementWithTooFewBranches | 1 | false |
+| JavadocReference | 1 | false |
+| MismatchedCollectionQueryUpdate | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/log4j2/LoggerConversionHandler.java`
 #### Snippet
 ```java
-    private final Label[] startLabels = new Label[12];
-    // Next available variable index
-    private int nextVariable = 0;
-
-    private int lineNumber;
+        final Type[] types = Type.getArgumentTypes(descriptor);
+        final int[] vars = new int[types.length];
+        for (int i = vars.length - 1; i >= 0; i--) {
+            vars[i] = mv.nextLocal();
+            mv.storeLocal(vars[i]);
+        }
+        // only Logger on stack
+        mv.dup();
+        final int loggerIdx = mv.nextLocal();
+        mv.storeLocal(loggerIdx, LOGGER_TYPE);
+        mv.invokeInterface(LOGGER_TYPE, AT_TRACE_METHOD);
+        mv.storeLocation();
+        mv.getStatic(ABSTRACT_LOGGER_TYPE, ENTRY_MARKER, MARKER_TYPE);
+        mv.invokeInterface(LOG_BUILDER_TYPE, WITH_MARKER_METHOD);
+        mv.loadLocal(loggerIdx, LOGGER_TYPE);
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/logging/log4j/maven/plugins/shade/transformer/Log4j2PluginCacheFileTransformer.java`
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisitor.java`
 #### Snippet
 ```java
-     * Store youngest (i.e. largest millisecond) so that we can produce reproducible jar file
-     */
-    private long youngestTime = 0;
 
-
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'argumentTypes' in a Serializable class
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
-#### Snippet
-```java
-    ENTRY_MESSAGE_STRING_SUPPLIERS(LOGGER_TYPE, STRING_TYPE, SUPPLIER_ARRAY_TYPE);
-
-    private final Type[] argumentTypes;
-
-    private SupplierLambdaType(final Type... argumentTypes) {
+    public Handle createLambda(SupplierLambdaType type) {
+        switch (type) {
+            case MESSAGE_SUPPLIER:
+                return new Handle(Opcodes.H_INVOKEINTERFACE, MESSAGE_SUPPLIER_TYPE.getInternalName(), "get",
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -62,67 +59,138 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     }
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisitor.java`
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/scan/ClassFileInclusionScanner.java`
 #### Snippet
 ```java
-                ? new LocationMethodVisitor(this, Collections.unmodifiableMap(conversionHandlers), mv, access, name,
-                        descriptor)
-                : null;
-    }
+public interface ClassFileInclusionScanner {
+
+    static final String DEFAULT_INCLUSION_PATTERN = "**/*.class";
+    static final String DEFAULT_EXCLUSION_PATTERN = "**/*" + Constants.LOCATION_CACHE_SUFFIX + ".class";
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-05-01-15-32-15.916.html`
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/scan/ClassFileInclusionScanner.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+public interface ClassFileInclusionScanner {
+
+    static final String DEFAULT_INCLUSION_PATTERN = "**/*.class";
+    static final String DEFAULT_EXCLUSION_PATTERN = "**/*" + Constants.LOCATION_CACHE_SUFFIX + ".class";
+
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGenerator.java`
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/scan/ClassFileInclusionScanner.java`
 #### Snippet
 ```java
-        public int addLocation(final String internalClassName, final String methodName, final String fileName,
-                final int lineNumber) {
-            final StackTraceElement location = new StackTraceElement(internalClassName.replaceAll("/", "."), methodName,
-                    fileName, lineNumber);
-            locations.add(location);
+
+    static final String DEFAULT_INCLUSION_PATTERN = "**/*.class";
+    static final String DEFAULT_EXCLUSION_PATTERN = "**/*" + Constants.LOCATION_CACHE_SUFFIX + ".class";
+
+    /**
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/scan/ClassFileInclusionScanner.java`
 #### Snippet
 ```java
-    }
 
-    private void convertClassfiles(List<Path> classFiles, LocationClassConverter converter,
-            LocationCacheGenerator locationCache) {
-        final Path sourceDirectory = this.sourceDirectory.toPath();
+    static final String DEFAULT_INCLUSION_PATTERN = "**/*.class";
+    static final String DEFAULT_EXCLUSION_PATTERN = "**/*" + Constants.LOCATION_CACHE_SUFFIX + ".class";
+
+    /**
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Relocator`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Relocator`
 in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/logging/log4j/maven/plugins/shade/transformer/Log4j2PluginCacheFileTransformer.java`
 #### Snippet
 ```java
+    private final List<Path> tempFiles;
+    /**
+     * {@link Relocator} instances to share across the transformation stages.
+     */
+    private final List<Relocator> tempRelocators;
+```
 
-    private Relocator findFirstMatchingRelocator(final String originalClassName,
-                                                 final List<Relocator> relocators) {
-        Relocator result = null;
-        for (final Relocator relocator : relocators) {
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `SUPPLIER_OF_MESSAGE_TYPE` may be 'final'
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationMethodVisitor.java`
+#### Snippet
+```java
+    // Programmatically define LAMBDA_METAFACTORY_HANDLE
+    private static Type SUPPLIER_OF_OBJECT_TYPE = Type.getMethodType(OBJECT_TYPE);
+    private static Type SUPPLIER_OF_MESSAGE_TYPE = Type.getMethodType(MESSAGE_TYPE);
+    private static final Type LAMBDA_METAFACTORY_TYPE = Type.getType(LambdaMetafactory.class);
+    private static final Type METHOD_HANDLE_TYPE = Type.getType(MethodHandle.class);
+```
+
+### FieldMayBeFinal
+Field `SUPPLIER_OF_OBJECT_TYPE` may be 'final'
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationMethodVisitor.java`
+#### Snippet
+```java
+
+    // Programmatically define LAMBDA_METAFACTORY_HANDLE
+    private static Type SUPPLIER_OF_OBJECT_TYPE = Type.getMethodType(OBJECT_TYPE);
+    private static Type SUPPLIER_OF_MESSAGE_TYPE = Type.getMethodType(MESSAGE_TYPE);
+    private static final Type LAMBDA_METAFACTORY_TYPE = Type.getType(LambdaMetafactory.class);
+```
+
+### FieldMayBeFinal
+Field `lambdas` may be 'final'
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGenerator.java`
+#### Snippet
+```java
+    private static class LocationCacheContents {
+        private final List<StackTraceElement> locations = new CopyOnWriteArrayList<>();
+        private Set<SupplierLambdaType> lambdas = EnumSet.noneOf(SupplierLambdaType.class);
+
+        public int addLocation(final String internalClassName, final String methodName, final String fileName,
+```
+
+### FieldMayBeFinal
+Field `includes` may be 'final'
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private Set<String> includes = new HashSet<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `excludes` may be 'final'
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private Set<String> excludes = new HashSet<>();
+
+    /**
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `excludes` are queried, but never updated
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private Set<String> excludes = new HashSet<>();
+
+    /**
 ```
 
