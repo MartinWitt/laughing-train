@@ -12,6 +12,30 @@ I found 27 bad smells with 0 repairable:
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `reader`
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardProfileManagerAdapter.java`
+#### Snippet
+```java
+    for (CardResource cardResource : cardResources) {
+      CardReader reader = cardResource.getReader();
+      synchronized (reader) {
+        ReaderManagerAdapter readerManager = service.getReaderManager(reader);
+        if (readerManager != null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `reader`
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
+#### Snippet
+```java
+    if (reader != null) {
+      // The reader is registered in the service.
+      synchronized (reader) {
+        ReaderManagerAdapter readerManager = readerToReaderManagerMap.get(reader);
+        if (readerManager != null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `reader`
 in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
 #### Snippet
 ```java
@@ -32,30 +56,6 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAd
           synchronized (reader) {
             onReaderDisconnected(reader, plugin);
           }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `reader`
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
-#### Snippet
-```java
-    if (reader != null) {
-      // The reader is registered in the service.
-      synchronized (reader) {
-        ReaderManagerAdapter readerManager = readerToReaderManagerMap.get(reader);
-        if (readerManager != null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `reader`
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardProfileManagerAdapter.java`
-#### Snippet
-```java
-    for (CardResource cardResource : cardResources) {
-      CardReader reader = cardResource.getReader();
-      synchronized (reader) {
-        ReaderManagerAdapter readerManager = service.getReaderManager(reader);
-        if (readerManager != null) {
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -159,18 +159,6 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileCo
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileConfigurator.java`
-#### Snippet
-```java
-     */
-    public Builder withReaderGroupReference(String readerGroupReference) {
-      Assert.getInstance().notEmpty(readerGroupReference, "readerGroupReference");
-      if (this.readerGroupReference != null) {
-        throw new IllegalStateException("Reader group reference has already been set.");
-```
-
-### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileConfigurator.java`
 #### Snippet
@@ -195,6 +183,18 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileCo
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileConfigurator.java`
+#### Snippet
+```java
+     */
+    public Builder withReaderGroupReference(String readerGroupReference) {
+      Assert.getInstance().notEmpty(readerGroupReference, "readerGroupReference");
+      if (this.readerGroupReference != null) {
+        throw new IllegalStateException("Reader group reference has already been set.");
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileConfigurator.java`
 #### Snippet
@@ -204,18 +204,6 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceProfileCo
           .notNull(cardResourceProfileExtension, "cardResourceProfileExtension");
       this.profileName = profileName;
       this.cardResourceProfileExtension = cardResourceProfileExtension;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/resource/PluginsConfigurator.java`
-#### Snippet
-```java
-     */
-    public Builder withUsageTimeout(int usageTimeoutMillis) {
-      Assert.getInstance().greaterOrEqual(usageTimeoutMillis, 1, "usageTimeoutMillis");
-      if (this.usageTimeoutMillis != null) {
-        throw new IllegalStateException("Usage timeout already configured.");
 ```
 
 ### IgnoreResultOfCall
@@ -243,51 +231,27 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/PluginsConfigurator.j
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/resource/PluginsConfigurator.java`
 #### Snippet
 ```java
-      throw new IllegalStateException("The card resource service is not started.");
-    }
-    Assert.getInstance().notEmpty(cardResourceProfileName, "cardResourceProfileName");
-
-    CardProfileManagerAdapter cardProfileManager =
+     */
+    public Builder withUsageTimeout(int usageTimeoutMillis) {
+      Assert.getInstance().greaterOrEqual(usageTimeoutMillis, 1, "usageTimeoutMillis");
+      if (this.usageTimeoutMillis != null) {
+        throw new IllegalStateException("Usage timeout already configured.");
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
-#### Snippet
-```java
-        cardProfileNameToCardProfileManagerMap.get(cardResourceProfileName);
-
-    Assert.getInstance().notNull(cardProfileManager, "cardResourceProfileName");
-
-    CardResource cardResource = cardProfileManager.getCardResource();
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
-#### Snippet
-```java
-      throw new IllegalStateException("The card resource service is not started.");
-    }
-    Assert.getInstance().notNull(cardResource, "cardResource");
-
-    // For regular or pool plugin ?
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
+Result of `Assert.greaterOrEqual()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceConfiguratorAdapter.java`
 #### Snippet
 ```java
-  public CardResourceServiceConfigurator withPoolPlugins(
-      PoolPluginsConfigurator poolPluginsConfigurator) {
-    Assert.getInstance().notNull(poolPluginsConfigurator, "poolPluginsConfigurator");
-    if (poolPlugins != null) {
-      throw new IllegalStateException("Pool plugins already configured.");
+    Assert.getInstance()
+        .greaterOrEqual(cycleDurationMillis, 1, "cycleDurationMillis")
+        .greaterOrEqual(timeoutMillis, 1, "timeoutMillis");
+    if (isBlockingAllocationMode) {
+      throw new IllegalStateException("Allocation mode already configured.");
 ```
 
 ### IgnoreResultOfCall
@@ -315,15 +279,15 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceCo
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
+Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceConfiguratorAdapter.java`
 #### Snippet
 ```java
-    Assert.getInstance()
-        .greaterOrEqual(cycleDurationMillis, 1, "cycleDurationMillis")
-        .greaterOrEqual(timeoutMillis, 1, "timeoutMillis");
-    if (isBlockingAllocationMode) {
-      throw new IllegalStateException("Allocation mode already configured.");
+  public CardResourceServiceConfigurator withPoolPlugins(
+      PoolPluginsConfigurator poolPluginsConfigurator) {
+    Assert.getInstance().notNull(poolPluginsConfigurator, "poolPluginsConfigurator");
+    if (poolPlugins != null) {
+      throw new IllegalStateException("Pool plugins already configured.");
 ```
 
 ### IgnoreResultOfCall
@@ -336,5 +300,41 @@ in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceCo
     Assert.getInstance().notNull(pluginsConfigurator, "pluginsConfigurator");
     if (plugins != null) {
       throw new IllegalStateException("Plugins already configured.");
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
+#### Snippet
+```java
+      throw new IllegalStateException("The card resource service is not started.");
+    }
+    Assert.getInstance().notNull(cardResource, "cardResource");
+
+    // For regular or pool plugin ?
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
+#### Snippet
+```java
+      throw new IllegalStateException("The card resource service is not started.");
+    }
+    Assert.getInstance().notEmpty(cardResourceProfileName, "cardResourceProfileName");
+
+    CardProfileManagerAdapter cardProfileManager =
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/resource/CardResourceServiceAdapter.java`
+#### Snippet
+```java
+        cardProfileNameToCardProfileManagerMap.get(cardResourceProfileName);
+
+    Assert.getInstance().notNull(cardProfileManager, "cardResourceProfileName");
+
+    CardResource cardResource = cardProfileManager.getCardResource();
 ```
 
