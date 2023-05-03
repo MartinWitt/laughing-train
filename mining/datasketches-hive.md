@@ -1,1236 +1,404 @@
 # datasketches-hive 
  
 # Bad smells
-I found 136 bad smells with 11 repairable:
+I found 38 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 87 | false |
-| MissortedModifiers | 21 | false |
-| UtilityClassWithoutPrivateConstructor | 10 | true |
-| UnnecessaryFullyQualifiedName | 7 | false |
-| RedundantSuppression | 6 | false |
-| UnnecessarySuperQualifier | 3 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-10-00-07-32.411.html`
+| DuplicatedCode | 18 | false |
+| JavadocReference | 11 | false |
+| ConstantValue | 4 | false |
+| UNCHECKED_WARNING | 3 | false |
+| ArraysAsListWithZeroOrOneArgument | 1 | false |
+| FieldCanBeLocal | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
+    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionDoubleSummarySketchUDAF.java`
-#### Snippet
-```java
-    @Override
-    protected SummaryFactory<DoubleSummary> getSummaryFactory(final Object[] data) {
-      return null; // union never needs to create new instances
+    // Validate the correct number of parameters
+    if (inspectors.length < 1) {
+      throw new UDFArgumentException("Please specify at least 1 argument");
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/DoubleSummarySketchToEstimatesUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final Sketch<DoubleSummary> sketch =
-        Sketches.heapifySketch(BytesWritableHelper.wrapAsMemory(serializedSketch), SUMMARY_DESERIALIZER);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToMeansUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToMeansUDF.java`
-#### Snippet
-```java
-
-    if (sketch.getRetainedEntries() < 1) {
-      return null;
+    if (inspectors.length > 3) {
+      throw new UDFArgumentException("Please specify no more than 3 arguments");
     }
 
-```
+    // Validate first parameter type
+    ObjectInspectorValidator.validateCategoryPrimitive(inspectors[0], 0);
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToVariancesUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToVariancesUDF.java`
-#### Snippet
-```java
-
-    if (sketch.getRetainedEntries() < 1) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/GetEstimateUDF.java`
-#### Snippet
-```java
-   */
-  public Double evaluate(final BytesWritable serializedSketch, final long seed) {
-    if (serializedSketch == null) { return null; }
-    final CpcSketch sketch = CpcSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch), seed);
-    return sketch.getEstimate();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToQuantilesSketchUDF.java`
-#### Snippet
-```java
-  public BytesWritable evaluate(final BytesWritable serializedSketch, final int column,
-      final int k) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<String> evaluate(final BytesWritable serializedSketch, final int number) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromStringsSketchUDF.java`
-#### Snippet
-```java
-    );
-    final String[] quantiles = sketch.getQuantiles(number);
-    if (quantiles == null) { return null; }
-    return Arrays.asList(quantiles);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<String> evaluate(final BytesWritable serializedSketch, final Double... fractions) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchState.java`
-#### Snippet
-```java
-  @Override
-  CpcSketch getResult() {
-    if (this.sketch_ == null) { return null; }
-    return this.sketch_;
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetKFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public Integer evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetCdfFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final Double... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] cdf = sketch.getCDF(Util.objectsToPrimitives(splitPoints));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetCdfFromDoublesSketchUDF.java`
-#### Snippet
-```java
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] cdf = sketch.getCDF(Util.objectsToPrimitives(splitPoints));
-    if (cdf == null) { return null; }
-    return Util.primitivesToList(cdf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/DataToDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-      final State<DoubleSummary> state = (State<DoubleSummary>) buf;
-      final Sketch<DoubleSummary> intermediate = state.getResult();
-      if (intermediate == null) { return null; }
-      final byte[] bytes = intermediate.toByteArray();
-      return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/DataToDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-    @Override
-    protected SummarySetOperations<DoubleSummary> getSummarySetOperationsForIterate(final Object[] data) {
-      return null; // not needed for building sketches
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/SketchToStringUDF.java`
-#### Snippet
-```java
-   */
-  public String evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetCdfUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final Float... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetCdfUDF.java`
-#### Snippet
-```java
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] cdf = sketch.getCDF(Util.objectsToPrimitives(splitPoints));
-    if (cdf == null) { return null; }
-    return Util.primitivesToList(cdf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetNUDF.java`
-#### Snippet
-```java
-   */
-  public Long evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/DoublesEvaluator.java`
-#### Snippet
-```java
-    final DoublesUnionState state = (DoublesUnionState) buf;
-    final DoublesSketch resultSketch = state.getResult();
-    if (resultSketch == null) { return null; }
-    return new BytesWritable(resultSketch.toByteArray(true));
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/ItemsEvaluator.java`
-#### Snippet
-```java
-    final ItemsUnionState<T> state = (ItemsUnionState<T>) buf;
-    final ItemsSketch<T> resultSketch = state.getResult();
-    if (resultSketch == null) { return null; }
-    return new BytesWritable(resultSketch.toByteArray(this.serDe_));
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetPmfUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final Float... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetPmfUDF.java`
-#### Snippet
-```java
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] pmf = sketch.getPMF(Util.objectsToPrimitives(splitPoints));
-    if (pmf == null) { return null; }
-    return Util.primitivesToList(pmf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/ItemsUnionState.java`
-#### Snippet
-```java
-
-  public ItemsSketch<T> getResult() {
-    if (this.union == null) { return null; }
-    return this.union.getResultAndReset();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchToStringUDF.java`
-#### Snippet
-```java
-   */
-  public String evaluate(final BytesWritable serializedSketch, final long seed) {
-    if (serializedSketch == null) { return null; }
-    final CpcSketch sketch = CpcSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch), seed);
-    return sketch.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-      throws HiveException {
-    final ArrayOfDoublesState state = (ArrayOfDoublesState) buf;
-    if (state == null) { return null; }
-    final ArrayOfDoublesSketch result = state.getResult();
-    if (result == null) { return null; }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-    if (state == null) { return null; }
-    final ArrayOfDoublesSketch result = state.getResult();
-    if (result == null) { return null; }
-    return new BytesWritable(result.toByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-    final ArrayOfDoublesState state = (ArrayOfDoublesState) buf;
-    final ArrayOfDoublesSketch intermediate = state.getResult();
-    if (intermediate == null) { return null; }
-    final byte[] bytes = intermediate.toByteArray();
-    return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/DoublesUnionState.java`
-#### Snippet
-```java
-
-  public DoublesSketch getResult() {
-    if (this.union == null) { return null; }
-    return this.union.getResultAndReset();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantileFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public Double evaluate(final BytesWritable serializedSketch, final double fraction) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.getQuantile(fraction);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/IntersectSketchUDAF.java`
-#### Snippet
-```java
-      final IntersectionState state = (IntersectionState) buf;
-      final Sketch intermediate = state.getResult();
-      if (intermediate == null) { return null; }
-      final byte[] bytes = intermediate.toByteArray();
-      return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/IntersectSketchUDAF.java`
-#### Snippet
-```java
-
-      Sketch getResult() {
-        if (this.intersection_ == null) { return null; }
-        return this.intersection_.getResult();
+    // Validate second argument if present
+    if (inspectors.length > 1) {
+      ObjectInspectorValidator.validateIntegralParameter(inspectors[1], 1);
+      if (!ObjectInspectorUtils.isConstantObjectInspector(inspectors[1])) {
+        throw new UDFArgumentTypeException(1, "The second argument must be a constant");
       }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/IntersectSketchUDAF.java`
-#### Snippet
-```java
-      final IntersectionState state = (IntersectionState) buf;
-      final Sketch resultSketch = state.getResult();
-      if (resultSketch == null) { return null; }
-      return new BytesWritable(resultSketch.toByteArray());
     }
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToEstimatesUDF.java`
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
 #### Snippet
 ```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
+      if (mode == Mode.PARTIAL1 || mode == Mode.PARTIAL2) {
+        // intermediate results need to include the lgK and the target HLL type
+        return ObjectInspectorFactory.getStandardStructObjectInspector(
+          Arrays.asList(LG_K_FIELD, SEED_FIELD, SKETCH_FIELD),
+          Arrays.asList(
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.INT),
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.LONG),
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.BINARY)
+          )
+        );
+      }
+      // final results include just the sketch
+      return PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.BINARY);
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchToStringUDF.java`
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
 #### Snippet
 ```java
-   */
-  public String evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final HllSketch sketch = HllSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.toString();
+      int lgK = DEFAULT_LG_K;
+      if (this.lgKInspector_ != null) {
+        lgK = PrimitiveObjectInspectorUtils.getInt(parameters[1], this.lgKInspector_);
+      }
+      long seed = DEFAULT_UPDATE_SEED;
+      if (this.seedInspector_ != null) {
+        seed = PrimitiveObjectInspectorUtils.getLong(parameters[2], this.seedInspector_);
+      }
+      state.init(lgK, seed);
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/SketchEvaluator.java`
-#### Snippet
-```java
-    final SketchState state = (SketchState) buf;
-    final KllFloatsSketch resultSketch = state.getResult();
-    if (resultSketch == null) { return null; }
-    return new BytesWritable(resultSketch.toByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionState.java`
-#### Snippet
-```java
-
-  public Sketch getResult() {
-    if (this.union_ == null) { return null; }
-    return this.union_.getResult();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToNumberOfRetainedEntriesUDF.java`
-#### Snippet
-```java
-   */
-  public Integer evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    final State<S> state = (State<S>) buf;
-    if (state == null) { return null; }
-    final Sketch<S> result = state.getResult();
-    if (result == null) { return null; }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-    if (state == null) { return null; }
-    final Sketch<S> result = state.getResult();
-    if (result == null) { return null; }
-    return new BytesWritable(result.toByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-    final State<S> state = (State<S>) buf;
-    final Sketch<S> intermediate = state.getResult();
-    if (intermediate == null) { return null; }
-    final byte[] bytes = intermediate.toByteArray();
-    return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/StringsSketchToStringUDF.java`
-#### Snippet
-```java
-   */
-  public String evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetCdfFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final String... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetCdfFromStringsSketchUDF.java`
-#### Snippet
-```java
-    );
-    final double[] cdf = sketch.getCDF(splitPoints);
-    if (cdf == null) { return null; }
-    return Util.primitivesToList(cdf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetNFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public Long evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.getN();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchState.java`
-#### Snippet
-```java
-  @Override
-  HllSketch getResult() {
-    if (this.sketch_ == null) { return null; }
-    return this.sketch_;
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetPmfFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final Double... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] pmf = sketch.getPMF(Util.objectsToPrimitives(splitPoints));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetPmfFromDoublesSketchUDF.java`
-#### Snippet
-```java
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] pmf = sketch.getPMF(Util.objectsToPrimitives(splitPoints));
-    if (pmf == null) { return null; }
-    return Util.primitivesToList(pmf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesUnionState.java`
-#### Snippet
-```java
-  @Override
-  ArrayOfDoublesSketch getResult() {
-    if (this.union_ == null) { return null; }
-    return this.union_.getResult();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetPmfFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final String... splitPoints) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetPmfFromStringsSketchUDF.java`
-#### Snippet
-```java
-    );
-    final double[] pmf = sketch.getPMF(splitPoints);
-    if (pmf == null) { return null; }
-    return Util.primitivesToList(pmf);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/DoublesSketchToStringUDF.java`
-#### Snippet
-```java
-   */
-  public String evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchToEstimateUDF.java`
-#### Snippet
-```java
-   */
-  public Double evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final HllSketch sketch = HllSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.getEstimate();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchState.java`
-#### Snippet
-```java
-  @Override
-  ArrayOfDoublesSketch getResult() {
-    if (this.sketch_ == null) { return null; }
-    // assumes that it is called once at the end of processing
-    // since trimming to nominal number of entries is expensive
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetQuantilesUDF.java`
-#### Snippet
-```java
-   */
-  public List<Float> evaluate(final BytesWritable serializedSketch, final Double... fractions) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/UnionState.java`
-#### Snippet
-```java
-  @Override
-  HllSketch getResult() {
-    if (this.union_ == null) { return null; }
-    return this.union_.getResult(getType());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetNFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public Long evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionState.java`
-#### Snippet
-```java
-  @Override
-  Sketch<S> getResult() {
-    if (this.union_ == null) { return null; }
-    return this.union_.getResult();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/DoubleSummarySketchToPercentileUDF.java`
-#### Snippet
-```java
-   */
-  public Double evaluate(final BytesWritable serializedSketch, final double percentile) {
-    if (serializedSketch == null) { return null; }
-    if ((percentile < 0) || (percentile > 100)) {
-      throw new IllegalArgumentException("percentile must be between 0 and 100");
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/UnionState.java`
-#### Snippet
-```java
-  @Override
-  CpcSketch getResult() {
-    if (this.union_ == null) { return null; }
-    return this.union_.getResult();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/frequencies/ItemsEvaluator.java`
-#### Snippet
-```java
-    final ItemsState<T> state = (ItemsState<T>) buf;
-    final ItemsSketch<T> resultSketch = state.getResult();
-    if (resultSketch == null) { return null; }
-    return new BytesWritable(resultSketch.toByteArray(this.serDe_));
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetQuantileUDF.java`
-#### Snippet
-```java
-   */
-  public Float evaluate(final BytesWritable serializedSketch, final double fraction) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchToEstimateAndErrorBoundsUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final int kappa) {
-    if (serializedSketch == null) { return null; }
-    final HllSketch sketch = HllSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return Arrays.asList(sketch.getEstimate(), sketch.getLowerBound(kappa), sketch.getUpperBound(kappa));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/kll/GetRankUDF.java`
-#### Snippet
-```java
-   */
-  public Double evaluate(final BytesWritable serializedSketch, final float value) {
-    if (serializedSketch == null) { return null; }
-    final KllFloatsSketch sketch =
-        KllFloatsSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-    final State state = (State) buf;
-    final HllSketch intermediate = state.getResult();
-    if (intermediate == null) { return null; }
-    final byte[] bytes = intermediate.toCompactByteArray();
-    return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-      throws HiveException {
-    final State state = (State) buf;
-    if (state == null) { return null; }
-    final HllSketch result = state.getResult();
-    if (result == null) { return null; }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-    if (state == null) { return null; }
-    final HllSketch result = state.getResult();
-    if (result == null) { return null; }
-    return new BytesWritable(result.toCompactByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchesTTestUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketchA, final BytesWritable serializedSketchB) {
-    if (serializedSketchA == null || serializedSketchB == null) { return null; }
-    final ArrayOfDoublesSketch sketchA =
-        ArrayOfDoublesSketches.wrapSketch(BytesWritableHelper.wrapAsMemory(serializedSketchA));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchesTTestUDF.java`
-#### Snippet
-```java
-    // If the sketches contain fewer than 2 values, the p-value can't be calculated
-    if (sketchA.getRetainedEntries() < 2 || sketchB.getRetainedEntries() < 2) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToEstimateAndErrorBoundsUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
-        BytesWritableHelper.wrapAsMemory(serializedSketch));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-    final UnionState state = (UnionState) agg;
-    final Sketch result = state.getResult();
-    if (result == null) { return null; }
-    return new BytesWritable(result.toByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-    final UnionState state = (UnionState) agg;
-    final Sketch intermediate = state.getResult();
-    if (intermediate == null) { return null; }
-    final byte[] bytes = intermediate.toByteArray();
-    // sampling probability is not relevant for merging
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
-#### Snippet
-```java
-    final State state = (State) buf;
-    final CpcSketch intermediate = state.getResult();
-    if (intermediate == null) { return null; }
-    final byte[] bytes = intermediate.toByteArray();
-    return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
-#### Snippet
-```java
-      throws HiveException {
-    final State state = (State) buf;
-    if (state == null) { return null; }
-    final CpcSketch result = state.getResult();
-    if (result == null) { return null; }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
-#### Snippet
-```java
-    if (state == null) { return null; }
-    final CpcSketch result = state.getResult();
-    if (result == null) { return null; }
-    return new BytesWritable(result.toByteArray());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetKFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public Integer evaluate(final BytesWritable serializedSketch) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return sketch.getK();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/cpc/GetEstimateAndErrorBoundsUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final int kappa, final long seed) {
-    if (serializedSketch == null) { return null; }
-    final CpcSketch sketch = CpcSketch.heapify(BytesWritableHelper.wrapAsMemory(serializedSketch), seed);
-    return Arrays.asList(sketch.getEstimate(), sketch.getLowerBound(kappa), sketch.getUpperBound(kappa));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final Double... fractions) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    return Util.primitivesToList(sketch.getQuantiles(Util.objectsToPrimitives(fractions)));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromDoublesSketchUDF.java`
-#### Snippet
-```java
-   */
-  public List<Double> evaluate(final BytesWritable serializedSketch, final int number) {
-    if (serializedSketch == null) { return null; }
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] quantiles = sketch.getQuantiles(number);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantilesFromDoublesSketchUDF.java`
-#### Snippet
-```java
-    final DoublesSketch sketch = DoublesSketch.wrap(BytesWritableHelper.wrapAsMemory(serializedSketch));
-    final double[] quantiles = sketch.getQuantiles(number);
-    if (quantiles == null) { return null; }
-    return Util.primitivesToList(quantiles);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-      final State<DoubleSummary> state = (State<DoubleSummary>) buf;
-      final Sketch<DoubleSummary> intermediate = state.getResult();
-      if (intermediate == null) { return null; }
-      final byte[] bytes = intermediate.toByteArray();
-      return Arrays.asList(
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-    @Override
-    protected SummaryFactory<DoubleSummary> getSummaryFactory(final Object[] data) {
-      return null; // union never needs to create new instances
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchState.java`
-#### Snippet
-```java
-  @Override
-  Sketch<S> getResult() {
-    if (this.sketch_ == null) { return null; }
-    // assumes that it is called once at the end of processing
-    // since trimming to nominal number of entries is expensive
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/tuple/DataToDoubleSummarySketchUDAF.java`
-#### Snippet
-```java
-    @Override
-    protected SummarySetOperations<DoubleSummary> getSummarySetOperationsForIterate(final Object[] data) {
-      return null; // not needed for building sketches
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/datasketches/hive/quantiles/GetQuantileFromStringsSketchUDF.java`
-#### Snippet
-```java
-   */
-  public String evaluate(final BytesWritable serializedSketch, final double fraction) {
-    if (serializedSketch == null) { return null; }
-    final ItemsSketch<String> sketch = ItemsSketch.getInstance(
-      BytesWritableHelper.wrapAsMemory(serializedSketch),
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/tuple/ObjectInspectorValidator.java`
-#### Snippet
-```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(final ObjectInspector inspector, final int index)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Util` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/kll/Util.java`
-#### Snippet
-```java
-import java.util.List;
-
-final class Util {
-
-  static float[] objectsToPrimitives(final Float[] array) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/quantiles/ObjectInspectorValidator.java`
-#### Snippet
-```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-final class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/theta/ObjectInspectorValidator.java`
-#### Snippet
-```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(final ObjectInspector inspector, final int index)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytesWritableHelper` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/common/BytesWritableHelper.java`
-#### Snippet
-```java
- * Provides a helper class to simplify frequent operations on BytesWritable.
- */
-public class BytesWritableHelper {
-    /**
-     * Wraps BytesWritable with a read-only Memory interface, without copying the underlying data.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ArrayOfDoublesSketchStats` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchStats.java`
-#### Snippet
-```java
-import org.apache.datasketches.tuple.arrayofdoubles.ArrayOfDoublesSketchIterator;
-
-class ArrayOfDoublesSketchStats {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/hll/ObjectInspectorValidator.java`
-#### Snippet
-```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(final ObjectInspector inspector, final int index)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Util` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/quantiles/Util.java`
-#### Snippet
-```java
-import java.util.List;
-
-final class Util {
-
-  static double[] objectsToPrimitives(final Double[] array) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
+### DuplicatedCode
+Duplicated code
 in `src/main/java/org/apache/datasketches/hive/cpc/ObjectInspectorValidator.java`
 #### Snippet
 ```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(final ObjectInspector inspector, final int index)
+    validateCategoryPrimitive(inspector, index);
+    final PrimitiveObjectInspector primitiveInspector = (PrimitiveObjectInspector) inspector;
+    switch (primitiveInspector.getPrimitiveCategory()) {
+    case BYTE:
+    case SHORT:
+    case INT:
+    case LONG:
+      break;
+    // all other types are invalid
+    default:
+      throw new UDFArgumentTypeException(index, "Only integral type parameters are expected but "
+          + primitiveInspector.getPrimitiveCategory().name() + " was passed as parameter " + (index + 1));
+    }
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectInspectorValidator` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/datasketches/hive/kll/ObjectInspectorValidator.java`
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
 #### Snippet
 ```java
-import org.apache.hadoop.hive.serde2.objectinspector.PrimitiveObjectInspector;
-
-final class ObjectInspectorValidator {
-
-  static void validateCategoryPrimitive(
+    if (data == null) { return; }
+    final UnionState state = (UnionState) buf;
+    if (!state.isInitialized()) {
+      initializeState(state, data);
+    }
+    final BytesWritable serializedSketch = (BytesWritable) this.intermediateInspector_.getStructFieldData(
+        data, this.intermediateInspector_.getStructFieldRef(SKETCH_FIELD));
 ```
 
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchState.java`
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/SketchState.java`
+#### Snippet
+```java
+    switch (objectInspector.getPrimitiveCategory()) {
+      case BINARY:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getBinary(data, objectInspector)
+            .copyBytes());
+        return;
+      case BYTE:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getByte(data, objectInspector));
+        return;
+      case DOUBLE:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getDouble(data, objectInspector));
+        return;
+      case FLOAT:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getFloat(data, objectInspector));
+        return;
+      case INT:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getInt(data, objectInspector));
+        return;
+      case LONG:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getLong(data, objectInspector));
+        return;
+      case STRING:
+        // conversion to char[] avoids costly UTF-8 encoding
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getString(data, objectInspector)
+            .toCharArray());
+        return;
+      case CHAR:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getHiveChar(data, objectInspector)
+            .getValue().toCharArray());
+        return;
+      case VARCHAR:
+        this.sketch_.update(PrimitiveObjectInspectorUtils.getHiveVarchar(data, objectInspector)
+            .getValue().toCharArray());
+        return;
+      default:
+        throw new IllegalArgumentException(
+          "Unrecongnized input data type " + data.getClass().getSimpleName() + " category "
+          + objectInspector.getPrimitiveCategory() + ", please use data of the following types: "
+          + "byte, double, float, int, long, char, varchar or string.");
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/UnionSketchUDAF.java`
+#### Snippet
+```java
+    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
+
+    if (inspectors.length < 1) {
+      throw new UDFArgumentException("Please specify at least 1 argument");
+    }
+
+    if (inspectors.length > 3) {
+      throw new UDFArgumentTypeException(inspectors.length - 1, "Please specify no more than 3 arguments");
+    }
+
+    ObjectInspectorValidator.validateGivenPrimitiveCategory(inspectors[0], 0, PrimitiveCategory.BINARY);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/cpc/UnionSketchUDAF.java`
+#### Snippet
+```java
+      if (parameters[0] == null) { return; }
+      final UnionState state = (UnionState) buf;
+      if (!state.isInitialized()) {
+        initializeState(state, parameters);
+      }
+      final byte[] serializedSketch = (byte[]) this.inputInspector_.getPrimitiveJavaObject(parameters[0]);
+      if (serializedSketch == null) { return; }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/frequencies/DataToStringsSketchUDAF.java`
+#### Snippet
+```java
+      final Object value = this.inputObjectInspector.getPrimitiveJavaObject(data);
+      if (value instanceof String) {
+        return (String) value;
+      } else if (value instanceof HiveChar) {
+        return ((HiveChar) value).getValue();
+      } else if (value instanceof HiveVarchar) {
+        return ((HiveVarchar) value).getValue();
+      } else {
+        throw new UDFArgumentTypeException(0, "unsupported type " + value.getClass().getName());
+      }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/frequencies/GetFrequentItemsFromStringsSketchUDTF.java`
+#### Snippet
+```java
+    if (inspectors[0].getCategory() != ObjectInspector.Category.PRIMITIVE) {
+      throw new UDFArgumentTypeException(0, "Primitive argument expected, but "
+          + inspectors[0].getCategory().name() + " was recieved");
+    }
+    this.inputObjectInspector = (PrimitiveObjectInspector) inspectors[0];
+    if (this.inputObjectInspector.getPrimitiveCategory()
+        != PrimitiveObjectInspector.PrimitiveCategory.BINARY) {
+      throw new UDFArgumentTypeException(0, "Binary value expected as the first argument, but "
+          + this.inputObjectInspector.getPrimitiveCategory().name() + " was recieved");
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
+#### Snippet
+```java
+      if (mode == Mode.PARTIAL1 || mode == Mode.PARTIAL2) {
+        // intermediate results need to include the lgK and the target HLL type
+        return ObjectInspectorFactory.getStandardStructObjectInspector(
+          Arrays.asList(LG_K_FIELD, HLL_TYPE_FIELD, SKETCH_FIELD),
+          Arrays.asList(
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.INT),
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.STRING),
+            PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.BINARY)
+          )
+        );
+      }
+      // final results include just the sketch
+      return PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.BINARY);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
+#### Snippet
+```java
+      int lgK = DEFAULT_LG_K;
+      if (this.lgKInspector_ != null) {
+        lgK = PrimitiveObjectInspectorUtils.getInt(parameters[1], this.lgKInspector_);
+      }
+      TgtHllType type = DEFAULT_HLL_TYPE;
+      if (this.hllTypeInspector_ != null) {
+        type =
+          TgtHllType.valueOf(PrimitiveObjectInspectorUtils.getString(parameters[2], this.hllTypeInspector_));
+      }
+      state.init(lgK, type);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/kll/DataToSketchUDAF.java`
+#### Snippet
+```java
+      if (data[0] == null) { return; }
+      final SketchState state = (SketchState) buf;
+      if (!state.isInitialized()) {
+        if (this.kInspector_ != null) {
+          state.init(PrimitiveObjectInspectorUtils.getInt(data[1], this.kInspector_));
+        } else {
+          state.init();
+        }
+      }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/kll/UnionSketchUDAF.java`
+#### Snippet
+```java
+    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
+    if ((inspectors.length != 1) && (inspectors.length != 2)) {
+      throw new UDFArgumentException("One or two arguments expected");
+    }
+    ObjectInspectorValidator.validateGivenPrimitiveCategory(inspectors[0], 0, PrimitiveCategory.BINARY);
+    if (inspectors.length == 2) {
+      ObjectInspectorValidator.validateGivenPrimitiveCategory(inspectors[1], 1, PrimitiveCategory.INT);
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/quantiles/DoublesEvaluator.java`
+#### Snippet
+```java
+    super.init(mode, parameters);
+    this.inputObjectInspector = (PrimitiveObjectInspector) parameters[0];
+
+    // Parameters:
+    // In PARTIAL1 and COMPLETE mode, the parameters are original data.
+    // In PARTIAL2 and FINAL mode, the parameters are partial aggregations.
+    if (mode == Mode.PARTIAL1 || mode == Mode.COMPLETE) {
+      if (parameters.length > 1) {
+        this.kObjectInspector = (PrimitiveObjectInspector) parameters[1];
+      }
+    }
+
+    return PrimitiveObjectInspectorFactory.getPrimitiveWritableObjectInspector(PrimitiveCategory.BINARY);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/theta/EstimateSketchSimilarityUDF.java`
+#### Snippet
+```java
+    Sketch firstSketch = null;
+    if (firstSketchBytes != null && firstSketchBytes.getLength() > 0) {
+      firstSketch = Sketch.wrap(BytesWritableHelper.wrapAsMemory(firstSketchBytes), DEFAULT_UPDATE_SEED);
+    }
+
+    Sketch secondSketch = null;
+    if (secondSketchBytes != null && secondSketchBytes.getLength() > 0) {
+      secondSketch = Sketch.wrap(BytesWritableHelper.wrapAsMemory(secondSketchBytes), DEFAULT_UPDATE_SEED);
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToMeansUDF.java`
+#### Snippet
+```java
+    if (serializedSketch == null) { return null; }
+    final ArrayOfDoublesSketch sketch = ArrayOfDoublesSketches.wrapSketch(
+        BytesWritableHelper.wrapAsMemory(serializedSketch));
+
+    if (sketch.getRetainedEntries() < 1) {
+      return null;
+    }
+
+    final SummaryStatistics[] summaries = ArrayOfDoublesSketchStats.sketchToSummaryStatistics(sketch);
+    final List<Double> means = new ArrayList<>(sketch.getNumValues());
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/datasketches/hive/tuple/DataToDoubleSummaryWithModeSketchUDAF.java`
+#### Snippet
+```java
+      @SuppressWarnings("unchecked")
+      final State<DoubleSummary> state = (State<DoubleSummary>) buf;
+      final Sketch<DoubleSummary> intermediate = state.getResult();
+      if (intermediate == null) { return null; }
+      final byte[] bytes = intermediate.toByteArray();
+      return Arrays.asList(
+        new IntWritable(state.getNominalNumEntries()),
+        new Text(this.summaryMode_.toString()),
+        new BytesWritable(bytes)
+      );
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToVariancesUDF.java`
 #### Snippet
 ```java
 
-  void init(final int nominalNumEntries, final float samplingProbability, final int numValues) {
-    super.init(nominalNumEntries, numValues);
-    this.sketch_ = new ArrayOfDoublesUpdatableSketchBuilder().setNominalEntries(nominalNumEntries)
-        .setSamplingProbability(samplingProbability).setNumberOfValues(numValues).build();
+    final SummaryStatistics[] summaries = ArrayOfDoublesSketchStats.sketchToSummaryStatistics(sketch);
+    final List<Double> variances = new ArrayList<>(sketch.getNumValues());
+    for (int i = 0; i < sketch.getNumValues(); i++) {
+      variances.add(summaries[i].getVariance());
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionState.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToMeansUDF.java`
 #### Snippet
 ```java
 
-  void init(final int nominalNumEntries, final SummarySetOperations<S> summarySetOps) {
-    super.init(nominalNumEntries);
-    this.union_ = new Union<>(nominalNumEntries, summarySetOps);
-  }
+    final SummaryStatistics[] summaries = ArrayOfDoublesSketchStats.sketchToSummaryStatistics(sketch);
+    final List<Double> means = new ArrayList<>(sketch.getNumValues());
+    for (int i = 0; i < sketch.getNumValues(); i++) {
+      means.add(summaries[i].getMean());
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchState.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchesTTestUDF.java`
 #### Snippet
 ```java
-  void init(final int nominalNumEntries, final float samplingProbability,
-      final SummaryFactory<S> summaryFactory) {
-    super.init(nominalNumEntries);
-    this.sketch_ = new UpdatableSketchBuilder<>(summaryFactory).setNominalEntries(nominalNumEntries)
-        .setSamplingProbability(samplingProbability).build();
+
+    final TTest tTest = new TTest();
+    final List<Double> pValues = new ArrayList<>(sketchA.getNumValues());
+    for (int i = 0; i < sketchA.getNumValues(); i++) {
+      pValues.add(tTest.tTest(summariesA[i], summariesB[i]));
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
 in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
 #### Snippet
 ```java
@@ -1241,8 +409,44 @@ in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
+### JavadocReference
+Cannot resolve symbol `HiveException`
+in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
+#### Snippet
+```java
+     * @param valueInspector PrimitiveObjectInspector for the value
+     * @return extracted value
+     * @throws HiveException if anything goes wrong
+     */
+    public U extractValue(final Object data, final PrimitiveObjectInspector valueInspector)
+```
+
+### JavadocReference
+Cannot resolve symbol `SemanticException`
+in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
+#### Snippet
+```java
+   * Override this if your UDF has more arguments
+   * @param inspectors array of inspectors
+   * @throws SemanticException if anything is wrong
+   */
+  protected void checkExtraArguments(final ObjectInspector[] inspectors) throws SemanticException {
+```
+
+### JavadocReference
+Cannot resolve symbol `SemanticException`
+in `src/main/java/org/apache/datasketches/hive/tuple/UnionSketchUDAF.java`
+#### Snippet
+```java
+   * Override this if your UDF has more arguments
+   * @param inspectors array of inspectors
+   * @throws SemanticException if anything is wrong
+   */
+  protected void checkExtraArguments(final ObjectInspector[] inspectors) throws SemanticException {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
 in `src/main/java/org/apache/datasketches/hive/theta/DataToSketchUDAF.java`
 #### Snippet
 ```java
@@ -1253,56 +457,8 @@ in `src/main/java/org/apache/datasketches/hive/theta/DataToSketchUDAF.java`
    *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
-in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
-#### Snippet
-```java
-   * </ul>
-   *
-   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
-   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
-in `src/main/java/org/apache/datasketches/hive/theta/UnionSketchUDAF.java`
-#### Snippet
-```java
-   * be BINARY sketch). Also check sketch size and seed params if they are passed in.
-   *
-   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
-   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-  /**
-   *
-   * @see org.apache.hadoop.hive.ql.udf.generic.GenericUDAFEvaluator#getNewAggregationBuffer()
-   */
-  @SuppressWarnings("deprecation")
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
-in `src/main/java/org/apache/datasketches/hive/cpc/UnionSketchUDAF.java`
-#### Snippet
-```java
-   * be BINARY sketch). Also check lgK and seed parameters if they are passed in.
-   *
-   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
-   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.hive.ql.udf.generic` is unnecessary and can be removed
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
 in `src/main/java/org/apache/datasketches/hive/hll/UnionSketchUDAF.java`
 #### Snippet
 ```java
@@ -1313,342 +469,138 @@ in `src/main/java/org/apache/datasketches/hive/hll/UnionSketchUDAF.java`
    *
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `DataToItemsSketchEvaluator()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/datasketches/hive/frequencies/DataToItemsSketchUDAF.java`
-#### Snippet
-```java
-    private PrimitiveObjectInspector maxMapSizeObjectInspector;
-
-    public DataToItemsSketchEvaluator(final ArrayOfItemsSerDe<T> serDe) {
-      super(serDe);
-    }
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `src/main/java/org/apache/datasketches/hive/quantiles/DataToItemsSketchUDAF.java`
-#### Snippet
-```java
-  public abstract GenericUDAFEvaluator createEvaluator();
-
-  public static abstract class DataToSketchEvaluator<T> extends ItemsEvaluator<T> {
-
-    DataToSketchEvaluator(final Comparator<? super T> comparator, final ArrayOfItemsSerDe<T> serDe) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/DataToDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-    // need to add summary mode
-    @Override
-    public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-        throws HiveException {
-      @SuppressWarnings("unchecked")
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
-#### Snippet
-```java
-  public abstract GenericUDAFEvaluator createEvaluator();
-
-  public static abstract class DataToSketchEvaluator<U, S extends UpdatableSummary<U>>
-      extends SketchEvaluator<S> {
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminate(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final ArrayOfDoublesState state = (ArrayOfDoublesState) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final ArrayOfDoublesState state = (ArrayOfDoublesState) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public void merge(final @SuppressWarnings("deprecation") AggregationBuffer buf, final Object data)
-      throws HiveException {
-    if (data == null) { return; }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public void merge(final @SuppressWarnings("deprecation") AggregationBuffer buf, final Object data)
-      throws HiveException {
-    if (data == null) { return; }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminate(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    @SuppressWarnings("unchecked")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    @SuppressWarnings("unchecked")
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public void merge(final @SuppressWarnings("deprecation") AggregationBuffer buf, final Object data)
-      throws HiveException {
-    if (data == null) { return; }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final State state = (State) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/hll/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminate(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final State state = (State) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Object terminate(final @SuppressWarnings("deprecation") AggregationBuffer agg)
-      throws HiveException {
-    final UnionState state = (UnionState) agg;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer agg)
-      throws HiveException {
-    final UnionState state = (UnionState) agg;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-   */
-  @Override
-  public void merge(final @SuppressWarnings("deprecation") AggregationBuffer agg,
-      final Object partial) throws HiveException {
-    if (partial == null) { return; }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
-#### Snippet
-```java
-   */
-  @Override
-  public void reset(final @SuppressWarnings("deprecation") AggregationBuffer agg)
-      throws HiveException {
-    final UnionState state = (UnionState) agg;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final State state = (State) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/cpc/SketchEvaluator.java`
-#### Snippet
-```java
-
-  @Override
-  public Object terminate(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-      throws HiveException {
-    final State state = (State) buf;
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionSketchUDAF.java`
-#### Snippet
-```java
-  public abstract GenericUDAFEvaluator createEvaluator();
-
-  public static abstract class UnionSketchEvaluator<S extends Summary> extends SketchEvaluator<S> {
-
-    private PrimitiveObjectInspector sketchInspector_;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @SuppressWarnings("deprecation")`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionDoubleSummaryWithModeSketchUDAF.java`
-#### Snippet
-```java
-    // need to add summary mode
-    @Override
-    public Object terminatePartial(final @SuppressWarnings("deprecation") AggregationBuffer buf)
-        throws HiveException {
-      @SuppressWarnings("unchecked")
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `src/main/java/org/apache/datasketches/hive/frequencies/DataToItemsSketchUDAF.java`
-#### Snippet
-```java
-  public abstract GenericUDAFEvaluator createEvaluator();
-
-  public static abstract class DataToItemsSketchEvaluator<T> extends ItemsEvaluator<T> {
-
-    private PrimitiveObjectInspector maxMapSizeObjectInspector;
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
-#### Snippet
-```java
-  @SuppressWarnings("javadoc")
-  @Override
-  public GenericUDAFEvaluator getEvaluator(final GenericUDAFParameterInfo info) throws SemanticException {
-    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/datasketches/hive/cpc/UnionSketchUDAF.java`
-#### Snippet
-```java
-  @SuppressWarnings("javadoc")
-  @Override
-  public GenericUDAFEvaluator getEvaluator(final GenericUDAFParameterInfo info) throws SemanticException {
-    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
-#### Snippet
-```java
-    + " The default is 'HLL_4'")
-@SuppressWarnings({"javadoc","deprecation"})
-public class DataToSketchUDAF extends AbstractGenericUDAFResolver {
-
-  /**
-```
-
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/datasketches/hive/hll/UnionSketchUDAF.java`
-#### Snippet
-```java
-  @SuppressWarnings("javadoc")
-  @Override
-  public GenericUDAFEvaluator getEvaluator(final GenericUDAFParameterInfo info) throws SemanticException {
-    final ObjectInspector[] inspectors = info.getParameterObjectInspectors();
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/datasketches/hive/theta/DataToSketchUDAF.java`
-#### Snippet
-```java
-    + " The seed is optional, and using it is not recommended unless you really know why you need it")
-@SuppressWarnings({"javadoc","deprecation"})
-public class DataToSketchUDAF extends AbstractGenericUDAFResolver {
-
-  /**
-```
-
-### RedundantSuppression
-Redundant suppression
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
 in `src/main/java/org/apache/datasketches/hive/theta/UnionSketchUDAF.java`
 #### Snippet
 ```java
-  @SuppressWarnings("javadoc")
-  @Override
-  public GenericUDAFEvaluator getEvaluator(final GenericUDAFParameterInfo info) throws SemanticException {
-    final ObjectInspector[] parameters = info.getParameterObjectInspectors();
+   * be BINARY sketch). Also check sketch size and seed params if they are passed in.
+   *
+   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
+   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
+   *
+```
 
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
+in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
+#### Snippet
+```java
+   * </ul>
+   *
+   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
+   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
+in `src/main/java/org/apache/datasketches/hive/cpc/UnionSketchUDAF.java`
+#### Snippet
+```java
+   * be BINARY sketch). Also check lgK and seed parameters if they are passed in.
+   *
+   * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
+   * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.GenericUDAFEvaluator`
+in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
+#### Snippet
+```java
+  /**
+   *
+   * @see org.apache.hadoop.hive.ql.udf.generic.GenericUDAFEvaluator#getNewAggregationBuffer()
+   */
+  @SuppressWarnings("deprecation")
+```
+
+### JavadocReference
+Cannot resolve symbol `getNewAggregationBuffer()`
+in `src/main/java/org/apache/datasketches/hive/theta/UnionEvaluator.java`
+#### Snippet
+```java
+  /**
+   *
+   * @see org.apache.hadoop.hive.ql.udf.generic.GenericUDAFEvaluator#getNewAggregationBuffer()
+   */
+  @SuppressWarnings("deprecation")
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `src/main/java/org/apache/datasketches/hive/tuple/ArrayOfDoublesSketchToValuesUDTF.java`
+#### Snippet
+```java
+
+    return ObjectInspectorFactory.getStandardStructObjectInspector(
+      Arrays.asList("values"),
+      Arrays.asList(
+        ObjectInspectorFactory.getStandardListObjectInspector(
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `value instanceof HiveChar` is always `false`
+in `src/main/java/org/apache/datasketches/hive/frequencies/DataToStringsSketchUDAF.java`
+#### Snippet
+```java
+      if (value instanceof String) {
+        return (String) value;
+      } else if (value instanceof HiveChar) {
+        return ((HiveChar) value).getValue();
+      } else if (value instanceof HiveVarchar) {
+```
+
+### ConstantValue
+Condition `value instanceof HiveVarchar` is always `false`
+in `src/main/java/org/apache/datasketches/hive/frequencies/DataToStringsSketchUDAF.java`
+#### Snippet
+```java
+      } else if (value instanceof HiveChar) {
+        return ((HiveChar) value).getValue();
+      } else if (value instanceof HiveVarchar) {
+        return ((HiveVarchar) value).getValue();
+      } else {
+```
+
+### ConstantValue
+Condition `value instanceof HiveChar` is always `false`
+in `src/main/java/org/apache/datasketches/hive/quantiles/DataToStringsSketchUDAF.java`
+#### Snippet
+```java
+      if (value instanceof String) {
+        return (String) value;
+      } else if (value instanceof HiveChar) {
+        return ((HiveChar) value).getValue();
+      } else if (value instanceof HiveVarchar) {
+```
+
+### ConstantValue
+Condition `value instanceof HiveVarchar` is always `false`
+in `src/main/java/org/apache/datasketches/hive/quantiles/DataToStringsSketchUDAF.java`
+#### Snippet
+```java
+      } else if (value instanceof HiveChar) {
+        return ((HiveChar) value).getValue();
+      } else if (value instanceof HiveVarchar) {
+        return ((HiveVarchar) value).getValue();
+      } else {
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/datasketches/hive/frequencies/ItemsState.java`
+#### Snippet
+```java
+class ItemsState<T> extends AbstractAggregationBuffer {
+
+  private int maxMapSize_;
+  private final ArrayOfItemsSerDe<T> serDe_;
+  private ItemsSketch<T> sketch;
 ```
 
