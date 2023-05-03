@@ -40,6 +40,30 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `isNotEqualTo(Object)`
+in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link LocalDateTime}) but here you
+   * pass {@link LocalDateTime} String representation that must follow <a href=
+   * "http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()"
+```
+
+### JavadocReference
+Cannot resolve symbol `isEqualTo(Object)`
+in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link LocalDateTime}) but here you
+   * pass {@link LocalDateTime} String representation that must follow <a href=
+   * "http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()"
+```
+
+### JavadocReference
 Cannot resolve symbol `isIn(Object...)`
 in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 #### Snippet
@@ -64,18 +88,6 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `isNotEqualTo(Object)`
-in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isNotEqualTo(Object)} (where Object is expected to be {@link LocalDateTime}) but here you
-   * pass {@link LocalDateTime} String representation that must follow <a href=
-   * "http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()"
-```
-
-### JavadocReference
 Cannot resolve symbol `isNotIn(Object...)`
 in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 #### Snippet
@@ -84,18 +96,6 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
   /**
    * Same assertion as {@link #isNotIn(Object...)} (where Objects are expected to be {@link LocalDateTime}) but here you
    * pass {@link LocalDateTime} String representations that must follow <a href=
-   * "http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()"
-```
-
-### JavadocReference
-Cannot resolve symbol `isEqualTo(Object)`
-in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Same assertion as {@link #isEqualTo(Object)} (where Object is expected to be {@link LocalDateTime}) but here you
-   * pass {@link LocalDateTime} String representation that must follow <a href=
    * "http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()"
 ```
 
@@ -147,31 +147,6 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
    * {@link LocalDate#LocalDate(Object) LocalDate(Object)} constructor.
 ```
 
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-Class reference expected
-in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
-#### Snippet
-```java
-   * 
-   * @param dateTime the {@link DateTime} to check
-   * @throws {@link IllegalArgumentException} with an explicit message if the given {@link DateTime} is null
-   */
-  private static void assertDateTimeParameterIsNotNull(DateTime dateTime) {
-```
-
-### JavadocDeclaration
-Class reference expected
-in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
-#### Snippet
-```java
-   * 
-   * @param dateTimeAsString String representing the DateTime to compare actual with
-   * @throws {@link IllegalArgumentException} with an explicit message if the given {@link String} is null
-   */
-  private static void assertDateTimeAsStringParameterIsNotNull(String dateTimeAsString) {
-```
-
 ## RuleId[id=InfiniteRecursion]
 ### InfiniteRecursion
 Method `isNotEqualTo()` recurses infinitely, and can only end by throwing an exception
@@ -219,5 +194,30 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
   public LocalDateAssert isEqualTo(String localDateString) {
     assertLocalDateAsStringParameterIsNotNull(localDateString);
     return isEqualTo(new LocalDate(localDateString));
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Class reference expected
+in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
+#### Snippet
+```java
+   * 
+   * @param dateTimeAsString String representing the DateTime to compare actual with
+   * @throws {@link IllegalArgumentException} with an explicit message if the given {@link String} is null
+   */
+  private static void assertDateTimeAsStringParameterIsNotNull(String dateTimeAsString) {
+```
+
+### JavadocDeclaration
+Class reference expected
+in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
+#### Snippet
+```java
+   * 
+   * @param dateTime the {@link DateTime} to check
+   * @throws {@link IllegalArgumentException} with an explicit message if the given {@link DateTime} is null
+   */
+  private static void assertDateTimeParameterIsNotNull(DateTime dateTime) {
 ```
 
