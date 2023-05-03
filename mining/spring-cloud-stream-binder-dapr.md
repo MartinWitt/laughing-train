@@ -15,6 +15,66 @@ I found 42 bad smells with 1 repairable:
 ## RuleId[id=SpringBootApplicationYaml]
 ### SpringBootApplicationYaml
 Cannot resolve configuration property 'spring.cloud.stream.function.definition'
+in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
+#### Snippet
+```java
+    stream:
+      function:
+        definition: supply;consume
+      bindings:
+        supply-out-0:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.bindings.supply-out-0.destination'
+in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
+#### Snippet
+```java
+      bindings:
+        supply-out-0:
+          destination: <AZURE_EVENTHUB_NAME>
+        consume-in-0:
+          destination: <AZURE_EVENTHUB_NAME>
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.bindings.consume-in-0.destination'
+in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
+#### Snippet
+```java
+          destination: <AZURE_EVENTHUB_NAME>
+        consume-in-0:
+          destination: <AZURE_EVENTHUB_NAME>
+      dapr:
+        bindings:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.dapr.bindings.supply-out-0.producer.pubsubName'
+in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
+#### Snippet
+```java
+          supply-out-0:
+            producer:
+              pubsubName: eventhubs-pubsub
+          consume-in-0:
+            consumer:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.dapr.bindings.consume-in-0.consumer.pubsubName'
+in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
+#### Snippet
+```java
+          consume-in-0:
+            consumer:
+              pubsubName: eventhubs-pubsub
+grpc:
+  server:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.function.definition'
 in `samples/migration-kafka-to-dapr/src/main/resources/application.yml`
 #### Snippet
 ```java
@@ -81,66 +141,6 @@ in `samples/migration-kafka-to-dapr/src/main/resources/application.yml`
           destination: sensor
   profiles:
     active: @profileActive@
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.function.definition'
-in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
-#### Snippet
-```java
-    stream:
-      function:
-        definition: supply;consume
-      bindings:
-        supply-out-0:
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.bindings.supply-out-0.destination'
-in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
-#### Snippet
-```java
-      bindings:
-        supply-out-0:
-          destination: <AZURE_EVENTHUB_NAME>
-        consume-in-0:
-          destination: <AZURE_EVENTHUB_NAME>
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.bindings.consume-in-0.destination'
-in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
-#### Snippet
-```java
-          destination: <AZURE_EVENTHUB_NAME>
-        consume-in-0:
-          destination: <AZURE_EVENTHUB_NAME>
-      dapr:
-        bindings:
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.dapr.bindings.supply-out-0.producer.pubsubName'
-in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
-#### Snippet
-```java
-          supply-out-0:
-            producer:
-              pubsubName: eventhubs-pubsub
-          consume-in-0:
-            consumer:
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.dapr.bindings.consume-in-0.consumer.pubsubName'
-in `samples/azure-container-app-dapr/src/main/resources/application.yaml`
-#### Snippet
-```java
-          consume-in-0:
-            consumer:
-              pubsubName: eventhubs-pubsub
-grpc:
-  server:
 ```
 
 ### SpringBootApplicationYaml
@@ -358,18 +358,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
-#### Snippet
-```java
-
-/**
- * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
- */
-public class DaprMessageChannelBinder extends
-```
-
-### JavadocReference
 Cannot resolve symbol `Message`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprConverter.java`
 #### Snippet
@@ -379,6 +367,30 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
  * A converter to turn a {@link Message} from serialized form to a typed Object and vice versa.
  *
  * @param <I> The Dapr message type when sending to the broker using Dapr SDK.
+```
+
+### JavadocReference
+Cannot resolve symbol `Message`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
+#### Snippet
+```java
+
+/**
+ * Encapsulates {@link Message} payload and headers for serialization.
+ */
+public class DaprMessage implements Serializable {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
+#### Snippet
+```java
+
+/**
+ * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
+ */
+public class DaprMessageChannelBinder extends
 ```
 
 ### JavadocReference
@@ -403,18 +415,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
  * and turn a {@link DaprAppCallbackProtos.TopicEventRequest} to {@link Message}.
  */
 public class DaprMessageConverter implements DaprConverter<DaprProtos.PublishEventRequest.Builder,
-```
-
-### JavadocReference
-Cannot resolve symbol `Message`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
-#### Snippet
-```java
-
-/**
- * Encapsulates {@link Message} payload and headers for serialization.
- */
-public class DaprMessage implements Serializable {
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -482,18 +482,6 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 ```
 
 ### FieldMayBeFinal
-Field `semaphore` may be 'final'
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
-#### Snippet
-```java
-	static class TestSource {
-
-		private AtomicBoolean semaphore = new AtomicBoolean(true);
-		private Random random = new Random();
-		private int[] ids = new int[]{100100, 100200, 100300};
-```
-
-### FieldMayBeFinal
 Field `random` may be 'final'
 in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
 #### Snippet
@@ -503,6 +491,18 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 		private Random random = new Random();
 		private int[] ids = new int[]{100100, 100200, 100300};
 
+```
+
+### FieldMayBeFinal
+Field `semaphore` may be 'final'
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+#### Snippet
+```java
+	static class TestSource {
+
+		private AtomicBoolean semaphore = new AtomicBoolean(true);
+		private Random random = new Random();
+		private int[] ids = new int[]{100100, 100200, 100300};
 ```
 
 ## RuleId[id=FieldCanBeLocal]
