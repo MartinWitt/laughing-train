@@ -1,84 +1,30 @@
 # teamcity-runas-plugin 
  
 # Bad smells
-I found 101 bad smells with 19 repairable:
+I found 59 bad smells with 5 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| StaticCallOnSubclass | 26 | false |
-| BoundedWildcard | 12 | false |
-| SizeReplaceableByIsEmpty | 9 | true |
+| SpringBeanConstructorArgInspection | 17 | false |
 | UNUSED_IMPORT | 9 | false |
-| UtilityClassWithoutPrivateConstructor | 5 | true |
-| MissortedModifiers | 5 | false |
-| DynamicRegexReplaceableByCompiledPattern | 5 | false |
 | UnnecessaryModifier | 4 | true |
-| DoubleBraceInitialization | 4 | false |
+| DuplicatedCode | 3 | false |
+| Deprecation | 3 | false |
+| ArraysAsListWithZeroOrOneArgument | 3 | false |
 | ConstantValue | 3 | false |
-| EnumSwitchStatementWhichMissesCases | 2 | false |
-| ReturnNull | 2 | false |
-| ZeroLengthArrayInitialization | 2 | false |
+| FieldMayBeFinal | 2 | false |
+| SpringJavaInjectionPointsAutowiringInspection | 2 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
+| UNCHECKED_WARNING | 1 | false |
 | DataFlowIssue | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
-| NonShortCircuitBoolean | 1 | false |
+| CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
-| NullableProblems | 1 | false |
-| RedundantSuppression | 1 | false |
-| UtilityClassWithPublicConstructor | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnusedAssignment | 1 | false |
+| NullableProblems | 1 | false |
 | UseBulkOperation | 1 | false |
-## RuleId[id=EnumSwitchStatementWhichMissesCases]
-### EnumSwitchStatementWhichMissesCases
-`switch (myEnvironment.getOperationSystem()) { case Windows: setupBuilder = myRunAsWind...` statement on enum type 'jetbrains.buildServer.runAs.agent.OperationSystem' misses case 'Other'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsSetupBuilder.java`
-#### Snippet
-```java
-  public Iterable<CommandLineSetup> build(@NotNull final CommandLineSetup commandLineSetup) {
-    CommandLineSetupBuilder setupBuilder = myRunAsUnixSetupBuilder;
-    switch (myEnvironment.getOperationSystem()) {
-      case Windows:
-        setupBuilder = myRunAsWindowsSetupBuilder;
-        break;
-
-      case Mac:
-        setupBuilder = myRunAsMacSetupBuilder;
-        break;
-    }
-
-    return setupBuilder.build(commandLineSetup);
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (ace.getScope()) { case Global: if (!myGlobalFileAccessCache.tryAddEntry(ac...` statement on enum type 'jetbrains.buildServer.runAs.agent.AccessControlScope' misses case 'Step'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccessService.java`
-#### Snippet
-```java
-    final List<AccessControlEntry> newAcl = new ArrayList<AccessControlEntry>();
-    for (AccessControlEntry ace : accessControlList) {
-      switch (ace.getScope()) {
-        case Global:
-          if (!myGlobalFileAccessCache.tryAddEntry(ace)) {
-            LOG.info("Skipping setting an access for " + ace + ", because it has being done previously");
-            continue;
-          }
-
-          break;
-
-        case Build:
-          if (!myBuildFileAccessCache.tryAddEntry(ace)) {
-            LOG.info("Skipping setting an access for " + ace + ", because it has being done on the previous step");
-            continue;
-          }
-
-          break;
-      }
-
-      newAcl.add(ace);
-```
-
+| FieldCanBeLocal | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -90,18 +36,6 @@ public interface AccessControlResource extends CommandLineResource {
   public void setAcl(@NotNull final AccessControlList accessControlList);
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `runAs-common/src/main/java/jetbrains/buildServer/runAs/common/LoggingLevel.java`
-#### Snippet
-```java
-  private final String myDescription;
-
-  private LoggingLevel(String value, final String description) {
-    myValue = value;
-    myDescription = description;
 ```
 
 ### UnnecessaryModifier
@@ -128,378 +62,29 @@ public interface FileAccessService {
 
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `RunAsToolProvider` has only 'static' members, and lacks a 'private' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `runAs-common/src/main/java/jetbrains/buildServer/runAs/common/LoggingLevel.java`
 #### Snippet
 ```java
-import org.jetbrains.annotations.NotNull;
+  private final String myDescription;
 
-public class RunAsToolProvider {
-  static final String BIN_PATH = "bin";
-
+  private LoggingLevel(String value, final String description) {
+    myValue = value;
+    myDescription = description;
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ParameterUtils` has only 'static' members, and lacks a 'private' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParameterUtils.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class ParameterUtils {
-  public static boolean parseBoolean(@Nullable final String boolStr, final boolean defaultValue) {
-    if(StringUtil.isEmptyOrSpaces(boolStr)) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Constants.java`
-#### Snippet
-```java
-package jetbrains.buildServer.runAs.agent;
-
-public class Constants {
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final String ICACLS_TOOL_NAME = "ICACLS";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `runAs-common/src/main/java/jetbrains/buildServer/runAs/common/Constants.java`
-#### Snippet
-```java
-package jetbrains.buildServer.runAs.common;
-
-public class Constants {
-    // Plugin's ids
-    public static final String BUILD_FEATURE_TYPE = "runAs-build-feature";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LogUtils.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class LogUtils {
-  private static final String Nothing = "null";
-
-```
-
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParametersServiceImpl.java`
-#### Snippet
-```java
-  public String tryGetParameter(@NotNull final String paramName) {
-    final String isRunAsUiEnabledStr = myRunnerParametersService.tryGetConfigParameter(Constants.RUN_AS_UI_ENABLED);
-    final boolean isRunAsUiEnabled = StringUtil.isEmpty(isRunAsUiEnabledStr) || !Boolean.toString(false).equalsIgnoreCase(isRunAsUiEnabledStr);
-    if(isRunAsUiEnabled) {
-      String paramValue = myRunnerParametersService.tryGetRunnerParameter(paramName);
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParametersServiceImpl.java`
-#### Snippet
-```java
-    if(isRunAsUiEnabled) {
-      String paramValue = myRunnerParametersService.tryGetRunnerParameter(paramName);
-      if (!StringUtil.isEmptyOrSpaces(paramValue)) {
-        return paramValue;
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParametersServiceImpl.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsParams.java`
 #### Snippet
 ```java
 
-      paramValue = myBuildFeatureParametersService.tryGetBuildFeatureParameter(Constants.BUILD_FEATURE_TYPE, paramName);
-      if (!StringUtil.isEmptyOrSpaces(paramValue)) {
-        return paramValue;
-      }
-```
+  public List<CommandLineArgument> getCommandLineArguments() {
+    return myCommandLineArguments;
+  }
 
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsPasswordsProvider.java`
-#### Snippet
-```java
-        for (SBuildRunnerDescriptor runner : buildType.getBuildRunners()) {
-          final String password = runner.getParameters().get(Constants.PASSWORD);
-          if (!StringUtil.isEmpty(password)) {
-            passwords.add(new SimpleParameter(Constants.PASSWORD + "_" + runner.getId(), password));
-          }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsPasswordsProvider.java`
-#### Snippet
-```java
-
-        final String password = params.get(Constants.PASSWORD);
-        if (!StringUtil.isEmpty(password)) {
-          passwords.add(new SimpleParameter(Constants.PASSWORD + "_" + buildFeature.getId(), password));
-        }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsPasswordsProvider.java`
-#### Snippet
-```java
-      final SBuildAgent agent = build.getAgent();
-      final String password = agent.getConfigurationParameters().get(Constants.PASSWORD);
-      if (!StringUtil.isEmpty(password)) {
-        passwords.add(new SimpleParameter(Constants.PASSWORD + "_" + agent.getId(), password));
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsPasswordsProvider.java`
-#### Snippet
-```java
-    final Map<String, String> buildParams = build.getBuildOwnParameters();
-    final String password = buildParams.get(Constants.PASSWORD);
-    if(!StringUtil.isEmpty(password)) {
-      passwords.add(new SimpleParameter(Constants.PASSWORD, password));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CryptographicServiceImpl.java`
-#### Snippet
-```java
-  @Nullable
-  public String unscramble(@Nullable String str){
-    if(StringUtil.isEmptyOrSpaces(str)) {
-      return str;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
-#### Snippet
-```java
-            resultStr.append("out: ");
-            for (String line : outLines) {
-              if (!StringUtil.isEmpty(line)) {
-                resultStr.append(line);
-              }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-
-    String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
-    if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
-      additionalArgs = "";
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-  private String tryGetFirstNotEmpty(String ... values) {
-    for(String value: values) {
-      if(!StringUtil.isEmptyOrSpaces(value)) {
-        return value;
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    if(allowCustomCredentials && allowProfileIdFromServer) {
-      String profileRef = myParametersService.tryGetParameter(Constants.CREDENTIALS_PROFILE_ID);
-      final boolean profileWasDefined = !StringUtil.isEmptyOrSpaces(profileRef);
-      UserCredentials profileCredentials = null;
-      if(!profileWasDefined) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    if(allowProfileIdFromServer) {
-      String credentialsRef = myParametersService.tryGetConfigParameter(Constants.CREDENTIALS_PROFILE_ID);
-      if (StringUtil.isEmptyOrSpaces(credentialsRef)) {
-        credentialsRef = DEFAULT_PROFILE;
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-
-    userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
-    if(StringUtil.isEmptyOrSpaces(userName)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs user must be defined for \"" + profileName + "\"");
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-
-    password = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.PASSWORD), myProfileParametersService.tryGetProperty(profileName, Constants.CONFIG_PASSWORD));
-    if(StringUtil.isEmptyOrSpaces(password)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs password must be defined for \"" + profileName + "\"");
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-      for (String propertySet : propertySets) {
-        final String propertyValue = myProfileParametersService.tryGetProperty(propertySet, protectedPropertyName);
-        if (StringUtil.isEmptyOrSpaces(propertyValue)) {
-          continue;
-        }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-        final String password = properties.get(RunAsBean.Shared.getRunAsPasswordKey());
-
-        if(!(StringUtil.isEmpty(user) && StringUtil.isEmpty(password))) {
-          if (StringUtil.isEmptyOrSpaces(user)) {
-            result.add(new InvalidProperty(RunAsBean.Shared.getRunAsUserKey(), "The user must be specified."));
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-        final String password = properties.get(RunAsBean.Shared.getRunAsPasswordKey());
-
-        if(!(StringUtil.isEmpty(user) && StringUtil.isEmpty(password))) {
-          if (StringUtil.isEmptyOrSpaces(user)) {
-            result.add(new InvalidProperty(RunAsBean.Shared.getRunAsUserKey(), "The user must be specified."));
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-
-        if(!(StringUtil.isEmpty(user) && StringUtil.isEmpty(password))) {
-          if (StringUtil.isEmptyOrSpaces(user)) {
-            result.add(new InvalidProperty(RunAsBean.Shared.getRunAsUserKey(), "The user must be specified."));
-          }
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-          }
-
-          if (StringUtil.isEmpty(password)) {
-            result.add(new InvalidProperty(RunAsBean.Shared.getRunAsPasswordKey(), "The password must be specified."));
-          }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ProfileParametersServiceImpl.java`
-#### Snippet
-```java
-    myProfiles.clear();
-    final String credentialsDirectoryStr = myAgentParametersService.tryGetConfigParameter(jetbrains.buildServer.runAs.common.Constants.CREDENTIALS_DIRECTORY);
-    if(StringUtil.isEmptyOrSpaces(credentialsDirectoryStr)) {
-      LOG.error("Configuration parameter \"" + Constants.CREDENTIALS_DIRECTORY + "\" was not defined");
-      return;
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
-#### Snippet
-```java
-  {
-    final String chmodPermissionsStr = StringUtil.join("", chmodPermissions);
-    if(StringUtil.isEmptyOrSpaces(chmodPermissionsStr)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ParameterUtils.java`
-#### Snippet
-```java
-public class ParameterUtils {
-  public static boolean parseBoolean(@Nullable final String boolStr, final boolean defaultValue) {
-    if(StringUtil.isEmptyOrSpaces(boolStr)) {
-      return defaultValue;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
-#### Snippet
-```java
-
-  private void appendAcl(final List<AccessControlEntry> aceList, final String agentAclStr) {
-    if (!StringUtil.isEmptyOrSpaces(agentAclStr)) {
-      for (AccessControlEntry ace : myFileAccessParser.parse(agentAclStr)) {
-        aceList.add(ace);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -513,499 +98,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
         if (res.getExitCode() != 0) {
           LOG.warn("RunAs is not supported");
           return;
-```
-
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ConfigurationImpl.java`
-#### Snippet
-```java
-
-          String key = line.substring(0, index).trim();
-          String value = line.substring(index + 1, line.length()).trim();
-          myMap.put(key, value);
-      }
-```
-
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\+` in RegExp
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
-#### Snippet
-```java
-public class FileAccessParser implements TextParser<AccessControlList> {
-  private static final Logger LOG = Logger.getInstance(FileAccessParser.class.getName());
-  private static final Pattern OutAccessPattern = Pattern.compile("\\s*([gbsrcua\\s]+)\\s*([\\+\\-rwx\\s]+)\\s*,(.+)", Pattern.CASE_INSENSITIVE);
-
-  @NotNull
-```
-
-## RuleId[id=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
-#### Snippet
-```java
-
-        case All:
-          permissionsList.add(0, "a+");
-          break;
-
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`newAcl.size() == 0` can be replaced with 'newAcl.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(newAcl.size() == 0) {
-      return Collections.emptyList();
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() == 0` can be replaced with 'line.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ConfigurationImpl.java`
-#### Snippet
-```java
-
-          line = line.trim();
-          if(line.length() == 0) {
-            continue;
-          }
-```
-
-### SizeReplaceableByIsEmpty
-`permissions.size() == 0` can be replaced with 'permissions.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-  private Result<AccessControlEntry, Boolean> tryApplyAccess(@NotNull final AccessControlEntry entry) {
-    final EnumSet<AccessPermissions> permissions = entry.getPermissions();
-    if(permissions.size() == 0) {
-      return null;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`grantedPermissionList.size() > 0` can be replaced with '!grantedPermissionList.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(grantedPermissionList.size() > 0) {
-      args.add(new CommandLineArgument("/grant", CommandLineArgument.Type.PARAMETER));
-      final boolean recursive = permissions.contains(AccessPermissions.Recursive);
-```
-
-### SizeReplaceableByIsEmpty
-`deniedPermissionList.size() > 0` can be replaced with '!deniedPermissionList.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(deniedPermissionList.size() > 0) {
-      args.add(new CommandLineArgument("/deny", CommandLineArgument.Type.PARAMETER));
-      final boolean recursive = permissions.contains(AccessPermissions.Recursive);
-```
-
-### SizeReplaceableByIsEmpty
-`permissions.size() == 0` can be replaced with 'permissions.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
-#### Snippet
-```java
-    List<Result<AccessControlEntry, Boolean>> results = new ArrayList<Result<AccessControlEntry, Boolean>>();
-    final EnumSet<AccessPermissions> permissions = entry.getPermissions();
-    if(permissions.size() == 0) {
-      return results;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`permissionsList.size() > 0` can be replaced with '!permissionsList.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(permissionsList.size() > 0)
-    {
-      switch (account.getTargetType()) {
-```
-
-### SizeReplaceableByIsEmpty
-`permissionsList.size() > 0` can be replaced with '!permissionsList.isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    if(permissionsList.size() > 0)
-    {
-      switch (account.getTargetType()) {
-```
-
-### SizeReplaceableByIsEmpty
-`userCredentials.getAdditionalArgs().size() > 0` can be replaced with '!userCredentials.getAdditionalArgs().isEmpty()'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsSettingsGenerator.java`
-#### Snippet
-```java
-    }
-
-    if(sb.length() > 0 && userCredentials.getAdditionalArgs().size() > 0) {
-      sb.append(LINE_SEPARATOR);
-    }
-```
-
-## RuleId[id=NonShortCircuitBoolean]
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasError |= !result.isSuccessful() || (result.getValue() != null && !result.getValue())`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ScopedFileAccessService.java`
-#### Snippet
-```java
-    for (Result<AccessControlEntry, Boolean> result: myFileAccessService.setAccess(new AccessControlList(newAcl))) {
-      results.add(result);
-      hasError |= !result.isSuccessful() || (result.getValue() != null && !result.getValue());
-    }
-
-```
-
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LogUtils.java`
-#### Snippet
-```java
-    }
-
-    return name + "{ " + value.toString() + " }";
-  }
-
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CmdGenerator.java`
-#### Snippet
-```java
-
-  public CmdGenerator(
-    @NotNull final Converter<String, String> argumentConverter) {
-    myArgumentConverter = argumentConverter;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessControlEntry`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
-#### Snippet
-```java
-  private final ArrayList<AccessControlEntry> myAccessControlEntries = new ArrayList<AccessControlEntry>();
-
-  AccessControlList(final Iterable<AccessControlEntry> accessControlEntries) {
-    for (AccessControlEntry entry: accessControlEntries) {
-      myAccessControlEntries.add(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ShGenerator.java`
-#### Snippet
-```java
-
-  public ShGenerator(
-    @NotNull final Converter<String, String> argumentConverter) {
-    myArgumentConverter = argumentConverter;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super AccessControlEntry`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
-#### Snippet
-```java
-  }
-
-  private void appendAcl(final List<AccessControlEntry> aceList, final String agentAclStr) {
-    if (!StringUtil.isEmptyOrSpaces(agentAclStr)) {
-      for (AccessControlEntry ace : myFileAccessParser.parse(agentAclStr)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessControlList`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlListProviderImpl.java`
-#### Snippet
-```java
-  public AccessControlListProviderImpl(
-    @NotNull final PathsService pathsService,
-    @NotNull final TextParser<AccessControlList> fileAccessParser,
-    @NotNull final AgentParametersService agentParametersService,
-    @NotNull final ProfileParametersService profileParametersService) {
-```
-
-### BoundedWildcard
-Can generalize to `? super UserCredentials`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
-#### Snippet
-```java
-    @NotNull final ResourcePublisher beforeBuildPublisher,
-    @NotNull final AccessControlResource accessControlResource,
-    @NotNull final ResourceGenerator<UserCredentials> userCredentialsGenerator,
-    @NotNull final ResourceGenerator<RunAsParams> runAsCmdGenerator,
-    @NotNull final FileAccessService fileAccessService,
-```
-
-### BoundedWildcard
-Can generalize to `? super RunAsParams`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
-#### Snippet
-```java
-    @NotNull final AccessControlResource accessControlResource,
-    @NotNull final ResourceGenerator<UserCredentials> userCredentialsGenerator,
-    @NotNull final ResourceGenerator<RunAsParams> runAsCmdGenerator,
-    @NotNull final FileAccessService fileAccessService,
-    @NotNull final RunAsLogger runAsLogger,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
-#### Snippet
-```java
-    @NotNull final RunAsLogger runAsLogger,
-    @NotNull final RunAsAccessService runAsAccessService,
-    @NotNull final Converter<String, String> argumentConverter,
-    @NotNull final String commandFileExtension) {
-    myUserCredentialsService = userCredentialsService;
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-
-  private void protectProperty(
-    final @NotNull AgentRunningBuild runningBuild,
-    final String propertyValue) {
-    if (myIsHidingOfPropertyIsNotSupported) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-  }
-
-  private void protectProperties(final @NotNull AgentRunningBuild runningBuild) {
-    myProfileParametersService.load();
-    final Set<String> propertySets = myProfileParametersService.getProfiles();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Converter.java`
-#### Snippet
-```java
-
-public interface Converter<TSource, TDestination> {
-  @NotNull TDestination convert(final @NotNull TSource source);
-}
-
-```
-
-## RuleId[id=NullableProblems]
-### NullableProblems
-Primitive type members cannot be annotated
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
-#### Snippet
-```java
-
-public class Result<TContext, TValue> {
-  @NotNull private final boolean myIsSuccessful;
-  @NotNull private TContext myContext;
-  @Nullable private TValue myValue;
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Constants.java`
-#### Snippet
-```java
-public class Constants {
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final String ICACLS_TOOL_NAME = "ICACLS";
-    public static final String CHMOD_TOOL_NAME = "chmod";
-    public static final String SU_TOOL_NAME = "su";
-```
-
-## RuleId[id=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `RunAsToolProvider` has only 'static' members, and a 'public' constructor
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.NotNull;
-
-public class RunAsToolProvider {
-  static final String BIN_PATH = "bin";
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "\"" + StringUtil.unquoteString(arg).replace("\"", "\"\"") + "\"";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
-#### Snippet
-```java
-    }
-
-    final String[] entries = aclString.split(";");
-    for (String aclEntryStr: entries) {
-      final Matcher aclMatch = OutAccessPattern.matcher(aclEntryStr);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
-#### Snippet
-```java
-      }
-
-      for (String pathItem: antPatternsStr.split(",")) {
-          final File path = new File(pathItem.trim());
-          accessControlEntries.add(new AccessControlEntry(path, account, permissions, scope));
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.agent` is unnecessary, and can be replaced with an import
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsToolProvider.java`
-#### Snippet
-```java
-    @NotNull final ToolProvidersRegistry toolProvidersRegistry) {
-
-    toolProvidersRegistry.registerToolProvider(new jetbrains.buildServer.agent.ToolProvider() {
-      @Override
-      public boolean supports(@NotNull final String toolName) {
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -1117,116 +209,649 @@ import java.util.List;
 import jetbrains.buildServer.runAs.common.Constants;
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-28-13-12-38.001.html`
+## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ConfigurationImpl.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-    final EnumSet<AccessPermissions> permissions = entry.getPermissions();
-    if(permissions.size() == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
-      if(result == null ) {
-        return null;
+          String key = line.substring(0, index).trim();
+          String value = line.substring(index + 1, line.length()).trim();
+          myMap.put(key, value);
       }
-
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-      public <T> T[] toArray(@NotNull final T[] a) {
-        //noinspection unchecked
-        return (T[])new String[0];
-      }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
-#### Snippet
-```java
-      @Override
-      public Object[] toArray() {
-        return new Object[0];
-      }
-
-```
-
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlAccount.java`
-#### Snippet
-```java
-    return LogUtils.toString(
-      "Account",
-      new LinkedHashMap<String, Object>() {{
-      this.put("Type", myTargetType);
-      this.put("UserName", myUserName);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `myContext` may be 'final'
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
 #### Snippet
 ```java
-    return LogUtils.toString(
-      "Result",
-      new LinkedHashMap<String, Object>() {{
-        this.put("Context", myContext);
-        this.put("IsSuccessful", myIsSuccessful);
+public class Result<TContext, TValue> {
+  @NotNull private final boolean myIsSuccessful;
+  @NotNull private TContext myContext;
+  @Nullable private TValue myValue;
+  @Nullable private Exception myError;
 ```
 
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentials.java`
+### FieldMayBeFinal
+Field `myRunAsConfiguration` may be 'final'
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsBeanDefinitionRegistryPostProcessor.java`
 #### Snippet
 ```java
-    return LogUtils.toString(
-      "UserCredentials",
-      new HashMap<String, Object>() {{
-        this.put("Profile", myProfile);
-        this.put("User", myUser);
+
+public class RunAsBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+  private RunAsConfiguration myRunAsConfiguration;
+
+  public RunAsBeanDefinitionRegistryPostProcessor(@NotNull final RunAsConfiguration runAsConfiguration) {
 ```
 
-### DoubleBraceInitialization
-Double brace initialization
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlEntry.java`
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\+` in RegExp
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
 #### Snippet
 ```java
-    return LogUtils.toString(
-      "ACE",
-      new LinkedHashMap<String, Object>() {{
-        this.put("File", myFile);
-        this.put("Account", myAccount);
+public class FileAccessParser implements TextParser<AccessControlList> {
+  private static final Logger LOG = Logger.getInstance(FileAccessParser.class.getName());
+  private static final Pattern OutAccessPattern = Pattern.compile("\\s*([gbsrcua\\s]+)\\s*([\\+\\-rwx\\s]+)\\s*,(.+)", Pattern.CASE_INSENSITIVE);
+
+  @NotNull
+```
+
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'PathsServiceImpl'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------|---|-----------|
+| **PathsServiceImpl(...):**                              |   | **Bean:** |
+| FileService fileService                                 |   | **???**   |
+| BuildAgentConfiguration buildAgentConfiguration         |   | **???**   |
+| BuildAgentConfigurablePaths buildAgentConfigurablePaths |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+
+  <bean class="jetbrains.buildServer.runAs.agent.EnvironmentImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.PathsServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.AccessControlListProviderImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.CryptographicServiceImpl" />
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'SecuredLoggingServiceImpl'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------------|---|-----------|
+| **SecuredLoggingServiceImpl(...):**        |   | **Bean:** |
+| BuildRunnerContextProvider contextProvider |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.CryptographicServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.FileAccessParser" />
+  <bean class="jetbrains.buildServer.runAs.agent.SecuredLoggingServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.CommandLineExecutorImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsPropertiesExtension" >
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsPropertiesExtension'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------------|---|-----------------------------------------------|
+| **RunAsPropertiesExtension(...):**                    |   | **Bean:**                                     |
+| EventDispatcher\<AgentLifeCycleListener\> events      |   | **???**                                       |
+| ToolProvidersRegistry toolProvidersRegistry           |   | **???**                                       |
+| BuildRunnerContextProvider buildRunnerContextProvider |   | **???**                                       |
+| CommandLineExecutor commandLineExecutor               |   | Autowired: null(CommandLineExecutorImpl)      |
+| ProfileParametersService profileParametersService     |   | Autowired: null(ProfileParametersServiceImpl) |
+| FileAccessCacheManager buildFileAccessCacheManager    |   | \<constructor-arg ref="buildAccessCache"/\>   |
+| Environment environment                               |   | Autowired: null(EnvironmentImpl)              |
+| ExtensionHolder extensionHolder                       |   | **???**                                       |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.SecuredLoggingServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.CommandLineExecutorImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsPropertiesExtension" >
+    <constructor-arg ref="buildAccessCache"/>
+  </bean>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsToolProvider'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|-----------|
+| **RunAsToolProvider(...):**                 |   | **Bean:** |
+| PluginDescriptor pluginDescriptor           |   | **???**   |
+| ToolProvidersRegistry toolProvidersRegistry |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+    <constructor-arg ref="buildAccessCache"/>
+  </bean>
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsToolProvider" />
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsLoggerImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.BuildFeatureParametersServiceImpl"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsLoggerImpl'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------|---|--------------------------------------------|
+| **RunAsLoggerImpl(...):**                       |   | **Bean:**                                  |
+| LoggerService loggerService                     |   | **???**                                    |
+| PathsService pathsService                       |   | Autowired: null(PathsServiceImpl)          |
+| SecuredLoggingService securedLoggingService     |   | Autowired: null(SecuredLoggingServiceImpl) |
+| RunnerParametersService runnerParametersService |   | **???**                                    |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  </bean>
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsToolProvider" />
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsLoggerImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.BuildFeatureParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.AgentParametersServiceImpl"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'BuildFeatureParametersServiceImpl'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|-----------|
+| **BuildFeatureParametersServiceImpl(...):** |   | **Bean:** |
+| BuildRunnerContextProvider contextProvider  |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsToolProvider" />
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsLoggerImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.BuildFeatureParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.AgentParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ProfileParametersServiceImpl" />
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'AgentParametersServiceImpl'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------------|---|-----------|
+| **AgentParametersServiceImpl(...):**       |   | **Bean:** |
+| BuildRunnerContextProvider contextProvider |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsLoggerImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.BuildFeatureParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.AgentParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ProfileParametersServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.ParametersServiceImpl"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ProfileParametersServiceImpl'#treeend
+
+*** ** * ** ***
+
+|------------------------------------------------|---|---------------------------------------------|
+| **ProfileParametersServiceImpl(...):**         |   | **Bean:**                                   |
+| AgentParametersService runnerParametersService |   | Autowired: null(AgentParametersServiceImpl) |
+| PathsService pathsService                      |   | Autowired: null(PathsServiceImpl)           |
+| FileService fileService                        |   | **???**                                     |
+| CryptographicService cryptographicService      |   | Autowired: null(CryptographicServiceImpl)   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.BuildFeatureParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.AgentParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ProfileParametersServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.ParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.UserCredentialsServiceImpl"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ParametersServiceImpl'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------------------|---|----------------------------------------------------|
+| **ParametersServiceImpl(...):**                             |   | **Bean:**                                          |
+| RunnerParametersService runnerParametersService             |   | **???**                                            |
+| BuildFeatureParametersService buildFeatureParametersService |   | Autowired: null(BuildFeatureParametersServiceImpl) |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.AgentParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ProfileParametersServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.ParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.UserCredentialsServiceImpl"/>
+  <bean class="jetbrains.buildServer.dotNet.buildRunner.agent.BeforeBuildPublisher" id="beforeBuildPublisher"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'UserCredentialsServiceImpl'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------|---|-----------------------------------------------|
+| **UserCredentialsServiceImpl(...):**                    |   | **Bean:**                                     |
+| ParametersService parametersService                     |   | Autowired: null(ParametersServiceImpl)        |
+| ProfileParametersService profileParametersService       |   | Autowired: null(ProfileParametersServiceImpl) |
+| CommandLineArgumentsService commandLineArgumentsService |   | **???**                                       |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.ProfileParametersServiceImpl" />
+  <bean class="jetbrains.buildServer.runAs.agent.ParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.UserCredentialsServiceImpl"/>
+  <bean class="jetbrains.buildServer.dotNet.buildRunner.agent.BeforeBuildPublisher" id="beforeBuildPublisher"/>
+  <bean class="jetbrains.buildServer.runAs.agent.NoModificationArgumentConverter" id="noModificationArgumentConverter"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'BeforeBuildPublisher'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------------|---|-----------|
+| **BeforeBuildPublisher(...):**             |   | **Bean:** |
+| BuildRunnerContextProvider contextProvider |   | **???**   |
+| FileService fileService                    |   | **???**   |
+| LoggerService loggerService                |   | **???**   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.ParametersServiceImpl"/>
+  <bean class="jetbrains.buildServer.runAs.agent.UserCredentialsServiceImpl"/>
+  <bean class="jetbrains.buildServer.dotNet.buildRunner.agent.BeforeBuildPublisher" id="beforeBuildPublisher"/>
+  <bean class="jetbrains.buildServer.runAs.agent.NoModificationArgumentConverter" id="noModificationArgumentConverter"/>
+  <bean class="jetbrains.buildServer.runAs.agent.FileAccessCacheImpl" id="globalAccessCache"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsBuildCommandLineProcessorAdapter'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------|---|----------------------------------------------|
+| **RunAsBuildCommandLineProcessorAdapter(...):**         |   | **Bean:**                                    |
+| CommandLineSetupBuilder setupBuilder                    |   | \<constructor-arg ref="runAsSetupBuilder"/\> |
+| BuildRunnerContextProvider contextProvider              |   | **???**                                      |
+| AgentEventDispatcher eventDispatcher                    |   | **???**                                      |
+| ExceptionHandler exceptionHandler                       |   | **???**                                      |
+| CommandLineArgumentsService commandLineArgumentsService |   | **???**                                      |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  </bean>
+
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsBuildCommandLineProcessorAdapter" id="runAsBuildCommandLineProcessorAdapter">
+    <constructor-arg ref="runAsSetupBuilder"/>
+  </bean>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ScopedFileAccessService'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------|---|-----------------------------------------------------|
+| **ScopedFileAccessService(...):**     |   | **Bean:**                                           |
+| FileAccessService fileAccessService   |   | \<constructor-arg ref="windowsFileAccessService"/\> |
+| LoggerService loggerService           |   | **???**                                             |
+| FileAccessCache globalFileAccessCache |   | \<constructor-arg ref="globalAccessCache"/\>        |
+| FileAccessCache buildFileAccessCache  |   | \<constructor-arg ref="buildAccessCache"/\>         |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.WindowsArgumentConverter" id="windowsArgumentConverter"/>
+  <bean class="jetbrains.buildServer.runAs.agent.WindowsFileAccessService" id="windowsFileAccessService"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ScopedFileAccessService" id="windowsScopedFileAccessService">
+    <constructor-arg ref="globalAccessCache"/>
+    <constructor-arg ref="buildAccessCache"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsPlatformSpecificSetupBuilder'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------------|---|-----------------------------------------------------------|
+| **RunAsPlatformSpecificSetupBuilder(...):**                   |   | **Bean:**                                                 |
+| UserCredentialsService userCredentialsService                 |   | Autowired: null(UserCredentialsServiceImpl)               |
+| RunnerParametersService runnerParametersService               |   | **???**                                                   |
+| FileService fileService                                       |   | **???**                                                   |
+| BuildAgentSystemInfo buildAgentSystemInfo                     |   | **???**                                                   |
+| AccessControlListProvider accessControlListProvider           |   | Autowired: null(AccessControlListProviderImpl)            |
+| ResourcePublisher beforeBuildPublisher                        |   | \<constructor-arg ref="beforeBuildPublisher"/\>           |
+| AccessControlResource accessControlResource                   |   | \<constructor-arg ref="windowsAccessControlResource"/\>   |
+| ResourceGenerator\<UserCredentials\> userCredentialsGenerator |   | \<constructor-arg ref="windowsSettingsGenerator"/\>       |
+| ResourceGenerator\<RunAsParams\> runAsCmdGenerator            |   | \<constructor-arg ref="cmdGenerator"/\>                   |
+| FileAccessService fileAccessService                           |   | \<constructor-arg ref="windowsScopedFileAccessService"/\> |
+| RunAsLogger runAsLogger                                       |   | Autowired: null(RunAsLoggerImpl)                          |
+| RunAsAccessService runAsAccessService                         |   | Autowired: null(RunAsPropertiesExtension)                 |
+| Converter\<String, String\> argumentConverter                 |   | \<constructor-arg ref="windowsArgumentConverter"/\>       |
+| String commandFileExtension                                   |   | \<constructor-arg type="java.lang.String" value=".cmd"/\> |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  </bean>
+  <bean class="jetbrains.buildServer.runAs.agent.WindowsSettingsGenerator" id="windowsSettingsGenerator"/>
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsPlatformSpecificSetupBuilder" id="runAsWindowsSetupBuilder">
+    <constructor-arg ref="beforeBuildPublisher"/>
+    <constructor-arg ref="windowsAccessControlResource"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ScopedFileAccessService'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------|---|---------------------------------------------------|
+| **ScopedFileAccessService(...):**     |   | **Bean:**                                         |
+| FileAccessService fileAccessService   |   | \<constructor-arg ref="linuxFileAccessService"/\> |
+| LoggerService loggerService           |   | **???**                                           |
+| FileAccessCache globalFileAccessCache |   | \<constructor-arg ref="globalAccessCache"/\>      |
+| FileAccessCache buildFileAccessCache  |   | \<constructor-arg ref="buildAccessCache"/\>       |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.agent.LinuxArgumentConverter" id="linuxArgumentConverter"/>
+  <bean class="jetbrains.buildServer.runAs.agent.LinuxFileAccessService" id="linuxFileAccessService"/>
+  <bean class="jetbrains.buildServer.runAs.agent.ScopedFileAccessService" id="linuxScopedFileAccessService">
+    <constructor-arg ref="globalAccessCache"/>
+    <constructor-arg ref="buildAccessCache"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsPlatformSpecificSetupBuilder'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------------|---|------------------------------------------------------------|
+| **RunAsPlatformSpecificSetupBuilder(...):**                   |   | **Bean:**                                                  |
+| UserCredentialsService userCredentialsService                 |   | Autowired: null(UserCredentialsServiceImpl)                |
+| RunnerParametersService runnerParametersService               |   | **???**                                                    |
+| FileService fileService                                       |   | **???**                                                    |
+| BuildAgentSystemInfo buildAgentSystemInfo                     |   | **???**                                                    |
+| AccessControlListProvider accessControlListProvider           |   | Autowired: null(AccessControlListProviderImpl)             |
+| ResourcePublisher beforeBuildPublisher                        |   | \<constructor-arg ref="beforeBuildPublisher"/\>            |
+| AccessControlResource accessControlResource                   |   | \<constructor-arg ref="linuxAccessControlResource"/\>      |
+| ResourceGenerator\<UserCredentials\> userCredentialsGenerator |   | \<constructor-arg ref="linuxSettingsGenerator"/\>          |
+| ResourceGenerator\<RunAsParams\> runAsCmdGenerator            |   | \<constructor-arg ref="shGenerator"/\>                     |
+| FileAccessService fileAccessService                           |   | \<constructor-arg ref="linuxScopedFileAccessService"/\>    |
+| RunAsLogger runAsLogger                                       |   | Autowired: null(RunAsLoggerImpl)                           |
+| RunAsAccessService runAsAccessService                         |   | Autowired: null(RunAsPropertiesExtension)                  |
+| Converter\<String, String\> argumentConverter                 |   | \<constructor-arg ref="noModificationArgumentConverter"/\> |
+| String commandFileExtension                                   |   | \<constructor-arg type="java.lang.String" value=".sh"/\>   |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+  </bean>
+  <bean class="jetbrains.buildServer.runAs.agent.LinuxSettingsGenerator" id="linuxSettingsGenerator"/>
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsPlatformSpecificSetupBuilder" id="runAsLinuxSetupBuilder">
+    <constructor-arg ref="beforeBuildPublisher"/>
+    <constructor-arg ref="linuxAccessControlResource"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsPlatformSpecificSetupBuilder'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------------|---|--------------------------------------------------------------|
+| **RunAsPlatformSpecificSetupBuilder(...):**                   |   | **Bean:**                                                    |
+| UserCredentialsService userCredentialsService                 |   | Autowired: null(UserCredentialsServiceImpl)                  |
+| RunnerParametersService runnerParametersService               |   | **???**                                                      |
+| FileService fileService                                       |   | **???**                                                      |
+| BuildAgentSystemInfo buildAgentSystemInfo                     |   | **???**                                                      |
+| AccessControlListProvider accessControlListProvider           |   | Autowired: null(AccessControlListProviderImpl)               |
+| ResourcePublisher beforeBuildPublisher                        |   | \<constructor-arg ref="beforeBuildPublisher"/\>              |
+| AccessControlResource accessControlResource                   |   | \<constructor-arg ref="linuxAccessControlResource"/\>        |
+| ResourceGenerator\<UserCredentials\> userCredentialsGenerator |   | \<constructor-arg ref="linuxSettingsGenerator"/\>            |
+| ResourceGenerator\<RunAsParams\> runAsCmdGenerator            |   | \<constructor-arg ref="shGenerator"/\>                       |
+| FileAccessService fileAccessService                           |   | \<constructor-arg ref="linuxScopedFileAccessService"/\>      |
+| RunAsLogger runAsLogger                                       |   | Autowired: null(RunAsLoggerImpl)                             |
+| RunAsAccessService runAsAccessService                         |   | Autowired: null(RunAsPropertiesExtension)                    |
+| Converter\<String, String\> argumentConverter                 |   | \<constructor-arg ref="noModificationArgumentConverter"/\>   |
+| String commandFileExtension                                   |   | \<constructor-arg type="java.lang.String" value="_mac.sh"/\> |
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+    <constructor-arg type="java.lang.String" value=".sh"/>
+  </bean>
+  <bean class="jetbrains.buildServer.runAs.agent.RunAsPlatformSpecificSetupBuilder" id="runAsMacSetupBuilder">
+    <constructor-arg ref="beforeBuildPublisher"/>
+    <constructor-arg ref="linuxAccessControlResource"/>
+```
+
+## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsBuildFeature.java`
+#### Snippet
+```java
+  private final RunAsBean myBean;
+
+  @Autowired
+  public RunAsBuildFeature(
+    @NotNull final RunAsBean bean,
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
+#### Snippet
+```java
+  private final String myEditUrl;
+
+  @Autowired
+  public RunAsRunTypeExtension(
+    @NotNull final PluginDescriptor descriptor,
+```
+
+## RuleId[id=DuplicateBranchesInSwitch]
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
+#### Snippet
+```java
+
+        case All:
+          permissionsList.add(0, "a+");
+          break;
+
+```
+
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `runAs-server/src/main/resources/META-INF/build-server-plugin-runAs.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.runAs.server.RunAsConfiguration"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `runAs-agent/src/main/resources/META-INF/build-agent-plugin-runAs.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.runAs.agent.EnvironmentImpl" />
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CmdGenerator.java`
+#### Snippet
+```java
+    sb.append(LINE_SEPARATOR);
+    boolean first = true;
+    for (CommandLineArgument arg: settings.getCommandLineArguments()) {
+      if(first) {
+        first = false;
+      }
+      else {
+        sb.append(' ');
+      }
+
+      sb.append(myArgumentConverter.convert(arg.getValue()));
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
+#### Snippet
+```java
+    final CommandLineSetup chmodCommandLineSetup = new CommandLineSetup(CHMOD_TOOL_NAME, args, Collections.<CommandLineResource>emptyList());
+    try {
+      final ExecResult result = myCommandLineExecutor.runProcess(chmodCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
+      if(result == null) {
+        return null;
+      }
+
+      return processResult(entry, result);
+    }
+    catch (ExecutionException e) {
+      LOG.error(e);
+      return new Result<AccessControlEntry, Boolean>(entry, e);
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
+#### Snippet
+```java
+    if(result.getExitCode() != 0) {
+      final String resultStr = result.toString();
+      LOG.warn(resultStr);
+      return new Result<AccessControlEntry, Boolean>(entry, false);
+    }
+
+    return new Result<AccessControlEntry, Boolean>(entry, true);
+```
+
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
+#### Snippet
+```java
+    // Resources
+    final ArrayList<CommandLineResource> resources = new ArrayList<CommandLineResource>();
+    resources.addAll(commandLineSetup.getResources());
+
+    // Settings
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessService.java`
+#### Snippet
+```java
+    args.add(new CommandLineArgument(chmodPermissionsStr, CommandLineArgument.Type.PARAMETER));
+    args.add(new CommandLineArgument(entry.getFile().getAbsolutePath(), CommandLineArgument.Type.PARAMETER));
+    final CommandLineSetup chmodCommandLineSetup = new CommandLineSetup(CHMOD_TOOL_NAME, args, Collections.<CommandLineResource>emptyList());
+    try {
+      final ExecResult result = myCommandLineExecutor.runProcess(chmodCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
+```
+
+### Deprecation
+'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
+#### Snippet
+```java
+    }
+
+    final CommandLineSetup icaclsCommandLineSetup = new CommandLineSetup(ICACLS_TOOL_NAME, args, Collections.<CommandLineResource>emptyList());
+    try {
+      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
+```
+
+### Deprecation
+'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
+#### Snippet
+```java
+    resources.add(myAccessControlResource);
+
+    final CommandLineSetup runAsCommandLineSetup = new CommandLineSetup(
+      runAsToolPath.getAbsolutePath(),
+      Arrays.asList(
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LogUtils.java`
+#### Snippet
+```java
+    }
+
+    return name + "{ " + value.toString() + " }";
+  }
+
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+      final CommandLineSetup cmdLineSetup = new CommandLineSetup(
+        new File(pathToRunAsPlugin, runAsToolPath).getAbsolutePath(),
+        Arrays.asList(new CommandLineArgument("-t", CommandLineArgument.Type.PARAMETER)),
+        Collections.<CommandLineResource>emptyList());
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    new CommandLineSetup(ICACLS_TOOL_NAME, Collections.<CommandLineArgument>emptyList(), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurChmodHelpCmdLineSetup =
+    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurSuCmdLineSetup =
+    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurSuCmdLineSetup =
+    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  @NotNull private final ToolProvidersRegistry myToolProvidersRegistry;
+  @NotNull private final BuildRunnerContextProvider myBuildRunnerContextProvider;
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1240,6 +865,19 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAcces
     String username = null;
     switch (account.getTargetType()) {
       case User:
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Primitive type members cannot be annotated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
+#### Snippet
+```java
+
+public class Result<TContext, TValue> {
+  @NotNull private final boolean myIsSuccessful;
+  @NotNull private TContext myContext;
+  @Nullable private TValue myValue;
 ```
 
 ## RuleId[id=UseBulkOperation]
@@ -1290,5 +928,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
       if (addPasswordMethod == null) {
         onHidingOfPropertyIsNotSupportedMessage();
         return;
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
+#### Snippet
+```java
+  private final ResourceGenerator<UserCredentials> myUserCredentialsGenerator;
+  private final ResourceGenerator<RunAsParams> myRunAsCmdGenerator;
+  private final FileAccessService myFileAccessService;
+  private final RunAsLogger myRunAsLogger;
+  private final RunAsAccessService myRunAsAccessService;
 ```
 
