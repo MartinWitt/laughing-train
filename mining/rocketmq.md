@@ -1,7 +1,7 @@
 # rocketmq 
  
 # Bad smells
-I found 2028 bad smells with 80 repairable:
+I found 2031 bad smells with 80 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | FieldMayBeFinal | 318 | false |
@@ -9,7 +9,7 @@ I found 2028 bad smells with 80 repairable:
 | DuplicatedCode | 141 | false |
 | UnusedAssignment | 132 | false |
 | SwitchStatementWithTooFewBranches | 123 | false |
-| Deprecation | 106 | false |
+| Deprecation | 107 | false |
 | TrivialIf | 90 | false |
 | DanglingJavadoc | 79 | false |
 | ConstantValue | 55 | false |
@@ -29,7 +29,7 @@ I found 2028 bad smells with 80 repairable:
 | RedundantMethodOverride | 20 | false |
 | CommentedOutCode | 18 | false |
 | UnnecessaryContinue | 17 | false |
-| NullableProblems | 14 | false |
+| NullableProblems | 16 | false |
 | PointlessArithmeticExpression | 13 | false |
 | EmptyStatementBody | 13 | false |
 | InnerClassMayBeStatic | 12 | true |
@@ -69,8 +69,8 @@ I found 2028 bad smells with 80 repairable:
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | StringEquality | 1 | false |
 | UnnecessaryModifier | 1 | true |
-| UnnecessaryLabelOnContinueStatement | 1 | false |
 | UnnecessaryLabelOnBreakStatement | 1 | false |
+| UnnecessaryLabelOnContinueStatement | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | ManualArrayCopy | 1 | false |
 | RefusedBequest | 1 | false |
@@ -101,31 +101,20 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
                         } catch (Exception e) {
 ```
 
+## RuleId[id=StringEquality]
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
+#### Snippet
+```java
+        for (MessageExt msg : msgs) {
+            if (isDebug) {
+                if (listenerName != null && listenerName != "") {
+                    LOGGER.info(listenerName + ": " + msg);
+                } else {
+```
+
 ## RuleId[id=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-
-            // Record ConsumeQueue information
-            Long queueOffset = msgInner.getQueueOffset();
-
-            // this msg maybe a inner-batch msg.
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-            long wroteOffset = fileFromOffset + byteBuffer.position();
-            // Record ConsumeQueue information
-            Long queueOffset = messageExtBatch.getQueueOffset();
-            long beginQueueOffset = queueOffset;
-            int totalMsgLen = 0;
-```
-
 ### WrapperTypeMayBePrimitive
 Type may be primitive
 in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
@@ -148,6 +137,30 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
             Long time = end.timestamp - begin.timestamp;
 
             double tps = total / time.doubleValue();
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+            long wroteOffset = fileFromOffset + byteBuffer.position();
+            // Record ConsumeQueue information
+            Long queueOffset = messageExtBatch.getQueueOffset();
+            long beginQueueOffset = queueOffset;
+            int totalMsgLen = 0;
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+
+            // Record ConsumeQueue information
+            Long queueOffset = msgInner.getQueueOffset();
+
+            // this msg maybe a inner-batch msg.
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -196,19 +209,6 @@ in `acl/src/main/java/org/apache/rocketmq/acl/plain/RemoteAddressStrategyFactory
                     Integer address = Integer.parseInt(value, 16);
                     return address >= this.start && address <= this.end;
                 }
-```
-
-## RuleId[id=StringEquality]
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
-#### Snippet
-```java
-        for (MessageExt msg : msgs) {
-            if (isDebug) {
-                if (listenerName != null && listenerName != "") {
-                    LOGGER.info(listenerName + ": " + msg);
-                } else {
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -304,18 +304,6 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageDecoder.java`
 ```
 
 ### PointlessArithmeticExpression
-`1000 * 1` can be replaced with '1000'
-in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
-#### Snippet
-```java
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread.sleep(1000 * 1);
-                }
-            }
-```
-
-### PointlessArithmeticExpression
 `2 * 1` can be replaced with '2'
 in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
 #### Snippet
@@ -356,6 +344,18 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
 #### Snippet
 ```java
+    private int commitLogSwapMapReserveFileNum = 100;
+    private long logicQueueForceSwapMapInterval = 12L * 60 * 60 * 1000;
+    private long logicQueueSwapMapInterval = 1L * 60 * 60 * 1000;
+    private long cleanSwapedMapInterval = 5L * 60 * 1000;
+    private int logicQueueSwapMapReserveFileNum = 20;
+```
+
+### PointlessArithmeticExpression
+`1L * 60 * 60 * 1000` can be replaced with '60 \* 60 \* 1000'
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
+#### Snippet
+```java
     private boolean mappedFileSwapEnable = true;
     private long commitLogForceSwapMapInterval = 12L * 60 * 60 * 1000;
     private long commitLogSwapMapInterval = 1L * 60 * 60 * 1000;
@@ -364,15 +364,15 @@ in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java
 ```
 
 ### PointlessArithmeticExpression
-`1L * 60 * 60 * 1000` can be replaced with '60 \* 60 \* 1000'
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
+`1000 * 1` can be replaced with '1000'
+in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
 #### Snippet
 ```java
-    private int commitLogSwapMapReserveFileNum = 100;
-    private long logicQueueForceSwapMapInterval = 12L * 60 * 60 * 1000;
-    private long logicQueueSwapMapInterval = 1L * 60 * 60 * 1000;
-    private long cleanSwapedMapInterval = 5L * 60 * 1000;
-    private int logicQueueSwapMapReserveFileNum = 20;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread.sleep(1000 * 1);
+                }
+            }
 ```
 
 ### PointlessArithmeticExpression
@@ -400,18 +400,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 ```
 
 ### PointlessArithmeticExpression
-`0 - msg.getBody().length` can be replaced with '- msg.getBody().length'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ProcessQueue.java`
-#### Snippet
-```java
-                        if (prev != null) {
-                            removedCnt--;
-                            msgSize.addAndGet(0 - msg.getBody().length);
-                        }
-                    }
-```
-
-### PointlessArithmeticExpression
 `0 - this.consumingMsgOrderlyTreeMap.size()` can be replaced with '- this.consumingMsgOrderlyTreeMap.size()'
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ProcessQueue.java`
 #### Snippet
@@ -433,6 +421,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ProcessQueue.j
                     msgSize.addAndGet(0 - msg.getBody().length);
                 }
                 this.consumingMsgOrderlyTreeMap.clear();
+```
+
+### PointlessArithmeticExpression
+`0 - msg.getBody().length` can be replaced with '- msg.getBody().length'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ProcessQueue.java`
+#### Snippet
+```java
+                        if (prev != null) {
+                            removedCnt--;
+                            msgSize.addAndGet(0 - msg.getBody().length);
+                        }
+                    }
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -477,6 +477,30 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override public void run() {
+                if (TimerMessageStore.this.messageStore instanceof DefaultMessageStore &&
+                    ((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().isInBrokerContainer()) {
+//                    InnerLoggerFactory.BROKER_IDENTITY.set(((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().getLoggerIdentifier());
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override public void run() {
+                if (TimerMessageStore.this.messageStore instanceof DefaultMessageStore &&
+                    ((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().isInBrokerContainer()) {
+//                    InnerLoggerFactory.BROKER_IDENTITY.set(((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().getLoggerIdentifier());
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
         int checkNum = 0;
         while (true) {
             if (dequeuePutQueue.size() > 0
@@ -486,26 +510,14 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 
 ### EmptyStatementBody
 `if` statement has empty body
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
 #### Snippet
 ```java
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            @Override public void run() {
-                if (TimerMessageStore.this.messageStore instanceof DefaultMessageStore &&
-                    ((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().isInBrokerContainer()) {
-//                    InnerLoggerFactory.BROKER_IDENTITY.set(((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().getLoggerIdentifier());
-```
-
-### EmptyStatementBody
-`if` statement has empty body
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            @Override public void run() {
-                if (TimerMessageStore.this.messageStore instanceof DefaultMessageStore &&
-                    ((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().isInBrokerContainer()) {
-//                    InnerLoggerFactory.BROKER_IDENTITY.set(((DefaultMessageStore) TimerMessageStore.this.messageStore).getBrokerConfig().getLoggerIdentifier());
+                        if (!msgTreeMap.isEmpty()) {
+                            msg = msgTreeMap.firstEntry().getValue();
+                            if (System.currentTimeMillis() - Long.parseLong(MessageAccessor.getConsumeStartTimeStamp(msg))
+                                > clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000) {
+                                //Expired, ack and remove it.
 ```
 
 ### EmptyStatementBody
@@ -557,18 +569,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcess
 ```
 
 ### EmptyStatementBody
-`if` statement has empty body
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcessor.java`
-#### Snippet
-```java
-            //no need to care the broker name
-            long staticLogicOffset = mappingItem.computeStaticQueueOffsetLoosely(responseHeader.getQueueOffset());
-            if (staticLogicOffset < 0) {
-                //if the logic offset is -1, just let it go
-                //maybe we need a dynamic config
-```
-
-### EmptyStatementBody
 `while` statement has empty body
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/ChangeInvisibleTimeProcessor.java`
 #### Snippet
@@ -582,14 +582,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/ChangeInvisibleTim
 
 ### EmptyStatementBody
 `if` statement has empty body
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcessor.java`
 #### Snippet
 ```java
-                        if (!msgTreeMap.isEmpty()) {
-                            msg = msgTreeMap.firstEntry().getValue();
-                            if (System.currentTimeMillis() - Long.parseLong(MessageAccessor.getConsumeStartTimeStamp(msg))
-                                > clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000) {
-                                //Expired, ack and remove it.
+            //no need to care the broker name
+            long staticLogicOffset = mappingItem.computeStaticQueueOffsetLoosely(responseHeader.getQueueOffset());
+            if (staticLogicOffset < 0) {
+                //if the logic offset is -1, just let it go
+                //maybe we need a dynamic config
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -631,6 +631,18 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageDecoder.java`
 ```
 
 ### CommentedOutCode
+Commented out code (7 lines)
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
+#### Snippet
+```java
+
+                // after consumer.unsubscribe , SubscriptionSet is Empty
+                //if (prev != null) {
+                //
+                //    if (prev.getSubscriptionSet().isEmpty()) {
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
 #### Snippet
@@ -639,18 +651,6 @@ in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java
             }
             // return this.fileSize < other.fileSize ? 1 : this.fileSize >
             // other.fileSize ? -1 : 0;
-        }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-
-        private void printFlushProgress() {
-            // CommitLog.log.info("how much disk fall behind memory, "
-            // + CommitLog.this.mappedFileQueue.howMuchFallBehind());
         }
 ```
 
@@ -664,6 +664,18 @@ in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionService.java`
 //    @Override
 //    public void start() {
 //        compactionStore.load();
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+
+        private void printFlushProgress() {
+            // CommitLog.log.info("how much disk fall behind memory, "
+            // + CommitLog.this.mappedFileQueue.howMuchFallBehind());
+        }
 ```
 
 ### CommentedOutCode
@@ -703,6 +715,18 @@ in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
 ```
 
 ### CommentedOutCode
+Commented out code (9 lines)
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+#### Snippet
+```java
+
+            // prevent gc
+            // if (j % 1000 == 0) {
+            //     log.info("j={}, costTime={}", j, System.currentTimeMillis() - time);
+            //     time = System.currentTimeMillis();
+```
+
+### CommentedOutCode
 Commented out code (6 lines)
 in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
@@ -715,15 +739,15 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### CommentedOutCode
-Commented out code (9 lines)
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+Commented out code (4 lines)
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredMessageQueueContainer.java`
 #### Snippet
 ```java
 
-            // prevent gc
-            // if (j % 1000 == 0) {
-            //     log.info("j={}, costTime={}", j, System.currentTimeMillis() - time);
-            //     time = System.currentTimeMillis();
+        // building indexes with offsetId is no longer supported because offsetId has changed in tiered storage
+//        AppendResult result = indexFile.append(messageQueue, request.getOffsetId(), request.getCommitLogOffset(), request.getMsgSize(), request.getStoreTimestamp());
+//        if (result != AppendResult.SUCCESS) {
+//            return result;
 ```
 
 ### CommentedOutCode
@@ -748,6 +772,18 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
                 //                if( convertStringExpressions ) {
                 //                    ComparisonExpression.CONVERT_STRING_EXPRESSIONS.remove();
                 //                }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
+#### Snippet
+```java
+
+        }
+//        executors.shutdown();
+//        consumer.shutdown();
+    }
 ```
 
 ### CommentedOutCode
@@ -776,18 +812,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-                    popBufferMergeService.addCkMock(requestHeader.getConsumerGroup(), topic, queueId, finalOffset,
-                        requestHeader.getInvisibleTime(), popTime, reviveQid, result.getNextBeginOffset(), brokerController.getBrokerConfig().getBrokerName());
-//                this.brokerController.getConsumerOffsetManager().commitOffset(channel.remoteAddress().toString(), requestHeader.getConsumerGroup(), topic,
-//                        queueId, getMessageTmpResult.getNextBeginOffset());
-                }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
@@ -799,52 +823,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredMessageQueueContainer.java`
-#### Snippet
-```java
-
-        // building indexes with offsetId is no longer supported because offsetId has changed in tiered storage
-//        AppendResult result = indexFile.append(messageQueue, request.getOffsetId(), request.getCommitLogOffset(), request.getMsgSize(), request.getStoreTimestamp());
-//        if (result != AppendResult.SUCCESS) {
-//            return result;
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
-in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-
-        }
-//        executors.shutdown();
-//        consumer.shutdown();
-    }
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
-#### Snippet
-```java
-
-                // after consumer.unsubscribe , SubscriptionSet is Empty
-                //if (prev != null) {
-                //
-                //    if (prev.getSubscriptionSet().isEmpty()) {
-```
-
-## RuleId[id=UnnecessaryLabelOnContinueStatement]
-### UnnecessaryLabelOnContinueStatement
-Unnecessary label `EOFLoop` on continue statement
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                        }
-                    }
-                    continue EOFLoop;
+                    popBufferMergeService.addCkMock(requestHeader.getConsumerGroup(), topic, queueId, finalOffset,
+                        requestHeader.getInvisibleTime(), popTime, reviveQid, result.getNextBeginOffset(), brokerController.getBrokerConfig().getBrokerName());
+//                this.brokerController.getConsumerOffsetManager().commitOffset(channel.remoteAddress().toString(), requestHeader.getConsumerGroup(), topic,
+//                        queueId, getMessageTmpResult.getNextBeginOffset());
                 }
-            }
 ```
 
 ## RuleId[id=UnnecessaryLabelOnBreakStatement]
@@ -856,6 +843,19 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
                     }
                     jjExpentries.add(jjExpentry);
                     break jj_entries_loop;
+                }
+            }
+```
+
+## RuleId[id=UnnecessaryLabelOnContinueStatement]
+### UnnecessaryLabelOnContinueStatement
+Unnecessary label `EOFLoop` on continue statement
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                        }
+                    }
+                    continue EOFLoop;
                 }
             }
 ```
@@ -901,18 +901,6 @@ in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
 
 ## RuleId[id=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/metrics/ProxyMetricsManager.java`
-#### Snippet
-```java
-                return true;
-            case LOG:
-                return true;
-        }
-        return false;
-```
-
-### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 #### Snippet
@@ -926,147 +914,210 @@ in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-        switch (this.serviceState) {
-            case CREATE_JUST:
-                break;
-            case RUNNING:
-                this.persistConsumerOffset();
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
-#### Snippet
-```java
-                break;
-            case SHUTDOWN_ALREADY:
-                break;
-            default:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-        switch (this.serviceState) {
-            case CREATE_JUST:
-                break;
-            case RUNNING:
-                persistConsumerOffset();
+                return jjMoveStringLiteralDfa2_0(active0, 0x8000L);
+            case 97:
+                return jjMoveStringLiteralDfa2_0(active0, 0x4000L);
+            case 101:
+                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
 ```
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-                break;
-            case ResponseCode.PULL_NOT_FOUND:
-                popStatus = PopStatus.POLLING_NOT_FOUND;
-                break;
-            default:
+                return jjMoveStringLiteralDfa2_0(active0, 0x4000L);
+            case 101:
+                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
+            case 110:
+                if ((active0 & 0x1000L) != 0L) {
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-                        break;
-                    case POLLING_FULL:
-                        DefaultMQPushConsumerImpl.this.executePopPullRequestLater(popRequest, pullTimeDelayMillsWhenException);
-                        break;
-                    default:
+                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
+            case 110:
+                if ((active0 & 0x1000L) != 0L) {
+                    jjmatchedKind = 12;
+                    jjmatchedPos = 1;
+                }
+                return jjMoveStringLiteralDfa2_0(active0, 0x200L);
+            case 111:
+                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-        switch (this.serviceState) {
-            case CREATE_JUST:
-                break;
-            case RUNNING:
-                this.consumeMessageService.shutdown(awaitTerminateMillis);
+                return jjMoveStringLiteralDfa2_0(active0, 0x200L);
+            case 111:
+                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
+            case 114:
+                if ((active0 & 0x400L) != 0L) {
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-                break;
-            case SHUTDOWN_ALREADY:
-                break;
-            default:
-                break;
+                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
+            case 114:
+                if ((active0 & 0x400L) != 0L) {
+                    jjmatchedKind = 10;
+                    jjmatchedPos = 1;
+                }
+                return jjMoveStringLiteralDfa2_0(active0, 0x2000L);
+            case 115:
+                if ((active0 & 0x10000L) != 0L) {
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-            switch (this.defaultMQPushConsumer.getMessageModel()) {
-                case BROADCASTING:
-                    break;
-                case CLUSTERING:
-                    final String retryTopic = MixAll.getRetryTopic(this.defaultMQPushConsumer.getConsumerGroup());
+                return jjMoveStringLiteralDfa2_0(active0, 0x2000L);
+            case 115:
+                if ((active0 & 0x10000L) != 0L) {
+                    jjmatchedKind = 16;
+                    jjmatchedPos = 1;
+                }
+                break;
+            case 117:
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-        switch (this.serviceState) {
-            case CREATE_JUST:
-                break;
-            case RUNNING:
-                this.mQClientFactory.unregisterProducer(this.defaultMQProducer.getProducerGroup());
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
                 break;
-            case SHUTDOWN_ALREADY:
-                break;
+            case 117:
+                return jjMoveStringLiteralDfa2_0(active0, 0x8000L);
             default:
                 break;
 ```
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-                                return null;
-                            case ONEWAY:
-                                return null;
-                            case SYNC:
-                                if (sendResult.getSendStatus() != SendStatus.SEND_OK) {
+                return jjMoveStringLiteralDfa1_0(0x2000L);
+            case 97:
+                return jjMoveStringLiteralDfa1_0(0x200L);
+            case 98:
+                return jjMoveStringLiteralDfa1_0(0x800L);
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `acl/src/main/java/org/apache/rocketmq/acl/common/Permission.java`
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
 #### Snippet
 ```java
-                return Permission.PUB | Permission.SUB;
-            case AclConstants.DENY:
-                return Permission.DENY;
+                return jjMoveStringLiteralDfa1_0(0x200L);
+            case 98:
+                return jjMoveStringLiteralDfa1_0(0x800L);
+            case 102:
+                return jjMoveStringLiteralDfa1_0(0x4000L);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa1_0(0x800L);
+            case 102:
+                return jjMoveStringLiteralDfa1_0(0x4000L);
+            case 105:
+                return jjMoveStringLiteralDfa1_0(0x11000L);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa1_0(0x4000L);
+            case 105:
+                return jjMoveStringLiteralDfa1_0(0x11000L);
+            case 110:
+                return jjMoveStringLiteralDfa1_0(0x8100L);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa1_0(0x11000L);
+            case 110:
+                return jjMoveStringLiteralDfa1_0(0x8100L);
+            case 111:
+                return jjMoveStringLiteralDfa1_0(0x400L);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa1_0(0x8100L);
+            case 111:
+                return jjMoveStringLiteralDfa1_0(0x400L);
+            case 116:
+                return jjMoveStringLiteralDfa1_0(0x2000L);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa1_0(0x400L);
+            case 116:
+                return jjMoveStringLiteralDfa1_0(0x2000L);
             default:
-                return Permission.DENY;
+                return jjMoveNfa_0(5, 0);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa6_0(active0, 0x800L);
+            case 101:
+                return jjMoveStringLiteralDfa6_0(active0, 0x800L);
+            default:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return jjMoveStringLiteralDfa5_0(active0, 0x800L);
+            case 101:
+                if ((active0 & 0x4000L) != 0L) {
+                    jjmatchedKind = 14;
+                    jjmatchedPos = 4;
+                }
+                return jjMoveStringLiteralDfa5_0(active0, 0x800L);
+            default:
+                break;
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1195,214 +1246,7 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenMa
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x2000L);
-            case 97:
-                return jjMoveStringLiteralDfa1_0(0x200L);
-            case 98:
-                return jjMoveStringLiteralDfa1_0(0x800L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x200L);
-            case 98:
-                return jjMoveStringLiteralDfa1_0(0x800L);
-            case 102:
-                return jjMoveStringLiteralDfa1_0(0x4000L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x800L);
-            case 102:
-                return jjMoveStringLiteralDfa1_0(0x4000L);
-            case 105:
-                return jjMoveStringLiteralDfa1_0(0x11000L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x4000L);
-            case 105:
-                return jjMoveStringLiteralDfa1_0(0x11000L);
-            case 110:
-                return jjMoveStringLiteralDfa1_0(0x8100L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x11000L);
-            case 110:
-                return jjMoveStringLiteralDfa1_0(0x8100L);
-            case 111:
-                return jjMoveStringLiteralDfa1_0(0x400L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x8100L);
-            case 111:
-                return jjMoveStringLiteralDfa1_0(0x400L);
-            case 116:
-                return jjMoveStringLiteralDfa1_0(0x2000L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa1_0(0x400L);
-            case 116:
-                return jjMoveStringLiteralDfa1_0(0x2000L);
-            default:
-                return jjMoveNfa_0(5, 0);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x8000L);
-            case 97:
-                return jjMoveStringLiteralDfa2_0(active0, 0x4000L);
-            case 101:
-                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x4000L);
-            case 101:
-                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
-            case 110:
-                if ((active0 & 0x1000L) != 0L) {
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x800L);
-            case 110:
-                if ((active0 & 0x1000L) != 0L) {
-                    jjmatchedKind = 12;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0x200L);
-            case 111:
-                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x200L);
-            case 111:
-                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
-            case 114:
-                if ((active0 & 0x400L) != 0L) {
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x100L);
-            case 114:
-                if ((active0 & 0x400L) != 0L) {
-                    jjmatchedKind = 10;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0x2000L);
-            case 115:
-                if ((active0 & 0x10000L) != 0L) {
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa2_0(active0, 0x2000L);
-            case 115:
-                if ((active0 & 0x10000L) != 0L) {
-                    jjmatchedKind = 16;
-                    jjmatchedPos = 1;
-                }
-                break;
-            case 117:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                break;
-            case 117:
-                return jjMoveStringLiteralDfa2_0(active0, 0x8000L);
-            default:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa5_0(active0, 0x800L);
-            case 101:
-                if ((active0 & 0x4000L) != 0L) {
-                    jjmatchedKind = 14;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0x800L);
-            default:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return jjMoveStringLiteralDfa6_0(active0, 0x800L);
-            case 101:
-                return jjMoveStringLiteralDfa6_0(active0, 0x800L);
-            default:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `broker/src/main/java/org/apache/rocketmq/broker/metrics/BrokerMetricsManager.java`
+in `proxy/src/main/java/org/apache/rocketmq/proxy/metrics/ProxyMetricsManager.java`
 #### Snippet
 ```java
                 return true;
@@ -1413,27 +1257,27 @@ in `broker/src/main/java/org/apache/rocketmq/broker/metrics/BrokerMetricsManager
 ```
 
 ### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+Branch in 'switch' is a duplicate of the default branch
+in `acl/src/main/java/org/apache/rocketmq/acl/common/Permission.java`
 #### Snippet
 ```java
-                break;
-            case NO_MATCHED_MESSAGE:
-                response.setCode(ResponseCode.PULL_RETRY_IMMEDIATELY);
-                break;
-            case OFFSET_FOUND_NULL:
+                return Permission.PUB | Permission.SUB;
+            case AclConstants.DENY:
+                return Permission.DENY;
+            default:
+                return Permission.DENY;
 ```
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
 #### Snippet
 ```java
-                break;
-            case OFFSET_OVERFLOW_ONE:
-                response.setCode(ResponseCode.PULL_NOT_FOUND);
-                break;
-            case OFFSET_RESET:
+                                            break;
+                                        case NO_MATCHED_MSG:
+                                            consumer.updateConsumeOffset(messageQueue, pullResult.getNextBeginOffset());
+                                            break;
+                                        default:
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1470,18 +1314,6 @@ in `example/src/main/java/org/apache/rocketmq/example/simple/PullScheduleService
                             break;
                         default:
                             break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
-#### Snippet
-```java
-                                            break;
-                                        case NO_MATCHED_MSG:
-                                            consumer.updateConsumeOffset(messageQueue, pullResult.getNextBeginOffset());
-                                            break;
-                                        default:
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1556,6 +1388,174 @@ in `example/src/main/java/org/apache/rocketmq/example/transaction/TransactionLis
                     return LocalTransactionState.ROLLBACK_MESSAGE;
 ```
 
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
+#### Snippet
+```java
+        switch (this.serviceState) {
+            case CREATE_JUST:
+                break;
+            case RUNNING:
+                this.persistConsumerOffset();
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
+#### Snippet
+```java
+                break;
+            case SHUTDOWN_ALREADY:
+                break;
+            default:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+        switch (this.serviceState) {
+            case CREATE_JUST:
+                break;
+            case RUNNING:
+                this.consumeMessageService.shutdown(awaitTerminateMillis);
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+                break;
+            case SHUTDOWN_ALREADY:
+                break;
+            default:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+                        break;
+                    case POLLING_FULL:
+                        DefaultMQPushConsumerImpl.this.executePopPullRequestLater(popRequest, pullTimeDelayMillsWhenException);
+                        break;
+                    default:
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+            switch (this.defaultMQPushConsumer.getMessageModel()) {
+                case BROADCASTING:
+                    break;
+                case CLUSTERING:
+                    final String retryTopic = MixAll.getRetryTopic(this.defaultMQPushConsumer.getConsumerGroup());
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+        switch (this.serviceState) {
+            case CREATE_JUST:
+                break;
+            case RUNNING:
+                persistConsumerOffset();
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+                break;
+            case ResponseCode.PULL_NOT_FOUND:
+                popStatus = PopStatus.POLLING_NOT_FOUND;
+                break;
+            default:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+                                return null;
+                            case ONEWAY:
+                                return null;
+                            case SYNC:
+                                if (sendResult.getSendStatus() != SendStatus.SEND_OK) {
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+        switch (this.serviceState) {
+            case CREATE_JUST:
+                break;
+            case RUNNING:
+                this.mQClientFactory.unregisterProducer(this.defaultMQProducer.getProducerGroup());
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+                break;
+            case SHUTDOWN_ALREADY:
+                break;
+            default:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `broker/src/main/java/org/apache/rocketmq/broker/metrics/BrokerMetricsManager.java`
+#### Snippet
+```java
+                return true;
+            case LOG:
+                return true;
+        }
+        return false;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+#### Snippet
+```java
+                break;
+            case NO_MATCHED_MESSAGE:
+                response.setCode(ResponseCode.PULL_RETRY_IMMEDIATELY);
+                break;
+            case OFFSET_FOUND_NULL:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+#### Snippet
+```java
+                break;
+            case OFFSET_OVERFLOW_ONE:
+                response.setCode(ResponseCode.PULL_NOT_FOUND);
+                break;
+            case OFFSET_RESET:
+```
+
 ## RuleId[id=FinalPrivateMethod]
 ### FinalPrivateMethod
 'private' method declared `final`
@@ -1595,30 +1595,6 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageRequestMode.j
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `name` in enum 'BoundaryType'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/BoundaryType.java`
-#### Snippet
-```java
-    UPPER("upper");
-
-    private String name;
-
-    BoundaryType(String name) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `type` in enum 'FileSegmentType'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
-#### Snippet
-```java
-        INDEX(2);
-
-        private int type;
-
-        FileSegmentType(int type) {
-```
-
-### NonFinalFieldInEnum
 Non-final field `name` in enum 'TlsMode'
 in `remoting/src/main/java/org/apache/rocketmq/remoting/common/TlsMode.java`
 #### Snippet
@@ -1631,18 +1607,6 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/common/TlsMode.java`
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `code` in enum 'LanguageCode'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/LanguageCode.java`
-#### Snippet
-```java
-    RUST((byte) 12);
-
-    private byte code;
-
-    LanguageCode(byte code) {
-```
-
-### NonFinalFieldInEnum
 Non-final field `code` in enum 'SerializeType'
 in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/SerializeType.java`
 #### Snippet
@@ -1652,6 +1616,18 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/SerializeType.j
     private byte code;
 
     SerializeType(byte code) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'LanguageCode'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/LanguageCode.java`
+#### Snippet
+```java
+    RUST((byte) 12);
+
+    private byte code;
+
+    LanguageCode(byte code) {
 ```
 
 ### NonFinalFieldInEnum
@@ -1676,6 +1652,30 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/Messa
     private String modeCN;
 
     MessageModel(String modeCN) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `name` in enum 'BoundaryType'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/BoundaryType.java`
+#### Snippet
+```java
+    UPPER("upper");
+
+    private String name;
+
+    BoundaryType(String name) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `type` in enum 'FileSegmentType'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+#### Snippet
+```java
+        INDEX(2);
+
+        private int type;
+
+        FileSegmentType(int type) {
 ```
 
 ## RuleId[id=OctalLiteral]
@@ -1741,6 +1741,18 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenMa
 
 ## RuleId[id=Deprecation]
 ### Deprecation
+'murmur3_32()' is deprecated
+in `common/src/main/java/org/apache/rocketmq/common/utils/MessageUtils.java`
+#### Snippet
+```java
+
+    public static int getShardingKeyIndex(String shardingKey, int indexSize) {
+        return Math.abs(Hashing.murmur3_32().hashBytes(shardingKey.getBytes(StandardCharsets.UTF_8)).asInt() % indexSize);
+    }
+
+```
+
+### Deprecation
 'compress(byte\[\], int)' is deprecated
 in `common/src/main/java/org/apache/rocketmq/common/message/MessageDecoder.java`
 #### Snippet
@@ -1750,6 +1762,102 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageDecoder.java`
             newBody = UtilAll.compress(body, 5);
         }
         int bodyLength = newBody.length;
+```
+
+### Deprecation
+'getdLedgerConfig()' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+            return super.getMessage(offset, size);
+        }
+        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
+        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, offset == 0);
+        if (mappedFile != null) {
+```
+
+### Deprecation
+'getdLedgerConfig()' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+            return false;
+        }
+        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
+        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, offset == 0);
+        if (mappedFile != null) {
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.rocketmq.store.CommitLog'
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+
+    @Override
+    public void recoverAbnormally(long maxPhyOffsetOfConsumeQueue) {
+        recover(maxPhyOffsetOfConsumeQueue);
+    }
+```
+
+### Deprecation
+'getdLedgerConfig()' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+            return null;
+        }
+        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
+        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, returnFirstOnNotFound);
+        if (mappedFile != null) {
+```
+
+### Deprecation
+'setPreferredLeaderId(java.lang.String)' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+        dLedgerConfig.setDeleteWhen(defaultMessageStore.getMessageStoreConfig().getDeleteWhen());
+        dLedgerConfig.setFileReservedHours(defaultMessageStore.getMessageStoreConfig().getFileReservedTime() + 1);
+        dLedgerConfig.setPreferredLeaderId(defaultMessageStore.getMessageStoreConfig().getPreferredLeaderId());
+        dLedgerConfig.setEnableBatchPush(defaultMessageStore.getMessageStoreConfig().isEnableBatchPush());
+        dLedgerConfig.setDiskSpaceRatioToCheckExpired(defaultMessageStore.getMessageStoreConfig().getDiskMaxUsedSpaceRatio() / 100f);
+```
+
+### Deprecation
+'getdLedgerStore()' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+        id = Integer.parseInt(dLedgerConfig.getSelfId().substring(1)) + 1;
+        dLedgerServer = new DLedgerServer(dLedgerConfig);
+        dLedgerFileStore = (DLedgerMmapFileStore) dLedgerServer.getdLedgerStore();
+        DLedgerMmapFileStore.AppendHook appendHook = (entry, buffer, bodyOffset) -> {
+            assert bodyOffset == DLedgerEntry.BODY_OFFSET;
+```
+
+### Deprecation
+'getdLedgerConfig()' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        String storePathPhysic;
+        if (DefaultMessageStore.this.getMessageStoreConfig().isEnableDLegerCommitLog()) {
+            storePathPhysic = ((DLedgerCommitLog) DefaultMessageStore.this.getCommitLog()).getdLedgerServer().getdLedgerConfig().getDataStorePath();
+        } else {
+            storePathPhysic = DefaultMessageStore.this.getMessageStoreConfig().getStorePathCommitLog();
+```
+
+### Deprecation
+'recoverAbnormally(long)' is deprecated
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+            this.commitLog.recoverNormally(maxPhyOffsetOfConsumeQueue);
+        } else {
+            this.commitLog.recoverAbnormally(maxPhyOffsetOfConsumeQueue);
+        }
+
 ```
 
 ### Deprecation
@@ -1798,6 +1906,42 @@ in `test/src/main/java/org/apache/rocketmq/test/factory/ConsumerFactory.java`
         DefaultMQPullConsumer defaultMQPullConsumer = new DefaultMQPullConsumer(consumerGroup);
         defaultMQPullConsumer.setInstanceName(UUID.randomUUID().toString());
         defaultMQPullConsumer.setNamesrvAddr(nsAddr);
+```
+
+### Deprecation
+'getDefaultMQPullConsumerImpl()' is deprecated
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+        Map<String, Long> offsetMap = new ConcurrentHashMap<>();
+        String statKey = "benchOffset";
+        TopicRouteData topicRouteData = defaultMQPullConsumers[0].getDefaultMQPullConsumerImpl().
+            getRebalanceImpl().getmQClientFactory().getMQClientAPIImpl().
+            getTopicRouteInfoFromNameServer(lmqTopic, 3000);
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    public static DefaultMQProducer defaultMQProducer;
+    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
+    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
+    private static AtomicLong rid = new AtomicLong();
+    private static final String LMQ_PREFIX = "%LMQ%";
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    public static DefaultMQProducer defaultMQProducer;
+    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
+    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
+    private static AtomicLong rid = new AtomicLong();
+    private static final String LMQ_PREFIX = "%LMQ%";
 ```
 
 ### Deprecation
@@ -1877,30 +2021,6 @@ in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java
 in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
 #### Snippet
 ```java
-    public static DefaultMQProducer defaultMQProducer;
-    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
-    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
-    private static AtomicLong rid = new AtomicLong();
-    private static final String LMQ_PREFIX = "%LMQ%";
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    public static DefaultMQProducer defaultMQProducer;
-    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
-    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
-    private static AtomicLong rid = new AtomicLong();
-    private static final String LMQ_PREFIX = "%LMQ%";
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
             return;
         }
         DefaultMQPullConsumer defaultMQPullConsumer = defaultMQPullConsumers[(int) (eventId % pullConsumerNum)];
@@ -1921,15 +2041,219 @@ in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java
 ```
 
 ### Deprecation
-'getDefaultMQPullConsumerImpl()' is deprecated
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+'getDefaultMQPushConsumerImpl()' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
 #### Snippet
 ```java
-        Map<String, Long> offsetMap = new ConcurrentHashMap<>();
-        String statKey = "benchOffset";
-        TopicRouteData topicRouteData = defaultMQPullConsumers[0].getDefaultMQPullConsumerImpl().
-            getRebalanceImpl().getmQClientFactory().getMQClientAPIImpl().
-            getTopicRouteInfoFromNameServer(lmqTopic, 3000);
+    @Override
+    public boolean isSuspended() {
+        return this.rocketmqPushConsumer.getDefaultMQPushConsumerImpl().isPause();
+    }
+
+```
+
+### Deprecation
+'getDefaultMQPullConsumerImpl()' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
+#### Snippet
+```java
+                    PullResult pullResult = consumer.pull(mq, "*",
+                        offset, localMessageCache.nextPullBatchNums());
+                    ProcessQueue pq = rocketmqPullConsumer.getDefaultMQPullConsumerImpl().getRebalanceImpl()
+                        .getProcessQueueTable().get(mq);
+                    switch (pullResult.getPullStatus()) {
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(PullConsumerImpl.class);
+
+    private final DefaultMQPullConsumer rocketmqPullConsumer;
+    private final KeyValue properties;
+    private boolean started = false;
+```
+
+### Deprecation
+'getDefaultMQPullConsumerImpl()' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+
+    private void cleanExpireMsg() {
+        for (final Map.Entry<MessageQueue, ProcessQueue> next : rocketmqPullConsumer.getDefaultMQPullConsumerImpl()
+            .getRebalanceImpl().getProcessQueueTable().entrySet()) {
+            ProcessQueue pq = next.getValue();
+```
+
+### Deprecation
+'sendMessageBack(org.apache.rocketmq.common.message.MessageExt, int)' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+
+                try {
+                    rocketmqPullConsumer.sendMessageBack(msg, 3);
+                    log.info("Send expired msg back. topic={}, msgId={}, storeHost={}, queueId={}, queueOffset={}",
+                        msg.getTopic(), msg.getMsgId(), msg.getStoreHost(), msg.getQueueId(), msg.getQueueOffset());
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+    private final ScheduledExecutorService cleanExpireMsgExecutors;
+
+    LocalMessageCache(final DefaultMQPullConsumer rocketmqPullConsumer, final ClientConfig clientConfig) {
+        consumeRequestCache = new LinkedBlockingQueue<>(clientConfig.getRmqPullMessageCacheCapacity());
+        this.consumedRequest = new ConcurrentHashMap<>();
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+    private final Map<String, ConsumeRequest> consumedRequest;
+    private final ConcurrentHashMap<MessageQueue, Long> pullOffsetTable;
+    private final DefaultMQPullConsumer rocketmqPullConsumer;
+    private final ClientConfig clientConfig;
+    private final ScheduledExecutorService cleanExpireMsgExecutors;
+```
+
+### Deprecation
+'getAclConfigDataVersion()' is deprecated
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainAccessValidator.java`
+#### Snippet
+```java
+    @Override
+    public String getAclConfigVersion() {
+        return aclPlugEngine.getAclConfigDataVersion();
+    }
+
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java`
+#### Snippet
+```java
+
+    public static void pullConsumer() throws MQClientException {
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_6", getAclRPCHook());
+        consumer.setNamesrvAddr("127.0.0.1:9876");
+        consumer.start();
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java`
+#### Snippet
+```java
+
+    public static void pullConsumer() throws MQClientException {
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_6", getAclRPCHook());
+        consumer.setNamesrvAddr("127.0.0.1:9876");
+        consumer.start();
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/namespace/PullConsumerWithNamespace.java`
+#### Snippet
+```java
+
+    public static void main(String[] args) throws Exception {
+        DefaultMQPullConsumer pullConsumer = new DefaultMQPullConsumer(NAMESPACE, CONSUMER_GROUP);
+        pullConsumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        pullConsumer.start();
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/namespace/PullConsumerWithNamespace.java`
+#### Snippet
+```java
+
+    public static void main(String[] args) throws Exception {
+        DefaultMQPullConsumer pullConsumer = new DefaultMQPullConsumer(NAMESPACE, CONSUMER_GROUP);
+        pullConsumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        pullConsumer.start();
+```
+
+### Deprecation
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingProducer.java`
+#### Snippet
+```java
+        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
+//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
+        producer.start();
+
+```
+
+### Deprecation
+'getDefaultMQPushConsumerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingPushConsumer.java`
+#### Snippet
+```java
+        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
+//        consumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        consumer.getDefaultMQPushConsumerImpl().registerConsumeMessageHook(new ConsumeMessageOpenTracingHookImpl(tracer));
+
+        consumer.subscribe(TOPIC, "*");
+```
+
+### Deprecation
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingTransactionProducer.java`
+#### Snippet
+```java
+        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
+//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
+        producer.getDefaultMQProducerImpl().registerEndTransactionHook(new EndTransactionOpenTracingHookImpl(tracer));
+
+```
+
+### Deprecation
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingTransactionProducer.java`
+#### Snippet
+```java
+//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
+        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
+        producer.getDefaultMQProducerImpl().registerEndTransactionHook(new EndTransactionOpenTracingHookImpl(tracer));
+
+        producer.setTransactionListener(new TransactionListener() {
+```
+
+### Deprecation
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+            int compressLevel = commandLine.hasOption("cl") ? Integer.parseInt(commandLine.getOptionValue("cl")) : 5;
+            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
+            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
+            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
+            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
+```
+
+### Deprecation
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
+            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
+            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
+            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
+            System.out.printf("compressType: %s compressLevel: %s%n", compressType, compressLevel);
 ```
 
 ### Deprecation
@@ -1981,99 +2305,39 @@ in `client/src/main/java/org/apache/rocketmq/client/MQHelper.java`
 ```
 
 ### Deprecation
-'recoverAbnormally(long)' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
 #### Snippet
 ```java
-            this.commitLog.recoverNormally(maxPhyOffsetOfConsumeQueue);
-        } else {
-            this.commitLog.recoverAbnormally(maxPhyOffsetOfConsumeQueue);
-        }
-
+                            }
+                            if (asyncEnable) {
+                                ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
+                                // Flow control
+                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE) {
 ```
 
 ### Deprecation
-'getdLedgerConfig()' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
 #### Snippet
 ```java
-        String storePathPhysic;
-        if (DefaultMessageStore.this.getMessageStoreConfig().isEnableDLegerCommitLog()) {
-            storePathPhysic = ((DLedgerCommitLog) DefaultMessageStore.this.getCommitLog()).getdLedgerServer().getdLedgerConfig().getDataStorePath();
-        } else {
-            storePathPhysic = DefaultMessageStore.this.getMessageStoreConfig().getStorePathCommitLog();
+            int compressLevel = commandLine.hasOption("cl") ? Integer.parseInt(commandLine.getOptionValue("cl")) : 5;
+            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
+            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
+            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
+            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
 ```
 
 ### Deprecation
-'getdLedgerConfig()' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+'getDefaultMQProducerImpl()' is deprecated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
 #### Snippet
 ```java
-            return null;
-        }
-        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
-        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, returnFirstOnNotFound);
-        if (mappedFile != null) {
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.rocketmq.store.CommitLog'
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-
-    @Override
-    public void recoverAbnormally(long maxPhyOffsetOfConsumeQueue) {
-        recover(maxPhyOffsetOfConsumeQueue);
-    }
-```
-
-### Deprecation
-'setPreferredLeaderId(java.lang.String)' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-        dLedgerConfig.setDeleteWhen(defaultMessageStore.getMessageStoreConfig().getDeleteWhen());
-        dLedgerConfig.setFileReservedHours(defaultMessageStore.getMessageStoreConfig().getFileReservedTime() + 1);
-        dLedgerConfig.setPreferredLeaderId(defaultMessageStore.getMessageStoreConfig().getPreferredLeaderId());
-        dLedgerConfig.setEnableBatchPush(defaultMessageStore.getMessageStoreConfig().isEnableBatchPush());
-        dLedgerConfig.setDiskSpaceRatioToCheckExpired(defaultMessageStore.getMessageStoreConfig().getDiskMaxUsedSpaceRatio() / 100f);
-```
-
-### Deprecation
-'getdLedgerStore()' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-        id = Integer.parseInt(dLedgerConfig.getSelfId().substring(1)) + 1;
-        dLedgerServer = new DLedgerServer(dLedgerConfig);
-        dLedgerFileStore = (DLedgerMmapFileStore) dLedgerServer.getdLedgerStore();
-        DLedgerMmapFileStore.AppendHook appendHook = (entry, buffer, bodyOffset) -> {
-            assert bodyOffset == DLedgerEntry.BODY_OFFSET;
-```
-
-### Deprecation
-'getdLedgerConfig()' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-            return false;
-        }
-        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
-        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, offset == 0);
-        if (mappedFile != null) {
-```
-
-### Deprecation
-'getdLedgerConfig()' is deprecated
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-            return super.getMessage(offset, size);
-        }
-        int mappedFileSize = this.dLedgerServer.getdLedgerConfig().getMappedFileSizeForEntryData();
-        MmapFile mappedFile = this.dLedgerFileList.findMappedFileByOffset(offset, offset == 0);
-        if (mappedFile != null) {
+            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
+            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
+            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
+            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
+            System.out.printf("compressType: %s compressLevel: %s%n", compressType, compressLevel);
 ```
 
 ### Deprecation
@@ -2141,6 +2405,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePullImpl.java`
 #### Snippet
 ```java
+
+public class RebalancePullImpl extends RebalanceImpl {
+    private final DefaultMQPullConsumerImpl defaultMQPullConsumerImpl;
+
+    public RebalancePullImpl(DefaultMQPullConsumerImpl defaultMQPullConsumerImpl) {
+```
+
+### Deprecation
+'org.apache.rocketmq.client.impl.consumer.DefaultMQPullConsumerImpl' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePullImpl.java`
+#### Snippet
+```java
     private final DefaultMQPullConsumerImpl defaultMQPullConsumerImpl;
 
     public RebalancePullImpl(DefaultMQPullConsumerImpl defaultMQPullConsumerImpl) {
@@ -2161,18 +2437,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePullI
 ```
 
 ### Deprecation
-'org.apache.rocketmq.client.impl.consumer.DefaultMQPullConsumerImpl' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePullImpl.java`
-#### Snippet
-```java
-
-public class RebalancePullImpl extends RebalanceImpl {
-    private final DefaultMQPullConsumerImpl defaultMQPullConsumerImpl;
-
-    public RebalancePullImpl(DefaultMQPullConsumerImpl defaultMQPullConsumerImpl) {
-```
-
-### Deprecation
 'getDefaultMQPushConsumerImpl()' is deprecated
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
 #### Snippet
@@ -2185,27 +2449,27 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 ```
 
 ### Deprecation
-'ROLLBACK' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
-#### Snippet
-```java
-
-                            if (null == status
-                                || ConsumeOrderlyStatus.ROLLBACK == status
-                                || ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT == status) {
-                                log.warn("consumeMessage Orderly return not OK, Group: {} Msgs: {} MQ: {}",
-```
-
-### Deprecation
 'COMMIT' is deprecated
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
 #### Snippet
 ```java
-                                consumeMessageContext.setStatus(status.toString());
-                                consumeMessageContext
-                                    .setSuccess(ConsumeOrderlyStatus.SUCCESS == status || ConsumeOrderlyStatus.COMMIT == status);
-                                ConsumeMessageOrderlyService.this.defaultMQPushConsumerImpl.executeHookAfter(consumeMessageContext);
-                            }
+            if (status != null) {
+                switch (status) {
+                    case COMMIT:
+                        result.setConsumeResult(CMResult.CR_COMMIT);
+                        break;
+```
+
+### Deprecation
+'ROLLBACK' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
+#### Snippet
+```java
+                        result.setConsumeResult(CMResult.CR_COMMIT);
+                        break;
+                    case ROLLBACK:
+                        result.setConsumeResult(CMResult.CR_ROLLBACK);
+                        break;
 ```
 
 ### Deprecation
@@ -2257,27 +2521,27 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 ```
 
 ### Deprecation
-'COMMIT' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
-#### Snippet
-```java
-            if (status != null) {
-                switch (status) {
-                    case COMMIT:
-                        result.setConsumeResult(CMResult.CR_COMMIT);
-                        break;
-```
-
-### Deprecation
 'ROLLBACK' is deprecated
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
 #### Snippet
 ```java
-                        result.setConsumeResult(CMResult.CR_COMMIT);
-                        break;
-                    case ROLLBACK:
-                        result.setConsumeResult(CMResult.CR_ROLLBACK);
-                        break;
+
+                            if (null == status
+                                || ConsumeOrderlyStatus.ROLLBACK == status
+                                || ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT == status) {
+                                log.warn("consumeMessage Orderly return not OK, Group: {} Msgs: {} MQ: {}",
+```
+
+### Deprecation
+'COMMIT' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageOrderlyService.java`
+#### Snippet
+```java
+                                consumeMessageContext.setStatus(status.toString());
+                                consumeMessageContext
+                                    .setSuccess(ConsumeOrderlyStatus.SUCCESS == status || ConsumeOrderlyStatus.COMMIT == status);
+                                ConsumeMessageOrderlyService.this.defaultMQPushConsumerImpl.executeHookAfter(consumeMessageContext);
+                            }
 ```
 
 ### Deprecation
@@ -2302,54 +2566,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ProcessQueue.j
                 pushConsumer.sendMessageBack(msg, 3);
                 log.info("send expire msg back. topic={}, msgId={}, storeHost={}, queueId={}, queueOffset={}", msg.getTopic(), msg.getMsgId(), msg.getStoreHost(), msg.getQueueId(), msg.getQueueOffset());
                 try {
-```
-
-### Deprecation
-'CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
-#### Snippet
-```java
-        final OffsetStore offsetStore = this.defaultMQPushConsumerImpl.getOffsetStore();
-        switch (consumeFromWhere) {
-            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
-            case CONSUME_FROM_MIN_OFFSET:
-            case CONSUME_FROM_MAX_OFFSET:
-```
-
-### Deprecation
-'CONSUME_FROM_MIN_OFFSET' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
-#### Snippet
-```java
-        switch (consumeFromWhere) {
-            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
-            case CONSUME_FROM_MIN_OFFSET:
-            case CONSUME_FROM_MAX_OFFSET:
-            case CONSUME_FROM_LAST_OFFSET: {
-```
-
-### Deprecation
-'CONSUME_FROM_MAX_OFFSET' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
-#### Snippet
-```java
-            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
-            case CONSUME_FROM_MIN_OFFSET:
-            case CONSUME_FROM_MAX_OFFSET:
-            case CONSUME_FROM_LAST_OFFSET: {
-                long lastOffset = offsetStore.readOffset(mq, ReadOffsetType.READ_FROM_STORE);
-```
-
-### Deprecation
-'org.apache.rocketmq.client.producer.TransactionCheckListener' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/MQProducerInner.java`
-#### Snippet
-```java
-    boolean isPublishTopicNeedUpdate(final String topic);
-
-    TransactionCheckListener checkListener();
-    TransactionListener getCheckListener();
-
 ```
 
 ### Deprecation
@@ -2413,39 +2629,51 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/factory/MQClientInstanc
 ```
 
 ### Deprecation
-'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+'CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
 #### Snippet
 ```java
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
-                    return body.getConsumerTable();
-                }
+        final OffsetStore offsetStore = this.defaultMQPushConsumerImpl.getOffsetStore();
+        switch (consumeFromWhere) {
+            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
+            case CONSUME_FROM_MIN_OFFSET:
+            case CONSUME_FROM_MAX_OFFSET:
 ```
 
 ### Deprecation
-'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+'CONSUME_FROM_MIN_OFFSET' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
 #### Snippet
 ```java
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
-                    return body.getConsumerTable();
-                }
+        switch (consumeFromWhere) {
+            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
+            case CONSUME_FROM_MIN_OFFSET:
+            case CONSUME_FROM_MAX_OFFSET:
+            case CONSUME_FROM_LAST_OFFSET: {
 ```
 
 ### Deprecation
-'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+'CONSUME_FROM_MAX_OFFSET' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
 #### Snippet
 ```java
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
-                    return body.getConsumerTable();
-                }
+            case CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST:
+            case CONSUME_FROM_MIN_OFFSET:
+            case CONSUME_FROM_MAX_OFFSET:
+            case CONSUME_FROM_LAST_OFFSET: {
+                long lastOffset = offsetStore.readOffset(mq, ReadOffsetType.READ_FROM_STORE);
+```
+
+### Deprecation
+'org.apache.rocketmq.client.producer.TransactionCheckListener' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/MQProducerInner.java`
+#### Snippet
+```java
+    boolean isPublishTopicNeedUpdate(final String topic);
+
+    TransactionCheckListener checkListener();
+    TransactionListener getCheckListener();
+
 ```
 
 ### Deprecation
@@ -2467,32 +2695,20 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerSched
 ```java
     }
 
-    public void setDefaultMQPullConsumer(DefaultMQPullConsumer defaultMQPullConsumer) {
-        this.defaultMQPullConsumer = defaultMQPullConsumer;
-    }
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerScheduleService.java`
-#### Snippet
-```java
-    private final ConcurrentMap<MessageQueue, PullTaskImpl> taskTable =
-        new ConcurrentHashMap<>();
-    private DefaultMQPullConsumer defaultMQPullConsumer;
-    private int pullThreadNums = 20;
-    private ConcurrentMap<String /* topic */, PullTaskCallback> callbackTable =
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerScheduleService.java`
-#### Snippet
-```java
-    }
-
     public DefaultMQPullConsumer getDefaultMQPullConsumer() {
         return defaultMQPullConsumer;
+    }
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerScheduleService.java`
+#### Snippet
+```java
+    }
+
+    public void setDefaultMQPullConsumer(DefaultMQPullConsumer defaultMQPullConsumer) {
+        this.defaultMQPullConsumer = defaultMQPullConsumer;
     }
 ```
 
@@ -2518,6 +2734,18 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerSched
         this.defaultMQPullConsumer = new DefaultMQPullConsumer(consumerGroup, rpcHook);
         this.defaultMQPullConsumer.setMessageModel(MessageModel.CLUSTERING);
     }
+```
+
+### Deprecation
+'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/consumer/MQPullConsumerScheduleService.java`
+#### Snippet
+```java
+    private final ConcurrentMap<MessageQueue, PullTaskImpl> taskTable =
+        new ConcurrentHashMap<>();
+    private DefaultMQPullConsumer defaultMQPullConsumer;
+    private int pullThreadNums = 20;
+    private ConcurrentMap<String /* topic */, PullTaskCallback> callbackTable =
 ```
 
 ### Deprecation
@@ -2561,11 +2789,11 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushC
 in `client/src/main/java/org/apache/rocketmq/client/producer/TransactionMQProducer.java`
 #### Snippet
 ```java
-    }
 
-    public TransactionCheckListener getTransactionCheckListener() {
-        return transactionCheckListener;
-    }
+public class TransactionMQProducer extends DefaultMQProducer {
+    private TransactionCheckListener transactionCheckListener;
+    private int checkThreadPoolMinSize = 1;
+    private int checkThreadPoolMaxSize = 1;
 ```
 
 ### Deprecation
@@ -2573,11 +2801,11 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/TransactionMQProduc
 in `client/src/main/java/org/apache/rocketmq/client/producer/TransactionMQProducer.java`
 #### Snippet
 ```java
+    }
 
-public class TransactionMQProducer extends DefaultMQProducer {
-    private TransactionCheckListener transactionCheckListener;
-    private int checkThreadPoolMinSize = 1;
-    private int checkThreadPoolMaxSize = 1;
+    public TransactionCheckListener getTransactionCheckListener() {
+        return transactionCheckListener;
+    }
 ```
 
 ### Deprecation
@@ -2593,54 +2821,6 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/MQProducer.java`
 ```
 
 ### Deprecation
-'getAclConfigDataVersion()' is deprecated
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainAccessValidator.java`
-#### Snippet
-```java
-    @Override
-    public String getAclConfigVersion() {
-        return aclPlugEngine.getAclConfigDataVersion();
-    }
-
-```
-
-### Deprecation
-'org.apache.rocketmq.client.producer.LocalTransactionExecuter' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-
-    public TransactionSendResult sendMessageInTransaction(final Message msg,
-        final LocalTransactionExecuter localTransactionExecuter, final Object arg)
-        throws MQClientException {
-        TransactionListener transactionListener = getCheckListener();
-```
-
-### Deprecation
-'org.apache.rocketmq.client.producer.TransactionCheckListener' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-            @Override
-            public void run() {
-                TransactionCheckListener transactionCheckListener = DefaultMQProducerImpl.this.checkListener();
-                TransactionListener transactionListener = getCheckListener();
-                if (transactionCheckListener != null || transactionListener != null) {
-```
-
-### Deprecation
-'send(org.apache.rocketmq.common.message.Message, org.apache.rocketmq.common.message.MessageQueue, org.apache.rocketmq.client.producer.SendCallback, long)' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
-#### Snippet
-```java
-        throws MQClientException, RemotingException, InterruptedException {
-        msg.setTopic(withNamespace(msg.getTopic()));
-        this.defaultMQProducerImpl.send(msg, queueWithNamespace(mq), sendCallback, timeout);
-    }
-
-```
-
-### Deprecation
 'org.apache.rocketmq.client.producer.LocalTransactionExecuter' is deprecated
 in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
 #### Snippet
@@ -2650,6 +2830,18 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.j
     public TransactionSendResult sendMessageInTransaction(Message msg, LocalTransactionExecuter tranExecuter,
         final Object arg)
         throws MQClientException {
+```
+
+### Deprecation
+'send(org.apache.rocketmq.common.message.Message, org.apache.rocketmq.client.producer.SendCallback, long)' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+#### Snippet
+```java
+        throws MQClientException, RemotingException, InterruptedException {
+        msg.setTopic(withNamespace(msg.getTopic()));
+        this.defaultMQProducerImpl.send(msg, sendCallback, timeout);
+    }
+
 ```
 
 ### Deprecation
@@ -2677,18 +2869,6 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.j
 ```
 
 ### Deprecation
-'send(org.apache.rocketmq.common.message.Message, org.apache.rocketmq.client.producer.SendCallback, long)' is deprecated
-in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
-#### Snippet
-```java
-        throws MQClientException, RemotingException, InterruptedException {
-        msg.setTopic(withNamespace(msg.getTopic()));
-        this.defaultMQProducerImpl.send(msg, sendCallback, timeout);
-    }
-
-```
-
-### Deprecation
 'send(org.apache.rocketmq.common.message.Message, org.apache.rocketmq.client.producer.MessageQueueSelector, java.lang.Object, org.apache.rocketmq.client.producer.SendCallback, long)' is deprecated
 in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
 #### Snippet
@@ -2698,6 +2878,78 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.j
         this.defaultMQProducerImpl.send(msg, selector, arg, sendCallback, timeout);
     }
 
+```
+
+### Deprecation
+'send(org.apache.rocketmq.common.message.Message, org.apache.rocketmq.common.message.MessageQueue, org.apache.rocketmq.client.producer.SendCallback, long)' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+#### Snippet
+```java
+        throws MQClientException, RemotingException, InterruptedException {
+        msg.setTopic(withNamespace(msg.getTopic()));
+        this.defaultMQProducerImpl.send(msg, queueWithNamespace(mq), sendCallback, timeout);
+    }
+
+```
+
+### Deprecation
+'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
+                    return body.getConsumerTable();
+                }
+```
+
+### Deprecation
+'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
+                    return body.getConsumerTable();
+                }
+```
+
+### Deprecation
+'org.apache.rocketmq.remoting.protocol.body.GetConsumerStatusBody' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+                    GetConsumerStatusBody body = GetConsumerStatusBody.decode(response.getBody(), GetConsumerStatusBody.class);
+                    return body.getConsumerTable();
+                }
+```
+
+### Deprecation
+'org.apache.rocketmq.client.producer.LocalTransactionExecuter' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+
+    public TransactionSendResult sendMessageInTransaction(final Message msg,
+        final LocalTransactionExecuter localTransactionExecuter, final Object arg)
+        throws MQClientException {
+        TransactionListener transactionListener = getCheckListener();
+```
+
+### Deprecation
+'org.apache.rocketmq.client.producer.TransactionCheckListener' is deprecated
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+            @Override
+            public void run() {
+                TransactionCheckListener transactionCheckListener = DefaultMQProducerImpl.this.checkListener();
+                TransactionListener transactionListener = getCheckListener();
+                if (transactionCheckListener != null || transactionListener != null) {
 ```
 
 ### Deprecation
@@ -2772,246 +3024,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
             responseHeader.setBrokerName(this.brokerController.getBrokerConfig().getBrokerName());
 ```
 
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java`
-#### Snippet
-```java
-
-    public static void pullConsumer() throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_6", getAclRPCHook());
-        consumer.setNamesrvAddr("127.0.0.1:9876");
-        consumer.start();
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/simple/AclClient.java`
-#### Snippet
-```java
-
-    public static void pullConsumer() throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_6", getAclRPCHook());
-        consumer.setNamesrvAddr("127.0.0.1:9876");
-        consumer.start();
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/namespace/PullConsumerWithNamespace.java`
-#### Snippet
-```java
-
-    public static void main(String[] args) throws Exception {
-        DefaultMQPullConsumer pullConsumer = new DefaultMQPullConsumer(NAMESPACE, CONSUMER_GROUP);
-        pullConsumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        pullConsumer.start();
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/namespace/PullConsumerWithNamespace.java`
-#### Snippet
-```java
-
-    public static void main(String[] args) throws Exception {
-        DefaultMQPullConsumer pullConsumer = new DefaultMQPullConsumer(NAMESPACE, CONSUMER_GROUP);
-        pullConsumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        pullConsumer.start();
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-            int compressLevel = commandLine.hasOption("cl") ? Integer.parseInt(commandLine.getOptionValue("cl")) : 5;
-            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
-            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
-            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
-            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
-            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
-            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
-            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
-            System.out.printf("compressType: %s compressLevel: %s%n", compressType, compressLevel);
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-                            }
-                            if (asyncEnable) {
-                                ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
-                                // Flow control
-                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE) {
-```
-
-### Deprecation
-'getDefaultMQPushConsumerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingPushConsumer.java`
-#### Snippet
-```java
-        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
-//        consumer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        consumer.getDefaultMQPushConsumerImpl().registerConsumeMessageHook(new ConsumeMessageOpenTracingHookImpl(tracer));
-
-        consumer.subscribe(TOPIC, "*");
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingProducer.java`
-#### Snippet
-```java
-        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
-//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
-        producer.start();
-
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingTransactionProducer.java`
-#### Snippet
-```java
-        // Uncomment the following line while debugging, namesrvAddr should be set to your local address
-//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
-        producer.getDefaultMQProducerImpl().registerEndTransactionHook(new EndTransactionOpenTracingHookImpl(tracer));
-
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/tracemessage/OpenTracingTransactionProducer.java`
-#### Snippet
-```java
-//        producer.setNamesrvAddr(DEFAULT_NAMESRVADDR);
-        producer.getDefaultMQProducerImpl().registerSendMessageHook(new SendMessageOpenTracingHookImpl(tracer));
-        producer.getDefaultMQProducerImpl().registerEndTransactionHook(new EndTransactionOpenTracingHookImpl(tracer));
-
-        producer.setTransactionListener(new TransactionListener() {
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-            int compressLevel = commandLine.hasOption("cl") ? Integer.parseInt(commandLine.getOptionValue("cl")) : 5;
-            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
-            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
-            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
-            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
-```
-
-### Deprecation
-'getDefaultMQProducerImpl()' is deprecated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-            int compressOverHowMuch = commandLine.hasOption("ch") ? Integer.parseInt(commandLine.getOptionValue("ch")) : 4096;
-            producer.getDefaultMQProducerImpl().setCompressType(CompressionType.of(compressType));
-            producer.getDefaultMQProducerImpl().setCompressLevel(compressLevel);
-            producer.setCompressMsgBodyOverHowmuch(compressOverHowMuch);
-            System.out.printf("compressType: %s compressLevel: %s%n", compressType, compressLevel);
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(PullConsumerImpl.class);
-
-    private final DefaultMQPullConsumer rocketmqPullConsumer;
-    private final KeyValue properties;
-    private boolean started = false;
-```
-
-### Deprecation
-'getDefaultMQPullConsumerImpl()' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
-#### Snippet
-```java
-                    PullResult pullResult = consumer.pull(mq, "*",
-                        offset, localMessageCache.nextPullBatchNums());
-                    ProcessQueue pq = rocketmqPullConsumer.getDefaultMQPullConsumerImpl().getRebalanceImpl()
-                        .getProcessQueueTable().get(mq);
-                    switch (pullResult.getPullStatus()) {
-```
-
-### Deprecation
-'getDefaultMQPushConsumerImpl()' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
-#### Snippet
-```java
-    @Override
-    public boolean isSuspended() {
-        return this.rocketmqPushConsumer.getDefaultMQPushConsumerImpl().isPause();
-    }
-
-```
-
-### Deprecation
-'getDefaultMQPullConsumerImpl()' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-
-    private void cleanExpireMsg() {
-        for (final Map.Entry<MessageQueue, ProcessQueue> next : rocketmqPullConsumer.getDefaultMQPullConsumerImpl()
-            .getRebalanceImpl().getProcessQueueTable().entrySet()) {
-            ProcessQueue pq = next.getValue();
-```
-
-### Deprecation
-'sendMessageBack(org.apache.rocketmq.common.message.MessageExt, int)' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-
-                try {
-                    rocketmqPullConsumer.sendMessageBack(msg, 3);
-                    log.info("Send expired msg back. topic={}, msgId={}, storeHost={}, queueId={}, queueOffset={}",
-                        msg.getTopic(), msg.getMsgId(), msg.getStoreHost(), msg.getQueueId(), msg.getQueueOffset());
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-    private final Map<String, ConsumeRequest> consumedRequest;
-    private final ConcurrentHashMap<MessageQueue, Long> pullOffsetTable;
-    private final DefaultMQPullConsumer rocketmqPullConsumer;
-    private final ClientConfig clientConfig;
-    private final ScheduledExecutorService cleanExpireMsgExecutors;
-```
-
-### Deprecation
-'org.apache.rocketmq.client.consumer.DefaultMQPullConsumer' is deprecated
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-    private final ScheduledExecutorService cleanExpireMsgExecutors;
-
-    LocalMessageCache(final DefaultMQPullConsumer rocketmqPullConsumer, final ClientConfig clientConfig) {
-        consumeRequestCache = new LinkedBlockingQueue<>(clientConfig.getRmqPullMessageCacheCapacity());
-        this.consumedRequest = new ConcurrentHashMap<>();
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
@@ -3030,18 +3042,6 @@ in `common/src/main/java/org/apache/rocketmq/common/TopicQueueId.java`
 in `common/src/main/java/org/apache/rocketmq/common/help/FAQUrl.java`
 #### Snippet
 ```java
-            int index = errorMessage.indexOf(TIP_STRING_BEGIN);
-            if (-1 == index) {
-                StringBuilder sb = new StringBuilder(errorMessage.length() + UNEXPECTED_EXCEPTION_URL.length() + MORE_INFORMATION.length() + 1);
-                sb.append(errorMessage);
-                sb.append("\n");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `common/src/main/java/org/apache/rocketmq/common/help/FAQUrl.java`
-#### Snippet
-```java
 
     public static String suggestTodo(final String url) {
         StringBuilder sb = new StringBuilder(TIP_STRING_BEGIN.length() + url.length() + TIP_STRING_END.length());
@@ -3050,15 +3050,15 @@ in `common/src/main/java/org/apache/rocketmq/common/help/FAQUrl.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
+`StringBuilder sb` can be replaced with 'String'
+in `common/src/main/java/org/apache/rocketmq/common/help/FAQUrl.java`
 #### Snippet
 ```java
-            return null;
-        }
-        return new StringBuilder().append(ip[0] & 0xFF).append(".").append(
-                ip[1] & 0xFF).append(".").append(ip[2] & 0xFF)
-            .append(".").append(ip[3] & 0xFF).toString();
+            int index = errorMessage.indexOf(TIP_STRING_BEGIN);
+            if (-1 == index) {
+                StringBuilder sb = new StringBuilder(errorMessage.length() + UNEXPECTED_EXCEPTION_URL.length() + MORE_INFORMATION.length() + 1);
+                sb.append(errorMessage);
+                sb.append("\n");
 ```
 
 ### StringBufferReplaceableByString
@@ -3074,255 +3074,15 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/NetworkUtil.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
+`StringBuilder` can be replaced with 'String'
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
-
-    public static String addQuoteToParamater(String param) {
-        StringBuilder sb = new StringBuilder("'");
-        sb.append(param).append("'");
-        return sb.toString();
-```
-
-### StringBufferReplaceableByString
-`StringBuilder res` can be replaced with 'String'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-        else {
-            len = n - len;
-            StringBuilder res = new StringBuilder();
-            res.append(getCheseWord(len));
-            res.append(suffix);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder res` can be replaced with 'String'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-        else {
-            len = n - len;
-            StringBuilder res = new StringBuilder(prefix);
-            res.append(getStringWithCharacter(len));
-            return res.toString();
-```
-
-### StringBufferReplaceableByString
-`StringBuilder res` can be replaced with 'String'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-        else {
-            len = n - len;
-            StringBuilder res = new StringBuilder(prefix);
-            res.append(getCheseWord(len));
-            return res.toString();
-```
-
-### StringBufferReplaceableByString
-`StringBuilder res` can be replaced with 'String'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-        else {
-            len = n - len;
-            StringBuilder res = new StringBuilder();
-            res.append(getStringWithCharacter(len));
-            res.append(suffix);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/BrokerMetadata.java`
-#### Snippet
-```java
-    @Override
-    public String encodeToStr() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(clusterName).append("#");
-        sb.append(brokerName).append("#");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/TempBrokerMetadata.java`
-#### Snippet
-```java
-    @Override
-    public String encodeToStr() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(clusterName).append("#");
-        sb.append(brokerName).append("#");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-
-    private String getGetMissTps() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getGetMissTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-
-    private String getGetTransferredTps() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getGetTransferredTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-
-    private String getGetFoundTps() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getGetFoundTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-
-    private String getPutTps() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getPutTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-
-    private String getGetTotalTps() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getGetTotalTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/pop/AckMsg.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("AckMsg{");
-        sb.append("ackOffset=").append(ackOffset);
-        sb.append(", startOffset=").append(startOffset);
-```
-
-### StringBufferReplaceableByString
-`StringBuffer strBuilder` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
-#### Snippet
-```java
-    public String buildAccountStatsKey(String accountOwnerParent, String accountOwnerSelf, String instanceId,
-        String topic, String group, String msgType, String flowlimitThreshold) {
-        StringBuffer strBuilder = new StringBuffer();
-        strBuilder.append(accountOwnerParent);
-        strBuilder.append("@");
-```
-
-### StringBufferReplaceableByString
-`StringBuffer strBuilder` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
-#### Snippet
-```java
-        final String msgType) {
-        final String sep = "|";
-        StringBuffer strBuilder = new StringBuffer();
-        strBuilder.append(owner).append(sep);
-        strBuilder.append(instanceId).append(sep);
-```
-
-### StringBufferReplaceableByString
-`StringBuffer strBuilder` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
-#### Snippet
-```java
-        final String msgType, String flowlimitThreshold) {
-        final String sep = "|";
-        StringBuffer strBuilder = new StringBuffer();
-        strBuilder.append(owner).append(sep);
-        strBuilder.append(instanceId).append(sep);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder strBuilder` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
-#### Snippet
-```java
-
-    public String buildCommercialStatsKey(String owner, String topic, String group, String type) {
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append(owner);
-        strBuilder.append("@");
-```
-
-### StringBufferReplaceableByString
-`StringBuffer strBuilder` can be replaced with 'String'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
-#### Snippet
-```java
-    public String buildAccountStatsKey(String accountOwnerParent, String accountOwnerSelf, String instanceId,
-        String topic, String group, String msgType) {
-        StringBuffer strBuilder = new StringBuffer();
-        strBuilder.append(accountOwnerParent);
-        strBuilder.append("@");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PopRequest.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("PopRequest{");
-        sb.append("cmd=").append(remotingCommand);
-        sb.append(", channel=").append(channel);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PullRequestHoldService.java`
-#### Snippet
-```java
-
-    private String buildKey(final String topic, final int queueId) {
-        StringBuilder sb = new StringBuilder(topic.length() + 5);
-        sb.append(topic);
-        sb.append(TOPIC_QUEUEID_SEPARATOR);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder("CkWrap{");
-            sb.append("rq=").append(reviveQueueId);
-            sb.append(", rqo=").append(reviveQueueOffset);
+            return null;
+        }
+        return new StringBuilder().append(ip[0] & 0xFF).append(".").append(
+                ip[1] & 0xFF).append(".").append(ip[2] & 0xFF)
+            .append(".").append(ip[3] & 0xFF).toString();
 ```
 
 ### StringBufferReplaceableByString
@@ -3359,6 +3119,258 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/
         final StringBuilder sb = new StringBuilder("QueryDataVersionResponseHeader{");
         sb.append("changed=").append(changed);
         sb.append('}');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+
+    private String getPutTps() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getPutTps(10));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+
+    private String getGetFoundTps() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getGetFoundTps(10));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+
+    private String getGetTotalTps() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getGetTotalTps(10));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+
+    private String getGetMissTps() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getGetMissTps(10));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+
+    private String getGetTransferredTps() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.getGetTransferredTps(10));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/BrokerMetadata.java`
+#### Snippet
+```java
+    @Override
+    public String encodeToStr() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(clusterName).append("#");
+        sb.append(brokerName).append("#");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/TempBrokerMetadata.java`
+#### Snippet
+```java
+    @Override
+    public String encodeToStr() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(clusterName).append("#");
+        sb.append(brokerName).append("#");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/pop/AckMsg.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AckMsg{");
+        sb.append("ackOffset=").append(ackOffset);
+        sb.append(", startOffset=").append(startOffset);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder strBuilder` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+
+    public String buildCommercialStatsKey(String owner, String topic, String group, String type) {
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(owner);
+        strBuilder.append("@");
+```
+
+### StringBufferReplaceableByString
+`StringBuffer strBuilder` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+        final String msgType, String flowlimitThreshold) {
+        final String sep = "|";
+        StringBuffer strBuilder = new StringBuffer();
+        strBuilder.append(owner).append(sep);
+        strBuilder.append(instanceId).append(sep);
+```
+
+### StringBufferReplaceableByString
+`StringBuffer strBuilder` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+        final String msgType) {
+        final String sep = "|";
+        StringBuffer strBuilder = new StringBuffer();
+        strBuilder.append(owner).append(sep);
+        strBuilder.append(instanceId).append(sep);
+```
+
+### StringBufferReplaceableByString
+`StringBuffer strBuilder` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+    public String buildAccountStatsKey(String accountOwnerParent, String accountOwnerSelf, String instanceId,
+        String topic, String group, String msgType) {
+        StringBuffer strBuilder = new StringBuffer();
+        strBuilder.append(accountOwnerParent);
+        strBuilder.append("@");
+```
+
+### StringBufferReplaceableByString
+`StringBuffer strBuilder` can be replaced with 'String'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+    public String buildAccountStatsKey(String accountOwnerParent, String accountOwnerSelf, String instanceId,
+        String topic, String group, String msgType, String flowlimitThreshold) {
+        StringBuffer strBuilder = new StringBuffer();
+        strBuilder.append(accountOwnerParent);
+        strBuilder.append("@");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
+#### Snippet
+```java
+
+    public static String addQuoteToParamater(String param) {
+        StringBuilder sb = new StringBuilder("'");
+        sb.append(param).append("'");
+        return sb.toString();
+```
+
+### StringBufferReplaceableByString
+`StringBuilder res` can be replaced with 'String'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+        else {
+            len = n - len;
+            StringBuilder res = new StringBuilder(prefix);
+            res.append(getStringWithCharacter(len));
+            return res.toString();
+```
+
+### StringBufferReplaceableByString
+`StringBuilder res` can be replaced with 'String'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+        else {
+            len = n - len;
+            StringBuilder res = new StringBuilder(prefix);
+            res.append(getCheseWord(len));
+            return res.toString();
+```
+
+### StringBufferReplaceableByString
+`StringBuilder res` can be replaced with 'String'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+        else {
+            len = n - len;
+            StringBuilder res = new StringBuilder();
+            res.append(getCheseWord(len));
+            res.append(suffix);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder res` can be replaced with 'String'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+        else {
+            len = n - len;
+            StringBuilder res = new StringBuilder();
+            res.append(getStringWithCharacter(len));
+            res.append(suffix);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PopRequest.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("PopRequest{");
+        sb.append("cmd=").append(remotingCommand);
+        sb.append(", channel=").append(channel);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PullRequestHoldService.java`
+#### Snippet
+```java
+
+    private String buildKey(final String topic, final int queueId) {
+        StringBuilder sb = new StringBuilder(topic.length() + 5);
+        sb.append(topic);
+        sb.append(TOPIC_QUEUEID_SEPARATOR);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder("CkWrap{");
+            sb.append("rq=").append(reviveQueueId);
+            sb.append(", rqo=").append(reviveQueueOffset);
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -3429,10 +3441,10 @@ Can be replaced with 'Math.max()' call
 in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
 ```java
-            this.putLock.lock();
-            this.putMessageEntireTimeMax =
-                value > this.putMessageEntireTimeMax ? value : this.putMessageEntireTimeMax;
-            this.putLock.unlock();
+            this.getLock.lock();
+            this.getMessageEntireTimeMax =
+                value > this.getMessageEntireTimeMax ? value : this.getMessageEntireTimeMax;
+            this.getLock.unlock();
         }
 ```
 
@@ -3441,10 +3453,10 @@ Can be replaced with 'Math.max()' call
 in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
 ```java
-            this.getLock.lock();
-            this.getMessageEntireTimeMax =
-                value > this.getMessageEntireTimeMax ? value : this.getMessageEntireTimeMax;
-            this.getLock.unlock();
+            this.putLock.lock();
+            this.putMessageEntireTimeMax =
+                value > this.putMessageEntireTimeMax ? value : this.putMessageEntireTimeMax;
+            this.putLock.unlock();
         }
 ```
 
@@ -3498,18 +3510,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProces
 
 ## RuleId[id=SimplifiableConditionalExpression]
 ### SimplifiableConditionalExpression
-`valve != null ? valve.printZeroLine() : false` can be simplified to 'valve != null \&\& valve.printZeroLine()'
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledPrinter.java`
-#### Snippet
-```java
-
-    protected boolean printZeroLine() {
-        return valve != null ? valve.printZeroLine() : false;
-    }
-
-```
-
-### SimplifiableConditionalExpression
 `valve != null ? valve.enabled() : false` can be simplified to 'valve != null \&\& valve.enabled()'
 in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledPrinter.java`
 #### Snippet
@@ -3522,14 +3522,14 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemSch
 ```
 
 ### SimplifiableConditionalExpression
-`brokerConfig != null ? brokerConfig.isAccountStatsEnable() : true` can be simplified to 'brokerConfig==null \|\| brokerConfig.isAccountStatsEnable()'
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+`valve != null ? valve.printZeroLine() : false` can be simplified to 'valve != null \&\& valve.printZeroLine()'
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledPrinter.java`
 #### Snippet
 ```java
-                    @Override
-                    public boolean enabled() {
-                        return brokerConfig != null ? brokerConfig.isAccountStatsEnable() : true;
-                    }
+
+    protected boolean printZeroLine() {
+        return valve != null ? valve.printZeroLine() : false;
+    }
 
 ```
 
@@ -3543,6 +3543,18 @@ in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
                         return brokerConfig != null ? brokerConfig.isAccountStatsPrintZeroValues() : true;
                     }
                 }
+```
+
+### SimplifiableConditionalExpression
+`brokerConfig != null ? brokerConfig.isAccountStatsEnable() : true` can be simplified to 'brokerConfig==null \|\| brokerConfig.isAccountStatsEnable()'
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+                    @Override
+                    public boolean enabled() {
+                        return brokerConfig != null ? brokerConfig.isAccountStatsEnable() : true;
+                    }
+
 ```
 
 ### SimplifiableConditionalExpression
@@ -3568,30 +3580,6 @@ in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
                 segments.add(createOperator((char) chValue + ""));
             } else if (38 == chValue || 124 == chValue) {
 
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-                        }
-
-                        strBQueue.get(msgQueueListIndex).append("" + msgQueueListIndex + "\t" +
-                            msgIdMap.get(lQueueList.get(msgQueueListIndex).get(msgListIndex)) + "\t"
-                            + lQueueList.get(msgQueueListIndex).get(msgListIndex) + "\r\n");
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
-#### Snippet
-```java
-                int ordinal = ((Enum<?>)enumObject).ordinal();
-                String key = String.format("Field %s", name);
-                String value = String.format("%s %s %s", "public", "int", "" + ordinal);
-                map.put(key, value);
-            }
 ```
 
 ### TrivialStringConcatenation
@@ -3628,6 +3616,30 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
         MessageAccessor.putProperty(messageExt, TIMER_DEQUEUE_MS, System.currentTimeMillis() + "");
         MessageExtBrokerInner message = convertMessage(messageExt, needRoll);
         return message;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+                        }
+
+                        strBQueue.get(msgQueueListIndex).append("" + msgQueueListIndex + "\t" +
+                            msgIdMap.get(lQueueList.get(msgQueueListIndex).get(msgListIndex)) + "\t"
+                            + lQueueList.get(msgQueueListIndex).get(msgListIndex) + "\r\n");
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
+#### Snippet
+```java
+                int ordinal = ((Enum<?>)enumObject).ordinal();
+                String key = String.format("Field %s", name);
+                String value = String.format("%s %s %s", "public", "int", "" + ordinal);
+                map.put(key, value);
+            }
 ```
 
 ### TrivialStringConcatenation
@@ -3724,30 +3736,6 @@ in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongUpDownCounter
 ```java
     }
 
-    @Override public void add(long l, Attributes attributes, Context context) {
-
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongUpDownCounter.java`
-#### Snippet
-```java
-    }
-
-    @Override public void add(long l, Attributes attributes, Context context) {
-
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongUpDownCounter.java`
-#### Snippet
-```java
-    }
-
     @Override public void add(long l, Attributes attributes) {
 
     }
@@ -3779,12 +3767,36 @@ in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongHistogram.jav
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongUpDownCounter.java`
+#### Snippet
+```java
+    }
+
+    @Override public void add(long l, Attributes attributes, Context context) {
+
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongHistogram.java`
 #### Snippet
 ```java
     }
 
     @Override public void record(long l, Attributes attributes, Context context) {
+
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `common/src/main/java/org/apache/rocketmq/common/metrics/NopLongUpDownCounter.java`
+#### Snippet
+```java
+    }
+
+    @Override public void add(long l, Attributes attributes, Context context) {
 
     }
 ```
@@ -3838,15 +3850,27 @@ in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/channel/GrpcClientChan
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/route/TopicRouteService.java`
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `proxy/src/main/java/org/apache/rocketmq/proxy/common/AbstractCacheLoader.java`
 #### Snippet
 ```java
-            refreshAfterWrite(config.getTopicRouteServiceCacheExpiredInSeconds(), TimeUnit.SECONDS).
-            executor(cacheRefreshExecutor).build(new CacheLoader<String, MessageQueueView>() {
-                @Override public @Nullable MessageQueueView load(String topic) throws Exception {
-                    try {
-                        TopicRouteData topicRouteData = topicRouteCacheLoader.loadTopicRouteData(topic);
+
+    @Override
+    public ListenableFuture<V> reload(@Nonnull K key, @Nonnull V oldValue) throws Exception {
+        ListenableFutureTask<V> task = ListenableFutureTask.create(() -> {
+            try {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `proxy/src/main/java/org/apache/rocketmq/proxy/common/AbstractCacheLoader.java`
+#### Snippet
+```java
+
+    @Override
+    public V load(@Nonnull K key) throws Exception {
+        return getDirectly(key);
+    }
 ```
 
 ### NullableProblems
@@ -3871,6 +3895,18 @@ in `proxy/src/main/java/org/apache/rocketmq/proxy/service/route/TopicRouteServic
                     @NonNull MessageQueueView oldValue) throws Exception {
                     try {
                         return load(key);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/route/TopicRouteService.java`
+#### Snippet
+```java
+            refreshAfterWrite(config.getTopicRouteServiceCacheExpiredInSeconds(), TimeUnit.SECONDS).
+            executor(cacheRefreshExecutor).build(new CacheLoader<String, MessageQueueView>() {
+                @Override public @Nullable MessageQueueView load(String topic) throws Exception {
+                    try {
+                        TopicRouteData topicRouteData = topicRouteCacheLoader.loadTopicRouteData(topic);
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -3925,18 +3961,6 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/CompressionType.
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/protocol/http2proxy/Http2ProtocolProxyHandler.java`
-#### Snippet
-```java
-     * The full HTTP/2 connection preface is "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
-     * <p>
-     * ref: https://datatracker.ietf.org/doc/html/rfc7540#section-3.5
-     */
-    private static final int PRI_INT = 0x50524920;
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
 #### Snippet
 ```java
@@ -3947,31 +3971,19 @@ in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java
     private boolean autoMessageVersionOnTopicLen = true;
 ```
 
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/protocol/http2proxy/Http2ProtocolProxyHandler.java`
+#### Snippet
+```java
+     * The full HTTP/2 connection preface is "PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n"
+     * <p>
+     * ref: https://datatracker.ietf.org/doc/html/rfc7540#section-3.5
+     */
+    private static final int PRI_INT = 0x50524920;
+```
+
 ## RuleId[id=FieldCanBeLocal]
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `test/src/main/java/org/apache/rocketmq/test/util/parallel/Task4Test.java`
-#### Snippet
-```java
-
-public class Task4Test extends ParallelTask {
-    private String name = "";
-
-    public Task4Test(String name) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
-#### Snippet
-```java
-    private AbstractMQProducer producer = null;
-    private long msgNum;
-    private int intervalMills;
-    private Thread sendT;
-    private AtomicBoolean bPause = new AtomicBoolean(false);
-```
-
 ### FieldCanBeLocal
 Field can be converted to a local variable
 in `store/src/main/java/org/apache/rocketmq/store/StoreCheckpoint.java`
@@ -4049,6 +4061,18 @@ Field can be converted to a local variable
 in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
 #### Snippet
 ```java
+    public static final String COMPACTION_CQ_DIR = "compactionCq";
+
+    private final String compactionPath;
+    private final String compactionLogPath;
+    private final String compactionCqPath;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
+#### Snippet
+```java
     private final int scanInterval = 30000;
     private final int compactionInterval;
     private final int compactionThreadNum;
@@ -4066,30 +4090,6 @@ in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
     private final int scanInterval = 30000;
     private final int compactionInterval;
     private final int compactionThreadNum;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
-#### Snippet
-```java
-    public static final String COMPACTION_CQ_DIR = "compactionCq";
-
-    private final String compactionPath;
-    private final String compactionLogPath;
-    private final String compactionCqPath;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
-#### Snippet
-```java
-    static class BatchConsumeQueueIterator implements ReferredIterator<CqUnit> {
-        private SelectMappedBufferResult sbr;
-        private int relativePos = 0;
-
-        public BatchConsumeQueueIterator(SelectMappedBufferResult sbr) {
 ```
 
 ### FieldCanBeLocal
@@ -4118,38 +4118,14 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerWheel.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
 #### Snippet
 ```java
+    static class BatchConsumeQueueIterator implements ReferredIterator<CqUnit> {
+        private SelectMappedBufferResult sbr;
+        private int relativePos = 0;
 
-    private class Itr implements Iterator<SelectMappedBufferResult> {
-        private int start;
-        private int current;
-        private ByteBuffer buf;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
-#### Snippet
-```java
-    private String timerCheckMetricsWhen = "05";
-
-    private boolean timerSkipUnknownError = false;
-    private boolean timerWarmEnable = false;
-    private boolean timerStopDequeue = false;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
-#### Snippet
-```java
-
-    private boolean timerSkipUnknownError = false;
-    private boolean timerWarmEnable = false;
-    private boolean timerStopDequeue = false;
-    private int timerCongestNumEachSlot = Integer.MAX_VALUE;
+        public BatchConsumeQueueIterator(SelectMappedBufferResult sbr) {
 ```
 
 ### FieldCanBeLocal
@@ -4186,6 +4162,186 @@ in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java
     private boolean timerEnableDisruptor = false;
 
     private boolean timerEnableCheckMetrics = true;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
+#### Snippet
+```java
+
+    private boolean timerSkipUnknownError = false;
+    private boolean timerWarmEnable = false;
+    private boolean timerStopDequeue = false;
+    private int timerCongestNumEachSlot = Integer.MAX_VALUE;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
+#### Snippet
+```java
+    private String timerCheckMetricsWhen = "05";
+
+    private boolean timerSkipUnknownError = false;
+    private boolean timerWarmEnable = false;
+    private boolean timerStopDequeue = false;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+#### Snippet
+```java
+
+    private class Itr implements Iterator<SelectMappedBufferResult> {
+        private int start;
+        private int current;
+        private ByteBuffer buf;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredCommitLog.java`
+#### Snippet
+```java
+    public static final int BLANK_MAGIC_CODE = 0xBBCCDDEE ^ 1880681586 + 8;
+
+    private final MessageQueue messageQueue;
+    private final TieredMessageStoreConfig storeConfig;
+    private final TieredFileQueue fileQueue;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredConsumeQueue.java`
+#### Snippet
+```java
+        + 4 /* message size: int, 4 bytes */
+        + 8 /* tag hash code: long, 8 bytes */;
+    private final MessageQueue messageQueue;
+    private final TieredMessageStoreConfig storeConfig;
+    private final TieredFileQueue fileQueue;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredConsumeQueue.java`
+#### Snippet
+```java
+        + 8 /* tag hash code: long, 8 bytes */;
+    private final MessageQueue messageQueue;
+    private final TieredMessageStoreConfig storeConfig;
+    private final TieredFileQueue fileQueue;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
+#### Snippet
+```java
+    private static final String OPERATION_POSIX_WRITE = "write";
+
+    private final String basePath;
+    private final String filepath;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+
+    static class CompactTask implements Runnable {
+        private final TieredMessageStoreConfig storeConfig;
+
+        private final int maxHashSlotNum;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+        private final int maxHashSlotNum;
+        private final int maxIndexNum;
+        private final int fileMaxSize;
+        private MappedFile originFile;
+        private TieredFileQueue fileQueue;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `test/src/main/java/org/apache/rocketmq/test/util/parallel/Task4Test.java`
+#### Snippet
+```java
+
+public class Task4Test extends ParallelTask {
+    private String name = "";
+
+    public Task4Test(String name) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+    private AbstractMQProducer producer = null;
+    private long msgNum;
+    private int intervalMills;
+    private Thread sendT;
+    private AtomicBoolean bPause = new AtomicBoolean(false);
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    }
+
+    private String sql;
+
+    protected SelectorParser(String sql) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
+#### Snippet
+```java
+    private volatile FutureState state = FutureState.DOING;
+    private V result = null;
+    private long timeout;
+    private long createTime;
+    private Throwable exception = null;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/producer/AbstractOMSProducer.java`
+#### Snippet
+```java
+    final DefaultMQProducer rocketmqProducer;
+    private boolean started = false;
+    private final ClientConfig clientConfig;
+
+    AbstractOMSProducer(final KeyValue properties) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
+#### Snippet
+```java
+    private final MQPullConsumerScheduleService pullConsumerScheduleService;
+    private final LocalMessageCache localMessageCache;
+    private final ClientConfig clientConfig;
+
+    public PullConsumerImpl(final KeyValue properties) {
 ```
 
 ### FieldCanBeLocal
@@ -4234,30 +4390,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
     private final BlockingQueue<Runnable> consumeRequestQueue;
     private final ThreadPoolExecutor consumeExecutor;
     private final String consumerGroup;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    // only for test purpose, will be modified by reflection in unit test.
-    @SuppressWarnings("FieldMayBeFinal")
-    private static boolean doNotUpdateTopicSubscribeInfoWhenSubscriptionChanged = false;
-
-    public DefaultLitePullConsumerImpl(final DefaultLitePullConsumer defaultLitePullConsumer, final RPCHook rpcHook) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-    private final RemotingClient remotingClient;
-    private final TopAddressing topAddressing;
-    private final ClientRemotingProcessor clientRemotingProcessor;
-    private String nameSrvAddr = null;
-    private ClientConfig clientConfig;
 ```
 
 ### FieldCanBeLocal
@@ -4334,6 +4466,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushC
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    // only for test purpose, will be modified by reflection in unit test.
+    @SuppressWarnings("FieldMayBeFinal")
+    private static boolean doNotUpdateTopicSubscribeInfoWhenSubscriptionChanged = false;
+
+    public DefaultLitePullConsumerImpl(final DefaultLitePullConsumer defaultLitePullConsumer, final RPCHook rpcHook) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `client/src/main/java/org/apache/rocketmq/client/consumer/store/LocalFileOffsetStore.java`
 #### Snippet
 ```java
@@ -4346,6 +4490,42 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/store/LocalFileOffs
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
+#### Snippet
+```java
+public class ExpiredLocalCache<K, T> {
+    private ConcurrentLinkedHashMap<K, CacheObject<T>> cache;
+    private EvictionListener<K, CacheObject<T>> listener;
+
+    public ExpiredLocalCache(int size) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+    private int aclFilesNum;
+    @Deprecated
+    private final Map<String, String> fileCurrentHash;
+    private Map<String, Long> fileLastModifiedTime;
+    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+    private final RemotingClient remotingClient;
+    private final TopAddressing topAddressing;
+    private final ClientRemotingProcessor clientRemotingProcessor;
+    private String nameSrvAddr = null;
+    private ClientConfig clientConfig;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
@@ -4354,42 +4534,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
     private final BlockingQueue<Runnable> asyncSenderThreadPoolQueue;
     private final ExecutorService defaultAsyncSenderExecutor;
     protected BlockingQueue<Runnable> checkRequestQueue;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `controller/src/main/java/org/apache/rocketmq/controller/ControllerStartup.java`
-#### Snippet
-```java
-    private static Logger log;
-    private static Properties properties = null;
-    private static CommandLine commandLine = null;
-
-    public static void main(String[] args) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
-#### Snippet
-```java
-    private final EventSerializer eventSerializer;
-    private final RoleChangeHandler roleHandler;
-    private final DLedgerControllerStateMachine statemachine;
-    private final ScheduledExecutorService scanInactiveMasterService;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    }
-
-    private String sql;
-
-    protected SelectorParser(String sql) {
 ```
 
 ### FieldCanBeLocal
@@ -4430,137 +4574,77 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredCommitLog.java`
+in `controller/src/main/java/org/apache/rocketmq/controller/ControllerStartup.java`
 #### Snippet
 ```java
-    public static final int BLANK_MAGIC_CODE = 0xBBCCDDEE ^ 1880681586 + 8;
+    private static Logger log;
+    private static Properties properties = null;
+    private static CommandLine commandLine = null;
 
-    private final MessageQueue messageQueue;
-    private final TieredMessageStoreConfig storeConfig;
-    private final TieredFileQueue fileQueue;
+    public static void main(String[] args) {
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredConsumeQueue.java`
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
 #### Snippet
 ```java
-        + 4 /* message size: int, 4 bytes */
-        + 8 /* tag hash code: long, 8 bytes */;
-    private final MessageQueue messageQueue;
-    private final TieredMessageStoreConfig storeConfig;
-    private final TieredFileQueue fileQueue;
-```
+    private final EventSerializer eventSerializer;
+    private final RoleChangeHandler roleHandler;
+    private final DLedgerControllerStateMachine statemachine;
+    private final ScheduledExecutorService scanInactiveMasterService;
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredConsumeQueue.java`
-#### Snippet
-```java
-        + 8 /* tag hash code: long, 8 bytes */;
-    private final MessageQueue messageQueue;
-    private final TieredMessageStoreConfig storeConfig;
-    private final TieredFileQueue fileQueue;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
-#### Snippet
-```java
-    private static final String OPERATION_POSIX_WRITE = "write";
-
-    private final String basePath;
-    private final String filepath;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
-#### Snippet
-```java
-        private final int maxHashSlotNum;
-        private final int maxIndexNum;
-        private final int fileMaxSize;
-        private MappedFile originFile;
-        private TieredFileQueue fileQueue;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
-#### Snippet
-```java
-
-    static class CompactTask implements Runnable {
-        private final TieredMessageStoreConfig storeConfig;
-
-        private final int maxHashSlotNum;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
-#### Snippet
-```java
-    private volatile FutureState state = FutureState.DOING;
-    private V result = null;
-    private long timeout;
-    private long createTime;
-    private Throwable exception = null;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/producer/AbstractOMSProducer.java`
-#### Snippet
-```java
-    final DefaultMQProducer rocketmqProducer;
-    private boolean started = false;
-    private final ClientConfig clientConfig;
-
-    AbstractOMSProducer(final KeyValue properties) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
-#### Snippet
-```java
-    private final MQPullConsumerScheduleService pullConsumerScheduleService;
-    private final LocalMessageCache localMessageCache;
-    private final ClientConfig clientConfig;
-
-    public PullConsumerImpl(final KeyValue properties) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
-#### Snippet
-```java
-public class ExpiredLocalCache<K, T> {
-    private ConcurrentLinkedHashMap<K, CacheObject<T>> cache;
-    private EvictionListener<K, CacheObject<T>> listener;
-
-    public ExpiredLocalCache(int size) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private int aclFilesNum;
-    @Deprecated
-    private final Map<String, String> fileCurrentHash;
-    private Map<String, Long> fileLastModifiedTime;
-    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
+#### Snippet
+```java
+        }
+        File tf = new File(target);
+        tf.getParentFile().mkdirs();
+        if (!tf.exists() && !tf.createNewFile()) {
+            throw new RuntimeException("failed to create target file.");
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
+#### Snippet
+```java
+        }
+
+        fileOrDir.delete();
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+#### Snippet
+```java
+        File fileParent = file.getParentFile();
+        if (fileParent != null) {
+            fileParent.mkdirs();
+        }
+        IOTinyUtils.writeStringToFile(file, str, "UTF-8");
+```
+
+### IgnoreResultOfCall
+Result of `InputStream.read()` is ignored
+in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+#### Snippet
+```java
+            int len = in.available();
+            byte[] data = new byte[len];
+            in.read(data, 0, len);
+            return new String(data, StandardCharsets.UTF_8);
+        } catch (Exception ignored) {
+```
+
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
@@ -4598,99 +4682,15 @@ in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
+Result of `CountDownLatch.await()` is ignored
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/ResponseFuture.java`
 #### Snippet
 ```java
-        }
 
-        fileOrDir.delete();
+    public RemotingCommand waitResponse(final long timeoutMillis) throws InterruptedException {
+        this.countDownLatch.await(timeoutMillis, TimeUnit.MILLISECONDS);
+        return this.responseCommand;
     }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
-#### Snippet
-```java
-        }
-        File tf = new File(target);
-        tf.getParentFile().mkdirs();
-        if (!tf.exists() && !tf.createNewFile()) {
-            throw new RuntimeException("failed to create target file.");
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
-#### Snippet
-```java
-        File fileParent = file.getParentFile();
-        if (fileParent != null) {
-            fileParent.mkdirs();
-        }
-        IOTinyUtils.writeStringToFile(file, str, "UTF-8");
-```
-
-### IgnoreResultOfCall
-Result of `InputStream.read()` is ignored
-in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
-#### Snippet
-```java
-            int len = in.available();
-            byte[] data = new byte[len];
-            in.read(data, 0, len);
-            return new String(data, StandardCharsets.UTF_8);
-        } catch (Exception ignored) {
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
-#### Snippet
-```java
-        File file = new File(filePath + File.separator + fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
-#### Snippet
-```java
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-```
-
-### IgnoreResultOfCall
-Result of `VerifyUtils.verifyBalance()` is ignored
-in `test/src/main/java/org/apache/rocketmq/test/util/VerifyUtils.java`
-#### Snippet
-```java
-
-    public static void main(String[] args) {
-        verifyBalance(400, 0.1f, 230, 190);
-    }
-}
-```
-
-### IgnoreResultOfCall
-Result of `PrometheusHttpServer.forceFlush()` is ignored
-in `proxy/src/main/java/org/apache/rocketmq/proxy/metrics/ProxyMetricsManager.java`
-#### Snippet
-```java
-        }
-        if (proxyConfig.getMetricsExporterType() == BrokerConfig.MetricsExporterType.PROM) {
-            prometheusHttpServer.forceFlush();
-            prometheusHttpServer.shutdown();
-        }
 ```
 
 ### IgnoreResultOfCall
@@ -4742,6 +4742,30 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMetrics.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `FileChannel.write()` is ignored
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+#### Snippet
+```java
+                byteBuffer.limit(writePos);
+                this.fileChannel.position(lastCommittedPosition);
+                this.fileChannel.write(byteBuffer);
+                COMMITTED_POSITION_UPDATER.set(this, writePos);
+            } catch (Throwable e) {
+```
+
+### IgnoreResultOfCall
+Result of `FileChannel.write()` is ignored
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+#### Snippet
+```java
+                this.fileChannel.position(currentPos);
+                while (data.hasRemaining()) {
+                    this.fileChannel.write(data);
+                }
+            } catch (Throwable e) {
+```
+
+### IgnoreResultOfCall
 Result of `ExecutorService.awaitTermination()` is ignored
 in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
@@ -4778,123 +4802,27 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `FileChannel.write()` is ignored
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+Result of `File.mkdirs()` is ignored
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
 #### Snippet
 ```java
-                this.fileChannel.position(currentPos);
-                while (data.hasRemaining()) {
-                    this.fileChannel.write(data);
-                }
-            } catch (Throwable e) {
-```
+                        File dir = file.getParentFile();
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
 
-### IgnoreResultOfCall
-Result of `FileChannel.write()` is ignored
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
-#### Snippet
-```java
-                byteBuffer.limit(writePos);
-                this.fileChannel.position(lastCommittedPosition);
-                this.fileChannel.write(byteBuffer);
-                COMMITTED_POSITION_UPDATER.set(this, writePos);
-            } catch (Throwable e) {
-```
-
-### IgnoreResultOfCall
-Result of `CountDownLatch.await()` is ignored
-in `client/src/main/java/org/apache/rocketmq/client/producer/RequestResponseFuture.java`
-#### Snippet
-```java
-
-    public Message waitResponseMessage(final long timeout) throws InterruptedException {
-        this.countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
-        return this.responseMsg;
-    }
 ```
 
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
 #### Snippet
 ```java
-                    File defaultAclFile = new File(fileName);
-                    if (!defaultAclFile.exists()) {
-                        defaultAclFile.createNewFile();
-                    }
-                } catch (IOException e) {
-```
 
-### IgnoreResultOfCall
-Result of `CountDownLatch.await()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
-#### Snippet
-```java
-            }
-            try {
-                countDownLatch.await(timeoutMills, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-                LOGGER.error("query dataversion from nameserver countDownLatch await Exception", e);
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/BrokerController.java`
-#### Snippet
-```java
-        scheduledExecutorService.shutdown();
-        try {
-            scheduledExecutorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException ignore) {
-            BrokerController.LOG.warn("shutdown ScheduledExecutorService was Interrupted!  ", ignore);
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
-#### Snippet
-```java
-            this.deliverExecutorService.shutdown();
-            try {
-                this.deliverExecutorService.awaitTermination(WAIT_FOR_SHUTDOWN, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-                log.error("deliverExecutorService awaitTermination error", e);
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
-#### Snippet
-```java
-                this.handleExecutorService.shutdown();
-                try {
-                    this.handleExecutorService.awaitTermination(WAIT_FOR_SHUTDOWN, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    log.error("handleExecutorService awaitTermination error", e);
-```
-
-### IgnoreResultOfCall
-Result of `PrometheusHttpServer.forceFlush()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/metrics/BrokerMetricsManager.java`
-#### Snippet
-```java
-        }
-        if (brokerConfig.getMetricsExporterType() == BrokerConfig.MetricsExporterType.PROM) {
-            prometheusHttpServer.forceFlush();
-            prometheusHttpServer.shutdown();
-        }
-```
-
-### IgnoreResultOfCall
-Result of `CountDownLatch.await()` is ignored
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
-#### Snippet
-```java
-                    }
-                    try {
-                        countDownLatch.await(2000, TimeUnit.MILLISECONDS);
-                    } catch (InterruptedException e) {
-                        LOGGER.warn("lockBatchMQ exception on {}, {}", this.brokerController.getBrokerConfig().getBrokerName(), e);
+                        // TODO use direct IO to avoid polluting the page cache
+                        file.createNewFile();
+                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
+                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
 ```
 
 ### IgnoreResultOfCall
@@ -4922,42 +4850,6 @@ in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/Pos
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
-#### Snippet
-```java
-                        File dir = file.getParentFile();
-                        if (!dir.exists()) {
-                            dir.mkdirs();
-                        }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
-#### Snippet
-```java
-
-                        // TODO use direct IO to avoid polluting the page cache
-                        file.createNewFile();
-                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
-                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
-```
-
-### IgnoreResultOfCall
-Result of `CountDownLatch.await()` is ignored
-in `example/src/main/java/org/apache/rocketmq/example/simple/AsyncProducer.java`
-#### Snippet
-```java
-            }
-        }
-        countDownLatch.await(5, TimeUnit.SECONDS);
-        producer.shutdown();
-    }
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
 #### Snippet
@@ -4974,6 +4866,18 @@ Result of `File.delete()` is ignored
 in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
 #### Snippet
 ```java
+        if (isFileSealed(curMappedFile)) {
+            if (preFileExists) {
+                preFile.delete();
+            }
+            boolean rename = curMappedFile.renameTo(preFilepath);
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
         File compactFile = new File(compactFilePath);
         if (compactFile.exists()) {
             compactFile.delete();
@@ -4983,14 +4887,86 @@ in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIn
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
 #### Snippet
 ```java
-        if (isFileSealed(curMappedFile)) {
-            if (preFileExists) {
-                preFile.delete();
+        File file = new File(filePath + File.separator + fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
+#### Snippet
+```java
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+```
+
+### IgnoreResultOfCall
+Result of `VerifyUtils.verifyBalance()` is ignored
+in `test/src/main/java/org/apache/rocketmq/test/util/VerifyUtils.java`
+#### Snippet
+```java
+
+    public static void main(String[] args) {
+        verifyBalance(400, 0.1f, 230, 190);
+    }
+}
+```
+
+### IgnoreResultOfCall
+Result of `CountDownLatch.await()` is ignored
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
+#### Snippet
+```java
+            long timeoutMills = clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000;
+            try {
+                sync.await(Math.max(0, timeoutMills - costs), TimeUnit.MILLISECONDS);
+            } catch (InterruptedException ignore) {
             }
-            boolean rename = curMappedFile.renameTo(preFilepath);
+```
+
+### IgnoreResultOfCall
+Result of `PrometheusHttpServer.forceFlush()` is ignored
+in `proxy/src/main/java/org/apache/rocketmq/proxy/metrics/ProxyMetricsManager.java`
+#### Snippet
+```java
+        }
+        if (proxyConfig.getMetricsExporterType() == BrokerConfig.MetricsExporterType.PROM) {
+            prometheusHttpServer.forceFlush();
+            prometheusHttpServer.shutdown();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+                    File defaultAclFile = new File(fileName);
+                    if (!defaultAclFile.exists()) {
+                        defaultAclFile.createNewFile();
+                    }
+                } catch (IOException e) {
+```
+
+### IgnoreResultOfCall
+Result of `CountDownLatch.await()` is ignored
+in `example/src/main/java/org/apache/rocketmq/example/simple/AsyncProducer.java`
+#### Snippet
+```java
+            }
+        }
+        countDownLatch.await(5, TimeUnit.SECONDS);
+        producer.shutdown();
+    }
 ```
 
 ### IgnoreResultOfCall
@@ -5019,182 +4995,98 @@ in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
 
 ### IgnoreResultOfCall
 Result of `CountDownLatch.await()` is ignored
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/ResponseFuture.java`
+in `client/src/main/java/org/apache/rocketmq/client/producer/RequestResponseFuture.java`
 #### Snippet
 ```java
 
-    public RemotingCommand waitResponse(final long timeoutMillis) throws InterruptedException {
-        this.countDownLatch.await(timeoutMillis, TimeUnit.MILLISECONDS);
-        return this.responseCommand;
+    public Message waitResponseMessage(final long timeout) throws InterruptedException {
+        this.countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
+        return this.responseMsg;
     }
 ```
 
 ### IgnoreResultOfCall
 Result of `CountDownLatch.await()` is ignored
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
 ```java
-            long timeoutMills = clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000;
-            try {
-                sync.await(Math.max(0, timeoutMills - costs), TimeUnit.MILLISECONDS);
-            } catch (InterruptedException ignore) {
             }
+            try {
+                countDownLatch.await(timeoutMills, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                LOGGER.error("query dataversion from nameserver countDownLatch await Exception", e);
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `broker/src/main/java/org/apache/rocketmq/broker/BrokerController.java`
+#### Snippet
+```java
+        scheduledExecutorService.shutdown();
+        try {
+            scheduledExecutorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException ignore) {
+            BrokerController.LOG.warn("shutdown ScheduledExecutorService was Interrupted!  ", ignore);
+```
+
+### IgnoreResultOfCall
+Result of `PrometheusHttpServer.forceFlush()` is ignored
+in `broker/src/main/java/org/apache/rocketmq/broker/metrics/BrokerMetricsManager.java`
+#### Snippet
+```java
+        }
+        if (brokerConfig.getMetricsExporterType() == BrokerConfig.MetricsExporterType.PROM) {
+            prometheusHttpServer.forceFlush();
+            prometheusHttpServer.shutdown();
+        }
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
+#### Snippet
+```java
+            this.deliverExecutorService.shutdown();
+            try {
+                this.deliverExecutorService.awaitTermination(WAIT_FOR_SHUTDOWN, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                log.error("deliverExecutorService awaitTermination error", e);
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
+#### Snippet
+```java
+                this.handleExecutorService.shutdown();
+                try {
+                    this.handleExecutorService.awaitTermination(WAIT_FOR_SHUTDOWN, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException e) {
+                    log.error("handleExecutorService awaitTermination error", e);
+```
+
+### IgnoreResultOfCall
+Result of `CountDownLatch.await()` is ignored
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
+#### Snippet
+```java
+                    }
+                    try {
+                        countDownLatch.await(2000, TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException e) {
+                        LOGGER.warn("lockBatchMQ exception on {}, {}", this.brokerController.getBrokerConfig().getBrokerName(), e);
 ```
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `setListener()` is identical to its super method
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
+Method `getHAServerAddr()` is identical to its super method
+in `container/src/main/java/org/apache/rocketmq/container/InnerBrokerController.java`
 #### Snippet
 ```java
 
     @Override
-    public void setListener(AbstractListener listener) {
-        this.listener = listener;
-    }
-```
-
-### RedundantMethodOverride
-Method `getListener()` is identical to its super method
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
-#### Snippet
-```java
-
-    @Override
-    public AbstractListener getListener() {
-        return listener;
-    }
-```
-
-### RedundantMethodOverride
-Method `clearMsg()` is identical to its super method
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
-#### Snippet
-```java
-
-    @Override
-    public void clearMsg() {
-        this.listener.clearMsg();
-    }
-```
-
-### RedundantMethodOverride
-Method `equals()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/common/ReceiptHandleGroup.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean equals(Object o) {
-            return this == o;
-        }
-```
-
-### RedundantMethodOverride
-Method `doBeginRead()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doBeginRead() throws Exception {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `doBind()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doBind(SocketAddress localAddress) throws Exception {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `doDisconnect()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDisconnect() throws Exception {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `metadata()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    public ChannelMetadata metadata() {
-        return null;
-    }
-```
-
-### RedundantMethodOverride
-Method `newUnsafe()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected AbstractUnsafe newUnsafe() {
-        return null;
-    }
-```
-
-### RedundantMethodOverride
-Method `doClose()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doClose() throws Exception {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `isCompatible()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected boolean isCompatible(EventLoop loop) {
-        return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `doWrite()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doWrite(ChannelOutboundBuffer in) throws Exception {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `config()` is identical to its super method
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
-#### Snippet
-```java
-
-    @Override
-    public ChannelConfig config() {
-        return null;
+    public String getHAServerAddr() {
+        return this.brokerConfig.getBrokerIP2() + ":" + this.messageStoreConfig.getHaListenPort();
     }
 ```
 
@@ -5247,6 +5139,162 @@ in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
 ```
 
 ### RedundantMethodOverride
+Method `setListener()` is identical to its super method
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
+#### Snippet
+```java
+
+    @Override
+    public void setListener(AbstractListener listener) {
+        this.listener = listener;
+    }
+```
+
+### RedundantMethodOverride
+Method `getListener()` is identical to its super method
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
+#### Snippet
+```java
+
+    @Override
+    public AbstractListener getListener() {
+        return listener;
+    }
+```
+
+### RedundantMethodOverride
+Method `clearMsg()` is identical to its super method
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalConsumer.java`
+#### Snippet
+```java
+
+    @Override
+    public void clearMsg() {
+        this.listener.clearMsg();
+    }
+```
+
+### RedundantMethodOverride
+Method `equals()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/common/ReceiptHandleGroup.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean equals(Object o) {
+            return this == o;
+        }
+```
+
+### RedundantMethodOverride
+Method `config()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    public ChannelConfig config() {
+        return null;
+    }
+```
+
+### RedundantMethodOverride
+Method `metadata()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    public ChannelMetadata metadata() {
+        return null;
+    }
+```
+
+### RedundantMethodOverride
+Method `doWrite()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doWrite(ChannelOutboundBuffer in) throws Exception {
+
+    }
+```
+
+### RedundantMethodOverride
+Method `doBeginRead()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doBeginRead() throws Exception {
+
+    }
+```
+
+### RedundantMethodOverride
+Method `doClose()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doClose() throws Exception {
+
+    }
+```
+
+### RedundantMethodOverride
+Method `newUnsafe()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected AbstractUnsafe newUnsafe() {
+        return null;
+    }
+```
+
+### RedundantMethodOverride
+Method `isCompatible()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected boolean isCompatible(EventLoop loop) {
+        return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `doDisconnect()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDisconnect() throws Exception {
+
+    }
+```
+
+### RedundantMethodOverride
+Method `doBind()` is identical to its super method
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/relay/ProxyChannel.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doBind(SocketAddress localAddress) throws Exception {
+
+    }
+```
+
+### RedundantMethodOverride
 Method `removeUnnecessaryPopMessageQueue()` is identical to its super method
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
 #### Snippet
@@ -5267,18 +5315,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/offset/LmqConsumerOffsetMana
     @Override
     public String encode(final boolean prettyFormat) {
         return RemotingSerializable.toJson(this, prettyFormat);
-    }
-```
-
-### RedundantMethodOverride
-Method `getHAServerAddr()` is identical to its super method
-in `container/src/main/java/org/apache/rocketmq/container/InnerBrokerController.java`
-#### Snippet
-```java
-
-    @Override
-    public String getHAServerAddr() {
-        return this.brokerConfig.getBrokerIP2() + ":" + this.messageStoreConfig.getHaListenPort();
     }
 ```
 
@@ -5314,9 +5350,9 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerWheel.java`
 ```java
             int slotIndex = (firstSlotIndex + i) % (slotsTotal * 2);
             localBuffer.get().position(slotIndex * Slot.SIZE);
-            if ((timeStartMs + i * precisionMs) / precisionMs != localBuffer.get().getLong()) {
-                continue;
-            }
+            if ((timeStartMs + i * precisionMs) / precisionMs == localBuffer.get().getLong()) {
+                localBuffer.get().getLong(); //first pos
+                localBuffer.get().getLong(); //last pos
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -5326,21 +5362,69 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerWheel.java`
 ```java
             int slotIndex = (firstSlotIndex + i) % (slotsTotal * 2);
             localBuffer.get().position(slotIndex * Slot.SIZE);
-            if ((timeStartMs + i * precisionMs) / precisionMs == localBuffer.get().getLong()) {
-                localBuffer.get().getLong(); //first pos
-                localBuffer.get().getLong(); //last pos
+            if ((timeStartMs + i * precisionMs) / precisionMs != localBuffer.get().getLong()) {
+                continue;
+            }
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-j \* precisionMs: integer multiplication implicitly cast to long
+slotPosition \* INDEX_FILE_HASH_SLOT_SIZE: integer multiplication implicitly cast to long
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+        for (int i = fileSegmentList.size() - 1; i >= 0; i--) {
+            TieredFileSegment fileSegment = fileSegmentList.get(i);
+            CompletableFuture<ByteBuffer> tmpFuture = fileSegment.readAsync(INDEX_FILE_HEADER_SIZE + slotPosition * INDEX_FILE_HASH_SLOT_SIZE, INDEX_FILE_HASH_SLOT_SIZE)
+                .thenCompose(slotBuffer -> {
+                    int indexPosition = slotBuffer.getInt();
+```
+
+### IntegerMultiplicationImplicitCastToLong
+100 \* precisionMs: integer multiplication implicitly cast to long
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
-            int periodTotal = 0;
-            for (int j = slotBeforeNum; j < slotTotalNum; j++) {
-                Slot slotEach = timerWheel.getSlot(currTime + j * precisionMs);
-                periodTotal += slotEach.num;
-            }
+                try {
+                    setState(AbstractStateService.WAITING);
+                    List<TimerRequest> trs = dequeueGetQueue.poll(100 * precisionMs / 1000, TimeUnit.MILLISECONDS);
+                    if (null == trs || trs.size() == 0) {
+                        continue;
+```
+
+### IntegerMultiplicationImplicitCastToLong
+100 \* precisionMs: integer multiplication implicitly cast to long
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+                try {
+                    if (!TimerMessageStore.this.enqueue(0)) {
+                        waitForRunning(100 * precisionMs / 1000);
+                    }
+                } catch (Throwable e) {
+```
+
+### IntegerMultiplicationImplicitCastToLong
+500 \* precisionMs: integer multiplication implicitly cast to long
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+                                    }
+                                    doRes = PUT_NEED_RETRY != doPut(msg, needRoll(tr.getMagic()));
+                                    Thread.sleep(500 * precisionMs / 1000);
+                                }
+                                perfs.endTick("dequeue_put");
+```
+
+### IntegerMultiplicationImplicitCastToLong
+3 \* precisionMs: integer multiplication implicitly cast to long
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+            return -1;
+        }
+        if (preReadTimeMs >= currReadTimeMs + 3 * precisionMs) {
+            return -1;
+        }
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -5404,42 +5488,6 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-100 \* precisionMs: integer multiplication implicitly cast to long
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-                try {
-                    if (!TimerMessageStore.this.enqueue(0)) {
-                        waitForRunning(100 * precisionMs / 1000);
-                    }
-                } catch (Throwable e) {
-```
-
-### IntegerMultiplicationImplicitCastToLong
-100 \* precisionMs: integer multiplication implicitly cast to long
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-                try {
-                    setState(AbstractStateService.WAITING);
-                    List<TimerRequest> trs = dequeueGetQueue.poll(100 * precisionMs / 1000, TimeUnit.MILLISECONDS);
-                    if (null == trs || trs.size() == 0) {
-                        continue;
-```
-
-### IntegerMultiplicationImplicitCastToLong
-100 \* precisionMs: integer multiplication implicitly cast to long
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-                    }
-                    if (-1 == TimerMessageStore.this.dequeue()) {
-                        waitForRunning(100 * precisionMs / 1000);
-                    }
-                } catch (Throwable e) {
-```
-
-### IntegerMultiplicationImplicitCastToLong
 slotsTotal \* precisionMs: integer multiplication implicitly cast to long
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
@@ -5464,27 +5512,63 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-500 \* precisionMs: integer multiplication implicitly cast to long
+j \* precisionMs: integer multiplication implicitly cast to long
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
-                                    }
-                                    doRes = PUT_NEED_RETRY != doPut(msg, needRoll(tr.getMagic()));
-                                    Thread.sleep(500 * precisionMs / 1000);
-                                }
-                                perfs.endTick("dequeue_put");
+            int periodTotal = 0;
+            for (int j = slotBeforeNum; j < slotTotalNum; j++) {
+                Slot slotEach = timerWheel.getSlot(currTime + j * precisionMs);
+                periodTotal += slotEach.num;
+            }
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-3 \* precisionMs: integer multiplication implicitly cast to long
+100 \* precisionMs: integer multiplication implicitly cast to long
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
-            return -1;
-        }
-        if (preReadTimeMs >= currReadTimeMs + 3 * precisionMs) {
-            return -1;
-        }
+                    }
+                    if (-1 == TimerMessageStore.this.dequeue()) {
+                        waitForRunning(100 * precisionMs / 1000);
+                    }
+                } catch (Throwable e) {
+```
+
+### IntegerMultiplicationImplicitCastToLong
+clientConfig.getRmqMessageConsumeTimeout() \* 60 \* 1000: integer multiplication implicitly cast to long
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
+#### Snippet
+```java
+            listener.onReceived(omsMsg, context);
+            long costs = System.currentTimeMillis() - begin;
+            long timeoutMills = clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000;
+            try {
+                sync.await(Math.max(0, timeoutMills - costs), TimeUnit.MILLISECONDS);
+```
+
+### IntegerMultiplicationImplicitCastToLong
+clientConfig.getRmqMessageConsumeTimeout() \* 60 \* 1000: integer multiplication implicitly cast to long
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+                            msg = msgTreeMap.firstEntry().getValue();
+                            if (System.currentTimeMillis() - Long.parseLong(MessageAccessor.getConsumeStartTimeStamp(msg))
+                                > clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000) {
+                                //Expired, ack and remove it.
+                            } else {
+```
+
+### IntegerMultiplicationImplicitCastToLong
+slotCnt \* slotDis: integer multiplication implicitly cast to long
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/timer/TimerProducer.java`
+#### Snippet
+```java
+        for (int slotCnt = 0; slotCnt < slotsTotal; slotCnt++) {
+            for (int msgCnt = 0; msgCnt < msgsTotalPerSlotThread; msgCnt++) {
+                long delayTime = startDelayTime + slotCnt * slotDis;
+                delayList.add(delayTime);
+            }
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -5521,54 +5605,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
                         > brokerController.getBrokerConfig().getPopCkStayBufferTime() * 2) {
                         POP_LOGGER.warn("[PopBuffer] ck offset long time not commit, {}", pointWrapper);
                     }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-slotPosition \* INDEX_FILE_HASH_SLOT_SIZE: integer multiplication implicitly cast to long
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
-#### Snippet
-```java
-        for (int i = fileSegmentList.size() - 1; i >= 0; i--) {
-            TieredFileSegment fileSegment = fileSegmentList.get(i);
-            CompletableFuture<ByteBuffer> tmpFuture = fileSegment.readAsync(INDEX_FILE_HEADER_SIZE + slotPosition * INDEX_FILE_HASH_SLOT_SIZE, INDEX_FILE_HASH_SLOT_SIZE)
-                .thenCompose(slotBuffer -> {
-                    int indexPosition = slotBuffer.getInt();
-```
-
-### IntegerMultiplicationImplicitCastToLong
-slotCnt \* slotDis: integer multiplication implicitly cast to long
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/timer/TimerProducer.java`
-#### Snippet
-```java
-        for (int slotCnt = 0; slotCnt < slotsTotal; slotCnt++) {
-            for (int msgCnt = 0; msgCnt < msgsTotalPerSlotThread; msgCnt++) {
-                long delayTime = startDelayTime + slotCnt * slotDis;
-                delayList.add(delayTime);
-            }
-```
-
-### IntegerMultiplicationImplicitCastToLong
-clientConfig.getRmqMessageConsumeTimeout() \* 60 \* 1000: integer multiplication implicitly cast to long
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PushConsumerImpl.java`
-#### Snippet
-```java
-            listener.onReceived(omsMsg, context);
-            long costs = System.currentTimeMillis() - begin;
-            long timeoutMills = clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000;
-            try {
-                sync.await(Math.max(0, timeoutMills - costs), TimeUnit.MILLISECONDS);
-```
-
-### IntegerMultiplicationImplicitCastToLong
-clientConfig.getRmqMessageConsumeTimeout() \* 60 \* 1000: integer multiplication implicitly cast to long
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-                            msg = msgTreeMap.firstEntry().getValue();
-                            if (System.currentTimeMillis() - Long.parseLong(MessageAccessor.getConsumeStartTimeStamp(msg))
-                                > clientConfig.getRmqMessageConsumeTimeout() * 60 * 1000) {
-                                //Expired, ack and remove it.
-                            } else {
 ```
 
 ## RuleId[id=ThrowFromFinallyBlock]
@@ -5708,30 +5744,6 @@ in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProdu
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `SYSTEM_TOPIC_WHITE_LIST` are queried, but never updated
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/util/TieredStoreUtil.java`
-#### Snippet
-```java
-    };
-
-    private final static List<String> SYSTEM_TOPIC_WHITE_LIST = new LinkedList<>();
-
-    private volatile static TieredMetadataStore metadataStoreInstance;
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `cache` are queried, but never updated
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-    private StatsBenchmarkTProducer statBenchmark;
-    private TxSendConfig sendConfig;
-    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
-
-    private class MsgMeta {
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `topicRouteTable` are queried, but never updated
 in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/ClientMetadata.java`
 #### Snippet
@@ -5744,6 +5756,18 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/ClientMetadata.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
+Contents of collection `SYSTEM_TOPIC_WHITE_LIST` are queried, but never updated
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/util/TieredStoreUtil.java`
+#### Snippet
+```java
+    };
+
+    private final static List<String> SYSTEM_TOPIC_WHITE_LIST = new LinkedList<>();
+
+    private volatile static TieredMetadataStore metadataStoreInstance;
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `wrapperMap` are updated, but never queried
 in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
 #### Snippet
@@ -5753,6 +5777,18 @@ in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
     private static Map<Class<?>, Class<?>> wrapperMap = new HashMap<>();
 
     static {
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `cache` are queried, but never updated
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+    private StatsBenchmarkTProducer statBenchmark;
+    private TxSendConfig sendConfig;
+    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
+
+    private class MsgMeta {
 ```
 
 ## RuleId[id=PointlessBitwiseExpression]
@@ -5808,18 +5844,6 @@ in `common/src/main/java/org/apache/rocketmq/common/namesrv/DefaultTopAddressing
 
 ### StringConcatenationInLoops
 String concatenation `+=` in loop
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-            strToWrite = strBuilder + titleString;
-            for (int i = 0; i < msgListSize; i++)
-                strToWrite += strBQueue.get(i).toString() + "\r\n";
-
-            byteToWrite = strToWrite.getBytes(StandardCharsets.UTF_8);
-```
-
-### StringConcatenationInLoops
-String concatenation `+=` in loop
 in `filter/src/main/java/org/apache/rocketmq/filter/parser/ParseException.java`
 #### Snippet
 ```java
@@ -5842,6 +5866,18 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/ParseException.java`
             retval += add_escapes(tok.image);
 ```
 
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+            strToWrite = strBuilder + titleString;
+            for (int i = 0; i < msgListSize; i++)
+                strToWrite += strBQueue.get(i).toString() + "\r\n";
+
+            byteToWrite = strToWrite.getBytes(StandardCharsets.UTF_8);
+```
+
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `messageDigest` initializer `null` is redundant
@@ -5853,6 +5889,66 @@ public class BinaryUtil {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
+```
+
+### UnusedAssignment
+Variable `n` initializer `0` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
+#### Snippet
+```java
+        char[] buffer = new char[1 << 12];
+        long count = 0;
+        for (int n = 0; (n = input.read(buffer)) >= 0; ) {
+            output.write(buffer, 0, n);
+            count += n;
+```
+
+### UnusedAssignment
+Variable `arg` initializer `null` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+#### Snippet
+```java
+                        if (pt != null && pt.length > 0) {
+                            String cn = pt[0].getSimpleName();
+                            Object arg = null;
+                            if (cn.equals("int") || cn.equals("Integer")) {
+                                arg = Integer.parseInt(property);
+```
+
+### UnusedAssignment
+Variable `resp` initializer `null` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
+#### Snippet
+```java
+
+            int respCode = conn.getResponseCode();
+            String resp = null;
+
+            if (HttpURLConnection.HTTP_OK == respCode) {
+```
+
+### UnusedAssignment
+Variable `resp` initializer `null` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
+#### Snippet
+```java
+            conn.connect();
+            int respCode = conn.getResponseCode();
+            String resp = null;
+
+            if (HttpURLConnection.HTTP_OK == respCode) {
+```
+
+### UnusedAssignment
+Variable `result` initializer `src` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
+#### Snippet
+```java
+    @Deprecated
+    public static byte[] compress(final byte[] src, final int level) throws IOException {
+        byte[] result = src;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(src.length);
+        java.util.zip.Deflater defeater = new java.util.zip.Deflater(level);
 ```
 
 ### UnusedAssignment
@@ -5873,18 +5969,6 @@ in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
     @Deprecated
-    public static byte[] compress(final byte[] src, final int level) throws IOException {
-        byte[] result = src;
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(src.length);
-        java.util.zip.Deflater defeater = new java.util.zip.Deflater(level);
-```
-
-### UnusedAssignment
-Variable `result` initializer `src` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-    @Deprecated
     public static byte[] uncompress(final byte[] src) throws IOException {
         byte[] result = src;
         byte[] uncompressData = new byte[src.length];
@@ -5892,51 +5976,27 @@ in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 ```
 
 ### UnusedAssignment
-Variable `n` initializer `0` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
+Variable `result` initializer `src` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
 #### Snippet
 ```java
-        char[] buffer = new char[1 << 12];
-        long count = 0;
-        for (int n = 0; (n = input.read(buffer)) >= 0; ) {
-            output.write(buffer, 0, n);
-            count += n;
+    @Override
+    public byte[] decompress(byte[] src) throws IOException {
+        byte[] result = src;
+        byte[] uncompressData = new byte[src.length];
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(src);
 ```
 
 ### UnusedAssignment
-Variable `resp` initializer `null` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
+Variable `result` initializer `src` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
 #### Snippet
 ```java
-            conn.connect();
-            int respCode = conn.getResponseCode();
-            String resp = null;
-
-            if (HttpURLConnection.HTTP_OK == respCode) {
-```
-
-### UnusedAssignment
-Variable `resp` initializer `null` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
-#### Snippet
-```java
-
-            int respCode = conn.getResponseCode();
-            String resp = null;
-
-            if (HttpURLConnection.HTTP_OK == respCode) {
-```
-
-### UnusedAssignment
-Variable `arg` initializer `null` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
-#### Snippet
-```java
-                        if (pt != null && pt.length > 0) {
-                            String cn = pt[0].getSimpleName();
-                            Object arg = null;
-                            if (cn.equals("int") || cn.equals("Integer")) {
-                                arg = Integer.parseInt(property);
+    @Override
+    public byte[] compress(byte[] src, int level) throws IOException {
+        byte[] result = src;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(src.length);
+        java.util.zip.Deflater defeater = new java.util.zip.Deflater(level);
 ```
 
 ### UnusedAssignment
@@ -5965,19 +6025,7 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/ZstdCompressor.j
 
 ### UnusedAssignment
 Variable `result` initializer `src` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
-#### Snippet
-```java
-    @Override
-    public byte[] compress(byte[] src, int level) throws IOException {
-        byte[] result = src;
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(src.length);
-        java.util.zip.Deflater defeater = new java.util.zip.Deflater(level);
-```
-
-### UnusedAssignment
-Variable `result` initializer `src` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
+in `common/src/main/java/org/apache/rocketmq/common/compression/Lz4Compressor.java`
 #### Snippet
 ```java
     @Override
@@ -6000,411 +6048,75 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/Lz4Compressor.ja
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `src` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/compression/Lz4Compressor.java`
+Variable `rpcResponsePromise` initializer `null` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-    @Override
-    public byte[] decompress(byte[] src) throws IOException {
-        byte[] result = src;
-        byte[] uncompressData = new byte[src.length];
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(src);
-```
-
-### UnusedAssignment
-Variable `fileName` initializer `""` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
-#### Snippet
-```java
-
-    private String filePath = "";
-    private String fileName = "";
-
-    public FileUtil(String filePath, String fileName) {
-```
-
-### UnusedAssignment
-Variable `filePath` initializer `""` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
-#### Snippet
-```java
-    private static String lineSeparator = System.getProperty("line.separator");
-
-    private String filePath = "";
-    private String fileName = "";
-
-```
-
-### UnusedAssignment
-Variable `val` initializer `defval` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
-#### Snippet
-```java
-
-    public static Long parseStringToLong(String s, Long defval) {
-        Long val = defval;
+        }
+        String addr = getBrokerAddrByNameOrException(request.getHeader().bname);
+        Promise<RpcResponse> rpcResponsePromise = null;
         try {
-            val = Long.parseLong(s);
+            switch (request.getCode()) {
 ```
 
 ### UnusedAssignment
-Variable `val` initializer `defval` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
+Variable `errorMessage` initializer `null` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-
-    public static Integer parseStringToInteger(String s, Integer defval) {
-        Integer val = defval;
-        try {
-            val = Integer.parseInt(s);
+        }
+        int errorCode = ResponseCode.RPC_UNKNOWN;
+        String errorMessage = null;
+        if (!responseFuture.isSendRequestOK()) {
+            errorCode = ResponseCode.RPC_SEND_TO_CHANNEL_FAILED;
 ```
 
 ### UnusedAssignment
-Variable `collect` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Variable `logger` initializer `null` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
 #### Snippet
 ```java
-                if (!collectMap.containsKey(realKey)
-                    || collectMap.get(realKey) instanceof ListDataCollectorImpl) {
-                    DataCollector collect = null;
-                    if (collectMap.containsKey(realKey)) {
-                        DataCollector src = collectMap.get(realKey);
+    private static class NettyBridgeLogger implements io.netty.util.internal.logging.InternalLogger {
+
+        private Logger logger = null;
+
+        private static final String EXCEPTION_MESSAGE = "Unexpected exception:";
 ```
 
 ### UnusedAssignment
-Variable `collect` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Variable `push` initializer `false` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
 #### Snippet
 ```java
-                if (!collectMap.containsKey(realKey)
-                    || collectMap.get(realKey) instanceof MapDataCollectorImpl) {
-                    DataCollector collect = null;
-                    if (collectMap.containsKey(realKey)) {
-                        DataCollector src = collectMap.get(realKey);
+    public static String analyzeProcessQueue(final String clientId, ConsumerRunningInfo info) {
+        StringBuilder sb = new StringBuilder();
+        boolean push = false;
+        {
+            String property = info.getProperties().getProperty(ConsumerRunningInfo.PROP_CONSUME_TYPE);
 ```
 
 ### UnusedAssignment
-Variable `name` initializer `""` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/parallel/Task4Test.java`
-#### Snippet
-```java
-
-public class Task4Test extends ParallelTask {
-    private String name = "";
-
-    public Task4Test(String name) {
-```
-
-### UnusedAssignment
-Variable `index` initializer `0` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-        int[] result = new int[n];
-        Random rd = new Random();
-        int index = 0;
-        for (int i = 0; i < result.length; i++) {
-            index = rd.nextInt(len--);
-```
-
-### UnusedAssignment
-Variable `producer` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
-#### Snippet
-```java
-public class MQAsyncProducer {
-    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
-    private AbstractMQProducer producer = null;
-    private long msgNum;
-    private int intervalMills;
-```
-
-### UnusedAssignment
-Variable `nsAddr` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
-#### Snippet
-```java
-    private static Logger logger  = LoggerFactory.getLogger(RMQTransactionalProducer.class);
-    private TransactionMQProducer producer = null;
-    private String nsAddr = null;
-
-    public RMQTransactionalProducer(String nsAddr, String topic, TransactionListener transactionListener) {
-```
-
-### UnusedAssignment
-Variable `metaqResult` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
-#### Snippet
-```java
-    public ResultWrapper send(Object msg, Object arg) {
-        boolean commitMsg = ((Pair<Boolean, LocalTransactionState>) arg).getObject2() == LocalTransactionState.COMMIT_MESSAGE;
-        org.apache.rocketmq.client.producer.SendResult metaqResult = null;
-        Message message = (Message) msg;
-        try {
-```
-
-### UnusedAssignment
-Variable `internalSendResult` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
-#### Snippet
-```java
-
-    public ResultWrapper send(Object msg, Object orderKey) {
-        org.apache.rocketmq.client.producer.SendResult internalSendResult = null;
-        Message message = (Message) msg;
-        try {
-```
-
-### UnusedAssignment
-Variable `internalSendResult` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
-#### Snippet
-```java
-
-    public ResultWrapper sendMQ(Message msg, MessageQueue mq) {
-        org.apache.rocketmq.client.producer.SendResult internalSendResult = null;
-        try {
-            long start = System.currentTimeMillis();
-```
-
-### UnusedAssignment
-Variable `nsAddr` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
-#### Snippet
-```java
-    private static Logger logger = LoggerFactory.getLogger(RMQNormalProducer.class);
-    private DefaultMQProducer producer = null;
-    private String nsAddr = null;
-
-    public RMQNormalProducer(String nsAddr, String topic) {
-```
-
-### UnusedAssignment
-Variable `nsAddr` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
-#### Snippet
-```java
-    private static Logger logger = LoggerFactory
-        .getLogger(RMQAsyncSendProducer.class);
-    private String nsAddr = null;
-    private DefaultMQProducer producer = null;
-    private SendCallback sendCallback = null;
-```
-
-### UnusedAssignment
-Variable `sendCallback` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
-#### Snippet
-```java
-    private String nsAddr = null;
-    private DefaultMQProducer producer = null;
-    private SendCallback sendCallback = null;
-    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
-    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
-```
-
-### UnusedAssignment
-Variable `msgsWithMQId` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
-#### Snippet
-```java
-public class MessageQueueMsg {
-    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
-    private Map<Integer, List<Object>> msgsWithMQId = null;
-    private Collection<Object> msgBodys = null;
-
-```
-
-### UnusedAssignment
-Variable `msgBodys` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
-#### Snippet
-```java
-    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
-    private Map<Integer, List<Object>> msgsWithMQId = null;
-    private Collection<Object> msgBodys = null;
-
-    public MessageQueueMsg(List<MessageQueue> mqs, int msgSize) {
-```
-
-### UnusedAssignment
-Variable `msgsWithMQ` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
-#### Snippet
-```java
-
-public class MessageQueueMsg {
-    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
-    private Map<Integer, List<Object>> msgsWithMQId = null;
-    private Collection<Object> msgBodys = null;
-```
-
-### UnusedAssignment
-Variable `msgSize` initializer `0` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
-#### Snippet
-```java
-    private List<String> tags = null;
-    private String topic = null;
-    private int msgSize = 0;
-    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
-
-```
-
-### UnusedAssignment
-Variable `tags` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
-#### Snippet
-```java
-
-public class TagMessage {
-    private List<String> tags = null;
-    private String topic = null;
-    private int msgSize = 0;
-```
-
-### UnusedAssignment
-Variable `topic` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
-#### Snippet
-```java
-public class TagMessage {
-    private List<String> tags = null;
-    private String topic = null;
-    private int msgSize = 0;
-    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
-```
-
-### UnusedAssignment
-Variable `msgDelayTimes` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/concurrent/RMQDelayListener.java`
-#### Snippet
-```java
-
-public class RMQDelayListener extends AbstractListener implements MessageListenerConcurrently {
-    private DataCollector msgDelayTimes = null;
-
-    public RMQDelayListener() {
-```
-
-### UnusedAssignment
-Variable `msgQueue` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
-#### Snippet
-```java
-
-    private void putMsg(MessageExt msg) {
-        Collection<Object> msgQueue = null;
-        String key = getKey(msg.getQueueId(), msg.getStoreHost().toString());
-        if (!msgs.containsKey(key)) {
-```
-
-### UnusedAssignment
-Variable `msgBodys` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/clientinterface/MQCollector.java`
-#### Snippet
-```java
-
-public abstract class MQCollector {
-    protected DataCollector msgBodys = null;
-    protected DataCollector originMsgs = null;
-    protected DataCollector errorMsgs = null;
-```
-
-### UnusedAssignment
-Variable `originMsgs` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/clientinterface/MQCollector.java`
-#### Snippet
-```java
-public abstract class MQCollector {
-    protected DataCollector msgBodys = null;
-    protected DataCollector originMsgs = null;
-    protected DataCollector errorMsgs = null;
-    protected Map<Object, Object> originMsgIndex = null;
-```
-
-### UnusedAssignment
-Variable `producerGroupName` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
-#### Snippet
-```java
-    protected ResultWrapper sendResult = new ResultWrapper();
-    protected boolean startSuccess = false;
-    protected String producerGroupName = null;
-    protected String producerInstanceName = null;
-    protected boolean isDebug = false;
-```
-
-### UnusedAssignment
-Variable `producerInstanceName` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
-#### Snippet
-```java
-    protected boolean startSuccess = false;
-    protected String producerGroupName = null;
-    protected String producerInstanceName = null;
-    protected boolean isDebug = false;
-
-```
-
-### UnusedAssignment
-Variable `topic` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
-#### Snippet
-```java
-
-public abstract class AbstractMQProducer extends MQCollector implements MQProducer {
-    protected String topic = null;
-
-    protected ResultWrapper sendResult = new ResultWrapper();
-```
-
-### UnusedAssignment
-Variable `fieldValue` initializer `"null"` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
-#### Snippet
-```java
-            }
-            field.setAccessible(true);
-            Object fieldValue = "null";
-            try {
-                fieldValue = field.get(obj);
-```
-
-### UnusedAssignment
-Variable `line` initializer `null` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
-#### Snippet
-```java
-        for (File file: dir.listFiles()) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-            String line = null;
-            TreeMap<String, String> kvs = new TreeMap<>();
-            while ((line = br.readLine()) != null) {
-```
-
-### UnusedAssignment
-Variable `sampleTopicRouteData` initializer `null` is redundant
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/admin/DefaultAdminService.java`
+Variable `orderMsg` initializer `false` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
 #### Snippet
 ```java
         }
 
-        TopicRouteData sampleTopicRouteData = null;
-        try {
-            sampleTopicRouteData = this.getTopicRouteDataDirectlyFromNameServer(sampleTopic);
+        boolean orderMsg = false;
+        {
+            String property = info.getProperties().getProperty(ConsumerRunningInfo.PROP_CONSUME_ORDERLY);
 ```
 
 ### UnusedAssignment
-Variable `sslContextBuilder` initializer `null` is redundant
-in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/MultiProtocolTlsHelper.java`
+Variable `startForAWhile` initializer `false` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
 #### Snippet
 ```java
-        }
+        boolean push = isPushType(prev);
 
-        SslContextBuilder sslContextBuilder = null;
-        if (tlsTestModeEnable) {
-            SelfSignedCertificate selfSignedCertificate = new SelfSignedCertificate();
+        boolean startForAWhile = false;
+        {
+
 ```
 
 ### UnusedAssignment
@@ -6444,42 +6156,6 @@ in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-        msg.setBodyCRC(UtilAll.crc32(msg.getBody()));
-        // Back to Results
-        AppendMessageResult result = null;
-
-        StoreStatsService storeStatsService = this.defaultMessageStore.getStoreStatsService();
-```
-
-### UnusedAssignment
-Variable `elapsedTimeInLock` initializer `0` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-        updateMaxMessageSize(putMessageThreadLocal);
-        String topicQueueKey = generateKey(putMessageThreadLocal.getKeyBuilder(), msg);
-        long elapsedTimeInLock = 0;
-        MappedFile unlockMappedFile = null;
-        MappedFile mappedFile = this.mappedFileQueue.getLastMappedFile();
-```
-
-### UnusedAssignment
-Variable `elapsedTimeInLock` initializer `0` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-        }
-
-        long elapsedTimeInLock = 0;
-        MappedFile unlockMappedFile = null;
-        MappedFile mappedFile = this.mappedFileQueue.getLastMappedFile();
-```
-
-### UnusedAssignment
 Variable `high` initializer `0` is redundant
 in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueue.java`
 #### Snippet
@@ -6504,27 +6180,39 @@ in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueue.java`
 ```
 
 ### UnusedAssignment
-Variable `mid` initializer `-1` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+Variable `elapsedTimeInLock` initializer `0` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 #### Snippet
 ```java
-        final int unitShift,
-        long targetValue) {
-        int mid = -1;
-        while (left <= right) {
-            mid = ceil((left + right) / 2);
+        }
+
+        long elapsedTimeInLock = 0;
+        MappedFile unlockMappedFile = null;
+        MappedFile mappedFile = this.mappedFileQueue.getLastMappedFile();
 ```
 
 ### UnusedAssignment
-Variable `mid` initializer `-1` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+Variable `result` initializer `null` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 #### Snippet
 ```java
-        long targetValue) {
-        int maxRight = right;
-        int mid = -1;
-        while (left <= right) {
-            mid = ceil((left + right) / 2);
+        msg.setBodyCRC(UtilAll.crc32(msg.getBody()));
+        // Back to Results
+        AppendMessageResult result = null;
+
+        StoreStatsService storeStatsService = this.defaultMessageStore.getStoreStatsService();
+```
+
+### UnusedAssignment
+Variable `elapsedTimeInLock` initializer `0` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+        updateMaxMessageSize(putMessageThreadLocal);
+        String topicQueueKey = generateKey(putMessageThreadLocal.getKeyBuilder(), msg);
+        long elapsedTimeInLock = 0;
+        MappedFile unlockMappedFile = null;
+        MappedFile mappedFile = this.mappedFileQueue.getLastMappedFile();
 ```
 
 ### UnusedAssignment
@@ -6552,15 +6240,39 @@ in `store/src/main/java/org/apache/rocketmq/store/queue/ConsumeQueueStore.java`
 ```
 
 ### UnusedAssignment
-Variable `next` initializer `null` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/plugin/AbstractPluginMessageStore.java`
+Variable `mid` initializer `-1` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
 #### Snippet
 ```java
+        long targetValue) {
+        int maxRight = right;
+        int mid = -1;
+        while (left <= right) {
+            mid = ceil((left + right) / 2);
+```
 
-public abstract class AbstractPluginMessageStore implements MessageStore {
-    protected MessageStore next = null;
-    protected MessageStorePluginContext context;
+### UnusedAssignment
+Variable `mid` initializer `-1` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+#### Snippet
+```java
+        final int unitShift,
+        long targetValue) {
+        int mid = -1;
+        while (left <= right) {
+            mid = ceil((left + right) / 2);
+```
 
+### UnusedAssignment
+Variable `newFiles` initializer `Lists.newArrayList()` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
+#### Snippet
+```java
+            log.info("replicating message is empty");   //break
+        } else {
+            List<MappedFile> newFiles = Lists.newArrayList();
+            List<MappedFile> toCompactFiles = Lists.newArrayList(replicating.getLog().getMappedFiles());
+            putMessageLock.lock();
 ```
 
 ### UnusedAssignment
@@ -6576,15 +6288,39 @@ in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
 ```
 
 ### UnusedAssignment
-Variable `newFiles` initializer `Lists.newArrayList()` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
+Variable `next` initializer `null` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/plugin/AbstractPluginMessageStore.java`
 #### Snippet
 ```java
-            log.info("replicating message is empty");   //break
-        } else {
-            List<MappedFile> newFiles = Lists.newArrayList();
-            List<MappedFile> toCompactFiles = Lists.newArrayList(replicating.getLog().getMappedFiles());
-            putMessageLock.lock();
+
+public abstract class AbstractPluginMessageStore implements MessageStore {
+    protected MessageStore next = null;
+    protected MessageStorePluginContext context;
+
+```
+
+### UnusedAssignment
+Variable `strArr` initializer `null` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+#### Snippet
+```java
+            @Override
+            public boolean online(StatisticsItem item) {
+                String[] strArr = null;
+                try {
+                    strArr = splitAccountStatKey(item.getStatObject());
+```
+
+### UnusedAssignment
+Variable `wroteOffset` initializer `0` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+                dledgerFuture = (BatchAppendFuture<AppendEntryResponse>) appendFuture;
+
+                long wroteOffset = 0;
+
+                int msgIdLength = (messageExtBatch.getSysFlag() & MessageSysFlag.STOREHOSTADDRESS_V6_FLAG) == 0 ? 4 + 4 + 8 : 16 + 4 + 8;
 ```
 
 ### UnusedAssignment
@@ -6648,63 +6384,87 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### UnusedAssignment
-Variable `strArr` initializer `null` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+Variable `f` initializer `10` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
 #### Snippet
 ```java
-            @Override
-            public boolean online(StatisticsItem item) {
-                String[] strArr = null;
-                try {
-                    strArr = splitAccountStatKey(item.getStatObject());
+
+    // as error rate, 10/100 = 0.1
+    private int f = 10;
+    private int n = 128;
+
 ```
 
 ### UnusedAssignment
-Variable `wroteOffset` initializer `0` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+Variable `n` initializer `128` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
 #### Snippet
 ```java
-                dledgerFuture = (BatchAppendFuture<AppendEntryResponse>) appendFuture;
+    // as error rate, 10/100 = 0.1
+    private int f = 10;
+    private int n = 128;
 
-                long wroteOffset = 0;
-
-                int msgIdLength = (messageExtBatch.getSysFlag() & MessageSysFlag.STOREHOSTADDRESS_V6_FLAG) == 0 ? 4 + 4 + 8 : 16 + 4 + 8;
+    // hash function num, by calculation.
 ```
 
 ### UnusedAssignment
-Variable `responseHeader` initializer `null` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+Variable `midOffset` initializer `-1` is redundant
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredMessageQueueContainer.java`
 #### Snippet
 ```java
-                                            switch (response.getCode()) {
-                                                case ResponseCode.SUCCESS: {
-                                                    QueryMessageResponseHeader responseHeader = null;
-                                                    try {
-                                                        responseHeader =
+
+        // Perform binary search
+        long midOffset = -1;
+        long targetOffset = -1;
+        long leftOffset = -1;
 ```
 
 ### UnusedAssignment
-Variable `messageId` initializer `null` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+Variable `column` initializer `0` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
 #### Snippet
 ```java
-    public MessageExt viewMessage(String msgId)
-        throws RemotingException, MQBrokerException, InterruptedException, MQClientException {
-        MessageId messageId = null;
-        try {
-            messageId = MessageDecoder.decodeMessageId(msgId);
+    protected int[] bufcolumn;
+
+    protected int column = 0;
+    protected int line = 1;
+
 ```
 
 ### UnusedAssignment
-Variable `shardingKeyIndex` initializer `0` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessagePopOrderlyService.java`
+Variable `line` initializer `1` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
 #### Snippet
 ```java
-        private final PopProcessQueue processQueue;
-        private final MessageQueue messageQueue;
-        private int shardingKeyIndex = 0;
 
-        public ConsumeRequest(PopProcessQueue processQueue, MessageQueue messageQueue) {
+    protected int column = 0;
+    protected int line = 1;
+
+    protected boolean prevCharIsCR = false;
+```
+
+### UnusedAssignment
+Variable `k` initializer `0` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
+#### Snippet
+```java
+        }
+
+        int i = 0, j = 0, k = 0;
+        int nextColDiff = 0, columnDiff = 0;
+
+```
+
+### UnusedAssignment
+Variable `nextColDiff` initializer `0` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
+#### Snippet
+```java
+
+        int i = 0, j = 0, k = 0;
+        int nextColDiff = 0, columnDiff = 0;
+
+        while (i < len && bufline[j = start % bufsize] == bufline[k = ++start % bufsize]) {
 ```
 
 ### UnusedAssignment
@@ -6729,6 +6489,606 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
     private volatile BrokerRole lastBrokerRole = BrokerRole.SLAVE;
     private TimerMetrics timerMetrics;
     private long lastTimeOfCheckMetrics = System.currentTimeMillis();
+```
+
+### UnusedAssignment
+Variable `fileName` initializer `""` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
+#### Snippet
+```java
+
+    private String filePath = "";
+    private String fileName = "";
+
+    public FileUtil(String filePath, String fileName) {
+```
+
+### UnusedAssignment
+Variable `filePath` initializer `""` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
+#### Snippet
+```java
+    private static String lineSeparator = System.getProperty("line.separator");
+
+    private String filePath = "";
+    private String fileName = "";
+
+```
+
+### UnusedAssignment
+Variable `val` initializer `defval` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
+#### Snippet
+```java
+
+    public static Integer parseStringToInteger(String s, Integer defval) {
+        Integer val = defval;
+        try {
+            val = Integer.parseInt(s);
+```
+
+### UnusedAssignment
+Variable `val` initializer `defval` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
+#### Snippet
+```java
+
+    public static Long parseStringToLong(String s, Long defval) {
+        Long val = defval;
+        try {
+            val = Long.parseLong(s);
+```
+
+### UnusedAssignment
+Variable `index` initializer `0` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+        int[] result = new int[n];
+        Random rd = new Random();
+        int index = 0;
+        for (int i = 0; i < result.length; i++) {
+            index = rd.nextInt(len--);
+```
+
+### UnusedAssignment
+Variable `collect` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+                if (!collectMap.containsKey(realKey)
+                    || collectMap.get(realKey) instanceof ListDataCollectorImpl) {
+                    DataCollector collect = null;
+                    if (collectMap.containsKey(realKey)) {
+                        DataCollector src = collectMap.get(realKey);
+```
+
+### UnusedAssignment
+Variable `collect` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+                if (!collectMap.containsKey(realKey)
+                    || collectMap.get(realKey) instanceof MapDataCollectorImpl) {
+                    DataCollector collect = null;
+                    if (collectMap.containsKey(realKey)) {
+                        DataCollector src = collectMap.get(realKey);
+```
+
+### UnusedAssignment
+Variable `name` initializer `""` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/parallel/Task4Test.java`
+#### Snippet
+```java
+
+public class Task4Test extends ParallelTask {
+    private String name = "";
+
+    public Task4Test(String name) {
+```
+
+### UnusedAssignment
+Variable `curPos` initializer `0` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+        Token specialToken = null;
+        Token matchedToken;
+        int curPos = 0;
+
+        EOFLoop:
+```
+
+### UnusedAssignment
+Variable `producer` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+public class MQAsyncProducer {
+    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
+    private AbstractMQProducer producer = null;
+    private long msgNum;
+    private int intervalMills;
+```
+
+### UnusedAssignment
+Variable `left` initializer `null` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    // ----------------------------------------------------------------------------
+    final public BooleanExpression JmsSelector() throws ParseException {
+        Expression left = null;
+        left = orExpression();
+        {
+```
+
+### UnusedAssignment
+Variable `left` initializer `null` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        Token t;
+        String s;
+        ConstantExpression left = null;
+        switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
+            case STRING_LITERAL:
+```
+
+### UnusedAssignment
+Variable `left` initializer `null` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    final public Expression primaryExpr() throws ParseException {
+        Expression left = null;
+        switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
+            case TRUE:
+```
+
+### UnusedAssignment
+Variable `left` initializer `null` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    final public PropertyExpression variable() throws ParseException {
+        Token t;
+        PropertyExpression left = null;
+        t = jj_consume_token(ID);
+        left = new PropertyExpression(t.image);
+```
+
+### UnusedAssignment
+Variable `left` initializer `null` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    final public Expression unaryExpr() throws ParseException {
+        String s = null;
+        Expression left = null;
+        if (jj_2_4(2147483647)) {
+            jj_consume_token(31);
+```
+
+### UnusedAssignment
+Variable `convertStringExpressions` initializer `false` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+    public static final ThreadLocal<Boolean> CONVERT_STRING_EXPRESSIONS = new ThreadLocal<>();
+
+    boolean convertStringExpressions = false;
+
+    /**
+```
+
+### UnusedAssignment
+Variable `metaqResult` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+#### Snippet
+```java
+    public ResultWrapper send(Object msg, Object arg) {
+        boolean commitMsg = ((Pair<Boolean, LocalTransactionState>) arg).getObject2() == LocalTransactionState.COMMIT_MESSAGE;
+        org.apache.rocketmq.client.producer.SendResult metaqResult = null;
+        Message message = (Message) msg;
+        try {
+```
+
+### UnusedAssignment
+Variable `nsAddr` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+#### Snippet
+```java
+    private static Logger logger  = LoggerFactory.getLogger(RMQTransactionalProducer.class);
+    private TransactionMQProducer producer = null;
+    private String nsAddr = null;
+
+    public RMQTransactionalProducer(String nsAddr, String topic, TransactionListener transactionListener) {
+```
+
+### UnusedAssignment
+Variable `nsAddr` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
+#### Snippet
+```java
+    private static Logger logger = LoggerFactory.getLogger(RMQNormalProducer.class);
+    private DefaultMQProducer producer = null;
+    private String nsAddr = null;
+
+    public RMQNormalProducer(String nsAddr, String topic) {
+```
+
+### UnusedAssignment
+Variable `internalSendResult` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
+#### Snippet
+```java
+
+    public ResultWrapper sendMQ(Message msg, MessageQueue mq) {
+        org.apache.rocketmq.client.producer.SendResult internalSendResult = null;
+        try {
+            long start = System.currentTimeMillis();
+```
+
+### UnusedAssignment
+Variable `internalSendResult` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
+#### Snippet
+```java
+
+    public ResultWrapper send(Object msg, Object orderKey) {
+        org.apache.rocketmq.client.producer.SendResult internalSendResult = null;
+        Message message = (Message) msg;
+        try {
+```
+
+### UnusedAssignment
+Variable `msgBodys` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
+#### Snippet
+```java
+    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
+    private Map<Integer, List<Object>> msgsWithMQId = null;
+    private Collection<Object> msgBodys = null;
+
+    public MessageQueueMsg(List<MessageQueue> mqs, int msgSize) {
+```
+
+### UnusedAssignment
+Variable `msgsWithMQId` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
+#### Snippet
+```java
+public class MessageQueueMsg {
+    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
+    private Map<Integer, List<Object>> msgsWithMQId = null;
+    private Collection<Object> msgBodys = null;
+
+```
+
+### UnusedAssignment
+Variable `msgsWithMQ` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/message/MessageQueueMsg.java`
+#### Snippet
+```java
+
+public class MessageQueueMsg {
+    private Map<MessageQueue, List<Object>> msgsWithMQ = null;
+    private Map<Integer, List<Object>> msgsWithMQId = null;
+    private Collection<Object> msgBodys = null;
+```
+
+### UnusedAssignment
+Variable `tags` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
+#### Snippet
+```java
+
+public class TagMessage {
+    private List<String> tags = null;
+    private String topic = null;
+    private int msgSize = 0;
+```
+
+### UnusedAssignment
+Variable `topic` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
+#### Snippet
+```java
+public class TagMessage {
+    private List<String> tags = null;
+    private String topic = null;
+    private int msgSize = 0;
+    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
+```
+
+### UnusedAssignment
+Variable `msgSize` initializer `0` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
+#### Snippet
+```java
+    private List<String> tags = null;
+    private String topic = null;
+    private int msgSize = 0;
+    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
+
+```
+
+### UnusedAssignment
+Variable `msgDelayTimes` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/concurrent/RMQDelayListener.java`
+#### Snippet
+```java
+
+public class RMQDelayListener extends AbstractListener implements MessageListenerConcurrently {
+    private DataCollector msgDelayTimes = null;
+
+    public RMQDelayListener() {
+```
+
+### UnusedAssignment
+Variable `msgQueue` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
+#### Snippet
+```java
+
+    private void putMsg(MessageExt msg) {
+        Collection<Object> msgQueue = null;
+        String key = getKey(msg.getQueueId(), msg.getStoreHost().toString());
+        if (!msgs.containsKey(key)) {
+```
+
+### UnusedAssignment
+Variable `msgBodys` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/clientinterface/MQCollector.java`
+#### Snippet
+```java
+
+public abstract class MQCollector {
+    protected DataCollector msgBodys = null;
+    protected DataCollector originMsgs = null;
+    protected DataCollector errorMsgs = null;
+```
+
+### UnusedAssignment
+Variable `originMsgs` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/clientinterface/MQCollector.java`
+#### Snippet
+```java
+public abstract class MQCollector {
+    protected DataCollector msgBodys = null;
+    protected DataCollector originMsgs = null;
+    protected DataCollector errorMsgs = null;
+    protected Map<Object, Object> originMsgIndex = null;
+```
+
+### UnusedAssignment
+Variable `line` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
+#### Snippet
+```java
+        for (File file: dir.listFiles()) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+            String line = null;
+            TreeMap<String, String> kvs = new TreeMap<>();
+            while ((line = br.readLine()) != null) {
+```
+
+### UnusedAssignment
+Variable `fieldValue` initializer `"null"` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
+#### Snippet
+```java
+            }
+            field.setAccessible(true);
+            Object fieldValue = "null";
+            try {
+                fieldValue = field.get(obj);
+```
+
+### UnusedAssignment
+Variable `producerGroupName` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
+#### Snippet
+```java
+    protected ResultWrapper sendResult = new ResultWrapper();
+    protected boolean startSuccess = false;
+    protected String producerGroupName = null;
+    protected String producerInstanceName = null;
+    protected boolean isDebug = false;
+```
+
+### UnusedAssignment
+Variable `producerInstanceName` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
+#### Snippet
+```java
+    protected boolean startSuccess = false;
+    protected String producerGroupName = null;
+    protected String producerInstanceName = null;
+    protected boolean isDebug = false;
+
+```
+
+### UnusedAssignment
+Variable `topic` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/clientinterface/AbstractMQProducer.java`
+#### Snippet
+```java
+
+public abstract class AbstractMQProducer extends MQCollector implements MQProducer {
+    protected String topic = null;
+
+    protected ResultWrapper sendResult = new ResultWrapper();
+```
+
+### UnusedAssignment
+Variable `sendCallback` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+#### Snippet
+```java
+    private String nsAddr = null;
+    private DefaultMQProducer producer = null;
+    private SendCallback sendCallback = null;
+    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
+    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
+```
+
+### UnusedAssignment
+Variable `nsAddr` initializer `null` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+#### Snippet
+```java
+    private static Logger logger = LoggerFactory
+        .getLogger(RMQAsyncSendProducer.class);
+    private String nsAddr = null;
+    private DefaultMQProducer producer = null;
+    private SendCallback sendCallback = null;
+```
+
+### UnusedAssignment
+Variable `sampleTopicRouteData` initializer `null` is redundant
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/admin/DefaultAdminService.java`
+#### Snippet
+```java
+        }
+
+        TopicRouteData sampleTopicRouteData = null;
+        try {
+            sampleTopicRouteData = this.getTopicRouteDataDirectlyFromNameServer(sampleTopic);
+```
+
+### UnusedAssignment
+Variable `sslContextBuilder` initializer `null` is redundant
+in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/MultiProtocolTlsHelper.java`
+#### Snippet
+```java
+        }
+
+        SslContextBuilder sslContextBuilder = null;
+        if (tlsTestModeEnable) {
+            SelfSignedCertificate selfSignedCertificate = new SelfSignedCertificate();
+```
+
+### UnusedAssignment
+Variable `yamlDataObject` initializer `null` is redundant
+in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
+#### Snippet
+```java
+
+    public static RPCHook getAclRPCHook(InputStream inputStream) {
+        JSONObject yamlDataObject = null;
+        try {
+            yamlDataObject = AclUtils.getYamlDataObject(inputStream, JSONObject.class);
+```
+
+### UnusedAssignment
+Variable `updateAccountMap` initializer `null` is redundant
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+
+        if (accessKeyTable.containsKey(plainAccessConfig.getAccessKey())) {
+            PlainAccessConfig updateAccountMap = null;
+            String aclFileName = accessKeyTable.get(plainAccessConfig.getAccessKey());
+            PlainAccessData aclAccessConfigMap = AclUtils.getYamlDataObject(aclFileName, PlainAccessData.class);
+```
+
+### UnusedAssignment
+Variable `newAccountsMap` initializer `null` is redundant
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+        PlainAccessConfig plainAccessConfig) {
+
+        PlainAccessConfig newAccountsMap = null;
+        if (existedAccountMap == null) {
+            newAccountsMap = new PlainAccessConfig();
+```
+
+### UnusedAssignment
+Variable `pullResult` initializer `null` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
+#### Snippet
+```java
+                                continue;
+                            }
+                            PullResult pullResult = null;
+                            for (MessageQueue messageQueue : messageQueues) {
+                                try {
+```
+
+### UnusedAssignment
+Variable `commandLine` initializer `null` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/operation/Producer.java`
+#### Snippet
+```java
+        HelpFormatter hf = new HelpFormatter();
+        hf.setWidth(110);
+        CommandLine commandLine = null;
+        try {
+            commandLine = parser.parse(options, args);
+```
+
+### UnusedAssignment
+Variable `commandLine` initializer `null` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/operation/Consumer.java`
+#### Snippet
+```java
+        HelpFormatter hf = new HelpFormatter();
+        hf.setWidth(110);
+        CommandLine commandLine = null;
+        try {
+            commandLine = parser.parse(options, args);
+```
+
+### UnusedAssignment
+Variable `times` initializer `0` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+        statBenchmark.getCheckCount().increment();
+
+        int times = 0;
+        try {
+            String checkTimes = msg.getUserProperty(MessageConst.PROPERTY_TRANSACTION_CHECK_TIMES);
+```
+
+### UnusedAssignment
+Variable `shardingKeyIndex` initializer `0` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessagePopOrderlyService.java`
+#### Snippet
+```java
+        private final PopProcessQueue processQueue;
+        private final MessageQueue messageQueue;
+        private int shardingKeyIndex = 0;
+
+        public ConsumeRequest(PopProcessQueue processQueue, MessageQueue messageQueue) {
+```
+
+### UnusedAssignment
+Variable `messageId` initializer `null` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+#### Snippet
+```java
+    public MessageExt viewMessage(String msgId)
+        throws RemotingException, MQBrokerException, InterruptedException, MQClientException {
+        MessageId messageId = null;
+        try {
+            messageId = MessageDecoder.decodeMessageId(msgId);
+```
+
+### UnusedAssignment
+Variable `responseHeader` initializer `null` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+#### Snippet
+```java
+                                            switch (response.getCode()) {
+                                                case ResponseCode.SUCCESS: {
+                                                    QueryMessageResponseHeader responseHeader = null;
+                                                    try {
+                                                        responseHeader =
 ```
 
 ### UnusedAssignment
@@ -6768,6 +7128,30 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullC
 ```
 
 ### UnusedAssignment
+Variable `offset` initializer `-1L` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+            if (processQueue.isLocked()) {
+                if (!pullRequest.isPreviouslyLocked()) {
+                    long offset = -1L;
+                    try {
+                        offset = this.rebalanceImpl.computePullFromWhereWithException(pullRequest.getMessageQueue());
+```
+
+### UnusedAssignment
+Variable `pullTimeDelayMillsWhenException` initializer `3000` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+     * Delay some time when exception occur
+     */
+    private long pullTimeDelayMillsWhenException = 3000;
+    /**
+     * Flow control interval when message cache is full
+```
+
+### UnusedAssignment
 Variable `offset` initializer `0L` is redundant
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
 #### Snippet
@@ -6804,66 +7188,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePul
 ```
 
 ### UnusedAssignment
-Variable `popStatus` initializer `PopStatus.NO_NEW_MSG` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-    private PopResult processPopResponse(final String brokerName, final RemotingCommand response, String topic,
-        CommandCustomHeader requestHeader) throws MQBrokerException, RemotingCommandException {
-        PopStatus popStatus = PopStatus.NO_NEW_MSG;
-        List<MessageExt> msgFoundList = null;
-        switch (response.getCode()) {
-```
-
-### UnusedAssignment
-Variable `pullStatus` initializer `PullStatus.NO_NEW_MSG` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        final RemotingCommand response,
-        final String addr) throws MQBrokerException, RemotingCommandException {
-        PullStatus pullStatus = PullStatus.NO_NEW_MSG;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS:
-```
-
-### UnusedAssignment
-Variable `request` initializer `null` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-    ) throws RemotingException, MQBrokerException, InterruptedException {
-        long beginStartTime = System.currentTimeMillis();
-        RemotingCommand request = null;
-        String msgType = msg.getProperty(MessageConst.PROPERTY_MESSAGE_TYPE);
-        boolean isReply = msgType != null && msgType.equals(MixAll.REPLY_MESSAGE_FLAG);
-```
-
-### UnusedAssignment
-Variable `pullTimeDelayMillsWhenException` initializer `3000` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
-#### Snippet
-```java
-     * Delay some time when exception occur
-     */
-    private long pullTimeDelayMillsWhenException = 3000;
-    /**
-     * Flow control interval when message cache is full
-```
-
-### UnusedAssignment
-Variable `offset` initializer `-1L` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
-#### Snippet
-```java
-            if (processQueue.isLocked()) {
-                if (!pullRequest.isPreviouslyLocked()) {
-                    long offset = -1L;
-                    try {
-                        offset = this.rebalanceImpl.computePullFromWhereWithException(pullRequest.getMessageQueue());
-```
-
-### UnusedAssignment
 Variable `offsetSerializeWrapper` initializer `null` is redundant
 in `client/src/main/java/org/apache/rocketmq/client/consumer/store/LocalFileOffsetStore.java`
 #### Snippet
@@ -6888,15 +7212,51 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/store/LocalFileOffs
 ```
 
 ### UnusedAssignment
-The value `true` assigned to `messageCloned` is never used
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+Variable `cacheSize` initializer `DEFAULT_CACHE_SIZE` is redundant
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LocalCache.java`
 #### Snippet
 ```java
-                            if (!messageCloned) {
-                                tmpMessage = MessageAccessor.cloneMessage(msg);
-                                messageCloned = true;
-                            }
-                            msg.setTopic(NamespaceUtil.withoutNamespace(msg.getTopic(), this.defaultMQProducer.getNamespace()));
+    private static final int DEFAULT_CACHE_SIZE = 1000;
+
+    private int cacheSize = DEFAULT_CACHE_SIZE;
+    private CacheEvictHandler<K, V> handler;
+
+```
+
+### UnusedAssignment
+Variable `pullStatus` initializer `PullStatus.NO_NEW_MSG` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        final RemotingCommand response,
+        final String addr) throws MQBrokerException, RemotingCommandException {
+        PullStatus pullStatus = PullStatus.NO_NEW_MSG;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS:
+```
+
+### UnusedAssignment
+Variable `popStatus` initializer `PopStatus.NO_NEW_MSG` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+    private PopResult processPopResponse(final String brokerName, final RemotingCommand response, String topic,
+        CommandCustomHeader requestHeader) throws MQBrokerException, RemotingCommandException {
+        PopStatus popStatus = PopStatus.NO_NEW_MSG;
+        List<MessageExt> msgFoundList = null;
+        switch (response.getCode()) {
+```
+
+### UnusedAssignment
+Variable `request` initializer `null` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+    ) throws RemotingException, MQBrokerException, InterruptedException {
+        long beginStartTime = System.currentTimeMillis();
+        RemotingCommand request = null;
+        String msgType = msg.getProperty(MessageConst.PROPERTY_MESSAGE_TYPE);
+        boolean isReply = msgType != null && msgType.equals(MixAll.REPLY_MESSAGE_FLAG);
 ```
 
 ### UnusedAssignment
@@ -6936,207 +7296,15 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
 ```
 
 ### UnusedAssignment
-Variable `yamlDataObject` initializer `null` is redundant
-in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
+The value `true` assigned to `messageCloned` is never used
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
-
-    public static RPCHook getAclRPCHook(InputStream inputStream) {
-        JSONObject yamlDataObject = null;
-        try {
-            yamlDataObject = AclUtils.getYamlDataObject(inputStream, JSONObject.class);
-```
-
-### UnusedAssignment
-Variable `newAccountsMap` initializer `null` is redundant
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-        PlainAccessConfig plainAccessConfig) {
-
-        PlainAccessConfig newAccountsMap = null;
-        if (existedAccountMap == null) {
-            newAccountsMap = new PlainAccessConfig();
-```
-
-### UnusedAssignment
-Variable `updateAccountMap` initializer `null` is redundant
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-
-        if (accessKeyTable.containsKey(plainAccessConfig.getAccessKey())) {
-            PlainAccessConfig updateAccountMap = null;
-            String aclFileName = accessKeyTable.get(plainAccessConfig.getAccessKey());
-            PlainAccessData aclAccessConfigMap = AclUtils.getYamlDataObject(aclFileName, PlainAccessData.class);
-```
-
-### UnusedAssignment
-Variable `n` initializer `128` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
-#### Snippet
-```java
-    // as error rate, 10/100 = 0.1
-    private int f = 10;
-    private int n = 128;
-
-    // hash function num, by calculation.
-```
-
-### UnusedAssignment
-Variable `f` initializer `10` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
-#### Snippet
-```java
-
-    // as error rate, 10/100 = 0.1
-    private int f = 10;
-    private int n = 128;
-
-```
-
-### UnusedAssignment
-Variable `topicConfigWrapper` initializer `null` is redundant
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
-#### Snippet
-```java
-        }
-
-        TopicConfigSerializeWrapper topicConfigWrapper = null;
-        List<String> filterServerList = null;
-
-```
-
-### UnusedAssignment
-Variable `k` initializer `0` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
-#### Snippet
-```java
-        }
-
-        int i = 0, j = 0, k = 0;
-        int nextColDiff = 0, columnDiff = 0;
-
-```
-
-### UnusedAssignment
-Variable `nextColDiff` initializer `0` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
-#### Snippet
-```java
-
-        int i = 0, j = 0, k = 0;
-        int nextColDiff = 0, columnDiff = 0;
-
-        while (i < len && bufline[j = start % bufsize] == bufline[k = ++start % bufsize]) {
-```
-
-### UnusedAssignment
-Variable `line` initializer `1` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
-#### Snippet
-```java
-
-    protected int column = 0;
-    protected int line = 1;
-
-    protected boolean prevCharIsCR = false;
-```
-
-### UnusedAssignment
-Variable `column` initializer `0` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
-#### Snippet
-```java
-    protected int[] bufcolumn;
-
-    protected int column = 0;
-    protected int line = 1;
-
-```
-
-### UnusedAssignment
-Variable `left` initializer `null` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    final public Expression unaryExpr() throws ParseException {
-        String s = null;
-        Expression left = null;
-        if (jj_2_4(2147483647)) {
-            jj_consume_token(31);
-```
-
-### UnusedAssignment
-Variable `left` initializer `null` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    // ----------------------------------------------------------------------------
-    final public BooleanExpression JmsSelector() throws ParseException {
-        Expression left = null;
-        left = orExpression();
-        {
-```
-
-### UnusedAssignment
-Variable `left` initializer `null` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    final public PropertyExpression variable() throws ParseException {
-        Token t;
-        PropertyExpression left = null;
-        t = jj_consume_token(ID);
-        left = new PropertyExpression(t.image);
-```
-
-### UnusedAssignment
-Variable `left` initializer `null` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    final public Expression primaryExpr() throws ParseException {
-        Expression left = null;
-        switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
-            case TRUE:
-```
-
-### UnusedAssignment
-Variable `left` initializer `null` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        Token t;
-        String s;
-        ConstantExpression left = null;
-        switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
-            case STRING_LITERAL:
-```
-
-### UnusedAssignment
-Variable `curPos` initializer `0` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-        Token specialToken = null;
-        Token matchedToken;
-        int curPos = 0;
-
-        EOFLoop:
-```
-
-### UnusedAssignment
-Variable `convertStringExpressions` initializer `false` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-    public static final ThreadLocal<Boolean> CONVERT_STRING_EXPRESSIONS = new ThreadLocal<>();
-
-    boolean convertStringExpressions = false;
-
-    /**
+                            if (!messageCloned) {
+                                tmpMessage = MessageAccessor.cloneMessage(msg);
+                                messageCloned = true;
+                            }
+                            msg.setTopic(NamespaceUtil.withoutNamespace(msg.getTopic(), this.defaultMQProducer.getNamespace()));
 ```
 
 ### UnusedAssignment
@@ -7176,18 +7344,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/client/ProducerManager.java`
 ```
 
 ### UnusedAssignment
-Variable `response` initializer `null` is redundant
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
-#### Snippet
-```java
-        RemotingCommand request = RemotingCommand.createRequestCommand(RequestCode.GET_BROKER_MEMBER_GROUP, requestHeader);
-
-        RemotingCommand response = null;
-        response = this.remotingClient.invokeSync(null, request, 3000);
-        assert response != null;
-```
-
-### UnusedAssignment
 Variable `pullStatus` initializer `PullStatus.NO_NEW_MSG` is redundant
 in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
@@ -7197,6 +7353,18 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
         PullStatus pullStatus = PullStatus.NO_NEW_MSG;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS:
+```
+
+### UnusedAssignment
+Variable `response` initializer `null` is redundant
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand request = RemotingCommand.createRequestCommand(RequestCode.GET_BROKER_MEMBER_GROUP, requestHeader);
+
+        RemotingCommand response = null;
+        response = this.remotingClient.invokeSync(null, request, 3000);
+        assert response != null;
 ```
 
 ### UnusedAssignment
@@ -7236,18 +7404,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/ReplyMessageProces
 ```
 
 ### UnusedAssignment
-Variable `subscriptionData` initializer `null` is redundant
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
-#### Snippet
-```java
-        }
-
-        SubscriptionData subscriptionData = null;
-        ConsumerFilterData consumerFilterData = null;
-        final boolean hasSubscriptionFlag = PullSysFlag.hasSubscriptionFlag(requestHeader.getSysFlag());
-```
-
-### UnusedAssignment
 Variable `allocateResult` initializer `null` is redundant
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/QueryAssignmentProcessor.java`
 #### Snippet
@@ -7257,6 +7413,18 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/QueryAssignmentPro
                 List<MessageQueue> allocateResult = null;
 
                 try {
+```
+
+### UnusedAssignment
+Variable `subscriptionData` initializer `null` is redundant
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+#### Snippet
+```java
+        }
+
+        SubscriptionData subscriptionData = null;
+        ConsumerFilterData consumerFilterData = null;
+        final boolean hasSubscriptionFlag = PullSysFlag.hasSubscriptionFlag(requestHeader.getSysFlag());
 ```
 
 ### UnusedAssignment
@@ -7284,150 +7452,30 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 ```
 
 ### UnusedAssignment
-Variable `midOffset` initializer `-1` is redundant
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredMessageQueueContainer.java`
-#### Snippet
-```java
-
-        // Perform binary search
-        long midOffset = -1;
-        long targetOffset = -1;
-        long leftOffset = -1;
-```
-
-### UnusedAssignment
-Variable `pullResult` initializer `null` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
-#### Snippet
-```java
-                                continue;
-                            }
-                            PullResult pullResult = null;
-                            for (MessageQueue messageQueue : messageQueues) {
-                                try {
-```
-
-### UnusedAssignment
-Variable `commandLine` initializer `null` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/operation/Consumer.java`
-#### Snippet
-```java
-        HelpFormatter hf = new HelpFormatter();
-        hf.setWidth(110);
-        CommandLine commandLine = null;
-        try {
-            commandLine = parser.parse(options, args);
-```
-
-### UnusedAssignment
-Variable `commandLine` initializer `null` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/operation/Producer.java`
-#### Snippet
-```java
-        HelpFormatter hf = new HelpFormatter();
-        hf.setWidth(110);
-        CommandLine commandLine = null;
-        try {
-            commandLine = parser.parse(options, args);
-```
-
-### UnusedAssignment
-Variable `times` initializer `0` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-        statBenchmark.getCheckCount().increment();
-
-        int times = 0;
-        try {
-            String checkTimes = msg.getUserProperty(MessageConst.PROPERTY_TRANSACTION_CHECK_TIMES);
-```
-
-### UnusedAssignment
-Variable `rpcResponsePromise` initializer `null` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        }
-        String addr = getBrokerAddrByNameOrException(request.getHeader().bname);
-        Promise<RpcResponse> rpcResponsePromise = null;
-        try {
-            switch (request.getCode()) {
-```
-
-### UnusedAssignment
-Variable `errorMessage` initializer `null` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        }
-        int errorCode = ResponseCode.RPC_UNKNOWN;
-        String errorMessage = null;
-        if (!responseFuture.isSendRequestOK()) {
-            errorCode = ResponseCode.RPC_SEND_TO_CHANNEL_FAILED;
-```
-
-### UnusedAssignment
-Variable `logger` initializer `null` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
-#### Snippet
-```java
-    private static class NettyBridgeLogger implements io.netty.util.internal.logging.InternalLogger {
-
-        private Logger logger = null;
-
-        private static final String EXCEPTION_MESSAGE = "Unexpected exception:";
-```
-
-### UnusedAssignment
-Variable `startForAWhile` initializer `false` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
-#### Snippet
-```java
-        boolean push = isPushType(prev);
-
-        boolean startForAWhile = false;
-        {
-
-```
-
-### UnusedAssignment
-Variable `push` initializer `false` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
-#### Snippet
-```java
-    public static String analyzeProcessQueue(final String clientId, ConsumerRunningInfo info) {
-        StringBuilder sb = new StringBuilder();
-        boolean push = false;
-        {
-            String property = info.getProperties().getProperty(ConsumerRunningInfo.PROP_CONSUME_TYPE);
-```
-
-### UnusedAssignment
-Variable `orderMsg` initializer `false` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
+Variable `topicConfigWrapper` initializer `null` is redundant
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
 #### Snippet
 ```java
         }
 
-        boolean orderMsg = false;
-        {
-            String property = info.getProperties().getProperty(ConsumerRunningInfo.PROP_CONSUME_ORDERLY);
-```
-
-### UnusedAssignment
-Variable `cacheSize` initializer `DEFAULT_CACHE_SIZE` is redundant
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LocalCache.java`
-#### Snippet
-```java
-    private static final int DEFAULT_CACHE_SIZE = 1000;
-
-    private int cacheSize = DEFAULT_CACHE_SIZE;
-    private CacheEvictHandler<K, V> handler;
+        TopicConfigSerializeWrapper topicConfigWrapper = null;
+        List<String> filterServerList = null;
 
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `pt != null` is always `true`
+in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+#### Snippet
+```java
+                    if (property != null) {
+                        Class<?>[] pt = method.getParameterTypes();
+                        if (pt != null && pt.length > 0) {
+                            String cn = pt[0].getSimpleName();
+                            Object arg = null;
+```
+
 ### ConstantValue
 Condition `providerClazz != null` is always `true`
 in `common/src/main/java/org/apache/rocketmq/common/utils/NetworkUtil.java`
@@ -7453,27 +7501,87 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/NetworkUtil.java`
 ```
 
 ### ConstantValue
-Condition `pt != null` is always `true`
-in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+Condition `mqEndPoints != null` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/ClientMetadata.java`
 #### Snippet
 ```java
-                    if (property != null) {
-                        Class<?>[] pt = method.getParameterTypes();
-                        if (pt != null && pt.length > 0) {
-                            String cn = pt[0].getSimpleName();
-                            Object arg = null;
+        {
+            ConcurrentMap<MessageQueue, String> mqEndPoints = topicRouteData2EndpointsForStaticTopic(topic, topicRouteData);
+            if (mqEndPoints != null
+                    && !mqEndPoints.isEmpty()) {
+                topicEndPointsTable.put(topic, mqEndPoints);
 ```
 
 ### ConstantValue
-Condition `!recvAll` is always `true`
-in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
+Condition `this.storePathField != null` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
 #### Snippet
 ```java
-        long startTime = System.currentTimeMillis();
-        Collection<Object> noDupMsgs = new ArrayList<Object>();
-        while (!recvAll) {
-            if ((System.currentTimeMillis() - startTime) < timeoutMills) {
-                noDupMsgs.clear();
+                // check
+                this.storePathField = object.getClass().getDeclaredField(fieldName);
+                assert this.storePathField != null
+                    && !Modifier.isStatic(this.storePathField.getModifiers());
+                this.storePathField.setAccessible(true);
+```
+
+### ConstantValue
+Condition `properties != null` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
+#### Snippet
+```java
+        for (Object configObject : this.configObjectList) {
+            Properties properties = MixAll.object2Properties(configObject);
+            if (properties != null) {
+                merge(properties, this.allConfigs);
+            } else {
+```
+
+### ConstantValue
+Condition `response != null` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/MQProtosHelper.java`
+#### Snippet
+```java
+        try {
+            RemotingCommand response = RemotingHelper.invokeSync(nsaddr, request, timeoutMillis);
+            if (response != null) {
+                return ResponseCode.SUCCESS == response.getCode();
+            }
+```
+
+### ConstantValue
+Value `addrRemote` is always 'null'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClient.java`
+#### Snippet
+```java
+
+                    if (null == prevCW) {
+                        LOGGER.info("eventCloseChannel: the channel[{}] has been removed from the channel table before", addrRemote);
+                        removeItemFromTable = false;
+                    }
+```
+
+### ConstantValue
+Condition `this.nettyEventExecutor != null` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClient.java`
+#### Snippet
+```java
+            this.eventLoopGroupWorker.shutdownGracefully();
+
+            if (this.nettyEventExecutor != null) {
+                this.nettyEventExecutor.shutdown();
+            }
+```
+
+### ConstantValue
+Condition `level == LEVEL_0` is always `true`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingDetail.java`
+#### Snippet
+```java
+            Integer globalId =  entry.getKey();
+            List<LogicQueueMappingItem> items = entry.getValue();
+            if (level == LEVEL_0
+                    && items.size() >= 1) {
+                LogicQueueMappingItem curr = items.get(items.size() - 1);
 ```
 
 ### ConstantValue
@@ -7597,18 +7705,6 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### ConstantValue
-Condition `topicPublishInfo != null` is always `true`
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
-#### Snippet
-```java
-            if (topicRouteData != null) {
-                TopicPublishInfo topicPublishInfo = MQClientInstance.topicRouteData2TopicPublishInfo(topic, topicRouteData);
-                if (topicPublishInfo != null && topicPublishInfo.ok()) {
-                    return parsePublishMessageQueues(topicPublishInfo.getMessageQueueList());
-                }
-```
-
-### ConstantValue
 Value `roll` is always 'false'
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
@@ -7630,6 +7726,162 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
         if (null != currList && currList.size() > 0) {
             lists.add(currList);
         }
+```
+
+### ConstantValue
+Condition `!recvAll` is always `true`
+in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
+#### Snippet
+```java
+        long startTime = System.currentTimeMillis();
+        Collection<Object> noDupMsgs = new ArrayList<Object>();
+        while (!recvAll) {
+            if ((System.currentTimeMillis() - startTime) < timeoutMills) {
+                noDupMsgs.clear();
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        left = orExpression();
+        {
+            if (true)
+                return asBooleanExpression(left);
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        left = new PropertyExpression(t.image);
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return rc.toString();
+        }
+```
+
+### ConstantValue
+Condition is always true
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        }
+        {
+            if (true)
+                return left;
+        }
+```
+
+### ConstantValue
+Condition `!stop` is always `true`
+in `example/src/main/java/org/apache/rocketmq/example/openmessaging/SimplePullConsumer.java`
+#### Snippet
+```java
+                consumer.ack(msgId);
+
+                if (!stop) {
+                    stop = msgId.equalsIgnoreCase(sendResult.messageId());
+                }
+```
+
+### ConstantValue
+Condition `topicPublishInfo != null` is always `true`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+#### Snippet
+```java
+            if (topicRouteData != null) {
+                TopicPublishInfo topicPublishInfo = MQClientInstance.topicRouteData2TopicPublishInfo(topic, topicRouteData);
+                if (topicPublishInfo != null && topicPublishInfo.ok()) {
+                    return parsePublishMessageQueues(topicPublishInfo.getMessageQueueList());
+                }
 ```
 
 ### ConstantValue
@@ -7693,6 +7945,42 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 ```
 
 ### ConstantValue
+Condition `normalTopic != null` is always `true`
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
+#### Snippet
+```java
+            if (msg.getTopic().startsWith(popRetryPrefix)) {
+                String normalTopic = KeyBuilder.parseNormalTopic(msg.getTopic(), consumerGroup);
+                if (normalTopic != null && !normalTopic.isEmpty()) {
+                    msg.setTopic(normalTopic);
+                }
+```
+
+### ConstantValue
+Value `requestMsg` is always 'null'
+in `client/src/main/java/org/apache/rocketmq/client/producer/RequestResponseFuture.java`
+#### Snippet
+```java
+
+    public Message getRequestMsg() {
+        return requestMsg;
+    }
+
+```
+
+### ConstantValue
+Condition `str == null` is always `false`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingConnectException, MQClientException {
+        String str = MixAll.properties2String(properties);
+        if (str == null || str.length() < 1) {
+            return;
+        }
+```
+
+### ConstantValue
 Condition `str != null` is always `true`
 in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
@@ -7726,174 +8014,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
                         assert popResult != null;
                         popCallback.onSuccess(popResult);
                     } catch (Exception e) {
-```
-
-### ConstantValue
-Condition `str == null` is always `false`
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingConnectException, MQClientException {
-        String str = MixAll.properties2String(properties);
-        if (str == null || str.length() < 1) {
-            return;
-        }
-```
-
-### ConstantValue
-Condition `normalTopic != null` is always `true`
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
-#### Snippet
-```java
-            if (msg.getTopic().startsWith(popRetryPrefix)) {
-                String normalTopic = KeyBuilder.parseNormalTopic(msg.getTopic(), consumerGroup);
-                if (normalTopic != null && !normalTopic.isEmpty()) {
-                    msg.setTopic(normalTopic);
-                }
-```
-
-### ConstantValue
-Value `requestMsg` is always 'null'
-in `client/src/main/java/org/apache/rocketmq/client/producer/RequestResponseFuture.java`
-#### Snippet
-```java
-
-    public Message getRequestMsg() {
-        return requestMsg;
-    }
-
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return rc.toString();
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        left = orExpression();
-        {
-            if (true)
-                return asBooleanExpression(left);
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        left = new PropertyExpression(t.image);
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition is always true
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        }
-        {
-            if (true)
-                return left;
-        }
-```
-
-### ConstantValue
-Condition `foundQueueData` is always `true` when reached
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
-#### Snippet
-```java
-        log.debug("pickupTopicRouteData {} {}", topic, topicRouteData);
-
-        if (foundBrokerData && foundQueueData) {
-
-            topicRouteData.setTopicQueueMappingByBroker(this.topicQueueMappingInfoTable.get(topic));
 ```
 
 ### ConstantValue
@@ -7993,102 +8113,66 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcesso
 ```
 
 ### ConstantValue
-Condition `!stop` is always `true`
-in `example/src/main/java/org/apache/rocketmq/example/openmessaging/SimplePullConsumer.java`
+Condition `foundQueueData` is always `true` when reached
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
 #### Snippet
 ```java
-                consumer.ack(msgId);
+        log.debug("pickupTopicRouteData {} {}", topic, topicRouteData);
 
-                if (!stop) {
-                    stop = msgId.equalsIgnoreCase(sendResult.messageId());
-                }
-```
+        if (foundBrokerData && foundQueueData) {
 
-### ConstantValue
-Condition `properties != null` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-        for (Object configObject : this.configObjectList) {
-            Properties properties = MixAll.object2Properties(configObject);
-            if (properties != null) {
-                merge(properties, this.allConfigs);
-            } else {
-```
-
-### ConstantValue
-Condition `this.storePathField != null` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-                // check
-                this.storePathField = object.getClass().getDeclaredField(fieldName);
-                assert this.storePathField != null
-                    && !Modifier.isStatic(this.storePathField.getModifiers());
-                this.storePathField.setAccessible(true);
-```
-
-### ConstantValue
-Condition `mqEndPoints != null` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/ClientMetadata.java`
-#### Snippet
-```java
-        {
-            ConcurrentMap<MessageQueue, String> mqEndPoints = topicRouteData2EndpointsForStaticTopic(topic, topicRouteData);
-            if (mqEndPoints != null
-                    && !mqEndPoints.isEmpty()) {
-                topicEndPointsTable.put(topic, mqEndPoints);
-```
-
-### ConstantValue
-Condition `response != null` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/MQProtosHelper.java`
-#### Snippet
-```java
-        try {
-            RemotingCommand response = RemotingHelper.invokeSync(nsaddr, request, timeoutMillis);
-            if (response != null) {
-                return ResponseCode.SUCCESS == response.getCode();
-            }
-```
-
-### ConstantValue
-Value `addrRemote` is always 'null'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClient.java`
-#### Snippet
-```java
-
-                    if (null == prevCW) {
-                        LOGGER.info("eventCloseChannel: the channel[{}] has been removed from the channel table before", addrRemote);
-                        removeItemFromTable = false;
-                    }
-```
-
-### ConstantValue
-Condition `this.nettyEventExecutor != null` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClient.java`
-#### Snippet
-```java
-            this.eventLoopGroupWorker.shutdownGracefully();
-
-            if (this.nettyEventExecutor != null) {
-                this.nettyEventExecutor.shutdown();
-            }
-```
-
-### ConstantValue
-Condition `level == LEVEL_0` is always `true`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingDetail.java`
-#### Snippet
-```java
-            Integer globalId =  entry.getKey();
-            List<LogicQueueMappingItem> items = entry.getValue();
-            if (level == LEVEL_0
-                    && items.size() >= 1) {
-                LogicQueueMappingItem curr = items.get(items.size() - 1);
+            topicRouteData.setTopicQueueMappingByBroker(this.topicQueueMappingInfoTable.get(topic));
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `flagBits`
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+        boolean result = this.isWriteable();
+        if (result) {
+            this.flagBits |= NOT_WRITEABLE_BIT;
+        }
+        return result;
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `flagBits`
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+        boolean result = this.isReadable();
+        if (result) {
+            this.flagBits |= NOT_READABLE_BIT;
+        }
+        return result;
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `flagBits`
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+    public boolean getAndMakeDiskOK() {
+        boolean result = !((this.flagBits & DISK_FULL_BIT) == DISK_FULL_BIT);
+        this.flagBits &= ~DISK_FULL_BIT;
+        return result;
+    }
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `flagBits`
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+        boolean result = this.isReadable();
+        if (!result) {
+            this.flagBits &= ~NOT_READABLE_BIT;
+        }
+        return result;
+```
+
 ### NonAtomicOperationOnVolatileField
 Non-atomic operation on volatile field `flagBits`
 in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
@@ -8118,18 +8202,6 @@ Non-atomic operation on volatile field `flagBits`
 in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
 #### Snippet
 ```java
-        boolean result = this.isWriteable();
-        if (!result) {
-            this.flagBits &= ~NOT_WRITEABLE_BIT;
-        }
-        return result;
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `flagBits`
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
 
     public void makeIndexFileError() {
         this.flagBits |= WRITE_INDEX_FILE_ERROR_BIT;
@@ -8142,45 +8214,9 @@ Non-atomic operation on volatile field `flagBits`
 in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
 #### Snippet
 ```java
-        boolean result = this.isReadable();
-        if (!result) {
-            this.flagBits &= ~NOT_READABLE_BIT;
-        }
-        return result;
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `flagBits`
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-    public boolean getAndMakeDiskOK() {
-        boolean result = !((this.flagBits & DISK_FULL_BIT) == DISK_FULL_BIT);
-        this.flagBits &= ~DISK_FULL_BIT;
-        return result;
-    }
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `flagBits`
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-        boolean result = this.isReadable();
-        if (result) {
-            this.flagBits |= NOT_READABLE_BIT;
-        }
-        return result;
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `flagBits`
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
         boolean result = this.isWriteable();
-        if (result) {
-            this.flagBits |= NOT_WRITEABLE_BIT;
+        if (!result) {
+            this.flagBits &= ~NOT_WRITEABLE_BIT;
         }
         return result;
 ```
@@ -8198,18 +8234,6 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `putMessageEntireTimeMax`
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-        if (value > this.putMessageEntireTimeMax) {
-            this.putLock.lock();
-            this.putMessageEntireTimeMax =
-                value > this.putMessageEntireTimeMax ? value : this.putMessageEntireTimeMax;
-            this.putLock.unlock();
-```
-
-### NonAtomicOperationOnVolatileField
 Non-atomic operation on volatile field `getMessageEntireTimeMax`
 in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
@@ -8222,39 +8246,15 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `reputFromOffset`
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+Non-atomic operation on volatile field `putMessageEntireTimeMax`
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
 ```java
-                            }
-                            byteBuffer.position(byteBuffer.position() + totalSize);
-                            this.reputFromOffset += totalSize;
-                            readSize += totalSize;
-                        } else {
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `reputFromOffset`
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-                            doNext = false;
-                            if (totalSize == 0) {
-                                this.reputFromOffset = DefaultMessageStore.this.commitLog.rollNextFile(this.reputFromOffset);
-                            }
-                            this.createBatchDispatchRequest(byteBuffer, batchDispatchRequestStart, batchDispatchRequestSize);
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `manualDeleteFileSeveralTimes`
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-
-                if (isManualDelete) {
-                    this.manualDeleteFileSeveralTimes--;
-                }
-
+        if (value > this.putMessageEntireTimeMax) {
+            this.putLock.lock();
+            this.putMessageEntireTimeMax =
+                value > this.putMessageEntireTimeMax ? value : this.putMessageEntireTimeMax;
+            this.putLock.unlock();
 ```
 
 ### NonAtomicOperationOnVolatileField
@@ -8306,51 +8306,63 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `currReadTimeMs`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+Non-atomic operation on volatile field `manualDeleteFileSeveralTimes`
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
 
-    private void moveReadTime() {
-        currReadTimeMs = currReadTimeMs + precisionMs;
-        commitReadTimeMs = currReadTimeMs;
-    }
+                if (isManualDelete) {
+                    this.manualDeleteFileSeveralTimes--;
+                }
+
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `currQueueOffset`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+Non-atomic operation on volatile field `reputFromOffset`
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
-            currQueueOffset = queueOffset + 1;
-        }
-        currQueueOffset = Math.min(currQueueOffset, timerCheckpoint.getMasterTimerQueueOffset());
-
-        //check timer wheel
+                            }
+                            byteBuffer.position(byteBuffer.position() + totalSize);
+                            this.reputFromOffset += totalSize;
+                            readSize += totalSize;
+                        } else {
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `preReadTimeMs`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+Non-atomic operation on volatile field `reputFromOffset`
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
-        Slot slot = timerWheel.getSlot(preReadTimeMs);
-        if (-1 == slot.timeMs) {
-            preReadTimeMs = preReadTimeMs + precisionMs;
-            return 0;
-        }
+                            doNext = false;
+                            if (totalSize == 0) {
+                                this.reputFromOffset = DefaultMessageStore.this.commitLog.rollNextFile(this.reputFromOffset);
+                            }
+                            this.createBatchDispatchRequest(byteBuffer, batchDispatchRequestStart, batchDispatchRequestSize);
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `preReadTimeMs`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+Non-atomic operation on volatile field `appendPosition`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
 #### Snippet
 ```java
+                beginTimestamp = byteBuf.getLong(TieredIndexFile.INDEX_FILE_HEADER_BEGIN_TIME_STAMP_POSITION);
+                endTimestamp = byteBuf.getLong(TieredIndexFile.INDEX_FILE_HEADER_END_TIME_STAMP_POSITION);
+                appendPosition += byteBuf.remaining();
+                uploadBufferList.add(byteBuf);
+                setFull();
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `appendPosition`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+#### Snippet
+```java
+                }
             }
-        } finally {
-            preReadTimeMs = preReadTimeMs + precisionMs;
-        }
-        return 1;
+            appendPosition += byteBuf.remaining();
+            uploadBufferList.add(byteBuf);
+            return AppendResult.SUCCESS;
 ```
 
 ### NonAtomicOperationOnVolatileField
@@ -8378,27 +8390,51 @@ in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFil
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `appendPosition`
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+Non-atomic operation on volatile field `preReadTimeMs`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
-                beginTimestamp = byteBuf.getLong(TieredIndexFile.INDEX_FILE_HEADER_BEGIN_TIME_STAMP_POSITION);
-                endTimestamp = byteBuf.getLong(TieredIndexFile.INDEX_FILE_HEADER_END_TIME_STAMP_POSITION);
-                appendPosition += byteBuf.remaining();
-                uploadBufferList.add(byteBuf);
-                setFull();
+        Slot slot = timerWheel.getSlot(preReadTimeMs);
+        if (-1 == slot.timeMs) {
+            preReadTimeMs = preReadTimeMs + precisionMs;
+            return 0;
+        }
 ```
 
 ### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `appendPosition`
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+Non-atomic operation on volatile field `preReadTimeMs`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
 ```java
-                }
             }
-            appendPosition += byteBuf.remaining();
-            uploadBufferList.add(byteBuf);
-            return AppendResult.SUCCESS;
+        } finally {
+            preReadTimeMs = preReadTimeMs + precisionMs;
+        }
+        return 1;
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `currReadTimeMs`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+
+    private void moveReadTime() {
+        currReadTimeMs = currReadTimeMs + precisionMs;
+        commitReadTimeMs = currReadTimeMs;
+    }
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `currQueueOffset`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+            currQueueOffset = queueOffset + 1;
+        }
+        currQueueOffset = Math.min(currQueueOffset, timerCheckpoint.getMasterTimerQueueOffset());
+
+        //check timer wheel
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -8411,78 +8447,6 @@ in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
             if (entry.getValue() != null) {
                 sb.append(entry.getKey().toString() + "=" + entry.getValue().toString() + "\n");
             }
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-                        }
-
-                        strBQueue.get(msgQueueListIndex).append("" + msgQueueListIndex + "\t" +
-                            msgIdMap.get(lQueueList.get(msgQueueListIndex).get(msgListIndex)) + "\t"
-                            + lQueueList.get(msgQueueListIndex).get(msgListIndex) + "\r\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-        StringBuilder strBuilder = new StringBuilder();
-
-        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
-        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
-        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-
-        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
-        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
-        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
-        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
-        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
-        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
-        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
-
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
-        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
-        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
-
-        strBuilder.append("queue\tmsg(dupNum/dupRate)\tdupRate\r\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
-#### Snippet
-```java
-            float msgQueueInnerDupRate = ((float) msgDupNum / (float) msgNum) * 100.0f;
-
-            strBuilder.append(i + "\t" + msgDupNum + "/" + getFloatNumString(msgQueueDupRate) + "%" + "\t\t" +
-                getFloatNumString(msgQueueInnerDupRate) + "%\r\n");
         }
 ```
 
@@ -8678,6 +8642,78 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/ParseException.java`
                         retval.append(ch);
 ```
 
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+                        }
+
+                        strBQueue.get(msgQueueListIndex).append("" + msgQueueListIndex + "\t" +
+                            msgIdMap.get(lQueueList.get(msgQueueListIndex).get(msgListIndex)) + "\t"
+                            + lQueueList.get(msgQueueListIndex).get(msgListIndex) + "\r\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+        StringBuilder strBuilder = new StringBuilder();
+
+        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
+        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
+        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+
+        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
+        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
+        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
+        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+        strBuilder.append("msgTotalNum:" + msgTotalNum + "\r\n");
+        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
+        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
+        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+        strBuilder.append("msgTotalDupNum:" + msgTotalDupNum + "\r\n");
+        strBuilder.append("msgNoDupNum:" + msgNoDupNum + "\r\n");
+        strBuilder.append("msgDupRate" + getFloatNumString(msgDupRate) + "%\r\n");
+
+        strBuilder.append("queue\tmsg(dupNum/dupRate)\tdupRate\r\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `test/src/main/java/org/apache/rocketmq/test/util/DuplicateMessageInfo.java`
+#### Snippet
+```java
+            float msgQueueInnerDupRate = ((float) msgDupNum / (float) msgNum) * 100.0f;
+
+            strBuilder.append(i + "\t" + msgDupNum + "/" + getFloatNumString(msgQueueDupRate) + "%" + "\t\t" +
+                getFloatNumString(msgQueueInnerDupRate) + "%\r\n");
+        }
+```
+
 ## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
@@ -8777,63 +8813,15 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemSch
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.apache.rocketmq.common.Pair'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+Unchecked assignment: 'java.lang.Class' to 'java.lang.Class'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-    @Override
-    public ResultWrapper send(Object msg, Object arg) {
-        boolean commitMsg = ((Pair<Boolean, LocalTransactionState>) arg).getObject2() == LocalTransactionState.COMMIT_MESSAGE;
-        org.apache.rocketmq.client.producer.SendResult metaqResult = null;
-        Message message = (Message) msg;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.rocketmq.proxy.grpc.v2.channel.GrpcChannelManager.ResultFuture' to 'org.apache.rocketmq.proxy.grpc.v2.channel.GrpcChannelManager.ResultFuture'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/channel/GrpcChannelManager.java`
-#### Snippet
-```java
-
-    public <T> CompletableFuture<ProxyRelayResult<T>> getAndRemoveResponseFuture(String nonce) {
-        ResultFuture<T> resultFuture = this.resultNonceFutureMap.remove(nonce);
-        if (resultFuture != null) {
-            return resultFuture.future;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'io.grpc.stub.StreamObserver' to 'io.grpc.stub.StreamObserver'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/GrpcMessagingApplication.java`
-#### Snippet
-```java
-                try {
-                    GrpcTask grpcTask = (GrpcTask) r;
-                    writeResponse(grpcTask.context, grpcTask.request, grpcTask.executeRejectResponse, grpcTask.streamObserver, null, null);
-                } catch (Throwable t) {
-                    log.warn("write rejected error response failed", t);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.concurrent.CompletableFuture\[\]' to 'java.util.concurrent.CompletableFuture\[\]'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/consumer/AckMessageActivity.java`
-#### Snippet
-```java
-            validateTopicAndConsumerGroup(request.getTopic(), request.getGroup());
-
-            CompletableFuture<AckMessageResultEntry>[] futures = new CompletableFuture[request.getEntriesCount()];
-            for (int i = 0; i < request.getEntriesCount(); i++) {
-                futures[i] = processAckMessage(ctx, request, request.getEntries(i));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/common/ProxyContext.java`
-#### Snippet
-```java
-
-    public <T> T getVal(String key) {
-        return (T) this.value.get(key);
-    }
-
+        switch (responseCommand.getCode()) {
+            case ResponseCode.SUCCESS: {
+                rpcResponsePromise.setSuccess(new RpcResponse(ResponseCode.SUCCESS, null, RemotingSerializable.decode(responseCommand.getBody(), bodyClass)));
+                break;
+            }
 ```
 
 ### UNCHECKED_WARNING
@@ -8858,138 +8846,6 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
         ConcurrentHashMap<String, Long> newMap = new ConcurrentHashMap<>(consumeQueueStore.getTopicQueueTable());
         SelectMappedBufferResult lastBuffer = null;
         long startReadOffset = phyOffset == -1 ? 0 : phyOffset;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `client/src/main/java/org/apache/rocketmq/client/trace/hook/ConsumeMessageOpenTracingHookImpl.java`
-#### Snippet
-```java
-            return;
-        }
-        List<Span> spanList = (List<Span>) context.getMqTraceContext();
-        if (spanList == null) {
-            return;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-    public Set<String> getClusterList(String topic,
-        long timeoutMillis) {
-        return Collections.EMPTY_SET;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.HashMap'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-                clusterAclVersionInfo.setBrokerAddr(responseHeader.getBrokerAddr());
-                clusterAclVersionInfo.setAclConfigDataVersion(DataVersion.fromJson(responseHeader.getVersion(), DataVersion.class));
-                HashMap<String, Object> dataVersionMap = JSON.parseObject(responseHeader.getAllAclFileVersion(), HashMap.class);
-                Map<String, DataVersion> allAclConfigDataVersion = new HashMap<>(dataVersionMap.size(), 1);
-                for (Map.Entry<String, Object> entry : dataVersionMap.entrySet()) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-                return;
-            }
-            List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
-            AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
-            traceExecutor.submit(asyncDataSendTask);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-                return;
-            }
-            List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
-            AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
-            traceExecutor.submit(asyncDataSendTask);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Set'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-                        @Override
-                        public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
-                            Set<String> brokerSet = (Set<String>) arg;
-                            List<MessageQueue> filterMqs = new ArrayList<>();
-                            for (MessageQueue queue : mqs) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-                .reduce(currentMsgKeySize, (acc, x) -> acc + x.length(), Integer::sum);
-            if (currentMsgSize >= traceProducer.getMaxMessageSize() - 10 * 1000 || currentMsgKeySize >= MAX_MSG_KEY_SIZE) {
-                List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
-                AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
-                traceExecutor.submit(asyncDataSendTask);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-                .reduce(currentMsgKeySize, (acc, x) -> acc + x.length(), Integer::sum);
-            if (currentMsgSize >= traceProducer.getMaxMessageSize() - 10 * 1000 || currentMsgKeySize >= MAX_MSG_KEY_SIZE) {
-                List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
-                AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
-                traceExecutor.submit(asyncDataSendTask);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-        private final String traceTopicName;
-        private final String regionId;
-        private final List<TraceTransferBean> traceTransferBeanList = new ArrayList();
-
-        TraceDataSegment(String traceTopicName, String regionId) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.HashMap'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-        this.discardCount = new AtomicLong(0L);
-        this.traceContextQueue = new ArrayBlockingQueue<>(1024);
-        this.taskQueueByTopic = new HashMap();
-        this.group = group;
-        this.type = type;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `controller/src/main/java/org/apache/rocketmq/controller/processor/ControllerRequestProcessor.java`
-#### Snippet
-```java
-                                                             RemotingCommand request) throws Exception {
-        if (request.getBody() != null) {
-            final List<String> brokerNames = RemotingSerializable.decode(request.getBody(), List.class);
-            if (brokerNames != null && brokerNames.size() > 0) {
-                final CompletableFuture<RemotingCommand> future = this.controllerManager.getController().getSyncStateData(brokerNames);
 ```
 
 ### UNCHECKED_WARNING
@@ -9041,6 +8897,186 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.apache.rocketmq.common.Pair'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+#### Snippet
+```java
+    @Override
+    public ResultWrapper send(Object msg, Object arg) {
+        boolean commitMsg = ((Pair<Boolean, LocalTransactionState>) arg).getObject2() == LocalTransactionState.COMMIT_MESSAGE;
+        org.apache.rocketmq.client.producer.SendResult metaqResult = null;
+        Message message = (Message) msg;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.rocketmq.proxy.grpc.v2.channel.GrpcChannelManager.ResultFuture' to 'org.apache.rocketmq.proxy.grpc.v2.channel.GrpcChannelManager.ResultFuture'
+in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/channel/GrpcChannelManager.java`
+#### Snippet
+```java
+
+    public <T> CompletableFuture<ProxyRelayResult<T>> getAndRemoveResponseFuture(String nonce) {
+        ResultFuture<T> resultFuture = this.resultNonceFutureMap.remove(nonce);
+        if (resultFuture != null) {
+            return resultFuture.future;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.concurrent.CompletableFuture\[\]' to 'java.util.concurrent.CompletableFuture\[\]'
+in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/consumer/AckMessageActivity.java`
+#### Snippet
+```java
+            validateTopicAndConsumerGroup(request.getTopic(), request.getGroup());
+
+            CompletableFuture<AckMessageResultEntry>[] futures = new CompletableFuture[request.getEntriesCount()];
+            for (int i = 0; i < request.getEntriesCount(); i++) {
+                futures[i] = processAckMessage(ctx, request, request.getEntries(i));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'io.grpc.stub.StreamObserver' to 'io.grpc.stub.StreamObserver'
+in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/GrpcMessagingApplication.java`
+#### Snippet
+```java
+                try {
+                    GrpcTask grpcTask = (GrpcTask) r;
+                    writeResponse(grpcTask.context, grpcTask.request, grpcTask.executeRejectResponse, grpcTask.streamObserver, null, null);
+                } catch (Throwable t) {
+                    log.warn("write rejected error response failed", t);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `proxy/src/main/java/org/apache/rocketmq/proxy/common/ProxyContext.java`
+#### Snippet
+```java
+
+    public <T> T getVal(String key) {
+        return (T) this.value.get(key);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `client/src/main/java/org/apache/rocketmq/client/trace/hook/ConsumeMessageOpenTracingHookImpl.java`
+#### Snippet
+```java
+            return;
+        }
+        List<Span> spanList = (List<Span>) context.getMqTraceContext();
+        if (spanList == null) {
+            return;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+                return;
+            }
+            List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
+            AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
+            traceExecutor.submit(asyncDataSendTask);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+                return;
+            }
+            List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
+            AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
+            traceExecutor.submit(asyncDataSendTask);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap' to 'java.util.HashMap'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+        this.discardCount = new AtomicLong(0L);
+        this.traceContextQueue = new ArrayBlockingQueue<>(1024);
+        this.taskQueueByTopic = new HashMap();
+        this.group = group;
+        this.type = type;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+                .reduce(currentMsgKeySize, (acc, x) -> acc + x.length(), Integer::sum);
+            if (currentMsgSize >= traceProducer.getMaxMessageSize() - 10 * 1000 || currentMsgKeySize >= MAX_MSG_KEY_SIZE) {
+                List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
+                AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
+                traceExecutor.submit(asyncDataSendTask);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+                .reduce(currentMsgKeySize, (acc, x) -> acc + x.length(), Integer::sum);
+            if (currentMsgSize >= traceProducer.getMaxMessageSize() - 10 * 1000 || currentMsgKeySize >= MAX_MSG_KEY_SIZE) {
+                List<TraceTransferBean> dataToSend = new ArrayList(traceTransferBeanList);
+                AsyncDataSendTask asyncDataSendTask = new AsyncDataSendTask(traceTopicName, regionId, dataToSend);
+                traceExecutor.submit(asyncDataSendTask);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Set'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+                        @Override
+                        public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+                            Set<String> brokerSet = (Set<String>) arg;
+                            List<MessageQueue> filterMqs = new ArrayList<>();
+                            for (MessageQueue queue : mqs) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+        private final String traceTopicName;
+        private final String regionId;
+        private final List<TraceTransferBean> traceTransferBeanList = new ArrayList();
+
+        TraceDataSegment(String traceTopicName, String regionId) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap' to 'java.util.HashMap'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+                clusterAclVersionInfo.setBrokerAddr(responseHeader.getBrokerAddr());
+                clusterAclVersionInfo.setAclConfigDataVersion(DataVersion.fromJson(responseHeader.getVersion(), DataVersion.class));
+                HashMap<String, Object> dataVersionMap = JSON.parseObject(responseHeader.getAllAclFileVersion(), HashMap.class);
+                Map<String, DataVersion> allAclConfigDataVersion = new HashMap<>(dataVersionMap.size(), 1);
+                for (Map.Entry<String, Object> entry : dataVersionMap.entrySet()) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+    public Set<String> getClusterList(String topic,
+        long timeoutMillis) {
+        return Collections.EMPTY_SET;
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `broker/src/main/java/org/apache/rocketmq/broker/client/DefaultConsumerIdsChangeListener.java`
 #### Snippet
@@ -9089,15 +9125,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.lang.Class' to 'java.lang.Class'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `controller/src/main/java/org/apache/rocketmq/controller/processor/ControllerRequestProcessor.java`
 #### Snippet
 ```java
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                rpcResponsePromise.setSuccess(new RpcResponse(ResponseCode.SUCCESS, null, RemotingSerializable.decode(responseCommand.getBody(), bodyClass)));
-                break;
-            }
+                                                             RemotingCommand request) throws Exception {
+        if (request.getBody() != null) {
+            final List<String> brokerNames = RemotingSerializable.decode(request.getBody(), List.class);
+            if (brokerNames != null && brokerNames.size() > 0) {
+                final CompletableFuture<RemotingCommand> future = this.controllerManager.getController().getSyncStateData(brokerNames);
 ```
 
 ## RuleId[id=UnaryPlus]
@@ -9115,18 +9151,6 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageDecoder.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-        } else if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            for (File file1 : files) {
-                deleteFile(file1);
-            }
-```
-
-### DataFlowIssue
 Method invocation `getBytes` may produce `NullPointerException`
 in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
 #### Snippet
@@ -9139,6 +9163,18 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/HttpTinyClient.java`
 ```
 
 ### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
+#### Snippet
+```java
+        } else if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File file1 : files) {
+                deleteFile(file1);
+            }
+```
+
+### DataFlowIssue
 Casting `this.bornHost` to `InetSocketAddress` will produce `ClassCastException` for any non-null value
 in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
 #### Snippet
@@ -9148,6 +9184,102 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
             InetAddress inetAddress = ((InetSocketAddress) this.bornHost).getAddress();
 
             return null != inetAddress ? inetAddress.getHostName() : null;
+```
+
+### DataFlowIssue
+Dereference of `cmd` may produce `NullPointerException`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
+#### Snippet
+```java
+            byteBuffer.readBytes(bodyData);
+        }
+        cmd.body = bodyData;
+
+        return cmd;
+```
+
+### DataFlowIssue
+Method invocation `getWriteQueueNums` may produce `NullPointerException`
+in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
+#### Snippet
+```java
+                //check topic flag
+                if (Objects.equals(policy, CleanupPolicy.COMPACTION)) {
+                    for (int queueId = 0; queueId < topicConfig.getWriteQueueNums(); queueId++) {
+                        loadAndGetClog(it.getKey(), queueId);
+                    }
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `store/src/main/java/org/apache/rocketmq/store/queue/ConsumeQueueStore.java`
+#### Snippet
+```java
+                this.messageStore);
+        } else {
+            throw new RuntimeException(format("queue type %s is not supported.", cqType.toString()));
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `getMsgOffset` may produce `NullPointerException`
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+#### Snippet
+```java
+                    MappedFile firstBcq = mappedFileQueue.getFirstMappedFile();
+                    BatchOffsetIndex minForFirstBcq = getMinMsgOffset(firstBcq, false, false);
+                    if (minForFirstBcq != null && minForFirstBcq.getMsgOffset() <= msgOffset && msgOffset < minForLastBcq.getMsgOffset()) {
+                        // old search logic
+                        targetBcq = this.searchOffsetFromFiles(msgOffset);
+```
+
+### DataFlowIssue
+Method invocation `getStoreTimestamp` may produce `NullPointerException`
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+#### Snippet
+```java
+                    MappedFile firstBcq = mappedFileQueue.getFirstMappedFile();
+                    BatchOffsetIndex minForFirstBcq = getMinMsgOffset(firstBcq, false, true);
+                    if (minForFirstBcq != null && minForFirstBcq.getStoreTimestamp() <= timestamp && timestamp < minForLastBcq.getStoreTimestamp()) {
+                        // old search logic
+                        targetBcq = this.searchTimeFromFiles(timestamp);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+
+            if (maxOffset == 0) {
+                status = GetMessageStatus.NO_MESSAGE_IN_QUEUE;
+                nextBeginOffset = nextOffsetCorrection(offset, 0);
+            } else if (offset < minOffset) {
+```
+
+### DataFlowIssue
+Method invocation `iterator` may produce `NullPointerException`
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/UnaryExpression.java`
+#### Snippet
+```java
+
+                int count = 0;
+                for (Iterator i = inList.iterator(); i.hasNext(); ) {
+                    Object o = (Object) i.next();
+                    if (count != 0) {
+```
+
+### DataFlowIssue
+Method invocation `add` may produce `NullPointerException`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+                fileIndexPy = (int) (tr.getOffsetPy() / commitLogFileSize);
+            } else {
+                currList.add(tr);
+                if (++msgIndex % 2000 == 0) {
+                    lists.add(currList);
 ```
 
 ### DataFlowIssue
@@ -9167,7 +9299,7 @@ Variable is already assigned to this value
 in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
 #### Snippet
 ```java
-            val = Long.parseLong(s);
+            val = Integer.parseInt(s);
         } catch (NumberFormatException e) {
             val = defval;
         }
@@ -9179,7 +9311,7 @@ Variable is already assigned to this value
 in `test/src/main/java/org/apache/rocketmq/test/util/TestUtil.java`
 #### Snippet
 ```java
-            val = Integer.parseInt(s);
+            val = Long.parseLong(s);
         } catch (NumberFormatException e) {
             val = defval;
         }
@@ -9211,6 +9343,30 @@ in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
 ```
 
 ### DataFlowIssue
+Result of 'min' is the same as the first argument making the call meaningless
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+
+        if (curPos < toRet)
+            for (i = toRet - Math.min(curPos, seenUpto); i-- > 0; )
+                try {
+                    curChar = inputStream.readChar();
+```
+
+### DataFlowIssue
+Casting `lv` to `String` will produce `ClassCastException` for any non-null value
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+                if (lc == Boolean.class) {
+                    if (convertStringExpressions && rc == String.class) {
+                        lv = Boolean.valueOf((String) lv).booleanValue();
+                    } else {
+                        return -1;
+```
+
+### DataFlowIssue
 Dereference of `dir.listFiles()` may produce `NullPointerException`
 in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
 #### Snippet
@@ -9220,6 +9376,18 @@ in `test/src/main/java/org/apache/rocketmq/test/schema/SchemaTools.java`
         for (File file: dir.listFiles()) {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             String line = null;
+```
+
+### DataFlowIssue
+Argument `msg` might be null
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
+#### Snippet
+```java
+
+                try {
+                    rocketmqPullConsumer.sendMessageBack(msg, 3);
+                    log.info("Send expired msg back. topic={}, msgId={}, storeHost={}, queueId={}, queueOffset={}",
+                        msg.getTopic(), msg.getMsgId(), msg.getStoreHost(), msg.getQueueId(), msg.getQueueOffset());
 ```
 
 ### DataFlowIssue
@@ -9235,63 +9403,39 @@ in `proxy/src/main/java/org/apache/rocketmq/proxy/grpc/v2/producer/SendMessageAc
 ```
 
 ### DataFlowIssue
-Method invocation `getWriteQueueNums` may produce `NullPointerException`
-in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
+Dereference of `files` may produce `NullPointerException`
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
 #### Snippet
 ```java
-                //check topic flag
-                if (Objects.equals(policy, CleanupPolicy.COMPACTION)) {
-                    for (int queueId = 0; queueId < topicConfig.getWriteQueueNums(); queueId++) {
-                        loadAndGetClog(it.getKey(), queueId);
-                    }
+        File file = new File(path);
+        File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            String fileName = files[i].getAbsolutePath();
+            File f = new File(fileName);
 ```
 
 ### DataFlowIssue
-Method invocation `getStoreTimestamp` may produce `NullPointerException`
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+Method invocation `getAccounts` may produce `NullPointerException`
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
 #### Snippet
 ```java
-                    MappedFile firstBcq = mappedFileQueue.getFirstMappedFile();
-                    BatchOffsetIndex minForFirstBcq = getMinMsgOffset(firstBcq, false, true);
-                    if (minForFirstBcq != null && minForFirstBcq.getStoreTimestamp() <= timestamp && timestamp < minForLastBcq.getStoreTimestamp()) {
-                        // old search logic
-                        targetBcq = this.searchTimeFromFiles(timestamp);
-```
-
-### DataFlowIssue
-Method invocation `getMsgOffset` may produce `NullPointerException`
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
-#### Snippet
-```java
-                    MappedFile firstBcq = mappedFileQueue.getFirstMappedFile();
-                    BatchOffsetIndex minForFirstBcq = getMinMsgOffset(firstBcq, false, false);
-                    if (minForFirstBcq != null && minForFirstBcq.getMsgOffset() <= msgOffset && msgOffset < minForLastBcq.getMsgOffset()) {
-                        // old search logic
-                        targetBcq = this.searchOffsetFromFiles(msgOffset);
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `store/src/main/java/org/apache/rocketmq/store/queue/ConsumeQueueStore.java`
-#### Snippet
-```java
-                this.messageStore);
-        } else {
-            throw new RuntimeException(format("queue type %s is not supported.", cqType.toString()));
-        }
-    }
+            String aclFileName = accessKeyTable.get(plainAccessConfig.getAccessKey());
+            PlainAccessData aclAccessConfigMap = AclUtils.getYamlDataObject(aclFileName, PlainAccessData.class);
+            List<PlainAccessConfig> accounts = aclAccessConfigMap.getAccounts();
+            if (null != accounts) {
+                for (PlainAccessConfig account : accounts) {
 ```
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
 #### Snippet
 ```java
-
-            if (maxOffset == 0) {
-                status = GetMessageStatus.NO_MESSAGE_IN_QUEUE;
-                nextBeginOffset = nextOffsetCorrection(offset, 0);
-            } else if (offset < minOffset) {
+                            success = sendResult != null && sendResult.getSendStatus() == SendStatus.SEND_OK;
+                        } catch (Throwable e) {
+                            success = false;
+                        } finally {
+                            final long currentRT = System.currentTimeMillis() - beginTimestamp;
 ```
 
 ### DataFlowIssue
@@ -9340,18 +9484,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalanceLiteP
                     result = -1;
                 }
                 break;
-```
-
-### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-                fileIndexPy = (int) (tr.getOffsetPy() / commitLogFileSize);
-            } else {
-                currList.add(tr);
-                if (++msgIndex % 2000 == 0) {
-                    lists.add(currList);
 ```
 
 ### DataFlowIssue
@@ -9463,6 +9595,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessage
 ```
 
 ### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+        }
+        File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            String fileName = files[i].getAbsolutePath();
+            File f = new File(fileName);
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
@@ -9499,87 +9643,15 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
 ```
 
 ### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+Method invocation `get` may produce `NullPointerException`
+in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionForRetryMessageFilter.java`
 #### Snippet
 ```java
-        File file = new File(path);
-        File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            String fileName = files[i].getAbsolutePath();
-            File f = new File(fileName);
-```
-
-### DataFlowIssue
-Method invocation `getAccounts` may produce `NullPointerException`
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-            String aclFileName = accessKeyTable.get(plainAccessConfig.getAccessKey());
-            PlainAccessData aclAccessConfigMap = AclUtils.getYamlDataObject(aclFileName, PlainAccessData.class);
-            List<PlainAccessConfig> accounts = aclAccessConfigMap.getAccounts();
-            if (null != accounts) {
-                for (PlainAccessConfig account : accounts) {
-```
-
-### DataFlowIssue
-Argument `ctx` might be null
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
-#### Snippet
-```java
-                return this.wipeWritePermOfBroker(ctx, request);
-            case RequestCode.ADD_WRITE_PERM_OF_BROKER:
-                return this.addWritePermOfBroker(ctx, request);
-            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:
-                return this.getAllTopicListFromNameserver(ctx, request);
-```
-
-### DataFlowIssue
-Argument `ctx` might be null
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
-#### Snippet
-```java
-                return this.addWritePermOfBroker(ctx, request);
-            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:
-                return this.getAllTopicListFromNameserver(ctx, request);
-            case RequestCode.DELETE_TOPIC_IN_NAMESRV:
-                return this.deleteTopicInNamesrv(ctx, request);
-```
-
-### DataFlowIssue
-Method invocation `iterator` may produce `NullPointerException`
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/UnaryExpression.java`
-#### Snippet
-```java
-
-                int count = 0;
-                for (Iterator i = inList.iterator(); i.hasNext(); ) {
-                    Object o = (Object) i.next();
-                    if (count != 0) {
-```
-
-### DataFlowIssue
-Result of 'min' is the same as the first argument making the call meaningless
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-
-        if (curPos < toRet)
-            for (i = toRet - Math.min(curPos, seenUpto); i-- > 0; )
-                try {
-                    curChar = inputStream.readChar();
-```
-
-### DataFlowIssue
-Casting `lv` to `String` will produce `ClassCastException` for any non-null value
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-                if (lc == Boolean.class) {
-                    if (convertStringExpressions && rc == String.class) {
-                        lv = Boolean.valueOf((String) lv).booleanValue();
-                    } else {
-                        return -1;
+                tempProperties = MessageDecoder.decodeProperties(msgBuffer);
+            }
+            String realTopic = tempProperties.get(MessageConst.PROPERTY_RETRY_TOPIC);
+            String group = subscriptionData.getTopic().substring(MixAll.RETRY_GROUP_TOPIC_PREFIX.length());
+            realFilterData = this.consumerFilterManager.get(realTopic, group);
 ```
 
 ### DataFlowIssue
@@ -9592,18 +9664,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
                 pullStatus = PullStatus.NO_NEW_MSG;
                 break;
             case ResponseCode.PULL_RETRY_IMMEDIATELY:
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionForRetryMessageFilter.java`
-#### Snippet
-```java
-                tempProperties = MessageDecoder.decodeProperties(msgBuffer);
-            }
-            String realTopic = tempProperties.get(MessageConst.PROPERTY_RETRY_TOPIC);
-            String group = subscriptionData.getTopic().substring(MixAll.RETRY_GROUP_TOPIC_PREFIX.length());
-            realFilterData = this.consumerFilterManager.get(realTopic, group);
 ```
 
 ### DataFlowIssue
@@ -9691,51 +9751,27 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/Transactio
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+Argument `ctx` might be null
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
 #### Snippet
 ```java
-                            success = sendResult != null && sendResult.getSendStatus() == SendStatus.SEND_OK;
-                        } catch (Throwable e) {
-                            success = false;
-                        } finally {
-                            final long currentRT = System.currentTimeMillis() - beginTimestamp;
+                return this.wipeWritePermOfBroker(ctx, request);
+            case RequestCode.ADD_WRITE_PERM_OF_BROKER:
+                return this.addWritePermOfBroker(ctx, request);
+            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:
+                return this.getAllTopicListFromNameserver(ctx, request);
 ```
 
 ### DataFlowIssue
-Dereference of `cmd` may produce `NullPointerException`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
+Argument `ctx` might be null
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
 #### Snippet
 ```java
-            byteBuffer.readBytes(bodyData);
-        }
-        cmd.body = bodyData;
-
-        return cmd;
-```
-
-### DataFlowIssue
-Argument `msg` might be null
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/LocalMessageCache.java`
-#### Snippet
-```java
-
-                try {
-                    rocketmqPullConsumer.sendMessageBack(msg, 3);
-                    log.info("Send expired msg back. topic={}, msgId={}, storeHost={}, queueId={}, queueOffset={}",
-                        msg.getTopic(), msg.getMsgId(), msg.getStoreHost(), msg.getQueueId(), msg.getQueueOffset());
-```
-
-### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-        }
-        File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            String fileName = files[i].getAbsolutePath();
-            File f = new File(fileName);
+                return this.addWritePermOfBroker(ctx, request);
+            case RequestCode.GET_ALL_TOPIC_LIST_FROM_NAMESERVER:
+                return this.getAllTopicListFromNameserver(ctx, request);
+            case RequestCode.DELETE_TOPIC_IN_NAMESRV:
+                return this.deleteTopicInNamesrv(ctx, request);
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -9765,12 +9801,24 @@ in `common/src/main/java/org/apache/rocketmq/common/filter/impl/Type.java`
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/sysmessage/HeartbeatType.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommandType.java`
 #### Snippet
 ```java
-public enum HeartbeatType {
-    REGISTER,
-    UNREGISTER;
+public enum RemotingCommandType {
+    REQUEST_COMMAND,
+    RESPONSE_COMMAND;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/route/MessageQueueRouteState.java`
+#### Snippet
+```java
+    Normal,
+    WriteOnly,
+    ;
 }
 
 ```
@@ -9785,6 +9833,30 @@ in `store/src/main/java/org/apache/rocketmq/store/config/BrokerRole.java`
     SLAVE;
 }
 
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/sysmessage/HeartbeatType.java`
+#### Snippet
+```java
+public enum HeartbeatType {
+    REGISTER,
+    UNREGISTER;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `acl/src/main/java/org/apache/rocketmq/acl/common/SigningAlgorithm.java`
+#### Snippet
+```java
+    HmacSHA1,
+    HmacSHA256,
+    HmacMD5;
+
+}
 ```
 
 ### UnnecessarySemicolon
@@ -9823,55 +9895,7 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/listener/ConsumeCon
 
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `acl/src/main/java/org/apache/rocketmq/acl/common/SigningAlgorithm.java`
-#### Snippet
-```java
-    HmacSHA1,
-    HmacSHA256,
-    HmacMD5;
-
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommandType.java`
-#### Snippet
-```java
-public enum RemotingCommandType {
-    REQUEST_COMMAND,
-    RESPONSE_COMMAND;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/route/MessageQueueRouteState.java`
-#### Snippet
-```java
-    Normal,
-    WriteOnly,
-    ;
-}
-
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary empty string argument
-in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
-#### Snippet
-```java
-    public static byte[] combineRequestContent(RemotingCommand request, SortedMap<String, String> fieldsMap) {
-        try {
-            StringBuilder sb = new StringBuilder("");
-            for (Map.Entry<String, String> entry : fieldsMap.entrySet()) {
-                if (!SessionCredentials.SIGNATURE.equals(entry.getKey())) {
-```
-
 ### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `filter/src/main/java/org/apache/rocketmq/filter/parser/TokenMgrError.java`
@@ -9896,17 +9920,29 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/ParseException.java`
                         retval.append(ch);
 ```
 
+### StringOperationCanBeSimplified
+Unnecessary empty string argument
+in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
+#### Snippet
+```java
+    public static byte[] combineRequestContent(RemotingCommand request, SortedMap<String, String> fieldsMap) {
+        try {
+            StringBuilder sb = new StringBuilder("");
+            for (Map.Entry<String, String> entry : fieldsMap.entrySet()) {
+                if (!SessionCredentials.SIGNATURE.equals(entry.getKey())) {
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'CONSUME_FROM_MAX_OFFSET' is still used
+Deprecated member 'CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST' is still used
 in `common/src/main/java/org/apache/rocketmq/common/consumer/ConsumeFromWhere.java`
 #### Snippet
 ```java
-    CONSUME_FROM_MIN_OFFSET,
+
     @Deprecated
-    CONSUME_FROM_MAX_OFFSET,
-    CONSUME_FROM_FIRST_OFFSET,
-    CONSUME_FROM_TIMESTAMP,
+    CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST,
+    @Deprecated
+    CONSUME_FROM_MIN_OFFSET,
 ```
 
 ### DeprecatedIsStillUsed
@@ -9922,15 +9958,39 @@ in `common/src/main/java/org/apache/rocketmq/common/consumer/ConsumeFromWhere.ja
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST' is still used
+Deprecated member 'CONSUME_FROM_MAX_OFFSET' is still used
 in `common/src/main/java/org/apache/rocketmq/common/consumer/ConsumeFromWhere.java`
+#### Snippet
+```java
+    CONSUME_FROM_MIN_OFFSET,
+    @Deprecated
+    CONSUME_FROM_MAX_OFFSET,
+    CONSUME_FROM_FIRST_OFFSET,
+    CONSUME_FROM_TIMESTAMP,
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'aclConfigDataVersion' is still used
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ClusterAclVersionInfo.java`
 #### Snippet
 ```java
 
     @Deprecated
-    CONSUME_FROM_LAST_OFFSET_AND_FROM_MIN_WHEN_BOOT_FIRST,
-    @Deprecated
-    CONSUME_FROM_MIN_OFFSET,
+    private DataVersion aclConfigDataVersion;
+
+    private Map<String, DataVersion> allAclConfigDataVersion;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'GetConsumerStatusBody' is still used
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/GetConsumerStatusBody.java`
+#### Snippet
+```java
+
+@Deprecated
+public class GetConsumerStatusBody extends RemotingSerializable {
+    private Map<MessageQueue, Long> messageQueueTable = new HashMap<>();
+    private Map<String, Map<MessageQueue, Long>> consumerTable =
 ```
 
 ### DeprecatedIsStillUsed
@@ -9970,6 +10030,42 @@ in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getAclConfigDataVersion' is still used
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public String getAclConfigDataVersion() {
+        return this.dataVersion.toJson();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'dataVersion' is still used
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+
+    @Deprecated
+    private final DataVersion dataVersion = new DataVersion();
+
+    private List<String> fileList = new ArrayList<>();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getAclConfigVersion' is still used
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    String getAclConfigVersion();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getConsumeStatus' is still used
 in `client/src/main/java/org/apache/rocketmq/client/impl/ClientRemotingProcessor.java`
 #### Snippet
@@ -9982,18 +10078,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/ClientRemotingProcessor
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'computePullFromWhere' is still used
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalanceImpl.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public abstract long computePullFromWhere(final MessageQueue mq);
-
-    public abstract long computePullFromWhereWithException(final MessageQueue mq) throws MQClientException;
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'uploadFilterClassToAllFilterServer' is still used
 in `client/src/main/java/org/apache/rocketmq/client/impl/factory/MQClientInstance.java`
 #### Snippet
@@ -10003,6 +10087,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/factory/MQClientInstanc
     private void uploadFilterClassToAllFilterServer(final String consumerGroup, final String fullClassName,
         final String topic,
         final String filterClassSource) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'computePullFromWhere' is still used
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalanceImpl.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public abstract long computePullFromWhere(final MessageQueue mq);
+
+    public abstract long computePullFromWhereWithException(final MessageQueue mq) throws MQClientException;
 ```
 
 ### DeprecatedIsStillUsed
@@ -10054,15 +10150,15 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/TransactionMQProduc
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'LocalTransactionExecuter' is still used
-in `client/src/main/java/org/apache/rocketmq/client/producer/LocalTransactionExecuter.java`
+Deprecated member 'fileCurrentHash' is still used
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public interface LocalTransactionExecuter {
-    LocalTransactionState executeLocalTransactionBranch(final Message msg, final Object arg);
-}
+    private int aclFilesNum;
+    @Deprecated
+    private final Map<String, String> fileCurrentHash;
+    private Map<String, Long> fileLastModifiedTime;
+    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
 ```
 
 ### DeprecatedIsStillUsed
@@ -10078,75 +10174,15 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getAclConfigVersion' is still used
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+Deprecated member 'LocalTransactionExecuter' is still used
+in `client/src/main/java/org/apache/rocketmq/client/producer/LocalTransactionExecuter.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    String getAclConfigVersion();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'dataVersion' is still used
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-
-    @Deprecated
-    private final DataVersion dataVersion = new DataVersion();
-
-    private List<String> fileList = new ArrayList<>();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getAclConfigDataVersion' is still used
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public String getAclConfigDataVersion() {
-        return this.dataVersion.toJson();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'aclConfigDataVersion' is still used
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ClusterAclVersionInfo.java`
-#### Snippet
-```java
-
-    @Deprecated
-    private DataVersion aclConfigDataVersion;
-
-    private Map<String, DataVersion> allAclConfigDataVersion;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'GetConsumerStatusBody' is still used
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/GetConsumerStatusBody.java`
-#### Snippet
-```java
-
+ */
 @Deprecated
-public class GetConsumerStatusBody extends RemotingSerializable {
-    private Map<MessageQueue, Long> messageQueueTable = new HashMap<>();
-    private Map<String, Map<MessageQueue, Long>> consumerTable =
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'fileCurrentHash' is still used
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private int aclFilesNum;
-    @Deprecated
-    private final Map<String, String> fileCurrentHash;
-    private Map<String, Long> fileLastModifiedTime;
-    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
+public interface LocalTransactionExecuter {
+    LocalTransactionState executeLocalTransactionBranch(final Message msg, final Object arg);
+}
 ```
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
@@ -10165,962 +10201,98 @@ in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/OMSUtil.java`
 ## RuleId[id=SwitchStatementWithTooFewBranches]
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-                                        RemotingCommand response = responseFuture.getResponseCommand();
-                                        if (response != null) {
-                                            switch (response.getCode()) {
-                                                case ResponseCode.SUCCESS: {
-                                                    QueryMessageResponseHeader responseHeader = null;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            RemotingCommand response = this.remotingClient
-                .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
-            switch (response.getCode()) {
-                case ResponseCode.SUCCESS: {
-                    return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
-                return true;
+                rpcResponsePromise.setSuccess(new RpcResponse(ResponseCode.SUCCESS, null, RemotingSerializable.decode(responseCommand.getBody(), bodyClass)));
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
+                SearchOffsetResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
-                return;
+                UpdateConsumerOffsetResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetEarliestMsgStoretimeResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        assert response != null;
-
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS:
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                QuerySubscriptionResponseBody subscriptionResponseBody =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return ConsumerConnection.decode(response.getBody(), ConsumerConnection.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return RemotingSerializable.decode(response.getBody(), SubscriptionGroupConfig.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return true;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        assert response != null;
-
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return HARuntimeInfo.decode(response.getBody(), HARuntimeInfo.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-                RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
-                assert response != null;
-                switch (response.getCode()) {
-                    case ResponseCode.SUCCESS: {
-                        break;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            RemotingCommand response = this.remotingClient.invokeSync(nameServer, request, timeoutMillis);
-            assert response != null;
-            switch (response.getCode()) {
-                case ResponseCode.SUCCESS: {
-                    break;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                ConsumeStats consumeStats = ConsumeStats.decode(response.getBody(), ConsumeStats.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            RemotingCommand response = this.remotingClient
-                .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
-            switch (response.getCode()) {
-                case ResponseCode.SUCCESS: {
-                    return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
                 GetMinOffsetResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-                RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
-                assert response != null;
-                switch (response.getCode()) {
-                    case ResponseCode.SUCCESS: {
-                        break;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                SearchOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetBrokerAclConfigResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return ProducerTableInfo.decode(response.getBody(), ProducerTableInfo.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return MixAll.string2Properties(new String(response.getBody(), MixAll.DEFAULT_CHARSET));
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return ClusterInfo.decode(response.getBody(), ClusterInfo.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return KVTable.decode(response.getBody(), KVTable.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            RemotingCommand response = this.remotingClient.invokeSync(controller, request, timeoutMillis);
-            assert response != null;
-            switch (response.getCode()) {
-                case ResponseCode.SUCCESS: {
-                    break;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        final RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetKVConfigResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(nameSrvAddr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                AddWritePermOfBrokerResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return KVTable.decode(response.getBody(), KVTable.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
                 GetMaxOffsetResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
+        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
+        assert responseCommand != null;
+        switch (responseCommand.getCode()) {
             case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
+                GetEarliestMsgStoretimeResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredDispatcher.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                WipeWritePermOfBrokerResponseHeader responseHeader =
+                if (storeConfig.isMessageIndexEnable() && result == AppendResult.SUCCESS) {
+                    result = container.appendIndexFile(request);
+                    switch (result) {
+                        case SUCCESS:
+                            Long count = ifMetricsMap.computeIfAbsent(messageQueue, key -> 0L);
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageFetcher.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return response.getVersion();
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return RemotingSerializable.decode(response.getBody(), BrokerReplicasInfo.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                QueryConsumeTimeSpanBody consumeTimeSpanBody = GroupList.decode(response.getBody(), QueryConsumeTimeSpanBody.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GroupList groupList = GroupList.decode(response.getBody(), GroupList.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                QueryAssignmentResponseBody queryAssignmentResponseBody = QueryAssignmentResponseBody.decode(response.getBody(), QueryAssignmentResponseBody.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                TopicStatsTable topicStatsTable = TopicStatsTable.decode(response.getBody(), TopicStatsTable.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                ByteBuffer byteBuffer = ByteBuffer.wrap(response.getBody());
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return RemotingSerializable.decode(response.getBody(), GroupForbidden.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return ProducerConnection.decode(response.getBody(), ProducerConnection.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        final RemotingCommand response = this.remotingClient.invokeSync(brokerAddr, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return RemotingSerializable.decode(response.getBody(), EpochEntryCache.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                if (response.getBody() != null) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        final RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                BrokerMemberGroup brokerMemberGroup = RemotingSerializable.decode(response.getBody(), BrokerMemberGroup.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        assert response != null;
-
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS:
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return true;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return SubscriptionGroupWrapper.decode(response.getBody(), SubscriptionGroupWrapper.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return TopicConfigSerializeWrapper.decode(response.getBody(), TopicConfigSerializeWrapper.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                SearchOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return true;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                LockBatchResponseBody responseBody = LockBatchResponseBody.decode(response.getBody(), LockBatchResponseBody.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-            request, timeoutMillis);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(brokerAddr, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
-            request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                TopicList topicList = TopicList.decode(response.getBody(), TopicList.class);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        request.setBody(classBody);
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return;
+            readConsumeQueueFuture = container.readConsumeQueue(queueOffset, batchSize);
+        } catch (TieredStoreException e) {
+            switch (e.getErrorCode()) {
+                case NO_NEW_DATA:
+                    result.setStatus(GetMessageStatus.OFFSET_OVERFLOW_ONE);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11133,6 +10305,30 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/Token.java`
         switch (ofKind) {
             default:
                 return new Token(ofKind, image);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
+            case 0:
+                return (JJ_BIT_VEC_2[i2] & l2) != 0L;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        label_1:
+        while (true) {
+            switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
+                case OR:
+                    break;
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11176,18 +10372,6 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
 in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
 #### Snippet
 ```java
-        label_1:
-        while (true) {
-            switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
-                case OR:
-                    break;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
         label_2:
         while (true) {
             switch ((jjNtk == -1) ? jj_ntk() : jjNtk) {
@@ -11209,46 +10393,154 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
 #### Snippet
 ```java
-
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
-        switch (hiByte) {
-            case 0:
-                return (JJ_BIT_VEC_2[i2] & l2) != 0L;
+                    ProcessQueue pq = rocketmqPullConsumer.getDefaultMQPullConsumerImpl().getRebalanceImpl()
+                        .getProcessQueueTable().get(mq);
+                    switch (pullResult.getPullStatus()) {
+                        case FOUND:
+                            if (pq != null) {
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQAdminImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(null, request, 3_000);
+                                        RemotingCommand response = responseFuture.getResponseCommand();
+                                        if (response != null) {
+                                            switch (response.getCode()) {
+                                                case ResponseCode.SUCCESS: {
+                                                    QueryMessageResponseHeader responseHeader = null;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                return ClusterInfo.decode(response.getBody(), ClusterInfo.class);
+                byte[] body = response.getBody();
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMills);
+            request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                RegisterBrokerResponseHeader responseHeader =
+                return RemotingSerializable.decode(response.getBody(), GroupForbidden.class);
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, 3000);
+            RemotingCommand response = this.remotingClient
+                .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
+            switch (response.getCode()) {
+                case ResponseCode.SUCCESS: {
+                    return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GetEarliestMsgStoretimeResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                LockBatchResponseBody responseBody = LockBatchResponseBody.decode(response.getBody(), LockBatchResponseBody.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        final RemotingCommand response = this.remotingClient.invokeSync(brokerAddr, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return RemotingSerializable.decode(response.getBody(), EpochEntryCache.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return true;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return RemotingSerializable.decode(response.getBody(), BrokerReplicasInfo.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return ProducerTableInfo.decode(response.getBody(), ProducerTableInfo.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
@@ -11257,50 +10549,830 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
+        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                return ConsumerOffsetSerializeWrapper.decode(response.getBody(), ConsumerOffsetSerializeWrapper.class);
+                WipeWritePermOfBrokerResponseHeader responseHeader =
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(true, addr), request, 3000);
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                return TimerCheckpoint.decode(ByteBuffer.wrap(response.getBody()));
+                return ClusterInfo.decode(response.getBody(), ClusterInfo.class);
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(true, addr), request, 3000);
-        assert response != null;
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                return TopicConfigSerializeWrapper.decode(response.getBody(), TopicConfigAndMappingSerializeWrapper.class);
+                return true;
 ```
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
+            RemotingCommand response = this.remotingClient
+                .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
+            switch (response.getCode()) {
+                case ResponseCode.SUCCESS: {
+                    return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                return MessageRequestModeSerializeWrapper.decode(response.getBody(), MessageRequestModeSerializeWrapper.class);
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        final RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return ProducerConnection.decode(response.getBody(), ProducerConnection.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return true;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return SubscriptionGroupWrapper.decode(response.getBody(), SubscriptionGroupWrapper.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+                RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
+                assert response != null;
+                switch (response.getCode()) {
+                    case ResponseCode.SUCCESS: {
+                        break;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GetBrokerAclConfigResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            RemotingCommand response = this.remotingClient.invokeSync(nameServer, request, timeoutMillis);
+            assert response != null;
+            switch (response.getCode()) {
+                case ResponseCode.SUCCESS: {
+                    break;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return KVTable.decode(response.getBody(), KVTable.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return ConsumerConnection.decode(response.getBody(), ConsumerConnection.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                ConsumeStats consumeStats = ConsumeStats.decode(response.getBody(), ConsumeStats.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        final RemotingCommand response = this.remotingClient.invokeSync(leaderAddress, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                BrokerMemberGroup brokerMemberGroup = RemotingSerializable.decode(response.getBody(), BrokerMemberGroup.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return response.getVersion();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GroupList groupList = GroupList.decode(response.getBody(), GroupList.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                ByteBuffer byteBuffer = ByteBuffer.wrap(response.getBody());
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(brokerAddr, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return RemotingSerializable.decode(response.getBody(), SubscriptionGroupConfig.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                SearchOffsetResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+                RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMillis);
+                assert response != null;
+                switch (response.getCode()) {
+                    case ResponseCode.SUCCESS: {
+                        break;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return true;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                SearchOffsetResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                QueryAssignmentResponseBody queryAssignmentResponseBody = QueryAssignmentResponseBody.decode(response.getBody(), QueryAssignmentResponseBody.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return KVTable.decode(response.getBody(), KVTable.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                QuerySubscriptionResponseBody subscriptionResponseBody =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        request.setBody(classBody);
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GetMinOffsetResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GetMaxOffsetResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        assert response != null;
+
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return HARuntimeInfo.decode(response.getBody(), HARuntimeInfo.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            .invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), brokerAddr), request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            RemotingCommand response = this.remotingClient.invokeSync(controller, request, timeoutMillis);
+            assert response != null;
+            switch (response.getCode()) {
+                case ResponseCode.SUCCESS: {
+                    break;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                TopicList topicList = TopicList.decode(response.getBody(), TopicList.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                TopicStatsTable topicStatsTable = TopicStatsTable.decode(response.getBody(), TopicStatsTable.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                if (response.getBody() != null) {
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(this.clientConfig.isVipChannelEnabled(), addr),
+            request, timeoutMillis);
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                QueryConsumeTimeSpanBody consumeTimeSpanBody = GroupList.decode(response.getBody(), QueryConsumeTimeSpanBody.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(nameSrvAddr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                AddWritePermOfBrokerResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+            request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return TopicConfigSerializeWrapper.decode(response.getBody(), TopicConfigSerializeWrapper.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GetKVConfigResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, timeoutMillis);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return MixAll.string2Properties(new String(response.getBody(), MixAll.DEFAULT_CHARSET));
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        assert response != null;
+
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS:
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        assert response != null;
+
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS:
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/client/net/Broker2Client.java`
+#### Snippet
+```java
+                        this.brokerController.getRemotingServer().invokeSync(entry.getKey(), request, 5000);
+                    assert response != null;
+                    switch (response.getCode()) {
+                        case ResponseCode.SUCCESS: {
+                            if (response.getBody() != null) {
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11312,31 +11384,7 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
         assert response != null;
         switch (response.getCode()) {
             case SUCCESS: {
-                assert response.getBody() != null;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                return new String(response.getBody(), MixAll.DEFAULT_CHARSET);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
-#### Snippet
-```java
-        RemotingCommand response = this.remotingClient.invokeSync(masterBrokerAddr, request, 3000);
-        assert response != null;
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                ExchangeHAInfoResponseHeader responseHeader = (ExchangeHAInfoResponseHeader) response.decodeCommandCustomHeader(ExchangeHAInfoResponseHeader.class);
+                final GetReplicaInfoResponseHeader header = (GetReplicaInfoResponseHeader) response.decodeCommandCustomHeader(GetReplicaInfoResponseHeader.class);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11356,11 +11404,35 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
 ```java
+        final RemotingCommand response = this.remotingClient.invokeSync(controllerAddress, request, 3000);
         assert response != null;
+        switch (response.getCode()) {
+            case SUCCESS: {
+                assert response.getBody() != null;
+```
 
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMills);
+        assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                byte[] body = response.getBody();
+                RegisterBrokerResponseHeader responseHeader =
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(null, request, 3_000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return ClusterInfo.decode(response.getBody(), ClusterInfo.class);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11373,6 +11445,30 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
                 GetMinOffsetResponseHeader responseHeader = (GetMinOffsetResponseHeader) response.decodeCommandCustomHeader(GetMinOffsetResponseHeader.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        assert response != null;
+
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                byte[] body = response.getBody();
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(true, addr), request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return TimerCheckpoint.decode(ByteBuffer.wrap(response.getBody()));
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11396,6 +11492,30 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
+                return new String(response.getBody(), MixAll.DEFAULT_CHARSET);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return ConsumerOffsetSerializeWrapper.decode(response.getBody(), ConsumerOffsetSerializeWrapper.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
                 return SubscriptionGroupWrapper.decode(response.getBody(), SubscriptionGroupWrapper.class);
 ```
 
@@ -11404,11 +11524,23 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
 ```java
-        final RemotingCommand response = this.remotingClient.invokeSync(controllerAddress, request, 3000);
+        RemotingCommand response = this.remotingClient.invokeSync(addr, request, 3000);
         assert response != null;
         switch (response.getCode()) {
-            case SUCCESS: {
-                final GetReplicaInfoResponseHeader header = (GetReplicaInfoResponseHeader) response.decodeCommandCustomHeader(GetReplicaInfoResponseHeader.class);
+            case ResponseCode.SUCCESS: {
+                return MessageRequestModeSerializeWrapper.decode(response.getBody(), MessageRequestModeSerializeWrapper.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(MixAll.brokerVIPChannel(true, addr), request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return TopicConfigSerializeWrapper.decode(response.getBody(), TopicConfigAndMappingSerializeWrapper.class);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11428,6 +11560,30 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
 ```java
+
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                return;
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+        RemotingCommand response = this.remotingClient.invokeSync(masterBrokerAddr, request, 3000);
+        assert response != null;
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                ExchangeHAInfoResponseHeader responseHeader = (ExchangeHAInfoResponseHeader) response.decodeCommandCustomHeader(ExchangeHAInfoResponseHeader.class);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
         assert response != null;
 
         switch (response.getCode()) {
@@ -11440,23 +11596,11 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
 #### Snippet
 ```java
-
+        RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, 3000);
         assert response != null;
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
                 return;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/client/net/Broker2Client.java`
-#### Snippet
-```java
-                        this.brokerController.getRemotingServer().invokeSync(entry.getKey(), request, 5000);
-                    assert response != null;
-                    switch (response.getCode()) {
-                        case ResponseCode.SUCCESS: {
-                            if (response.getBody() != null) {
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -11509,18 +11653,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcess
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-            }
-            finalResponse.setRemark(getMessageResult.getStatus().name());
-            switch (finalResponse.getCode()) {
-                case ResponseCode.SUCCESS:
-                    if (this.brokerController.getBrokerConfig().isTransferMsgByHeap()) {
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
@@ -11533,110 +11665,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredDispatcher.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-                if (storeConfig.isMessageIndexEnable() && result == AppendResult.SUCCESS) {
-                    result = container.appendIndexFile(request);
-                    switch (result) {
-                        case SUCCESS:
-                            Long count = ifMetricsMap.computeIfAbsent(messageQueue, key -> 0L);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageFetcher.java`
-#### Snippet
-```java
-            readConsumeQueueFuture = container.readConsumeQueue(queueOffset, batchSize);
-        } catch (TieredStoreException e) {
-            switch (e.getErrorCode()) {
-                case NO_NEW_DATA:
-                    result.setStatus(GetMessageStatus.OFFSET_OVERFLOW_ONE);
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                UpdateConsumerOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetMaxOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetMinOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                SearchOffsetResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GetEarliestMsgStoretimeResponseHeader responseHeader =
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-        RemotingCommand responseCommand = this.remotingClient.invokeSync(addr, requestCommand, timeoutMillis);
-        assert responseCommand != null;
-        switch (responseCommand.getCode()) {
-            case ResponseCode.SUCCESS: {
-                rpcResponsePromise.setSuccess(new RpcResponse(ResponseCode.SUCCESS, null, RemotingSerializable.decode(responseCommand.getBody(), bodyClass)));
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/consumer/PullConsumerImpl.java`
-#### Snippet
-```java
-                    ProcessQueue pq = rocketmqPullConsumer.getDefaultMQPullConsumerImpl().getRebalanceImpl()
-                        .getProcessQueueTable().get(mq);
-                    switch (pullResult.getPullStatus()) {
-                        case FOUND:
-                            if (pq != null) {
+            }
+            finalResponse.setRemark(getMessageResult.getStatus().name());
+            switch (finalResponse.getCode()) {
+                case ResponseCode.SUCCESS:
+                    if (this.brokerController.getBrokerConfig().isTransferMsgByHeap()) {
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -14449,18 +14485,6 @@ in `common/src/main/java/org/apache/rocketmq/common/stats/MomentStatsItem.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
-#### Snippet
-```java
-                    recvAll = true;
-                    break;
-                } catch (Throwable e) {
-                }
-                TestUtil.waitForMonment(500);
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `common/src/main/java/org/apache/rocketmq/common/consistenthash/ConsistentHashRouter.java`
 #### Snippet
 ```java
@@ -14469,30 +14493,6 @@ in `common/src/main/java/org/apache/rocketmq/common/consistenthash/ConsistentHas
             } catch (NoSuchAlgorithmException e) {
             }
         }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
-#### Snippet
-```java
-            mqAdminExt.start();
-            mqAdminExt.createTopic(clusterName, topic, queueNum, attributes);
-        } catch (Exception e) {
-        }
-
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
-#### Snippet
-```java
-            TopicStatsTable topicInfo = mqAdminExt.examineTopicStats(topic);
-            createResult = !topicInfo.getOffsetTable().isEmpty();
-        } catch (Exception e) {
-        }
-
 ```
 
 ### CatchMayIgnoreException
@@ -14509,6 +14509,18 @@ in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
+in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAService.java`
+#### Snippet
+```java
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+
+            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
 in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 #### Snippet
 ```java
@@ -14521,14 +14533,14 @@ in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAService.java`
+in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
 #### Snippet
 ```java
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
+        try {
+            return this.statsTable.get(statsName).getStatsItem(statsKey);
+        } catch (Exception e) {
+        }
 
-            }
 ```
 
 ### CatchMayIgnoreException
@@ -14569,13 +14581,97 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `store/src/main/java/org/apache/rocketmq/store/stats/BrokerStatsManager.java`
+in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
 #### Snippet
 ```java
-        try {
-            return this.statsTable.get(statsName).getStatsItem(statsKey);
+                    recvAll = true;
+                    break;
+                } catch (Throwable e) {
+                }
+                TestUtil.waitForMonment(500);
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+                }
+                while (p != null);
+            } catch (LookaheadSuccess ls) {
+            }
+        }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+#### Snippet
+```java
+            TopicStatsTable topicInfo = mqAdminExt.examineTopicStats(topic);
+            createResult = !topicInfo.getOffsetTable().isEmpty();
         } catch (Exception e) {
         }
+
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+#### Snippet
+```java
+            mqAdminExt.start();
+            mqAdminExt.createTopic(clusterName, topic, queueNum, attributes);
+        } catch (Exception e) {
+        }
+
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e1) {
+                            }
+                            statsBenchmark.getSendRequestFailedCount().increment();
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+                                try {
+                                    Thread.sleep(config.sendInterval);
+                                } catch (InterruptedException e) {
+                                }
+                            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e1) {
+                            }
+                        } catch (MQClientException e) {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+            try {
+                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+            }
 
 ```
 
@@ -14628,18 +14724,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 ```
 
 ### CatchMayIgnoreException
-Empty `catch` block
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-                }
-                while (p != null);
-            } catch (LookaheadSuccess ls) {
-            }
-        }
-```
-
-### CatchMayIgnoreException
 'catch' parameter named `ignore` is used
 in `broker/src/main/java/org/apache/rocketmq/broker/BrokerController.java`
 #### Snippet
@@ -14665,18 +14749,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-                    }
-                }
-            } catch (Throwable e) {
-            }
-        }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
@@ -14689,50 +14761,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-            try {
-                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
+                    }
+                }
+            } catch (Throwable e) {
             }
-
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e1) {
-                            }
-                        } catch (MQClientException e) {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-                                try {
-                                    Thread.sleep(config.sendInterval);
-                                } catch (InterruptedException e) {
-                                }
-                            }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e1) {
-                            }
-                            statsBenchmark.getSendRequestFailedCount().increment();
+        }
 ```
 
 ## RuleId[id=IOStreamConstructor]
@@ -14746,6 +14782,66 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/IOTinyUtils.java`
             os = new FileOutputStream(file);
             os.write(data.getBytes(encoding));
         } finally {
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerStartup.java`
+#### Snippet
+```java
+
+        public Properties loadConfig() throws Exception {
+            InputStream in = new BufferedInputStream(new FileInputStream(file));
+            Properties properties = new Properties();
+            properties.load(in);
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
+#### Snippet
+```java
+        public InputStream decryptPrivateKey(final String privateKeyEncryptPath,
+            final boolean forClient) throws IOException {
+            return new FileInputStream(privateKeyEncryptPath);
+        }
+    };
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
+#### Snippet
+```java
+
+                return sslContextBuilder.keyManager(
+                    !isNullOrEmpty(tlsClientCertPath) ? new FileInputStream(tlsClientCertPath) : null,
+                    !isNullOrEmpty(tlsClientKeyPath) ? decryptionStrategy.decryptPrivateKey(tlsClientKeyPath, true) : null,
+                    !isNullOrEmpty(tlsClientKeyPassword) ? tlsClientKeyPassword : null)
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
+#### Snippet
+```java
+            } else {
+                SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(
+                    !isNullOrEmpty(tlsServerCertPath) ? new FileInputStream(tlsServerCertPath) : null,
+                    !isNullOrEmpty(tlsServerKeyPath) ? decryptionStrategy.decryptPrivateKey(tlsServerKeyPath, false) : null,
+                    !isNullOrEmpty(tlsServerKeyPassword) ? tlsServerKeyPassword : null)
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
+#### Snippet
+```java
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(configFile);
+            properties.load(inputStream);
+        } catch (IOException ignore) {
 ```
 
 ### IOStreamConstructor
@@ -14782,66 +14878,6 @@ in `controller/src/main/java/org/apache/rocketmq/controller/ControllerStartup.ja
                 InputStream in = new BufferedInputStream(new FileInputStream(file));
                 properties = new Properties();
                 properties.load(in);
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerStartup.java`
-#### Snippet
-```java
-
-        public Properties loadConfig() throws Exception {
-            InputStream in = new BufferedInputStream(new FileInputStream(file));
-            Properties properties = new Properties();
-            properties.load(in);
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
-#### Snippet
-```java
-        public InputStream decryptPrivateKey(final String privateKeyEncryptPath,
-            final boolean forClient) throws IOException {
-            return new FileInputStream(privateKeyEncryptPath);
-        }
-    };
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
-#### Snippet
-```java
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(configFile);
-            properties.load(inputStream);
-        } catch (IOException ignore) {
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
-#### Snippet
-```java
-
-                return sslContextBuilder.keyManager(
-                    !isNullOrEmpty(tlsClientCertPath) ? new FileInputStream(tlsClientCertPath) : null,
-                    !isNullOrEmpty(tlsClientKeyPath) ? decryptionStrategy.decryptPrivateKey(tlsClientKeyPath, true) : null,
-                    !isNullOrEmpty(tlsClientKeyPassword) ? tlsClientKeyPassword : null)
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/TlsHelper.java`
-#### Snippet
-```java
-            } else {
-                SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(
-                    !isNullOrEmpty(tlsServerCertPath) ? new FileInputStream(tlsServerCertPath) : null,
-                    !isNullOrEmpty(tlsServerKeyPath) ? decryptionStrategy.decryptPrivateKey(tlsServerKeyPath, false) : null,
-                    !isNullOrEmpty(tlsServerKeyPassword) ? tlsServerKeyPassword : null)
 ```
 
 ## RuleId[id=ProtectedMemberInFinalClass]
@@ -14884,18 +14920,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullC
 
 ### CollectionAddAllCanBeReplacedWithConstructor
 'addAll()' call can be replaced with parametrized constructor call
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-        Set<SubscriptionData> subSet = new HashSet<>();
-
-        subSet.addAll(this.rebalanceImpl.getSubscriptionInner().values());
-
-        return subSet;
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'addAll()' call can be replaced with parametrized constructor call
 in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushConsumerImpl.java`
 #### Snippet
 ```java
@@ -14904,6 +14928,18 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushC
             mqs.addAll(allocateMq);
 
             this.offsetStore.persistAll(mqs);
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+        Set<SubscriptionData> subSet = new HashSet<>();
+
+        subSet.addAll(this.rebalanceImpl.getSubscriptionInner().values());
+
+        return subSet;
 ```
 
 ### CollectionAddAllCanBeReplacedWithConstructor
@@ -14945,18 +14981,6 @@ in `common/src/main/java/org/apache/rocketmq/common/logging/DefaultJoranConfigur
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-        requestHeader.setTranStateTableOffset(sendResult.getQueueOffset());
-        requestHeader.setMsgId(sendResult.getMsgId());
-        String remark = localException != null ? ("executeLocalTransactionBranch exception: " + localException.toString()) : null;
-        this.mQClientFactory.getMQClientAPIImpl().endTransactionOneway(brokerAddr, requestHeader, remark,
-            this.defaultMQProducer.getSendMsgTimeout());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClient.java`
 #### Snippet
 ```java
@@ -14965,6 +14989,18 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyRemotingClien
                     LOGGER.warn("createChannel: connect remote host[" + addr + "] failed, " + channelFuture.toString());
                 }
             } else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+        requestHeader.setTranStateTableOffset(sendResult.getQueueOffset());
+        requestHeader.setMsgId(sendResult.getMsgId());
+        String remark = localException != null ? ("executeLocalTransactionBranch exception: " + localException.toString()) : null;
+        this.mQClientFactory.getMQClientAPIImpl().endTransactionOneway(brokerAddr, requestHeader, remark,
+            this.defaultMQProducer.getSendMsgTimeout());
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -14981,15 +15017,15 @@ in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `BatchDispatchRequest` may be 'static'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+Inner class `EncodeResult` may be 'static'
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
 #### Snippet
 ```java
     }
 
-    class BatchDispatchRequest {
-
-        private ByteBuffer byteBuffer;
+    class EncodeResult {
+        private String queueOffsetKey;
+        private ByteBuffer data;
 ```
 
 ### InnerClassMayBeStatic
@@ -15005,27 +15041,15 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `MessageQueueState` may be 'static'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/AssignedMessageQueue.java`
+Inner class `BatchDispatchRequest` may be 'static'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
     }
 
-    private class MessageQueueState {
-        private MessageQueue messageQueue;
-        private ProcessQueue processQueue;
-```
+    class BatchDispatchRequest {
 
-### InnerClassMayBeStatic
-Inner class `EncodeResult` may be 'static'
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-    }
-
-    class EncodeResult {
-        private String queueOffsetKey;
-        private ByteBuffer data;
+        private ByteBuffer byteBuffer;
 ```
 
 ### InnerClassMayBeStatic
@@ -15041,15 +15065,27 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ConsumeRequest` may be 'static'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+Inner class `MsgMeta` may be 'static'
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
+
+    private class MsgMeta {
+        long batchId;
+        long msgId;
+```
+
+### InnerClassMayBeStatic
+Inner class `MessageQueueState` may be 'static'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/AssignedMessageQueue.java`
 #### Snippet
 ```java
     }
 
-    public class ConsumeRequest {
-        private final List<MessageExt> messageExts;
-        private final MessageQueue messageQueue;
+    private class MessageQueueState {
+        private MessageQueue messageQueue;
+        private ProcessQueue processQueue;
 ```
 
 ### InnerClassMayBeStatic
@@ -15062,6 +15098,18 @@ in `client/src/main/java/org/apache/rocketmq/client/latency/LatencyFaultToleranc
     class FaultItem implements Comparable<FaultItem> {
         private final String name;
         private volatile long currentLatency;
+```
+
+### InnerClassMayBeStatic
+Inner class `ConsumeRequest` may be 'static'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    }
+
+    public class ConsumeRequest {
+        private final List<MessageExt> messageExts;
+        private final MessageQueue messageQueue;
 ```
 
 ### InnerClassMayBeStatic
@@ -15100,18 +15148,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
         private long time;
 ```
 
-### InnerClassMayBeStatic
-Inner class `MsgMeta` may be 'static'
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
-
-    private class MsgMeta {
-        long batchId;
-        long msgId;
-```
-
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
@@ -15134,6 +15170,546 @@ in `common/src/main/java/org/apache/rocketmq/common/namesrv/NamesrvConfig.java`
 
 /**
  * $Id: NamesrvConfig.java 1839 2013-05-16 02:12:02Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/EndTransactionResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: EndTransactionResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateConsumerOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: UpdateConsumerOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMinOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetMinOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/ViewMessageRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: ViewMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetSubscriptionGroupConfigRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetAllTopicConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryTopicConsumeByWhoRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/PullMessageResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: PullMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMinOffsetResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetMinOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SendMessageRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: SendMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QuerySubscriptionByConsumerRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryConsumerOffsetResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryConsumerOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateGroupForbiddenRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: CreateTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryCorrectionOffsetHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetMinOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetEarliestMsgStoretimeRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetEarliestMsgStoretimeRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryTopicsByConsumerRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/DeleteTopicRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: DeleteTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryMessageRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetEarliestMsgStoretimeResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetEarliestMsgStoretimeResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/route/TopicRouteData.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: TopicRouteData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetAllTopicConfigResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetAllTopicConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryConsumerOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryConsumerOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CloneGroupOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: DeleteTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/ViewMessageResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: ViewMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CheckTransactionStateRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: EndTransactionRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMaxOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetMaxOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SearchOffsetRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: SearchOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SearchOffsetResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: SearchOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMaxOffsetResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetMaxOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetBrokerConfigResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetBrokerConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CheckTransactionStateResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: EndTransactionResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateConsumerOffsetResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: UpdateConsumerOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryMessageResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: QueryMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/RegisterBrokerRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: RegisterBrokerRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CreateTopicRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: CreateTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/RegisterOrderTopicRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: RegisterOrderTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SendMessageResponseHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: SendMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/GetRouteInfoRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: GetRouteInfoRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/UnRegisterBrokerRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: UnRegisterBrokerRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/PullMessageRequestHeader.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: PullMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ProducerData.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: ProducerData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumeType.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: ConsumeType.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/MessageModel.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: MessageModel.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumerData.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: ConsumerData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/HeartbeatData.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: HeartbeatData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
+ */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/SubscriptionData.java`
+#### Snippet
+```java
+ */
+
+/**
+ * $Id: SubscriptionData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
  */
 ```
 
@@ -15175,6 +15751,18 @@ in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+            String key = msgInner.getTopic() + "-" + msgInner.getQueueId();
+
+            /**
+             * Serialize message
+             */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
 in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
@@ -15211,74 +15799,26 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
-#### Snippet
-```java
-            String key = msgInner.getTopic() + "-" + msgInner.getQueueId();
-
-            /**
-             * Serialize message
-             */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
-#### Snippet
-```java
-    @Override
-    public void messageQueueChanged(String topic, Set<MessageQueue> mqAll, Set<MessageQueue> mqDivided) {
-        /**
-         * When rebalance result changed, should update subscription's version to notify broker.
-         * Fix: inconsistency subscription may lead to consumer miss messages.
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
 #### Snippet
 ```java
 
     @Deprecated
     /**
-     * The method is deprecated because its name is ambiguous, this method relies on the background thread commit consumerOffset rather than the synchronous commit offset.
-     * The method is expected to be removed after version 5.1.0. It is recommended to use the {@link #commit()} method.
+     * @deprecated
+     * @see #getEndColumn
 ```
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
 #### Snippet
 ```java
 
     @Deprecated
     /**
-     * The method is deprecated because its name is ambiguous, this method relies on the background thread commit consumerOffset rather than the synchronous commit offset.
-     * The method is expected to be removed after version 5.1.0. It is recommended to use the {@link #commit(java.util.Map, boolean)} method.
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-    private String defaultAclFile;
-
-    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
-
-    private Map<String/** AccessKey **/, String/** fileFullPath **/> accessKeyTable = new HashMap<>();
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-    private String defaultAclFile;
-
-    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
-
-    private Map<String/** AccessKey **/, String/** fileFullPath **/> accessKeyTable = new HashMap<>();
+     * @deprecated
+     * @see #getEndLine
 ```
 
 ### DanglingJavadoc
@@ -15331,26 +15871,74 @@ in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
 #### Snippet
 ```java
+    private String defaultAclFile;
 
-    @Deprecated
-    /**
-     * @deprecated
-     * @see #getEndColumn
+    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
+
+    private Map<String/** AccessKey **/, String/** fileFullPath **/> accessKeyTable = new HashMap<>();
 ```
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SimpleCharStream.java`
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+    private String defaultAclFile;
+
+    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
+
+    private Map<String/** AccessKey **/, String/** fileFullPath **/> accessKeyTable = new HashMap<>();
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalancePushImpl.java`
+#### Snippet
+```java
+    @Override
+    public void messageQueueChanged(String topic, Set<MessageQueue> mqAll, Set<MessageQueue> mqDivided) {
+        /**
+         * When rebalance result changed, should update subscription's version to notify broker.
+         * Fix: inconsistency subscription may lead to consumer miss messages.
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
 #### Snippet
 ```java
 
     @Deprecated
     /**
-     * @deprecated
-     * @see #getEndLine
+     * The method is deprecated because its name is ambiguous, this method relies on the background thread commit consumerOffset rather than the synchronous commit offset.
+     * The method is expected to be removed after version 5.1.0. It is recommended to use the {@link #commit(java.util.Map, boolean)} method.
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+
+    @Deprecated
+    /**
+     * The method is deprecated because its name is ambiguous, this method relies on the background thread commit consumerOffset rather than the synchronous commit offset.
+     * The method is expected to be removed after version 5.1.0. It is recommended to use the {@link #commit()} method.
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+    private final Map<String, String> fileCurrentHash;
+    private Map<String, Long> fileLastModifiedTime;
+    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
+    private final AclFileWatchService.Listener listener;
+    private static final int WATCH_INTERVAL = 5000;
 ```
 
 ### DanglingJavadoc
@@ -15509,595 +16097,7 @@ in `broker/src/main/java/org/apache/rocketmq/broker/BrokerController.java`
          */
 ```
 
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/EndTransactionResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: EndTransactionResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateConsumerOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: UpdateConsumerOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMinOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetMinOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/ViewMessageRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: ViewMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/route/TopicRouteData.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: TopicRouteData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetSubscriptionGroupConfigRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetAllTopicConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/PullMessageResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: PullMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryTopicConsumeByWhoRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SendMessageRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: SendMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QuerySubscriptionByConsumerRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMinOffsetResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetMinOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryCorrectionOffsetHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetMinOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryTopicsByConsumerRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryConsumerOffsetResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryConsumerOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateGroupForbiddenRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: CreateTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetEarliestMsgStoretimeRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetEarliestMsgStoretimeRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryMessageRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/DeleteTopicRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: DeleteTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CloneGroupOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: DeleteTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetAllTopicConfigResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetAllTopicConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryConsumerOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryConsumerOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetEarliestMsgStoretimeResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetEarliestMsgStoretimeResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/ViewMessageResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: ViewMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CheckTransactionStateRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: EndTransactionRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SearchOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: SearchOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMaxOffsetRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetMaxOffsetRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetMaxOffsetResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetMaxOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SearchOffsetResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: SearchOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/GetBrokerConfigResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetBrokerConfigResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CheckTransactionStateResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: EndTransactionResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/UpdateConsumerOffsetResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: UpdateConsumerOffsetResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/QueryMessageResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: QueryMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/CreateTopicRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: CreateTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/RegisterBrokerRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: RegisterBrokerRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/SendMessageResponseHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: SendMessageResponseHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/RegisterOrderTopicRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: RegisterOrderTopicRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/GetRouteInfoRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: GetRouteInfoRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/namesrv/UnRegisterBrokerRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: UnRegisterBrokerRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/header/PullMessageRequestHeader.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: PullMessageRequestHeader.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ProducerData.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: ProducerData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumeType.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: ConsumeType.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/MessageModel.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: MessageModel.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/HeartbeatData.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: HeartbeatData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumerData.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: ConsumerData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/SubscriptionData.java`
-#### Snippet
-```java
- */
-
-/**
- * $Id: SubscriptionData.java 1835 2013-05-16 02:00:50Z vintagewang@apache.org $
- */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private final Map<String, String> fileCurrentHash;
-    private Map<String, Long> fileLastModifiedTime;
-    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
-    private final AclFileWatchService.Listener listener;
-    private static final int WATCH_INTERVAL = 5000;
-```
-
 ## RuleId[id=TrivialIf]
-### TrivialIf
-`if` statement can be simplified
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-
-    public static boolean isInternalV6IP(InetAddress inetAddr) {
-        if (inetAddr.isAnyLocalAddress() // Wild card ipv6
-            || inetAddr.isLinkLocalAddress() // Single broadcast ipv6 address: fe80:xx:xx...
-            || inetAddr.isLoopbackAddress() //Loopback ipv6 address
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-            return true;
-        } else if (ip[0] == (byte) 172) {
-            if (ip[1] >= (byte) 16 && ip[1] <= (byte) 31) {
-                return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-            }
-        } else if (ip[0] == (byte) 192) {
-            if (ip[1] == (byte) 168) {
-                return true;
-            }
-```
-
 ### TrivialIf
 `if` statement can be simplified
 in `common/src/main/java/org/apache/rocketmq/common/filter/ExpressionType.java`
@@ -16148,926 +16148,38 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageQueueForC.jav
 
 ### TrivialIf
 `if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
 
-    public boolean isReadable() {
-        if ((this.flagBits & NOT_READABLE_BIT) == 0) {
-            return true;
-        }
+    public static boolean isInternalV6IP(InetAddress inetAddr) {
+        if (inetAddr.isAnyLocalAddress() // Wild card ipv6
+            || inetAddr.isLinkLocalAddress() // Single broadcast ipv6 address: fe80:xx:xx...
+            || inetAddr.isLoopbackAddress() //Loopback ipv6 address
 ```
 
 ### TrivialIf
 `if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-    //for consume queue, just ignore the DISK_FULL_BIT
-    public boolean isCQWriteable() {
-        if ((this.flagBits & (NOT_WRITEABLE_BIT | WRITE_LOGICS_QUEUE_ERROR_BIT | WRITE_INDEX_FILE_ERROR_BIT)) == 0) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-
-    public boolean isIndexFileError() {
-        if ((this.flagBits & WRITE_INDEX_FILE_ERROR_BIT) == WRITE_INDEX_FILE_ERROR_BIT) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-
-    public boolean isWriteable() {
-        if ((this.flagBits & (NOT_WRITEABLE_BIT | WRITE_LOGICS_QUEUE_ERROR_BIT | DISK_FULL_BIT | WRITE_INDEX_FILE_ERROR_BIT)) == 0) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
-#### Snippet
-```java
-
-    public boolean isLogicsQueueError() {
-        if ((this.flagBits & WRITE_LOGICS_QUEUE_ERROR_BIT) == WRITE_LOGICS_QUEUE_ERROR_BIT) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `proxy/src/main/java/org/apache/rocketmq/proxy/processor/ReceiptHandleProcessor.java`
-#### Snippet
-```java
-        if (t instanceof ProxyException) {
-            ProxyException proxyException = (ProxyException) t;
-            if (ProxyExceptionCode.INVALID_BROKER_NAME.equals(proxyException.getCode()) ||
-                ProxyExceptionCode.INVALID_RECEIPT_HANDLE.equals(proxyException.getCode())) {
-                return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
-#### Snippet
-```java
-            if (tagsCode != cqExtUnit.tagsCode)
-                return false;
-            if (!Arrays.equals(filterBitMap, cqExtUnit.filterBitMap))
-                return false;
-
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
-#### Snippet
-```java
-            } else if (!filePath.equals(other.filePath))
-                return false;
-            if (fileSize != other.fileSize)
-                return false;
-            return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
             return true;
-        }
-        if (mappedFileLast.isFull()) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
-#### Snippet
-```java
-        }
-        MappedFile mappedFileLast = getLastMappedFile();
-        if (mappedFileLast.getWrotePosition() + msgSize > mappedFileLast.getFileSize()) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAService.java`
-#### Snippet
-```java
-
-    protected boolean isInSyncSlave(final long masterPutWhere, HAConnection conn) {
-        if (masterPutWhere - conn.getSlaveAckOffset() < this.defaultMessageStore.getMessageStoreConfig()
-            .getHaMaxGapNotInSync()) {
-            return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-        }
-
-        if (BrokerRole.SYNC_MASTER != this.defaultMessageStore.getMessageStoreConfig().getBrokerRole()) {
-            // No need to check ha in async or slave broker
-            return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-
-            boolean needAssignOffset = true;
-            if (defaultMessageStore.getMessageStoreConfig().isDuplicationEnable()
-                && defaultMessageStore.getMessageStoreConfig().getBrokerRole() != BrokerRole.SLAVE) {
-                needAssignOffset = false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueue.java`
-#### Snippet
-```java
-        String multiDispatchQueue = prop.get(MessageConst.PROPERTY_INNER_MULTI_DISPATCH);
-        String multiQueueOffset = prop.get(MessageConst.PROPERTY_INNER_MULTI_QUEUE_OFFSET);
-        if (StringUtils.isBlank(multiDispatchQueue) || StringUtils.isBlank(multiQueueOffset)) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/kv/MessageFetcher.java`
-#### Snippet
-```java
-
-        RemotingCommand response = client.invokeSync(masterAddr, request, 1000 * 30L);
-        if (response != null && response.getCode() == ResponseCode.SUCCESS) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/kv/MessageFetcher.java`
-#### Snippet
-```java
-
-        RemotingCommand response = client.invokeSync(masterAddr, request, 1000 * 30L);
-        if (response != null && response.getCode() == ResponseCode.SUCCESS) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/queue/SparseConsumeQueue.java`
-#### Snippet
-```java
-            return true;
-        }
-        if (mappedFileQueue.getLastMappedFile().getWrotePosition() + BatchConsumeQueue.CQ_STORE_UNIT_SIZE
-            > mappedFileQueue.getMappedFileSize()) {
-            return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
-#### Snippet
-```java
-            }
-
-            if (messageTotal > this.messageStoreConfig.getMaxTransferCountOnMessageInDisk() - 1) {
+        } else if (ip[0] == (byte) 172) {
+            if (ip[1] >= (byte) 16 && ip[1] <= (byte) 31) {
                 return true;
             }
 ```
 
 ### TrivialIf
 `if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
             }
-
-            if (messageTotal > this.messageStoreConfig.getMaxTransferCountOnMessageInMemory() - 1) {
+        } else if (ip[0] == (byte) 192) {
+            if (ip[1] == (byte) 168) {
                 return true;
             }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PullRequest.java`
-#### Snippet
-```java
-            return false;
-        if (messageQueue == null) {
-            if (other.messageQueue != null)
-                return false;
-        } else if (!messageQueue.equals(other.messageQueue))
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PullRequest.java`
-#### Snippet
-```java
-            if (other.messageQueue != null)
-                return false;
-        } else if (!messageQueue.equals(other.messageQueue))
-            return false;
-        return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessagePopOrderlyService.java`
-#### Snippet
-```java
-                return true;
-            }
-            if (messageQueue != null && messageQueue.equals(other.messageQueue)) {
-                return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-            return true;
-        }
-        if (RANDOM.nextInt(1000) > 1000 * (congestNum - storeConfig.getTimerCongestNumEachSlot()) / (storeConfig.getTimerCongestNumEachSlot() + 0.1)) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PopRequest.java`
-#### Snippet
-```java
-
-        if (messageQueue == null) {
-            if (other.messageQueue != null)
-                return false;
-        } else if (!messageQueue.equals(other.messageQueue)) {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PopRequest.java`
-#### Snippet
-```java
-            if (other.messageQueue != null)
-                return false;
-        } else if (!messageQueue.equals(other.messageQueue)) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `client/src/main/java/org/apache/rocketmq/client/trace/hook/SendMessageTraceHookImpl.java`
-#### Snippet
-```java
-        int costTime = (int) ((System.currentTimeMillis() - traceContext.getTimeStamp()) / traceContext.getTraceBeans().size());
-        traceContext.setCostTime(costTime);
-        if (context.getSendResult().getSendStatus().equals(SendStatus.SEND_OK)) {
-            traceContext.setSuccess(true);
-        } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilterData.java`
-#### Snippet
-```java
-        if (bitNum != that.bitNum)
-            return false;
-        if (!Arrays.equals(bitPos, that.bitPos))
-            return false;
-
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
-#### Snippet
-```java
-        if (m != that.m)
-            return false;
-        if (n != that.n)
-            return false;
-
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
-#### Snippet
-```java
-     */
-    public boolean isValid(BloomFilterData filterData) {
-        if (filterData == null
-            || filterData.getBitNum() != this.m
-            || filterData.getBitPos() == null
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
-#### Snippet
-```java
-
-        boolean value = getBit(bitPos);
-        if (value ^ set) {
-            setBit(bitPos, true);
-        } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-                if (jj_3R_10()) {
-                    jjScanpos = xsp;
-                    if (jj_3R_11())
-                        return true;
-                }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(32))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-            }
-        }
-        if (jj_scan_token(30))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_22() {
-        if (jj_scan_token(TRUE))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(31))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_11() {
-        if (jj_3R_12())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-                                if (jj_3R_41()) {
-                                    jjScanpos = xsp;
-                                    if (jj_3_3())
-                                        return true;
-                                }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(IS))
-            return true;
-        if (jj_scan_token(NULL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(AND))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(29))
-            return true;
-        if (jj_3R_27())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_24() {
-        if (jj_scan_token(NULL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(26))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_20() {
-        if (jj_scan_token(DECIMAL_LITERAL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(22))
-            return true;
-        if (jj_3R_30())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-                if (jj_3_1()) {
-                    jjScanpos = xsp;
-                    if (jj_3R_35())
-                        return true;
-                }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(OR))
-            return true;
-        if (jj_3R_25())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_27() {
-        if (jj_scan_token(STRING_LITERAL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_23() {
-        if (jj_scan_token(FALSE))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_17() {
-        if (jj_scan_token(ID))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-            }
-        }
-        if (jj_scan_token(30))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-            if (jj_3R_14()) {
-                jjScanpos = xsp;
-                if (jj_3R_15())
-                    return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(29))
-            return true;
-        if (jj_3R_27())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_3R_18())
-            return true;
-        if (jj_scan_token(30))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(AND))
-            return true;
-        if (jj_3R_28())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(31))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(25))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(AND))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-                        if (jj_3R_23()) {
-                            jjScanpos = xsp;
-                            if (jj_3R_24())
-                                return true;
-                        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(27))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(23))
-            return true;
-        if (jj_3R_30())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(24))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_19() {
-        if (jj_3R_27())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(NOT))
-            return true;
-        if (jj_scan_token(NULL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_13() {
-        if (jj_3R_16())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_21() {
-        if (jj_scan_token(FLOATING_POINT_LITERAL))
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-        if (jj_scan_token(NOT))
-            return true;
-        if (jj_3R_7())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-
-    private boolean jj_3R_14() {
-        if (jj_3R_17())
-            return true;
-        return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                return (JJ_BIT_VEC_2[i2] & l2) != 0L;
-            default:
-                if ((JJ_BIT_VEC_0[i1] & l1) != 0L)
-                    return true;
-                return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/client/ClientChannelInfo.java`
-#### Snippet
-```java
-        ClientChannelInfo other = (ClientChannelInfo) obj;
-        if (channel == null) {
-            if (other.channel != null)
-                return false;
-        } else if (this.channel != other.channel) {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/client/ClientChannelInfo.java`
-#### Snippet
-```java
-            if (other.channel != null)
-                return false;
-        } else if (this.channel != other.channel) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
-#### Snippet
-```java
-                regionId = MixAll.DEFAULT_TRACE_REGION_ID;
-            }
-            if (traceOn != null && traceOn.equals("false")) {
-                sendResult.setTraceOn(false);
-            } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionMessageFilter.java`
-#### Snippet
-```java
-        }
-        BloomFilter bloomFilter = this.consumerFilterManager.getBloomFilter();
-        if (bloomFilter != null && bloomFilter.isValid(consumerFilterData.getBloomFilterData())) {
-            bloomDataValid = true;
-        } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
-#### Snippet
-```java
-    @Override
-    public boolean rejectRequest() {
-        if (!this.brokerController.getBrokerConfig().isSlaveReadEnable()
-            && this.brokerController.getMessageStoreConfig().getBrokerRole() == BrokerRole.SLAVE) {
-            return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcessor.java`
-#### Snippet
-```java
-        }
-
-        if (this.brokerController.getMessageStore().isOSPageCacheBusy() || this.brokerController.getMessageStore().isTransientStorePoolDeficient()) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalMessageBridge.java`
-#### Snippet
-```java
-
-        PutMessageResult result = putMessageReturnResult(makeOpMessageInner(message, opQueue));
-        if (result != null && result.getPutMessageStatus() == PutMessageStatus.PUT_OK) {
-            return true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
-#### Snippet
-```java
-        }
-        boolean force = false;
-        if (requestHeader.getForce() != null && requestHeader.getForce()) {
-            force = true;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageStore.java`
-#### Snippet
-```java
-        }
-
-        if (deepStorageLevel.check(TieredMessageStoreConfig.TieredStorageLevel.NOT_IN_MEM)
-            && !next.checkInMemByConsumeOffset(topic, queueId, offset, batchSize)) {
-            return true;
 ```
 
 ### TrivialIf
@@ -17132,6 +16244,66 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/Subsc
 
 ### TrivialIf
 `if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+
+    public boolean isReadable() {
+        if ((this.flagBits & NOT_READABLE_BIT) == 0) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+
+    public boolean isWriteable() {
+        if ((this.flagBits & (NOT_WRITEABLE_BIT | WRITE_LOGICS_QUEUE_ERROR_BIT | DISK_FULL_BIT | WRITE_INDEX_FILE_ERROR_BIT)) == 0) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+    //for consume queue, just ignore the DISK_FULL_BIT
+    public boolean isCQWriteable() {
+        if ((this.flagBits & (NOT_WRITEABLE_BIT | WRITE_LOGICS_QUEUE_ERROR_BIT | WRITE_INDEX_FILE_ERROR_BIT)) == 0) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+
+    public boolean isLogicsQueueError() {
+        if ((this.flagBits & WRITE_LOGICS_QUEUE_ERROR_BIT) == WRITE_LOGICS_QUEUE_ERROR_BIT) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/RunningFlags.java`
+#### Snippet
+```java
+
+    public boolean isIndexFileError() {
+        if ((this.flagBits & WRITE_INDEX_FILE_ERROR_BIT) == WRITE_INDEX_FILE_ERROR_BIT) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingUtils.java`
 #### Snippet
 ```java
@@ -17142,7 +16314,919 @@ in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/Top
                 }
 ```
 
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
+#### Snippet
+```java
+            if (tagsCode != cqExtUnit.tagsCode)
+                return false;
+            if (!Arrays.equals(filterBitMap, cqExtUnit.filterBitMap))
+                return false;
+
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
+#### Snippet
+```java
+            } else if (!filePath.equals(other.filePath))
+                return false;
+            if (fileSize != other.fileSize)
+                return false;
+            return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAService.java`
+#### Snippet
+```java
+
+    protected boolean isInSyncSlave(final long masterPutWhere, HAConnection conn) {
+        if (masterPutWhere - conn.getSlaveAckOffset() < this.defaultMessageStore.getMessageStoreConfig()
+            .getHaMaxGapNotInSync()) {
+            return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
+#### Snippet
+```java
+        }
+        MappedFile mappedFileLast = getLastMappedFile();
+        if (mappedFileLast.getWrotePosition() + msgSize > mappedFileLast.getFileSize()) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
+#### Snippet
+```java
+            return true;
+        }
+        if (mappedFileLast.isFull()) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/kv/MessageFetcher.java`
+#### Snippet
+```java
+
+        RemotingCommand response = client.invokeSync(masterAddr, request, 1000 * 30L);
+        if (response != null && response.getCode() == ResponseCode.SUCCESS) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/kv/MessageFetcher.java`
+#### Snippet
+```java
+
+        RemotingCommand response = client.invokeSync(masterAddr, request, 1000 * 30L);
+        if (response != null && response.getCode() == ResponseCode.SUCCESS) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueue.java`
+#### Snippet
+```java
+        String multiDispatchQueue = prop.get(MessageConst.PROPERTY_INNER_MULTI_DISPATCH);
+        String multiQueueOffset = prop.get(MessageConst.PROPERTY_INNER_MULTI_QUEUE_OFFSET);
+        if (StringUtils.isBlank(multiDispatchQueue) || StringUtils.isBlank(multiQueueOffset)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+        }
+
+        if (BrokerRole.SYNC_MASTER != this.defaultMessageStore.getMessageStoreConfig().getBrokerRole()) {
+            // No need to check ha in async or slave broker
+            return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+
+            boolean needAssignOffset = true;
+            if (defaultMessageStore.getMessageStoreConfig().isDuplicationEnable()
+                && defaultMessageStore.getMessageStoreConfig().getBrokerRole() != BrokerRole.SLAVE) {
+                needAssignOffset = false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/queue/SparseConsumeQueue.java`
+#### Snippet
+```java
+            return true;
+        }
+        if (mappedFileQueue.getLastMappedFile().getWrotePosition() + BatchConsumeQueue.CQ_STORE_UNIT_SIZE
+            > mappedFileQueue.getMappedFileSize()) {
+            return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
+#### Snippet
+```java
+            }
+
+            if (messageTotal > this.messageStoreConfig.getMaxTransferCountOnMessageInDisk() - 1) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionLog.java`
+#### Snippet
+```java
+            }
+
+            if (messageTotal > this.messageStoreConfig.getMaxTransferCountOnMessageInMemory() - 1) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageStore.java`
+#### Snippet
+```java
+        }
+
+        if (deepStorageLevel.check(TieredMessageStoreConfig.TieredStorageLevel.NOT_IN_MEM)
+            && !next.checkInMemByConsumeOffset(topic, queueId, offset, batchSize)) {
+            return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilterData.java`
+#### Snippet
+```java
+        if (bitNum != that.bitNum)
+            return false;
+        if (!Arrays.equals(bitPos, that.bitPos))
+            return false;
+
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
+#### Snippet
+```java
+
+        boolean value = getBit(bitPos);
+        if (value ^ set) {
+            setBit(bitPos, true);
+        } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
+#### Snippet
+```java
+     */
+    public boolean isValid(BloomFilterData filterData) {
+        if (filterData == null
+            || filterData.getBitNum() != this.m
+            || filterData.getBitPos() == null
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
+#### Snippet
+```java
+        if (m != that.m)
+            return false;
+        if (n != that.n)
+            return false;
+
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+            return true;
+        }
+        if (RANDOM.nextInt(1000) > 1000 * (congestNum - storeConfig.getTimerCongestNumEachSlot()) / (storeConfig.getTimerCongestNumEachSlot() + 0.1)) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                return (JJ_BIT_VEC_2[i2] & l2) != 0L;
+            default:
+                if ((JJ_BIT_VEC_0[i1] & l1) != 0L)
+                    return true;
+                return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(22))
+            return true;
+        if (jj_3R_30())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(OR))
+            return true;
+        if (jj_3R_25())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_22() {
+        if (jj_scan_token(TRUE))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+            }
+        }
+        if (jj_scan_token(30))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(23))
+            return true;
+        if (jj_3R_30())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_20() {
+        if (jj_scan_token(DECIMAL_LITERAL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_21() {
+        if (jj_scan_token(FLOATING_POINT_LITERAL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_17() {
+        if (jj_scan_token(ID))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(AND))
+            return true;
+        if (jj_3R_28())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_14() {
+        if (jj_3R_17())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_19() {
+        if (jj_3R_27())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(31))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+            if (jj_3R_14()) {
+                jjScanpos = xsp;
+                if (jj_3R_15())
+                    return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(29))
+            return true;
+        if (jj_3R_27())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(26))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_24() {
+        if (jj_scan_token(NULL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+                if (jj_3_1()) {
+                    jjScanpos = xsp;
+                    if (jj_3R_35())
+                        return true;
+                }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(31))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(25))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+            }
+        }
+        if (jj_scan_token(30))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_3R_18())
+            return true;
+        if (jj_scan_token(30))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_27() {
+        if (jj_scan_token(STRING_LITERAL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_13() {
+        if (jj_3R_16())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_11() {
+        if (jj_3R_12())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(27))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+                        if (jj_3R_23()) {
+                            jjScanpos = xsp;
+                            if (jj_3R_24())
+                                return true;
+                        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+
+    private boolean jj_3R_23() {
+        if (jj_scan_token(FALSE))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(IS))
+            return true;
+        if (jj_scan_token(NULL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(24))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(AND))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(NOT))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(NOT))
+            return true;
+        if (jj_scan_token(NULL))
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(29))
+            return true;
+        if (jj_3R_27())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+                if (jj_3R_10()) {
+                    jjScanpos = xsp;
+                    if (jj_3R_11())
+                        return true;
+                }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+                                if (jj_3R_41()) {
+                                    jjScanpos = xsp;
+                                    if (jj_3_3())
+                                        return true;
+                                }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(32))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+        if (jj_scan_token(AND))
+            return true;
+        if (jj_3R_7())
+            return true;
+        return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `proxy/src/main/java/org/apache/rocketmq/proxy/processor/ReceiptHandleProcessor.java`
+#### Snippet
+```java
+        if (t instanceof ProxyException) {
+            ProxyException proxyException = (ProxyException) t;
+            if (ProxyExceptionCode.INVALID_BROKER_NAME.equals(proxyException.getCode()) ||
+                ProxyExceptionCode.INVALID_RECEIPT_HANDLE.equals(proxyException.getCode())) {
+                return false;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PullRequest.java`
+#### Snippet
+```java
+            return false;
+        if (messageQueue == null) {
+            if (other.messageQueue != null)
+                return false;
+        } else if (!messageQueue.equals(other.messageQueue))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PullRequest.java`
+#### Snippet
+```java
+            if (other.messageQueue != null)
+                return false;
+        } else if (!messageQueue.equals(other.messageQueue))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessagePopOrderlyService.java`
+#### Snippet
+```java
+                return true;
+            }
+            if (messageQueue != null && messageQueue.equals(other.messageQueue)) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PopRequest.java`
+#### Snippet
+```java
+
+        if (messageQueue == null) {
+            if (other.messageQueue != null)
+                return false;
+        } else if (!messageQueue.equals(other.messageQueue)) {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/PopRequest.java`
+#### Snippet
+```java
+            if (other.messageQueue != null)
+                return false;
+        } else if (!messageQueue.equals(other.messageQueue)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `client/src/main/java/org/apache/rocketmq/client/trace/hook/SendMessageTraceHookImpl.java`
+#### Snippet
+```java
+        int costTime = (int) ((System.currentTimeMillis() - traceContext.getTimeStamp()) / traceContext.getTraceBeans().size());
+        traceContext.setCostTime(costTime);
+        if (context.getSendResult().getSendStatus().equals(SendStatus.SEND_OK)) {
+            traceContext.setSuccess(true);
+        } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/client/ClientChannelInfo.java`
+#### Snippet
+```java
+        ClientChannelInfo other = (ClientChannelInfo) obj;
+        if (channel == null) {
+            if (other.channel != null)
+                return false;
+        } else if (this.channel != other.channel) {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/client/ClientChannelInfo.java`
+#### Snippet
+```java
+            if (other.channel != null)
+                return false;
+        } else if (this.channel != other.channel) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionMessageFilter.java`
+#### Snippet
+```java
+        }
+        BloomFilter bloomFilter = this.consumerFilterManager.getBloomFilter();
+        if (bloomFilter != null && bloomFilter.isValid(consumerFilterData.getBloomFilterData())) {
+            bloomDataValid = true;
+        } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
+#### Snippet
+```java
+                regionId = MixAll.DEFAULT_TRACE_REGION_ID;
+            }
+            if (traceOn != null && traceOn.equals("false")) {
+                sendResult.setTraceOn(false);
+            } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcessor.java`
+#### Snippet
+```java
+    @Override
+    public boolean rejectRequest() {
+        if (!this.brokerController.getBrokerConfig().isSlaveReadEnable()
+            && this.brokerController.getMessageStoreConfig().getBrokerRole() == BrokerRole.SLAVE) {
+            return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcessor.java`
+#### Snippet
+```java
+        }
+
+        if (this.brokerController.getMessageStore().isOSPageCacheBusy() || this.brokerController.getMessageStore().isTransientStorePoolDeficient()) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalMessageBridge.java`
+#### Snippet
+```java
+
+        PutMessageResult result = putMessageReturnResult(makeOpMessageInner(message, opQueue));
+        if (result != null && result.getPutMessageStatus() == PutMessageStatus.PUT_OK) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
+#### Snippet
+```java
+        }
+        boolean force = false;
+        if (requestHeader.getForce() != null && requestHeader.getForce()) {
+            force = true;
+        }
+```
+
 ## RuleId[id=SynchronizeOnNonFinalField]
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `this.requestsWrite`
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+
+        public synchronized boolean putRequest(final GroupCommitRequest request) {
+            synchronized (this.requestsWrite) {
+                this.requestsWrite.add(request);
+            }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `this.requestsRead`
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+
+        private void doCommit() {
+            synchronized (this.requestsRead) {
+                if (!this.requestsRead.isEmpty()) {
+                    for (GroupCommitRequest req : this.requestsRead) {
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `lastBrokerRole`
+in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
+#### Snippet
+```java
+        BrokerRole currRole = storeConfig.getBrokerRole();
+        if (lastBrokerRole != currRole) {
+            synchronized (lastBrokerRole) {
+                LOGGER.info("Broker role change from {} to {}", lastBrokerRole, currRole);
+                //if change to master, do something
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `lock`
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+        String realKey = key;
+        if (!collectMap.containsKey(realKey)) {
+            synchronized (lock) {
+                if (!collectMap.containsKey(realKey)) {
+                    DataCollector collect = (DataCollector) new MapDataCollectorImpl();
+```
+
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `lock`
 in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
@@ -17168,54 +17252,6 @@ in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorM
 ```
 
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `lock`
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
-#### Snippet
-```java
-        String realKey = key;
-        if (!collectMap.containsKey(realKey)) {
-            synchronized (lock) {
-                if (!collectMap.containsKey(realKey)) {
-                    DataCollector collect = (DataCollector) new MapDataCollectorImpl();
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `this.requestsRead`
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-
-        private void doCommit() {
-            synchronized (this.requestsRead) {
-                if (!this.requestsRead.isEmpty()) {
-                    for (GroupCommitRequest req : this.requestsRead) {
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `this.requestsWrite`
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-
-        public synchronized boolean putRequest(final GroupCommitRequest request) {
-            synchronized (this.requestsWrite) {
-                this.requestsWrite.add(request);
-            }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `lastBrokerRole`
-in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
-#### Snippet
-```java
-        BrokerRole currRole = storeConfig.getBrokerRole();
-        if (lastBrokerRole != currRole) {
-            synchronized (lastBrokerRole) {
-                LOGGER.info("Broker role change from {} to {}", lastBrokerRole, currRole);
-                //if change to master, do something
-```
-
-### SynchronizeOnNonFinalField
 Synchronization on a non-final field `this.registerTopics`
 in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultMQPullConsumer.java`
 #### Snippet
@@ -17225,55 +17261,6 @@ in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultMQPullConsum
         synchronized (this.registerTopics) {
             this.registerTopics.add(withNamespace(topic));
             if (listener != null) {
-```
-
-## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'topicConfig'
-in `common/src/main/java/org/apache/rocketmq/common/utils/CleanupPolicyUtils.java`
-#### Snippet
-```java
-    }
-
-    public static CleanupPolicy getDeletePolicy(Optional<TopicConfig> topicConfig) {
-        if (!topicConfig.isPresent()) {
-            return CleanupPolicy.valueOf(TopicAttributes.CLEANUP_POLICY_ATTRIBUTE.getDefaultValue());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'topicConfig'
-in `common/src/main/java/org/apache/rocketmq/common/utils/CleanupPolicyUtils.java`
-#### Snippet
-```java
-
-public class CleanupPolicyUtils {
-    public static boolean isCompaction(Optional<TopicConfig> topicConfig) {
-        return Objects.equals(CleanupPolicy.COMPACTION, getDeletePolicy(topicConfig));
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'topicConfig'
-in `common/src/main/java/org/apache/rocketmq/common/utils/QueueTypeUtils.java`
-#### Snippet
-```java
-public class QueueTypeUtils {
-
-    public static boolean isBatchCq(Optional<TopicConfig> topicConfig) {
-        return Objects.equals(CQType.BatchCQ, getCQType(topicConfig));
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'topicConfig'
-in `common/src/main/java/org/apache/rocketmq/common/utils/QueueTypeUtils.java`
-#### Snippet
-```java
-    }
-
-    public static CQType getCQType(Optional<TopicConfig> topicConfig) {
-        if (!topicConfig.isPresent()) {
-            return CQType.valueOf(TopicAttributes.QUEUE_TYPE_ATTRIBUTE.getDefaultValue());
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -17299,6 +17286,18 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.ja
         if (itemNames == null || itemNames.length <= 0) {
             throw new InvalidParameterException("StatisticsItem \"itemNames\" is empty");
         }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredFileQueue.java`
+#### Snippet
+```java
+        fileSegmentLock.readLock().lock();
+        try {
+            if (fileSegmentList.size() <= 0) {
+                return -1;
+            }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -17361,16 +17360,53 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/SendMessageProcess
             oriProps.put(MessageConst.PROPERTY_UNIQ_CLIENT_MESSAGE_ID_KEYIDX, uniqKey);
 ```
 
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredFileQueue.java`
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'topicConfig'
+in `common/src/main/java/org/apache/rocketmq/common/utils/CleanupPolicyUtils.java`
 #### Snippet
 ```java
-        fileSegmentLock.readLock().lock();
-        try {
-            if (fileSegmentList.size() <= 0) {
-                return -1;
-            }
+    }
+
+    public static CleanupPolicy getDeletePolicy(Optional<TopicConfig> topicConfig) {
+        if (!topicConfig.isPresent()) {
+            return CleanupPolicy.valueOf(TopicAttributes.CLEANUP_POLICY_ATTRIBUTE.getDefaultValue());
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'topicConfig'
+in `common/src/main/java/org/apache/rocketmq/common/utils/CleanupPolicyUtils.java`
+#### Snippet
+```java
+
+public class CleanupPolicyUtils {
+    public static boolean isCompaction(Optional<TopicConfig> topicConfig) {
+        return Objects.equals(CleanupPolicy.COMPACTION, getDeletePolicy(topicConfig));
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'topicConfig'
+in `common/src/main/java/org/apache/rocketmq/common/utils/QueueTypeUtils.java`
+#### Snippet
+```java
+    }
+
+    public static CQType getCQType(Optional<TopicConfig> topicConfig) {
+        if (!topicConfig.isPresent()) {
+            return CQType.valueOf(TopicAttributes.QUEUE_TYPE_ATTRIBUTE.getDefaultValue());
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'topicConfig'
+in `common/src/main/java/org/apache/rocketmq/common/utils/QueueTypeUtils.java`
+#### Snippet
+```java
+public class QueueTypeUtils {
+
+    public static boolean isBatchCq(Optional<TopicConfig> topicConfig) {
+        return Objects.equals(CQType.BatchCQ, getCQType(topicConfig));
+    }
 ```
 
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -17473,6 +17509,30 @@ in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java
 ```
 
 ### AutoCloseableResource
+'RandomAccessFile' used without 'try'-with-resources statement
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
+#### Snippet
+```java
+                        // TODO use direct IO to avoid polluting the page cache
+                        file.createNewFile();
+                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
+                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
+                        this.file = file;
+```
+
+### AutoCloseableResource
+'RandomAccessFile' used without 'try'-with-resources statement
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
+#### Snippet
+```java
+                        file.createNewFile();
+                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
+                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
+                        this.file = file;
+                    } catch (Exception e) {
+```
+
+### AutoCloseableResource
 'ObservableLongGauge' used without 'try'-with-resources statement
 in `broker/src/main/java/org/apache/rocketmq/broker/metrics/PopMetricsManager.java`
 #### Snippet
@@ -17520,31 +17580,19 @@ in `broker/src/main/java/org/apache/rocketmq/broker/metrics/PopMetricsManager.ja
 
 ```
 
-### AutoCloseableResource
-'RandomAccessFile' used without 'try'-with-resources statement
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
-#### Snippet
-```java
-                        // TODO use direct IO to avoid polluting the page cache
-                        file.createNewFile();
-                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
-                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
-                        this.file = file;
-```
-
-### AutoCloseableResource
-'RandomAccessFile' used without 'try'-with-resources statement
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/posix/PosixFileSegment.java`
-#### Snippet
-```java
-                        file.createNewFile();
-                        this.readFileChannel = new RandomAccessFile(file, "r").getChannel();
-                        this.writeFileChannel = new RandomAccessFile(file, "rwd").getChannel();
-                        this.file = file;
-                    } catch (Exception e) {
-```
-
 ## RuleId[id=ConditionCoveredByFurtherCondition]
+### ConditionCoveredByFurtherCondition
+Condition 'null == opNew' covered by subsequent condition 'LEFTPARENTHESIS != opNew'
+in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
+#### Snippet
+```java
+                    segments.add(opNew);
+                }
+                if (null == opNew || LEFTPARENTHESIS != opNew)
+                    throw new IllegalArgumentException("mismatched parentheses");
+            } else if (isOperator(token)) {
+```
+
 ### ConditionCoveredByFurtherCondition
 Condition 'ip != null' covered by subsequent condition 'ip instanceof Inet4Address'
 in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
@@ -17567,18 +17615,6 @@ in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
                     } else if (ip != null && ip instanceof Inet6Address) {
                         byte[] ipByte = ip.getAddress();
                         if (ipByte.length == 16) {
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'null == opNew' covered by subsequent condition 'LEFTPARENTHESIS != opNew'
-in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
-#### Snippet
-```java
-                    segments.add(opNew);
-                }
-                if (null == opNew || LEFTPARENTHESIS != opNew)
-                    throw new IllegalArgumentException("mismatched parentheses");
-            } else if (isOperator(token)) {
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -17643,7 +17679,7 @@ in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpress
 
 ### ConditionCoveredByFurtherCondition
 Condition 'ret == null' covered by subsequent condition '!(ret instanceof Boolean)'
-in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionMessageFilter.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionForRetryMessageFilter.java`
 #### Snippet
 ```java
         log.debug("Pull eval result: {}, {}, {}", ret, realFilterData, tempProperties);
@@ -17655,7 +17691,7 @@ in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionMessageFilt
 
 ### ConditionCoveredByFurtherCondition
 Condition 'ret == null' covered by subsequent condition '!(ret instanceof Boolean)'
-in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionForRetryMessageFilter.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/filter/ExpressionMessageFilter.java`
 #### Snippet
 ```java
         log.debug("Pull eval result: {}, {}, {}", ret, realFilterData, tempProperties);
@@ -17688,127 +17724,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PopRequest.java`
     public static final Comparator<PopRequest> COMPARATOR = (o1, o2) -> {
         int ret = (int) (o1.getExpired() - o2.getExpired());
 
-```
-
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `expression.charAt(...)` to `int` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
-#### Snippet
-```java
-
-        for (int i = 0; i < size; i++) {
-            int chValue = (int) expression.charAt(i);
-
-            if (97 <= chValue && chValue <= 122 || 65 <= chValue && chValue <= 90
-```
-
-### RedundantCast
-Casting `token` to `Operator` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
-#### Snippet
-```java
-
-    public static boolean isRightParenthesis(Op token) {
-        return token instanceof Operator && RIGHTPARENTHESIS == (Operator) token;
-    }
-
-```
-
-### RedundantCast
-Casting `token` to `Operator` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
-#### Snippet
-```java
-
-    public static boolean isLeftParenthesis(Op token) {
-        return token instanceof Operator && LEFTPARENTHESIS == (Operator) token;
-    }
-
-```
-
-### RedundantCast
-Casting `new MapDataCollectorImpl()` to `DataCollector` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
-#### Snippet
-```java
-            synchronized (lock) {
-                if (!collectMap.containsKey(realKey)) {
-                    DataCollector collect = (DataCollector) new MapDataCollectorImpl();
-                    collectMap.put(realKey, collect);
-                }
-```
-
-### RedundantCast
-Casting `size` to `int` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
-#### Snippet
-```java
-        @Override
-        public int hashCode() {
-            int result = (int) size;
-            result = 31 * result + (int) (tagsCode ^ (tagsCode >>> 32));
-            result = 31 * result + (int) (msgStoreTime ^ (msgStoreTime >>> 32));
-```
-
-### RedundantCast
-Casting `(factor * ConsumeQueue.CQ_STORE_UNIT_SIZE)` to `int` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
-#### Snippet
-```java
-
-        int factor = (int) Math.ceil(this.mappedFileSizeConsumeQueue / (ConsumeQueue.CQ_STORE_UNIT_SIZE * 1.0));
-        return (int) (factor * ConsumeQueue.CQ_STORE_UNIT_SIZE);
-    }
-
-```
-
-### RedundantCast
-Casting `i.next()` to `Object` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/UnaryExpression.java`
-#### Snippet
-```java
-                int count = 0;
-                for (Iterator i = inList.iterator(); i.hasNext(); ) {
-                    Object o = (Object) i.next();
-                    if (count != 0) {
-                        answer.append(", ");
-```
-
-### RedundantCast
-Casting `(curChar >> 8)` to `int` is redundant
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
-#### Snippet
-```java
-                while (i != startsAt);
-            } else {
-                int hiByte = (int) (curChar >> 8);
-                int i1 = hiByte >> 6;
-                long l1 = 1L << (hiByte & 077);
-```
-
-### RedundantCast
-Casting `super.clone()` to `NettyServerConfig` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java`
-#### Snippet
-```java
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return (NettyServerConfig) super.clone();
-    }
-
-```
-
-### RedundantCast
-Casting `result` to `Buffer` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
-#### Snippet
-```java
-        result.put(headerData);
-
-        ((Buffer) result).flip();
-
-        return result;
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -17873,6 +17788,18 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
+#### Snippet
+```java
+     * achieves groupSysFlag value from transient properties
+     *
+     * @return
+     */
+    public Integer getGroupSysFlag() {
+```
+
+### JavadocDeclaration
 `@param topicSysFlag` tag description is missing
 in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
 #### Snippet
@@ -17897,18 +17824,6 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `common/src/main/java/org/apache/rocketmq/common/message/MessageExt.java`
-#### Snippet
-```java
-     * achieves groupSysFlag value from transient properties
-     *
-     * @return
-     */
-    public Integer getGroupSysFlag() {
-```
-
-### JavadocDeclaration
 `@param deltas` tag description is missing
 in `common/src/main/java/org/apache/rocketmq/common/statistics/Interceptor.java`
 #### Snippet
@@ -17918,18 +17833,6 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/Interceptor.java`
      * @param deltas
      */
     void inc(long... deltas);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledPrinter.java`
-#### Snippet
-```java
-        /**
-         * whether enabled
-         * @return
-         */
-        boolean enabled();
 ```
 
 ### JavadocDeclaration
@@ -17950,22 +17853,22 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemSch
 #### Snippet
 ```java
         /**
+         * whether enabled
+         * @return
+         */
+        boolean enabled();
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledPrinter.java`
+#### Snippet
+```java
+        /**
          * whether print zero lines
          * @return
          */
         boolean printZeroLine();
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `common/src/main/java/org/apache/rocketmq/common/compression/Compressor.java`
-#### Snippet
-```java
-     * @param src bytes ready to decompress
-     * @return decompressed byte data
-     * @throws IOException
-     */
-    byte[] decompress(byte[] src) throws IOException;
 ```
 
 ### JavadocDeclaration
@@ -17981,15 +17884,27 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/Compressor.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsBrief.java`
+`@throws` tag description is missing
+in `common/src/main/java/org/apache/rocketmq/common/compression/Compressor.java`
 #### Snippet
 ```java
-     * Getters
+     * @param src bytes ready to decompress
+     * @return decompressed byte data
+     * @throws IOException
+     */
+    byte[] decompress(byte[] src) throws IOException;
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+#### Snippet
+```java
+     * Warning: no guarantee of itemAccumulates consistency
      *
      * @return
      */
-    public long getMax() {
+    public StatisticsItem snapshot() {
 ```
 
 ### JavadocDeclaration
@@ -18018,14 +17933,14 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.ja
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsBrief.java`
 #### Snippet
 ```java
-     * Warning: no guarantee of itemAccumulates consistency
+     * Getters
      *
      * @return
      */
-    public StatisticsItem snapshot() {
+    public long getMax() {
 ```
 
 ### JavadocDeclaration
@@ -18077,75 +17992,15 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemSch
 ```
 
 ### JavadocDeclaration
-`@param channel` tag description is missing
-in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/channel/RemotingChannelManager.java`
-#### Snippet
-```java
-    /**
-     * to get the org channel pass by nettyRemotingServer
-     * @param channel
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/channel/RemotingChannelManager.java`
-#### Snippet
-```java
-     * to get the org channel pass by nettyRemotingServer
-     * @param channel
-     * @return
-     */
-    protected Channel getOrgRawChannel(Channel channel) {
-```
-
-### JavadocDeclaration
-`@param newAddress` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
-#### Snippet
-```java
-     * Update master address
-     *
-     * @param newAddress
-     */
-    void updateMasterAddress(String newAddress);
-```
-
-### JavadocDeclaration
-`@param haConnectionState` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
-#### Snippet
-```java
-     * Change the current state for ha connection for testing
-     *
-     * @param haConnectionState
-     */
-    void changeCurrentState(HAConnectionState haConnectionState);
-```
-
-### JavadocDeclaration
-`@param newAddress` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
-#### Snippet
-```java
-     * Update master ha address
-     *
-     * @param newAddress
-     */
-    void updateHaMasterAddress(String newAddress);
-```
-
-### JavadocDeclaration
-`@param phyOffset` tag description is missing
+`@param startOffset` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 #### Snippet
 ```java
-     * Set physical offset
+     * Get last mapped file
      *
-     * @param phyOffset
+     * @param startOffset
+     * @return true when get the last mapped file, false when get null
      */
-    void setPhysicalOffset(long phyOffset);
 ```
 
 ### JavadocDeclaration
@@ -18161,15 +18016,15 @@ in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 ```
 
 ### JavadocDeclaration
-`@param startOffset` tag description is missing
+`@param masterStoreInProcess` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 #### Snippet
 ```java
-     * Get last mapped file
+     * Set master broker message store in process
      *
-     * @param startOffset
-     * @return true when get the last mapped file, false when get null
+     * @param masterStoreInProcess
      */
+    void setMasterStoreInProcess(MessageStore masterStoreInProcess);
 ```
 
 ### JavadocDeclaration
@@ -18221,6 +18076,42 @@ in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 ```
 
 ### JavadocDeclaration
+`@param haConnectionState` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
+#### Snippet
+```java
+     * Change the current state for ha connection for testing
+     *
+     * @param haConnectionState
+     */
+    void changeCurrentState(HAConnectionState haConnectionState);
+```
+
+### JavadocDeclaration
+`@param phyOffset` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
+#### Snippet
+```java
+     * Set physical offset
+     *
+     * @param phyOffset
+     */
+    void setPhysicalOffset(long phyOffset);
+```
+
+### JavadocDeclaration
+`@param newAddress` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
+#### Snippet
+```java
+     * Update master ha address
+     *
+     * @param newAddress
+     */
+    void updateHaMasterAddress(String newAddress);
+```
+
+### JavadocDeclaration
 `@return` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 #### Snippet
@@ -18230,6 +18121,18 @@ in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
      * @return
      */
     MessageStore getMasterStoreInProcess();
+```
+
+### JavadocDeclaration
+`@param newAddress` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAClient.java`
+#### Snippet
+```java
+     * Update master address
+     *
+     * @param newAddress
+     */
+    void updateMasterAddress(String newAddress);
 ```
 
 ### JavadocDeclaration
@@ -18281,27 +18184,39 @@ in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
 ```
 
 ### JavadocDeclaration
-`@param masterStoreInProcess` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/MessageStore.java`
-#### Snippet
-```java
-     * Set master broker message store in process
-     *
-     * @param masterStoreInProcess
-     */
-    void setMasterStoreInProcess(MessageStore masterStoreInProcess);
-```
-
-### JavadocDeclaration
-`@param request` tag description is missing
+`@throws` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
 #### Snippet
 ```java
-     * Put GroupConnectionStateRequest for preOnline
+     * Start HA Service
      *
-     * @param request
+     * @throws Exception
      */
-    void putGroupConnectionStateRequest(HAConnectionStateNotificationRequest request);
+    void start() throws Exception;
+```
+
+### JavadocDeclaration
+`@param newAddr` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
+#### Snippet
+```java
+     * Update ha master address
+     *
+     * @param newAddr
+     */
+    void updateHaMasterAddress(String newAddr);
+```
+
+### JavadocDeclaration
+`@param newAddr` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
+#### Snippet
+```java
+     * Update master address
+     *
+     * @param newAddr
+     */
+    void updateMasterAddress(String newAddr);
 ```
 
 ### JavadocDeclaration
@@ -18329,39 +18244,15 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
+`@param request` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
 #### Snippet
 ```java
-     * Start HA Service
+     * Put GroupConnectionStateRequest for preOnline
      *
-     * @throws Exception
+     * @param request
      */
-    void start() throws Exception;
-```
-
-### JavadocDeclaration
-`@param newAddr` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
-#### Snippet
-```java
-     * Update master address
-     *
-     * @param newAddr
-     */
-    void updateMasterAddress(String newAddr);
-```
-
-### JavadocDeclaration
-`@param newAddr` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAService.java`
-#### Snippet
-```java
-     * Update ha master address
-     *
-     * @param newAddr
-     */
-    void updateHaMasterAddress(String newAddr);
+    void putGroupConnectionStateRequest(HAConnectionStateNotificationRequest request);
 ```
 
 ### JavadocDeclaration
@@ -18449,6 +18340,30 @@ in `store/src/main/java/org/apache/rocketmq/store/hook/SendMessageBackHook.java`
 ```
 
 ### JavadocDeclaration
+`@param msgOffset` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/queue/SparseConsumeQueue.java`
+#### Snippet
+```java
+     * Gets SelectMappedBufferResult by batch-message offset, if not found will return the next valid offset buffer
+     * Node: the caller is responsible for the release of SelectMappedBufferResult
+     * @param msgOffset
+     * @return SelectMappedBufferResult
+     */
+```
+
+### JavadocDeclaration
+`@param msgOffset` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+#### Snippet
+```java
+     * Gets SelectMappedBufferResult by batch-message offset
+     * Node: the caller is responsible for the release of SelectMappedBufferResult
+     * @param msgOffset
+     * @return SelectMappedBufferResult
+     */
+```
+
+### JavadocDeclaration
 `@param timestamp` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
 #### Snippet
@@ -18473,27 +18388,39 @@ in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
 ```
 
 ### JavadocDeclaration
-`@param msgOffset` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+`@return` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
 #### Snippet
 ```java
-     * Gets SelectMappedBufferResult by batch-message offset
-     * Node: the caller is responsible for the release of SelectMappedBufferResult
-     * @param msgOffset
-     * @return SelectMappedBufferResult
+    /**
+     * Get the underlying file
+     * @return
+     */
+    File getFile();
+```
+
+### JavadocDeclaration
+`@param putMessageContext` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
+#### Snippet
+```java
+     * @param message a message to append
+     * @param messageCallback the specific call back to execute the real append action
+     * @param putMessageContext
+     * @return the append result
      */
 ```
 
 ### JavadocDeclaration
-`@param msgOffset` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/queue/SparseConsumeQueue.java`
+`@throws` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
 #### Snippet
 ```java
-     * Gets SelectMappedBufferResult by batch-message offset, if not found will return the next valid offset buffer
-     * Node: the caller is responsible for the release of SelectMappedBufferResult
-     * @param msgOffset
-     * @return SelectMappedBufferResult
+     * @param fileSize file size
+     * @param transientStorePool transient store pool
+     * @throws IOException
      */
+    void init(String fileName, int fileSize, TransientStorePool transientStorePool) throws IOException;
 ```
 
 ### JavadocDeclaration
@@ -18506,6 +18433,18 @@ in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
      * @return
      */
     long getLastFlushTime();
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
+#### Snippet
+```java
+    /**
+     * move the file to the parent directory
+     * @throws IOException
+     */
+    void moveToParent() throws IOException;
 ```
 
 ### JavadocDeclaration
@@ -18533,42 +18472,6 @@ in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
-#### Snippet
-```java
-    /**
-     * move the file to the parent directory
-     * @throws IOException
-     */
-    void moveToParent() throws IOException;
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
-#### Snippet
-```java
-    /**
-     * Get the underlying file
-     * @return
-     */
-    File getFile();
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
-#### Snippet
-```java
-     * @param fileSize file size
-     * @param transientStorePool transient store pool
-     * @throws IOException
-     */
-    void init(String fileName, int fileSize, TransientStorePool transientStorePool) throws IOException;
-```
-
-### JavadocDeclaration
 `@param putMessageContext` tag description is missing
 in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
 #### Snippet
@@ -18578,54 +18481,6 @@ in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
      * @param putMessageContext
      * @return the append result
      */
-```
-
-### JavadocDeclaration
-`@param putMessageContext` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/logfile/MappedFile.java`
-#### Snippet
-```java
-     * @param message a message to append
-     * @param messageCallback the specific call back to execute the real append action
-     * @param putMessageContext
-     * @return the append result
-     */
-```
-
-### JavadocDeclaration
-`@param attributes` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/MQAdmin.java`
-#### Snippet
-```java
-     * @param queueNum topic's queue number
-     * @param topicSysFlag topic system flag
-     * @param attributes
-     */
-    void createTopic(String key, String newTopic, int queueNum, int topicSysFlag, Map<String, String> attributes)
-```
-
-### JavadocDeclaration
-`@param attributes` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/MQAdmin.java`
-#### Snippet
-```java
-     * @param newTopic topic name
-     * @param queueNum topic's queue number
-     * @param attributes
-     */
-    void createTopic(final String key, final String newTopic, final int queueNum, Map<String, String> attributes)
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-
-    /**
-     * @throws Exception
-     */
-    @Override
 ```
 
 ### JavadocDeclaration
@@ -18638,6 +18493,18 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
      * @throws IOException
      */
     private void createTempFile() throws IOException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+
+    /**
+     * @throws Exception
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -18662,6 +18529,306 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
      * @throws IOException
      */
     @Override
+```
+
+### JavadocDeclaration
+`@param left` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/LogicExpression.java`
+#### Snippet
+```java
+
+    /**
+     * @param left
+     * @param right
+     */
+```
+
+### JavadocDeclaration
+`@param right` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/LogicExpression.java`
+#### Snippet
+```java
+    /**
+     * @param left
+     * @param right
+     */
+    public LogicExpression(BooleanExpression left, BooleanExpression right) {
+```
+
+### JavadocDeclaration
+`@param expression` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/BinaryExpression.java`
+#### Snippet
+```java
+
+    /**
+     * @param expression
+     */
+    public void setLeft(Expression expression) {
+```
+
+### JavadocDeclaration
+`@param expression` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/BinaryExpression.java`
+#### Snippet
+```java
+
+    /**
+     * @param expression
+     */
+    public void setRight(Expression expression) {
+```
+
+### JavadocDeclaration
+`@param left` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+
+    /**
+     * @param left
+     * @param right
+     */
+```
+
+### JavadocDeclaration
+`@param right` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+    /**
+     * @param left
+     * @param right
+     */
+    public ComparisonExpression(Expression left, Expression right) {
+```
+
+### JavadocDeclaration
+`@param left` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+
+    /**
+     * @param left
+     * @param right
+     */
+```
+
+### JavadocDeclaration
+`@param right` tag description is missing
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
+#### Snippet
+```java
+    /**
+     * @param left
+     * @param right
+     */
+    private static void checkEqualOperandCompatability(Expression left, Expression right) {
+```
+
+### JavadocDeclaration
+`@param channel` tag description is missing
+in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/channel/RemotingChannelManager.java`
+#### Snippet
+```java
+    /**
+     * to get the org channel pass by nettyRemotingServer
+     * @param channel
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `proxy/src/main/java/org/apache/rocketmq/proxy/remoting/channel/RemotingChannelManager.java`
+#### Snippet
+```java
+     * to get the org channel pass by nettyRemotingServer
+     * @param channel
+     * @return
+     */
+    protected Channel getOrgRawChannel(Channel channel) {
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method AuthorizationHeader
+in `acl/src/main/java/org/apache/rocketmq/acl/common/AuthorizationHeader.java`
+#### Snippet
+```java
+     *
+     * @param header gRPC header string.
+     * @throws Exception exception.
+     */
+    public AuthorizationHeader(String header) throws DecoderException {
+```
+
+### JavadocDeclaration
+`@param attributes` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/MQAdmin.java`
+#### Snippet
+```java
+     * @param newTopic topic name
+     * @param queueNum topic's queue number
+     * @param attributes
+     */
+    void createTopic(final String key, final String newTopic, final int queueNum, Map<String, String> attributes)
+```
+
+### JavadocDeclaration
+`@param attributes` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/MQAdmin.java`
+#### Snippet
+```java
+     * @param queueNum topic's queue number
+     * @param topicSysFlag topic system flag
+     * @param attributes
+     */
+    void createTopic(String key, String newTopic, int queueNum, int topicSysFlag, Map<String, String> attributes)
+```
+
+### JavadocDeclaration
+`@param plainAccessConfig` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Update the access resource config
+     *
+     * @param plainAccessConfig
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     *
+     * @param plainAccessConfig
+     * @return
+     */
+    boolean updateAccessConfig(PlainAccessConfig plainAccessConfig);
+```
+
+### JavadocDeclaration
+`@param messageV3` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+    /**
+     * Parse to get the AccessResource from gRPC protocol
+     * @param messageV3
+     * @param header
+     * @return Plain access resource
+```
+
+### JavadocDeclaration
+`@param header` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Parse to get the AccessResource from gRPC protocol
+     * @param messageV3
+     * @param header
+     * @return Plain access resource
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * get broker cluster acl config information
+     *
+     * @return
+     */
+    AclConfig getAllAclConfig();
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Delete the access resource config
+     *
+     * @return
+     */
+    boolean deleteAccessConfig(String accessKey);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Update globalWhiteRemoteAddresses in acl yaml config file
+     *
+     * @return
+     */
+    boolean updateGlobalWhiteAddrsConfig(List<String> globalWhiteAddrsList);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * get all access resource config version information
+     *
+     * @return
+     */
+    Map<String, DataVersion> getAllAclConfigVersion();
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Get the access resource config version information
+     *
+     * @return
+     */
+    @Deprecated
+```
+
+### JavadocDeclaration
+`@param accessResource` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Validate the access resource.
+     *
+     * @param accessResource
+     */
+    void validate(AccessResource accessResource);
+```
+
+### JavadocDeclaration
+`@param request` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     * Parse to get the AccessResource(user, resource, needed permission)
+     *
+     * @param request
+     * @param remoteAddr
+     * @return Plain access resource result,include access key,signature and some other access attributes.
+```
+
+### JavadocDeclaration
+`@param remoteAddr` tag description is missing
+in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+#### Snippet
+```java
+     *
+     * @param request
+     * @param remoteAddr
+     * @return Plain access resource result,include access key,signature and some other access attributes.
+     */
 ```
 
 ### JavadocDeclaration
@@ -18845,6 +19012,30 @@ in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDispatcher.java`
 ```
 
 ### JavadocDeclaration
+`@param ctx` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
+#### Snippet
+```java
+     * Encoding the trace context into data strings and keyset sets
+     *
+     * @param ctx
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
+#### Snippet
+```java
+     *
+     * @param ctx
+     * @return
+     */
+    public static TraceTransferBean encoderFromContextBean(TraceContext ctx) {
+```
+
+### JavadocDeclaration
 `@param traceData` tag description is missing
 in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
 #### Snippet
@@ -18869,27 +19060,255 @@ in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
 ```
 
 ### JavadocDeclaration
-`@param ctx` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
+`@param topic` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
 #### Snippet
 ```java
-     * Encoding the trace context into data strings and keyset sets
-     *
-     * @param ctx
-     * @return
+    /**
+     * Subscribe some topic with subExpression and messageQueueListener
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
+```
+
+### JavadocDeclaration
+`@param subExpression` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * Subscribe some topic with subExpression and messageQueueListener
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
      */
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/trace/TraceDataEncoder.java`
+`@param messageQueueListener` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
+     */
+    void subscribe(final String topic, final String subExpression, final MessageQueueListener messageQueueListener) throws MQClientException;
+```
+
+### JavadocDeclaration
+`@param messageQueue` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * this API is arbitrarily used in the middle of consumption.
+     *
+     * @param messageQueue
+     * @param offset
+     */
+```
+
+### JavadocDeclaration
+`@param offset` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
 #### Snippet
 ```java
      *
-     * @param ctx
-     * @return
+     * @param messageQueue
+     * @param offset
      */
-    public static TraceTransferBean encoderFromContextBean(TraceContext ctx) {
+    void seek(MessageQueue messageQueue, long offset) throws MQClientException;
+```
+
+### JavadocDeclaration
+`@param messageQueue` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * you may lose data if this API is arbitrarily used in the middle of consumption.
+     *
+     * @param messageQueue
+     */
+    void seekToBegin(MessageQueue messageQueue)throws MQClientException;
+```
+
+### JavadocDeclaration
+`@param timestamp` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     *
+     * @param messageQueue Message queues that needs to get offset by timestamp.
+     * @param timestamp
+     * @return offset
+     * @throws MQClientException if there is any client error.
+```
+
+### JavadocDeclaration
+`@param messageQueue` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * Get the last committed offset for the given message queue.
+     *
+     * @param messageQueue
+     * @return offset, if offset equals -1 means no offset in broker.
+     * @throws MQClientException if there is any client error.
+```
+
+### JavadocDeclaration
+`@param messageQueue` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * you may lose data if this API is arbitrarily used in the middle of consumption.
+     *
+     * @param messageQueue
+     */
+    void seekToEnd(MessageQueue messageQueue)throws MQClientException;
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+    /**
+     * subscribe mode, get assigned MessageQueue
+     * @return
+     * @throws MQClientException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
+#### Snippet
+```java
+     * subscribe mode, get assigned MessageQueue
+     * @return
+     * @throws MQClientException
+     */
+    Set<MessageQueue> assignment() throws MQClientException;
+```
+
+### JavadocDeclaration
+`@param messageQueues` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/TopicMessageQueueChangeListener.java`
+#### Snippet
+```java
+     * expanded or shrunk.
+     *
+     * @param messageQueues
+     */
+    void onChanged(String topic, Set<MessageQueue> messageQueues);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
+#### Snippet
+```java
+     * Get the MessageQueue assigned in subscribe mode
+     *
+     * @return
+     * @throws MQClientException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
+#### Snippet
+```java
+     *
+     * @return
+     * @throws MQClientException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param topic` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
+#### Snippet
+```java
+     * Subscribe some topic with subExpression and messageQueueListener
+     *
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
+```
+
+### JavadocDeclaration
+`@param subExpression` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
+#### Snippet
+```java
+     *
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
+     */
+```
+
+### JavadocDeclaration
+`@param messageQueueListener` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
+#### Snippet
+```java
+     * @param topic
+     * @param subExpression
+     * @param messageQueueListener
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param mq` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
+#### Snippet
+```java
+
+    /**
+     * @param mq
+     * @param offset
+     * @param isOneway
+```
+
+### JavadocDeclaration
+`@param offset` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
+#### Snippet
+```java
+    /**
+     * @param mq
+     * @param offset
+     * @param isOneway
+     */
+```
+
+### JavadocDeclaration
+`@param isOneway` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
+#### Snippet
+```java
+     * @param mq
+     * @param offset
+     * @param isOneway
+     */
+    void updateConsumeOffsetToBroker(MessageQueue mq, long offset, boolean isOneway) throws RemotingException,
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultMQPushConsumer.java`
+#### Snippet
+```java
+     * In orderly mode, -1 means Integer.MAX_VALUE.
+     *
+     * If messages are re-consumed more than {@link #maxReconsumeTimes} before success.
+     */
+    private int maxReconsumeTimes = -1;
 ```
 
 ### JavadocDeclaration
@@ -18974,6 +19393,42 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePul
      * @return
      */
     public synchronized Set<MessageQueue> assignment() {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+#### Snippet
+```java
+     * @param arg Argument used along with local transaction executor.
+     * @return Transaction result.
+     * @throws MQClientException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param attributes` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+#### Snippet
+```java
+     * @param newTopic topic name
+     * @param queueNum topic's queue number
+     * @param attributes
+     * @throws MQClientException if there is any client error.
+     */
+```
+
+### JavadocDeclaration
+`@param attributes` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+#### Snippet
+```java
+     * @param queueNum topic's queue number
+     * @param topicSysFlag topic system flag
+     * @param attributes
+     * @throws MQClientException if there is any client error.
+     */
 ```
 
 ### JavadocDeclaration
@@ -19070,330 +19525,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
      * @throws MQBrokerException
      */
     public GroupForbidden updateAndGetGroupForbidden(String addr, UpdateGroupForbiddenRequestHeader requestHeader,
-```
-
-### JavadocDeclaration
-`@param messageQueues` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/TopicMessageQueueChangeListener.java`
-#### Snippet
-```java
-     * expanded or shrunk.
-     *
-     * @param messageQueues
-     */
-    void onChanged(String topic, Set<MessageQueue> messageQueues);
-```
-
-### JavadocDeclaration
-`@param messageQueue` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * Get the last committed offset for the given message queue.
-     *
-     * @param messageQueue
-     * @return offset, if offset equals -1 means no offset in broker.
-     * @throws MQClientException if there is any client error.
-```
-
-### JavadocDeclaration
-`@param timestamp` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     *
-     * @param messageQueue Message queues that needs to get offset by timestamp.
-     * @param timestamp
-     * @return offset
-     * @throws MQClientException if there is any client error.
-```
-
-### JavadocDeclaration
-`@param topic` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-    /**
-     * Subscribe some topic with subExpression and messageQueueListener
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-```
-
-### JavadocDeclaration
-`@param subExpression` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * Subscribe some topic with subExpression and messageQueueListener
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-     */
-```
-
-### JavadocDeclaration
-`@param messageQueueListener` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-     */
-    void subscribe(final String topic, final String subExpression, final MessageQueueListener messageQueueListener) throws MQClientException;
-```
-
-### JavadocDeclaration
-`@param messageQueue` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * you may lose data if this API is arbitrarily used in the middle of consumption.
-     *
-     * @param messageQueue
-     */
-    void seekToBegin(MessageQueue messageQueue)throws MQClientException;
-```
-
-### JavadocDeclaration
-`@param messageQueue` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * this API is arbitrarily used in the middle of consumption.
-     *
-     * @param messageQueue
-     * @param offset
-     */
-```
-
-### JavadocDeclaration
-`@param offset` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     *
-     * @param messageQueue
-     * @param offset
-     */
-    void seek(MessageQueue messageQueue, long offset) throws MQClientException;
-```
-
-### JavadocDeclaration
-`@param messageQueue` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * you may lose data if this API is arbitrarily used in the middle of consumption.
-     *
-     * @param messageQueue
-     */
-    void seekToEnd(MessageQueue messageQueue)throws MQClientException;
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-    /**
-     * subscribe mode, get assigned MessageQueue
-     * @return
-     * @throws MQClientException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/LitePullConsumer.java`
-#### Snippet
-```java
-     * subscribe mode, get assigned MessageQueue
-     * @return
-     * @throws MQClientException
-     */
-    Set<MessageQueue> assignment() throws MQClientException;
-```
-
-### JavadocDeclaration
-`@param mq` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
-#### Snippet
-```java
-
-    /**
-     * @param mq
-     * @param offset
-     * @param isOneway
-```
-
-### JavadocDeclaration
-`@param offset` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
-#### Snippet
-```java
-    /**
-     * @param mq
-     * @param offset
-     * @param isOneway
-     */
-```
-
-### JavadocDeclaration
-`@param isOneway` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/store/OffsetStore.java`
-#### Snippet
-```java
-     * @param mq
-     * @param offset
-     * @param isOneway
-     */
-    void updateConsumeOffsetToBroker(MessageQueue mq, long offset, boolean isOneway) throws RemotingException,
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
-#### Snippet
-```java
-     * Get the MessageQueue assigned in subscribe mode
-     *
-     * @return
-     * @throws MQClientException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
-#### Snippet
-```java
-     *
-     * @return
-     * @throws MQClientException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param topic` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
-#### Snippet
-```java
-     * Subscribe some topic with subExpression and messageQueueListener
-     *
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-```
-
-### JavadocDeclaration
-`@param subExpression` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
-#### Snippet
-```java
-     *
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-     */
-```
-
-### JavadocDeclaration
-`@param messageQueueListener` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultLitePullConsumer.java`
-#### Snippet
-```java
-     * @param topic
-     * @param subExpression
-     * @param messageQueueListener
-     */
-    @Override
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `client/src/main/java/org/apache/rocketmq/client/consumer/DefaultMQPushConsumer.java`
-#### Snippet
-```java
-     * In orderly mode, -1 means Integer.MAX_VALUE.
-     *
-     * If messages are re-consumed more than {@link #maxReconsumeTimes} before success.
-     */
-    private int maxReconsumeTimes = -1;
-```
-
-### JavadocDeclaration
-`@param msg` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-
-    /**
-     * @param msg
-     * @param mq
-     * @param sendCallback
-```
-
-### JavadocDeclaration
-`@param mq` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-    /**
-     * @param msg
-     * @param mq
-     * @param sendCallback
-     * @param timeout      the <code>sendCallback</code> will be invoked at most time
-```
-
-### JavadocDeclaration
-`@param sendCallback` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-     * @param msg
-     * @param mq
-     * @param sendCallback
-     * @param timeout      the <code>sendCallback</code> will be invoked at most time
-     * @throws MQClientException
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-     * @param sendCallback
-     * @param timeout      the <code>sendCallback</code> will be invoked at most time
-     * @throws MQClientException
-     * @throws RemotingException
-     * @throws InterruptedException
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-     * @param timeout      the <code>sendCallback</code> will be invoked at most time
-     * @throws MQClientException
-     * @throws RemotingException
-     * @throws InterruptedException
-     * @deprecated It will be removed at 4.4.0 cause for exception handling and the wrong Semantics of timeout. A new one will be
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-     * @throws MQClientException
-     * @throws RemotingException
-     * @throws InterruptedException
-     * @deprecated It will be removed at 4.4.0 cause for exception handling and the wrong Semantics of timeout. A new one will be
-     * provided in next version
 ```
 
 ### JavadocDeclaration
@@ -19517,303 +19648,111 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+`@param msg` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
-     * @param arg Argument used along with local transaction executor.
-     * @return Transaction result.
+
+    /**
+     * @param msg
+     * @param mq
+     * @param sendCallback
+```
+
+### JavadocDeclaration
+`@param mq` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+    /**
+     * @param msg
+     * @param mq
+     * @param sendCallback
+     * @param timeout      the <code>sendCallback</code> will be invoked at most time
+```
+
+### JavadocDeclaration
+`@param sendCallback` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+     * @param msg
+     * @param mq
+     * @param sendCallback
+     * @param timeout      the <code>sendCallback</code> will be invoked at most time
      * @throws MQClientException
-     */
-    @Override
 ```
 
 ### JavadocDeclaration
-`@param attributes` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
-     * @param queueNum topic's queue number
-     * @param topicSysFlag topic system flag
-     * @param attributes
-     * @throws MQClientException if there is any client error.
-     */
+     * @param sendCallback
+     * @param timeout      the <code>sendCallback</code> will be invoked at most time
+     * @throws MQClientException
+     * @throws RemotingException
+     * @throws InterruptedException
 ```
 
 ### JavadocDeclaration
-`@param attributes` tag description is missing
-in `client/src/main/java/org/apache/rocketmq/client/producer/DefaultMQProducer.java`
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
-     * @param newTopic topic name
-     * @param queueNum topic's queue number
-     * @param attributes
-     * @throws MQClientException if there is any client error.
-     */
+     * @param timeout      the <code>sendCallback</code> will be invoked at most time
+     * @throws MQClientException
+     * @throws RemotingException
+     * @throws InterruptedException
+     * @deprecated It will be removed at 4.4.0 cause for exception handling and the wrong Semantics of timeout. A new one will be
 ```
 
 ### JavadocDeclaration
-Exception is not declared to be thrown by method AuthorizationHeader
-in `acl/src/main/java/org/apache/rocketmq/acl/common/AuthorizationHeader.java`
+`@throws` tag description is missing
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
+     * @throws MQClientException
+     * @throws RemotingException
+     * @throws InterruptedException
+     * @deprecated It will be removed at 4.4.0 cause for exception handling and the wrong Semantics of timeout. A new one will be
+     * provided in next version
+```
+
+### JavadocDeclaration
+`@param runtimeInfo` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
+#### Snippet
+```java
+     * Some plugin need build runningInfo when prepare runtime info.
      *
-     * @param header gRPC header string.
-     * @throws Exception exception.
+     * @param runtimeInfo
      */
-    public AuthorizationHeader(String header) throws DecoderException {
+    void buildRuntimeInfo(Map<String, String> runtimeInfo);
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `controller/src/main/java/org/apache/rocketmq/controller/BrokerHeartbeatManager.java`
+`@param shouldStart` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
 #### Snippet
 ```java
-    /**
-     * initialize the resources
-     * @return
-     */
-    void initialize();
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Delete the access resource config
+     * Some plugin need do something when status changed. For example, brokerRole change to master or slave.
      *
-     * @return
+     * @param shouldStart
      */
-    boolean deleteAccessConfig(String accessKey);
+    void statusChanged(boolean shouldStart);
 ```
 
 ### JavadocDeclaration
-`@param request` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
+`@param brokerAddr` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
 #### Snippet
 ```java
-     * Parse to get the AccessResource(user, resource, needed permission)
+     * Sync metadata reverse from slave
      *
-     * @param request
-     * @param remoteAddr
-     * @return Plain access resource result,include access key,signature and some other access attributes.
-```
-
-### JavadocDeclaration
-`@param remoteAddr` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     *
-     * @param request
-     * @param remoteAddr
-     * @return Plain access resource result,include access key,signature and some other access attributes.
+     * @param brokerAddr
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Update globalWhiteRemoteAddresses in acl yaml config file
-     *
-     * @return
-     */
-    boolean updateGlobalWhiteAddrsConfig(List<String> globalWhiteAddrsList);
-```
-
-### JavadocDeclaration
-`@param plainAccessConfig` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Update the access resource config
-     *
-     * @param plainAccessConfig
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     *
-     * @param plainAccessConfig
-     * @return
-     */
-    boolean updateAccessConfig(PlainAccessConfig plainAccessConfig);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * get all access resource config version information
-     *
-     * @return
-     */
-    Map<String, DataVersion> getAllAclConfigVersion();
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Get the access resource config version information
-     *
-     * @return
-     */
-    @Deprecated
-```
-
-### JavadocDeclaration
-`@param accessResource` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Validate the access resource.
-     *
-     * @param accessResource
-     */
-    void validate(AccessResource accessResource);
-```
-
-### JavadocDeclaration
-`@param messageV3` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-    /**
-     * Parse to get the AccessResource from gRPC protocol
-     * @param messageV3
-     * @param header
-     * @return Plain access resource
-```
-
-### JavadocDeclaration
-`@param header` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * Parse to get the AccessResource from gRPC protocol
-     * @param messageV3
-     * @param header
-     * @return Plain access resource
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `acl/src/main/java/org/apache/rocketmq/acl/AccessValidator.java`
-#### Snippet
-```java
-     * get broker cluster acl config information
-     *
-     * @return
-     */
-    AclConfig getAllAclConfig();
-```
-
-### JavadocDeclaration
-`@param expression` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/BinaryExpression.java`
-#### Snippet
-```java
-
-    /**
-     * @param expression
-     */
-    public void setLeft(Expression expression) {
-```
-
-### JavadocDeclaration
-`@param expression` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/BinaryExpression.java`
-#### Snippet
-```java
-
-    /**
-     * @param expression
-     */
-    public void setRight(Expression expression) {
-```
-
-### JavadocDeclaration
-`@param left` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/LogicExpression.java`
-#### Snippet
-```java
-
-    /**
-     * @param left
-     * @param right
-     */
-```
-
-### JavadocDeclaration
-`@param right` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/LogicExpression.java`
-#### Snippet
-```java
-    /**
-     * @param left
-     * @param right
-     */
-    public LogicExpression(BooleanExpression left, BooleanExpression right) {
-```
-
-### JavadocDeclaration
-`@param left` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-
-    /**
-     * @param left
-     * @param right
-     */
-```
-
-### JavadocDeclaration
-`@param right` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-    /**
-     * @param left
-     * @param right
-     */
-    public ComparisonExpression(Expression left, Expression right) {
-```
-
-### JavadocDeclaration
-`@param left` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-
-    /**
-     * @param left
-     * @param right
-     */
-```
-
-### JavadocDeclaration
-`@param right` tag description is missing
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ComparisonExpression.java`
-#### Snippet
-```java
-    /**
-     * @param left
-     * @param right
-     */
-    private static void checkEqualOperandCompatability(Expression left, Expression right) {
+    void syncMetadataReverse(String brokerAddr) throws Exception;
 ```
 
 ### JavadocDeclaration
@@ -19934,42 +19873,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
      * @return
      */
     public List<RegisterBrokerResult> registerBrokerAll(
-```
-
-### JavadocDeclaration
-`@param shouldStart` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
-#### Snippet
-```java
-     * Some plugin need do something when status changed. For example, brokerRole change to master or slave.
-     *
-     * @param shouldStart
-     */
-    void statusChanged(boolean shouldStart);
-```
-
-### JavadocDeclaration
-`@param runtimeInfo` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
-#### Snippet
-```java
-     * Some plugin need build runningInfo when prepare runtime info.
-     *
-     * @param runtimeInfo
-     */
-    void buildRuntimeInfo(Map<String, String> runtimeInfo);
-```
-
-### JavadocDeclaration
-`@param brokerAddr` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/plugin/BrokerAttachedPlugin.java`
-#### Snippet
-```java
-     * Sync metadata reverse from slave
-     *
-     * @param brokerAddr
-     */
-    void syncMetadataReverse(String brokerAddr) throws Exception;
 ```
 
 ### JavadocDeclaration
@@ -20109,7 +20012,7 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/AbstractTransact
 in `broker/src/main/java/org/apache/rocketmq/broker/subscription/SubscriptionGroupManager.java`
 #### Snippet
 ```java
-     * clear the bit value to 0 at the specific index (from 0)
+     * set the bit value to 1 at the specific index (from 0)
      *
      * @param group
      * @param topic
@@ -20133,7 +20036,7 @@ in `broker/src/main/java/org/apache/rocketmq/broker/subscription/SubscriptionGro
 in `broker/src/main/java/org/apache/rocketmq/broker/subscription/SubscriptionGroupManager.java`
 #### Snippet
 ```java
-     * set the bit value to 1 at the specific index (from 0)
+     * clear the bit value to 0 at the specific index (from 0)
      *
      * @param group
      * @param topic
@@ -20213,75 +20116,39 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 ```
 
 ### JavadocDeclaration
-`@param usedExpireMillis` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-         * is not thread safe, may cause duplicate lock
-         *
-         * @param usedExpireMillis
-         * @return
-         */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-         *
-         * @param usedExpireMillis
-         * @return
-         */
-        public int cleanUnusedLock(final long usedExpireMillis) {
-```
-
-### JavadocDeclaration
-`@param channel` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+`@param ctx` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
 
     /**
-     * @param channel
-     * @param remotingCommand
-     * @param requestHeader
-```
-
-### JavadocDeclaration
-`@param remotingCommand` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-    /**
-     * @param channel
-     * @param remotingCommand
-     * @param requestHeader
+     * @param ctx
+     * @param request
      * @return
 ```
 
 ### JavadocDeclaration
-`@param requestHeader` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+`@param request` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
-     * @param channel
-     * @param remotingCommand
-     * @param requestHeader
+    /**
+     * @param ctx
+     * @param request
      * @return
      */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
 ```java
-     * @param remotingCommand
-     * @param requestHeader
+     * @param ctx
+     * @param request
      * @return
      */
-    private int polling(final Channel channel, RemotingCommand remotingCommand,
+    private RemotingCommand updateAndGetGroupForbidden(ChannelHandlerContext ctx, RemotingCommand request)
 ```
 
 ### JavadocDeclaration
@@ -20333,52 +20200,233 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 ```
 
 ### JavadocDeclaration
-`@param ctx` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
+Tag `return` is not allowed here
+in `controller/src/main/java/org/apache/rocketmq/controller/BrokerHeartbeatManager.java`
+#### Snippet
+```java
+    /**
+     * initialize the resources
+     * @return
+     */
+    void initialize();
+```
+
+### JavadocDeclaration
+`@param channel` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
 
     /**
-     * @param ctx
-     * @param request
+     * @param channel
+     * @param remotingCommand
+     * @param requestHeader
+```
+
+### JavadocDeclaration
+`@param remotingCommand` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+#### Snippet
+```java
+    /**
+     * @param channel
+     * @param remotingCommand
+     * @param requestHeader
      * @return
 ```
 
 ### JavadocDeclaration
-`@param request` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
+`@param requestHeader` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-    /**
-     * @param ctx
-     * @param request
+     * @param channel
+     * @param remotingCommand
+     * @param requestHeader
      * @return
      */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-     * @param ctx
-     * @param request
+     * @param remotingCommand
+     * @param requestHeader
      * @return
      */
-    private RemotingCommand updateAndGetGroupForbidden(ChannelHandlerContext ctx, RemotingCommand request)
+    private int polling(final Channel channel, RemotingCommand remotingCommand,
+```
+
+### JavadocDeclaration
+`@param usedExpireMillis` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+#### Snippet
+```java
+         * is not thread safe, may cause duplicate lock
+         *
+         * @param usedExpireMillis
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+#### Snippet
+```java
+         *
+         * @param usedExpireMillis
+         * @return
+         */
+        public int cleanUnusedLock(final long usedExpireMillis) {
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `expression.charAt(...)` to `int` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
+#### Snippet
+```java
+
+        for (int i = 0; i < size; i++) {
+            int chValue = (int) expression.charAt(i);
+
+            if (97 <= chValue && chValue <= 122 || 65 <= chValue && chValue <= 90
+```
+
+### RedundantCast
+Casting `token` to `Operator` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
+#### Snippet
+```java
+
+    public static boolean isRightParenthesis(Op token) {
+        return token instanceof Operator && RIGHTPARENTHESIS == (Operator) token;
+    }
+
+```
+
+### RedundantCast
+Casting `token` to `Operator` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/filter/impl/PolishExpr.java`
+#### Snippet
+```java
+
+    public static boolean isLeftParenthesis(Op token) {
+        return token instanceof Operator && LEFTPARENTHESIS == (Operator) token;
+    }
+
+```
+
+### RedundantCast
+Casting `super.clone()` to `NettyServerConfig` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyServerConfig.java`
+#### Snippet
+```java
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return (NettyServerConfig) super.clone();
+    }
+
+```
+
+### RedundantCast
+Casting `result` to `Buffer` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
+#### Snippet
+```java
+        result.put(headerData);
+
+        ((Buffer) result).flip();
+
+        return result;
+```
+
+### RedundantCast
+Casting `size` to `int` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
+#### Snippet
+```java
+        @Override
+        public int hashCode() {
+            int result = (int) size;
+            result = 31 * result + (int) (tagsCode ^ (tagsCode >>> 32));
+            result = 31 * result + (int) (msgStoreTime ^ (msgStoreTime >>> 32));
+```
+
+### RedundantCast
+Casting `(factor * ConsumeQueue.CQ_STORE_UNIT_SIZE)` to `int` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
+#### Snippet
+```java
+
+        int factor = (int) Math.ceil(this.mappedFileSizeConsumeQueue / (ConsumeQueue.CQ_STORE_UNIT_SIZE * 1.0));
+        return (int) (factor * ConsumeQueue.CQ_STORE_UNIT_SIZE);
+    }
+
+```
+
+### RedundantCast
+Casting `i.next()` to `Object` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/UnaryExpression.java`
+#### Snippet
+```java
+                int count = 0;
+                for (Iterator i = inList.iterator(); i.hasNext(); ) {
+                    Object o = (Object) i.next();
+                    if (count != 0) {
+                        answer.append(", ");
+```
+
+### RedundantCast
+Casting `new MapDataCollectorImpl()` to `DataCollector` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+            synchronized (lock) {
+                if (!collectMap.containsKey(realKey)) {
+                    DataCollector collect = (DataCollector) new MapDataCollectorImpl();
+                    collectMap.put(realKey, collect);
+                }
+```
+
+### RedundantCast
+Casting `(curChar >> 8)` to `int` is redundant
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParserTokenManager.java`
+#### Snippet
+```java
+                while (i != startsAt);
+            } else {
+                int hiByte = (int) (curChar >> 8);
+                int i1 = hiByte >> 6;
+                long l1 = 1L << (hiByte & 077);
 ```
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `queue` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/queue/RoundQueue.java`
+Field `isInit` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/BrokerConfigSingleton.java`
 #### Snippet
 ```java
-public class RoundQueue<E> {
 
-    private Queue<E> queue;
-    private int capacity;
+public class BrokerConfigSingleton {
+    private static AtomicBoolean isInit = new AtomicBoolean();
+    private static BrokerConfig brokerConfig;
 
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/BoundaryType.java`
+#### Snippet
+```java
+    UPPER("upper");
+
+    private String name;
+
+    BoundaryType(String name) {
 ```
 
 ### FieldMayBeFinal
@@ -20391,6 +20439,18 @@ in `common/src/main/java/org/apache/rocketmq/common/queue/RoundQueue.java`
     private int capacity;
 
     public RoundQueue(int capacity) {
+```
+
+### FieldMayBeFinal
+Field `queue` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/queue/RoundQueue.java`
+#### Snippet
+```java
+public class RoundQueue<E> {
+
+    private Queue<E> queue;
+    private int capacity;
+
 ```
 
 ### FieldMayBeFinal
@@ -20418,27 +20478,15 @@ in `common/src/main/java/org/apache/rocketmq/common/queue/ConcurrentTreeMap.java
 ```
 
 ### FieldMayBeFinal
-Field `isInit` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/BrokerConfigSingleton.java`
+Field `symbol` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/filter/impl/Op.java`
 #### Snippet
 ```java
+public abstract class Op {
 
-public class BrokerConfigSingleton {
-    private static AtomicBoolean isInit = new AtomicBoolean();
-    private static BrokerConfig brokerConfig;
+    private String symbol;
 
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/BoundaryType.java`
-#### Snippet
-```java
-    UPPER("upper");
-
-    private String name;
-
-    BoundaryType(String name) {
+    protected Op(String symbol) {
 ```
 
 ### FieldMayBeFinal
@@ -20451,18 +20499,6 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/ServiceProvider.java`
     private static ClassLoader thisClassLoader;
     
     /**
-```
-
-### FieldMayBeFinal
-Field `symbol` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/filter/impl/Op.java`
-#### Snippet
-```java
-public abstract class Op {
-
-    private String symbol;
-
-    protected Op(String symbol) {
 ```
 
 ### FieldMayBeFinal
@@ -20502,18 +20538,6 @@ in `common/src/main/java/org/apache/rocketmq/common/message/MessageRequestMode.j
 ```
 
 ### FieldMayBeFinal
-Field `unitName` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/namesrv/DefaultTopAddressing.java`
-#### Snippet
-```java
-    private String nsAddr;
-    private String wsAddr;
-    private String unitName;
-    private Map<String, String> para;
-    private List<TopAddressing> topAddressingList;
-```
-
-### FieldMayBeFinal
 Field `topAddressingList` may be 'final'
 in `common/src/main/java/org/apache/rocketmq/common/namesrv/DefaultTopAddressing.java`
 #### Snippet
@@ -20523,6 +20547,18 @@ in `common/src/main/java/org/apache/rocketmq/common/namesrv/DefaultTopAddressing
     private List<TopAddressing> topAddressingList;
 
     public DefaultTopAddressing(final String wsAddr) {
+```
+
+### FieldMayBeFinal
+Field `unitName` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/namesrv/DefaultTopAddressing.java`
+#### Snippet
+```java
+    private String nsAddr;
+    private String wsAddr;
+    private String unitName;
+    private Map<String, String> para;
+    private List<TopAddressing> topAddressingList;
 ```
 
 ### FieldMayBeFinal
@@ -20547,6 +20583,42 @@ public class FutureHolder<T> {
     private ConcurrentMap<T, BlockingQueue<Future>> futureMap = new ConcurrentHashMap<>(8);
 
     public void addFuture(T t, Future future) {
+```
+
+### FieldMayBeFinal
+Field `statObject` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+#### Snippet
+```java
+public class StatisticsItem {
+    private String statKind;
+    private String statObject;
+
+    private String[] itemNames;
+```
+
+### FieldMayBeFinal
+Field `itemNames` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+#### Snippet
+```java
+    private String statObject;
+
+    private String[] itemNames;
+    private AtomicLong[] itemAccumulates;
+    private AtomicLong invokeTimes;
+```
+
+### FieldMayBeFinal
+Field `statKind` may be 'final'
+in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+#### Snippet
+```java
+ */
+public class StatisticsItem {
+    private String statKind;
+    private String statObject;
+
 ```
 
 ### FieldMayBeFinal
@@ -20586,39 +20658,15 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsBrief.j
 ```
 
 ### FieldMayBeFinal
-Field `statKind` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
+Field `brokerContainerIP` may be 'final'
+in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerConfig.java`
 #### Snippet
 ```java
- */
-public class StatisticsItem {
-    private String statKind;
-    private String statObject;
 
-```
+    @ImportantField
+    private String brokerContainerIP = NetworkUtil.getLocalAddress();
 
-### FieldMayBeFinal
-Field `itemNames` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
-#### Snippet
-```java
-    private String statObject;
-
-    private String[] itemNames;
-    private AtomicLong[] itemAccumulates;
-    private AtomicLong invokeTimes;
-```
-
-### FieldMayBeFinal
-Field `statObject` may be 'final'
-in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItem.java`
-#### Snippet
-```java
-public class StatisticsItem {
-    private String statKind;
-    private String statObject;
-
-    private String[] itemNames;
+    private String brokerConfigPaths = null;
 ```
 
 ### FieldMayBeFinal
@@ -20634,18 +20682,6 @@ in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsManager
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
-#### Snippet
-```java
-
-public class MQWait {
-    private static Logger logger = LoggerFactory.getLogger(MQWait.class);
-
-    public static boolean waitConsumeAll(int timeoutMills, Collection<Object> allSendMsgs,
-```
-
-### FieldMayBeFinal
 Field `tpsItemNames` may be 'final'
 in `common/src/main/java/org/apache/rocketmq/common/statistics/StatisticsItemScheduledIncrementPrinter.java`
 #### Snippet
@@ -20658,543 +20694,255 @@ public class StatisticsItemScheduledIncrementPrinter extends StatisticsItemSched
 ```
 
 ### FieldMayBeFinal
-Field `lineSeparator` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
+Field `body` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcRequest.java`
 #### Snippet
 ```java
+    int code;
+    private RpcRequestHeader header;
+    private Object body;
 
-public class FileUtil {
-    private static String lineSeparator = System.getProperty("line.separator");
-
-    private String filePath = "";
+    public RpcRequest(int code, RpcRequestHeader header, Object body) {
 ```
 
 ### FieldMayBeFinal
-Field `rd` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
+Field `header` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcRequest.java`
 #### Snippet
 ```java
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
-
-    private RandomUtils() {
-```
-
-### FieldMayBeFinal
-Field `datas` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/impl/ListDataCollectorImpl.java`
-#### Snippet
-```java
-public class ListDataCollectorImpl implements DataCollector {
-
-    private List<Object> datas = new ArrayList<Object>();
-    private boolean lock = false;
+public class RpcRequest {
+    int code;
+    private RpcRequestHeader header;
+    private Object body;
 
 ```
 
 ### FieldMayBeFinal
-Field `collectMap` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Field `requestCodeMap` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RequestBuilder.java`
 #### Snippet
 ```java
-public final class DataCollectorManager {
-    private static DataCollectorManager instance = new DataCollectorManager();
-    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
-    private Object lock = new Object();
+public class RequestBuilder {
 
+    private static Map<Integer, Class> requestCodeMap = new HashMap<>();
+    static {
+        requestCodeMap.put(RequestCode.PULL_MESSAGE, PullMessageRequestHeader.class);
 ```
 
 ### FieldMayBeFinal
-Field `instance` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Field `configObjectList` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
 #### Snippet
 ```java
+    private final Logger log;
 
-public final class DataCollectorManager {
-    private static DataCollectorManager instance = new DataCollectorManager();
-    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
-    private Object lock = new Object();
+    private List<Object> configObjectList = new ArrayList<>(4);
+    private String storePath;
+    private boolean storePathFromConfig = false;
 ```
 
 ### FieldMayBeFinal
-Field `lock` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Field `dataVersion` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
 #### Snippet
 ```java
-    private static DataCollectorManager instance = new DataCollectorManager();
-    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
-    private Object lock = new Object();
-
-    private DataCollectorManager() {
+    private Object storePathObject;
+    private Field storePathField;
+    private DataVersion dataVersion = new DataVersion();
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    /**
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/VerifyUtils.java`
+Field `allConfigs` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
 #### Snippet
 ```java
+     * All properties include configs in object and extend properties.
+     */
+    private Properties allConfigs = new Properties();
 
-public class VerifyUtils {
-    private static Logger logger = LoggerFactory.getLogger(VerifyUtils.class);
-
-    public static int verify(Collection<Object> sendMsgs, Collection<Object> recvMsgs) {
+    public Configuration(Logger log) {
 ```
 
 ### FieldMayBeFinal
-Field `datas` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/impl/MapDataCollectorImpl.java`
+Field `readWriteLock` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
 #### Snippet
 ```java
-public class MapDataCollectorImpl implements DataCollector {
-
-    private Map<Object, AtomicInteger> datas = new ConcurrentHashMap<Object, AtomicInteger>();
-    private boolean lock = false;
-
+    private Field storePathField;
+    private DataVersion dataVersion = new DataVersion();
+    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    /**
+     * All properties include configs in object and extend properties.
 ```
 
 ### FieldMayBeFinal
-Field `rd` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+Field `clientMetadata` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
+public class RpcClientImpl implements RpcClient {
 
-    private RandomUtil() {
+    private ClientMetadata clientMetadata;
+
+    private RemotingClient remotingClient;
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQBroadCastConsumer.java`
+Field `clientHookList` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
+    private RemotingClient remotingClient;
 
-public class RMQBroadCastConsumer extends RMQNormalConsumer {
-    private static Logger logger = LoggerFactory.getLogger(RMQBroadCastConsumer.class);
+    private List<RpcClientHook> clientHookList = new ArrayList<>();
 
-    public RMQBroadCastConsumer(String nsAddr, String topic, String subExpression,
+    public RpcClientImpl(ClientMetadata clientMetadata, RemotingClient remotingClient) {
 ```
 
 ### FieldMayBeFinal
-Field `bPause` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+Field `remotingClient` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
 #### Snippet
 ```java
-    private int intervalMills;
-    private Thread sendT;
-    private AtomicBoolean bPause = new AtomicBoolean(false);
+    private ClientMetadata clientMetadata;
 
-    public MQAsyncProducer(final AbstractMQProducer producer, final long msgNum,
+    private RemotingClient remotingClient;
+
+    private List<RpcClientHook> clientHookList = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
-Field `msgNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+Field `shutdownTimes` may be 'final'
+in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerStartup.java`
 #### Snippet
 ```java
-    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
-    private AbstractMQProducer producer = null;
-    private long msgNum;
-    private int intervalMills;
-    private Thread sendT;
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                private volatile boolean hasShutdown = false;
+                private AtomicInteger shutdownTimes = new AtomicInteger(0);
+
+                @Override
 ```
 
 ### FieldMayBeFinal
-Field `intervalMills` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+Field `name` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/common/TlsMode.java`
 #### Snippet
 ```java
-    private AbstractMQProducer producer = null;
-    private long msgNum;
-    private int intervalMills;
-    private Thread sendT;
-    private AtomicBoolean bPause = new AtomicBoolean(false);
+    ENFORCING("enforcing");
+
+    private String name;
+
+    TlsMode(String name) {
 ```
 
 ### FieldMayBeFinal
-Field `sendT` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+Field `nettyLogLevel` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
 #### Snippet
 ```java
-    private long msgNum;
-    private int intervalMills;
-    private Thread sendT;
-    private AtomicBoolean bPause = new AtomicBoolean(false);
+    private static AtomicBoolean nettyLoggerSeted = new AtomicBoolean(false);
+    
+    private static InternalLogLevel nettyLogLevel = InternalLogLevel.ERROR;
 
+    public static void initNettyLogger() {
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+Field `nettyLoggerSeted` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
 #### Snippet
 ```java
+public class NettyLogger {
 
-public class MQAsyncProducer {
-    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
-    private AbstractMQProducer producer = null;
-    private long msgNum;
+    private static AtomicBoolean nettyLoggerSeted = new AtomicBoolean(false);
+    
+    private static InternalLogLevel nettyLogLevel = InternalLogLevel.ERROR;
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQSqlConsumer.java`
+Field `code` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/SerializeType.java`
 #### Snippet
 ```java
+    ROCKETMQ((byte) 1);
 
-public class RMQSqlConsumer extends RMQNormalConsumer {
-    private static Logger logger = LoggerFactory.getLogger(RMQSqlConsumer.class);
-    private MessageSelector selector;
+    private byte code;
 
+    SerializeType(byte code) {
 ```
 
 ### FieldMayBeFinal
-Field `selector` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQSqlConsumer.java`
+Field `code` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/LanguageCode.java`
 #### Snippet
 ```java
-public class RMQSqlConsumer extends RMQNormalConsumer {
-    private static Logger logger = LoggerFactory.getLogger(RMQSqlConsumer.class);
-    private MessageSelector selector;
+    RUST((byte) 12);
 
-    public RMQSqlConsumer(String nsAddr, String topic, MessageSelector selector,
+    private byte code;
+
+    LanguageCode(byte code) {
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+Field `isActivated` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/HARuntimeInfo.java`
 #### Snippet
 ```java
+        private long lastWriteTimestamp;
+        private long masterFlushOffset;
+        private boolean isActivated = false;
 
-public class RMQTransactionalProducer extends AbstractMQProducer {
-    private static Logger logger  = LoggerFactory.getLogger(RMQTransactionalProducer.class);
-    private TransactionMQProducer producer = null;
-    private String nsAddr = null;
+        public String getMasterAddr() {
 ```
 
 ### FieldMayBeFinal
-Field `log` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+Field `userConsumerInfo` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
 #### Snippet
 ```java
+    private TreeMap<String/* Topic */, ConsumeStatus> statusTable = new TreeMap<>();
 
-public class MQAdminTestUtils {
-    private static Logger log = LoggerFactory.getLogger(MQAdminTestUtils.class);
+    private TreeMap<String, String> userConsumerInfo = new TreeMap<>();
 
-    private static DefaultMQAdminExt mqAdminExt;
+    private String jstack;
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
+Field `requestId` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
 #### Snippet
 ```java
+    private static final String BOOLEAN_CANONICAL_NAME_2 = boolean.class.getCanonicalName();
+    private static volatile int configVersion = -1;
+    private static AtomicInteger requestId = new AtomicInteger(0);
 
-public class RMQNormalProducer extends AbstractMQProducer {
-    private static Logger logger = LoggerFactory.getLogger(RMQNormalProducer.class);
-    private DefaultMQProducer producer = null;
-    private String nsAddr = null;
+    private static SerializeType serializeTypeConfigInThisServer = SerializeType.JSON;
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+Field `typeCN` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumeType.java`
 #### Snippet
 ```java
+    CONSUME_POP("POP");
 
-public class RMQAsyncSendProducer extends AbstractMQProducer {
-    private static Logger logger = LoggerFactory
-        .getLogger(RMQAsyncSendProducer.class);
-    private String nsAddr = null;
+    private String typeCN;
+
+    ConsumeType(String typeCN) {
 ```
 
 ### FieldMayBeFinal
-Field `exceptionMsgCount` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+Field `modeCN` may be 'final'
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/MessageModel.java`
 #### Snippet
 ```java
-    private SendCallback sendCallback = null;
-    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
-    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
-    private int msgSize = 0;
+    CLUSTERING("CLUSTERING");
 
-```
+    private String modeCN;
 
-### FieldMayBeFinal
-Field `successSendResult` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
-#### Snippet
-```java
-    private DefaultMQProducer producer = null;
-    private SendCallback sendCallback = null;
-    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
-    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
-    private int msgSize = 0;
-```
-
-### FieldMayBeFinal
-Field `rmqMsgs` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
-#### Snippet
-```java
-    private String topic = null;
-    private int msgSize = 0;
-    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
-
-    public TagMessage(String tag, String topic, int msgSize) {
-```
-
-### FieldMayBeFinal
-Field `msgs` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
-#### Snippet
-```java
-
-public class RMQOrderListener extends AbstractListener implements MessageListenerOrderly {
-    private Map<String/* brokerId_brokerIp */, Collection<Object>> msgs = new ConcurrentHashMap<String, Collection<Object>>();
-
-    public RMQOrderListener() {
-```
-
-### FieldMayBeFinal
-Field `consumerThreadNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
-    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
-    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
-    private static String brokerName = System.getProperty("brokerName", "broker-a");
-    private static int size = Integer.parseInt(System.getProperty("size", "128"));
-```
-
-### FieldMayBeFinal
-Field `rid` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
-    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
-    private static AtomicLong rid = new AtomicLong();
-    private static final String LMQ_PREFIX = "%LMQ%";
-
-```
-
-### FieldMayBeFinal
-Field `suspendTime` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static String brokerName = System.getProperty("brokerName", "broker-a");
-    private static int size = Integer.parseInt(System.getProperty("size", "128"));
-    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
-    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
-    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-
-public class BenchLmqStore {
-    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
-    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
-    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
-```
-
-### FieldMayBeFinal
-Field `lmqNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
-    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
-    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
-    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
-    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
-```
-
-### FieldMayBeFinal
-Field `pullConsumerNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
-    public static DefaultMQProducer defaultMQProducer;
-    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
-    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
-    private static AtomicLong rid = new AtomicLong();
-```
-
-### FieldMayBeFinal
-Field `offsetMap` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
-    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
-    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
-    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
-    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
-```
-
-### FieldMayBeFinal
-Field `benchOffsetNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
-    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
-    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
-    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
-    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
-    private static String brokerName = System.getProperty("brokerName", "broker-a");
-    private static int size = Integer.parseInt(System.getProperty("size", "128"));
-    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
-    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
-```
-
-### FieldMayBeFinal
-Field `lmqTopic` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
-    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
-    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
-    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
-    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
-```
-
-### FieldMayBeFinal
-Field `brokerName` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
-    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
-    private static String brokerName = System.getProperty("brokerName", "broker-a");
-    private static int size = Integer.parseInt(System.getProperty("size", "128"));
-    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
-```
-
-### FieldMayBeFinal
-Field `pullEvent` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
-    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
-    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
-    public static DefaultMQProducer defaultMQProducer;
-    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
-```
-
-### FieldMayBeFinal
-Field `benchOffset` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
-    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
-    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
-    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
-    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
-```
-
-### FieldMayBeFinal
-Field `tps` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
-    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
-    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
-    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
-    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
-```
-
-### FieldMayBeFinal
-Field `queuePrefix` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
-    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
-    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
-    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
-    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
-```
-
-### FieldMayBeFinal
-Field `namesrv` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-public class BenchLmqStore {
-    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
-    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
-    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
-    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
-```
-
-### FieldMayBeFinal
-Field `sendThreadNum` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
-    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
-    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
-    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
-    private static String brokerName = System.getProperty("brokerName", "broker-a");
-```
-
-### FieldMayBeFinal
-Field `pullStatus` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
-    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
-    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
-    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
-    public static DefaultMQProducer defaultMQProducer;
-```
-
-### FieldMayBeFinal
-Field `enableSub` may be 'final'
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
-    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
-    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
-    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
-    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
-```
-
-### FieldMayBeFinal
-Field `mqClientAdmin` may be 'final'
-in `proxy/src/main/java/org/apache/rocketmq/proxy/service/mqclient/MQClientAPIExt.java`
-#### Snippet
-```java
-    private final ClientConfig clientConfig;
-
-    private MqClientAdminImpl mqClientAdmin;
-
-    public MQClientAPIExt(
+    MessageModel(String modeCN) {
 ```
 
 ### FieldMayBeFinal
@@ -21234,18 +20982,6 @@ public class PutMessageContext {
 ```
 
 ### FieldMayBeFinal
-Field `byteBuf` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/MessageExtEncoder.java`
-#### Snippet
-```java
-public class MessageExtEncoder {
-    protected static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
-    private ByteBuf byteBuf;
-    // The maximum length of the message body.
-    private int maxMessageBodySize;
-```
-
-### FieldMayBeFinal
 Field `commercialSizePerMsg` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/GetMessageResult.java`
 #### Snippet
@@ -21270,15 +21006,15 @@ public class DefaultMessageFilter implements MessageFilter {
 ```
 
 ### FieldMayBeFinal
-Field `defaultMessageStore` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/ha/HAConnectionStateNotificationService.java`
+Field `byteBuf` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/MessageExtEncoder.java`
 #### Snippet
 ```java
-    private volatile long lastCheckTimeStamp = -1;
-    private HAService haService;
-    private DefaultMessageStore defaultMessageStore;
-
-    public HAConnectionStateNotificationService(HAService haService, DefaultMessageStore defaultMessageStore) {
+public class MessageExtEncoder {
+    protected static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
+    private ByteBuf byteBuf;
+    // The maximum length of the message body.
+    private int maxMessageBodySize;
 ```
 
 ### FieldMayBeFinal
@@ -21294,51 +21030,15 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/HAConnectionStateNotificati
 ```
 
 ### FieldMayBeFinal
-Field `messageStore` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
+Field `defaultMessageStore` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/ha/HAConnectionStateNotificationService.java`
 #### Snippet
 ```java
-        new PriorityBlockingQueue<>();
-    private volatile boolean hasException = false;
-    private DefaultMessageStore messageStore;
+    private volatile long lastCheckTimeStamp = -1;
+    private HAService haService;
+    private DefaultMessageStore defaultMessageStore;
 
-    public AllocateMappedFileService(DefaultMessageStore messageStore) {
-```
-
-### FieldMayBeFinal
-Field `requestTable` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
-    private static int waitTimeOut = 1000 * 5;
-    private ConcurrentMap<String, AllocateRequest> requestTable =
-        new ConcurrentHashMap<>();
-    private PriorityBlockingQueue<AllocateRequest> requestQueue =
-```
-
-### FieldMayBeFinal
-Field `waitTimeOut` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
-#### Snippet
-```java
-public class AllocateMappedFileService extends ServiceThread {
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
-    private static int waitTimeOut = 1000 * 5;
-    private ConcurrentMap<String, AllocateRequest> requestTable =
-        new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
-Field `requestQueue` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
-#### Snippet
-```java
-    private ConcurrentMap<String, AllocateRequest> requestTable =
-        new ConcurrentHashMap<>();
-    private PriorityBlockingQueue<AllocateRequest> requestQueue =
-        new PriorityBlockingQueue<>();
-    private volatile boolean hasException = false;
+    public HAConnectionStateNotificationService(HAService haService, DefaultMessageStore defaultMessageStore) {
 ```
 
 ### FieldMayBeFinal
@@ -21378,15 +21078,51 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAClient.java`
 ```
 
 ### FieldMayBeFinal
-Field `readSocketService` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
+Field `requestQueue` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
 #### Snippet
 ```java
-    private final String clientAddress;
-    private WriteSocketService writeSocketService;
-    private ReadSocketService readSocketService;
-    private volatile HAConnectionState currentState = HAConnectionState.TRANSFER;
-    private volatile long slaveRequestOffset = -1;
+    private ConcurrentMap<String, AllocateRequest> requestTable =
+        new ConcurrentHashMap<>();
+    private PriorityBlockingQueue<AllocateRequest> requestQueue =
+        new PriorityBlockingQueue<>();
+    private volatile boolean hasException = false;
+```
+
+### FieldMayBeFinal
+Field `messageStore` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
+#### Snippet
+```java
+        new PriorityBlockingQueue<>();
+    private volatile boolean hasException = false;
+    private DefaultMessageStore messageStore;
+
+    public AllocateMappedFileService(DefaultMessageStore messageStore) {
+```
+
+### FieldMayBeFinal
+Field `waitTimeOut` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
+#### Snippet
+```java
+public class AllocateMappedFileService extends ServiceThread {
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
+    private static int waitTimeOut = 1000 * 5;
+    private ConcurrentMap<String, AllocateRequest> requestTable =
+        new ConcurrentHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `requestTable` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/AllocateMappedFileService.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.STORE_LOGGER_NAME);
+    private static int waitTimeOut = 1000 * 5;
+    private ConcurrentMap<String, AllocateRequest> requestTable =
+        new ConcurrentHashMap<>();
+    private PriorityBlockingQueue<AllocateRequest> requestQueue =
 ```
 
 ### FieldMayBeFinal
@@ -21402,6 +21138,18 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
 ```
 
 ### FieldMayBeFinal
+Field `readSocketService` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
+#### Snippet
+```java
+    private final String clientAddress;
+    private WriteSocketService writeSocketService;
+    private ReadSocketService readSocketService;
+    private volatile HAConnectionState currentState = HAConnectionState.TRANSFER;
+    private volatile long slaveRequestOffset = -1;
+```
+
+### FieldMayBeFinal
 Field `flowMonitor` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
 #### Snippet
@@ -21411,30 +21159,6 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
     private FlowMonitor flowMonitor;
 
     public DefaultHAConnection(final DefaultHAService haService, final SocketChannel socketChannel) throws IOException {
-```
-
-### FieldMayBeFinal
-Field `putLock` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-    private volatile long getMessageEntireTimeMax = 0;
-    // for putMessageEntireTimeMax
-    private ReentrantLock putLock = new ReentrantLock();
-    // for getMessageEntireTimeMax
-    private ReentrantLock getLock = new ReentrantLock();
-```
-
-### FieldMayBeFinal
-Field `messageStoreBootTimestamp` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
-#### Snippet
-```java
-    private volatile LongAdder[] putMessageDistributeTime;
-    private volatile LongAdder[] lastPutMessageDistributeTime;
-    private long messageStoreBootTimestamp = System.currentTimeMillis();
-    private volatile long putMessageEntireTimeMax = 0;
-    private volatile long getMessageEntireTimeMax = 0;
 ```
 
 ### FieldMayBeFinal
@@ -21450,15 +21174,27 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 ```
 
 ### FieldMayBeFinal
-Field `getLock` may be 'final'
+Field `messageStoreBootTimestamp` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
 ```java
+    private volatile LongAdder[] putMessageDistributeTime;
+    private volatile LongAdder[] lastPutMessageDistributeTime;
+    private long messageStoreBootTimestamp = System.currentTimeMillis();
+    private volatile long putMessageEntireTimeMax = 0;
+    private volatile long getMessageEntireTimeMax = 0;
+```
+
+### FieldMayBeFinal
+Field `putLock` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
+#### Snippet
+```java
+    private volatile long getMessageEntireTimeMax = 0;
+    // for putMessageEntireTimeMax
     private ReentrantLock putLock = new ReentrantLock();
     // for getMessageEntireTimeMax
     private ReentrantLock getLock = new ReentrantLock();
-
-    private volatile long dispatchMaxBuffer = 0;
 ```
 
 ### FieldMayBeFinal
@@ -21474,39 +21210,15 @@ in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 ```
 
 ### FieldMayBeFinal
-Field `endTimestampIndex` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
+Field `getLock` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/StoreStatsService.java`
 #### Snippet
 ```java
-    public static final int INDEX_HEADER_SIZE = 40;
-    private static int beginTimestampIndex = 0;
-    private static int endTimestampIndex = 8;
-    private static int beginPhyoffsetIndex = 16;
-    private static int endPhyoffsetIndex = 24;
-```
+    private ReentrantLock putLock = new ReentrantLock();
+    // for getMessageEntireTimeMax
+    private ReentrantLock getLock = new ReentrantLock();
 
-### FieldMayBeFinal
-Field `beginPhyoffsetIndex` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
-#### Snippet
-```java
-    private static int beginTimestampIndex = 0;
-    private static int endTimestampIndex = 8;
-    private static int beginPhyoffsetIndex = 16;
-    private static int endPhyoffsetIndex = 24;
-    private static int hashSlotcountIndex = 32;
-```
-
-### FieldMayBeFinal
-Field `beginTimestampIndex` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
-#### Snippet
-```java
-public class IndexHeader {
-    public static final int INDEX_HEADER_SIZE = 40;
-    private static int beginTimestampIndex = 0;
-    private static int endTimestampIndex = 8;
-    private static int beginPhyoffsetIndex = 16;
+    private volatile long dispatchMaxBuffer = 0;
 ```
 
 ### FieldMayBeFinal
@@ -21522,18 +21234,6 @@ in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
 ```
 
 ### FieldMayBeFinal
-Field `indexCountIndex` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
-#### Snippet
-```java
-    private static int endPhyoffsetIndex = 24;
-    private static int hashSlotcountIndex = 32;
-    private static int indexCountIndex = 36;
-    private final ByteBuffer byteBuffer;
-    private final AtomicLong beginTimestamp = new AtomicLong(0);
-```
-
-### FieldMayBeFinal
 Field `endPhyoffsetIndex` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
 #### Snippet
@@ -21546,15 +21246,51 @@ in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
 ```
 
 ### FieldMayBeFinal
-Field `indexSize` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/index/IndexFile.java`
+Field `beginTimestampIndex` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
 #### Snippet
 ```java
-     * Key HashCode(4) + Physical Offset(8) + Time Diff(4) + Next Index Pos(4) = 20 Bytes
-     */
-    private static int indexSize = 20;
-    private static int invalidIndex = 0;
-    private final int hashSlotNum;
+public class IndexHeader {
+    public static final int INDEX_HEADER_SIZE = 40;
+    private static int beginTimestampIndex = 0;
+    private static int endTimestampIndex = 8;
+    private static int beginPhyoffsetIndex = 16;
+```
+
+### FieldMayBeFinal
+Field `endTimestampIndex` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
+#### Snippet
+```java
+    public static final int INDEX_HEADER_SIZE = 40;
+    private static int beginTimestampIndex = 0;
+    private static int endTimestampIndex = 8;
+    private static int beginPhyoffsetIndex = 16;
+    private static int endPhyoffsetIndex = 24;
+```
+
+### FieldMayBeFinal
+Field `indexCountIndex` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
+#### Snippet
+```java
+    private static int endPhyoffsetIndex = 24;
+    private static int hashSlotcountIndex = 32;
+    private static int indexCountIndex = 36;
+    private final ByteBuffer byteBuffer;
+    private final AtomicLong beginTimestamp = new AtomicLong(0);
+```
+
+### FieldMayBeFinal
+Field `beginPhyoffsetIndex` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/index/IndexHeader.java`
+#### Snippet
+```java
+    private static int beginTimestampIndex = 0;
+    private static int endTimestampIndex = 8;
+    private static int beginPhyoffsetIndex = 16;
+    private static int endPhyoffsetIndex = 24;
+    private static int hashSlotcountIndex = 32;
 ```
 
 ### FieldMayBeFinal
@@ -21579,6 +21315,18 @@ in `store/src/main/java/org/apache/rocketmq/store/index/IndexFile.java`
     private static int invalidIndex = 0;
     private final int hashSlotNum;
     private final int indexNum;
+```
+
+### FieldMayBeFinal
+Field `indexSize` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/index/IndexFile.java`
+#### Snippet
+```java
+     * Key HashCode(4) + Physical Offset(8) + Time Diff(4) + Next Index Pos(4) = 20 Bytes
+     */
+    private static int indexSize = 20;
+    private static int invalidIndex = 0;
+    private final int hashSlotNum;
 ```
 
 ### FieldMayBeFinal
@@ -21618,18 +21366,6 @@ in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStorePluginConte
 ```
 
 ### FieldMayBeFinal
-Field `messageArrivingListener` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStorePluginContext.java`
-#### Snippet
-```java
-    private MessageStoreConfig messageStoreConfig;
-    private BrokerStatsManager brokerStatsManager;
-    private MessageArrivingListener messageArrivingListener;
-    private BrokerConfig brokerConfig;
-    private final Configuration configuration;
-```
-
-### FieldMayBeFinal
 Field `messageStoreConfig` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStorePluginContext.java`
 #### Snippet
@@ -21654,207 +21390,15 @@ public class MessageStorePluginContext {
 ```
 
 ### FieldMayBeFinal
-Field `byteBuffer` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+Field `messageArrivingListener` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStorePluginContext.java`
 #### Snippet
 ```java
-    class BatchDispatchRequest {
-
-        private ByteBuffer byteBuffer;
-
-        private int position;
-```
-
-### FieldMayBeFinal
-Field `dispatchService` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private MainBatchDispatchRequestService mainBatchDispatchRequestService;
-
-        private DispatchService dispatchService;
-
-        public ConcurrentReputMessageService() {
-```
-
-### FieldMayBeFinal
-Field `topicConfigTable` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-
-    // this is a unmodifiableMap
-    private ConcurrentMap<String, TopicConfig> topicConfigTable;
-
-    private final ScheduledExecutorService scheduledCleanQueueExecutorService =
-```
-
-### FieldMayBeFinal
-Field `mainBatchDispatchRequestService` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private long batchId = 0;
-
-        private MainBatchDispatchRequestService mainBatchDispatchRequestService;
-
-        private DispatchService dispatchService;
-```
-
-### FieldMayBeFinal
-Field `dispatchRequestOrderlyQueueSize` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-    private final ConcurrentLinkedQueue<BatchDispatchRequest> batchDispatchRequestQueue = new ConcurrentLinkedQueue<>();
-
-    private int dispatchRequestOrderlyQueueSize = 16;
-
-    private final DispatchRequestOrderlyQueue dispatchRequestOrderlyQueue = new DispatchRequestOrderlyQueue(dispatchRequestOrderlyQueueSize);
-```
-
-### FieldMayBeFinal
-Field `position` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private ByteBuffer byteBuffer;
-
-        private int position;
-
-        private int size;
-```
-
-### FieldMayBeFinal
-Field `lockFile` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-    private final LinkedList<CommitLogDispatcher> dispatcherList;
-
-    private RandomAccessFile lockFile;
-
-    private FileLock lock;
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private int size;
-
-        private long id;
-
-        public BatchDispatchRequest(ByteBuffer byteBuffer, int position, int size, long id) {
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private int position;
-
-        private int size;
-
-        private long id;
-```
-
-### FieldMayBeFinal
-Field `forceCleanFailedTimes` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-        private volatile boolean cleanImmediately = false;
-
-        private int forceCleanFailedTimes = 0;
-
-        double getDiskSpaceWarningLevelRatio() {
-```
-
-### FieldMayBeFinal
-Field `factoryIndexGenerator` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
-#### Snippet
-```java
-    private final static Logger log = LoggerFactory.getLogger(MQClientManager.class);
-    private static MQClientManager instance = new MQClientManager();
-    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
-    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
-        new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
-Field `instance` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
-#### Snippet
-```java
-public class MQClientManager {
-    private final static Logger log = LoggerFactory.getLogger(MQClientManager.class);
-    private static MQClientManager instance = new MQClientManager();
-    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
-    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
-```
-
-### FieldMayBeFinal
-Field `factoryTable` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
-#### Snippet
-```java
-    private static MQClientManager instance = new MQClientManager();
-    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
-    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
-        new ConcurrentHashMap<>();
-
-```
-
-### FieldMayBeFinal
-Field `start` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
-#### Snippet
-```java
-
-    private class Itr implements Iterator<SelectMappedBufferResult> {
-        private int start;
-        private int current;
-        private ByteBuffer buf;
-```
-
-### FieldMayBeFinal
-Field `buf` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
-#### Snippet
-```java
-        private int start;
-        private int current;
-        private ByteBuffer buf;
-
-        public Itr(int pos) {
-```
-
-### FieldMayBeFinal
-Field `timerSkipUnknownError` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
-#### Snippet
-```java
-    private String timerCheckMetricsWhen = "05";
-
-    private boolean timerSkipUnknownError = false;
-    private boolean timerWarmEnable = false;
-    private boolean timerStopDequeue = false;
-```
-
-### FieldMayBeFinal
-Field `timerWarmEnable` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
-#### Snippet
-```java
-
-    private boolean timerSkipUnknownError = false;
-    private boolean timerWarmEnable = false;
-    private boolean timerStopDequeue = false;
-    private int timerCongestNumEachSlot = Integer.MAX_VALUE;
+    private MessageStoreConfig messageStoreConfig;
+    private BrokerStatsManager brokerStatsManager;
+    private MessageArrivingListener messageArrivingListener;
+    private BrokerConfig brokerConfig;
+    private final Configuration configuration;
 ```
 
 ### FieldMayBeFinal
@@ -21894,39 +21438,51 @@ in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java
 ```
 
 ### FieldMayBeFinal
-Field `mqLockTable` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/MessageQueueLock.java`
+Field `timerWarmEnable` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
 #### Snippet
 ```java
- */
-public class MessageQueueLock {
-    private ConcurrentMap<MessageQueue, ConcurrentMap<Integer, Object>> mqLockTable =
-        new ConcurrentHashMap<>(32);
 
+    private boolean timerSkipUnknownError = false;
+    private boolean timerWarmEnable = false;
+    private boolean timerStopDequeue = false;
+    private int timerCongestNumEachSlot = Integer.MAX_VALUE;
 ```
 
 ### FieldMayBeFinal
-Field `waitInterval` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalanceService.java`
+Field `timerSkipUnknownError` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/config/MessageStoreConfig.java`
 #### Snippet
 ```java
+    private String timerCheckMetricsWhen = "05";
 
-public class RebalanceService extends ServiceThread {
-    private static long waitInterval =
-        Long.parseLong(System.getProperty(
-            "rocketmq.client.rebalance.waitInterval", "20000"));
+    private boolean timerSkipUnknownError = false;
+    private boolean timerWarmEnable = false;
+    private boolean timerStopDequeue = false;
 ```
 
 ### FieldMayBeFinal
-Field `status` may be 'final'
-in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+Field `buf` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
 #### Snippet
 ```java
-        private ByteBuffer data;
-        private List<byte[]> batchData;
-        private AppendMessageStatus status;
-        private int totalMsgLen;
+        private int start;
+        private int current;
+        private ByteBuffer buf;
 
+        public Itr(int pos) {
+```
+
+### FieldMayBeFinal
+Field `start` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java`
+#### Snippet
+```java
+
+    private class Itr implements Iterator<SelectMappedBufferResult> {
+        private int start;
+        private int current;
+        private ByteBuffer buf;
 ```
 
 ### FieldMayBeFinal
@@ -21942,6 +21498,18 @@ in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
 ```
 
 ### FieldMayBeFinal
+Field `status` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
+#### Snippet
+```java
+        private ByteBuffer data;
+        private List<byte[]> batchData;
+        private AppendMessageStatus status;
+        private int totalMsgLen;
+
+```
+
+### FieldMayBeFinal
 Field `queueOffsetKey` may be 'final'
 in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
 #### Snippet
@@ -21951,6 +21519,306 @@ in `store/src/main/java/org/apache/rocketmq/store/dledger/DLedgerCommitLog.java`
         private String queueOffsetKey;
         private ByteBuffer data;
         private List<byte[]> batchData;
+```
+
+### FieldMayBeFinal
+Field `offset` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/MessageCacheKey.java`
+#### Snippet
+```java
+public class MessageCacheKey {
+    private TieredMessageQueueContainer container;
+    private long offset;
+
+    public MessageCacheKey(TieredMessageQueueContainer container, long offset) {
+```
+
+### FieldMayBeFinal
+Field `container` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/MessageCacheKey.java`
+#### Snippet
+```java
+
+public class MessageCacheKey {
+    private TieredMessageQueueContainer container;
+    private long offset;
+
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/BoundaryType.java`
+#### Snippet
+```java
+    UPPER("upper");
+
+    private String name;
+
+    BoundaryType(String name) {
+```
+
+### FieldMayBeFinal
+Field `maxOffset` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+#### Snippet
+```java
+    private long curOffset;
+    private long minOffset;
+    private long maxOffset;
+    private long size;
+
+```
+
+### FieldMayBeFinal
+Field `accessCount` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+#### Snippet
+```java
+public class SelectMappedBufferResultWrapper {
+    private final SelectMappedBufferResult result;
+    private LongAdder accessCount = new LongAdder();
+
+    private long curOffset;
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+#### Snippet
+```java
+    private long minOffset;
+    private long maxOffset;
+    private long size;
+
+    public SelectMappedBufferResultWrapper(SelectMappedBufferResult result, long curOffset, long minOffset, long maxOffset, long size) {
+```
+
+### FieldMayBeFinal
+Field `minOffset` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+#### Snippet
+```java
+
+    private long curOffset;
+    private long minOffset;
+    private long maxOffset;
+    private long size;
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private int size;
+
+        private long id;
+
+        public BatchDispatchRequest(ByteBuffer byteBuffer, int position, int size, long id) {
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private int position;
+
+        private int size;
+
+        private long id;
+```
+
+### FieldMayBeFinal
+Field `position` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private ByteBuffer byteBuffer;
+
+        private int position;
+
+        private int size;
+```
+
+### FieldMayBeFinal
+Field `mainBatchDispatchRequestService` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private long batchId = 0;
+
+        private MainBatchDispatchRequestService mainBatchDispatchRequestService;
+
+        private DispatchService dispatchService;
+```
+
+### FieldMayBeFinal
+Field `byteBuffer` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+    class BatchDispatchRequest {
+
+        private ByteBuffer byteBuffer;
+
+        private int position;
+```
+
+### FieldMayBeFinal
+Field `forceCleanFailedTimes` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private volatile boolean cleanImmediately = false;
+
+        private int forceCleanFailedTimes = 0;
+
+        double getDiskSpaceWarningLevelRatio() {
+```
+
+### FieldMayBeFinal
+Field `topicConfigTable` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+
+    // this is a unmodifiableMap
+    private ConcurrentMap<String, TopicConfig> topicConfigTable;
+
+    private final ScheduledExecutorService scheduledCleanQueueExecutorService =
+```
+
+### FieldMayBeFinal
+Field `dispatchService` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+        private MainBatchDispatchRequestService mainBatchDispatchRequestService;
+
+        private DispatchService dispatchService;
+
+        public ConcurrentReputMessageService() {
+```
+
+### FieldMayBeFinal
+Field `dispatchRequestOrderlyQueueSize` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+    private final ConcurrentLinkedQueue<BatchDispatchRequest> batchDispatchRequestQueue = new ConcurrentLinkedQueue<>();
+
+    private int dispatchRequestOrderlyQueueSize = 16;
+
+    private final DispatchRequestOrderlyQueue dispatchRequestOrderlyQueue = new DispatchRequestOrderlyQueue(dispatchRequestOrderlyQueueSize);
+```
+
+### FieldMayBeFinal
+Field `lockFile` may be 'final'
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+    private final LinkedList<CommitLogDispatcher> dispatcherList;
+
+    private RandomAccessFile lockFile;
+
+    private FileLock lock;
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+#### Snippet
+```java
+        INDEX(2);
+
+        private int type;
+
+        FileSegmentType(int type) {
+```
+
+### FieldMayBeFinal
+Field `bytes` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
+#### Snippet
+```java
+public class BitsArray implements Cloneable {
+
+    private byte[] bytes;
+    private int bitLength;
+
+```
+
+### FieldMayBeFinal
+Field `bitLength` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
+#### Snippet
+```java
+
+    private byte[] bytes;
+    private int bitLength;
+
+    public static BitsArray create(int bitLength) {
+```
+
+### FieldMayBeFinal
+Field `k` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
+#### Snippet
+```java
+
+    // hash function num, by calculation.
+    private int k;
+    // bit count, by calculation.
+    private int m;
+```
+
+### FieldMayBeFinal
+Field `fileQueue` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+        private final int fileMaxSize;
+        private MappedFile originFile;
+        private TieredFileQueue fileQueue;
+        private final MappedFile compactFile;
+
+```
+
+### FieldMayBeFinal
+Field `originFile` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+        private final int maxIndexNum;
+        private final int fileMaxSize;
+        private MappedFile originFile;
+        private TieredFileQueue fileQueue;
+        private final MappedFile compactFile;
+```
+
+### FieldMayBeFinal
+Field `curFileLock` may be 'final'
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+#### Snippet
+```java
+    private MappedFile curMappedFile;
+
+    private ReentrantLock curFileLock = new ReentrantLock();
+    private Future<Void> inflightCompactFuture = CompletableFuture.completedFuture(null);
+
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/expression/ConstantExpression.java`
+#### Snippet
+```java
+public class ConstantExpression implements Expression {
+
+    private Object value;
+
+    public ConstantExpression(Object value) {
 ```
 
 ### FieldMayBeFinal
@@ -21975,6 +21843,894 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
     private TimerMetrics timerMetrics;
     private long lastTimeOfCheckMetrics = System.currentTimeMillis();
     private AtomicInteger frequency = new AtomicInteger(0);
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/MQWait.java`
+#### Snippet
+```java
+
+public class MQWait {
+    private static Logger logger = LoggerFactory.getLogger(MQWait.class);
+
+    public static boolean waitConsumeAll(int timeoutMills, Collection<Object> allSendMsgs,
+```
+
+### FieldMayBeFinal
+Field `lineSeparator` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/FileUtil.java`
+#### Snippet
+```java
+
+public class FileUtil {
+    private static String lineSeparator = System.getProperty("line.separator");
+
+    private String filePath = "";
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/VerifyUtils.java`
+#### Snippet
+```java
+
+public class VerifyUtils {
+    private static Logger logger = LoggerFactory.getLogger(VerifyUtils.class);
+
+    public static int verify(Collection<Object> sendMsgs, Collection<Object> recvMsgs) {
+```
+
+### FieldMayBeFinal
+Field `rd` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+
+    private RandomUtil() {
+```
+
+### FieldMayBeFinal
+Field `rd` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
+#### Snippet
+```java
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+
+    private RandomUtils() {
+```
+
+### FieldMayBeFinal
+Field `instance` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+
+public final class DataCollectorManager {
+    private static DataCollectorManager instance = new DataCollectorManager();
+    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
+    private Object lock = new Object();
+```
+
+### FieldMayBeFinal
+Field `lock` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+    private static DataCollectorManager instance = new DataCollectorManager();
+    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
+    private Object lock = new Object();
+
+    private DataCollectorManager() {
+```
+
+### FieldMayBeFinal
+Field `collectMap` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+public final class DataCollectorManager {
+    private static DataCollectorManager instance = new DataCollectorManager();
+    private Map<String, DataCollector> collectMap = new HashMap<String, DataCollector>();
+    private Object lock = new Object();
+
+```
+
+### FieldMayBeFinal
+Field `datas` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/impl/ListDataCollectorImpl.java`
+#### Snippet
+```java
+public class ListDataCollectorImpl implements DataCollector {
+
+    private List<Object> datas = new ArrayList<Object>();
+    private boolean lock = false;
+
+```
+
+### FieldMayBeFinal
+Field `datas` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/impl/MapDataCollectorImpl.java`
+#### Snippet
+```java
+public class MapDataCollectorImpl implements DataCollector {
+
+    private Map<Object, AtomicInteger> datas = new ConcurrentHashMap<Object, AtomicInteger>();
+    private boolean lock = false;
+
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQBroadCastConsumer.java`
+#### Snippet
+```java
+
+public class RMQBroadCastConsumer extends RMQNormalConsumer {
+    private static Logger logger = LoggerFactory.getLogger(RMQBroadCastConsumer.class);
+
+    public RMQBroadCastConsumer(String nsAddr, String topic, String subExpression,
+```
+
+### FieldMayBeFinal
+Field `sendT` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+    private long msgNum;
+    private int intervalMills;
+    private Thread sendT;
+    private AtomicBoolean bPause = new AtomicBoolean(false);
+
+```
+
+### FieldMayBeFinal
+Field `bPause` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+    private int intervalMills;
+    private Thread sendT;
+    private AtomicBoolean bPause = new AtomicBoolean(false);
+
+    public MQAsyncProducer(final AbstractMQProducer producer, final long msgNum,
+```
+
+### FieldMayBeFinal
+Field `msgNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
+    private AbstractMQProducer producer = null;
+    private long msgNum;
+    private int intervalMills;
+    private Thread sendT;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+
+public class MQAsyncProducer {
+    private static Logger logger = LoggerFactory.getLogger(MQAsyncProducer.class);
+    private AbstractMQProducer producer = null;
+    private long msgNum;
+```
+
+### FieldMayBeFinal
+Field `intervalMills` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/mq/MQAsyncProducer.java`
+#### Snippet
+```java
+    private AbstractMQProducer producer = null;
+    private long msgNum;
+    private int intervalMills;
+    private Thread sendT;
+    private AtomicBoolean bPause = new AtomicBoolean(false);
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQSqlConsumer.java`
+#### Snippet
+```java
+
+public class RMQSqlConsumer extends RMQNormalConsumer {
+    private static Logger logger = LoggerFactory.getLogger(RMQSqlConsumer.class);
+    private MessageSelector selector;
+
+```
+
+### FieldMayBeFinal
+Field `selector` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQSqlConsumer.java`
+#### Snippet
+```java
+public class RMQSqlConsumer extends RMQNormalConsumer {
+    private static Logger logger = LoggerFactory.getLogger(RMQSqlConsumer.class);
+    private MessageSelector selector;
+
+    public RMQSqlConsumer(String nsAddr, String topic, MessageSelector selector,
+```
+
+### FieldMayBeFinal
+Field `jjExpentries` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    }
+
+    private java.util.List<int[]> jjExpentries = new java.util.ArrayList<>();
+    private int[] jjExpentry;
+    private int jjKind = -1;
+```
+
+### FieldMayBeFinal
+Field `jjLasttokens` may be 'final'
+in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
+#### Snippet
+```java
+    private int[] jjExpentry;
+    private int jjKind = -1;
+    private int[] jjLasttokens = new int[100];
+    private int jjEndpos;
+
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQTransactionalProducer.java`
+#### Snippet
+```java
+
+public class RMQTransactionalProducer extends AbstractMQProducer {
+    private static Logger logger  = LoggerFactory.getLogger(RMQTransactionalProducer.class);
+    private TransactionMQProducer producer = null;
+    private String nsAddr = null;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQNormalProducer.java`
+#### Snippet
+```java
+
+public class RMQNormalProducer extends AbstractMQProducer {
+    private static Logger logger = LoggerFactory.getLogger(RMQNormalProducer.class);
+    private DefaultMQProducer producer = null;
+    private String nsAddr = null;
+```
+
+### FieldMayBeFinal
+Field `pullConsumerNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
+    public static DefaultMQProducer defaultMQProducer;
+    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
+    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
+    private static AtomicLong rid = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `namesrv` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+public class BenchLmqStore {
+    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
+    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
+    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
+    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
+```
+
+### FieldMayBeFinal
+Field `rid` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
+    public static DefaultMQPullConsumer[] defaultMQPullConsumers = new DefaultMQPullConsumer[pullConsumerNum];
+    private static AtomicLong rid = new AtomicLong();
+    private static final String LMQ_PREFIX = "%LMQ%";
+
+```
+
+### FieldMayBeFinal
+Field `brokerName` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
+    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
+    private static String brokerName = System.getProperty("brokerName", "broker-a");
+    private static int size = Integer.parseInt(System.getProperty("size", "128"));
+    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
+```
+
+### FieldMayBeFinal
+Field `benchOffsetNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
+    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
+    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
+    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
+    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
+    private static String brokerName = System.getProperty("brokerName", "broker-a");
+    private static int size = Integer.parseInt(System.getProperty("size", "128"));
+    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
+    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
+```
+
+### FieldMayBeFinal
+Field `lmqNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
+    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
+    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
+    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
+    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
+```
+
+### FieldMayBeFinal
+Field `suspendTime` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static String brokerName = System.getProperty("brokerName", "broker-a");
+    private static int size = Integer.parseInt(System.getProperty("size", "128"));
+    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
+    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
+    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
+```
+
+### FieldMayBeFinal
+Field `benchOffset` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int suspendTime = Integer.parseInt(System.getProperty("suspendTime", "2000"));
+    private static final boolean RETRY_NO_MATCHED_MSG = Boolean.parseBoolean(System.getProperty("retry_no_matched_msg", "false"));
+    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
+    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
+    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+
+public class BenchLmqStore {
+    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
+    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
+    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
+```
+
+### FieldMayBeFinal
+Field `pullEvent` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
+    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
+    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
+    public static DefaultMQProducer defaultMQProducer;
+    private static int pullConsumerNum = Integer.parseInt(System.getProperty("pullConsumerNum", "8"));
+```
+
+### FieldMayBeFinal
+Field `offsetMap` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static boolean benchOffset = Boolean.parseBoolean(System.getProperty("benchOffset", "false"));
+    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
+    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
+    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
+    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
+```
+
+### FieldMayBeFinal
+Field `consumerThreadNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
+    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
+    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
+    private static String brokerName = System.getProperty("brokerName", "broker-a");
+    private static int size = Integer.parseInt(System.getProperty("size", "128"));
+```
+
+### FieldMayBeFinal
+Field `pullStatus` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int benchOffsetNum = Integer.parseInt(System.getProperty("benchOffsetNum", "1"));
+    private static Map<MessageQueue, Long> offsetMap = new ConcurrentHashMap<>(256);
+    private static Map<MessageQueue, Boolean> pullStatus = new ConcurrentHashMap<>(256);
+    private static Map<Integer, Map<MessageQueue, Long>> pullEvent = new ConcurrentHashMap<>(256);
+    public static DefaultMQProducer defaultMQProducer;
+```
+
+### FieldMayBeFinal
+Field `lmqTopic` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static Logger logger = LoggerFactory.getLogger(BenchLmqStore.class);
+    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
+    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
+    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
+    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
+```
+
+### FieldMayBeFinal
+Field `sendThreadNum` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
+    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
+    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
+    private static int consumerThreadNum = Integer.parseInt(System.getProperty("consumerThreadNum", "64"));
+    private static String brokerName = System.getProperty("brokerName", "broker-a");
+```
+
+### FieldMayBeFinal
+Field `enableSub` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static String namesrv = System.getProperty("namesrv", "127.0.0.1:9876");
+    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
+    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
+    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
+    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
+```
+
+### FieldMayBeFinal
+Field `tps` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
+    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
+    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
+    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
+    private static int sendThreadNum = Integer.parseInt(System.getProperty("sendThreadNum", "64"));
+```
+
+### FieldMayBeFinal
+Field `queuePrefix` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+    private static String lmqTopic = System.getProperty("lmqTopic", "lmqTestTopic");
+    private static boolean enableSub = Boolean.parseBoolean(System.getProperty("enableSub", "true"));
+    private static String queuePrefix = System.getProperty("queuePrefix", "lmqTest");
+    private static int tps = Integer.parseInt(System.getProperty("tps", "1"));
+    private static int lmqNum = Integer.parseInt(System.getProperty("lmqNum", "1"));
+```
+
+### FieldMayBeFinal
+Field `rmqMsgs` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/factory/TagMessage.java`
+#### Snippet
+```java
+    private String topic = null;
+    private int msgSize = 0;
+    private Map<String, List<Object>> rmqMsgs = new HashMap<String, List<Object>>();
+
+    public TagMessage(String tag, String topic, int msgSize) {
+```
+
+### FieldMayBeFinal
+Field `msgs` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/order/RMQOrderListener.java`
+#### Snippet
+```java
+
+public class RMQOrderListener extends AbstractListener implements MessageListenerOrderly {
+    private Map<String/* brokerId_brokerIp */, Collection<Object>> msgs = new ConcurrentHashMap<String, Collection<Object>>();
+
+    public RMQOrderListener() {
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+#### Snippet
+```java
+
+public class MQAdminTestUtils {
+    private static Logger log = LoggerFactory.getLogger(MQAdminTestUtils.class);
+
+    private static DefaultMQAdminExt mqAdminExt;
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/SendResultImpl.java`
+#### Snippet
+```java
+public class SendResultImpl implements SendResult {
+    private String messageId;
+    private KeyValue properties;
+
+    public SendResultImpl(final String messageId, final KeyValue properties) {
+```
+
+### FieldMayBeFinal
+Field `messageId` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/SendResultImpl.java`
+#### Snippet
+```java
+
+public class SendResultImpl implements SendResult {
+    private String messageId;
+    private KeyValue properties;
+
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+#### Snippet
+```java
+
+public class RMQAsyncSendProducer extends AbstractMQProducer {
+    private static Logger logger = LoggerFactory
+        .getLogger(RMQAsyncSendProducer.class);
+    private String nsAddr = null;
+```
+
+### FieldMayBeFinal
+Field `successSendResult` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+#### Snippet
+```java
+    private DefaultMQProducer producer = null;
+    private SendCallback sendCallback = null;
+    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
+    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
+    private int msgSize = 0;
+```
+
+### FieldMayBeFinal
+Field `exceptionMsgCount` may be 'final'
+in `test/src/main/java/org/apache/rocketmq/test/client/rmq/RMQAsyncSendProducer.java`
+#### Snippet
+```java
+    private SendCallback sendCallback = null;
+    private List<SendResult> successSendResult = Collections.synchronizedList(new ArrayList<SendResult>());
+    private AtomicInteger exceptionMsgCount = new AtomicInteger(0);
+    private int msgSize = 0;
+
+```
+
+### FieldMayBeFinal
+Field `userHeaders` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/BytesMessageImpl.java`
+#### Snippet
+```java
+public class BytesMessageImpl implements BytesMessage {
+    private KeyValue sysHeaders;
+    private KeyValue userHeaders;
+    private byte[] body;
+
+```
+
+### FieldMayBeFinal
+Field `sysHeaders` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/BytesMessageImpl.java`
+#### Snippet
+```java
+
+public class BytesMessageImpl implements BytesMessage {
+    private KeyValue sysHeaders;
+    private KeyValue userHeaders;
+    private byte[] body;
+```
+
+### FieldMayBeFinal
+Field `createTime` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
+#### Snippet
+```java
+    private V result = null;
+    private long timeout;
+    private long createTime;
+    private Throwable exception = null;
+    private List<FutureListener<V>> promiseListenerList;
+```
+
+### FieldMayBeFinal
+Field `timeout` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
+#### Snippet
+```java
+    private volatile FutureState state = FutureState.DOING;
+    private V result = null;
+    private long timeout;
+    private long createTime;
+    private Throwable exception = null;
+```
+
+### FieldMayBeFinal
+Field `primitiveWrapperMap` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
+#### Snippet
+```java
+     * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
+     */
+    private static Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `wrapperMap` may be 'final'
+in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
+#### Snippet
+```java
+    }
+
+    private static Map<Class<?>, Class<?>> wrapperMap = new HashMap<>();
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `mqClientAdmin` may be 'final'
+in `proxy/src/main/java/org/apache/rocketmq/proxy/service/mqclient/MQClientAPIExt.java`
+#### Snippet
+```java
+    private final ClientConfig clientConfig;
+
+    private MqClientAdminImpl mqClientAdmin;
+
+    public MQClientAPIExt(
+```
+
+### FieldMayBeFinal
+Field `aclPlugEngine` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainAccessValidator.java`
+#### Snippet
+```java
+public class PlainAccessValidator implements AccessValidator {
+
+    private PlainPermissionManager aclPlugEngine;
+
+    public PlainAccessValidator() {
+```
+
+### FieldMayBeFinal
+Field `netAddress` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/RemoteAddressStrategyFactory.java`
+#### Snippet
+```java
+    public static class OneRemoteAddressStrategy implements RemoteAddressStrategy {
+
+        private String netAddress;
+
+        public OneRemoteAddressStrategy(String netAddress) {
+```
+
+### FieldMayBeFinal
+Field `defaultAclFile` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+    private String defaultAclDir;
+
+    private String defaultAclFile;
+
+    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `remoteAddressStrategyFactory` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+    private List<RemoteAddressStrategy> globalWhiteRemoteAddressStrategy = new ArrayList<>();
+
+    private RemoteAddressStrategyFactory remoteAddressStrategyFactory = new RemoteAddressStrategyFactory();
+
+    private Map<String/** fileFullPath **/, List<RemoteAddressStrategy>> globalWhiteRemoteAddressStrategyMap = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `fileHome` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
+
+    private String fileHome = System.getProperty(MixAll.ROCKETMQ_HOME_PROPERTY,
+        System.getenv(MixAll.ROCKETMQ_HOME_ENV));
+
+```
+
+### FieldMayBeFinal
+Field `defaultAclDir` may be 'final'
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+        System.getenv(MixAll.ROCKETMQ_HOME_ENV));
+
+    private String defaultAclDir;
+
+    private String defaultAclFile;
+```
+
+### FieldMayBeFinal
+Field `consumeTimes` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/operation/Consumer.java`
+#### Snippet
+```java
+
+            consumer.registerMessageListener(new MessageListenerConcurrently() {
+                AtomicLong consumeTimes = new AtomicLong(0);
+
+                @Override
+```
+
+### FieldMayBeFinal
+Field `transactionIndex` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/transaction/TransactionListenerImpl.java`
+#### Snippet
+```java
+
+public class TransactionListenerImpl implements TransactionListener {
+    private AtomicInteger transactionIndex = new AtomicInteger(0);
+
+    private ConcurrentHashMap<String, Integer> localTrans = new ConcurrentHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `localTrans` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/transaction/TransactionListenerImpl.java`
+#### Snippet
+```java
+    private AtomicInteger transactionIndex = new AtomicInteger(0);
+
+    private ConcurrentHashMap<String, Integer> localTrans = new ConcurrentHashMap<>();
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `consumeTimes` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/ordermessage/Consumer.java`
+#### Snippet
+```java
+
+        consumer.registerMessageListener(new MessageListenerOrderly() {
+            AtomicLong consumeTimes = new AtomicLong(0);
+
+            @Override
+```
+
+### FieldMayBeFinal
+Field `maxSize` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+class LRUMap<K, V> extends LinkedHashMap<K, V> {
+
+    private int maxSize;
+
+    public LRUMap(int maxSize) {
+```
+
+### FieldMayBeFinal
+Field `sendConfig` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+class TransactionListenerImpl implements TransactionListener {
+    private StatsBenchmarkTProducer statBenchmark;
+    private TxSendConfig sendConfig;
+    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
+
+```
+
+### FieldMayBeFinal
+Field `statBenchmark` may be 'final'
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+
+class TransactionListenerImpl implements TransactionListener {
+    private StatsBenchmarkTProducer statBenchmark;
+    private TxSendConfig sendConfig;
+    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
+```
+
+### FieldMayBeFinal
+Field `factoryIndexGenerator` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
+#### Snippet
+```java
+    private final static Logger log = LoggerFactory.getLogger(MQClientManager.class);
+    private static MQClientManager instance = new MQClientManager();
+    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
+    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
+        new ConcurrentHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `factoryTable` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
+#### Snippet
+```java
+    private static MQClientManager instance = new MQClientManager();
+    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
+    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
+        new ConcurrentHashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `instance` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientManager.java`
+#### Snippet
+```java
+public class MQClientManager {
+    private final static Logger log = LoggerFactory.getLogger(MQClientManager.class);
+    private static MQClientManager instance = new MQClientManager();
+    private AtomicInteger factoryIndexGenerator = new AtomicInteger();
+    private ConcurrentMap<String/* clientId */, MQClientInstance> factoryTable =
+```
+
+### FieldMayBeFinal
+Field `mqLockTable` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/MessageQueueLock.java`
+#### Snippet
+```java
+ */
+public class MessageQueueLock {
+    private ConcurrentMap<MessageQueue, ConcurrentMap<Integer, Object>> mqLockTable =
+        new ConcurrentHashMap<>(32);
+
+```
+
+### FieldMayBeFinal
+Field `waitInterval` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/RebalanceService.java`
+#### Snippet
+```java
+
+public class RebalanceService extends ServiceThread {
+    private static long waitInterval =
+        Long.parseLong(System.getProperty(
+            "rocketmq.client.rebalance.waitInterval", "20000"));
 ```
 
 ### FieldMayBeFinal
@@ -22062,18 +22818,6 @@ public class EndTransactionOpenTracingHookImpl implements EndTransactionHook {
 ```
 
 ### FieldMayBeFinal
-Field `rebalanceImpl` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
-#### Snippet
-```java
-    private PullAPIWrapper pullAPIWrapper;
-    private OffsetStore offsetStore;
-    private RebalanceImpl rebalanceImpl = new RebalancePullImpl(this);
-
-    public DefaultMQPullConsumerImpl(final DefaultMQPullConsumer defaultMQPullConsumer, final RPCHook rpcHook) {
-```
-
-### FieldMayBeFinal
 Field `tracer` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/trace/hook/SendMessageOpenTracingHookImpl.java`
 #### Snippet
@@ -22083,18 +22827,6 @@ public class SendMessageOpenTracingHookImpl implements SendMessageHook {
     private Tracer tracer;
 
     public SendMessageOpenTracingHookImpl(Tracer tracer) {
-```
-
-### FieldMayBeFinal
-Field `localDispatcher` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/hook/ConsumeMessageTraceHookImpl.java`
-#### Snippet
-```java
-public class ConsumeMessageTraceHookImpl implements ConsumeMessageHook {
-
-    private TraceDispatcher localDispatcher;
-
-    public ConsumeMessageTraceHookImpl(TraceDispatcher localDispatcher) {
 ```
 
 ### FieldMayBeFinal
@@ -22110,6 +22842,30 @@ public class EndTransactionTraceHookImpl implements EndTransactionHook {
 ```
 
 ### FieldMayBeFinal
+Field `rebalanceImpl` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPullConsumerImpl.java`
+#### Snippet
+```java
+    private PullAPIWrapper pullAPIWrapper;
+    private OffsetStore offsetStore;
+    private RebalanceImpl rebalanceImpl = new RebalancePullImpl(this);
+
+    public DefaultMQPullConsumerImpl(final DefaultMQPullConsumer defaultMQPullConsumer, final RPCHook rpcHook) {
+```
+
+### FieldMayBeFinal
+Field `localDispatcher` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/hook/ConsumeMessageTraceHookImpl.java`
+#### Snippet
+```java
+public class ConsumeMessageTraceHookImpl implements ConsumeMessageHook {
+
+    private TraceDispatcher localDispatcher;
+
+    public ConsumeMessageTraceHookImpl(TraceDispatcher localDispatcher) {
+```
+
+### FieldMayBeFinal
 Field `tracer` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/trace/hook/ConsumeMessageOpenTracingHookImpl.java`
 #### Snippet
@@ -22119,198 +22875,6 @@ public class ConsumeMessageOpenTracingHookImpl implements ConsumeMessageHook {
     private Tracer tracer;
 
     public ConsumeMessageOpenTracingHookImpl(Tracer tracer) {
-```
-
-### FieldMayBeFinal
-Field `topicMessageQueueChangeListenerMap` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private final ScheduledExecutorService scheduledExecutorService;
-
-    private Map<String, TopicMessageQueueChangeListener> topicMessageQueueChangeListenerMap = new HashMap<>();
-
-    private Map<String, Set<MessageQueue>> messageQueuesForTopic = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `defaultLitePullConsumer` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private ConcurrentHashMap<String/* topic */, String/* subExpression */> topicToSubExpression = new ConcurrentHashMap<>();
-
-    private DefaultLitePullConsumer defaultLitePullConsumer;
-
-    private final ConcurrentMap<MessageQueue, PullTaskImpl> taskTable =
-```
-
-### FieldMayBeFinal
-Field `scheduledThreadPoolExecutor` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private final BlockingQueue<ConsumeRequest> consumeRequestCache = new LinkedBlockingQueue<>();
-
-    private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
-
-    private final ScheduledExecutorService scheduledExecutorService;
-```
-
-### FieldMayBeFinal
-Field `rebalanceImpl` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private OffsetStore offsetStore;
-
-    private RebalanceImpl rebalanceImpl = new RebalanceLitePullImpl(this);
-
-    private enum SubscriptionType {
-```
-
-### FieldMayBeFinal
-Field `assignedMessageQueue` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-        new ConcurrentHashMap<>();
-
-    private AssignedMessageQueue assignedMessageQueue = new AssignedMessageQueue();
-
-    private final BlockingQueue<ConsumeRequest> consumeRequestCache = new LinkedBlockingQueue<>();
-```
-
-### FieldMayBeFinal
-Field `topicToSubExpression` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private static final long PULL_TIME_DELAY_MILLS_ON_EXCEPTION = 3 * 1000;
-
-    private ConcurrentHashMap<String/* topic */, String/* subExpression */> topicToSubExpression = new ConcurrentHashMap<>();
-
-    private DefaultLitePullConsumer defaultLitePullConsumer;
-```
-
-### FieldMayBeFinal
-Field `messageQueuesForTopic` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
-#### Snippet
-```java
-    private Map<String, TopicMessageQueueChangeListener> topicMessageQueueChangeListenerMap = new HashMap<>();
-
-    private Map<String, Set<MessageQueue>> messageQueuesForTopic = new HashMap<>();
-
-    private long consumeRequestFlowControlTimes = 0L;
-```
-
-### FieldMayBeFinal
-Field `clientConfig` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-    private final ClientRemotingProcessor clientRemotingProcessor;
-    private String nameSrvAddr = null;
-    private ClientConfig clientConfig;
-
-    public MQClientAPIImpl(final NettyClientConfig nettyClientConfig,
-```
-
-### FieldMayBeFinal
-Field `sendSmartMsg` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-public class MQClientAPIImpl implements NameServerUpdateCallback {
-    private final static Logger log = LoggerFactory.getLogger(MQClientAPIImpl.class);
-    private static boolean sendSmartMsg =
-        Boolean.parseBoolean(System.getProperty("org.apache.rocketmq.client.sendSmartMsg", "true"));
-
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/consumer/MessageSelector.java`
-#### Snippet
-```java
-     * @see org.apache.rocketmq.common.filter.ExpressionType
-     */
-    private String type;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/consumer/MessageSelector.java`
-#### Snippet
-```java
-     * expression content.
-     */
-    private String expression;
-
-    private MessageSelector(String type, String expression) {
-```
-
-### FieldMayBeFinal
-Field `discardCount` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-    private final ThreadPoolExecutor traceExecutor;
-    // The last discard number of log
-    private AtomicLong discardCount;
-    private Thread worker;
-    private final ArrayBlockingQueue<TraceContext> traceContextQueue;
-```
-
-### FieldMayBeFinal
-Field `sendWhichQueue` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-    private DefaultMQProducerImpl hostProducer;
-    private DefaultMQPushConsumerImpl hostConsumer;
-    private volatile ThreadLocalIndex sendWhichQueue = new ThreadLocalIndex();
-    private String dispatcherId = UUID.randomUUID().toString();
-    private volatile String traceTopicName;
-```
-
-### FieldMayBeFinal
-Field `appenderQueue` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-    private final ArrayBlockingQueue<TraceContext> traceContextQueue;
-    private final HashMap<String, TraceDataSegment> taskQueueByTopic;
-    private ArrayBlockingQueue<Runnable> appenderQueue;
-    private volatile Thread shutDownHook;
-    private volatile boolean stopped = false;
-```
-
-### FieldMayBeFinal
-Field `isStarted` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-    private String dispatcherId = UUID.randomUUID().toString();
-    private volatile String traceTopicName;
-    private AtomicBoolean isStarted = new AtomicBoolean(false);
-    private volatile AccessChannel accessChannel = AccessChannel.LOCAL;
-    private String group;
-```
-
-### FieldMayBeFinal
-Field `group` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
-#### Snippet
-```java
-    private AtomicBoolean isStarted = new AtomicBoolean(false);
-    private volatile AccessChannel accessChannel = AccessChannel.LOCAL;
-    private String group;
-    private Type type;
-
 ```
 
 ### FieldMayBeFinal
@@ -22326,6 +22890,30 @@ in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.j
 ```
 
 ### FieldMayBeFinal
+Field `sendWhichQueue` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+    private DefaultMQProducerImpl hostProducer;
+    private DefaultMQPushConsumerImpl hostConsumer;
+    private volatile ThreadLocalIndex sendWhichQueue = new ThreadLocalIndex();
+    private String dispatcherId = UUID.randomUUID().toString();
+    private volatile String traceTopicName;
+```
+
+### FieldMayBeFinal
+Field `discardCount` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+    private final ThreadPoolExecutor traceExecutor;
+    // The last discard number of log
+    private AtomicLong discardCount;
+    private Thread worker;
+    private final ArrayBlockingQueue<TraceContext> traceContextQueue;
+```
+
+### FieldMayBeFinal
 Field `hasShutdown` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
 #### Snippet
@@ -22338,6 +22926,30 @@ in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.j
 ```
 
 ### FieldMayBeFinal
+Field `group` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+    private AtomicBoolean isStarted = new AtomicBoolean(false);
+    private volatile AccessChannel accessChannel = AccessChannel.LOCAL;
+    private String group;
+    private Type type;
+
+```
+
+### FieldMayBeFinal
+Field `isStarted` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+    private String dispatcherId = UUID.randomUUID().toString();
+    private volatile String traceTopicName;
+    private AtomicBoolean isStarted = new AtomicBoolean(false);
+    private volatile AccessChannel accessChannel = AccessChannel.LOCAL;
+    private String group;
+```
+
+### FieldMayBeFinal
 Field `dispatcherId` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
 #### Snippet
@@ -22347,6 +22959,42 @@ in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.j
     private String dispatcherId = UUID.randomUUID().toString();
     private volatile String traceTopicName;
     private AtomicBoolean isStarted = new AtomicBoolean(false);
+```
+
+### FieldMayBeFinal
+Field `appenderQueue` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/trace/AsyncTraceDispatcher.java`
+#### Snippet
+```java
+    private final ArrayBlockingQueue<TraceContext> traceContextQueue;
+    private final HashMap<String, TraceDataSegment> taskQueueByTopic;
+    private ArrayBlockingQueue<Runnable> appenderQueue;
+    private volatile Thread shutDownHook;
+    private volatile boolean stopped = false;
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/consumer/MessageSelector.java`
+#### Snippet
+```java
+     * expression content.
+     */
+    private String expression;
+
+    private MessageSelector(String type, String expression) {
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/consumer/MessageSelector.java`
+#### Snippet
+```java
+     * @see org.apache.rocketmq.common.filter.ExpressionType
+     */
+    private String type;
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -22374,12 +23022,108 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultMQPushC
 ```
 
 ### FieldMayBeFinal
+Field `topicMessageQueueChangeListenerMap` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private final ScheduledExecutorService scheduledExecutorService;
+
+    private Map<String, TopicMessageQueueChangeListener> topicMessageQueueChangeListenerMap = new HashMap<>();
+
+    private Map<String, Set<MessageQueue>> messageQueuesForTopic = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `defaultLitePullConsumer` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private ConcurrentHashMap<String/* topic */, String/* subExpression */> topicToSubExpression = new ConcurrentHashMap<>();
+
+    private DefaultLitePullConsumer defaultLitePullConsumer;
+
+    private final ConcurrentMap<MessageQueue, PullTaskImpl> taskTable =
+```
+
+### FieldMayBeFinal
+Field `rebalanceImpl` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private OffsetStore offsetStore;
+
+    private RebalanceImpl rebalanceImpl = new RebalanceLitePullImpl(this);
+
+    private enum SubscriptionType {
+```
+
+### FieldMayBeFinal
+Field `messageQueuesForTopic` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private Map<String, TopicMessageQueueChangeListener> topicMessageQueueChangeListenerMap = new HashMap<>();
+
+    private Map<String, Set<MessageQueue>> messageQueuesForTopic = new HashMap<>();
+
+    private long consumeRequestFlowControlTimes = 0L;
+```
+
+### FieldMayBeFinal
+Field `assignedMessageQueue` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+        new ConcurrentHashMap<>();
+
+    private AssignedMessageQueue assignedMessageQueue = new AssignedMessageQueue();
+
+    private final BlockingQueue<ConsumeRequest> consumeRequestCache = new LinkedBlockingQueue<>();
+```
+
+### FieldMayBeFinal
+Field `topicToSubExpression` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private static final long PULL_TIME_DELAY_MILLS_ON_EXCEPTION = 3 * 1000;
+
+    private ConcurrentHashMap<String/* topic */, String/* subExpression */> topicToSubExpression = new ConcurrentHashMap<>();
+
+    private DefaultLitePullConsumer defaultLitePullConsumer;
+```
+
+### FieldMayBeFinal
+Field `scheduledThreadPoolExecutor` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePullConsumerImpl.java`
+#### Snippet
+```java
+    private final BlockingQueue<ConsumeRequest> consumeRequestCache = new LinkedBlockingQueue<>();
+
+    private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
+
+    private final ScheduledExecutorService scheduledExecutorService;
+```
+
+### FieldMayBeFinal
 Field `offsetTable` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/consumer/store/LocalFileOffsetStore.java`
 #### Snippet
 ```java
     private final String groupName;
     private final String storePath;
+    private ConcurrentMap<MessageQueue, AtomicLong> offsetTable =
+        new ConcurrentHashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `offsetTable` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/consumer/store/RemoteBrokerOffsetStore.java`
+#### Snippet
+```java
+    private final MQClientInstance mQClientFactory;
+    private final String groupName;
     private ConcurrentMap<MessageQueue, AtomicLong> offsetTable =
         new ConcurrentHashMap<>();
 
@@ -22398,18 +23142,6 @@ public class SelectMessageQueueByRandom implements MessageQueueSelector {
 ```
 
 ### FieldMayBeFinal
-Field `offsetTable` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/consumer/store/RemoteBrokerOffsetStore.java`
-#### Snippet
-```java
-    private final MQClientInstance mQClientFactory;
-    private final String groupName;
-    private ConcurrentMap<MessageQueue, AtomicLong> offsetTable =
-        new ConcurrentHashMap<>();
-
-```
-
-### FieldMayBeFinal
 Field `requestFutureTable` may be 'final'
 in `client/src/main/java/org/apache/rocketmq/client/producer/RequestFutureHolder.java`
 #### Snippet
@@ -22422,27 +23154,147 @@ in `client/src/main/java/org/apache/rocketmq/client/producer/RequestFutureHolder
 ```
 
 ### FieldMayBeFinal
-Field `aclPlugEngine` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainAccessValidator.java`
+Field `handler` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LocalCache.java`
 #### Snippet
 ```java
-public class PlainAccessValidator implements AccessValidator {
 
-    private PlainPermissionManager aclPlugEngine;
+    private int cacheSize = DEFAULT_CACHE_SIZE;
+    private CacheEvictHandler<K, V> handler;
 
-    public PlainAccessValidator() {
+    /**
 ```
 
 ### FieldMayBeFinal
-Field `mqFaultStrategy` may be 'final'
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+Field `target` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
 #### Snippet
 ```java
-    private MQClientInstance mQClientFactory;
-    private ArrayList<CheckForbiddenHook> checkForbiddenHookList = new ArrayList<>();
-    private MQFaultStrategy mqFaultStrategy = new MQFaultStrategy();
-    private ExecutorService asyncSenderExecutor;
 
+public class CacheObject<T> {
+    private T target;
+    private long bornTime = System.currentTimeMillis();
+    private long exp;
+```
+
+### FieldMayBeFinal
+Field `exp` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
+#### Snippet
+```java
+    private T target;
+    private long bornTime = System.currentTimeMillis();
+    private long exp;
+
+    public CacheObject(long exp, T target) {
+```
+
+### FieldMayBeFinal
+Field `bornTime` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
+#### Snippet
+```java
+public class CacheObject<T> {
+    private T target;
+    private long bornTime = System.currentTimeMillis();
+    private long exp;
+
+```
+
+### FieldMayBeFinal
+Field `expiredLocalCache` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LockManager.java`
+#### Snippet
+```java
+
+public class LockManager {
+    private static ExpiredLocalCache<String, AtomicBoolean> expiredLocalCache = new ExpiredLocalCache<>(100000);
+
+    public static boolean tryLock(String key, long lockTime) {
+```
+
+### FieldMayBeFinal
+Field `shutdownTimes` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/ShutdownHookThread.java`
+#### Snippet
+```java
+public class ShutdownHookThread extends Thread {
+    private volatile boolean hasShutdown = false;
+    private AtomicInteger shutdownTimes = new AtomicInteger(0);
+    private final Logger log;
+    private final Callable callback;
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
+#### Snippet
+```java
+
+public class ExpiredLocalCache<K, T> {
+    private ConcurrentLinkedHashMap<K, CacheObject<T>> cache;
+    private EvictionListener<K, CacheObject<T>> listener;
+
+```
+
+### FieldMayBeFinal
+Field `md` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+    private final AclFileWatchService.Listener listener;
+    private static final int WATCH_INTERVAL = 5000;
+    private MessageDigest md = MessageDigest.getInstance("MD5");
+    private String defaultAclFile;
+
+```
+
+### FieldMayBeFinal
+Field `fileList` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+    private final Map<String, String> fileCurrentHash;
+    private Map<String, Long> fileLastModifiedTime;
+    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
+    private final AclFileWatchService.Listener listener;
+    private static final int WATCH_INTERVAL = 5000;
+```
+
+### FieldMayBeFinal
+Field `defaultAclFile` may be 'final'
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+    private static final int WATCH_INTERVAL = 5000;
+    private MessageDigest md = MessageDigest.getInstance("MD5");
+    private String defaultAclFile;
+
+    public AclFileWatchService(String path, String defaultAclFile, final AclFileWatchService.Listener listener) throws Exception {
+```
+
+### FieldMayBeFinal
+Field `sendSmartMsg` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+public class MQClientAPIImpl implements NameServerUpdateCallback {
+    private final static Logger log = LoggerFactory.getLogger(MQClientAPIImpl.class);
+    private static boolean sendSmartMsg =
+        Boolean.parseBoolean(System.getProperty("org.apache.rocketmq.client.sendSmartMsg", "true"));
+
+```
+
+### FieldMayBeFinal
+Field `clientConfig` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+    private final ClientRemotingProcessor clientRemotingProcessor;
+    private String nameSrvAddr = null;
+    private ClientConfig clientConfig;
+
+    public MQClientAPIImpl(final NettyClientConfig nettyClientConfig,
 ```
 
 ### FieldMayBeFinal
@@ -22458,290 +23310,14 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProdu
 ```
 
 ### FieldMayBeFinal
-Field `netAddress` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/RemoteAddressStrategyFactory.java`
+Field `mqFaultStrategy` may be 'final'
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
 #### Snippet
 ```java
-    public static class OneRemoteAddressStrategy implements RemoteAddressStrategy {
-
-        private String netAddress;
-
-        public OneRemoteAddressStrategy(String netAddress) {
-```
-
-### FieldMayBeFinal
-Field `brokerAddress` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
-#### Snippet
-```java
-    private String brokerName;
-
-    private String brokerAddress;
-
-    private Long brokerId;
-```
-
-### FieldMayBeFinal
-Field `brokerId` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
-#### Snippet
-```java
-    private String brokerAddress;
-
-    private Long brokerId;
-
-    public UpdateBrokerAddressEvent(String clusterName, String brokerName, String brokerAddress, Long brokerId) {
-```
-
-### FieldMayBeFinal
-Field `clusterName` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
-#### Snippet
-```java
-public class UpdateBrokerAddressEvent implements EventMessage {
-
-    private String clusterName;
-
-    private String brokerName;
-```
-
-### FieldMayBeFinal
-Field `brokerName` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
-#### Snippet
-```java
-    private String clusterName;
-
-    private String brokerName;
-
-    private String brokerAddress;
-```
-
-### FieldMayBeFinal
-Field `heartbeatManager` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/ControllerManager.java`
-#### Snippet
-```java
-    private final RemotingClient remotingClient;
-    private Controller controller;
-    private BrokerHeartbeatManager heartbeatManager;
-    private ExecutorService controllerRequestExecutor;
-    private BlockingQueue<Runnable> controllerRequestThreadPoolQueue;
-```
-
-### FieldMayBeFinal
-Field `notifyService` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/ControllerManager.java`
-#### Snippet
-```java
-    private BlockingQueue<Runnable> controllerRequestThreadPoolQueue;
-
-    private NotifyService notifyService;
-
-    public ControllerManager(ControllerConfig controllerConfig, NettyServerConfig nettyServerConfig,
-```
-
-### FieldMayBeFinal
-Field `defaultAclDir` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-        System.getenv(MixAll.ROCKETMQ_HOME_ENV));
-
-    private String defaultAclDir;
-
-    private String defaultAclFile;
-```
-
-### FieldMayBeFinal
-Field `fileHome` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
-
-    private String fileHome = System.getProperty(MixAll.ROCKETMQ_HOME_PROPERTY,
-        System.getenv(MixAll.ROCKETMQ_HOME_ENV));
-
-```
-
-### FieldMayBeFinal
-Field `remoteAddressStrategyFactory` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-    private List<RemoteAddressStrategy> globalWhiteRemoteAddressStrategy = new ArrayList<>();
-
-    private RemoteAddressStrategyFactory remoteAddressStrategyFactory = new RemoteAddressStrategyFactory();
-
-    private Map<String/** fileFullPath **/, List<RemoteAddressStrategy>> globalWhiteRemoteAddressStrategyMap = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `defaultAclFile` may be 'final'
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-    private String defaultAclDir;
-
-    private String defaultAclFile;
-
-    private Map<String/** fileFullPath **/, Map<String/** AccessKey **/, PlainAccessResource>> aclPlainAccessResourceMap = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `brokerLifecycleListeners` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
-#### Snippet
-```java
-    private ScheduledFuture scanInactiveMasterFuture;
-
-    private List<BrokerLifecycleListener> brokerLifecycleListeners;
-
-    // Usr for checking whether the broker is alive
-```
-
-### FieldMayBeFinal
-Field `isScheduling` may be 'final'
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
-#### Snippet
-```java
-    private ElectPolicy electPolicy;
-
-    private AtomicBoolean isScheduling = new AtomicBoolean(false);
-
-    public DLedgerController(final ControllerConfig config, final BrokerValidPredicate brokerAlivePredicate) {
-```
-
-### FieldMayBeFinal
-Field `startupTimeMillis` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
-#### Snippet
-```java
-
-    protected NamesrvController namesrvController;
-    private long startupTimeMillis;
-
-    private AtomicBoolean needCheckNamesrvReady = new AtomicBoolean(true);
-```
-
-### FieldMayBeFinal
-Field `log` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
-#### Snippet
-```java
-public class ClientRequestProcessor implements NettyRequestProcessor {
-
-    private static Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
-
-    protected NamesrvController namesrvController;
-```
-
-### FieldMayBeFinal
-Field `needCheckNamesrvReady` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
-#### Snippet
-```java
-    private long startupTimeMillis;
-
-    private AtomicBoolean needCheckNamesrvReady = new AtomicBoolean(true);
-
-    public ClientRequestProcessor(final NamesrvController namesrvController) {
-```
-
-### FieldMayBeFinal
-Field `unregistrationQueue` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/BatchUnregistrationService.java`
-#### Snippet
-```java
-public class BatchUnregistrationService extends ServiceThread {
-    private final RouteInfoManager routeInfoManager;
-    private BlockingQueue<UnRegisterBrokerRequestHeader> unregistrationQueue;
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
-
-```
-
-### FieldMayBeFinal
-Field `k` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BloomFilter.java`
-#### Snippet
-```java
-
-    // hash function num, by calculation.
-    private int k;
-    // bit count, by calculation.
-    private int m;
-```
-
-### FieldMayBeFinal
-Field `log` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
-#### Snippet
-```java
-
-public class DefaultRequestProcessor implements NettyRequestProcessor {
-    private static Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
-
-    protected final NamesrvController namesrvController;
-```
-
-### FieldMayBeFinal
-Field `bytes` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
-#### Snippet
-```java
-public class BitsArray implements Cloneable {
-
-    private byte[] bytes;
-    private int bitLength;
-
-```
-
-### FieldMayBeFinal
-Field `bitLength` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/util/BitsArray.java`
-#### Snippet
-```java
-
-    private byte[] bytes;
-    private int bitLength;
-
-    public static BitsArray create(int bitLength) {
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/expression/ConstantExpression.java`
-#### Snippet
-```java
-public class ConstantExpression implements Expression {
-
-    private Object value;
-
-    public ConstantExpression(Object value) {
-```
-
-### FieldMayBeFinal
-Field `jjExpentries` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    }
-
-    private java.util.List<int[]> jjExpentries = new java.util.ArrayList<>();
-    private int[] jjExpentry;
-    private int jjKind = -1;
-```
-
-### FieldMayBeFinal
-Field `jjLasttokens` may be 'final'
-in `filter/src/main/java/org/apache/rocketmq/filter/parser/SelectorParser.java`
-#### Snippet
-```java
-    private int[] jjExpentry;
-    private int jjKind = -1;
-    private int[] jjLasttokens = new int[100];
-    private int jjEndpos;
+    private MQClientInstance mQClientFactory;
+    private ArrayList<CheckForbiddenHook> checkForbiddenHookList = new ArrayList<>();
+    private MQFaultStrategy mqFaultStrategy = new MQFaultStrategy();
+    private ExecutorService asyncSenderExecutor;
 
 ```
 
@@ -22806,30 +23382,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicConfigManager.jav
 ```
 
 ### FieldMayBeFinal
-Field `brokerAddr` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
-#### Snippet
-```java
-class BrokerAddrInfo {
-    private String clusterName;
-    private String brokerAddr;
-
-    private int hash;
-```
-
-### FieldMayBeFinal
-Field `clusterName` may be 'final'
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
-#### Snippet
-```java
- */
-class BrokerAddrInfo {
-    private String clusterName;
-    private String brokerAddr;
-
-```
-
-### FieldMayBeFinal
 Field `properties` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/filter/MessageEvaluationContext.java`
 #### Snippet
@@ -22854,15 +23406,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/filter/ConsumerFilterManager
 ```
 
 ### FieldMayBeFinal
-Field `dLegerServer` may be 'final'
+Field `dLedgerCommitLog` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHandler.java`
 #### Snippet
 ```java
+    private BrokerController brokerController;
     private DefaultMessageStore messageStore;
     private DLedgerCommitLog dLedgerCommitLog;
     private DLedgerServer dLegerServer;
     private Future<?> slaveSyncFuture;
-    private long lastSyncTimeMs = System.currentTimeMillis();
 ```
 
 ### FieldMayBeFinal
@@ -22878,15 +23430,27 @@ in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHan
 ```
 
 ### FieldMayBeFinal
-Field `dLedgerCommitLog` may be 'final'
+Field `dLegerServer` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHandler.java`
 #### Snippet
 ```java
-    private BrokerController brokerController;
     private DefaultMessageStore messageStore;
     private DLedgerCommitLog dLedgerCommitLog;
     private DLedgerServer dLegerServer;
     private Future<?> slaveSyncFuture;
+    private long lastSyncTimeMs = System.currentTimeMillis();
+```
+
+### FieldMayBeFinal
+Field `executorService` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHandler.java`
+#### Snippet
+```java
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+    private ExecutorService executorService;
+    private BrokerController brokerController;
+    private DefaultMessageStore messageStore;
 ```
 
 ### FieldMayBeFinal
@@ -22902,15 +23466,39 @@ in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHan
 ```
 
 ### FieldMayBeFinal
-Field `executorService` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/dledger/DLedgerRoleChangeHandler.java`
+Field `rpcClient` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
 #### Snippet
 ```java
+    private TopicQueueMappingManager topicQueueMappingManager;
+    private BrokerOuterAPI brokerOuterAPI;
+    private RpcClient rpcClient;
+    private MessageStoreConfig messageStoreConfig;
+    private BrokerConfig brokerConfig;
+```
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
-    private ExecutorService executorService;
+### FieldMayBeFinal
+Field `messageStoreConfig` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
+#### Snippet
+```java
+    private BrokerOuterAPI brokerOuterAPI;
+    private RpcClient rpcClient;
+    private MessageStoreConfig messageStoreConfig;
+    private BrokerConfig brokerConfig;
     private BrokerController brokerController;
-    private DefaultMessageStore messageStore;
+```
+
+### FieldMayBeFinal
+Field `brokerController` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
+#### Snippet
+```java
+    private MessageStoreConfig messageStoreConfig;
+    private BrokerConfig brokerConfig;
+    private BrokerController brokerController;
+
+    public TopicQueueMappingCleanService(BrokerController brokerController) {
 ```
 
 ### FieldMayBeFinal
@@ -22950,39 +23538,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingClean
 ```
 
 ### FieldMayBeFinal
-Field `rpcClient` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
+Field `scheduledExecutorService` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/filtersrv/FilterServerManager.java`
 #### Snippet
 ```java
-    private TopicQueueMappingManager topicQueueMappingManager;
-    private BrokerOuterAPI brokerOuterAPI;
-    private RpcClient rpcClient;
-    private MessageStoreConfig messageStoreConfig;
-    private BrokerConfig brokerConfig;
-```
+    private final BrokerController brokerController;
 
-### FieldMayBeFinal
-Field `brokerController` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
-#### Snippet
-```java
-    private MessageStoreConfig messageStoreConfig;
-    private BrokerConfig brokerConfig;
-    private BrokerController brokerController;
+    private ScheduledExecutorService scheduledExecutorService = Executors
+        .newSingleThreadScheduledExecutor(new ThreadFactoryImpl("FilterServerManagerScheduledThread"));
 
-    public TopicQueueMappingCleanService(BrokerController brokerController) {
-```
-
-### FieldMayBeFinal
-Field `messageStoreConfig` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/topic/TopicQueueMappingCleanService.java`
-#### Snippet
-```java
-    private BrokerOuterAPI brokerOuterAPI;
-    private RpcClient rpcClient;
-    private MessageStoreConfig messageStoreConfig;
-    private BrokerConfig brokerConfig;
-    private BrokerController brokerController;
 ```
 
 ### FieldMayBeFinal
@@ -22998,27 +23562,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/BrokerController.java`
 ```
 
 ### FieldMayBeFinal
-Field `scheduledExecutorService` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/filtersrv/FilterServerManager.java`
+Field `popReviveServices` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/AckMessageProcessor.java`
 #### Snippet
 ```java
     private final BrokerController brokerController;
+    private String reviveTopic;
+    private PopReviveService[] popReviveServices;
 
-    private ScheduledExecutorService scheduledExecutorService = Executors
-        .newSingleThreadScheduledExecutor(new ThreadFactoryImpl("FilterServerManagerScheduledThread"));
-
-```
-
-### FieldMayBeFinal
-Field `resendCount` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
-#### Snippet
-```java
-        private CompletableFuture<PutMessageResult> future;
-
-        private volatile AtomicInteger resendCount = new AtomicInteger(0);
-        private volatile ProcessStatus status = ProcessStatus.RUNNING;
-
+    public AckMessageProcessor(final BrokerController brokerController) {
 ```
 
 ### FieldMayBeFinal
@@ -23034,18 +23586,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AckMessageProcesso
 ```
 
 ### FieldMayBeFinal
-Field `popReviveServices` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/AckMessageProcessor.java`
-#### Snippet
-```java
-    private final BrokerController brokerController;
-    private String reviveTopic;
-    private PopReviveService[] popReviveServices;
-
-    public AckMessageProcessor(final BrokerController brokerController) {
-```
-
-### FieldMayBeFinal
 Field `random` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/PeekMessageProcessor.java`
 #### Snippet
@@ -23058,26 +23598,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PeekMessageProcess
 ```
 
 ### FieldMayBeFinal
-Field `checkNotificationPollingThread` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProcessor.java`
+Field `resendCount` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/schedule/ScheduleMessageService.java`
 #### Snippet
 ```java
-    private static final String BORN_TIME = "bornTime";
-    private ConcurrentLinkedHashMap<String, ArrayBlockingQueue<NotificationRequest>> pollingMap = new ConcurrentLinkedHashMap.Builder<String, ArrayBlockingQueue<NotificationRequest>>().maximumWeightedCapacity(100000).build();
-    private Thread checkNotificationPollingThread;
+        private CompletableFuture<PutMessageResult> future;
 
-    public NotificationProcessor(final BrokerController brokerController) {
-```
-
-### FieldMayBeFinal
-Field `pollingMap` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProcessor.java`
-#### Snippet
-```java
-    private Random random = new Random(System.currentTimeMillis());
-    private static final String BORN_TIME = "bornTime";
-    private ConcurrentLinkedHashMap<String, ArrayBlockingQueue<NotificationRequest>> pollingMap = new ConcurrentLinkedHashMap.Builder<String, ArrayBlockingQueue<NotificationRequest>>().maximumWeightedCapacity(100000).build();
-    private Thread checkNotificationPollingThread;
+        private volatile AtomicInteger resendCount = new AtomicInteger(0);
+        private volatile ProcessStatus status = ProcessStatus.RUNNING;
 
 ```
 
@@ -23094,6 +23622,30 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProces
 ```
 
 ### FieldMayBeFinal
+Field `pollingMap` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProcessor.java`
+#### Snippet
+```java
+    private Random random = new Random(System.currentTimeMillis());
+    private static final String BORN_TIME = "bornTime";
+    private ConcurrentLinkedHashMap<String, ArrayBlockingQueue<NotificationRequest>> pollingMap = new ConcurrentLinkedHashMap.Builder<String, ArrayBlockingQueue<NotificationRequest>>().maximumWeightedCapacity(100000).build();
+    private Thread checkNotificationPollingThread;
+
+```
+
+### FieldMayBeFinal
+Field `checkNotificationPollingThread` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/NotificationProcessor.java`
+#### Snippet
+```java
+    private static final String BORN_TIME = "bornTime";
+    private ConcurrentLinkedHashMap<String, ArrayBlockingQueue<NotificationRequest>> pollingMap = new ConcurrentLinkedHashMap.Builder<String, ArrayBlockingQueue<NotificationRequest>>().maximumWeightedCapacity(100000).build();
+    private Thread checkNotificationPollingThread;
+
+    public NotificationProcessor(final BrokerController brokerController) {
+```
+
+### FieldMayBeFinal
 Field `messageRequestModeManager` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/QueryAssignmentProcessor.java`
 #### Snippet
@@ -23103,54 +23655,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/QueryAssignmentPro
     private MessageRequestModeManager messageRequestModeManager;
 
     public QueryAssignmentProcessor(final BrokerController brokerController) {
-```
-
-### FieldMayBeFinal
-Field `channel` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
-#### Snippet
-```java
-public class NotificationRequest {
-    private RemotingCommand remotingCommand;
-    private Channel channel;
-    private long expired;
-    private AtomicBoolean complete = new AtomicBoolean(false);
-```
-
-### FieldMayBeFinal
-Field `complete` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
-#### Snippet
-```java
-    private Channel channel;
-    private long expired;
-    private AtomicBoolean complete = new AtomicBoolean(false);
-
-    public NotificationRequest(RemotingCommand remotingCommand, Channel channel, long expired) {
-```
-
-### FieldMayBeFinal
-Field `expired` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
-#### Snippet
-```java
-    private RemotingCommand remotingCommand;
-    private Channel channel;
-    private long expired;
-    private AtomicBoolean complete = new AtomicBoolean(false);
-
-```
-
-### FieldMayBeFinal
-Field `remotingCommand` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
-#### Snippet
-```java
-
-public class NotificationRequest {
-    private RemotingCommand remotingCommand;
-    private Channel channel;
-    private long expired;
 ```
 
 ### FieldMayBeFinal
@@ -23202,6 +23706,54 @@ in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/PopRequest.java`
 ```
 
 ### FieldMayBeFinal
+Field `channel` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
+#### Snippet
+```java
+public class NotificationRequest {
+    private RemotingCommand remotingCommand;
+    private Channel channel;
+    private long expired;
+    private AtomicBoolean complete = new AtomicBoolean(false);
+```
+
+### FieldMayBeFinal
+Field `expired` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
+#### Snippet
+```java
+    private RemotingCommand remotingCommand;
+    private Channel channel;
+    private long expired;
+    private AtomicBoolean complete = new AtomicBoolean(false);
+
+```
+
+### FieldMayBeFinal
+Field `remotingCommand` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
+#### Snippet
+```java
+
+public class NotificationRequest {
+    private RemotingCommand remotingCommand;
+    private Channel channel;
+    private long expired;
+```
+
+### FieldMayBeFinal
+Field `complete` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/longpolling/NotificationRequest.java`
+#### Snippet
+```java
+    private Channel channel;
+    private long expired;
+    private AtomicBoolean complete = new AtomicBoolean(false);
+
+    public NotificationRequest(RemotingCommand remotingCommand, Channel channel, long expired) {
+```
+
+### FieldMayBeFinal
 Field `brokerController` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/transaction/TransactionalMessageCheckService.java`
 #### Snippet
@@ -23211,18 +23763,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/TransactionalMes
     private BrokerController brokerController;
 
     public TransactionalMessageCheckService(BrokerController brokerController) {
-```
-
-### FieldMayBeFinal
-Field `brokerController` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalOpBatchService.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.TRANSACTION_LOGGER_NAME);
-
-    private BrokerController brokerController;
-    private TransactionalMessageServiceImpl transactionalMessageService;
-
 ```
 
 ### FieldMayBeFinal
@@ -23238,15 +23778,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/Transactio
 ```
 
 ### FieldMayBeFinal
-Field `contextQueue` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/MessageQueueOpContext.java`
+Field `brokerController` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalOpBatchService.java`
 #### Snippet
 ```java
-    private AtomicInteger totalSize = new AtomicInteger(0);
-    private volatile long lastWriteTimestamp;
-    private LinkedBlockingQueue<String> contextQueue;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerName.TRANSACTION_LOGGER_NAME);
 
-    public MessageQueueOpContext(long timestamp, int queueLength) {
+    private BrokerController brokerController;
+    private TransactionalMessageServiceImpl transactionalMessageService;
+
 ```
 
 ### FieldMayBeFinal
@@ -23259,6 +23799,30 @@ public class MessageQueueOpContext {
     private AtomicInteger totalSize = new AtomicInteger(0);
     private volatile long lastWriteTimestamp;
     private LinkedBlockingQueue<String> contextQueue;
+```
+
+### FieldMayBeFinal
+Field `contextQueue` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/MessageQueueOpContext.java`
+#### Snippet
+```java
+    private AtomicInteger totalSize = new AtomicInteger(0);
+    private volatile long lastWriteTimestamp;
+    private LinkedBlockingQueue<String> contextQueue;
+
+    public MessageQueueOpContext(long timestamp, int queueLength) {
+```
+
+### FieldMayBeFinal
+Field `subscriptionGroupTable` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/subscription/SubscriptionGroupManager.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
+
+    private ConcurrentMap<String, SubscriptionGroupConfig> subscriptionGroupTable =
+        new ConcurrentHashMap<>(1024);
+
 ```
 
 ### FieldMayBeFinal
@@ -23298,6 +23862,18 @@ in `broker/src/main/java/org/apache/rocketmq/broker/controller/ReplicasManager.j
 ```
 
 ### FieldMayBeFinal
+Field `counter` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
+#### Snippet
+```java
+        new ConcurrentHashMap<>();
+    private volatile boolean serving = true;
+    private AtomicInteger counter = new AtomicInteger(0);
+    private int scanTimes = 0;
+    private final BrokerController brokerController;
+```
+
+### FieldMayBeFinal
 Field `queueId` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopReviveService.java`
 #### Snippet
@@ -23334,87 +23910,63 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopReviveService.j
 ```
 
 ### FieldMayBeFinal
-Field `subscriptionGroupTable` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/subscription/SubscriptionGroupManager.java`
+Field `startupTimeMillis` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
 #### Snippet
 ```java
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);
 
-    private ConcurrentMap<String, SubscriptionGroupConfig> subscriptionGroupTable =
-        new ConcurrentHashMap<>(1024);
+    protected NamesrvController namesrvController;
+    private long startupTimeMillis;
+
+    private AtomicBoolean needCheckNamesrvReady = new AtomicBoolean(true);
+```
+
+### FieldMayBeFinal
+Field `needCheckNamesrvReady` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
+#### Snippet
+```java
+    private long startupTimeMillis;
+
+    private AtomicBoolean needCheckNamesrvReady = new AtomicBoolean(true);
+
+    public ClientRequestProcessor(final NamesrvController namesrvController) {
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/ClientRequestProcessor.java`
+#### Snippet
+```java
+public class ClientRequestProcessor implements NettyRequestProcessor {
+
+    private static Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
+
+    protected NamesrvController namesrvController;
+```
+
+### FieldMayBeFinal
+Field `unregistrationQueue` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/BatchUnregistrationService.java`
+#### Snippet
+```java
+public class BatchUnregistrationService extends ServiceThread {
+    private final RouteInfoManager routeInfoManager;
+    private BlockingQueue<UnRegisterBrokerRequestHeader> unregistrationQueue;
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
 
 ```
 
 ### FieldMayBeFinal
-Field `brokerContainerIP` may be 'final'
-in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerConfig.java`
-#### Snippet
-```java
-
-    @ImportantField
-    private String brokerContainerIP = NetworkUtil.getLocalAddress();
-
-    private String brokerConfigPaths = null;
-```
-
-### FieldMayBeFinal
-Field `counter` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
-#### Snippet
-```java
-        new ConcurrentHashMap<>();
-    private volatile boolean serving = true;
-    private AtomicInteger counter = new AtomicInteger(0);
-    private int scanTimes = 0;
-    private final BrokerController brokerController;
-```
-
-### FieldMayBeFinal
-Field `shutdownTimes` may be 'final'
-in `container/src/main/java/org/apache/rocketmq/container/BrokerContainerStartup.java`
-#### Snippet
-```java
-            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-                private volatile boolean hasShutdown = false;
-                private AtomicInteger shutdownTimes = new AtomicInteger(0);
-
-                @Override
-```
-
-### FieldMayBeFinal
-Field `totalPollingNum` may be 'final'
+Field `ckMessageNumber` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
-    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
-    private AtomicLong totalPollingNum = new AtomicLong(0);
-    private PopLongPollingService popLongPollingService;
     private PopBufferMergeService popBufferMergeService;
-```
+    private QueueLockManager queueLockManager;
+    private AtomicLong ckMessageNumber;
 
-### FieldMayBeFinal
-Field `expiredLocalCache` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-
-    public class QueueLockManager extends ServiceThread {
-        private ConcurrentHashMap<String, TimedLock> expiredLocalCache = new ConcurrentHashMap<>(100000);
-
-        public String buildLockKey(String topic, String consumerGroup, int queueId) {
-```
-
-### FieldMayBeFinal
-Field `pollingMap` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
-#### Snippet
-```java
-
-    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
-    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
-    private AtomicLong totalPollingNum = new AtomicLong(0);
-    private PopLongPollingService popLongPollingService;
+    public PopMessageProcessor(final BrokerController brokerController) {
 ```
 
 ### FieldMayBeFinal
@@ -23430,15 +23982,15 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcesso
 ```
 
 ### FieldMayBeFinal
-Field `topicCidMap` may be 'final'
+Field `expiredLocalCache` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-    private static final int NOT_POLLING = 3;
 
-    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
-    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
-    private AtomicLong totalPollingNum = new AtomicLong(0);
+    public class QueueLockManager extends ServiceThread {
+        private ConcurrentHashMap<String, TimedLock> expiredLocalCache = new ConcurrentHashMap<>(100000);
+
+        public String buildLockKey(String topic, String consumerGroup, int queueId) {
 ```
 
 ### FieldMayBeFinal
@@ -23466,99 +24018,147 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcesso
 ```
 
 ### FieldMayBeFinal
-Field `ckMessageNumber` may be 'final'
+Field `topicCidMap` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
+    private static final int NOT_POLLING = 3;
+
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
+    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
+    private AtomicLong totalPollingNum = new AtomicLong(0);
+```
+
+### FieldMayBeFinal
+Field `totalPollingNum` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+#### Snippet
+```java
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
+    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
+    private AtomicLong totalPollingNum = new AtomicLong(0);
+    private PopLongPollingService popLongPollingService;
     private PopBufferMergeService popBufferMergeService;
-    private QueueLockManager queueLockManager;
-    private AtomicLong ckMessageNumber;
-
-    public PopMessageProcessor(final BrokerController brokerController) {
 ```
 
 ### FieldMayBeFinal
-Field `offset` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/MessageCacheKey.java`
+Field `pollingMap` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-public class MessageCacheKey {
-    private TieredMessageQueueContainer container;
-    private long offset;
 
-    public MessageCacheKey(TieredMessageQueueContainer container, long offset) {
+    private ConcurrentHashMap<String, ConcurrentHashMap<String, Byte>> topicCidMap;
+    private ConcurrentLinkedHashMap<String, ConcurrentSkipListSet<PopRequest>> pollingMap;
+    private AtomicLong totalPollingNum = new AtomicLong(0);
+    private PopLongPollingService popLongPollingService;
 ```
 
 ### FieldMayBeFinal
-Field `container` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/MessageCacheKey.java`
+Field `brokerAddress` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
 #### Snippet
 ```java
+    private String brokerName;
 
-public class MessageCacheKey {
-    private TieredMessageQueueContainer container;
-    private long offset;
+    private String brokerAddress;
 
+    private Long brokerId;
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/BoundaryType.java`
+Field `clusterName` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
 #### Snippet
 ```java
-    UPPER("upper");
+public class UpdateBrokerAddressEvent implements EventMessage {
 
-    private String name;
+    private String clusterName;
 
-    BoundaryType(String name) {
+    private String brokerName;
 ```
 
 ### FieldMayBeFinal
-Field `minOffset` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+Field `brokerId` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
 #### Snippet
 ```java
+    private String brokerAddress;
 
-    private long curOffset;
-    private long minOffset;
-    private long maxOffset;
-    private long size;
+    private Long brokerId;
+
+    public UpdateBrokerAddressEvent(String clusterName, String brokerName, String brokerAddress, Long brokerId) {
 ```
 
 ### FieldMayBeFinal
-Field `maxOffset` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+Field `brokerName` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/event/UpdateBrokerAddressEvent.java`
 #### Snippet
 ```java
-    private long curOffset;
-    private long minOffset;
-    private long maxOffset;
-    private long size;
+    private String clusterName;
 
+    private String brokerName;
+
+    private String brokerAddress;
 ```
 
 ### FieldMayBeFinal
-Field `accessCount` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+Field `heartbeatManager` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/ControllerManager.java`
 #### Snippet
 ```java
-public class SelectMappedBufferResultWrapper {
-    private final SelectMappedBufferResult result;
-    private LongAdder accessCount = new LongAdder();
-
-    private long curOffset;
+    private final RemotingClient remotingClient;
+    private Controller controller;
+    private BrokerHeartbeatManager heartbeatManager;
+    private ExecutorService controllerRequestExecutor;
+    private BlockingQueue<Runnable> controllerRequestThreadPoolQueue;
 ```
 
 ### FieldMayBeFinal
-Field `size` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/common/SelectMappedBufferResultWrapper.java`
+Field `notifyService` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/ControllerManager.java`
 #### Snippet
 ```java
-    private long minOffset;
-    private long maxOffset;
-    private long size;
+    private BlockingQueue<Runnable> controllerRequestThreadPoolQueue;
 
-    public SelectMappedBufferResultWrapper(SelectMappedBufferResult result, long curOffset, long minOffset, long maxOffset, long size) {
+    private NotifyService notifyService;
+
+    public ControllerManager(ControllerConfig controllerConfig, NettyServerConfig nettyServerConfig,
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/processor/DefaultRequestProcessor.java`
+#### Snippet
+```java
+
+public class DefaultRequestProcessor implements NettyRequestProcessor {
+    private static Logger log = LoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);
+
+    protected final NamesrvController namesrvController;
+```
+
+### FieldMayBeFinal
+Field `isScheduling` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
+#### Snippet
+```java
+    private ElectPolicy electPolicy;
+
+    private AtomicBoolean isScheduling = new AtomicBoolean(false);
+
+    public DLedgerController(final ControllerConfig config, final BrokerValidPredicate brokerAlivePredicate) {
+```
+
+### FieldMayBeFinal
+Field `brokerLifecycleListeners` may be 'final'
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/DLedgerController.java`
+#### Snippet
+```java
+    private ScheduledFuture scanInactiveMasterFuture;
+
+    private List<BrokerLifecycleListener> brokerLifecycleListeners;
+
+    // Usr for checking whether the broker is alive
 ```
 
 ### FieldMayBeFinal
@@ -23574,18 +24174,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/Transactio
 ```
 
 ### FieldMayBeFinal
-Field `transactionalOpBatchService` may be 'final'
-in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalMessageServiceImpl.java`
-#### Snippet
-```java
-    private final ConcurrentHashMap<Integer, MessageQueueOpContext> deleteContext = new ConcurrentHashMap<>();
-
-    private ServiceThread transactionalOpBatchService;
-
-    private ConcurrentHashMap<MessageQueue, MessageQueue> opQueueMap = new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
 Field `transactionalMessageBridge` may be 'final'
 in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalMessageServiceImpl.java`
 #### Snippet
@@ -23598,597 +24186,57 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/Transactio
 ```
 
 ### FieldMayBeFinal
-Field `type` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/provider/TieredFileSegment.java`
+Field `transactionalOpBatchService` may be 'final'
+in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/TransactionalMessageServiceImpl.java`
 #### Snippet
 ```java
-        INDEX(2);
+    private final ConcurrentHashMap<Integer, MessageQueueOpContext> deleteContext = new ConcurrentHashMap<>();
 
-        private int type;
+    private ServiceThread transactionalOpBatchService;
 
-        FileSegmentType(int type) {
+    private ConcurrentHashMap<MessageQueue, MessageQueue> opQueueMap = new ConcurrentHashMap<>();
 ```
 
 ### FieldMayBeFinal
-Field `fileQueue` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+Field `brokerAddr` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
 #### Snippet
 ```java
-        private final int fileMaxSize;
-        private MappedFile originFile;
-        private TieredFileQueue fileQueue;
-        private final MappedFile compactFile;
+class BrokerAddrInfo {
+    private String clusterName;
+    private String brokerAddr;
 
+    private int hash;
 ```
 
 ### FieldMayBeFinal
-Field `originFile` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
+Field `clusterName` may be 'final'
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/routeinfo/RouteInfoManager.java`
 #### Snippet
 ```java
-        private final int maxIndexNum;
-        private final int fileMaxSize;
-        private MappedFile originFile;
-        private TieredFileQueue fileQueue;
-        private final MappedFile compactFile;
-```
+ */
+class BrokerAddrInfo {
+    private String clusterName;
+    private String brokerAddr;
 
-### FieldMayBeFinal
-Field `curFileLock` may be 'final'
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/container/TieredIndexFile.java`
-#### Snippet
-```java
-    private MappedFile curMappedFile;
-
-    private ReentrantLock curFileLock = new ReentrantLock();
-    private Future<Void> inflightCompactFuture = CompletableFuture.completedFuture(null);
-
-```
-
-### FieldMayBeFinal
-Field `consumeTimes` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/operation/Consumer.java`
-#### Snippet
-```java
-
-            consumer.registerMessageListener(new MessageListenerConcurrently() {
-                AtomicLong consumeTimes = new AtomicLong(0);
-
-                @Override
-```
-
-### FieldMayBeFinal
-Field `consumeTimes` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/ordermessage/Consumer.java`
-#### Snippet
-```java
-
-        consumer.registerMessageListener(new MessageListenerOrderly() {
-            AtomicLong consumeTimes = new AtomicLong(0);
-
-            @Override
-```
-
-### FieldMayBeFinal
-Field `localTrans` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/transaction/TransactionListenerImpl.java`
-#### Snippet
-```java
-    private AtomicInteger transactionIndex = new AtomicInteger(0);
-
-    private ConcurrentHashMap<String, Integer> localTrans = new ConcurrentHashMap<>();
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `transactionIndex` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/transaction/TransactionListenerImpl.java`
-#### Snippet
-```java
-
-public class TransactionListenerImpl implements TransactionListener {
-    private AtomicInteger transactionIndex = new AtomicInteger(0);
-
-    private ConcurrentHashMap<String, Integer> localTrans = new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
-Field `maxSize` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-class LRUMap<K, V> extends LinkedHashMap<K, V> {
-
-    private int maxSize;
-
-    public LRUMap(int maxSize) {
-```
-
-### FieldMayBeFinal
-Field `statBenchmark` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-
-class TransactionListenerImpl implements TransactionListener {
-    private StatsBenchmarkTProducer statBenchmark;
-    private TxSendConfig sendConfig;
-    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
-```
-
-### FieldMayBeFinal
-Field `sendConfig` may be 'final'
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-class TransactionListenerImpl implements TransactionListener {
-    private StatsBenchmarkTProducer statBenchmark;
-    private TxSendConfig sendConfig;
-    private final LRUMap<Long, Integer> cache = new LRUMap<>(200000);
-
-```
-
-### FieldMayBeFinal
-Field `header` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcRequest.java`
-#### Snippet
-```java
-public class RpcRequest {
-    int code;
-    private RpcRequestHeader header;
-    private Object body;
-
-```
-
-### FieldMayBeFinal
-Field `body` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcRequest.java`
-#### Snippet
-```java
-    int code;
-    private RpcRequestHeader header;
-    private Object body;
-
-    public RpcRequest(int code, RpcRequestHeader header, Object body) {
-```
-
-### FieldMayBeFinal
-Field `configObjectList` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-    private final Logger log;
-
-    private List<Object> configObjectList = new ArrayList<>(4);
-    private String storePath;
-    private boolean storePathFromConfig = false;
-```
-
-### FieldMayBeFinal
-Field `readWriteLock` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-    private Field storePathField;
-    private DataVersion dataVersion = new DataVersion();
-    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    /**
-     * All properties include configs in object and extend properties.
-```
-
-### FieldMayBeFinal
-Field `requestCodeMap` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RequestBuilder.java`
-#### Snippet
-```java
-public class RequestBuilder {
-
-    private static Map<Integer, Class> requestCodeMap = new HashMap<>();
-    static {
-        requestCodeMap.put(RequestCode.PULL_MESSAGE, PullMessageRequestHeader.class);
-```
-
-### FieldMayBeFinal
-Field `allConfigs` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-     * All properties include configs in object and extend properties.
-     */
-    private Properties allConfigs = new Properties();
-
-    public Configuration(Logger log) {
-```
-
-### FieldMayBeFinal
-Field `dataVersion` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/Configuration.java`
-#### Snippet
-```java
-    private Object storePathObject;
-    private Field storePathField;
-    private DataVersion dataVersion = new DataVersion();
-    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    /**
-```
-
-### FieldMayBeFinal
-Field `clientHookList` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-    private RemotingClient remotingClient;
-
-    private List<RpcClientHook> clientHookList = new ArrayList<>();
-
-    public RpcClientImpl(ClientMetadata clientMetadata, RemotingClient remotingClient) {
-```
-
-### FieldMayBeFinal
-Field `clientMetadata` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-public class RpcClientImpl implements RpcClient {
-
-    private ClientMetadata clientMetadata;
-
-    private RemotingClient remotingClient;
-```
-
-### FieldMayBeFinal
-Field `remotingClient` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/rpc/RpcClientImpl.java`
-#### Snippet
-```java
-    private ClientMetadata clientMetadata;
-
-    private RemotingClient remotingClient;
-
-    private List<RpcClientHook> clientHookList = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/common/TlsMode.java`
-#### Snippet
-```java
-    ENFORCING("enforcing");
-
-    private String name;
-
-    TlsMode(String name) {
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/LanguageCode.java`
-#### Snippet
-```java
-    RUST((byte) 12);
-
-    private byte code;
-
-    LanguageCode(byte code) {
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/SerializeType.java`
-#### Snippet
-```java
-    ROCKETMQ((byte) 1);
-
-    private byte code;
-
-    SerializeType(byte code) {
-```
-
-### FieldMayBeFinal
-Field `nettyLoggerSeted` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
-#### Snippet
-```java
-public class NettyLogger {
-
-    private static AtomicBoolean nettyLoggerSeted = new AtomicBoolean(false);
-    
-    private static InternalLogLevel nettyLogLevel = InternalLogLevel.ERROR;
-```
-
-### FieldMayBeFinal
-Field `nettyLogLevel` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/netty/NettyLogger.java`
-#### Snippet
-```java
-    private static AtomicBoolean nettyLoggerSeted = new AtomicBoolean(false);
-    
-    private static InternalLogLevel nettyLogLevel = InternalLogLevel.ERROR;
-
-    public static void initNettyLogger() {
-```
-
-### FieldMayBeFinal
-Field `isActivated` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/HARuntimeInfo.java`
-#### Snippet
-```java
-        private long lastWriteTimestamp;
-        private long masterFlushOffset;
-        private boolean isActivated = false;
-
-        public String getMasterAddr() {
-```
-
-### FieldMayBeFinal
-Field `userConsumerInfo` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/body/ConsumerRunningInfo.java`
-#### Snippet
-```java
-    private TreeMap<String/* Topic */, ConsumeStatus> statusTable = new TreeMap<>();
-
-    private TreeMap<String, String> userConsumerInfo = new TreeMap<>();
-
-    private String jstack;
-```
-
-### FieldMayBeFinal
-Field `requestId` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
-#### Snippet
-```java
-    private static final String BOOLEAN_CANONICAL_NAME_2 = boolean.class.getCanonicalName();
-    private static volatile int configVersion = -1;
-    private static AtomicInteger requestId = new AtomicInteger(0);
-
-    private static SerializeType serializeTypeConfigInThisServer = SerializeType.JSON;
-```
-
-### FieldMayBeFinal
-Field `typeCN` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/ConsumeType.java`
-#### Snippet
-```java
-    CONSUME_POP("POP");
-
-    private String typeCN;
-
-    ConsumeType(String typeCN) {
-```
-
-### FieldMayBeFinal
-Field `modeCN` may be 'final'
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/heartbeat/MessageModel.java`
-#### Snippet
-```java
-    CLUSTERING("CLUSTERING");
-
-    private String modeCN;
-
-    MessageModel(String modeCN) {
-```
-
-### FieldMayBeFinal
-Field `messageId` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/SendResultImpl.java`
-#### Snippet
-```java
-
-public class SendResultImpl implements SendResult {
-    private String messageId;
-    private KeyValue properties;
-
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/SendResultImpl.java`
-#### Snippet
-```java
-public class SendResultImpl implements SendResult {
-    private String messageId;
-    private KeyValue properties;
-
-    public SendResultImpl(final String messageId, final KeyValue properties) {
-```
-
-### FieldMayBeFinal
-Field `sysHeaders` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/BytesMessageImpl.java`
-#### Snippet
-```java
-
-public class BytesMessageImpl implements BytesMessage {
-    private KeyValue sysHeaders;
-    private KeyValue userHeaders;
-    private byte[] body;
-```
-
-### FieldMayBeFinal
-Field `userHeaders` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/domain/BytesMessageImpl.java`
-#### Snippet
-```java
-public class BytesMessageImpl implements BytesMessage {
-    private KeyValue sysHeaders;
-    private KeyValue userHeaders;
-    private byte[] body;
-
-```
-
-### FieldMayBeFinal
-Field `wrapperMap` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
-#### Snippet
-```java
-    }
-
-    private static Map<Class<?>, Class<?>> wrapperMap = new HashMap<>();
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `primitiveWrapperMap` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/utils/BeanUtils.java`
-#### Snippet
-```java
-     * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
-     */
-    private static Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<>();
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `createTime` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
-#### Snippet
-```java
-    private V result = null;
-    private long timeout;
-    private long createTime;
-    private Throwable exception = null;
-    private List<FutureListener<V>> promiseListenerList;
-```
-
-### FieldMayBeFinal
-Field `timeout` may be 'final'
-in `openmessaging/src/main/java/io/openmessaging/rocketmq/promise/DefaultPromise.java`
-#### Snippet
-```java
-    private volatile FutureState state = FutureState.DOING;
-    private V result = null;
-    private long timeout;
-    private long createTime;
-    private Throwable exception = null;
-```
-
-### FieldMayBeFinal
-Field `exp` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
-#### Snippet
-```java
-    private T target;
-    private long bornTime = System.currentTimeMillis();
-    private long exp;
-
-    public CacheObject(long exp, T target) {
-```
-
-### FieldMayBeFinal
-Field `target` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
-#### Snippet
-```java
-
-public class CacheObject<T> {
-    private T target;
-    private long bornTime = System.currentTimeMillis();
-    private long exp;
-```
-
-### FieldMayBeFinal
-Field `bornTime` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/CacheObject.java`
-#### Snippet
-```java
-public class CacheObject<T> {
-    private T target;
-    private long bornTime = System.currentTimeMillis();
-    private long exp;
-
-```
-
-### FieldMayBeFinal
-Field `expiredLocalCache` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LockManager.java`
-#### Snippet
-```java
-
-public class LockManager {
-    private static ExpiredLocalCache<String, AtomicBoolean> expiredLocalCache = new ExpiredLocalCache<>(100000);
-
-    public static boolean tryLock(String key, long lockTime) {
-```
-
-### FieldMayBeFinal
-Field `handler` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/LocalCache.java`
-#### Snippet
-```java
-
-    private int cacheSize = DEFAULT_CACHE_SIZE;
-    private CacheEvictHandler<K, V> handler;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `cache` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
-#### Snippet
-```java
-
-public class ExpiredLocalCache<K, T> {
-    private ConcurrentLinkedHashMap<K, CacheObject<T>> cache;
-    private EvictionListener<K, CacheObject<T>> listener;
-
-```
-
-### FieldMayBeFinal
-Field `shutdownTimes` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/ShutdownHookThread.java`
-#### Snippet
-```java
-public class ShutdownHookThread extends Thread {
-    private volatile boolean hasShutdown = false;
-    private AtomicInteger shutdownTimes = new AtomicInteger(0);
-    private final Logger log;
-    private final Callable callback;
-```
-
-### FieldMayBeFinal
-Field `md` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private final AclFileWatchService.Listener listener;
-    private static final int WATCH_INTERVAL = 5000;
-    private MessageDigest md = MessageDigest.getInstance("MD5");
-    private String defaultAclFile;
-
-```
-
-### FieldMayBeFinal
-Field `fileList` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private final Map<String, String> fileCurrentHash;
-    private Map<String, Long> fileLastModifiedTime;
-    private List<String/**absolute pathname **/> fileList = new ArrayList<>();
-    private final AclFileWatchService.Listener listener;
-    private static final int WATCH_INTERVAL = 5000;
-```
-
-### FieldMayBeFinal
-Field `defaultAclFile` may be 'final'
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-    private static final int WATCH_INTERVAL = 5000;
-    private MessageDigest md = MessageDigest.getInstance("MD5");
-    private String defaultAclFile;
-
-    public AclFileWatchService(String path, String defaultAclFile, final AclFileWatchService.Listener listener) throws Exception {
 ```
 
 ## RuleId[id=CaughtExceptionImmediatelyRethrown]
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
 in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
+#### Snippet
+```java
+            byteArrayOutputStream.flush();
+            result = byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            throw e;
+        } finally {
+```
+
+### CaughtExceptionImmediatelyRethrown
+Caught exception `e` is immediately rethrown
+in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
 #### Snippet
 ```java
             byteArrayOutputStream.flush();
@@ -24212,18 +24260,6 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/ZstdCompressor.j
 
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
-in `common/src/main/java/org/apache/rocketmq/common/compression/ZlibCompressor.java`
-#### Snippet
-```java
-            byteArrayOutputStream.flush();
-            result = byteArrayOutputStream.toByteArray();
-        } catch (IOException e) {
-            throw e;
-        } finally {
-```
-
-### CaughtExceptionImmediatelyRethrown
-Caught exception `e` is immediately rethrown
 in `common/src/main/java/org/apache/rocketmq/common/compression/Lz4Compressor.java`
 #### Snippet
 ```java
@@ -24234,7 +24270,68 @@ in `common/src/main/java/org/apache/rocketmq/common/compression/Lz4Compressor.ja
         } finally {
 ```
 
+## RuleId[id=UnnecessaryUnicodeEscape]
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u9FA0` can be replaced with '龠'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u4E00` can be replaced with '一'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
+#### Snippet
+```java
+public final class RandomUtil {
+
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u4E00` can be replaced with '一'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
+#### Snippet
+```java
+
+public class RandomUtils {
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u9FA0` can be replaced with '龠'
+in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
+#### Snippet
+```java
+public class RandomUtils {
+    private static final int UNICODE_START = '\u4E00';
+    private static final int UNICODE_END = '\u9FA0';
+    private static Random rd = new Random();
+
+```
+
 ## RuleId[id=UnnecessaryContinue]
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingUtils.java`
+#### Snippet
+```java
+            LogicQueueMappingItem item =  mappingItems.get(i);
+            if (ignoreNegative && item.getLogicOffset() < 0) {
+                continue;
+            } else {
+                return item;
+```
+
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `store/src/main/java/org/apache/rocketmq/store/MappedFileQueue.java`
@@ -24257,42 +24354,6 @@ in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
                         continue;
                     }
                 }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-                        log.warn(msg.toString());
-                        exception = e;
-                        continue;
-                    } catch (MQBrokerException e) {
-                        endTimestamp = System.currentTimeMillis();
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
-#### Snippet
-```java
-                        exception = e;
-                        if (this.defaultMQProducer.getRetryResponseCodes().contains(e.getResponseCode())) {
-                            continue;
-                        } else {
-                            if (sendResult != null) {
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
-#### Snippet
-```java
-            File f = new File(fileName);
-            if (fileName.equals(fileHome + MixAll.ACL_CONF_TOOLS_FILE)) {
-                continue;
-            } else if (fileName.endsWith(".yml") || fileName.endsWith(".yaml")) {
-                allAclFileFullPath.add(fileName);
 ```
 
 ### UnnecessaryContinue
@@ -24321,6 +24382,54 @@ in `filter/src/main/java/org/apache/rocketmq/filter/parser/ParseException.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
+in `acl/src/main/java/org/apache/rocketmq/acl/plain/PlainPermissionManager.java`
+#### Snippet
+```java
+            File f = new File(fileName);
+            if (fileName.equals(fileHome + MixAll.ACL_CONF_TOOLS_FILE)) {
+                continue;
+            } else if (fileName.endsWith(".yml") || fileName.endsWith(".yaml")) {
+                allAclFileFullPath.add(fileName);
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
+#### Snippet
+```java
+            File f = new File(fileName);
+            if (fileName.equals(aclPath + File.separator + "tools.yml")) {
+                continue;
+            } else if (fileName.endsWith(".yml") || fileName.endsWith(".yaml")) {
+                fileList.add(fileName);
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+                        log.warn(msg.toString());
+                        exception = e;
+                        continue;
+                    } catch (MQBrokerException e) {
+                        endTimestamp = System.currentTimeMillis();
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `client/src/main/java/org/apache/rocketmq/client/impl/producer/DefaultMQProducerImpl.java`
+#### Snippet
+```java
+                        exception = e;
+                        if (this.defaultMQProducer.getRetryResponseCodes().contains(e.getResponseCode())) {
+                            continue;
+                        } else {
+                            if (sendResult != null) {
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/ConsumerManageProcessor.java`
 #### Snippet
 ```java
@@ -24341,18 +24450,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/ConsumerManageProc
                         continue;
                     } else {
                         //this should not happen
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
-#### Snippet
-```java
-                POP_LOGGER.info("[PopBuffer]remove long time not used sub {} of topic {} in buffer!", cid, topic);
-                iterator.remove();
-                continue;
-            }
-        }
 ```
 
 ### UnnecessaryContinue
@@ -24393,14 +24490,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeServ
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopBufferMergeService.java`
 #### Snippet
 ```java
-                            POP_LOGGER.info("remove not exit sub {} of topic {} in pollingMap!", cid, topic);
-                            pollingMapIter.remove();
-                            continue;
-                        }
-                    }
+                POP_LOGGER.info("[PopBuffer]remove long time not used sub {} of topic {} in buffer!", cid, topic);
+                iterator.remove();
+                continue;
+            }
+        }
 ```
 
 ### UnnecessaryContinue
@@ -24417,75 +24514,14 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingUtils.java`
+in `broker/src/main/java/org/apache/rocketmq/broker/processor/PopMessageProcessor.java`
 #### Snippet
 ```java
-            LogicQueueMappingItem item =  mappingItems.get(i);
-            if (ignoreNegative && item.getLogicOffset() < 0) {
-                continue;
-            } else {
-                return item;
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `srvutil/src/main/java/org/apache/rocketmq/srvutil/AclFileWatchService.java`
-#### Snippet
-```java
-            File f = new File(fileName);
-            if (fileName.equals(aclPath + File.separator + "tools.yml")) {
-                continue;
-            } else if (fileName.endsWith(".yml") || fileName.endsWith(".yaml")) {
-                fileList.add(fileName);
-```
-
-## RuleId[id=UnnecessaryUnicodeEscape]
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u9FA0` can be replaced with '龠'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
-#### Snippet
-```java
-public class RandomUtils {
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
-
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u4E00` can be replaced with '一'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtils.java`
-#### Snippet
-```java
-
-public class RandomUtils {
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u9FA0` can be replaced with '龠'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
-
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u4E00` can be replaced with '一'
-in `test/src/main/java/org/apache/rocketmq/test/util/RandomUtil.java`
-#### Snippet
-```java
-public final class RandomUtil {
-
-    private static final int UNICODE_START = '\u4E00';
-    private static final int UNICODE_END = '\u9FA0';
-    private static Random rd = new Random();
+                            POP_LOGGER.info("remove not exit sub {} of topic {} in pollingMap!", cid, topic);
+                            pollingMapIter.remove();
+                            continue;
+                        }
+                    }
 ```
 
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
@@ -24499,6 +24535,18 @@ in `common/src/main/java/org/apache/rocketmq/common/stats/StatsItem.java`
         synchronized (csList) {
             double tps = 0;
             double avgpt = 0;
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `container`
+in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageFetcher.java`
+#### Snippet
+```java
+        }
+
+        synchronized (container) {
+            inflightRequest = container.getInflightRequest(nextBeginOffset, maxMsgNums);
+            if (!inflightRequest.isAllDone()) {
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -24561,18 +24609,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePul
 
 ```
 
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `container`
-in `tieredstore/src/main/java/org/apache/rocketmq/tieredstore/TieredMessageFetcher.java`
-#### Snippet
-```java
-        }
-
-        synchronized (container) {
-            inflightRequest = container.getInflightRequest(nextBeginOffset, maxMsgNums);
-            if (!inflightRequest.isAllDone()) {
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `exsit` is redundant
@@ -24599,27 +24635,15 @@ in `common/src/main/java/org/apache/rocketmq/common/topic/TopicValidator.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `hexArray` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
+Local variable `brokerAddrNew` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
 #### Snippet
 ```java
-
-    public static void writeShort(char[] buffer, int pos, int value) {
-        char[] hexArray = HEX_ARRAY;
-        for (int moveBits = 12; moveBits >= 0; moveBits -= 4) {
-            buffer[pos++] = hexArray[(value >>> moveBits) & 0x0F];
-```
-
-### UnnecessaryLocalVariable
-Local variable `hexArray` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
-#### Snippet
-```java
-
-    public static void writeInt(char[] buffer, int pos, int value) {
-        char[] hexArray = HEX_ARRAY;
-        for (int moveBits = 28; moveBits >= 0; moveBits -= 4) {
-            buffer[pos++] = hexArray[(value >>> moveBits) & 0x0F];
+            String ip = brokerAddr.substring(0, split);
+            String port = brokerAddr.substring(split + 1);
+            String brokerAddrNew = ip + ":" + (Integer.parseInt(port) - 2);
+            return brokerAddrNew;
+        } else {
 ```
 
 ### UnnecessaryLocalVariable
@@ -24635,51 +24659,75 @@ in `common/src/main/java/org/apache/rocketmq/common/utils/NetworkUtil.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `brokerAddrNew` is redundant
-in `common/src/main/java/org/apache/rocketmq/common/MixAll.java`
+Local variable `hexArray` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
-            String ip = brokerAddr.substring(0, split);
-            String port = brokerAddr.substring(split + 1);
-            String brokerAddrNew = ip + ":" + (Integer.parseInt(port) - 2);
-            return brokerAddrNew;
-        } else {
+
+    public static void writeInt(char[] buffer, int pos, int value) {
+        char[] hexArray = HEX_ARRAY;
+        for (int moveBits = 28; moveBits >= 0; moveBits -= 4) {
+            buffer[pos++] = hexArray[(value >>> moveBits) & 0x0F];
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `realKey` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Local variable `hexArray` is redundant
+in `common/src/main/java/org/apache/rocketmq/common/UtilAll.java`
 #### Snippet
 ```java
 
-    public DataCollector fetchMapDataCollector(String key) {
-        String realKey = key;
-        if (!collectMap.containsKey(realKey)
-            || collectMap.get(realKey) instanceof ListDataCollectorImpl) {
+    public static void writeShort(char[] buffer, int pos, int value) {
+        char[] hexArray = HEX_ARRAY;
+        for (int moveBits = 12; moveBits >= 0; moveBits -= 4) {
+            buffer[pos++] = hexArray[(value >>> moveBits) & 0x0F];
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `realKey` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Local variable `isa` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
 #### Snippet
 ```java
-
-    public DataCollector fetchListDataCollector(String key) {
-        String realKey = key;
-        if (!collectMap.containsKey(realKey)
-            || collectMap.get(realKey) instanceof MapDataCollectorImpl) {
+        String host = addr.substring(0, split);
+        String port = addr.substring(split + 1);
+        InetSocketAddress isa = new InetSocketAddress(host, Integer.parseInt(port));
+        return isa;
+    }
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `realKey` is redundant
-in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+Local variable `length` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RocketMQSerializable.java`
 #### Snippet
 ```java
+    private static int calTotalLen(int remark, int ext) {
+        // int code(~32767)
+        int length = 2
+            // LanguageCode language
+            + 1
+```
 
-    public DataCollector fetchDataCollector(String key) {
-        String realKey = key;
-        if (!collectMap.containsKey(realKey)) {
-            synchronized (lock) {
+### UnnecessaryLocalVariable
+Local variable `objectHeader` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
+#### Snippet
+```java
+        if (classHeader != null) {
+            try {
+                CommandCustomHeader objectHeader = classHeader.getDeclaredConstructor().newInstance();
+                cmd.customHeader = objectHeader;
+            } catch (InstantiationException e) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `mapInBroker` is redundant
+in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingUtils.java`
+#### Snippet
+```java
+            }
+            //remapping
+            final String mapInBroker = broker;
+            final String mapOutBroker = topicQueueMappingOne.getBname();
+            brokersToMapIn.add(mapInBroker);
 ```
 
 ### UnnecessaryLocalVariable
@@ -24691,18 +24739,6 @@ in `store/src/main/java/org/apache/rocketmq/store/ConsumeQueueExt.java`
         private int calcUnitSize() {
             int sizeTemp = MIN_EXT_UNIT_SIZE + (filterBitMap == null ? 0 : filterBitMap.length);
             return sizeTemp;
-        }
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
-#### Snippet
-```java
-        if (mappedFile != null) {
-            int pos = (int) (offset % mappedFileSize);
-            SelectMappedBufferResult result = mappedFile.selectMappedBuffer(pos);
-            return result;
         }
 ```
 
@@ -24755,6 +24791,18 @@ in `store/src/main/java/org/apache/rocketmq/store/kv/CompactionStore.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+#### Snippet
+```java
+        if (mappedFile != null) {
+            int pos = (int) (offset % mappedFileSize);
+            SelectMappedBufferResult result = mappedFile.selectMappedBuffer(pos);
+            return result;
+        }
+```
+
+### UnnecessaryLocalVariable
 Local variable `slaveBrokerId` is redundant
 in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAConnection.java`
 #### Snippet
@@ -24764,18 +24812,6 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAConn
                                 Long slaveBrokerId = byteBufferRead.getLong(readPosition + AutoSwitchHAClient.HANDSHAKE_HEADER_SIZE - 8);
                                 AutoSwitchHAConnection.this.slaveId = slaveBrokerId;
                                 // Flag(isSyncFromLastFile)
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
-#### Snippet
-```java
-    @Override
-    public boolean flush(final int flushLeastPages) {
-        boolean result = this.mappedFileQueue.flush(flushLeastPages);
-        return result;
-    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -24791,6 +24827,18 @@ in `store/src/main/java/org/apache/rocketmq/store/index/IndexService.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/queue/BatchConsumeQueue.java`
+#### Snippet
+```java
+    @Override
+    public boolean flush(final int flushLeastPages) {
+        boolean result = this.mappedFileQueue.flush(flushLeastPages);
+        return result;
+    }
+```
+
+### UnnecessaryLocalVariable
 Local variable `pluginMessageStore` is redundant
 in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStoreFactory.java`
 #### Snippet
@@ -24800,18 +24848,6 @@ in `store/src/main/java/org/apache/rocketmq/store/plugin/MessageStoreFactory.jav
                     AbstractPluginMessageStore pluginMessageStore = construct.newInstance(context, messageStore);
                     messageStore = pluginMessageStore;
                 } catch (Throwable e) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `storeTime` is redundant
-in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
-#### Snippet
-```java
-                final long phyOffset = result.getPos();
-                final int size = result.getSize();
-                long storeTime = this.getCommitLog().pickupStoreTimestamp(phyOffset, size);
-                return storeTime;
-            } catch (Exception e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -24827,6 +24863,18 @@ in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `storeTime` is redundant
+in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
+#### Snippet
+```java
+                final long phyOffset = result.getPos();
+                final int size = result.getSize();
+                long storeTime = this.getCommitLog().pickupStoreTimestamp(phyOffset, size);
+                return storeTime;
+            } catch (Exception e) {
+```
+
+### UnnecessaryLocalVariable
 Local variable `message` is redundant
 in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
 #### Snippet
@@ -24836,6 +24884,90 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
         MessageExtBrokerInner message = convertMessage(messageExt, needRoll);
         return message;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `realKey` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+
+    public DataCollector fetchDataCollector(String key) {
+        String realKey = key;
+        if (!collectMap.containsKey(realKey)) {
+            synchronized (lock) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `realKey` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+
+    public DataCollector fetchMapDataCollector(String key) {
+        String realKey = key;
+        if (!collectMap.containsKey(realKey)
+            || collectMap.get(realKey) instanceof ListDataCollectorImpl) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `realKey` is redundant
+in `test/src/main/java/org/apache/rocketmq/test/util/data/collect/DataCollectorManager.java`
+#### Snippet
+```java
+
+    public DataCollector fetchListDataCollector(String key) {
+        String realKey = key;
+        if (!collectMap.containsKey(realKey)
+            || collectMap.get(realKey) instanceof MapDataCollectorImpl) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `signature` is redundant
+in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
+#### Snippet
+```java
+
+    public static String calSignature(byte[] data, String secretKey) {
+        String signature = AclSigner.calSignature(data, secretKey);
+        return signature;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `snap` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Consumer.java`
+#### Snippet
+```java
+
+    public Long[] createSnapshot() {
+        Long[] snap = new Long[] {
+            System.currentTimeMillis(),
+            this.receiveMessageTotalCount.longValue(),
+```
+
+### UnnecessaryLocalVariable
+Local variable `snap` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+
+    public Long[] createSnapshot() {
+        Long[] snap = new Long[] {
+            System.currentTimeMillis(),
+            this.sendRequestSuccessCount.longValue(),
+```
+
+### UnnecessaryLocalVariable
+Local variable `snap` is redundant
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+
+    public Long[] createSnapshot() {
+        Long[] snap = new Long[] {
+            System.currentTimeMillis(),
+            this.sendRequestSuccessCount.longValue(),
 ```
 
 ### UnnecessaryLocalVariable
@@ -24887,15 +25019,51 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/consumer/DefaultLitePul
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `topicStatsTable` is redundant
+Local variable `ret` is redundant
+in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
+#### Snippet
+```java
+            return null;
+        }
+        T ret = object.getTarget();
+        return ret;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `topicList` is redundant
 in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
 ```java
         switch (response.getCode()) {
             case ResponseCode.SUCCESS: {
-                TopicStatsTable topicStatsTable = TopicStatsTable.decode(response.getBody(), TopicStatsTable.class);
-                return topicStatsTable;
+                TopicList topicList = TopicList.decode(response.getBody(), TopicList.class);
+                return topicList;
             }
+```
+
+### UnnecessaryLocalVariable
+Local variable `consumeStats` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                ConsumeStats consumeStats = ConsumeStats.decode(response.getBody(), ConsumeStats.class);
+                return consumeStats;
+            }
+```
+
+### UnnecessaryLocalVariable
+Local variable `info` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+                byte[] body = response.getBody();
+                if (body != null) {
+                    ConsumerRunningInfo info = ConsumerRunningInfo.decode(body, ConsumerRunningInfo.class);
+                    return info;
+                }
 ```
 
 ### UnnecessaryLocalVariable
@@ -24908,6 +25076,30 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
                     ConsumeMessageDirectlyResult info = ConsumeMessageDirectlyResult.decode(body, ConsumeMessageDirectlyResult.class);
                     return info;
                 }
+```
+
+### UnnecessaryLocalVariable
+Local variable `groupList` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                GroupList groupList = GroupList.decode(response.getBody(), GroupList.class);
+                return groupList;
+            }
+```
+
+### UnnecessaryLocalVariable
+Local variable `topicStatsTable` is redundant
+in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
+#### Snippet
+```java
+        switch (response.getCode()) {
+            case ResponseCode.SUCCESS: {
+                TopicStatsTable topicStatsTable = TopicStatsTable.decode(response.getBody(), TopicStatsTable.class);
+                return topicStatsTable;
+            }
 ```
 
 ### UnnecessaryLocalVariable
@@ -24935,18 +25127,6 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `info` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-                byte[] body = response.getBody();
-                if (body != null) {
-                    ConsumerRunningInfo info = ConsumerRunningInfo.decode(body, ConsumerRunningInfo.class);
-                    return info;
-                }
-```
-
-### UnnecessaryLocalVariable
 Local variable `topicList` is redundant
 in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 #### Snippet
@@ -24959,63 +25139,15 @@ in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `topicList` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                TopicList topicList = TopicList.decode(response.getBody(), TopicList.class);
-                return topicList;
-            }
-```
-
-### UnnecessaryLocalVariable
-Local variable `groupList` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                GroupList groupList = GroupList.decode(response.getBody(), GroupList.class);
-                return groupList;
-            }
-```
-
-### UnnecessaryLocalVariable
-Local variable `consumeStats` is redundant
-in `client/src/main/java/org/apache/rocketmq/client/impl/MQClientAPIImpl.java`
-#### Snippet
-```java
-        switch (response.getCode()) {
-            case ResponseCode.SUCCESS: {
-                ConsumeStats consumeStats = ConsumeStats.decode(response.getBody(), ConsumeStats.class);
-                return consumeStats;
-            }
-```
-
-### UnnecessaryLocalVariable
-Local variable `signature` is redundant
-in `acl/src/main/java/org/apache/rocketmq/acl/common/AclUtils.java`
+Local variable `expired` is redundant
+in `broker/src/main/java/org/apache/rocketmq/broker/client/rebalance/RebalanceLockManager.java`
 #### Snippet
 ```java
 
-    public static String calSignature(byte[] data, String secretKey) {
-        String signature = AclSigner.calSignature(data, secretKey);
-        return signature;
-    }
-```
+        public boolean isExpired() {
+            boolean expired =
+                (System.currentTimeMillis() - this.lastUpdateTimestamp) > REBALANCE_LOCK_MAX_LIVE_TIME;
 
-### UnnecessaryLocalVariable
-Local variable `controller` is redundant
-in `namesrv/src/main/java/org/apache/rocketmq/namesrv/NamesrvStartup.java`
-#### Snippet
-```java
-        try {
-            parseCommandlineAndConfigFile(args);
-            NamesrvController controller = createAndStartNamesrvController();
-            return controller;
-        } catch (Throwable e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -25028,18 +25160,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/out/BrokerOuterAPI.java`
         SendMessageRequestHeaderV2 requestHeaderV2 = SendMessageRequestHeaderV2.createSendMessageRequestHeaderV2(requestHeader);
         return requestHeaderV2;
     }
-```
-
-### UnnecessaryLocalVariable
-Local variable `expired` is redundant
-in `broker/src/main/java/org/apache/rocketmq/broker/client/rebalance/RebalanceLockManager.java`
-#### Snippet
-```java
-
-        public boolean isExpired() {
-            boolean expired =
-                (System.currentTimeMillis() - this.lastUpdateTimestamp) > REBALANCE_LOCK_MAX_LIVE_TIME;
-
 ```
 
 ### UnnecessaryLocalVariable
@@ -25067,6 +25187,18 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/PullMessageProcess
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `controller` is redundant
+in `namesrv/src/main/java/org/apache/rocketmq/namesrv/NamesrvStartup.java`
+#### Snippet
+```java
+        try {
+            parseCommandlineAndConfigFile(args);
+            NamesrvController controller = createAndStartNamesrvController();
+            return controller;
+        } catch (Throwable e) {
+```
+
+### UnnecessaryLocalVariable
 Local variable `response` is redundant
 in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcessor.java`
 #### Snippet
@@ -25078,149 +25210,41 @@ in `broker/src/main/java/org/apache/rocketmq/broker/processor/AdminBrokerProcess
         return response;
 ```
 
-### UnnecessaryLocalVariable
-Local variable `snap` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-
-    public Long[] createSnapshot() {
-        Long[] snap = new Long[] {
-            System.currentTimeMillis(),
-            this.sendRequestSuccessCount.longValue(),
-```
-
-### UnnecessaryLocalVariable
-Local variable `snap` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Consumer.java`
-#### Snippet
-```java
-
-    public Long[] createSnapshot() {
-        Long[] snap = new Long[] {
-            System.currentTimeMillis(),
-            this.receiveMessageTotalCount.longValue(),
-```
-
-### UnnecessaryLocalVariable
-Local variable `snap` is redundant
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-
-    public Long[] createSnapshot() {
-        Long[] snap = new Long[] {
-            System.currentTimeMillis(),
-            this.sendRequestSuccessCount.longValue(),
-```
-
-### UnnecessaryLocalVariable
-Local variable `length` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RocketMQSerializable.java`
-#### Snippet
-```java
-    private static int calTotalLen(int remark, int ext) {
-        // int code(~32767)
-        int length = 2
-            // LanguageCode language
-            + 1
-```
-
-### UnnecessaryLocalVariable
-Local variable `isa` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
-#### Snippet
-```java
-        String host = addr.substring(0, split);
-        String port = addr.substring(split + 1);
-        InetSocketAddress isa = new InetSocketAddress(host, Integer.parseInt(port));
-        return isa;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `objectHeader` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/RemotingCommand.java`
-#### Snippet
-```java
-        if (classHeader != null) {
-            try {
-                CommandCustomHeader objectHeader = classHeader.getDeclaredConstructor().newInstance();
-                cmd.customHeader = objectHeader;
-            } catch (InstantiationException e) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `ret` is redundant
-in `srvutil/src/main/java/org/apache/rocketmq/util/cache/ExpiredLocalCache.java`
-#### Snippet
-```java
-            return null;
-        }
-        T ret = object.getTarget();
-        return ret;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `mapInBroker` is redundant
-in `remoting/src/main/java/org/apache/rocketmq/remoting/protocol/statictopic/TopicQueueMappingUtils.java`
-#### Snippet
-```java
-            }
-            //remapping
-            final String mapInBroker = broker;
-            final String mapOutBroker = topicQueueMappingOne.getBname();
-            brokersToMapIn.add(mapInBroker);
-```
-
 ## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
 #### Snippet
 ```java
-                return true;
-            }
-            Thread.sleep(100);
-        }
-        return false;
+                    }
+
+                    Thread.sleep(1);
+                }
+
 ```
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/concurrent/RMQBlockListener.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
 #### Snippet
 ```java
-            while (block) {
-                inBlock = true;
-                Thread.sleep(100);
-            }
-        } catch (InterruptedException ignore) {
+                    }
+
+                    Thread.sleep(1);
+                }
+
 ```
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
 #### Snippet
 ```java
-                    if (StatUtil.isOverFlow(pubKey, tps)) {
-                        try {
-                            Thread.sleep(100L);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-```
+                    }
 
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
-#### Snippet
-```java
-                        try {
-                            if (StatUtil.isOverFlow(statKey, tps)) {
-                                Thread.sleep(100L);
-                            }
-                            long start = System.currentTimeMillis();
+                    Thread.sleep(1);
+                }
+
 ```
 
 ### BusyWait
@@ -25249,14 +25273,14 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/DefaultHAConnection.java`
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
+in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAService.java`
 #### Snippet
 ```java
-                try {
-                    if (flushCommitLogTimed) {
-                        Thread.sleep(interval);
-                    } else {
-                        this.waitForRunning(interval);
+        while (defaultMessageStore.dispatchBehindBytes() > 0) {
+            try {
+                Thread.sleep(100);
+            } catch (Exception ignored) {
+
 ```
 
 ### BusyWait
@@ -25273,14 +25297,14 @@ in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAServ
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `store/src/main/java/org/apache/rocketmq/store/ha/autoswitch/AutoSwitchHAService.java`
+in `store/src/main/java/org/apache/rocketmq/store/CommitLog.java`
 #### Snippet
 ```java
-        while (defaultMessageStore.dispatchBehindBytes() > 0) {
-            try {
-                Thread.sleep(100);
-            } catch (Exception ignored) {
-
+                try {
+                    if (flushCommitLogTimed) {
+                        Thread.sleep(interval);
+                    } else {
+                        this.waitForRunning(interval);
 ```
 
 ### BusyWait
@@ -25300,11 +25324,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
-                break;
-            }
-            Thread.sleep(1000);
-            LOGGER.info("Try to finish doing reput the messages fall behind during the starting, reputOffset={} maxOffset={} behind={}", this.reputMessageService.getReputFromOffset(), this.getMaxPhyOffset(), this.dispatchBehindBytes());
-        }
+            for (int i = 0; i < 50 && this.isCommitLogAvailable(); i++) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ignored) {
+                }
 ```
 
 ### BusyWait
@@ -25312,11 +25336,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `store/src/main/java/org/apache/rocketmq/store/DefaultMessageStore.java`
 #### Snippet
 ```java
-            for (int i = 0; i < 50 && this.isCommitLogAvailable(); i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException ignored) {
-                }
+                break;
+            }
+            Thread.sleep(1000);
+            LOGGER.info("Try to finish doing reput the messages fall behind during the starting, reputOffset={} maxOffset={} behind={}", this.reputMessageService.getReputFromOffset(), this.getMaxPhyOffset(), this.dispatchBehindBytes());
+        }
 ```
 
 ### BusyWait
@@ -25329,6 +25353,186 @@ in `store/src/main/java/org/apache/rocketmq/store/timer/TimerMessageStore.java`
                                     Thread.sleep(500 * precisionMs / 1000);
                                 }
                                 perfs.endTick("dequeue_put");
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+                    if (StatUtil.isOverFlow(pubKey, tps)) {
+                        try {
+                            Thread.sleep(100L);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `test/src/main/java/org/apache/rocketmq/test/lmq/benchmark/BenchLmqStore.java`
+#### Snippet
+```java
+                        try {
+                            if (StatUtil.isOverFlow(statKey, tps)) {
+                                Thread.sleep(100L);
+                            }
+                            long start = System.currentTimeMillis();
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `test/src/main/java/org/apache/rocketmq/test/listener/rmq/concurrent/RMQBlockListener.java`
+#### Snippet
+```java
+            while (block) {
+                inBlock = true;
+                Thread.sleep(100);
+            }
+        } catch (InterruptedException ignore) {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `test/src/main/java/org/apache/rocketmq/test/util/MQAdminTestUtils.java`
+#### Snippet
+```java
+                return true;
+            }
+            Thread.sleep(100);
+        }
+        return false;
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
+#### Snippet
+```java
+                            Set<MessageQueue> messageQueues = consumer.fetchMessageQueuesInBalance(topic);
+                            if (messageQueues == null || messageQueues.isEmpty()) {
+                                Thread.sleep(1000);
+                                continue;
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
+#### Snippet
+```java
+                                            break;
+                                        case NO_NEW_MSG:
+                                            Thread.sleep(1);
+                                            consumer.updateConsumeOffset(messageQueue, pullResult.getNextBeginOffset());
+                                            break;
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/operation/Producer.java`
+#### Snippet
+```java
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Thread.sleep(1000);
+                }
+            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ignored) {
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+                            statsBenchmark.getSendMessageFailedCount().add(msgs.size());
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e1) {
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
+#### Snippet
+```java
+                            logger.error("[BENCHMARK_PRODUCER] Send Exception", e);
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ignored) {
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
+#### Snippet
+```java
+                            if (config.sendInterval > 0) {
+                                try {
+                                    Thread.sleep(config.sendInterval);
+                                } catch (InterruptedException e) {
+                                }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+                                // Flow control
+                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE) {
+                                    Thread.sleep(SLEEP_FOR_A_WHILE);
+                                }
+                                producer.send(msg, new SendCallback() {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ignored) {
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+                            statsBenchmark.getSendRequestFailedCount().increment();
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException e1) {
+                            }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
+#### Snippet
+```java
+                            log.error("[BENCHMARK_PRODUCER] Send Exception", e);
+                            try {
+                                Thread.sleep(3000);
+                            } catch (InterruptedException ignored) {
+                            }
 ```
 
 ### BusyWait
@@ -25403,174 +25607,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/transaction/queue/Transactio
                                 }
 ```
 
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
-#### Snippet
-```java
-                            Set<MessageQueue> messageQueues = consumer.fetchMessageQueuesInBalance(topic);
-                            if (messageQueues == null || messageQueues.isEmpty()) {
-                                Thread.sleep(1000);
-                                continue;
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/simple/PullConsumer.java`
-#### Snippet
-```java
-                                            break;
-                                        case NO_NEW_MSG:
-                                            Thread.sleep(1);
-                                            consumer.updateConsumeOffset(messageQueue, pullResult.getNextBeginOffset());
-                                            break;
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/operation/Producer.java`
-#### Snippet
-```java
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Thread.sleep(1000);
-                }
-            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-                                // Flow control
-                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE) {
-                                    Thread.sleep(SLEEP_FOR_A_WHILE);
-                                }
-                                producer.send(msg, new SendCallback() {
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException ignored) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-                            statsBenchmark.getSendRequestFailedCount().increment();
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e1) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/Producer.java`
-#### Snippet
-```java
-                            log.error("[BENCHMARK_PRODUCER] Send Exception", e);
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException ignored) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/TransactionProducer.java`
-#### Snippet
-```java
-                            if (config.sendInterval > 0) {
-                                try {
-                                    Thread.sleep(config.sendInterval);
-                                } catch (InterruptedException e) {
-                                }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException ignored) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-                            statsBenchmark.getSendMessageFailedCount().add(msgs.size());
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException e1) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `example/src/main/java/org/apache/rocketmq/example/benchmark/BatchProducer.java`
-#### Snippet
-```java
-                            logger.error("[BENCHMARK_PRODUCER] Send Exception", e);
-                            try {
-                                Thread.sleep(3000);
-                            } catch (InterruptedException ignored) {
-                            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
-#### Snippet
-```java
-                    }
-
-                    Thread.sleep(1);
-                }
-
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
-#### Snippet
-```java
-                    }
-
-                    Thread.sleep(1);
-                }
-
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `remoting/src/main/java/org/apache/rocketmq/remoting/common/RemotingHelper.java`
-#### Snippet
-```java
-                    }
-
-                    Thread.sleep(1);
-                }
-
-```
-
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
@@ -25599,30 +25635,6 @@ in `broker/src/main/java/org/apache/rocketmq/broker/filter/ConsumerFilterData.ja
 
 ## RuleId[id=UseBulkOperation]
 ### UseBulkOperation
-Iteration can be replaced with bulk 'Map.putAll()' call
-in `controller/src/main/java/org/apache/rocketmq/controller/impl/manager/ReplicasInfoManager.java`
-#### Snippet
-```java
-            final Map<Long, String> brokerIdTable = brokerReplicaInfo.getBrokerIdTable();
-            final Map<Long, String> memberGroup = new HashMap<>();
-            brokerIdTable.forEach((id, addr) -> memberGroup.put(id, addr));
-            group.setBrokerAddrs(memberGroup);
-            return group;
-```
-
-### UseBulkOperation
-Iteration can be replaced with bulk 'Map.putAll()' call
-in `broker/src/main/java/org/apache/rocketmq/broker/filter/MessageEvaluationContext.java`
-#### Snippet
-```java
-
-        for (Entry<String, String> entry : properties.entrySet()) {
-            copy.put(entry.getKey(), entry.getValue());
-        }
-
-```
-
-### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
 in `example/src/main/java/org/apache/rocketmq/example/simple/LitePullConsumerAssignWithSubExpression.java`
 #### Snippet
@@ -25644,5 +25656,29 @@ in `example/src/main/java/org/apache/rocketmq/example/simple/LitePullConsumerAss
             assignList.add(list.get(i));
         }
         litePullConsumer.assign(assignList);
+```
+
+### UseBulkOperation
+Iteration can be replaced with bulk 'Map.putAll()' call
+in `broker/src/main/java/org/apache/rocketmq/broker/filter/MessageEvaluationContext.java`
+#### Snippet
+```java
+
+        for (Entry<String, String> entry : properties.entrySet()) {
+            copy.put(entry.getKey(), entry.getValue());
+        }
+
+```
+
+### UseBulkOperation
+Iteration can be replaced with bulk 'Map.putAll()' call
+in `controller/src/main/java/org/apache/rocketmq/controller/impl/manager/ReplicasInfoManager.java`
+#### Snippet
+```java
+            final Map<Long, String> brokerIdTable = brokerReplicaInfo.getBrokerIdTable();
+            final Map<Long, String> memberGroup = new HashMap<>();
+            brokerIdTable.forEach((id, addr) -> memberGroup.put(id, addr));
+            group.setBrokerAddrs(memberGroup);
+            return group;
 ```
 
