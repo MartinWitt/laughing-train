@@ -1,20 +1,18 @@
 # metric-schema 
  
 # Bad smells
-I found 33 bad smells with 1 repairable:
+I found 27 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 7 | false |
+| Deprecation | 6 | false |
 | UnstableApiUsage | 6 | false |
 | OptionalUsedAsFieldOrParameterType | 4 | false |
-| ZeroLengthArrayInitialization | 4 | false |
-| AbstractClassNeverImplemented | 3 | false |
+| BlockingMethodInNonBlockingContext | 4 | false |
 | TrivialStringConcatenation | 2 | false |
-| OptionalContainsCollection | 2 | false |
-| IOResource | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| AutoCloseableResource | 1 | false |
+| CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | DataFlowIssue | 1 | false |
-| CodeBlock2Expr | 1 | true |
+| SuspiciousMethodCalls | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
@@ -46,18 +44,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-            String namespaceName,
-            String metricName,
-            Optional<String> libraryName,
-            MetricDefinition definition,
-            MetricNamespace metricNamespace,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
             String namespace,
             MetricNamespace metrics,
             Optional<String> libraryName,
@@ -65,9 +51,21 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             ImplementationVisibility visibility) {
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'ZipFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespaceName,
+            String metricName,
+            Optional<String> libraryName,
+            MetricDefinition definition,
+            MetricNamespace metricNamespace,
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'ZipFile' used without 'try'-with-resources statement
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
 #### Snippet
 ```java
@@ -78,66 +76,90 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
             if (manifestEntry == null) {
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-    private String defaultLibraryName() {
-        String rootProjectName = getProject().getRootProject().getName();
-        return rootProjectName.replaceAll("-root$", "");
+
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
     }
-}
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/ImplementationVisibility.java`
+### Deprecation
+'getConvention()' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-                    .add(modifiers)
-                    .build()
-                    .toArray(new Modifier[0]);
-        }
-        return modifiers;
-```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `metric-schema-lang/src/main/java/com/palantir/metric/schema/lang/Validator.java`
-#### Snippet
-```java
-        List<SafeArg<?>> allArgs = new ArrayList<>(Arrays.asList(args));
-        allArgs.addAll(errorContext);
-        Preconditions.checkArgument(expression, message, allArgs.toArray(new Arg[0]));
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
     }
-
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
+    }
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+### Deprecation
+'getConvention()' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
-                .addModifiers(visibility.apply())
-                .addModifiers(extraModifiers.toArray(new Modifier[0]))
-                .returns(MetricName.class)
-                .addCode("return $L;", metricNameBlock)
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-        }
-        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
-                .addModifiers(modifiers.toArray(new Modifier[0]))
-                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
-                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
+        MethodSpec buildMethod = buildMethodBuilder.build();
+        List<Modifier> modifiers = new ArrayList<>();
+        modifiers.addAll(List.of(Modifier.PRIVATE, Modifier.FINAL));
+        if (stagedBuilderSpec.isStatic()) {
+            modifiers.add(Modifier.STATIC);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -178,164 +200,17 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
     @InputFile
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends RegularFile`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/ProviderUtils.java`
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Set.contains()'
+in `metric-schema-lang/src/main/java/com/palantir/metric/schema/lang/Validator.java`
 #### Snippet
 ```java
-public final class ProviderUtils {
-
-    public static Provider<RegularFile> filterNonExistentFile(Project project, Provider<RegularFile> provider) {
-        return provider.flatMap(file -> file.getAsFile().exists()
-                ? project.provider(() -> file)
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
-#### Snippet
-```java
-    }
-
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
-#### Snippet
-```java
-    }
-
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureIdea(
-            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
-        project.getPluginManager().withPlugin("idea", _plugin -> {
-            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-    private static void createManifestTask(
-            Project project,
-            Provider<Directory> metricSchemaDir,
-            TaskProvider<CompileMetricSchemaTask> compileSchemaTask) {
-        Provider<RegularFile> manifestFile = metricSchemaDir.map(dir -> dir.file("manifest.json"));
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompileMetricSchemaTask`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-            Project project,
-            Provider<Directory> metricSchemaDir,
-            TaskProvider<CompileMetricSchemaTask> compileSchemaTask) {
-        Provider<RegularFile> manifestFile = metricSchemaDir.map(dir -> dir.file("manifest.json"));
-        Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `GenerateMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class GenerateMetricSchemaTask extends DefaultTask {
-    private final Property<String> libraryName =
-            getProject().getObjects().property(String.class).value(defaultLibraryName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CompileMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class CompileMetricSchemaTask extends DefaultTask {
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
-#### Snippet
-```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
-
-    private static final Predicate<String> LIBRARY_NAME =
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `metric-schema-markdown/src/main/java/com/palantir/metric/schema/markdown/MarkdownRenderer.java`
-#### Snippet
-```java
-                                    .collect(Collectors.joining("`,`", "(`", "`)")));
-                }
-                tagDefinition.getDocs().ifPresent(docs -> {
-                    output.append(": ").append(docs);
-                });
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
-#### Snippet
-```java
-    }
-
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
-#### Snippet
-```java
-    }
-
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+        Set<String> duplicateNamespaceTagNames = tagDefinition.stream()
+                .map(TagDefinition::getName)
+                .filter(namespaceTagNames::contains)
+                .collect(Collectors.toSet());
+        checkArgumentWithErrorContext(
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -349,6 +224,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/Implementa
             return ImmutableList.<Modifier>builderWithExpectedSize(modifiers.length + 1)
                     .add(Modifier.PUBLIC)
                     .add(modifiers)
+```
+
+### UnstableApiUsage
+'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
+#### Snippet
+```java
+    static String anyToUpperUnderscore(String input) {
+        Preconditions.checkNotNull(input, "Input string is required");
+        return escapeIfNecessary(splitter.splitToStream(input)
+                .map(segment -> CaseFormats.estimate(segment)
+                        .orElse(CaseFormat.LOWER_CAMEL)
 ```
 
 ### UnstableApiUsage
@@ -399,18 +286,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
             throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
 ```
 
-### UnstableApiUsage
-'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
-#### Snippet
-```java
-    static String anyToUpperUnderscore(String input) {
-        Preconditions.checkNotNull(input, "Input string is required");
-        return escapeIfNecessary(splitter.splitToStream(input)
-                .map(segment -> CaseFormats.estimate(segment)
-                        .orElse(CaseFormat.LOWER_CAMEL)
-```
-
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
@@ -422,5 +297,54 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
                 markdown.delete();
             }
             return;
+```
+
+## RuleId[id=BlockingMethodInNonBlockingContext]
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/SchemaParser.java`
+#### Snippet
+```java
+
+    List<MetricSchema> parseFile(Path file) {
+        try (InputStream stream = Files.newInputStream(file)) {
+            return mapper.readValue(stream, new TypeReference<List<MetricSchema>>() {});
+        } catch (IOException e) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
+#### Snippet
+```java
+            }
+
+            try (InputStream is = zipFile.getInputStream(manifestEntry)) {
+                return Optional.of(ObjectMappers.mapper.readValue(is, new TypeReference<List<MetricSchema>>() {}));
+            }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+#### Snippet
+```java
+
+        String upToDateContents = MarkdownRenderer.render(localCoordinates.get(), schemas);
+        Files.writeString(markdown.toPath(), upToDateContents);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+#### Snippet
+```java
+                    markdown.getName(), getName()));
+        } else {
+            String fromDisk = Files.readString(markdown.toPath().toAbsolutePath());
+            Preconditions.checkState(
+                    fromDisk.equals(upToDateContents),
 ```
 
