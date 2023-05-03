@@ -20,23 +20,23 @@ I found 141 bad smells with 14 repairable:
 | JavaReflectionMemberAccess | 1 | false |
 | FinalMethodInFinalClass | 1 | false |
 | ProtectedMemberInFinalClass | 1 | true |
-| Deprecation | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
+| Deprecation | 1 | false |
 | FinalStaticMethod | 1 | false |
 | ArraysAsListWithZeroOrOneArgument | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'data'
-in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
+`Optional` used as type for parameter 'identifier'
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
 #### Snippet
 ```java
-      implements JavaFileObject {
-    private long lastModified = 0L;
-    private Optional<ByteSource> data = Optional.empty();
+    private final Tree.Kind kindSought;
 
-    InMemoryJavaFileObject(URI uri) {
+    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
+      this.kindSought = kindSought;
+      this.identifier = identifier;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -76,15 +76,15 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'identifier'
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
+`Optional` used as type for field 'data'
+in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
 #### Snippet
 ```java
-    private final Tree.Kind kindSought;
+      implements JavaFileObject {
+    private long lastModified = 0L;
+    private Optional<ByteSource> data = Optional.empty();
 
-    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
-      this.kindSought = kindSought;
-      this.identifier = identifier;
+    InMemoryJavaFileObject(URI uri) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -178,18 +178,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
 
   /** The clause in the fluent API for further tests on successful compilations without warnings. */
   public interface CleanCompilationClause
@@ -214,35 +202,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface GeneratedPredicateClause<T> {
-    /**
-     * Checks that a source file with an equivalent
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
    * @param T the clause type returned by {@link ChainingClause#and()}
    */
   public interface ColumnClause<T> extends ChainingClause<T> {
     @CanIgnoreReturnValue
     ChainingClause<T> atColumn(long columnNumber);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-
-  /** The clause in the fluent API for further tests on successful compilations. */
-  public interface SuccessfulCompilationClause
-      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
-          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
 ```
 
 ### UnnecessaryModifier
@@ -262,11 +226,47 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
+
+  /** The clause in the fluent API for further tests on successful compilations. */
+  public interface SuccessfulCompilationClause
+      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
+          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface GeneratedPredicateClause<T> {
+    /**
+     * Checks that a source file with an equivalent
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
    * @param T the clause type returned by {@link #and()}
    */
   public interface ChainingClause<T> {
     T and();
   }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
+
+    /**
 ```
 
 ## RuleId[id=OptionalAssignedToNull]
@@ -325,35 +325,11 @@ Cannot resolve symbol `T`
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
-   * The clause in the fluent API that checks notes and warnings in a compilation.
-   *
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
-```
-
-### JavadocReference
-Cannot resolve symbol `T`
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
    * The clause in the fluent API that checks that a generated file has the specified contents.
    *
    * @param T the non-generic clause type implementing this interface
    */
   public interface SuccessfulFileClause<T> extends ChainingClause<GeneratedPredicateClause<T>> {
-```
-
-### JavadocReference
-Cannot resolve symbol `T`
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * The clause in the fluent API that checks that files were generated.
-   *
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface GeneratedPredicateClause<T> {
 ```
 
 ### JavadocReference
@@ -385,11 +361,35 @@ Cannot resolve symbol `T`
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
+   * The clause in the fluent API that checks that files were generated.
+   *
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface GeneratedPredicateClause<T> {
+```
+
+### JavadocReference
+Cannot resolve symbol `T`
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
    * The clause in the fluent API that allows for chaining test conditions.
    *
    * @param T the clause type returned by {@link #and()}
    */
   public interface ChainingClause<T> {
+```
+
+### JavadocReference
+Cannot resolve symbol `T`
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * The clause in the fluent API that checks notes and warnings in a compilation.
+   *
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
 ```
 
 ### JavadocReference
@@ -453,360 +453,12 @@ in `src/main/java/com/google/testing/compile/package-info.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `TreeScanner`
-in `src/main/java/com/google/testing/compile/TypeEnumerator.java`
-#### Snippet
-```java
-  }
-
-  /** A {@link TreeScanner} for determining type declarations */
-  @SuppressWarnings("restriction") // Sun APIs usage intended
-  static final class TypeScanner extends TreeScanner<Set<String>, @Nullable Void> {
-```
-
-### JavadocReference
-Cannot resolve symbol `TreePath`
-in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
-#### Snippet
-```java
-
-  /**
-   * Returns a string describing the {@link TreePath} given.
-   */
-  static String describeTreePath(TreePath path) {
-```
-
-### JavadocReference
-Cannot resolve symbol `TreePath`
-in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
-#### Snippet
-```java
-
-  /**
-   * Returns a list of breadcrumb strings describing the {@link TreePath} given.
-   */
-  static List<String> getBreadcrumbList(TreePath path) {
-```
-
-### JavadocReference
-Cannot resolve symbol `SimpleTreeVisitor`
-in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
-#### Snippet
-```java
-
-  /**
-   * A {@link SimpleTreeVisitor} for providing a breadcrumb {@code String} for a {@link Tree} node.
-   * The breadcrumb {@code String} will not be unique, but can be used to give context about the
-   * node as it exists within a {@code TreePath}.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
-#### Snippet
-```java
-
-  /**
-   * A {@link SimpleTreeVisitor} for providing a breadcrumb {@code String} for a {@link Tree} node.
-   * The breadcrumb {@code String} will not be unique, but can be used to give context about the
-   * node as it exists within a {@code TreePath}.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/TreeDifference.java`
-#### Snippet
-```java
-
-/**
- * A data structure describing the set of syntactic differences between two {@link Tree}s.
- *
- * @author Stephen Pratt
-```
-
-### JavadocReference
-Cannot resolve symbol `CompilationUnitTree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-  }
-
-  /** Parses the source given into a {@link CompilationUnitTree}. */
-  static CompilationUnitTree parseLinesToTree(Iterable<String> source) {
-    Iterable<? extends CompilationUnitTree> parseResults =
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree.Kind`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-
-  /**
-   * Finds the first instance of the given {@link Tree.Kind} that is a subtree of the root provided.
-   *
-   * @throws IllegalArgumentException if no such subtree exists.
-```
-
-### JavadocReference
-Cannot resolve symbol `TreePathScanner`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-  }
-
-  /** A {@link TreePathScanner} to power the subtree searches in this class */
-  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
-    private final Optional<String> identifier;
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree.Kind`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-
-  /**
-   * Finds a path to the first instance of the given {@link Tree.Kind} that is a subtree of the root
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `CompilationUnitTree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-final class MoreTrees {
-
-  /** Parses the source given into a {@link CompilationUnitTree}. */
-  static CompilationUnitTree parseLinesToTree(String... source) {
-    return parseLinesToTree(Arrays.asList(source));
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree.Kind`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-
-  /**
-   * Finds the first instance of the given {@link Tree.Kind} that is a subtree of the root provided
-   * and which matches identifier string.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree.Kind`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-
-  /**
-   * Finds a TreePath terminating at the first instance of the given {@link Tree.Kind} that is a
-   * subtree of the root provided and which matches the optional identifier string.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * subtree of the root provided and which matches the optional identifier string.
-   *
-   * <p>Identifier strings are only valid for some {@link Tree} and may take different meanings. The
-   * following list provides a quick summary of the matching behavior:
-   * <ul>
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * following list provides a quick summary of the matching behavior:
-   * <ul>
-   * <li>{@link Tree}s with kind {@code BREAK}, {@code CONTINUE}, and {@code LABELED_STATEMENT}
-   * match on their {@code getLabel()} methods.
-   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * <li>{@link Tree}s with kind {@code BREAK}, {@code CONTINUE}, and {@code LABELED_STATEMENT}
-   * match on their {@code getLabel()} methods.
-   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
-   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
-   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
-   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
-   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
-   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
-   * match on their {@code getName()} method.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
-   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
-   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
-   * match on their {@code getName()} method.
-   * <li>{@link Tree}s with kind {@code MEMBER_SELECT} matches on their {@code getIdentifier()}
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
-   * match on their {@code getName()} method.
-   * <li>{@link Tree}s with kind {@code MEMBER_SELECT} matches on their {@code getIdentifier()}
-   * method.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   * Returns end column of the given sub-{@code Tree} of this object's {@code CompilationUnitTree}.
-   * climbing the associated {@code TreePath} until a value other than
-   * {@link javax.tools.Diagnostic.NOPOS} is found.
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-```
-
-### JavadocReference
-Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   * {@link javax.tools.Diagnostic.NOPOS} is found.
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
-   * provided.
-```
-
-### JavadocReference
-Cannot resolve symbol `SourcePositions`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `getEndPosition`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `TreePath`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
 Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
 in `src/main/java/com/google/testing/compile/TreeContext.java`
 #### Snippet
 ```java
    * Returns start column of the given sub-{@code Tree} of this object's
    * {@code CompilationUnitTree}, climbing the associated {@code TreePath} until a value other than
-   * {@link javax.tools.Diagnostic.NOPOS} is found.
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-```
-
-### JavadocReference
-Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   * {@link javax.tools.Diagnostic.NOPOS} is found.
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
-   * provided.
-```
-
-### JavadocReference
-Cannot resolve symbol `SourcePositions`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `getStartPosition`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `TreePath`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   *
-   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
-   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
-   * provided.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
-in `src/main/java/com/google/testing/compile/TreeContext.java`
-#### Snippet
-```java
-   * Returns start line of the given sub-{@code Tree} of this object's {@code CompilationUnitTree},
-   * climbing the associated {@code TreePath} until a value other than
    * {@link javax.tools.Diagnostic.NOPOS} is found.
    *
    * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
@@ -985,6 +637,126 @@ Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
 in `src/main/java/com/google/testing/compile/TreeContext.java`
 #### Snippet
 ```java
+   * Returns end column of the given sub-{@code Tree} of this object's {@code CompilationUnitTree}.
+   * climbing the associated {@code TreePath} until a value other than
+   * {@link javax.tools.Diagnostic.NOPOS} is found.
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+```
+
+### JavadocReference
+Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   * {@link javax.tools.Diagnostic.NOPOS} is found.
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
+   * provided.
+```
+
+### JavadocReference
+Cannot resolve symbol `SourcePositions`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `getEndPosition`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `TreePath`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   * Returns start line of the given sub-{@code Tree} of this object's {@code CompilationUnitTree},
+   * climbing the associated {@code TreePath} until a value other than
+   * {@link javax.tools.Diagnostic.NOPOS} is found.
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+```
+
+### JavadocReference
+Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   * {@link javax.tools.Diagnostic.NOPOS} is found.
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
+   * provided.
+```
+
+### JavadocReference
+Cannot resolve symbol `SourcePositions`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `getStartPosition`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `TreePath`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
+   *
+   * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
+   * by a call to {@link SourcePositions#getStartPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `javax.tools.Diagnostic.NOPOS`
+in `src/main/java/com/google/testing/compile/TreeContext.java`
+#### Snippet
+```java
    * Returns end line of the given sub-{@code Tree} of this object's {@code CompilationUnitTree}.
    * climbing the associated {@code TreePath} until a value other than
    * {@link javax.tools.Diagnostic.NOPOS} is found.
@@ -1036,6 +808,174 @@ in `src/main/java/com/google/testing/compile/TreeContext.java`
    *
    * <p>This method will return {@link javax.tools.Diagnostic.NOPOS} if that value is returned
    * by a call to {@link SourcePositions#getEndPosition} for every node in the {@link TreePath}
+   * provided.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `TreeScanner`
+in `src/main/java/com/google/testing/compile/TypeEnumerator.java`
+#### Snippet
+```java
+  }
+
+  /** A {@link TreeScanner} for determining type declarations */
+  @SuppressWarnings("restriction") // Sun APIs usage intended
+  static final class TypeScanner extends TreeScanner<Set<String>, @Nullable Void> {
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree.Kind`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+
+  /**
+   * Finds a TreePath terminating at the first instance of the given {@link Tree.Kind} that is a
+   * subtree of the root provided and which matches the optional identifier string.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * subtree of the root provided and which matches the optional identifier string.
+   *
+   * <p>Identifier strings are only valid for some {@link Tree} and may take different meanings. The
+   * following list provides a quick summary of the matching behavior:
+   * <ul>
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * following list provides a quick summary of the matching behavior:
+   * <ul>
+   * <li>{@link Tree}s with kind {@code BREAK}, {@code CONTINUE}, and {@code LABELED_STATEMENT}
+   * match on their {@code getLabel()} methods.
+   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * <li>{@link Tree}s with kind {@code BREAK}, {@code CONTINUE}, and {@code LABELED_STATEMENT}
+   * match on their {@code getLabel()} methods.
+   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
+   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
+   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * <li>{@link Tree}s with kind {@code ANNOTATION_TYPE}, {@code CLASS}, {@code ENUM},
+   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
+   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
+   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
+   * match on their {@code getName()} method.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * and {@code INTERFACE} match on their {@code getSimpleName()} method.
+   * <li>{@link Tree}s with kind {@code *_LITERAL} match on their {@code getValue()} method.
+   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
+   * match on their {@code getName()} method.
+   * <li>{@link Tree}s with kind {@code MEMBER_SELECT} matches on their {@code getIdentifier()}
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+   * <li>{@link Tree}s with kind {@code IDENTIFIER}, {@code METHOD}, and {@code TYPE_PARAMETER}
+   * match on their {@code getName()} method.
+   * <li>{@link Tree}s with kind {@code MEMBER_SELECT} matches on their {@code getIdentifier()}
+   * method.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree.Kind`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+
+  /**
+   * Finds the first instance of the given {@link Tree.Kind} that is a subtree of the root provided.
+   *
+   * @throws IllegalArgumentException if no such subtree exists.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree.Kind`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+
+  /**
+   * Finds the first instance of the given {@link Tree.Kind} that is a subtree of the root provided
+   * and which matches identifier string.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `CompilationUnitTree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+final class MoreTrees {
+
+  /** Parses the source given into a {@link CompilationUnitTree}. */
+  static CompilationUnitTree parseLinesToTree(String... source) {
+    return parseLinesToTree(Arrays.asList(source));
+```
+
+### JavadocReference
+Cannot resolve symbol `TreePathScanner`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+  }
+
+  /** A {@link TreePathScanner} to power the subtree searches in this class */
+  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
+    private final Optional<String> identifier;
+```
+
+### JavadocReference
+Cannot resolve symbol `CompilationUnitTree`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+  }
+
+  /** Parses the source given into a {@link CompilationUnitTree}. */
+  static CompilationUnitTree parseLinesToTree(Iterable<String> source) {
+    Iterable<? extends CompilationUnitTree> parseResults =
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree.Kind`
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+
+  /**
+   * Finds a path to the first instance of the given {@link Tree.Kind} that is a subtree of the root
    * provided.
    *
 ```
@@ -1129,18 +1069,6 @@ Cannot resolve symbol `ErroneousTree`
 in `src/main/java/com/google/testing/compile/Parser.java`
 #### Snippet
 ```java
-   *
-   * <p>Normally, the parser reports error diagnostics, but in some cases there are no diagnostics;
-   * instead the parse tree contains {@linkplain ErroneousTree "erroneous"} nodes.
-   */
-  private static boolean foundParseErrors(
-```
-
-### JavadocReference
-Cannot resolve symbol `ErroneousTree`
-in `src/main/java/com/google/testing/compile/Parser.java`
-#### Snippet
-```java
 
   /**
    * Returns {@code true} if the tree contains at least one {@linkplain ErroneousTree "erroneous"}
@@ -1149,63 +1077,99 @@ in `src/main/java/com/google/testing/compile/Parser.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+Cannot resolve symbol `ErroneousTree`
+in `src/main/java/com/google/testing/compile/Parser.java`
 #### Snippet
 ```java
-
-  /**
-   * A {@code SimpleTreeVisitor} that traverses a {@link Tree} and an argument {@link Tree},
-   * verifying equality along the way. Appends each diff it finds to a {@link
-   * TreeDifference.Builder}.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-
-  /**
-   * A {@code SimpleTreeVisitor} that traverses a {@link Tree} and an argument {@link Tree},
-   * verifying equality along the way. Appends each diff it finds to a {@link
-   * TreeDifference.Builder}.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-
-  /**
-   * A {@link TreeFilter} that ignores all {@link Tree}s that don't have a matching {@link Tree} in
-   * a pattern. For more information on what trees are filtered, see {@link
-   * JavaFileObjectSubject#containsElementsIn(JavaFileObject)}.
-```
-
-### JavadocReference
-Cannot resolve symbol `Tree`
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-
-  /**
-   * A {@link TreeFilter} that ignores all {@link Tree}s that don't have a matching {@link Tree} in
-   * a pattern. For more information on what trees are filtered, see {@link
-   * JavaFileObjectSubject#containsElementsIn(JavaFileObject)}.
+   *
+   * <p>Normally, the parser reports error diagnostics, but in some cases there are no diagnostics;
+   * instead the parse tree contains {@linkplain ErroneousTree "erroneous"} nodes.
+   */
+  private static boolean foundParseErrors(
 ```
 
 ### JavadocReference
 Cannot resolve symbol `TreePath`
+in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
+#### Snippet
+```java
+
+  /**
+   * Returns a list of breadcrumb strings describing the {@link TreePath} given.
+   */
+  static List<String> getBreadcrumbList(TreePath path) {
+```
+
+### JavadocReference
+Cannot resolve symbol `TreePath`
+in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
+#### Snippet
+```java
+
+  /**
+   * Returns a string describing the {@link TreePath} given.
+   */
+  static String describeTreePath(TreePath path) {
+```
+
+### JavadocReference
+Cannot resolve symbol `SimpleTreeVisitor`
+in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
+#### Snippet
+```java
+
+  /**
+   * A {@link SimpleTreeVisitor} for providing a breadcrumb {@code String} for a {@link Tree} node.
+   * The breadcrumb {@code String} will not be unique, but can be used to give context about the
+   * node as it exists within a {@code TreePath}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/Breadcrumbs.java`
+#### Snippet
+```java
+
+  /**
+   * A {@link SimpleTreeVisitor} for providing a breadcrumb {@code String} for a {@link Tree} node.
+   * The breadcrumb {@code String} will not be unique, but can be used to give context about the
+   * node as it exists within a {@code TreePath}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/TreeDifference.java`
+#### Snippet
+```java
+
+/**
+ * A data structure describing the set of syntactic differences between two {@link Tree}s.
+ *
+ * @author Stephen Pratt
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
 in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 #### Snippet
 ```java
+
   /**
-   * Returns a {@link TreeDifference} describing the difference between the two sub-{@code Tree}s.
-   * The trees diffed are the leaves of the {@link TreePath}s provided.
-   *
-   * <p>Used for testing.
+   * A {@link TreeFilter} that ignores all {@link Tree}s that don't have a matching {@link Tree} in
+   * a pattern. For more information on what trees are filtered, see {@link
+   * JavaFileObjectSubject#containsElementsIn(JavaFileObject)}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+
+  /**
+   * A {@link TreeFilter} that ignores all {@link Tree}s that don't have a matching {@link Tree} in
+   * a pattern. For more information on what trees are filtered, see {@link
+   * JavaFileObjectSubject#containsElementsIn(JavaFileObject)}.
 ```
 
 ### JavadocReference
@@ -1317,6 +1281,18 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `TreePath`
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+  /**
+   * Returns a {@link TreeDifference} describing the difference between the two sub-{@code Tree}s.
+   * The trees diffed are the leaves of the {@link TreePath}s provided.
+   *
+   * <p>Used for testing.
+```
+
+### JavadocReference
 Cannot resolve symbol `Tree`
 in `src/main/java/com/google/testing/compile/TreeDiffer.java`
 #### Snippet
@@ -1350,6 +1326,30 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
      * <p>This should be the ONLY place where either {@link TreePath} is mutated.
      */
     private @Nullable Void pushPathAndAccept(Tree expected, Tree actual) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+
+  /**
+   * A {@code SimpleTreeVisitor} that traverses a {@link Tree} and an argument {@link Tree},
+   * verifying equality along the way. Appends each diff it finds to a {@link
+   * TreeDifference.Builder}.
+```
+
+### JavadocReference
+Cannot resolve symbol `Tree`
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+
+  /**
+   * A {@code SimpleTreeVisitor} that traverses a {@link Tree} and an argument {@link Tree},
+   * verifying equality along the way. Appends each diff it finds to a {@link
+   * TreeDifference.Builder}.
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -1389,19 +1389,6 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
         if (!eq) {
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'withClasspathFrom' is still used
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public final Compiler withClasspathFrom(ClassLoader classloader) {
-    return copy(
-        processors(),
-```
-
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `details` may be 'final'
@@ -1425,6 +1412,19 @@ in `src/main/java/com/google/testing/compile/TreeDifference.java`
     private String details;
 
     OneWayDiff(TreePath nodePath, String details) {
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'withClasspathFrom' is still used
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public final Compiler withClasspathFrom(ClassLoader classloader) {
+    return copy(
+        processors(),
 ```
 
 ## RuleId[id=JavaReflectionMemberAccess]
@@ -1466,19 +1466,6 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
                 return null;
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'withClasspathFrom(java.lang.ClassLoader)' is deprecated
-in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
-#### Snippet
-```java
-      Compiler compiler = javac().withProcessors(processors).withOptions(options);
-      if (classLoader != null) {
-        compiler = compiler.withClasspathFrom(classLoader);
-      }
-      if (classPath != null) {
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
@@ -1490,6 +1477,19 @@ in `src/main/java/com/google/testing/compile/CompilationSubject.java`
               new StringBuilder("Expected ")
                   .append(expectedDiagnostic)
                   .append(String.format(format, args))
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'withClasspathFrom(java.lang.ClassLoader)' is deprecated
+in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
+#### Snippet
+```java
+      Compiler compiler = javac().withProcessors(processors).withOptions(options);
+      if (classLoader != null) {
+        compiler = compiler.withClasspathFrom(classLoader);
+      }
+      if (classPath != null) {
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -1546,6 +1546,18 @@ in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+                diagnosticCollector,
+                options(),
+                ImmutableSet.<String>of(),
+                files);
+    task.setProcessors(processors());
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
 in `src/main/java/com/google/testing/compile/TreeDifference.java`
 #### Snippet
 ```java
@@ -1578,18 +1590,6 @@ in `src/main/java/com/google/testing/compile/TreeDifference.java`
     this.differingNodes = ImmutableList.<TwoWayDiff>of();
   }
 
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-                diagnosticCollector,
-                options(),
-                ImmutableSet.<String>of(),
-                files);
-    task.setProcessors(processors());
 ```
 
 ## RuleId[id=TypeParameterExtendsObject]
