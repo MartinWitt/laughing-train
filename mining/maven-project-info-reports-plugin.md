@@ -1,37 +1,28 @@
 # maven-project-info-reports-plugin 
  
 # Bad smells
-I found 112 bad smells with 14 repairable:
+I found 197 bad smells with 13 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 25 | false |
-| ReturnNull | 20 | false |
-| AssignmentToMethodParameter | 13 | false |
-| RedundantFieldInitialization | 10 | false |
-| IOResource | 6 | false |
+| JavadocReference | 81 | false |
+| JavadocDeclaration | 60 | false |
+| FieldMayBeFinal | 17 | false |
+| UNCHECKED_WARNING | 8 | false |
+| ProtectedMemberInFinalClass | 6 | true |
 | ToArrayCallWithZeroLengthArrayArgument | 5 | true |
-| UnnecessarySuperQualifier | 5 | false |
-| ProtectedMemberInFinalClass | 4 | true |
+| DuplicatedCode | 4 | false |
+| JavadocLinkAsPlainText | 3 | false |
 | RegExpRedundantEscape | 2 | false |
-| ReplaceAssignmentWithOperatorAssignment | 2 | false |
-| Convert2Lambda | 2 | false |
-| CallToStringConcatCanBeReplacedByOperator | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
+| TrivialIf | 2 | false |
 | DataFlowIssue | 1 | false |
+| EmptyStatementBody | 1 | false |
+| MismatchedCollectionQueryUpdate | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
+| IOStreamConstructor | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | InnerClassMayBeStatic | 1 | true |
-| StringEqualsEmptyString | 1 | false |
-| RedundantSuppression | 1 | false |
-| IgnoreResultOfCall | 1 | false |
-| CharsetObjectCanBeUsed | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
-| MismatchedCollectionQueryUpdate | 1 | false |
-| Java8MapApi | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
 | UnusedAssignment | 1 | false |
+| IgnoreResultOfCall | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[textRow.size()\]'
@@ -93,90 +84,1074 @@ in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
                     tableCell(null);
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'Formatter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 #### Snippet
 ```java
-            startSection(getTitle());
+            this.log = log;
 
-            Formatter mavenDependency = new Formatter()
-                    .format("<dependency>%n")
-                    .format("  <groupId>%s</groupId>%n", groupId)
+            this.plugins = new ArrayList<>(plugins);
+
+            this.reports = new ArrayList<>(reports);
 ```
 
-### IOResource
-'Formatter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 #### Snippet
 ```java
-            renderDependencyInfo(
-                    "Apache Ivy",
-                    new Formatter()
-                            .format("<dependency org=\"%s\" name=\"%s\" rev=\"%s\">%n", groupId, artifactId, version)
-                            .format("  <artifact name=\"%s\" type=\"%s\" />%n", artifactId, packaging)
+            this.log = log;
+
+            this.plugins = new ArrayList<>(plugins);
+
+            this.reports = new ArrayList<>(reports);
 ```
 
-### IOResource
-'Formatter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 #### Snippet
 ```java
-            renderDependencyInfo(
-                    "Groovy Grape",
-                    new Formatter()
-                            .format("@Grapes(%n")
-                            .format("@Grab(group='%s', module='%s', version='%s')%n", groupId, artifactId, version)
+            this.plugins = new ArrayList<>(plugins);
+
+            this.reports = new ArrayList<>(reports);
+
+            this.project = project;
 ```
 
-### IOResource
-'Formatter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+            this.plugins = new ArrayList<>(plugins);
+
+            this.reports = new ArrayList<>(reports);
+
+            this.project = project;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     */
+    public List<Dependency> getManagementDependencies() {
+        return new ArrayList<>(dependencies);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     */
+    public List<Dependency> getManagementDependencies() {
+        return new ArrayList<>(dependencies);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+        }
+
+        projectTransitiveDependencies = new ArrayList<>(getAllDependencies());
+        projectTransitiveDependencies.removeAll(getProjectDependencies());
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+        }
+
+        projectTransitiveDependencies = new ArrayList<>(getAllDependencies());
+        projectTransitiveDependencies.removeAll(getProjectDependencies());
+
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+        /**
+         * @param log {@link #log}
+         * @param sink {@link Sink}
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+```
+
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param sink {@link Sink}
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+         * @param plugins {@link Plugin}
+         * @param project {@link MavenProject}
+```
+
+### JavadocReference
+Cannot resolve symbol `Plugin`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+         * @param plugins {@link Plugin}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param i18n {@link I18N}
+         * @param plugins {@link Plugin}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param plugins {@link Plugin}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         * @param excludes the list of plugins to be excluded from the report
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         * @param excludes the list of plugins to be excluded from the report
+         */
+```
+
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+        /**
+         * @param log {@link #log}
+         * @param sink {@link Sink}
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+```
+
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param sink {@link Sink}
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+         * @param plugins {@link Artifact}
+         * @param reports {@link Artifact}
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param locale {@link Locale}
+         * @param i18n {@link I18N}
+         * @param plugins {@link Artifact}
+         * @param reports {@link Artifact}
+         * @param project {@link MavenProject}
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param i18n {@link I18N}
+         * @param plugins {@link Artifact}
+         * @param reports {@link Artifact}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param plugins {@link Artifact}
+         * @param reports {@link Artifact}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param reports {@link Artifact}
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         *
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         *
+         */
+```
+
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
 #### Snippet
 ```java
 
-            renderDependencyInfo(
-                    "Gradle/Grails", new Formatter().format("compile '%s:%s:%s'", groupId, artifactId, version));
-
-            renderDependencyInfo(
+    /**
+     * @param sink {@link Sink}
+     * @param i18n {@link I18N}
+     * @param locale {@link Locale}
 ```
 
-### IOResource
-'Formatter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
 #### Snippet
 ```java
-            renderDependencyInfo(
-                    "Scala SBT",
-                    new Formatter()
-                            .format("libraryDependencies += \"%s\" %% \"%s\" %% \"%s\"", groupId, artifactId, version));
-
+    /**
+     * @param sink {@link Sink}
+     * @param i18n {@link I18N}
+     * @param locale {@link Locale}
+     */
 ```
 
-### IOResource
-'PrintWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
 #### Snippet
 ```java
-    private void renderSectionDependencyTree() {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-
-        pw.println("");
+public abstract class AbstractProjectInfoRenderer extends AbstractMavenReportRenderer {
+    /**
+     * {@link I18N}.
+     */
+    protected I18N i18n;
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ProjectInfoReportUtils` has only 'static' members, and lacks a 'private' constructor
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+    /**
+     * @return the dependencies by scope
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_COMPILE`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+    /**
+     * @return the dependencies by scope
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @return the dependencies by scope
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_PROVIDED`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @return the dependencies by scope
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_RUNTIME`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_SYSTEM`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Dependency>> getManagementDependenciesByScope() {
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_TEST`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Dependency>> getManagementDependenciesByScope() {
+```
+
+### JavadocReference
+Cannot resolve symbol `createLinkPatternedText(String,String)`
+in `src/main/java/org/apache/maven/report/projectinfo/MailingListsReport.java`
+#### Snippet
+```java
+         * @param defaultHref the String to use in case href is null.
+         * @return a link pattern.
+         * @see #createLinkPatternedText(String,String)
+         */
+        private String createURILinkPatternedText(String text, String href, String defaultHref) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+     * @throws MavenReportException
+     */
+    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+     */
+    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
+```
+
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+
+    /**
+     * @param sink {@link Sink}
+     * @return {@link DependencyNodeVisitor}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyNodeVisitor`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    /**
+     * @param sink {@link Sink}
+     * @return {@link DependencyNodeVisitor}
+     */
+    public DependencyNodeVisitor getSerializingDependencyNodeVisitor(Sink sink) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * Default constructor
+     *
+     * @param sink {@link Sink}
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+```
+
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param sink {@link Sink}
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+     * @param log {@link Log}
+     * @param dependencies {@link ManagementDependencies}
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+     * @param log {@link Log}
+     * @param dependencies {@link ManagementDependencies}
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingException`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param artifact an artifact
+     * @return the Maven project for the given artifact
+     * @throws ProjectBuildingException if any
+     */
+    public MavenProject getMavenProjectFromRepository(Artifact artifact) throws ProjectBuildingException {
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+
+    /**
+     * @param log {@link Log}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param repositorySystem {@link RepositorySystem}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+    /**
+     * @param log {@link Log}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param resolver {@link ArtifactResolver}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param log {@link Log}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param resolver {@link ArtifactResolver}
+     * @param remoteRepositories {@link ArtifactRepository}
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactResolver`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param resolver {@link ArtifactResolver}
+     * @param remoteRepositories {@link ArtifactRepository}
+     * @param pluginRepositories {@link ArtifactRepository}
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactRepository`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param repositorySystem {@link RepositorySystem}
+     * @param resolver {@link ArtifactResolver}
+     * @param remoteRepositories {@link ArtifactRepository}
+     * @param pluginRepositories {@link ArtifactRepository}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactRepository`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param resolver {@link ArtifactResolver}
+     * @param remoteRepositories {@link ArtifactRepository}
+     * @param pluginRepositories {@link ArtifactRepository}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repositoryMetadataManager {@link RepositoryMetadataManager}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param remoteRepositories {@link ArtifactRepository}
+     * @param pluginRepositories {@link ArtifactRepository}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repositoryMetadataManager {@link RepositoryMetadataManager}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositoryMetadataManager`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+     * @param pluginRepositories {@link ArtifactRepository}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repositoryMetadataManager {@link RepositoryMetadataManager}
+     */
+    public RepositoryUtils(
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactResolverException`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+    /**
+     * @param artifact not null
+     * @throws ArtifactResolverException if any
+     */
+    public void resolve(Artifact artifact) throws ArtifactResolverException {
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactMetadataSource`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param log {@link Log}
+     * @param dependencies {@link ManagementDependencies}
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param dependencies {@link ManagementDependencies}
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repoUtils {@link RepositoryUtils}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repoUtils {@link RepositoryUtils}
+     * @param licenseMappings {@link LicenseMapping}
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_COMPILE`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_PROVIDED`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_RUNTIME`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_SYSTEM`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_TEST`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
+```
+
+### JavadocReference
+Cannot resolve symbol `AbstractMavenReportRenderer`
 in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
 #### Snippet
 ```java
- * @since 2.1
- */
-public class ProjectInfoReportUtils {
-    private static final UrlValidator URL_VALIDATOR = new UrlValidator(
-            new String[] {"http", "https"}, new RegexValidator("^([" + "\\p{Alnum}\\-\\." + "]*)(:\\d*)?(.*)?"), 0);
+     * @param link could be null
+     * @return the artifactId cell with or without a link pattern
+     * @see AbstractMavenReportRenderer#linkPatternedText(String)
+     */
+    public static String getArtifactIdCell(String artifactId, String link) {
+```
+
+### JavadocReference
+Cannot resolve symbol `linkPatternedText(String)`
+in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
+#### Snippet
+```java
+     * @param link could be null
+     * @return the artifactId cell with or without a link pattern
+     * @see AbstractMavenReportRenderer#linkPatternedText(String)
+     */
+    public static String getArtifactIdCell(String artifactId, String link) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Settings`
+in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
+#### Snippet
+```java
+     * @return the UTF-8 decoded input stream as string
+     * @throws IOException if any
+     * @see #getContent(URL, Settings, String)
+     */
+    public static String getContent(URL url, Settings settings) throws IOException {
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param withOptional <code>true</code> to include the optional column, <code>false</code> otherwise.
+     * @return the dependency table header with/without classifier/optional column
+     * @see #renderArtifactRow(Artifact, boolean, boolean)
+     */
+    private String[] getDependencyTableHeader(boolean withClassifier, boolean withOptional) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param dependenciesByScope map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @param isTransitive <code>true</code> if it is transitive dependencies rendering.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_COMPILE`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param dependenciesByScope map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @param isTransitive <code>true</code> if it is transitive dependencies rendering.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param isTransitive <code>true</code> if it is transitive dependencies rendering.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_PROVIDED`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param isTransitive <code>true</code> if it is transitive dependencies rendering.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_RUNTIME`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_SYSTEM`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    private void renderDependenciesForAllScopes(Map<String, List<Artifact>> dependenciesByScope, boolean isTransitive) {
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_TEST`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    private void renderDependenciesForAllScopes(Map<String, List<Artifact>> dependenciesByScope, boolean isTransitive) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * Default constructor.
+     *
+     * @param sink {@link Sink}
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+```
+
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param sink {@link Sink}
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+     * @param log {@link Log}
+     * @param dependencies {@link Dependencies}
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param locale {@link Locale}
+     * @param i18n {@link I18N}
+     * @param log {@link Log}
+     * @param dependencies {@link Dependencies}
+     * @param dependencyTreeNode {@link DependencyNode}
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyNode`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param log {@link Log}
+     * @param dependencies {@link Dependencies}
+     * @param dependencyTreeNode {@link DependencyNode}
+     * @param config {@link DependenciesReportConfiguration}
+     * @param repoUtils {@link RepositoryUtils}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param config {@link DependenciesReportConfiguration}
+     * @param repoUtils {@link RepositoryUtils}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param repoUtils {@link RepositoryUtils}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param licenseMappings {@link LicenseMapping}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param licenseMappings {@link LicenseMapping}
+     */
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -190,6 +1165,958 @@ in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.
             this.bundle = ResourceBundle.getBundle(this.bundleName, locale, classLoader);
             if (!this.bundle.getLocale().getLanguage().equals(locale.getLanguage())) {
                 this.bundle = ResourceBundle.getBundle(this.bundleName, Locale.getDefault(), classLoader);
+```
+
+## RuleId[id=EmptyStatementBody]
+### EmptyStatementBody
+`if` statement has empty body
+in `src/main/java/org/apache/maven/report/projectinfo/LicensesReport.java`
+#### Snippet
+```java
+                    indx = mAnchor.end(3);
+
+                    if (mAnchor.group(2).startsWith("#")) {
+                        // relative link - don't want to alter this one!
+                    }
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param system` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java`
+#### Snippet
+```java
+         * Checks if a issue management system is Jira, bugzilla...
+         *
+         * @param system
+         * @param actual
+         * @return true if the issue management system is Jira, bugzilla, false otherwise.
+```
+
+### JavadocDeclaration
+`@param actual` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java`
+#### Snippet
+```java
+         *
+         * @param system
+         * @param actual
+         * @return true if the issue management system is Jira, bugzilla, false otherwise.
+         */
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the statistic table
+     *
+     * @param locale
+     * @param sink
+     * @param result
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     * @param result
+     */
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @param result
+     */
+    private void generateStats(Locale locale, Sink sink, DependencyAnalyzeResult result) {
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the convergence table for all dependencies
+     *
+     * @param locale
+     * @param sink
+     * @param result
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     * @param result
+     */
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @param result
+     */
+    private void generateConvergence(Locale locale, Sink sink, DependencyAnalyzeResult result) {
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate version details for a given dependency
+     *
+     * @param sink
+     * @param artifactMap
+     * @param version
+```
+
+### JavadocDeclaration
+`@param artifactMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param sink
+     * @param artifactMap
+     * @param version
+     */
+```
+
+### JavadocDeclaration
+`@param version` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param sink
+     * @param artifactMap
+     * @param version
+     */
+    private void generateVersionDetails(
+```
+
+### JavadocDeclaration
+`@param dependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get snapshots dependencies from all dependency map.
+     *
+     * @param dependencyMap
+     * @return snapshots dependencies
+     */
+```
+
+### JavadocDeclaration
+`@param allDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get all dependencies (both directive & transitive dependencies) by specified dependency node.
+     *
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
+```
+
+### JavadocDeclaration
+`@param reactorProject` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
+     */
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
+     */
+    private void getAllDependencyMap(
+```
+
+### JavadocDeclaration
+`@param artifact` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Convert Artifact to Dependency
+     *
+     * @param artifact
+     * @return Dependency object
+     */
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the legend table
+     *
+     * @param locale
+     * @param sink
+     */
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     */
+    private void generateLegend(Locale locale, Sink sink) {
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the detail table for a given dependency
+     *
+     * @param sink
+     * @param depList
+     */
+```
+
+### JavadocDeclaration
+`@param depList` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param sink
+     * @param depList
+     */
+    private void generateDependencyDetails(Locale locale, Sink sink, List<ReverseDependencyLink> depList) {
+```
+
+### JavadocDeclaration
+`@param conflictingDependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get conflicting dependency map base on specified dependency node.
+     *
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+```
+
+### JavadocDeclaration
+`@param reactorProject` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+     */
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+     */
+    private void getConflictingDependencyMap(
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+     * @throws MavenReportException
+     */
+    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
+```
+
+### JavadocDeclaration
+`@param buildingRequest` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get root node of dependency tree for a given project
+     *
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+     */
+    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
+```
+
+### JavadocDeclaration
+`@param reverseDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * To check whether dependency list contains a given artifact.
+     *
+     * @param reverseDependencies
+     * @param art
+     * @return contains:true; Not contains:false;
+```
+
+### JavadocDeclaration
+`@param art` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param reverseDependencies
+     * @param art
+     * @return contains:true; Not contains:false;
+     */
+```
+
+### JavadocDeclaration
+`@param conflictingDependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Produce DependencyAnalyzeResult base on conflicting dependencies map, all dependencies map.
+     *
+     * @param conflictingDependencyMap
+     * @param allDependencies
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+```
+
+### JavadocDeclaration
+`@param allDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param conflictingDependencyMap
+     * @param allDependencies
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get all descendants nodes for a given dependency node.
+     *
+     * @param node
+     * @return set of descendants artifacts.
+     */
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param rootNode the dependency tree root node to serialize
+     * @return the serialized dependency tree
+     */
+    private void serializeDependencyTree(DependencyNode rootNode, String key, Sink sink) {
+```
+
+### JavadocDeclaration
+`@param nodes` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVersionMap.java`
+#### Snippet
+```java
+     * Check whether given dependency nodes contains conflicts
+     *
+     * @param nodes
+     * @return contains:true; not contains:false;
+     */
+```
+
+### JavadocDeclaration
+`@param requiredHeaders` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+
+        /**
+         * @param requiredHeaders
+         * @param requiredArray
+         * @param name
+```
+
+### JavadocDeclaration
+`@param requiredArray` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+        /**
+         * @param requiredHeaders
+         * @param requiredArray
+         * @param name
+         * @param email
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param requiredHeaders
+         * @param requiredArray
+         * @param name
+         * @param email
+         * @param url
+```
+
+### JavadocDeclaration
+`@param email` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param requiredArray
+         * @param name
+         * @param email
+         * @param url
+         * @param organization
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param name
+         * @param email
+         * @param url
+         * @param organization
+         * @param organizationUrl
+```
+
+### JavadocDeclaration
+`@param organization` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param email
+         * @param url
+         * @param organization
+         * @param organizationUrl
+         * @param roles
+```
+
+### JavadocDeclaration
+`@param organizationUrl` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param url
+         * @param organization
+         * @param organizationUrl
+         * @param roles
+         * @param timeZone
+```
+
+### JavadocDeclaration
+`@param roles` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param organization
+         * @param organizationUrl
+         * @param roles
+         * @param timeZone
+         * @param properties
+```
+
+### JavadocDeclaration
+`@param timeZone` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param organizationUrl
+         * @param roles
+         * @param timeZone
+         * @param properties
+         */
+```
+
+### JavadocDeclaration
+`@param properties` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * @param roles
+         * @param timeZone
+         * @param properties
+         */
+        private static void setRequiredArray(
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * Create a table cell with a link to the given url. The url is not validated.
+         *
+         * @param url
+         */
+        private void tableCellForUrl(String url) {
+```
+
+### JavadocDeclaration
+`@param requiredHeaders` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+
+        /**
+         * @param requiredHeaders
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+        /**
+         * @param requiredHeaders
+         * @return
+         */
+        private String[] getRequiredContrHeaderArray(Map<String, Boolean> requiredHeaders) {
+```
+
+### JavadocDeclaration
+`@param requiredHeaders` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+
+        /**
+         * @param requiredHeaders
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+        /**
+         * @param requiredHeaders
+         * @return
+         */
+        private String[] getRequiredDevHeaderArray(Map<String, Boolean> requiredHeaders) {
+```
+
+### JavadocDeclaration
+`@param gitRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param gitRepo
+         */
+        private void anonymousAccessGit(GitScmProviderRepository gitRepo) {
+```
+
+### JavadocDeclaration
+`@param starteamRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param starteamRepo
+         */
+        private void developerAccessStarteam(StarteamScmProviderRepository starteamRepo) {
+```
+
+### JavadocDeclaration
+`@param hgRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param hgRepo
+         */
+        private void anonymousAccessMercurial(HgScmProviderRepository hgRepo) {
+```
+
+### JavadocDeclaration
+`@param perforceRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param perforceRepo
+         * @see <a
+         *      href="http://www.perforce.com/perforce/doc.051/manuals/cmdref/index.html">http://www.perforce.com/
+```
+
+### JavadocDeclaration
+`@param gitRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param gitRepo
+         */
+        private void developerAccessGit(GitScmProviderRepository gitRepo) {
+```
+
+### JavadocDeclaration
+`@param svnRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param svnRepo
+         * @see <a href="http://svnbook.red-bean.com/">http://svnbook.red-bean.com/</a>
+         */
+```
+
+### JavadocDeclaration
+`@param hgRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param hgRepo
+         */
+        private void developerAccessMercurial(HgScmProviderRepository hgRepo) {
+```
+
+### JavadocDeclaration
+`@param cvsRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param cvsRepo
+         * @see <a
+         *      href="https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115">https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115</a>
+```
+
+### JavadocDeclaration
+`@param svnRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param svnRepo
+         * @see <a href="http://svnbook.red-bean.com/">http://svnbook.red-bean.com/</a>
+         */
+```
+
+### JavadocDeclaration
+`@param cvsRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param cvsRepo
+         * @see <a
+         *      href="https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115">https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115</a>
+```
+
+### JavadocDeclaration
+`@param i18n` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+         * Default constructor
+         *
+         * @param i18n
+         * @param locale
+         */
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+         *
+         * @param i18n
+         * @param locale
+         */
+        FileDecimalFormat(I18N i18n, Locale locale) {
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `pluginManagementExcludes` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> pluginManagementExcludes = null;
+
+    // ----------------------------------------------------------------------
+```
+
+### FieldMayBeFinal
+Field `model` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/CiManagementReport.java`
+#### Snippet
+```java
+                "travis"));
+
+        private Model model;
+
+        CiManagementRenderer(Sink sink, Model model, I18N i18n, Locale locale) {
+```
+
+### FieldMayBeFinal
+Field `model` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java`
+#### Snippet
+```java
+     */
+    private static class IssueManagementRenderer extends AbstractProjectInfoRenderer {
+        private Model model;
+
+        IssueManagementRenderer(Sink sink, Model model, I18N i18n, Locale locale) {
+```
+
+### FieldMayBeFinal
+Field `dependency` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     */
+    private static class ReverseDependencyLink {
+        private Dependency dependency;
+
+        protected MavenProject project;
+```
+
+### FieldMayBeFinal
+Field `filter` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    private DependencyCollectorBuilder dependencyCollectorBuilder;
+
+    private ArtifactFilter filter = null;
+
+    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `projectMap` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    private ArtifactFilter filter = null;
+
+    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
+
+    // ----------------------------------------------------------------------
+```
+
+### FieldMayBeFinal
+Field `dependencyDetailsEnabled` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependenciesReportConfiguration.java`
+#### Snippet
+```java
+ */
+public class DependenciesReportConfiguration {
+    private boolean dependencyDetailsEnabled;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `idsToNode` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVersionMap.java`
+#### Snippet
+```java
+    private boolean uniqueVersions;
+
+    private Map<String, List<DependencyNode>> idsToNode;
+
+    // ----------------------------------------------------------------------
+```
+
+### FieldMayBeFinal
+Field `webAccessUrl` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private String checkoutDirectoryName;
+
+        private String webAccessUrl;
+
+        private String scmTag;
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private static final String LS = System.lineSeparator();
+
+        private Log log;
+
+        private Model model;
+```
+
+### FieldMayBeFinal
+Field `devConnection` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private String anonymousConnection;
+
+        private String devConnection;
+
+        private String checkoutDirectoryName;
+```
+
+### FieldMayBeFinal
+Field `anonymousConnection` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * To support more SCM
+         */
+        private String anonymousConnection;
+
+        private String devConnection;
+```
+
+### FieldMayBeFinal
+Field `scmManager` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private Model model;
+
+        private ScmManager scmManager;
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `model` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private Log log;
+
+        private Model model;
+
+        private ScmManager scmManager;
+```
+
+### FieldMayBeFinal
+Field `scmTag` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private String webAccessUrl;
+
+        private String scmTag;
+
+        ScmRenderer(
+```
+
+### FieldMayBeFinal
+Field `checkoutDirectoryName` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private String devConnection;
+
+        private String checkoutDirectoryName;
+
+        private String webAccessUrl;
+```
+
+### FieldMayBeFinal
+Field `licenseMap` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * Will be filled with license name / set of projects.
+     */
+    private Map<String, Object> licenseMap = new HashMap<String, Object>() {
+        private static final long serialVersionUID = 1L;
+
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `licenseMappings` are queried, but never updated
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<LicenseMapping> licenseMappings;
+
+    // ----------------------------------------------------------------------
 ```
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
@@ -228,7 +2155,134 @@ assert !( log.text =~ /\[WARNING\] Artifact .+ has no file and won't be listed i
 
 ```
 
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+                    try {
+                        MavenProject pluginProject = projectBuilder
+                                .build(pluginArtifact, buildRequest)
+                                .getProject();
+
+                        tableRow(getPluginRow(
+                                pluginProject.getGroupId(), pluginProject.getArtifactId(),
+                                pluginProject.getVersion(), pluginProject.getUrl()));
+                    } catch (ProjectBuildingException e) {
+                        log.info("Could not build project for " + plugin.getArtifactId(), e);
+                        tableRow(getPluginRow(plugin.getGroupId(), plugin.getArtifactId(), plugin.getVersion(), null));
+                    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+            if (requiredHeaders.get(NAME) == Boolean.TRUE) {
+                requiredArray.add(name);
+            }
+            if (requiredHeaders.get(EMAIL) == Boolean.TRUE) {
+                requiredArray.add(email);
+            }
+            if (requiredHeaders.get(URL) == Boolean.TRUE) {
+                requiredArray.add(url);
+            }
+            if (requiredHeaders.get(ORGANIZATION) == Boolean.TRUE) {
+                requiredArray.add(organization);
+            }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+                List<Artifact> multiValue = transitiveDependenciesByScope.get(artifact.getScope());
+                if (multiValue == null) {
+                    multiValue = new ArrayList<>();
+                }
+
+                if (!multiValue.contains(artifact)) {
+                    multiValue.add(artifact);
+                }
+                transitiveDependenciesByScope.put(artifact.getScope(), multiValue);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+                sink.table();
+                sink.tableRows(null, false);
+
+                sink.tableRow();
+                sink.tableHeaderCell();
+                sink.text(artifactName);
+                sink.tableHeaderCell_();
+                sink.tableRow_();
+
+                sink.tableRow();
+                sink.tableCell();
+
+                sink.paragraph();
+                sink.bold();
+                sink.text(getI18nString("column.description") + ": ");
+                sink.bold_();
+```
+
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
+#### Snippet
+```java
+                    }
+
+                    out = new FileOutputStream(outputFile);
+                    IOUtil.copy(in, out);
+                    out.close();
+```
+
 ## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${project.groupId}", required = true)
+    protected String groupId;
+
+    /**
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected void executeReport(Locale locale) throws MavenReportException {
+        new DependencyInformationRenderer(getSink(), getI18N(locale), locale, groupId, artifactId, version, packaging)
+                .render();
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+         */
+        @Override
+        protected void renderBody() {
+            startSection(getTitle());
+
+```
+
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
@@ -265,31 +2319,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationRepor
     /**
 ```
 
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${project.groupId}", required = true)
-    protected String groupId;
-
-    /**
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`cell.length() > 0` can be replaced with '!cell.isEmpty()'
-in `src/main/java/org/apache/maven/report/projectinfo/SummaryReport.java`
-#### Snippet
-```java
-                if (StringUtils.isEmpty(cell)) {
-                    sink.text("-");
-                } else if (ctr == content.length - 1 && cell.length() > 0) {
-                    sink.link(cell);
-                    sink.text(cell);
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -316,331 +2345,54 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/SinkSerializi
 
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends DependencyNode`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVersionMap.java`
-#### Snippet
-```java
-     * @return contains:true; not contains:false;
-     */
-    private boolean containsConflicts(List<DependencyNode> nodes) {
-        String version = null;
-        for (DependencyNode node : nodes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDependencies.java`
-#### Snippet
-```java
-     * @param projectDependencies the list of dependencies.
-     */
-    public ManagementDependencies(List<Dependency> projectDependencies) {
-        this.dependencies = projectDependencies;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
-#### Snippet
-```java
-            RepositorySystem repositorySystem,
-            ArtifactResolver resolver,
-            List<ArtifactRepository> remoteRepositories,
-            List<ArtifactRepository> pluginRepositories,
-            ProjectBuildingRequest buildingRequest,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
-#### Snippet
-```java
-            ArtifactResolver resolver,
-            List<ArtifactRepository> remoteRepositories,
-            List<ArtifactRepository> pluginRepositories,
-            ProjectBuildingRequest buildingRequest,
-            RepositoryMetadataManager repositoryMetadataManager) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReportPlugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `minimumJavaVersion` initializer `compilerVersionConfigured` is redundant
+in `src/main/java/org/apache/maven/report/projectinfo/SummaryReport.java`
 #### Snippet
 ```java
             }
 
-            public static List<GAV> reportPluginsToGAV(List<ReportPlugin> reportPlugins, MavenProject project) {
-                List<GAV> result = new ArrayList<>(reportPlugins.size());
-                for (ReportPlugin reportPlugin : reportPlugins) {
+            String minimumJavaVersion = compilerVersionConfigured;
+            if (targetConfigured != null) {
+                minimumJavaVersion = targetConfigured;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
 #### Snippet
 ```java
-            }
-
-            public static List<GAV> pluginsToGAV(List<Plugin> plugins) {
-                List<GAV> result = new ArrayList<>(plugins.size());
-                for (Plugin plugin : plugins) {
+    /**
+     * Convenience method to return the name of a web-based mailing list archive server.
+     * For instance, if the archive URI is <code>http://www.mail-archive.com/dev@maven.apache.org</code>, this
+     * method returns <code>www.mail-archive.com</code>
+     *
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
 ```java
-         * @return the first similar plugin
-         */
-        private static Plugin find(ReportPlugin reportPlugin, List<Plugin> plugins) {
-            if (plugins == null) {
-                return null;
+         * SCM. For example, generate the following command line:
+         * <p>
+         * svn checkout http://svn.apache.org/repos/asf/maven/components/trunk maven
+         * </p>
+         *
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
 ```java
-
-        private MavenProject getModuleFromReactor(
-                MavenProject project, List<MavenProject> reactorProjects, String module) {
-            // Mainly case of unit test
-            if (reactorProjects == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-                Locale locale,
-                I18N i18n,
-                List<Plugin> plugins,
-                MavenProject project,
-                ProjectBuilder projectBuilder,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-    }
-
-    private void renderDependenciesForScope(String scope, List<Dependency> artifacts) {
-        if (artifacts != null) {
-            // can't use straight artifact comparison because we want optional last
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-    }
-
-    private void renderDependenciesForAllScopes(Map<String, List<Dependency>> dependenciesByScope) {
-        renderDependenciesForScope(Artifact.SCOPE_COMPILE, dependenciesByScope.get(Artifact.SCOPE_COMPILE));
-        renderDependenciesForScope(Artifact.SCOPE_RUNTIME, dependenciesByScope.get(Artifact.SCOPE_RUNTIME));
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @return A Map of sorted unique artifacts
-     */
-    private Map<String, List<ReverseDependencyLink>> getSortedUniqueArtifactMap(List<ReverseDependencyLink> depList) {
-        Map<String, List<ReverseDependencyLink>> uniqueArtifactMap = new TreeMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-        Map<String, List<ReverseDependencyLink>> conflicting;
-
-        public void setAll(Map<String, List<ReverseDependencyLink>> all) {
-            this.all = all;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-    }
-
-    private List<DependencyNode> getProjectNodes(List<ReverseDependencyLink> depList) {
-        List<DependencyNode> projectNodes = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @return contains:true; Not contains:false;
-     */
-    private boolean containsDependency(List<ReverseDependencyLink> reverseDependencies, Artifact art) {
-
-        for (ReverseDependencyLink revDependency : reverseDependencies) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     */
-    private void getAllDependencyMap(
-            Map<String, List<ReverseDependencyLink>> allDependencies,
-            MavenProject reactorProject,
-            DependencyNode node) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     */
-    private void getConflictingDependencyMap(
-            Map<String, List<ReverseDependencyLink>> conflictingDependencyMap,
-            MavenProject reactorProject,
-            DependencyNode node) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     */
-    private void generateVersionDetails(
-            Sink sink, Map<String, List<ReverseDependencyLink>> artifactMap, String version) {
-        sink.numberedList(0); // Use lower alpha numbering
-        List<ReverseDependencyLink> depList = artifactMap.get(version);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-    }
-
-    private void showVersionDetails(DependencyNode projectNode, List<ReverseDependencyLink> depList, Sink sink) {
-        if (depList == null || depList.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-        private static void setRequiredArray(
-                Map<String, Boolean> requiredHeaders,
-                List<String> requiredArray,
-                String name,
-                String email,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-     * @return <code>true</code> if one artifact in the list has a classifier, <code>false</code> otherwise.
-     */
-    private boolean hasClassifier(List<Artifact> artifacts) {
-        for (Artifact artifact : artifacts) {
-            if (StringUtils.isNotEmpty(artifact.getClassifier())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-     ** @param artifacts not null
-     */
-    private void resolveAtrifacts(List<Artifact> artifacts) {
-        for (Artifact artifact : artifacts) {
-            // TODO site:run Why do we need to resolve this...
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-     * @return <code>true</code> if one artifact in the list is optional, <code>false</code> otherwise.
-     */
-    private boolean hasOptional(List<Artifact> artifacts) {
-        for (Artifact artifact : artifacts) {
-            if (artifact.isOptional()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_TEST
-     */
-    private void renderDependenciesForAllScopes(Map<String, List<Artifact>> dependenciesByScope, boolean isTransitive) {
-        renderDependenciesForScope(
-                Artifact.SCOPE_COMPILE, dependenciesByScope.get(Artifact.SCOPE_COMPILE), isTransitive);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-     * @return <code>true</code> if one artifact in the list is sealed, <code>false</code> otherwise.
-     */
-    private boolean hasSealed(List<Artifact> artifacts) {
-        for (Artifact artifact : artifacts) {
-            if (artifact.getFile() != null
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java`
-#### Snippet
-```java
-                linkPatternedText(getI18nString("scarab.intro"));
-                sink.paragraph_();
-            } else if (system == null || "".equals(system.trim())) {
-                paragraph(getI18nString("general.intro"));
-            } else {
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private String[] getDependencyRow(Dependency dependency, boolean hasClassifier) {
-        Artifact artifact = repositorySystem.createArtifact(
-                dependency.getGroupId(),
+         * SCM. For example, generate the following command line:
+         * <p>
+         * svn checkout https://svn.apache.org/repos/asf/maven/components/trunk maven
+         * </p>
+         * <p>
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -656,749 +2408,28 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
 
 ```
 
-## RuleId[id=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.US_ASCII can be used instead
-in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
-#### Snippet
-```java
-
-            if (resourceList != null) {
-                reader = new LineNumberReader(new InputStreamReader(resourceList, ReaderFactory.US_ASCII));
-
-                for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        section = section + 1;
-
-        super.sink.anchor(HtmlTools.encodeId(anchor));
-        super.sink.anchor_();
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-        super.sink.anchor(HtmlTools.encodeId(anchor));
-        super.sink.anchor_();
-
-        switch (section) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        public StringBuffer format(long fs, StringBuffer result, FieldPosition fieldPosition) {
-            if (fs > 1000 * 1000 * 1000) {
-                result = super.format((float) fs / (1000 * 1000 * 1000), result, fieldPosition);
-                result.append(" ").append(getString("report.dependencies.file.details.column.size.gb"));
-                return result;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-            if (fs > 1000 * 1000) {
-                result = super.format((float) fs / (1000 * 1000), result, fieldPosition);
-                result.append(" ").append(getString("report.dependencies.file.details.column.size.mb"));
-                return result;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-            }
-
-            result = super.format((float) fs / (1000), result, fieldPosition);
-            result.append(" ").append(getString("report.dependencies.file.details.column.size.kb"));
-            return result;
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java`
-#### Snippet
-```java
-                paragraph(getI18nString("general.intro"));
-            } else {
-                paragraph(getI18nString("custom.intro").replaceFirst("%issueManagementSystem%", system));
-            }
-
-```
-
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`section = section + 1` could be simplified to 'section += 1'
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-    // TODO Remove me when MSHARED-390 has been resolved
-    protected void startSection(String anchor, String name) {
-        section = section + 1;
-
-        super.sink.anchor(HtmlTools.encodeId(anchor));
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`section = section - 1` could be simplified to 'section -= 1'
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        }
-
-        section = section - 1;
-
-        if (section < 0) {
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractProjectInfoRenderer()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
-#### Snippet
-```java
-     * @param locale {@link Locale}
-     */
-    public AbstractProjectInfoRenderer(Sink sink, I18N i18n, Locale locale) {
-        super(sink);
-
-```
-
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `licenseMappings` are queried, but never updated
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private List<LicenseMapping> licenseMappings;
-
-    // ----------------------------------------------------------------------
-```
-
-## RuleId[id=Java8MapApi]
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVersionMap.java`
-#### Snippet
-```java
-        String key = constructKey(node);
-        List<DependencyNode> nodes = idsToNode.get(key);
-        if (nodes == null) {
-            nodes = new ArrayList<>();
-            idsToNode.put(key, nodes);
-```
-
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-
-    private Comparator<Dependency> getDependencyComparator() {
-        return new Comparator<Dependency>() {
-            public int compare(Dependency a1, Dependency a2) {
-                int result = a1.getGroupId().compareTo(a2.getGroupId());
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-    private Comparator<Artifact> getArtifactComparator() {
-        return new Comparator<Artifact>() {
-            public int compare(Artifact a1, Artifact a2) {
-                // put optional last
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/IndexReport.java`
-#### Snippet
-```java
-        private final String description;
-
-        private boolean modules = false;
-
-        ProjectIndexRenderer(
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private List<String> pluginManagementExcludes = null;
-
-    // ----------------------------------------------------------------------
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-    private DependencyCollectorBuilder dependencyCollectorBuilder;
-
-    private ArtifactFilter filter = null;
-
-    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        final DecimalFormat decimalFormat;
-
-        long total = 0;
-
-        long totalCompileScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long totalRuntimeScope = 0;
-
-        long totalProvidedScope = 0;
-
-        long totalSystemScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long total = 0;
-
-        long totalCompileScope = 0;
-
-        long totalTestScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long totalTestScope = 0;
-
-        long totalRuntimeScope = 0;
-
-        long totalProvidedScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long totalCompileScope = 0;
-
-        long totalTestScope = 0;
-
-        long totalRuntimeScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long totalProvidedScope = 0;
-
-        long totalSystemScope = 0;
-
-        TotalCell(DecimalFormat decimalFormat) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-    /** Counter for unique IDs that is consistent across generations. */
-    private int idCounter = 0;
-
-    /**
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
-#### Snippet
-```java
-            int index = url.indexOf(".git/");
-            if (index > 0) {
-                url = url.substring(0, index + 4);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `encoding`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(encoding)) {
-            encoding = DEFAULT_ENCODING;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/SinkSerializingDependencyNodeVisitor.java`
-#### Snippet
-```java
-
-        while (distance-- > 0) {
-            node = node.getParent();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifactId`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-
-        private String[] getPluginRow(String groupId, String artifactId, String version, String link) {
-            artifactId = ProjectInfoReportUtils.getArtifactIdCell(artifactId, link);
-            return new String[] {groupId, artifactId, version};
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifactId`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-
-        private String[] getPluginRow(String groupId, String artifactId, String version, String link) {
-            artifactId = ProjectInfoReportUtils.getArtifactIdCell(artifactId, link);
-            return new String[] {groupId, artifactId, version};
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `locale`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-        public String format(String bundleName, Locale locale, String key, Object[] args) {
-            if (locale == null) {
-                locale = getLocale(null);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-            String value = getString(bundleName, locale, key);
-            if (args == null) {
-                args = NO_ARGS;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `locale`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-
-            if (locale == null) {
-                locale = getLocale(null);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `email`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-                return null;
-            }
-            email = StringUtils.trim(email);
-            email = email.toLowerCase();
-            MessageDigest md;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `email`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-            }
-            email = StringUtils.trim(email);
-            email = email.toLowerCase();
-            MessageDigest md;
-            try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        public StringBuffer format(long fs, StringBuffer result, FieldPosition fieldPosition) {
-            if (fs > 1000 * 1000 * 1000) {
-                result = super.format((float) fs / (1000 * 1000 * 1000), result, fieldPosition);
-                result.append(" ").append(getString("report.dependencies.file.details.column.size.gb"));
-                return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-            if (fs > 1000 * 1000) {
-                result = super.format((float) fs / (1000 * 1000), result, fieldPosition);
-                result.append(" ").append(getString("report.dependencies.file.details.column.size.mb"));
-                return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-            }
-
-            result = super.format((float) fs / (1000), result, fieldPosition);
-            result.append(" ").append(getString("report.dependencies.file.details.column.size.kb"));
-            return result;
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-
-            if (selectedHref.endsWith("/")) {
-                selectedHref = selectedHref.concat("index.html");
-            } else {
-                selectedHref = selectedHref.concat("/index.html");
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-                selectedHref = selectedHref.concat("index.html");
-            } else {
-                selectedHref = selectedHref.concat("/index.html");
-            }
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
-#### Snippet
-```java
-    public String getDependencyUrlFromRepository(Artifact artifact, ArtifactRepository repo) {
-        if (repo.isBlacklisted()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
-#### Snippet
-```java
-        } catch (DependencyGraphBuilderException e) {
-            getLog().error("Unable to build dependency tree.", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
-#### Snippet
-```java
-        public ScmRepository getScmRepository(String scmUrl) {
-            if (StringUtils.isEmpty(scmUrl)) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-            ProjectBuildingRequest buildingRequest) {
-        if (Artifact.SCOPE_SYSTEM.equals(artifact.getScope())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        } catch (ProjectBuildingException e) {
-            return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-            return null;
-        } catch (ProjectBuildingException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-                    /** {@inheritDoc} */
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-        private static Plugin find(ReportPlugin reportPlugin, List<Plugin> plugins) {
-            if (plugins == null) {
-                return null;
-            }
-            for (Plugin plugin : plugins) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-            // Mainly case of unit test
-            if (reactorProjects == null) {
-                return null;
-            }
-            try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-            }
-            // module not found in reactor
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-        private static String urlEncode(final String url) {
-            if (url == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-    protected Plugin getPlugin(String pluginId) {
-        if ((getProject().getBuild() == null) || (getProject().getBuild().getPluginsAsMap() == null)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-        }
-
-        return filters.isEmpty() ? null : new AndDependencyNodeFilter(filters);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-        private String getGravatarUrl(String email) {
-            if (email == null) {
-                return null;
-            }
-            email = StringUtils.trim(email);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-                return protocol + "://www.gravatar.com/avatar/" + sb.toString() + "?d=mm&" + AVATAR_SIZE;
-            } catch (NoSuchAlgorithmException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-                    return Artifact.SCOPE_SYSTEM;
-                default:
-                    return null;
-            }
-        }
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-                    properties);
-
-            return requiredArray.toArray(new String[0]);
-        }
-
-```
-
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `minimumJavaVersion` initializer `compilerVersionConfigured` is redundant
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
 in `src/main/java/org/apache/maven/report/projectinfo/SummaryReport.java`
 #### Snippet
 ```java
+            Xpp3Dom pluginConfig =
+                    project.getGoalConfiguration("org.apache.maven.plugins", "maven-compiler-plugin", null, null);
+            if (pluginConfig != null) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
             }
 
-            String minimumJavaVersion = compilerVersionConfigured;
-            if (targetConfigured != null) {
-                minimumJavaVersion = targetConfigured;
+            if (scmRepository != null && scmProvider.equalsIgnoreCase(scmRepository.getProvider())) {
+                return true;
+            }
 ```
 
