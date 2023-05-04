@@ -1,46 +1,29 @@
 # gradle-revapi 
  
 # Bad smells
-I found 26 bad smells with 3 repairable:
+I found 9 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| DynamicRegexReplaceableByCompiledPattern | 6 | false |
-| AbstractClassNeverImplemented | 5 | false |
-| BoundedWildcard | 4 | false |
-| CodeBlock2Expr | 2 | true |
-| RedundantFieldInitialization | 1 | false |
-| ReturnNull | 1 | false |
+| JavadocReference | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| SynchronizeOnThis | 1 | false |
+| Deprecation | 1 | false |
 | DataFlowIssue | 1 | false |
 | InfiniteRecursion | 1 | false |
+| NullableProblems | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
+| JavadocLinkAsPlainText | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/com/palantir/gradle/revapi/CheckWhitelist.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Usage.JAVA_API`
+in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
 #### Snippet
 ```java
-    private static final Pattern[] EVERYTHING = {Pattern.compile(".*")};
+    }
 
-    private boolean enabled = false;
-    private Set<String> whitelistedChecks;
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
-#### Snippet
-```java
-        @Override
-        public Spliterator<String> trySplit() {
-            return null;
-        }
-
+    /** In order to ensure we resolve the right variants with usage {@link Usage.JAVA_API}. */
+    private static void configureApiUsage(Project project, Configuration conf) {
+        conf.attributes(attrs ->
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -56,90 +39,17 @@ in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
     }
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'ALLOW_TRAILING_COMMA' is deprecated
+in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 #### Snippet
 ```java
 
-        return errorTemplate
-                .replace("{{versionOverrideTaskName}}", RevapiPlugin.VERSION_OVERRIDE_TASK_NAME)
-                .replace("{{replacementVersionOption}}", RevapiVersionOverrideTask.REPLACEMENT_VERSION_OPTION)
-                .replace(
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
-#### Snippet
-```java
-        return errorTemplate
-                .replace("{{versionOverrideTaskName}}", RevapiPlugin.VERSION_OVERRIDE_TASK_NAME)
-                .replace("{{replacementVersionOption}}", RevapiVersionOverrideTask.REPLACEMENT_VERSION_OPTION)
-                .replace(
-                        "{{taskPath}}",
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
-#### Snippet
-```java
-                .replace("{{versionOverrideTaskName}}", RevapiPlugin.VERSION_OVERRIDE_TASK_NAME)
-                .replace("{{replacementVersionOption}}", RevapiVersionOverrideTask.REPLACEMENT_VERSION_OPTION)
-                .replace(
-                        "{{taskPath}}",
-                        project.getTasks()
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
-#### Snippet
-```java
-                                .getByName(RevapiPlugin.VERSION_OVERRIDE_TASK_NAME)
-                                .getPath())
-                .replace("{{projectDisplayName}}", project.getDisplayName())
-                .replace("{{errors}}", errors);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
-#### Snippet
-```java
-                                .getPath())
-                .replace("{{projectDisplayName}}", project.getDisplayName())
-                .replace("{{errors}}", errors);
+    public static ObjectMapper newJsonObjectMapper() {
+        return configureObjectMapper(new ObjectMapper()).enable(JsonParser.Feature.ALLOW_TRAILING_COMMA);
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-        String template = Utils.resourceToString(RevapiConfig.class, "revapi-configuration.json");
-
-        return fromString(template.replace(
-                "{{ARCHIVE_INCLUDE_REGEXES}}",
-                jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
-```
-
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
-#### Snippet
-```java
-            // A 2-field variant of Double Checked Locking.
-            if (!initialized) {
-                synchronized (this) {
-                    if (!initialized) {
-                        T value = delegate.get();
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -168,114 +78,17 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
             return this;
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Throwable`
-in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
-#### Snippet
-```java
-        private final List<Throwable> resolutionFailures;
-
-        CouldNotResolveOldApiException(Version version, List<Throwable> resolutionFailures) {
-            this.version = version;
-            this.resolutionFailures = resolutionFailures;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
-#### Snippet
-```java
-        private transient T savedValue;
-
-        MemoizingSupplier(Supplier<T> delegate) {
-            this.delegate = delegate;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GroupAndName`
-in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
 #### Snippet
 ```java
 
-    private Provider<Set<AcceptedBreak>> acceptedBreaks(
-            Project project, ConfigManager configManager, Provider<GroupAndName> oldGroupAndNameProvider) {
-
-        return GradleUtils.memoisedProvider(
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileCollection`
-in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
-#### Snippet
-```java
+    @Override
+    default int compareTo(AcceptedBreak other) {
+        return comparator().compare(this, other);
     }
-
-    private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
-        return property.get().filter(File::isFile).getFiles().stream()
-                .map(FileArchive::new)
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `AnalysisResults` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableAnalysisResults.class)
-public abstract class AnalysisResults {
-    private static final ObjectMapper OBJECT_MAPPER =
-            new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AnalysisResult` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/AnalysisResult.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableAnalysisResult.class)
-public abstract class AnalysisResult {
-    public abstract String code();
-    // Using @Nullable instead of Optionals as freemarker templating does not not support Optionals
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutablePerProjectAcceptedBreaks.class)
-abstract class PerProjectAcceptedBreaks {
-    @JsonValue
-    @Value.NaturalOrder
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GradleRevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
-public abstract class GradleRevapiConfig {
-    @Value.NaturalOrder
-    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
@@ -291,42 +104,17 @@ in `src/main/java/com/palantir/gradle/revapi/PreviousVersionResolutionHelpers.ja
         }
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/palantir/gradle/revapi/PreviousVersionResolutionHelpers.java`
 #### Snippet
 ```java
-        });
-
-        project.getTasks().register(VERSION_OVERRIDE_TASK_NAME, RevapiVersionOverrideTask.class, task -> {
-            task.getConfigManager().set(configManager);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
-#### Snippet
-```java
-        });
-
-        project.getTasks().register(ACCEPT_BREAK_TASK_NAME, RevapiAcceptBreakTask.class, task -> {
-            task.getConfigManager().set(configManager);
-        });
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `savedValue` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
-#### Snippet
-```java
-        // "value" does not need to be volatile; visibility piggy-backs
-        // on volatile read of "initialized".
-        private transient T savedValue;
-
-        MemoizingSupplier(Supplier<T> delegate) {
+     * When the version of the local java project is higher than the old published dependency and has the same
+     * group and name, gradle silently replaces the published external dependency with the project dependency
+     * (see https://discuss.gradle.org/t/fetching-the-previous-version-of-a-projects-jar/8571). This happens on
+     * tag builds, and would cause the publish to fail. Instead, we change the group for just this thread
+     * while resolving these dependencies so the switching out doesnt happen.
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
