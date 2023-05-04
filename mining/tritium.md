@@ -1,26 +1,21 @@
 # tritium 
  
 # Bad smells
-I found 86 bad smells with 1 repairable:
+I found 103 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 25 | false |
-| BoundedWildcard | 22 | false |
+| BlockingMethodInNonBlockingContext | 38 | false |
+| NullableProblems | 31 | false |
+| AutoCloseableResource | 8 | false |
 | DeprecatedIsStillUsed | 7 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 4 | false |
-| NonSynchronizedMethodOverridesSynchronizedMethod | 4 | false |
+| JavadocLinkAsPlainText | 5 | false |
 | ConstantValue | 4 | false |
 | UnstableApiUsage | 4 | false |
-| ClassNameSameAsAncestorName | 3 | false |
-| RedundantSuppression | 3 | false |
-| UnnecessarySuperQualifier | 2 | false |
 | MismatchedJavadocCode | 2 | false |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
-| StaticPseudoFunctionalStyleMethod | 1 | false |
-| RedundantFieldInitialization | 1 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
+| DuplicatedCode | 1 | false |
+| Deprecation | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'maybeCpuSharesAccessor'
@@ -34,405 +29,559 @@ in `tritium-metrics-jvm/src/main/java/com/palantir/tritium/metrics/jvm/JvmMetric
                 cpuSharesAccessor -> ContainerMetrics.of(registry).cpuShares((Gauge<Long>)
 ```
 
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `LongPredicate` is the same as one of its superclass' names
-in `tritium-api/src/main/java/com/palantir/tritium/api/functions/LongPredicate.java`
-#### Snippet
-```java
-
-@FunctionalInterface
-public interface LongPredicate extends java.util.function.LongPredicate {
-
-    /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `BooleanSupplier` is the same as one of its superclass' names
-in `tritium-api/src/main/java/com/palantir/tritium/api/functions/BooleanSupplier.java`
-#### Snippet
-```java
-
-@FunctionalInterface
-public interface BooleanSupplier extends java.util.function.BooleanSupplier {
-
-    /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/MetricName.java`
-#### Snippet
-```java
-    }
-
-    final class Builder extends ImmutableMetricName.Builder {}
-}
-
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
-#### Snippet
-```java
-
-    protected final OutputStream output() {
-        return super.out;
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
-#### Snippet
-```java
-
-    protected final InputStream input() {
-        return super.in;
-    }
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `com.codahale.metrics` is unnecessary and can be removed
+## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `registry`
 in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
 #### Snippet
 ```java
-    /**
-     * Returns an instrumented {@link ScheduledExecutorService} that monitors the number of tasks submitted, running,
-     * completed and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
-     * {@link com.codahale.metrics.InstrumentedScheduledExecutorService}, but produces tagged metrics to the specified
-     * {@link TaggedMetricRegistry}.
+    private static <T extends Metric> T registerOrReplace(
+            MetricRegistry registry, @Safe String name, T metric, boolean replace) {
+        synchronized (registry) {
+            Map<String, Metric> metrics = registry.getMetrics();
+            Metric existingMetric = metrics.get(name);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.codahale.metrics` is unnecessary and can be removed
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
 #### Snippet
 ```java
-    /**
-     * Returns an instrumented {@link ExecutorService} that monitors the number of tasks submitted, running, completed
-     * and also keeps a {@link com.codahale.metrics.Timer} for the task duration. Similar to
-     * {@link com.codahale.metrics.InstrumentedExecutorService}, but produces tagged metrics to the specified
-     * {@link TaggedMetricRegistry}.
+        switch (level) {
+            case TRACE:
+                return logger::trace;
+            case DEBUG:
+                return logger::debug;
+            case INFO:
+                return logger::info;
+            case WARN:
+                return logger::warn;
+            case ERROR:
+                return logger::error;
+        }
+        throw invalidLoggingLevel(level);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tracing` is unnecessary, and can be replaced with an import
-in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/RemotingCompatibleTracingInvocationEventHandler.java`
-#### Snippet
-```java
-                Object wrappedTrace = wrapMethod.invoke(null, (Runnable) () -> {});
-                String expectedTracingPackage =
-                        com.palantir.tracing.Tracers.class.getPackage().getName();
-                String actualTracingPackage =
-                        wrappedTrace.getClass().getPackage().getName();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
-#### Snippet
-```java
-         * Bridge for backward compatibility.
-         *
-         * @deprecated use {@link #withLogging(Logger, LoggingLevel, java.util.function.LongPredicate)}
-         */
-        @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
+## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return 'false' but its return type is not boolean
 in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
 #### Snippet
 ```java
-    /** Always enabled instrumentation handler. */
-    protected AbstractInvocationEventHandler() {
-        this((java.util.function.BooleanSupplier) () -> true);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("FunctionalInterfaceClash")
-    protected AbstractInvocationEventHandler(java.util.function.BooleanSupplier isEnabledSupplier) {
-        this.isEnabledSupplier = checkNotNull(isEnabledSupplier, "isEnabledSupplier");
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
+     *
+     * @param clazz instrumentation handler class
      * @return false if "instrument.fully.qualified.class.Name" is set to "false", otherwise true
      */
     protected static com.palantir.tritium.api.functions.BooleanSupplier getSystemPropertySupplier(
-            Class<? extends InvocationEventHandler<InvocationContext>> clazz) {
-        checkNotNull(clazz, "clazz");
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
+### MismatchedJavadocCode
+Method is specified to return set but the return type is array
+in `tritium-proxy/src/main/java/com/palantir/tritium/proxy/Proxies.java`
 #### Snippet
 ```java
-    @Deprecated
-    @SuppressWarnings("FunctionalInterfaceClash") // back compat
-    protected AbstractInvocationEventHandler(com.palantir.tritium.api.functions.BooleanSupplier isEnabledSupplier) {
-        this((java.util.function.BooleanSupplier) isEnabledSupplier);
+     * @param iface primary interface class
+     * @param delegateClass delegate class
+     * @return the set of interfaces for the specified classes
+     * @throws IllegalArgumentException if the specified interface class is not an interface
+     */
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int read(byte[] bytes) throws IOException {
+        before(bytes.length);
+        int bytesRead = input().read(bytes);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int read() throws IOException {
+        before(1);
+        int bytesRead = input().read();
+        after(bytesRead);
+        return bytesRead;
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int readNBytes(byte[] bytes, int off, int len) throws IOException {
+        before(len);
+        int bytesRead = input().readNBytes(bytes, off, len);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+        Objects.checkFromIndexSize(off, len, bytes.length);
+        before(len);
+        int bytesRead = input().read(bytes, off, len);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### AutoCloseableResource
+'Unloaded' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentation.java`
+#### Snippet
+```java
+                    .defineField(METHODS_FIELD, Method[].class, Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC)
+                    .initializer(new StaticFieldLoadedTypeInitializer(METHODS_FIELD, allMethods.toArray(new Method[0])))
+                    .make()
+                    .load(classLoader)
+                    .getLoaded();
+```
+
+### AutoCloseableResource
+'OutputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
+#### Snippet
+```java
+    public void write(byte[] bytes) throws IOException {
+        before(bytes.length);
+        output().write(bytes);
+        after(bytes.length);
     }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
+### AutoCloseableResource
+'OutputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
 #### Snippet
 ```java
-    @SuppressWarnings("FunctionalInterfaceClash") // back compat
-    protected AbstractInvocationEventHandler(com.palantir.tritium.api.functions.BooleanSupplier isEnabledSupplier) {
-        this((java.util.function.BooleanSupplier) isEnabledSupplier);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
-    private static final Object[] NO_ARGS = {};
-
-    private final java.util.function.BooleanSupplier isEnabledSupplier;
-
-    /** Always enabled instrumentation handler. */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-metrics/src/main/java/com/palantir/tritium/event/metrics/MetricsInvocationEventHandler.java`
-#### Snippet
-```java
-    // explicitly qualifying BooleanSupplier types for deconfliction
-    @SuppressWarnings({"NoFunctionalReturnType", "UnnecessarilyFullyQualified"})
-    static java.util.function.BooleanSupplier getEnabledSupplier(String serviceName) {
-        return InstrumentationProperties.getSystemPropertySupplier(serviceName);
+        Objects.checkFromIndexSize(off, len, bytes.length);
+        before(len);
+        output().write(bytes, off, len);
+        after(len);
     }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.tracing` is unnecessary and can be removed
-in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/JavaTracingTracer.java`
+### AutoCloseableResource
+'OutputStream' used without 'try'-with-resources statement
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
 #### Snippet
 ```java
-package com.palantir.tritium.tracing;
-
-enum JavaTracingTracer implements com.palantir.tritium.tracing.Tracer {
-    INSTANCE;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `tritium-time/src/main/java/com/palantir/tritium/time/UtcTimestamp.java`
-#### Snippet
-```java
-    /**
-     * Returns an {@link OffsetDateTime} from the system clock in the {@link ZoneOffset#UTC UTC} time zone.
-     * Effectively the same as {@link OffsetDateTime#now(java.time.ZoneId)} with argument {@link ZoneOffset#UTC
-     * ZoneOffset.UTC}, but optimized to avoid zone rules lookup given UTC zone offset is zero.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/InstrumentationFilters.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("FunctionalInterfaceClash")
-    public static InstrumentationFilter from(java.util.function.BooleanSupplier isEnabledSupplier) {
-        return (_instance, _method, _args) -> isEnabledSupplier.getAsBoolean();
+    public void write(int value) throws IOException {
+        before(1);
+        output().write(value);
+        after(1);
     }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/InstrumentationFilters.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'registerCache(com.codahale.metrics.MetricRegistry, com.google.common.cache.Cache, java.lang.@com.palantir.logsafe.Safe String)' is deprecated
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetrics.java`
 #### Snippet
 ```java
-    @Deprecated
-    @SuppressWarnings({"FunctionalInterfaceClash", "InlineMeSuggester"}) // back compat
-    public static InstrumentationFilter from(com.palantir.tritium.api.functions.BooleanSupplier isEnabledSupplier) {
-        return from((java.util.function.BooleanSupplier) isEnabledSupplier);
+ * Not intended for direct external usage, intended solely for sharing between tritium-metrics and tritium-caffeine.
+ *
+ * <p>See * {@link MetricRegistries#registerCache(MetricRegistry, Cache, String)}, *
+ * {@link MetricRegistries#registerCache(TaggedMetricRegistry, Cache, String)} for intended use.
+ */
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsThreadFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Thread newThread(Runnable runnable) {
+        Thread result = delegate.newThread(
+                new InstrumentedTask(Preconditions.checkNotNull(runnable, "Runnable is required"), running));
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public Future<?> submit(Runnable task) {
+        return delegate.submit(new TaggedMetricsRunnable(task));
     }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-core/src/main/java/com/palantir/tritium/event/InstrumentationFilters.java`
-#### Snippet
-```java
-    @SuppressWarnings({"FunctionalInterfaceClash", "InlineMeSuggester"}) // back compat
-    public static InstrumentationFilter from(com.palantir.tritium.api.functions.BooleanSupplier isEnabledSupplier) {
-        return from((java.util.function.BooleanSupplier) isEnabledSupplier);
-    }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    private static final ImmutableList<String> MESSAGE_PATTERNS = generateMessagePatterns(20);
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_ALL_DURATIONS = _input -> true;
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_1_MICROSECOND =
-            nanos -> nanos > 1000;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
 #### Snippet
 ```java
 
-    public LoggingInvocationEventHandler(Logger logger, LoggingLevel level) {
-        this(logger, level, (java.util.function.LongPredicate) LOG_ALL_DURATIONS);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    @SuppressWarnings({"FunctionalInterfaceClash", "InlineMeSuggester"}) // back compat
-    public LoggingInvocationEventHandler(
-            Logger logger, LoggingLevel level, com.palantir.tritium.api.functions.LongPredicate durationPredicate) {
-        this(logger, level, (java.util.function.LongPredicate) durationPredicate);
+    @Override
+    public Future<?> submit(Runnable task) {
+        return delegate.submit(new TaggedMetricsRunnable(task));
     }
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
 #### Snippet
 ```java
-    public LoggingInvocationEventHandler(
-            Logger logger, LoggingLevel level, com.palantir.tritium.api.functions.LongPredicate durationPredicate) {
-        this(logger, level, (java.util.function.LongPredicate) durationPredicate);
+
+    @Override
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
+        return delegate.scheduleWithFixedDelay(new TaggedMetricsRunnable(task), initialDelay, delay, unit);
     }
-
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    @SuppressWarnings("FunctionalInterfaceClash") // back compat
-    public LoggingInvocationEventHandler(
-            Logger logger, LoggingLevel level, java.util.function.LongPredicate durationPredicate) {
-        super((java.util.function.BooleanSupplier)
-                createEnabledSupplier(checkNotNull(logger, "logger"), checkNotNull(level, "level")));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-            nanos -> nanos >= 1_000_000;
-
-    public static final com.palantir.tritium.api.functions.LongPredicate NEVER_LOG = _input -> false;
-
-    private final BiConsumer<String, Object[]> logger;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.tritium.api.functions` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-            nanos -> nanos > 1000;
-
-    public static final com.palantir.tritium.api.functions.LongPredicate LOG_DURATIONS_GREATER_THAN_0_MILLIS =
-            nanos -> nanos >= 1_000_000;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary, and can be replaced with an import
-in `tritium-slf4j/src/main/java/com/palantir/tritium/event/log/LoggingInvocationEventHandler.java`
-#### Snippet
-```java
-    private final BiConsumer<String, Object[]> logger;
-    private final LoggingLevel level;
-    private final java.util.function.LongPredicate durationPredicate;
-
-    public LoggingInvocationEventHandler(Logger logger, LoggingLevel level) {
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTaggedMetricRegistry()` of an abstract class should not be declared 'public'
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
 #### Snippet
 ```java
 
-    @SuppressWarnings("PublicConstructorForAbstractClass") // public API (e.g. used by Dialogue TaggedMetrics)
-    public AbstractTaggedMetricRegistry(Supplier<Reservoir> reservoirSupplier) {
-        this.reservoirSupplier = checkNotNull(reservoirSupplier, "reservoirSupplier");
+    @Override
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
+        return delegate.scheduleWithFixedDelay(new TaggedMetricsRunnable(task), initialDelay, delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
+        return delegate.scheduleWithFixedDelay(new TaggedMetricsRunnable(task), initialDelay, delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsCallable<>(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsCallable<>(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsCallable<>(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task) {
+        return delegate.submit(new TaggedMetricsCallable<>(task));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task) {
+        return delegate.submit(new TaggedMetricsCallable<>(task));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable task, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsRunnable(task), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable task, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsRunnable(task), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable task, long delay, TimeUnit unit) {
+        return delegate.schedule(new TaggedMetricsRunnable(task), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result) {
+        return delegate.submit(new TaggedMetricsRunnable(task), result);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result) {
+        return delegate.submit(new TaggedMetricsRunnable(task), result);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public void execute(Runnable task) {
+        delegate.execute(new TaggedMetricsRunnable(task));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Runnable> shutdownNow() {
+        return delegate.shutdownNow();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(
+                new TaggedMetricsScheduledRunnable(task, period, unit), initialDelay, period, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(
+                new TaggedMetricsScheduledRunnable(task, period, unit), initialDelay, period, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(
+                new TaggedMetricsScheduledRunnable(task, period, unit), initialDelay, period, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task) {
+        Future<T> future = delegate.submit(new TaggedMetricsCallable<>(task));
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task) {
+        Future<T> future = delegate.submit(new TaggedMetricsCallable<>(task));
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result) {
+        Future<T> future = delegate.submit(new TaggedMetricsRunnable(task), result);
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result) {
+        Future<T> future = delegate.submit(new TaggedMetricsRunnable(task), result);
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public Future<?> submit(Runnable task) {
+        Future<?> future = delegate.submit(new TaggedMetricsRunnable(task));
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public Future<?> submit(Runnable task) {
+        Future<?> future = delegate.submit(new TaggedMetricsRunnable(task));
+        submitted.mark();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public void execute(Runnable task) {
+        delegate.execute(new TaggedMetricsRunnable(task));
+        // RejectedExecutionException should prevent 'submitted' from being incremented.
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Runnable> shutdownNow() {
+        return delegate.shutdownNow();
     }
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getDefault' is still used
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/DefaultTaggedMetricRegistry.java`
-#### Snippet
-```java
-    @SuppressWarnings("unused") // public API
-    @Deprecated
-    public static TaggedMetricRegistry getDefault() {
-        return DEFAULT;
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'registerCache' is still used
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
+in `tritium-caffeine/src/main/java/com/palantir/tritium/metrics/caffeine/CaffeineCacheStats.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @SuppressWarnings("BanGuavaCaches") // this implementation is explicitly for Guava caches
-    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, @Safe String name) {
-        registerCache(registry, cache, name, Clock.defaultClock());
-    }
+    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, String name) {
+        checkNotNull(registry, "registry");
+        checkNotNull(cache, "cache");
 ```
 
 ### DeprecatedIsStillUsed
@@ -472,15 +621,15 @@ in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'registerCache' is still used
-in `tritium-caffeine/src/main/java/com/palantir/tritium/metrics/caffeine/CaffeineCacheStats.java`
+Deprecated member 'getDefault' is still used
+in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/DefaultTaggedMetricRegistry.java`
 #### Snippet
 ```java
-     */
+    @SuppressWarnings("unused") // public API
     @Deprecated
-    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, String name) {
-        checkNotNull(registry, "registry");
-        checkNotNull(cache, "cache");
+    public static TaggedMetricRegistry getDefault() {
+        return DEFAULT;
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -495,444 +644,16 @@ public final class LockFreeExponentiallyDecayingReservoir implements Reservoir {
     private static final double SECONDS_PER_NANO = .000_000_001D;
 ```
 
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `filer` is accessed in both synchronized and unsynchronized contexts
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    private final Set<Name> invalidElements = new HashSet<>();
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-    private Types types;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `elements` is accessed in both synchronized and unsynchronized contexts
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-    private Types types;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `types` is accessed in both synchronized and unsynchronized contexts
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    private Filer filer;
-    private Elements elements;
-    private Types types;
-
-    @Override
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `messager` is accessed in both synchronized and unsynchronized contexts
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-
-    private final Set<Name> invalidElements = new HashSet<>();
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-```
-
-## RuleId[id=StaticPseudoFunctionalStyleMethod]
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-                .addAnnotation(Override.class)
-                .addModifiers(Modifier.PUBLIC)
-                .addTypeVariables(Lists.transform(method.element().getTypeParameters(), TypeVariableName::get))
-                .returns(returnType)
-                .beginControlFlow("if (this.$N.isEnabled())", HANDLER_NAME)
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tritium-test/src/main/java/com/palantir/tritium/metrics/TestClock.java`
-#### Snippet
-```java
-
-public final class TestClock extends Clock {
-    private long tick = 0;
-
-    @Override
-```
-
-## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `registry`
+### DeprecatedIsStillUsed
+Deprecated member 'registerCache' is still used
 in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/MetricRegistries.java`
 #### Snippet
 ```java
-    private static <T extends Metric> T registerOrReplace(
-            MetricRegistry registry, @Safe String name, T metric, boolean replace) {
-        synchronized (registry) {
-            Map<String, Metric> metrics = registry.getMetrics();
-            Metric existingMetric = metrics.get(name);
-```
-
-## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getReceiveBufferSize()` overrides synchronized method
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
-        public int getReceiveBufferSize() throws SocketException {
-            return delegate.getReceiveBufferSize();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `setReceiveBufferSize()` overrides synchronized method
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
-        public void setReceiveBufferSize(int size) throws SocketException {
-            delegate.setReceiveBufferSize(size);
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getSoTimeout()` overrides synchronized method
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
-        public int getSoTimeout() throws IOException {
-            return delegate.getSoTimeout();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `setSoTimeout()` overrides synchronized method
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
-        public void setSoTimeout(int timeout) throws SocketException {
-            delegate.setSoTimeout(timeout);
-        }
-```
-
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return set but the return type is array
-in `tritium-proxy/src/main/java/com/palantir/tritium/proxy/Proxies.java`
-#### Snippet
-```java
-     * @param iface primary interface class
-     * @param delegateClass delegate class
-     * @return the set of interfaces for the specified classes
-     * @throws IllegalArgumentException if the specified interface class is not an interface
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'false' but its return type is not boolean
-in `tritium-core/src/main/java/com/palantir/tritium/event/AbstractInvocationEventHandler.java`
-#### Snippet
-```java
-     *
-     * @param clazz instrumentation handler class
-     * @return false if "instrument.fully.qualified.class.Name" is set to "false", otherwise true
-     */
-    protected static com.palantir.tritium.api.functions.BooleanSupplier getSystemPropertySupplier(
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentation.java`
-#### Snippet
-```java
-                            Opcodes.ACC_PRIVATE | Opcodes.ACC_FINAL)
-                    .defineField(METHODS_FIELD, Method[].class, Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC)
-                    .initializer(new StaticFieldLoadedTypeInitializer(METHODS_FIELD, allMethods.toArray(new Method[0])))
-                    .make()
-                    .load(classLoader)
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
-#### Snippet
-```java
-        private final Callable<T> task;
-
-        TaggedMetricsCallable(Callable<T> task) {
-            this.task = task;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvocationEventHandler`
-in `tritium-annotations/src/main/java/com/palantir/tritium/annotations/internal/InstrumentationBuilder.java`
-#### Snippet
-```java
-
-    public InstrumentationBuilder<T, U> withHandlers(
-            Iterable<InvocationEventHandler<InvocationContext>> additionalHandlers) {
-        checkNotNull(additionalHandlers, "additionalHandlers");
-        for (InvocationEventHandler<InvocationContext> handler : additionalHandlers) {
-```
-
-### BoundedWildcard
-Can generalize to `? super MetricName`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/TaggedMetricSet.java`
-#### Snippet
-```java
-    Map<MetricName, Metric> getMetrics();
-
-    default void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        getMetrics().forEach(consumer);
+    @Deprecated
+    @SuppressWarnings("BanGuavaCaches") // this implementation is explicitly for Guava caches
+    public static void registerCache(MetricRegistry registry, Cache<?, ?> cache, @Safe String name) {
+        registerCache(registry, cache, name, Clock.defaultClock());
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super Metric`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/TaggedMetricSet.java`
-#### Snippet
-```java
-    Map<MetricName, Metric> getMetrics();
-
-    default void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        getMetrics().forEach(consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super MemoryUsage`
-in `tritium-metrics-jvm/src/main/java/com/palantir/tritium/metrics/jvm/JvmMetrics.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    private static Long totalHeapPlusNonHeap(MemoryMXBean memoryBean, Function<MemoryUsage, Long> longFunction) {
-        Long heap = negativeToNull(longFunction.apply(memoryBean.getHeapMemoryUsage()));
-        Long nonHeap = negativeToNull(longFunction.apply(memoryBean.getNonHeapMemoryUsage()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvocationEventHandler`
-in `tritium-lib/src/main/java/com/palantir/tritium/proxy/Instrumentation.java`
-#### Snippet
-```java
-        }
-
-        public Builder<T, U> withHandlers(Iterable<InvocationEventHandler<InvocationContext>> additionalHandlers) {
-            checkNotNull(additionalHandlers, "additionalHandlers");
-            this.handlers.addAll(additionalHandlers);
-```
-
-### BoundedWildcard
-Can generalize to `? super MetricName`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/DropwizardTaggedMetricSet.java`
-#### Snippet
-```java
-
-    @Override
-    public void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        metricSet.getMetrics().forEach((name, metric) -> consumer.accept(RealMetricName.create(name), metric));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Metric`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/DropwizardTaggedMetricSet.java`
-#### Snippet
-```java
-
-    @Override
-    public void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        metricSet.getMetrics().forEach((name, metric) -> consumer.accept(RealMetricName.create(name), metric));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetrics.java`
-#### Snippet
-```java
-    public interface Stats {
-
-        default void forEach(BiConsumer<String, Gauge<?>> consumer) {
-            consumer.accept("cache.estimated.size", estimatedSize());
-            consumer.accept("cache.request.count", requestCount());
-```
-
-### BoundedWildcard
-Can generalize to `? super Gauge`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetrics.java`
-#### Snippet
-```java
-    public interface Stats {
-
-        default void forEach(BiConsumer<String, Gauge<?>> consumer) {
-            consumer.accept("cache.estimated.size", estimatedSize());
-            consumer.accept("cache.request.count", requestCount());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetrics.java`
-#### Snippet
-```java
-    private InternalCacheMetrics() {}
-
-    public static <K> ImmutableMap<K, Gauge<?>> createMetrics(Stats stats, Function<String, K> metricNamer) {
-        ImmutableMap.Builder<K, Gauge<?>> builder = ImmutableMap.builderWithExpectedSize(12);
-        stats.forEach((name, gauge) -> builder.put(metricNamer.apply(name), gauge));
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InternalCacheMetrics.java`
-#### Snippet
-```java
-    private InternalCacheMetrics() {}
-
-    public static <K> ImmutableMap<K, Gauge<?>> createMetrics(Stats stats, Function<String, K> metricNamer) {
-        ImmutableMap.Builder<K, Gauge<?>> builder = ImmutableMap.builderWithExpectedSize(12);
-        stats.forEach((name, gauge) -> builder.put(metricNamer.apply(name), gauge));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
-#### Snippet
-```java
-        private final long created = queuedDuration == null ? 0L : System.nanoTime();
-
-        TaggedMetricsCallable(Callable<T> task) {
-            this.task = task;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super Double`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/LockFreeExponentiallyDecayingReservoir.java`
-#### Snippet
-```java
-        private int count;
-
-        RescalingConsumer(double scalingFactor, ConcurrentSkipListMap<Double, WeightedSample> values) {
-            this.scalingFactor = scalingFactor;
-            this.values = values;
-```
-
-### BoundedWildcard
-Can generalize to `? super WeightedSample`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/LockFreeExponentiallyDecayingReservoir.java`
-#### Snippet
-```java
-        private int count;
-
-        RescalingConsumer(double scalingFactor, ConcurrentSkipListMap<Double, WeightedSample> values) {
-            this.scalingFactor = scalingFactor;
-            this.values = values;
-```
-
-### BoundedWildcard
-Can generalize to `? super MetricName`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    @Override
-    public final void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        registry.forEach(consumer);
-        taggedRegistries.forEach((tag, metrics) -> metrics.forEachMetric((metricName, metric) ->
-```
-
-### BoundedWildcard
-Can generalize to `? super Metric`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    @Override
-    public final void forEachMetric(BiConsumer<MetricName, Metric> consumer) {
-        registry.forEach(consumer);
-        taggedRegistries.forEach((tag, metrics) -> metrics.forEachMetric((metricName, metric) ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    protected final <T extends Metric> T getOrAdd(
-            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
-        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
-        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/AbstractTaggedMetricRegistry.java`
-#### Snippet
-```java
-
-    protected final <T extends Metric> T getOrAdd(
-            MetricName metricName, Class<T> metricClass, Supplier<T> metricSupplier) {
-        Metric metric = registry.computeIfAbsent(metricName, _name -> metricSupplier.get());
-        return checkNotNull(checkMetricType(metricName, metricClass, metric), "metric");
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeclaredType`
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:CyclomaticComplexity")
-    private JavaFile generate(
-            TypeElement typeElement, List<DeclaredType> allInterfaces, List<DeclaredType> minimalInterfaces) {
-        TypeName annotatedType = TypeName.get(typeElement.asType());
-        TypeName delegateType =
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeclaredType`
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:CyclomaticComplexity")
-    private JavaFile generate(
-            TypeElement typeElement, List<DeclaredType> allInterfaces, List<DeclaredType> minimalInterfaces) {
-        TypeName annotatedType = TypeName.get(typeElement.asType());
-        TypeName delegateType =
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `tritium-processor/src/main/java/com/palantir/tritium/processor/TritiumAnnotationProcessor.java`
-#### Snippet
-```java
-    @SuppressWarnings("VoidMissingNullable") // noisy
-    private SimpleElementVisitor8<Void, Void> createVisitor(
-            TypeElement typeElement, Map<String, List<MethodElements>> methodsByName, DeclaredType mirror) {
-        return new SimpleElementVisitor8<>() {
-            @Nullable
 ```
 
 ## RuleId[id=ConstantValue]
@@ -984,41 +705,65 @@ in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/RemotingCompatibl
                 }
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/TagMap.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tritium-metrics-jvm/src/main/java/com/palantir/tritium/metrics/jvm/SafepointMetrics.java`
 #### Snippet
 ```java
-        @Override
-        @SuppressWarnings("SuspiciousMethodCalls")
-        public boolean equals(@Nullable Object other) {
-            if (this == other) {
-                return true;
+/**
+ * Report duration spent waiting at safepoints. This could indicate badness in terms of STW GCing, or biased locking
+ * going badly. See https://stackoverflow.com/questions/29666057/analyzing-gc-logs/29673564#29673564 for details. This
+ * essentially provides the information of '+PrintGCApplicationStoppedTime' programmatically.
+ */
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/TaggedMetricRegistry.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tritium-lib/src/main/java/com/palantir/tritium/Tritium.java`
 #### Snippet
 ```java
-    // This differs from MetricRegistry and takes the Gauge directly rather than a Supplier<Gauge>
-    @SuppressWarnings({"deprecation", "UnsafeGaugeRegistration"}) // explicitly using as desired
-    default void registerWithReplacement(MetricName metricName, Gauge<?> gauge) {
-        Gauge<?> existing = gauge(metricName, gauge);
-        if (existing == gauge) {
+     * NB: Previous versions of this method included performance logging. With changes in Java9+ the method
+     * of constructing performance logs became a slow operation. So this is no longer included.
+     * See: https://github.com/apache/logging-log4j2/pull/475 for details
+     *
+     * @param serviceInterface service interface
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `tritium-tracing/src/main/java/com/palantir/tritium/tracing/TracingInvocationEventHandler.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tritium-lib/src/main/java/com/palantir/tritium/Tritium.java`
 #### Snippet
 ```java
-            return RemotingCompatibleTracingInvocationEventHandler.create(component);
-        }
-        //noinspection deprecation
-        return new TracingInvocationEventHandler(component);
-    }
+     * NB: Previous versions of this method included performance logging. With changes in Java9+ the method
+     * of constructing performance logs became a slow operation. So this is no longer included.
+     * See: https://github.com/apache/logging-log4j2/pull/475 for details
+     *
+     * @param serviceInterface The service class to instrument
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentationAdvice.java`
+#### Snippet
+```java
+    /**
+     * Work around slow <code>@Advice.Origin Method</code> parameters by providing an array of known methods to each
+     * method, with the index of the current method bound individually. https://github.com/raphw/byte-buddy/issues/714
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tritium-registry/src/main/java/com/palantir/tritium/metrics/registry/LockFreeExponentiallyDecayingReservoir.java`
+#### Snippet
+```java
+ *
+ * See {@link com.codahale.metrics.ExponentiallyDecayingReservoir} Copyright 2010-2012 Coda Hale and Yammer, Inc.
+ * Licensed under the Apache License, Version 2.0. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * @deprecated prefer upstream {@link com.codahale.metrics.LockFreeExponentiallyDecayingReservoir}.
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -1068,5 +813,462 @@ in `tritium-lib/src/main/java/com/palantir/tritium/proxy/ByteBuddyInstrumentatio
         ImmutableList<Class<?>> interfaces = ImmutableList.<Class<?>>builderWithExpectedSize(
                         additionalInterfaces.size() + 1)
                 .add(interfaceClass)
+```
+
+## RuleId[id=BlockingMethodInNonBlockingContext]
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsScheduledExecutorService.java`
+#### Snippet
+```java
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
+        public int getReceiveBufferSize() throws SocketException {
+            return delegate.getReceiveBufferSize();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            delegate.close();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public void setReuseAddress(boolean on) throws SocketException {
+            delegate.setReuseAddress(on);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
+        public int getSoTimeout() throws IOException {
+            return delegate.getSoTimeout();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public ServerSocket createServerSocket(int port, int backlog, InetAddress inetAddress) throws IOException {
+        return wrap(delegate.createServerSocket(port, backlog, inetAddress));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public boolean getReuseAddress() throws SocketException {
+            return delegate.getReuseAddress();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public ServerSocket createServerSocket(int port, int backlog) throws IOException {
+        return wrap(delegate.createServerSocket(port, backlog));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
+        public void setReceiveBufferSize(int size) throws SocketException {
+            delegate.setReceiveBufferSize(size);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public ServerSocket createServerSocket(int port) throws IOException {
+        return wrap(delegate.createServerSocket(port));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public void bind(SocketAddress endpoint, int backlog) throws IOException {
+            delegate.bind(endpoint, backlog);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public void bind(SocketAddress endpoint) throws IOException {
+            delegate.bind(endpoint);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public ServerSocket createServerSocket() throws IOException {
+        return wrap(delegate.createServerSocket());
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // Delegates to a safe implementation
+        public void setSoTimeout(int timeout) throws SocketException {
+            delegate.setSoTimeout(timeout);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslServerSocketFactory.java`
+#### Snippet
+```java
+        @Override
+        public Socket accept() throws IOException {
+            return wrap(delegate.accept());
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int read(byte[] bytes) throws IOException {
+        before(bytes.length);
+        int bytesRead = input().read(bytes);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int read() throws IOException {
+        before(1);
+        int bytesRead = input().read();
+        after(bytesRead);
+        return bytesRead;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    public int readNBytes(byte[] bytes, int off, int len) throws IOException {
+        before(len);
+        int bytesRead = input().readNBytes(bytes, off, len);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingInputStream.java`
+#### Snippet
+```java
+        Objects.checkFromIndexSize(off, len, bytes.length);
+        before(len);
+        int bytesRead = input().read(bytes, off, len);
+        after(bytesRead);
+        return bytesRead;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult unwrap(ByteBuffer src, ByteBuffer dst) throws SSLException {
+        return check(engine.unwrap(src, dst));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult wrap(ByteBuffer[] sources, int offset, int length, ByteBuffer dest) throws SSLException {
+        return check(engine.wrap(sources, offset, length, dest));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public void beginHandshake() throws SSLException {
+        engine.beginHandshake();
+        handshaking.set(true);
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult unwrap(ByteBuffer byteBuffer, ByteBuffer[] byteBuffers) throws SSLException {
+        return check(engine.unwrap(byteBuffer, byteBuffers));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult wrap(ByteBuffer[] sources, ByteBuffer byteBuffer) throws SSLException {
+        return check(engine.wrap(sources, byteBuffer));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public void closeInbound() throws SSLException {
+        engine.closeInbound();
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult unwrap(ByteBuffer src, ByteBuffer[] dsts, int offset, int length) throws SSLException {
+        return check(engine.unwrap(src, dsts, offset, length));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslEngine.java`
+#### Snippet
+```java
+    @Override
+    public SSLEngineResult wrap(ByteBuffer src, ByteBuffer dst) throws SSLException {
+        return check(engine.wrap(src, dst));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket() throws IOException {
+        return wrap(delegate.createSocket());
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket(String host, int port, InetAddress inetAddress, int clientPort) throws IOException {
+        return wrap(delegate.createSocket(host, port, inetAddress, clientPort));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket(Socket socket, InputStream consumed, boolean autoClose) throws IOException {
+        return wrap(delegate.createSocket(socket, consumed, autoClose));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket(InetAddress inetAddress, int port) throws IOException {
+        return wrap(delegate.createSocket(inetAddress, port));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException {
+        return wrap(delegate.createSocket(socket, host, port, autoClose));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    public Socket createSocket(InetAddress inetAddress, int port, InetAddress clientAddress, int clientPort)
+            throws IOException {
+        return wrap(delegate.createSocket(inetAddress, port, clientAddress, clientPort));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/InstrumentedSslSocketFactory.java`
+#### Snippet
+```java
+    @Override
+    public Socket createSocket(String host, int port) throws IOException {
+        return wrap(delegate.createSocket(host, port));
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
+#### Snippet
+```java
+    public void write(byte[] bytes) throws IOException {
+        before(bytes.length);
+        output().write(bytes);
+        after(bytes.length);
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
+#### Snippet
+```java
+        Objects.checkFromIndexSize(off, len, bytes.length);
+        before(len);
+        output().write(bytes, off, len);
+        after(len);
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-lib/src/main/java/com/palantir/tritium/io/ForwardingOutputStream.java`
+#### Snippet
+```java
+    public void write(int value) throws IOException {
+        before(1);
+        output().write(value);
+        after(1);
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tritium-metrics/src/main/java/com/palantir/tritium/metrics/TaggedMetricsExecutorService.java`
+#### Snippet
+```java
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+
 ```
 
