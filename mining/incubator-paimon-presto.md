@@ -12,18 +12,6 @@ I found 27 bad smells with 0 repairable:
 | OptionalGetWithoutIsPresent | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'projectedColumns'
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
-#### Snippet
-```java
-    private final byte[] serializedTable;
-    private final TupleDomain<PrestoColumnHandle> filter;
-    private final Optional<List<ColumnHandle>> projectedColumns;
-
-    private Table lazyTable;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'projectedColumns'
 in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
 #### Snippet
@@ -45,6 +33,18 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandl
     public PrestoTableHandle copy(Optional<List<ColumnHandle>> projectedColumns) {
         return new PrestoTableHandle(
                 schemaName, tableName, serializedTable, filter, projectedColumns);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'projectedColumns'
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTableHandle.java`
+#### Snippet
+```java
+    private final byte[] serializedTable;
+    private final TupleDomain<PrestoColumnHandle> filter;
+    private final Optional<List<ColumnHandle>> projectedColumns;
+
+    private Table lazyTable;
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -96,19 +96,6 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.
                     Math.min(Integer.MAX_VALUE, ((VarcharType) prestoType).getLength()));
         } else if (prestoType instanceof com.facebook.presto.common.type.BooleanType) {
             return DataTypes.BOOLEAN();
-```
-
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
-#### Snippet
-```java
-                                            new DataField(
-                                                    id.getAndIncrement(),
-                                                    field.getName().get(),
-                                                    toPaimonType(field.getType())))
-                            .collect(Collectors.toList());
 ```
 
 ## RuleId[id=ConstantValue]
@@ -338,5 +325,18 @@ in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.
                     format("Cannot convert from Paimon type '%s' to Presto type", paimonType));
         }
     }
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `paimon-presto-common/src/main/java/org/apache/paimon/presto/PrestoTypeUtils.java`
+#### Snippet
+```java
+                                            new DataField(
+                                                    id.getAndIncrement(),
+                                                    field.getName().get(),
+                                                    toPaimonType(field.getType())))
+                            .collect(Collectors.toList());
 ```
 
