@@ -70,8 +70,32 @@ Explicit type arguments can be inferred
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
-    @Deprecated
-    public <T> T query(final Connection conn, final String sql, final Object[] params, final ResultSetHandler<T> rsh) throws SQLException {
+        final Connection conn = this.prepareConnection();
+
+        return this.<T>query(conn, true, sql, rsh, (Object[]) null);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+        final Connection conn = this.prepareConnection();
+
+        return this.<T>query(conn, true, sql, rsh, params);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     */
+    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
         return this.<T>query(conn, false, sql, rsh, params);
     }
 
@@ -94,20 +118,8 @@ Explicit type arguments can be inferred
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
-        final Connection conn = this.prepareConnection();
-
-        return this.<T>query(conn, true, sql, rsh, (Object[]) null);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     */
-    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
+    @Deprecated
+    public <T> T query(final Connection conn, final String sql, final Object[] params, final ResultSetHandler<T> rsh) throws SQLException {
         return this.<T>query(conn, false, sql, rsh, params);
     }
 
@@ -120,31 +132,19 @@ in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 ```java
         final Connection conn = this.prepareConnection();
 
-        return this.<T>query(conn, true, sql, rsh, params);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-        final Connection conn = this.prepareConnection();
-
-        return this.<T>query(conn, true, sql, rsh, params);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-        final Connection conn = this.prepareConnection();
-
         return this.<T>query(conn, true, sql, rsh, param);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+        final Connection conn = this.prepareConnection();
+
+        return this.<T>query(conn, true, sql, rsh, params);
     }
 
 ```
@@ -181,9 +181,9 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      */
     @Deprecated
-    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
-        super(ds, pmdKnownBroken);
-        this.executorService = executorService;
+    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
+        this(null, pmdKnownBroken, executorService);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -193,24 +193,12 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      */
     @Deprecated
-    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
-        this(null, pmdKnownBroken, executorService);
-    }
+    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
+        super(ds, pmdKnownBroken);
+        this.executorService = executorService;
 ```
 
 ## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `value` initializer `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
-#### Snippet
-```java
-        for (int i = 0; i < properties.length; i++) {
-            final PropertyDescriptor property = properties[i];
-            Object value = null;
-            final Method method = property.getReadMethod();
-            if (method == null) {
-```
-
 ### UnusedAssignment
 Variable `beanInfo` initializer `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
@@ -221,6 +209,18 @@ in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
         BeanInfo beanInfo = null;
         try {
             beanInfo = Introspector.getBeanInfo(c);
+```
+
+### UnusedAssignment
+Variable `value` initializer `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
+#### Snippet
+```java
+        for (int i = 0; i < properties.length; i++) {
+            final PropertyDescriptor property = properties[i];
+            Object value = null;
+            final Method method = property.getReadMethod();
+            if (method == null) {
 ```
 
 ### UnusedAssignment
