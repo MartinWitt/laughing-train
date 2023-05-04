@@ -1,768 +1,261 @@
 # teamcity-rest-codegen 
  
 # Bad smells
-I found 85 bad smells with 4 repairable:
+I found 35 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| AssignmentToMethodParameter | 28 | false |
-| DynamicRegexReplaceableByCompiledPattern | 26 | false |
+| UNCHECKED_WARNING | 14 | false |
 | UNUSED_IMPORT | 14 | false |
 | RegExpRedundantEscape | 4 | false |
-| SizeReplaceableByIsEmpty | 3 | true |
-| NestedAssignment | 3 | false |
-| RedundantImplements | 2 | false |
-| ReturnNull | 2 | false |
-| KeySetIterationMayUseEntrySet | 1 | false |
-| CodeBlock2Expr | 1 | true |
-| MethodOverridesStaticMethod | 1 | false |
-## RuleId[id=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `allProcessedModels.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/com/jetbrains/codegen/TeamCityGenerator.java`
+| DuplicatedCode | 2 | false |
+| UnpredictableBigDecimalConstructorCall | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        if (name == null) {
+            return "ERROR_UNKNOWN";
+        }
+
+        // if the name is just '$', map it to 'value' for the time being.
+        if ("$".equals(name)) {
+            return "value";
+        }
+
+        // input[] => input
+        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+
+        // input[a][b] => input_a_b
+        name = name.replaceAll("\\[", "_");
+        name = name.replaceAll("\\]", "");
+
+        // input(a)(b) => input_a_b
+        name = name.replaceAll("\\(", "_");
+        name = name.replaceAll("\\)", "");
+
+        // input-name => input_name
+        name = name.replaceAll("-", "_");
+
+        // input name and age => input_name_and_age
+        name = name.replaceAll(" ", "_");
+
+        return name;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+        if (isReservedWord(name)) {
+            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
+        }
+
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+
+        if (!StringUtils.isEmpty(modelNamePrefix)) {
+            name = modelNamePrefix + "_" + name;
+        }
+
+        if (!StringUtils.isEmpty(modelNameSuffix)) {
+            name = name + "_" + modelNameSuffix;
+        }
+
+        // camelize the model name
+        // phone_number => PhoneNumber
+        return camelize(name);
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "specifies how a reserved name should be escaped to. Otherwise, the default _<name> is used. For example id=identifier. You can also have multiple occurrences of this option."
+    )
+    protected List<String> reservedWordsMappings = new ArrayList();
+    @Option(
+            name = {"--ignore-file-override"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "sets specified system properties in the format of name=value,name=value (or multiple options, each with name=value)"
+    )
+    protected List<String> systemProperties = new ArrayList();
+    @Option(
+            name = {"-c", "--config"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "sets additional properties that can be referenced by the mustache templates in the format of name=value,name=value. You can also have multiple occurrences of this option."
+    )
+    protected List<String> additionalProperties = new ArrayList();
+    @Option(
+            name = {"--language-specific-primitives"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "sets instantiation type mappings in the format of type=instantiatedType,type=instantiatedType.For example (in Java): array=ArrayList,map=HashMap. In other words array types will get instantiated as ArrayList in generated code. You can also have multiple occurrences of this option."
+    )
+    protected List<String> instantiationTypes = new ArrayList();
+    @Option(
+            name = {"--type-mappings"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "specifies mappings between a given class and the import that should be used for that class in the format of type=import,type=import. You can also have multiple occurrences of this option."
+    )
+    protected List<String> importMappings = new ArrayList();
+    @Option(
+            name = {"--invoker-package"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "sets mappings between swagger spec types and generated code types in the format of swaggerType=generatedType,swaggerType=generatedType. For example: array=List,map=Map,string=String. You can also have multiple occurrences of this option."
+    )
+    protected List<String> typeMappings = new ArrayList();
+    @Option(
+            name = {"--additional-properties"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "specifies additional language specific primitive types in the format of type1,type2,type3,type3. For example: String,boolean,Boolean,Double. You can also have multiple occurrences of this option."
+    )
+    protected List<String> languageSpecificPrimitives = new ArrayList();
+    @Option(
+            name = {"--import-mappings"},
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        Map<String, Object> objsMap = super.postProcessOperations(objs);
+
+        HashMap<String, Object> operationsMap = (HashMap<String, Object>) objsMap.get("operations");
+        ArrayList<CodegenOperation> operations = (ArrayList<CodegenOperation>) operationsMap.get("operation");
+        operations.sort((o1, o2) -> {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.ArrayList'
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 #### Snippet
 ```java
 
+        HashMap<String, Object> operationsMap = (HashMap<String, Object>) objsMap.get("operations");
+        ArrayList<CodegenOperation> operations = (ArrayList<CodegenOperation>) operationsMap.get("operation");
+        operations.sort((o1, o2) -> {
+            if (o1.path.equals(o2.path)) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+    @Override
+    public Map<String, Object> postProcessSupportingFileData(Map<String, Object> objs) {
+        List<Object> models = (List<Object>) objs.get("models");
+
+        HashMap<String, Object> resultModels = new HashMap<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+
+        for (Object model : models) {
+            CodegenModel cModel = (CodegenModel) ((HashMap<String, Object>) model).get("model");
+            HashMap<String, Object> modelMap = new HashMap<>();
+            modelMap.put("model", cModel);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerator.java`
+#### Snippet
+```java
         // generate files based on processed models
         for (String modelName : allProcessedModels.keySet()) {
             Map<String, Object> models = (Map<String, Object>) allProcessedModels.get(modelName);
             models.put("modelPackage", config.modelPackage());
+            try {
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-    @Override
-    public String toModelName(String name) {
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name cannot use reserved keyword, e.g. return
-        if (isReservedWord(name)) {
-            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNamePrefix)) {
-            name = modelNamePrefix + "_" + name;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNameSuffix)) {
-            name = name + "_" + modelNameSuffix;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[] => input
-        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-
-        // input[a][b] => input_a_b
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-        // input(a)(b) => input_a_b
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-        // input-name => input_name
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input-name => input_name
-        name = name.replaceAll("-", "_");
-
-        // input name and age => input_name_and_age
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input name and age => input_name_and_age
-        name = name.replaceAll(" ", "_");
-
-        return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-    @Override
-    public String toModelName(String name) {
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // model name cannot use reserved keyword, e.g. return
-        if (isReservedWord(name)) {
-            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNamePrefix)) {
-            name = modelNamePrefix + "_" + name;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNameSuffix)) {
-            name = name + "_" + modelNameSuffix;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input[] => input
-        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-
-        // input[a][b] => input_a_b
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-        // input(a)(b) => input_a_b
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-        // input-name => input_name
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input-name => input_name
-        name = name.replaceAll("-", "_");
-
-        // input name and age => input_name_and_age
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input name and age => input_name_and_age
-        name = name.replaceAll(" ", "_");
-
-        return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `mediaTypes`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
-#### Snippet
-```java
-            if (mediaTypes == null) {
-                // assume application/json for this
-                mediaTypes = Collections.singletonList(MIME_TYPE_JSON); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-            }
-            for (String mediaType : mediaTypes) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `mediaTypes`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
-#### Snippet
-```java
-            if (mediaTypes == null) {
-                // assume application/json for this
-                mediaTypes = Collections.singletonList(MIME_TYPE_JSON); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-            }
-            for (String mediaType : mediaTypes) {
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `CodegenConfig`
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-import java.io.File;
-
-public class TeamCityPythonCodegen extends PythonClientCodegen implements CodegenConfig {
-    protected String basePackage;
-
-```
-
-### RedundantImplements
-Redundant interface declaration `CodegenConfig`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-public class TeamCityKotlinCodegen extends KotlinClientCodegen implements CodegenConfig {
-    String X_SUBPACKAGE = "x-subpackage";
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `src/main/java/com/jetbrains/codegen/TeamCityGenerator.java`
 #### Snippet
 ```java
+                    continue;
                 }
-
-                return null;
-            }
-        });
+                Map<String, Object> modelTemplate = (Map<String, Object>) ((List<Object>) models.get("models")).get(0);
+                if (config instanceof AbstractJavaCodegen) {
+                    // Special handling of aliases only applies to Java
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`interfaces.size() > 0` can be replaced with '!interfaces.isEmpty()'
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `src/main/java/com/jetbrains/codegen/TeamCityGenerator.java`
 #### Snippet
 ```java
-                        // check for interfaces
-                        List<RefModel> interfaces = ((ComposedModel) model).getInterfaces();
-                        if (interfaces.size() > 0) {
-                            RefModel interf = interfaces.get(0);
-                            return definitions.get(interf.getSimpleRef());
+                    continue;
+                }
+                Map<String, Object> modelTemplate = (Map<String, Object>) ((List<Object>) models.get("models")).get(0);
+                if (config instanceof AbstractJavaCodegen) {
+                    // Special handling of aliases only applies to Java
 ```
 
-### SizeReplaceableByIsEmpty
-`output.size() == 0` can be replaced with 'output.isEmpty()'
+## RuleId[id=UnpredictableBigDecimalConstructorCall]
+### UnpredictableBigDecimalConstructorCall
+Unpredictable `new BigDecimal()` call
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 #### Snippet
 ```java
-            });
-        }
-        if (output.size() == 0) {
-            Map<String, String> kv = new HashMap<>();
-            kv.put(OUTPUT, NONE);
-```
-
-### SizeReplaceableByIsEmpty
-`output.size() == 0` can be replaced with 'output.isEmpty()'
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
-#### Snippet
-```java
-            });
-        }
-        if (output.size() == 0) {
-            Map<String, String> kv = new HashMap<>();
-            kv.put(OUTPUT, NONE);
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-            this.setProjectName((String)this.additionalProperties.get("projectName"));
-        } else {
-            this.setProjectName(this.packageName.replaceAll("_", "-"));
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-    public CodegenProperty fromProperty(String name, Property p) {
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-        return property;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        supportingFiles.add(new SupportingFile("settings.gradle.mustache", "", "settings.gradle"));
-
-        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
-        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        final String infrastructureFolder = (sourceFolder + File.separator + packageName + File.separator + "infrastructure").replace(".", "/");
-        final String baseFolder = (sourceFolder + File.separator + packageName + File.separator + "base").replace(".", "/");
-
-        supportingFiles.add(new SupportingFile("infrastructure/ApiClient.kt.mustache", infrastructureFolder, "ApiClient.kt"));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[] => input
-        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-
-        // input[a][b] => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-        // input(a)(b) => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-        // input-name => input_name
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input-name => input_name
-        name = name.replaceAll("-", "_");
-
-        // input name and age => input_name_and_age
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        // input name and age => input_name_and_age
-        name = name.replaceAll(" ", "_");
-
-        return name;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-                //patch LocatorEntity description with a link to <model>.md
-                if (m.vendorExtensions.get("x-is-locator") != null) {
-                    newDescription = newDescription.replace(
-                            "Represents a locator string",
-                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input[] => input
-        name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-
-        // input[a][b] => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // input[a][b] => input_a_b
-        name = name.replaceAll("\\[", "_");
-        name = name.replaceAll("\\]", "");
-
-        // input(a)(b) => input_a_b
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // input(a)(b) => input_a_b
-        name = name.replaceAll("\\(", "_");
-        name = name.replaceAll("\\)", "");
-
-        // input-name => input_name
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input-name => input_name
-        name = name.replaceAll("-", "_");
-
-        // input name and age => input_name_and_age
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // input name and age => input_name_and_age
-        name = name.replaceAll(" ", "_");
-
-        return name;
+            Double min = ((DecimalProperty) property).getMinimum() == null ? null : ((DecimalProperty) property).getMinimum().doubleValue();
+            Double max = ((DecimalProperty) property).getMaximum() == null ? null : ((DecimalProperty) property).getMaximum().doubleValue();
+            return new BigDecimal(randomNumber(min, max));
+        } else if (property instanceof FileProperty) {
+            return "";  // TODO
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -934,56 +427,6 @@ import io.swagger.codegen.CodegenConfig;
 import io.swagger.codegen.CodegenConstants;
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-        super();
-
-        embeddedTemplateDir = templateDir = "teamcity_python";
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        String sourceFolder = "src/main/kotlin";
-
-        embeddedTemplateDir = templateDir = "teamcity_kotlin";
-        artifactId = "teamcity-kotlin-rest-client";
-        packageName = "org.jetbrains.teamcity.rest";
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        modelTemplateFiles.put("model.mustache", ".md");
-        apiTemplateFiles.put("api.mustache", ".md");
-        embeddedTemplateDir = templateDir = "teamcity_docs";
-
-        cliOptions.add(new CliOption(CodegenConstants.INVOKER_PACKAGE, CodegenConstants.INVOKER_PACKAGE_DESC));
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityXMLExampleGenerator.java`
-#### Snippet
-```java
-            else {
-                if (model.getProperties() != null) {
-                    model.getProperties().forEach((propertyName, property) -> {
-                        serializePropertyToXml(doc, propertyName, property, depth + 1, targetElement);
-                    });
-```
-
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
@@ -1031,18 +474,5 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
         name = name.replaceAll("\\]", "");
 
         // input(a)(b) => input_a_b
-```
-
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `main()` tries to override a static method of a superclass
-in `src/main/java/com/jetbrains/codegen/TeamCityCodegen.java`
-#### Snippet
-```java
-
-public class TeamCityCodegen extends SwaggerCodegen {
-    public static void main(String[] args) {
-        String version = Version.readVersionFromResources();
-        @SuppressWarnings("unchecked")
 ```
 
