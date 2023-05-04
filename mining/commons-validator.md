@@ -1,59 +1,34 @@
 # commons-validator 
  
 # Bad smells
-I found 293 bad smells with 7 repairable:
+I found 262 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| RedundantCast | 82 | false |
 | RegExpRedundantEscape | 65 | false |
-| ReturnNull | 54 | false |
-| MethodOverloadsParentMethod | 42 | false |
 | UnusedAssignment | 18 | false |
-| AssignmentToMethodParameter | 13 | false |
-| UnnecessaryBoxing | 11 | false |
+| JavadocDeclaration | 14 | false |
+| TrivialIf | 13 | false |
 | DeprecatedIsStillUsed | 10 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 8 | false |
+| DuplicatedCode | 7 | false |
+| UnnecessaryUnicodeEscape | 7 | false |
 | StringConcatenationInsideStringBufferAppend | 7 | false |
+| JavadocLinkAsPlainText | 5 | false |
 | ConstantValue | 5 | false |
-| NonSerializableFieldInSerializableClass | 4 | false |
 | StringBufferReplaceableByString | 4 | false |
-| MissortedModifiers | 4 | false |
-| UnnecessaryUnboxing | 4 | false |
-| DynamicRegexReplaceableByCompiledPattern | 4 | false |
-| UnnecessaryFullyQualifiedName | 4 | false |
-| NonProtectedConstructorInAbstractClass | 4 | true |
+| SimplifiableConditionalExpression | 4 | false |
 | PointlessBitwiseExpression | 4 | false |
-| ZeroLengthArrayInitialization | 4 | false |
 | CStyleArrayDeclaration | 3 | false |
+| Deprecation | 3 | false |
 | StringOperationCanBeSimplified | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
-| UseCompareMethod | 2 | false |
-| MethodOverridesStaticMethod | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
 | UnnecessarySemicolon | 1 | false |
-| ConfusingOctalEscape | 1 | false |
+| UnaryPlus | 1 | false |
 | TrivialStringConcatenation | 1 | false |
-| StringEqualsEmptyString | 1 | false |
-| UnnecessarySuperQualifier | 1 | false |
-| NestedAssignment | 1 | false |
-| ReplaceAssignmentWithOperatorAssignment | 1 | false |
-| InstanceofCatchParameter | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| SynchronizeOnThis | 1 | false |
+| DanglingJavadoc | 1 | false |
+| SuspiciousMethodCalls | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | CastCanBeRemovedNarrowingVariableType | 1 | false |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ValidatorUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
- * </p>
- */
-public class ValidatorUtils {
-
-    private static final Log LOG = LogFactory.getLog(ValidatorUtils.class);
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -67,19 +42,20 @@ in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
 
 ```
 
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Call to `substring()` is redundant
-in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
+## RuleId[id=UnaryPlus]
+### UnaryPlus
+Unary `+` operator
+in `src/main/java/org/apache/commons/validator/routines/checkdigit/ModulusCheckDigit.java`
 #### Snippet
 ```java
-        public boolean matches(final String card) {
-            return (
-                card.substring(0, 1).equals(PREFIX)
-                    && (card.length() == 13 || card.length() == 16));
         }
+        throw new CheckDigitException("Invalid Check Digit Value =" +
+                + charValue);
+    }
+
 ```
 
+## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `substring()` is redundant
 in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
@@ -90,6 +66,18 @@ in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
             return (card.substring(0, 4).equals(PREFIX) && (card.length() == 16));
         }
     }
+```
+
+### StringOperationCanBeSimplified
+Call to `substring()` is redundant
+in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
+#### Snippet
+```java
+        public boolean matches(final String card) {
+            return (
+                card.substring(0, 1).equals(PREFIX)
+                    && (card.length() == 13 || card.length() == 16));
+        }
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -106,18 +94,6 @@ in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `REGISTRATIONS`
-in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
-#### Snippet
-```java
-     * <strong>MUST</strong> be an even number of Strings in this list!
-     */
-    private static final String REGISTRATIONS[] = {
-        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
-        "/org/apache/commons/validator/resources/validator_1_0.dtd",
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of field `lengths`
 in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
 #### Snippet
@@ -129,509 +105,16 @@ in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java
         /**
 ```
 
-## RuleId[id=MethodOverloadsParentMethod]
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
+### CStyleArrayDeclaration
+C-style array declaration of field `REGISTRATIONS`
+in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
 #### Snippet
 ```java
-     *         or equal to the minimum.
+     * <strong>MUST</strong> be an even number of Strings in this list!
      */
-    public boolean minValue(final BigInteger value, final long min) {
-        return (value.longValue() >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final BigInteger value, final long min, final long max) {
-        return (value.longValue() >= min && value.longValue() <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final BigInteger value, final long max) {
-        return (value.longValue() <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Short value, final short min) {
-        return minValue(value.shortValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Short value, final short max) {
-        return maxValue(value.shortValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final short value, final short max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Short value, final short min, final short max) {
-        return isInRange(value.shortValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final short value, final short min, final short max) {
-        return (value >= min && value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final short value, final short min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final byte value, final byte max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Byte value, final byte min, final byte max) {
-        return isInRange(value.byteValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Byte value, final byte max) {
-        return maxValue(value.byteValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final byte value, final byte min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Byte value, final byte min) {
-        return minValue(value.byteValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final byte value, final byte min, final byte max) {
-        return (value >= min && value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Integer value, final int min, final int max) {
-        return isInRange(value.intValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Integer value, final int min) {
-        return minValue(value.intValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Integer value, final int max) {
-        return maxValue(value.intValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final int value, final int max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final int value, final int min, final int max) {
-        return (value >= min && value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final int value, final int min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Float value, final float max) {
-        return maxValue(value.floatValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final float value, final float min, final float max) {
-        return (value >= min && value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final float value, final float max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final float value, final float min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Float value, final float min, final float max) {
-        return isInRange(value.floatValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Float value, final float min) {
-        return minValue(value.floatValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final double value, final double max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final double value, final double min, final double max) {
-        return (value >= min && value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Double value, final double min) {
-        return minValue(value.doubleValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Double value, final double min, final double max) {
-        return isInRange(value.doubleValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Double value, final double max) {
-        return maxValue(value.doubleValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final double value, final double min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final BigDecimal value, final double max) {
-        return (value.doubleValue() <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final BigDecimal value, final double min, final double max) {
-        return (value.doubleValue() >= min && value.doubleValue() <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final BigDecimal value, final double min) {
-        return (value.doubleValue() >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final Long value, final long min, final long max) {
-        return isInRange(value.longValue(), min, max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final long value, final long min) {
-        return (value >= min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final long value, final long max) {
-        return (value <= max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `maxValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         or equal to the maximum.
-     */
-    public boolean maxValue(final Long value, final long max) {
-        return maxValue(value.longValue(), max);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `minValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         or equal to the minimum.
-     */
-    public boolean minValue(final Long value, final long min) {
-        return minValue(value.longValue(), min);
-    }
-```
-
-### MethodOverloadsParentMethod
-Method `isInRange()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-     *         specified range.
-     */
-    public boolean isInRange(final long value, final long min, final long max) {
-        return (value >= min && value <= max);
-    }
+    private static final String REGISTRATIONS[] = {
+        "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN",
+        "/org/apache/commons/validator/resources/validator_1_0.dtd",
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -660,13 +143,37 @@ in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hFormSets' is still used
-in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
+Deprecated member 'hFields' is still used
+in `src/main/java/org/apache/commons/validator/Form.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
+    protected FastHashMap hFields = new FastHashMap(); // <String, Field>
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'MASTERCARD_PRE_OCT2016' is still used
+in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
+
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'MASTERCARD_VALIDATOR_PRE_OCT2016' is still used
+in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final CodeValidator MASTERCARD_VALIDATOR_PRE_OCT2016 = new CodeValidator("^(5[1-5]\\d{14})$", LUHN_VALIDATOR);
 
     /**
 ```
@@ -684,6 +191,18 @@ in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'hFormSets' is still used
+in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected FastHashMap hFormSets = new FastHashMap(); // <String, FormSet>
+
+    /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'hConstants' is still used
 in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
 #### Snippet
@@ -693,30 +212,6 @@ in `src/main/java/org/apache/commons/validator/ValidatorResources.java`
     protected FastHashMap hConstants = new FastHashMap(); // <String, String>
 
     /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'MASTERCARD_VALIDATOR_PRE_OCT2016' is still used
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final CodeValidator MASTERCARD_VALIDATOR_PRE_OCT2016 = new CodeValidator("^(5[1-5]\\d{14})$", LUHN_VALIDATOR);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'MASTERCARD_PRE_OCT2016' is still used
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final long MASTERCARD_PRE_OCT2016 = 1 << 6; // CHECKSTYLE IGNORE MagicNumber
-
-
 ```
 
 ### DeprecatedIsStillUsed
@@ -743,523 +238,7 @@ in `src/main/java/org/apache/commons/validator/Field.java`
     /**
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'hFields' is still used
-in `src/main/java/org/apache/commons/validator/Form.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected FastHashMap hFields = new FastHashMap(); // <String, Field>
-
-    /**
-```
-
 ## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\+` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-     * Protocol scheme (e.g. http, ftp, https).
-     */
-    private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
-    private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-     * Protocol scheme (e.g. http, ftp, https).
-     */
-    private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
-    private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\(` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-    private static final int PARSE_AUTHORITY_EXTRA = 4;
-
-    private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
-    private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\)` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-    private static final int PARSE_AUTHORITY_EXTRA = 4;
-
-    private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
-    private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
-    private static final String AUTHORITY_REGEX =
-            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                          e.g. user:pass@          2                                         3       4
-    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
-    private static final String AUTHORITY_REGEX =
-            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
-    //             1                          e.g. user:pass@          2                                         3       4
-    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-    /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-    /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-    /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-    /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-public class EmailValidator {
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-public class EmailValidator {
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-    // TODO does not allow for optional userinfo.
-    // Validation of character set is done by isValidAuthority
-    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
-    // Allow for IPv4 mapped addresses: ::FFF:123.123.123.123
-    private static final String IPV6_REGEX = "::FFFF:(?:\\d{1,3}\\.){3}\\d{1,3}|[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
-// NOT USED   private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
-    private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile("^\\[(.*)\\]$");
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"[^\"]*\")";
-    private static final String ATOM = VALID_CHARS + '+';
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
-
-    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
-    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
-    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
-```
-
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
 in `src/main/java/org/apache/commons/validator/UrlValidator.java`
@@ -1310,206 +289,422 @@ in `src/main/java/org/apache/commons/validator/UrlValidator.java`
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-
-    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
     private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+public class EmailValidator {
 
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+public class EmailValidator {
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
+
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
-    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
-    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    /**
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    /**
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\"` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    /**
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
-    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
-    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
-    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+    private static final Pattern USER_PATTERN = Pattern.compile("^\\s*" + WORD + "(\\." + WORD + ")*$");
+    private static final Pattern DOMAIN_PATTERN = Pattern.compile("^" + ATOM + "(\\." + ATOM + ")*\\s*$");
+    private static final Pattern ATOM_PATTERN = Pattern.compile("(" + ATOM + ")");
 
-    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    /**
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"[^\"]*\")";
+    private static final String ATOM = VALID_CHARS + '+';
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+// NOT USED   private static final Pattern LEGAL_ASCII_PATTERN = Pattern.compile("^\\p{ASCII}+$");
+// NOT USED   private static final Pattern EMAIL_PATTERN = Pattern.compile("^(.+)@(.+)$");
+    private static final Pattern IP_DOMAIN_PATTERN = Pattern.compile("^\\[(.*)\\]$");
+    private static final Pattern TLD_PATTERN = Pattern.compile("^([a-zA-Z]+)$");
+
 ```
 
 ### RegExpRedundantEscape
@@ -1536,79 +731,435 @@ in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
     private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
 ```
 
-## RuleId[id=ConfusingOctalEscape]
-### ConfusingOctalEscape
-Octal escape sequence `\111` immediately followed by a digit
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
 #### Snippet
 ```java
-    protected String stripComments(final String emailStr)  {
-     String result = emailStr;
-     final String commentPat = "^((?:[^\"\\\\]|\\\\.)*(?:\"(?:[^\"\\\\]|\\\\.)*\"(?:[^\"\\\\]|\111111\\\\.)*)*)\\((?:[^()\\\\]|\\\\.)*\\)/";
-     final Pattern commentMatcher = Pattern.compile(commentPat);
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private static final String IP_DOMAIN_REGEX = "^\\[(.*)\\]$";
+    private static final String USER_REGEX = "^" + WORD + "(\\." + WORD + ")*$";
 
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'result' in a Serializable class
-in `src/main/java/org/apache/commons/validator/ValidatorResult.java`
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
 #### Snippet
 ```java
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
 
-        private boolean valid;
-        private Object result;
-
-       /**
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'validationMethod' in a Serializable class
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
 #### Snippet
 ```java
-     * The Method object loaded from the method name.
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\"` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+    private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";
+    private static final String QUOTED_USER = "(\"(\\\\\"|[^\"])*\")";
+    private static final String WORD = "((" + VALID_CHARS + "|')+|" + QUOTED_USER + ")";
+
+    private static final String EMAIL_REGEX = "^(.+)@(\\S+)$";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
+    private static final String AUTHORITY_REGEX =
+            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
+    //             1                          e.g. user:pass@          2                                         3       4
+    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+            "(?::" + USERINFO_CHARS_REGEX + "*)?@"; // colon and password may be absent
+    private static final String AUTHORITY_REGEX =
+            "(?:\\[("+IPV6_REGEX+")\\]|(?:(?:"+USERINFO_FIELD_REGEX+")?([" + AUTHORITY_CHARS_REGEX + "]*)))(?::(\\d*))?(.*)?";
+    //             1                          e.g. user:pass@          2                                         3       4
+    private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+    // TODO does not allow for optional userinfo.
+    // Validation of character set is done by isValidAuthority
+    private static final String AUTHORITY_CHARS_REGEX = "\\p{Alnum}\\-\\."; // allows for IPV4 but not IPV6
+    // Allow for IPv4 mapped addresses: ::FFF:123.123.123.123
+    private static final String IPV6_REGEX = "::FFFF:(?:\\d{1,3}\\.){3}\\d{1,3}|[0-9a-fA-F:]+"; // do this as separate match because : could cause ambiguity with port prefix
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\+` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+     * Protocol scheme (e.g. http, ftp, https).
      */
-    private Method validationMethod;
+    private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
+    private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
-    /**
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'instance' in a Serializable class
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-     * safe.
+     * Protocol scheme (e.g. http, ftp, https).
      */
-    private Object instance;
+    private static final String SCHEME_REGEX = "^\\p{Alpha}[\\p{Alnum}\\+\\-\\.]*";
+    private static final Pattern SCHEME_PATTERN = Pattern.compile(SCHEME_REGEX);
 
-    /**
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'ccr' in a Serializable class
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
+### RegExpRedundantEscape
+Redundant character escape `\\(` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-                new RegexValidator("(\\d+)") {
-                    private static final long serialVersionUID = 1L;
-                    private final CreditCardRange[] ccr = creditCardRanges.clone();
-                    @Override
-                    // must return full string
+    private static final int PARSE_AUTHORITY_EXTRA = 4;
+
+    private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
+    private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\)` in RegExp
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+    private static final int PARSE_AUTHORITY_EXTRA = 4;
+
+    private static final String PATH_REGEX = "^(/[-\\w:@&?=+,.!/~*'%$_;\\(\\)]*)?$";
+    private static final Pattern PATH_PATTERN = Pattern.compile(PATH_REGEX);
+
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+        this.depends = depends;
+
+        this.dependencyList.clear();
+
+        final StringTokenizer st = new StringTokenizer(depends, ",");
+        while (st.hasMoreTokens()) {
+            final String depend = st.nextToken().trim();
+
+            if (depend != null && !depend.isEmpty()) {
+                this.dependencyList.add(depend);
+            }
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+        for (final Entry<String, String> entry : constants.entrySet()) {
+            final String key1 = entry.getKey();
+            final String key2 = TOKEN_START + key1 + TOKEN_END;
+            final String replaceValue = entry.getValue();
+
+            property = ValidatorUtils.replace(property, key2, replaceValue);
+
+            processVars(key2, replaceValue);
+
+            this.processMessageComponents(key2, replaceValue);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
+#### Snippet
+```java
+            NumberFormat formatter = null;
+            if (locale != null) {
+                formatter = NumberFormat.getNumberInstance(locale);
+            } else {
+                formatter = NumberFormat.getNumberInstance(Locale.getDefault());
+            }
+            formatter.setParseIntegerOnly(true);
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
+#### Snippet
+```java
+            NumberFormat formatter = null;
+            if (locale != null) {
+                formatter = NumberFormat.getInstance(locale);
+            } else {
+                formatter = NumberFormat.getInstance(Locale.getDefault());
+            }
+            final ParsePosition pos = new ParsePosition(0);
+            final Number num = formatter.parse(value, pos);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/UrlValidator.java`
+#### Snippet
+```java
+        int tokenIndex = 0;
+        int count = 0;
+        while (tokenIndex != -1) {
+            tokenIndex = target.indexOf(token, tokenIndex);
+            if (tokenIndex > -1) {
+                tokenIndex++;
+                count++;
+            }
+        }
+        return count;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/routines/CurrencyValidator.java`
+#### Snippet
+```java
+            final StringBuilder buffer = new StringBuilder(pattern.length());
+            for (int i = 0; i < pattern.length(); i++) {
+                if (pattern.charAt(i) != CURRENCY_SYMBOL) {
+                    buffer.append(pattern.charAt(i));
+                }
+            }
+            decimalFormat.applyPattern(buffer.toString());
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
+#### Snippet
+```java
+        map.forEach((key, value) -> {
+            if (value instanceof Msg) {
+                results.put(key, ((Msg) value).clone());
+            } else if (value instanceof Arg) {
+                results.put(key, ((Arg) value).clone());
+            } else if (value instanceof Var) {
+                results.put(key, ((Var) value).clone());
+            } else {
+                results.put(key, value);
+            }
+        });
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
+`StringBuilder jsName` can be replaced with 'String'
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     */
+    private String generateJsFunction() {
+        final StringBuilder jsName =
+                new StringBuilder("org.apache.commons.validator.javascript");
+
+```
+
+### StringBufferReplaceableByString
 `StringBuilder results` can be replaced with 'String'
-in `src/main/java/org/apache/commons/validator/Msg.java`
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder results = new StringBuilder();
-
-        results.append("Msg: name=");
+        final StringBuilder results = new StringBuilder("ValidatorAction: ");
+        results.append(name);
+        results.append("\n");
 ```
 
 ### StringBufferReplaceableByString
@@ -1625,25 +1176,99 @@ in `src/main/java/org/apache/commons/validator/Arg.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder results` can be replaced with 'String'
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+in `src/main/java/org/apache/commons/validator/Msg.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder results = new StringBuilder("ValidatorAction: ");
-        results.append(name);
-        results.append("\n");
+        final StringBuilder results = new StringBuilder();
+
+        results.append("Msg: name=");
 ```
 
-### StringBufferReplaceableByString
-`StringBuilder jsName` can be replaced with 'String'
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'org.apache.commons.validator.DateValidator' is deprecated
+in `src/main/java/org/apache/commons/validator/GenericValidator.java`
 #### Snippet
 ```java
-     */
-    private String generateJsFunction() {
-        final StringBuilder jsName =
-                new StringBuilder("org.apache.commons.validator.javascript");
+    public static boolean isDate(final String value, final String datePattern, final boolean strict) {
+        // TODO method isValid() not yet supported in routines version
+        return org.apache.commons.validator.DateValidator.getInstance().isValid(value, datePattern, strict);
+    }
+
+```
+
+### Deprecation
+'copyFastHashMap(org.apache.commons.collections.FastHashMap)' is deprecated
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+        }
+
+        field.hVars = ValidatorUtils.copyFastHashMap(hVars);
+        field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
+
+```
+
+### Deprecation
+'copyFastHashMap(org.apache.commons.collections.FastHashMap)' is deprecated
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+
+        field.hVars = ValidatorUtils.copyFastHashMap(hVars);
+        field.hMsgs = ValidatorUtils.copyFastHashMap(hMsgs);
+
+        return field;
+```
+
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`parsedValue == null ? false : true` can be simplified to 'parsedValue!=null'
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+        return (parsedValue == null ? false : true);
+    }
+
+```
+
+### SimplifiableConditionalExpression
+`(status == null) ? false : status.isValid()` can be simplified to 'status!=null \&\& status.isValid()'
+in `src/main/java/org/apache/commons/validator/ValidatorResult.java`
+#### Snippet
+```java
+    public boolean isValid(final String validatorName) {
+        final ResultStatus status = hAction.get(validatorName);
+        return (status == null) ? false : status.isValid();
+    }
+
+```
+
+### SimplifiableConditionalExpression
+`parsedValue == null ? false : true` can be simplified to 'parsedValue!=null'
+in `src/main/java/org/apache/commons/validator/routines/AbstractNumberValidator.java`
+#### Snippet
+```java
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale);
+        return (parsedValue == null ? false : true);
+    }
+
+```
+
+### SimplifiableConditionalExpression
+`(sum == 0) ? false : (sum % 10 == 0)` can be simplified to 'sum!=0 \&\& (sum % 10 == 0)'
+in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
+#### Snippet
+```java
+        }
+
+        return (sum == 0) ? false : (sum % 10 == 0);
+    }
 
 ```
 
@@ -1660,703 +1285,1490 @@ in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
                 return false;
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/validator/FormSet.java`
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
 #### Snippet
 ```java
-     * locale are specified.
-     */
-    protected final static int COUNTRY_FORMSET = 3;
+    }
 
     /**
+     * The above instances must only be returned via the getInstance() methods.
+     * This is to ensure that the override data arrays are properly protected.
 ```
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/validator/FormSet.java`
-#### Snippet
-```java
-     * This is the type of <code>FormSet</code>s where no locale is specified.
-     */
-    protected final static int GLOBAL_FORMSET = 1;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/validator/FormSet.java`
-#### Snippet
-```java
-     * This is the type of <code>FormSet</code>s where full locale has been set.
-     */
-    protected final static int VARIANT_FORMSET = 4;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/validator/FormSet.java`
-#### Snippet
-```java
-     * specified.
-     */
-    protected final static int LANGUAGE_FORMSET = 2;
-
-    /**
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-
-        final String function = buffer.toString();
-        return function.equals("") ? null : function;
-    }
-
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-            return null;
-        }
-        return Short.valueOf((short)longValue);
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-            if (longValue >= Byte.MIN_VALUE &&
-                longValue <= Byte.MAX_VALUE) {
-                return Byte.valueOf((byte)longValue);
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-            if (longValue >= Integer.MIN_VALUE &&
-                longValue <= Integer.MAX_VALUE) {
-                return Integer.valueOf((int)longValue);
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-        }
-
-        return Float.valueOf((float)doubleValue);
-
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
-#### Snippet
-```java
-            return value;
-        }
-        return Double.valueOf(((Number)value).doubleValue());
-
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= (Double.MAX_VALUE * -1) &&
-                    num.doubleValue() <= Double.MAX_VALUE) {
-                result = Double.valueOf(num.doubleValue());
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= Integer.MIN_VALUE &&
-                    num.doubleValue() <= Integer.MAX_VALUE) {
-                result = Integer.valueOf(num.intValue());
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= (Float.MAX_VALUE * -1) &&
-                    num.doubleValue() <= Float.MAX_VALUE) {
-                result = Float.valueOf(num.floatValue());
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= Long.MIN_VALUE &&
-                    num.doubleValue() <= Long.MAX_VALUE) {
-                result = Long.valueOf(num.longValue());
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= Short.MIN_VALUE &&
-                    num.doubleValue() <= Short.MAX_VALUE) {
-                result = Short.valueOf(num.shortValue());
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                    num.doubleValue() >= Byte.MIN_VALUE &&
-                    num.doubleValue() <= Byte.MAX_VALUE) {
-                result = Byte.valueOf(num.byteValue());
-            }
-        }
-```
-
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-        // Parsed value will be Long if it fits in a long and is not fractional
-        if (value instanceof Long) {
-            final long longValue = ((Long)value).longValue();
-            if (longValue >= Byte.MIN_VALUE &&
-                longValue <= Byte.MAX_VALUE) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-        // Parsed value will be Long if it fits in a long and is not fractional
-        if (value instanceof Long) {
-            final long longValue = ((Long)value).longValue();
-            if (longValue >= Integer.MIN_VALUE &&
-                longValue <= Integer.MAX_VALUE) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-        if (result instanceof Boolean) {
-            final Boolean valid = (Boolean) result;
-            return valid.booleanValue();
-        }
-        return result != null;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
-#### Snippet
-```java
-        BigDecimal decimal;
-        if (value instanceof Long) {
-            decimal = BigDecimal.valueOf(((Long)value).longValue());
-        } else {
-            decimal = new BigDecimal(value.toString());
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
-#### Snippet
-```java
-        final Calendar calendarValue   = getCalendar(value, timeZone);
-        final Calendar calendarCompare = getCalendar(compare, timeZone);
-        return super.compareQuarters(calendarValue, calendarCompare, monthOfFirstQuarter);
-    }
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
-#### Snippet
-```java
-
-     while (commentMatcher.matcher(result).matches()) {
-        result = result.replaceFirst(commentPat, "\1 ");
-     }
-     return result;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
-#### Snippet
-```java
-        }
-        if (parts.length == 2) {
-            if (!parts[1].matches("\\d{1,3}")) {
-                return false; // not a valid number
-            }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
-#### Snippet
-```java
-        // The id syntax is implementation independent, but it presumably cannot allow:
-        // whitespace, '/' or '%'
-        if ((parts.length == 2) && !parts[1].matches("[^\\s/%]+")) {
-            return false; // invalid id
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/validator/routines/ISSNValidator.java`
-#### Snippet
-```java
-    public String convertToEAN13(final String issn, final String suffix) {
-
-        if (suffix == null || !suffix.matches("\\d\\d")) {
-            throw new IllegalArgumentException("Suffix must be two digits: '" + suffix + "'");
-        }
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.validator.routines` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/validator/routines/checkdigit/CheckDigit.java`
-#### Snippet
-```java
- * list of implementations provided within Commons Validator.
- *
- * @see org.apache.commons.validator.routines.CodeValidator
- * @since 1.4
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-     * If strict is true, then the length will be checked so '2/12/1999' will
-     * not pass validation with the format 'MM/dd/yyyy' because the month isn't
-     * two digits. The {@link java.text.SimpleDateFormat#setLenient(boolean)}
-     * method is set to {@code false} for all.
-     * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-     * Checks if the field is a valid date.
-     *
-     * <p>The {@code Locale} is used with {@code java.text.DateFormat}. The {@link java.text.DateFormat#setLenient(boolean)}
-     * method is set to {@code false} for all.
-     * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.validator` is unnecessary and can be removed
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Map.get()'
 in `src/main/java/org/apache/commons/validator/Field.java`
 #### Snippet
 ```java
- * </p>
- *
- * @see org.apache.commons.validator.Form
- */
-// TODO mutable non-private fields
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-        try {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
+                results.append(key1);
+                results.append("=");
+                results.append(getVarMap().get(key1));
+                results.append("\n");
             }
 ```
 
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`todo = todo / 10` could be simplified to 'todo /= 10'
-in `src/main/java/org/apache/commons/validator/routines/checkdigit/ModulusCheckDigit.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/validator/UrlValidator.java`
 #### Snippet
 ```java
-        while (todo > 0) {
-            total += todo % 10; // CHECKSTYLE IGNORE MagicNumber
-            todo  = todo / 10; // CHECKSTYLE IGNORE MagicNumber
-        }
-        return total;
+ *
+ * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
+ * http://javascript.internet.com. However, this validation now bears little resemblance
+ * to the php original.</p>
+ * <pre>
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractCalendarValidator()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/validator/routines/IBANValidator.java`
 #### Snippet
 ```java
-     * @param timeStyle the time style to use for Locale validation.
-     */
-    public AbstractCalendarValidator(final boolean strict, final int dateStyle, final int timeStyle) {
-        super(strict);
-        this.dateStyle = dateStyle;
+ * <p>
+ * The validator includes a default set of formats derived from the IBAN registry at
+ * https://www.swift.com/standards/data-standards/iban.
+ * </p>
+ * <p>
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractNumberValidator()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/validator/routines/AbstractNumberValidator.java`
-#### Snippet
-```java
-     *        allowed or <code>false</code> if integers only.
-     */
-    public AbstractNumberValidator(final boolean strict, final int formatType, final boolean allowFractions) {
-        super(strict);
-        this.allowFractions = allowFractions;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ModulusCheckDigit()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/validator/routines/checkdigit/ModulusCheckDigit.java`
-#### Snippet
-```java
-     * @param modulus The modulus value to use for the check digit calculation
-     */
-    public ModulusCheckDigit(final int modulus) {
-        this.modulus = modulus;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractFormatValidator()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
-#### Snippet
-```java
-     *        <code>Format</code> parsing should be used.
-     */
-    public AbstractFormatValidator(final boolean strict) {
-        this.strict = strict;
-    }
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `processed` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/FormSet.java`
-#### Snippet
-```java
-     * variables in strings with their values.
-     */
-    private boolean processed;
-
-    /** Language component of <code>Locale</code> (required). */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `javascript` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * java method assocated with this action.
-     */
-    private String javascript;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `jsFunction` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * JavaScript function.
-     */
-    private String jsFunction;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `method` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * must be thread safe.
-     */
-    private String method;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `validationMethod` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * The Method object loaded from the method name.
-     */
-    private Method validationMethod;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `validationClass` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * The Class object loaded from the classname.
-     */
-    private Class<?> validationClass;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `name` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * The name of the validation.
-     */
-    private String name;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `classname` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-     * the validation method associated with this action.
-     */
-    private String classname;
-
-    /**
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-    protected Object parse(String value, final String pattern, final Locale locale, final TimeZone timeZone) {
-
-        value = (value == null ? null : value.trim());
-        if (value == null || value.isEmpty()) {
-            return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-        }
-        if (value instanceof Calendar) {
-            value = ((Calendar)value).getTime();
-        }
-        return formatter.format(value);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `schemes`
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-        } else {
-            if (schemes == null) {
-                schemes = DEFAULT_SCHEMES;
-            }
-            allowedSchemes = new HashSet<>(schemes.length);
+
+    /**
+     * Allow local URLs, such as http://localhost/ or http://machine/ .
+     * This enables a broad-brush check, for complex local machine name
+     *  validation requirements you should create your validator with
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `domain`
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-                domainSegment[i] = atomMatcher.group(1);
-                final int l = domainSegment[i].length() + 1;
-                domain =
-                        (l >= domain.length())
-                        ? ""
+
+    /**
+     * Allow local URLs, such as http://localhost/ or http://machine/ .
+     * This enables a broad-brush check, for complex local machine name
+     *  validation requirements you should create your validator with
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `schemes`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+ *
+ * <p>Originally based in on php script by Debbie Dyer, validation.php v1.2b, Date: 03/07/02,
+ * http://javascript.internet.com. However, this validation now bears little resemblance
+ * to the php original.</p>
+ * <pre>
+```
+
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/DateValidator.java`
+#### Snippet
+```java
+        }
+
+        if (strict && (datePattern.length() != value.length())) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
+#### Snippet
+```java
+            validOctets++;
+        }
+        if (validOctets > IPV6_MAX_HEX_GROUPS || (validOctets < IPV6_MAX_HEX_GROUPS && !containsCompressedZeroes)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/UrlValidator.java`
+#### Snippet
+```java
+        }
+
+        if (options.isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `src/main/java/org/apache/commons/validator/UrlValidator.java`
 #### Snippet
 ```java
 
-        if (schemes == null) {
-            schemes = this.defaultSchemes;
+        final String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
+        if (!GenericValidator.isBlankOrNull(extra)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/UrlValidator.java`
+#### Snippet
+```java
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `code`
-in `src/main/java/org/apache/commons/validator/routines/checkdigit/IBANCheckDigit.java`
-#### Snippet
-```java
-            throw new CheckDigitException("Invalid Code length=" + (code == null ? 0 : code.length()));
+        if (!isValidFragment(urlMatcher.group(PARSE_URL_FRAGMENT))) {
+            return false;
         }
-        code = code.substring(0, 2) + "00" + code.substring(4); // CHECKSTYLE IGNORE MagicNumber
-        final int modulusResult = calculateModulus(code);
-        final int charValue = 98 - modulusResult; // CHECKSTYLE IGNORE MagicNumber
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `inet6Address`
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/UrlValidator.java`
 #### Snippet
 ```java
-            return false; // invalid id
+        final int slashCount = countToken("/", path);
+        final int dot2Count = countToken("..", path);
+        if (dot2Count > 0 && (slashCount - slash2Count - 1) <= dot2Count){
+            return false;
         }
-        inet6Address = parts[0];
-        final boolean containsCompressedZeroes = inet6Address.contains("::");
-        if (containsCompressedZeroes && (inet6Address.indexOf("::") != inet6Address.lastIndexOf("::"))) {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/routines/AbstractNumberValidator.java`
-#### Snippet
-```java
-    protected Object parse(String value, final String pattern, final Locale locale) {
-
-        value = (value == null ? null : value.trim());
-        if (value == null || value.isEmpty()) {
-            return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
-
-        if (length == key.length()) {
-            value = replaceValue;
-
-        } else if (end == length) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
-
-        } else if (end == length) {
-            value = value.substring(0, start) + replaceValue;
-
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
-
-        } else {
-            value =
-                    value.substring(0, start)
-                    + replaceValue
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `domain`
-in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
             return false;
         }
-        domain = unicodeToASCII(domain);
-        // hosts must be equally reachable via punycode and Unicode
-        // Unicode is never shorter than punycode, so check punycode
+        if (!isValidSymbolicDomain(domain)) {
+            return false;
+        }
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `domain`
-in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
 #### Snippet
 ```java
             return false;
         }
-        domain = unicodeToASCII(domain);
-        // hosts must be equally reachable via punycode and Unicode
-        // Unicode is never shorter than punycode, so check punycode
+        if (! TLD_PATTERN.matcher(tld).matches()) {
+            return false;
+        }
 ```
 
-## RuleId[id=PointlessBitwiseExpression]
-### PointlessBitwiseExpression
-`1 << 0` can be replaced with '1'
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/routines/EmailValidator.java`
+#### Snippet
+```java
+        }
+
+        if (!isValidDomain(emailMatcher.group(2))) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-     * supplying a set of valid schemes.
+        }
+
+        if (isOff(ALLOW_ALL_SCHEMES) && !allowedSchemes.contains(scheme.toLowerCase(Locale.ENGLISH))) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+
+        final int slash2Count = countToken("//", path);
+        if (isOff(ALLOW_2_SLASHES) && (slash2Count > 0)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+        }
+
+        if (!isValidFragment(uri.getRawFragment())) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+
+        final String extra = authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
+        if (extra != null && !extra.trim().isEmpty()){
+            return false;
+        }
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * Load the Class object for the configured validation class name.
+     * @param loader The ClassLoader used to load the Class object.
+     * @throws ValidatorException
      */
-    public static final long ALLOW_ALL_SCHEMES = 1 << 0;
+    private void loadValidationClass(final ClassLoader loader)
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+    /**
+     * Load the Method object for the configured validation method name.
+     * @throws ValidatorException
+     */
+    private void loadValidationMethod() throws ValidatorException {
+```
+
+### JavadocDeclaration
+`@param field` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * Dynamically runs the validation method for this validator and returns
+     * true if the data is valid.
+     * @param field
+     * @param params A Map of class names to parameter values.
+     * @param results
+```
+
+### JavadocDeclaration
+`@param results` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * @param field
+     * @param params A Map of class names to parameter values.
+     * @param results
+     * @param pos The index of the list property to validate if it's indexed.
+     * @throws ValidatorException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * @param results
+     * @param pos The index of the list property to validate if it's indexed.
+     * @throws ValidatorException
+     */
+    boolean executeValidationMethod(
+```
+
+### JavadocDeclaration
+`@param field` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * Modifies the paramValue array with indexed fields.
+     *
+     * @param field
+     * @param pos
+     * @param paramValues
+```
+
+### JavadocDeclaration
+`@param pos` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     *
+     * @param field
+     * @param pos
+     * @param paramValues
+     */
+```
+
+### JavadocDeclaration
+`@param paramValues` tag description is missing
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+     * @param field
+     * @param pos
+     * @param paramValues
+     */
+    private void handleIndexedField(final Field field, final int pos, final Object[] paramValues)
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/Form.java`
+#### Snippet
+```java
+     * @return                     A ValidatorResults object containing all
+     *      validation messages.
+     * @throws ValidatorException
+     */
+    ValidatorResults validate(final Map<String, Object> params, final Map<String, ValidatorAction> actions, final int page)
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/Form.java`
+#### Snippet
+```java
+     * @return                     A ValidatorResults object containing all
+     *      validation messages.
+     * @throws ValidatorException
+     * @since 1.2.0
+     */
+```
+
+### JavadocDeclaration
+`@param results` tag description is missing
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+     * TODO ValidatorAction should know how to run its own dependencies.
+     * @param va Run dependent validators for this action.
+     * @param results
+     * @param actions
+     * @param pos
+```
+
+### JavadocDeclaration
+`@param actions` tag description is missing
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+     * @param va Run dependent validators for this action.
+     * @param results
+     * @param actions
+     * @param pos
+     * @return true if all of the dependent validations passed.
+```
+
+### JavadocDeclaration
+`@param pos` tag description is missing
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+     * @param results
+     * @param actions
+     * @param pos
+     * @return true if all of the dependent validations passed.
+     * @throws ValidatorException If there's an error running a validator
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+     * no know ValidatorAction configured for that name.
+     * @param name The name of the validator in the depends list.
+     * @throws ValidatorException
+     */
+    private void handleMissingAction(final String name) throws ValidatorException {
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
+#### Snippet
+```java
+     */
+    public Short validate(final String value) {
+        return (Short)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
+#### Snippet
+```java
+     */
+    public Integer validate(final String value, final Locale locale) {
+        return (Integer)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
+#### Snippet
+```java
+     */
+    public Short validate(final String value) {
+        return (Short)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final String pattern) {
+        return format(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
+#### Snippet
+```java
+     */
+    public Short validate(final String value, final String pattern) {
+        return (Short)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
+#### Snippet
+```java
+     */
+    public Short validate(final String value, final Locale locale) {
+        return (Short)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public boolean isValid(final String value) {
+        return isValid(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public boolean isValid(final String value) {
+        return isValid(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public boolean isValid(final String value, final String pattern) {
+        return isValid(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public boolean isValid(final String value, final Locale locale) {
+        return isValid(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value) {
+        return format(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value) {
+        return format(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final Locale locale) {
+        return format(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
+#### Snippet
+```java
+     */
+    public Integer validate(final String value, final String pattern) {
+        return (Integer)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
+#### Snippet
+```java
+     */
+    public Integer validate(final String value) {
+        return (Integer)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
+#### Snippet
+```java
+     */
+    public Integer validate(final String value) {
+        return (Integer)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, locale, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
+        return (Calendar)parse(value, pattern, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern) {
+        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern) {
+        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale) {
+        return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale) {
+        return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/TimeValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern, final Locale locale) {
+        return (Calendar)parse(value, pattern, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern) {
+        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern) {
+        return (Calendar)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale) {
+        return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale) {
+        return (Calendar)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value) {
+        return (Calendar)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final Locale locale, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, locale, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final TimeZone timeZone) {
+        return (Calendar)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern, final Locale locale) {
+        return (Calendar)parse(value, pattern, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/CalendarValidator.java`
+#### Snippet
+```java
+     */
+    public Calendar validate(final String value, final String pattern, final TimeZone timeZone) {
+        return (Calendar)parse(value, pattern, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final TimeZone timeZone) {
+        return (Date)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final TimeZone timeZone) {
+        return (Date)parse(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final String pattern) {
+        return (Date)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final String pattern) {
+        return (Date)parse(value, pattern, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final String pattern, final Locale locale) {
+        return (Date)parse(value, pattern, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value) {
+        return (Date)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value) {
+        return (Date)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value) {
+        return (Date)parse(value, (String)null, (Locale)null, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final Locale locale) {
+        return (Date)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final Locale locale) {
+        return (Date)parse(value, (String)null, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final Locale locale, final TimeZone timeZone) {
+        return (Date)parse(value, (String)null, locale, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DateValidator.java`
+#### Snippet
+```java
+     */
+    public Date validate(final String value, final String pattern, final TimeZone timeZone) {
+        return (Date)parse(value, pattern, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final Locale locale, final TimeZone timeZone) {
+        return format(value, (String)null, locale, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+    @Override
+    public String format(final Object value, final String pattern, final Locale locale) {
+        return format(value, pattern, locale, (TimeZone)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final String pattern, final TimeZone timeZone) {
+        return format(value, pattern, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final TimeZone timeZone) {
+        return format(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+     */
+    public String format(final Object value, final TimeZone timeZone) {
+        return format(value, (String)null, (Locale)null, timeZone);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `TimeZone` is redundant
+in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
+#### Snippet
+```java
+    @Override
+    public boolean isValid(final String value, final String pattern, final Locale locale) {
+        final Object parsedValue = parse(value, pattern, locale, (TimeZone)null);
+        return (parsedValue == null ? false : true);
+    }
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
+#### Snippet
+```java
+     */
+    public Byte validate(final String value) {
+        return (Byte)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
+#### Snippet
+```java
+     */
+    public Byte validate(final String value) {
+        return (Byte)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
+#### Snippet
+```java
+     */
+    public Byte validate(final String value, final String pattern) {
+        return (Byte)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
+#### Snippet
+```java
+     */
+    public Byte validate(final String value, final Locale locale) {
+        return (Byte)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
+#### Snippet
+```java
+     */
+    public Long validate(final String value, final String pattern) {
+        return (Long)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
+#### Snippet
+```java
+     */
+    public Long validate(final String value, final Locale locale) {
+        return (Long)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
+#### Snippet
+```java
+     */
+    public Long validate(final String value) {
+        return (Long)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
+#### Snippet
+```java
+     */
+    public Long validate(final String value) {
+        return (Long)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
+#### Snippet
+```java
+     */
+    public BigInteger validate(final String value, final String pattern) {
+        return (BigInteger)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
+#### Snippet
+```java
+     */
+    public BigInteger validate(final String value) {
+        return (BigInteger)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
+#### Snippet
+```java
+     */
+    public BigInteger validate(final String value) {
+        return (BigInteger)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigIntegerValidator.java`
+#### Snippet
+```java
+     */
+    public BigInteger validate(final String value, final Locale locale) {
+        return (BigInteger)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
+#### Snippet
+```java
+     */
+    public Float validate(final String value, final String pattern) {
+        return (Float)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
+#### Snippet
+```java
+     */
+    public Float validate(final String value) {
+        return (Float)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
+#### Snippet
+```java
+     */
+    public Float validate(final String value) {
+        return (Float)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
+#### Snippet
+```java
+     */
+    public Float validate(final String value, final Locale locale) {
+        return (Float)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
+#### Snippet
+```java
+     */
+    public BigDecimal validate(final String value) {
+        return (BigDecimal)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
+#### Snippet
+```java
+     */
+    public BigDecimal validate(final String value) {
+        return (BigDecimal)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
+#### Snippet
+```java
+     */
+    public BigDecimal validate(final String value, final String pattern) {
+        return (BigDecimal)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/BigDecimalValidator.java`
+#### Snippet
+```java
+     */
+    public BigDecimal validate(final String value, final Locale locale) {
+        return (BigDecimal)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
+#### Snippet
+```java
+     */
+    public Double validate(final String value) {
+        return (Double)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
+#### Snippet
+```java
+     */
+    public Double validate(final String value) {
+        return (Double)parse(value, (String)null, (Locale)null);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `String` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
+#### Snippet
+```java
+     */
+    public Double validate(final String value, final Locale locale) {
+        return (Double)parse(value, (String)null, locale);
+    }
+
+```
+
+### RedundantCast
+Casting `null` to `Locale` is redundant
+in `src/main/java/org/apache/commons/validator/routines/DoubleValidator.java`
+#### Snippet
+```java
+     */
+    public Double validate(final String value, final String pattern) {
+        return (Double)parse(value, pattern, (Locale)null);
+    }
+
+```
+
+## RuleId[id=UnnecessaryUnicodeEscape]
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A4` can be replaced with '¤'
+in `src/main/java/org/apache/commons/validator/routines/package-info.java`
+#### Snippet
+```java
+ * IntegerValidator validator =
+ * new IntegerValidator(true, IntegerValidator.CURRENCY_FORMAT);
+ * String pattern = "#,###" + '\u00A4' + '\u00A4';  // Use international symbol
+ * Integer fooAmount = validator.validate("10.100EUR", pattern, Locale.GERMAN);
+ * if (fooAmount == null) {
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A4` can be replaced with '¤'
+in `src/main/java/org/apache/commons/validator/routines/package-info.java`
+#### Snippet
+```java
+ * IntegerValidator validator =
+ * new IntegerValidator(true, IntegerValidator.CURRENCY_FORMAT);
+ * String pattern = "#,###" + '\u00A4' + '\u00A4';  // Use international symbol
+ * Integer fooAmount = validator.validate("10.100EUR", pattern, Locale.GERMAN);
+ * if (fooAmount == null) {
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A4` can be replaced with '¤'
+in `src/main/java/org/apache/commons/validator/routines/CurrencyValidator.java`
+#### Snippet
+```java
+
+    /** DecimalFormat's currency symbol */
+    private static final char CURRENCY_SYMBOL = '\u00A4';
 
     /**
 ```
 
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u002E` can be replaced with '.'
+in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+#### Snippet
+```java
+            final char lastChar = input.charAt(length-1);// fetch original last char
+            switch(lastChar) {
+                case '\u002E': // "." full stop
+                case '\u3002': // ideographic full stop
+                case '\uFF0E': // fullwidth full stop
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u3002` can be replaced with '。'
+in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+#### Snippet
+```java
+            switch(lastChar) {
+                case '\u002E': // "." full stop
+                case '\u3002': // ideographic full stop
+                case '\uFF0E': // fullwidth full stop
+                case '\uFF61': // halfwidth ideographic full stop
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\uFF0E` can be replaced with '．'
+in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+#### Snippet
+```java
+                case '\u002E': // "." full stop
+                case '\u3002': // ideographic full stop
+                case '\uFF0E': // fullwidth full stop
+                case '\uFF61': // halfwidth ideographic full stop
+                    return ascii + "."; // restore the missing stop
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\uFF61` can be replaced with '｡'
+in `src/main/java/org/apache/commons/validator/routines/DomainValidator.java`
+#### Snippet
+```java
+                case '\u3002': // ideographic full stop
+                case '\uFF0E': // fullwidth full stop
+                case '\uFF61': // halfwidth ideographic full stop
+                    return ascii + "."; // restore the missing stop
+                default:
+```
+
+## RuleId[id=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
 `1 << 0` can be replaced with '1'
 in `src/main/java/org/apache/commons/validator/UrlValidator.java`
@@ -2365,6 +2777,18 @@ in `src/main/java/org/apache/commons/validator/UrlValidator.java`
      * supplying a set of valid schemes.
      */
     public static final int ALLOW_ALL_SCHEMES = 1 << 0;
+
+    /**
+```
+
+### PointlessBitwiseExpression
+`1 << 0` can be replaced with '1'
+in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
+#### Snippet
+```java
+     * Option specifying that American Express cards are allowed.
+     */
+    public static final long AMEX = 1 << 0;
 
     /**
 ```
@@ -2383,704 +2807,17 @@ in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
 
 ### PointlessBitwiseExpression
 `1 << 0` can be replaced with '1'
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
 #### Snippet
 ```java
-     * Option specifying that American Express cards are allowed.
+     * supplying a set of valid schemes.
      */
-    public static final long AMEX = 1 << 0;
+    public static final long ALLOW_ALL_SCHEMES = 1 << 0;
 
     /**
 ```
 
-## RuleId[id=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-            // this for Validator 2.0 when exception scheme changes.
-        } catch (final Exception e) {
-            if (e instanceof ValidatorException) {
-                throw (ValidatorException) e;
-            }
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-16-43-03.908.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CodeValidator.java`
-#### Snippet
-```java
-
-        if (input == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CodeValidator.java`
-#### Snippet
-```java
-        String code = input.trim();
-        if (code.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CodeValidator.java`
-#### Snippet
-```java
-            code = regexValidator.validate(code);
-            if (code == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CodeValidator.java`
-#### Snippet
-```java
-        if ((minLength >= 0 && code.length() < minLength) ||
-            (maxLength >= 0 && code.length() > maxLength)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CodeValidator.java`
-#### Snippet
-```java
-        // validate the check digit
-        if (checkdigit != null && !checkdigit.isValid(code)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISINValidator.java`
-#### Snippet
-```java
-        final Object validate = VALIDATOR.validate(code);
-        if (validate != null && checkCountryCode) {
-            return checkCode(code.substring(0,2)) ? validate : null;
-        }
-        return validate;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ShortValidator.java`
-#### Snippet
-```java
-        if (longValue < Short.MIN_VALUE ||
-            longValue > Short.MAX_VALUE) {
-            return null;
-        }
-        return Short.valueOf((short)longValue);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-        value = (value == null ? null : value.trim());
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        final DateFormat formatter = (DateFormat)getFormat(pattern, locale);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-    protected String format(Object value, final Format formatter) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Calendar) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ByteValidator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/IntegerValidator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISBNValidator.java`
-#### Snippet
-```java
-
-        if (isbn10 == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISBNValidator.java`
-#### Snippet
-```java
-    public String validateISBN13(final String code) {
-        final Object result = isbn13Validator.validate(code);
-        return result == null ? null : result.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISBNValidator.java`
-#### Snippet
-```java
-    public String validateISBN10(final String code) {
-        final Object result = isbn10Validator.validate(code);
-        return result == null ? null : result.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-        if (doubleValue > 0) {
-            if (doubleValue < Float.MIN_VALUE) {
-                return null;
-            }
-            if (doubleValue > Float.MAX_VALUE) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-            }
-            if (doubleValue > Float.MAX_VALUE) {
-                return null;
-            }
-        } else  if (doubleValue < 0){
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-            final double posDouble = doubleValue * -1;
-            if (posDouble < Float.MIN_VALUE) {
-                return null;
-            }
-            if (posDouble > Float.MAX_VALUE) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/FloatValidator.java`
-#### Snippet
-```java
-            }
-            if (posDouble > Float.MAX_VALUE) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/RegexValidator.java`
-#### Snippet
-```java
-    public String[] match(final String value) {
-        if (value == null) {
-            return null;
-        }
-        for (final Pattern pattern : patterns) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/RegexValidator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/RegexValidator.java`
-#### Snippet
-```java
-    public String validate(final String value) {
-        if (value == null) {
-            return null;
-        }
-        for (final Pattern pattern : patterns) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/RegexValidator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/AbstractNumberValidator.java`
-#### Snippet
-```java
-        value = (value == null ? null : value.trim());
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        final Format formatter = getFormat(pattern, locale);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/IBANValidator.java`
-#### Snippet
-```java
-    public Validator getValidator(final String code) {
-        if (code == null || code.length() < SHORT_CODE_LEN) { // ensure we can extract the code
-            return null;
-        }
-        final String key = code.substring(0, SHORT_CODE_LEN);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/ValidatorResult.java`
-#### Snippet
-```java
-    public Object getResult(final String validatorName) {
-        final ResultStatus status = hAction.get(validatorName);
-        return (status == null) ? null : status.getResult();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
-
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-        if (is == null) {
-            getLog().debug("  Unable to read javascript name "+javascriptFileName);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-
-        final String function = buffer.toString();
-        return function.equals("") ? null : function;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISSNValidator.java`
-#### Snippet
-```java
-        final Object result = validateEan(input);
-        if (result == null) {
-            return null;
-        }
-        // Calculate the ISSN code
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/ISSNValidator.java`
-#### Snippet
-```java
-        final Object result = validate(issn);
-        if (result == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
-#### Snippet
-```java
-        Object parsedValue = formatter.parseObject(value, pos);
-        if (pos.getErrorIndex() > -1) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/AbstractFormatValidator.java`
-#### Snippet
-```java
-
-        if (isStrict() && pos.getIndex() < value.length()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/LongValidator.java`
-#### Snippet
-```java
-            return value;
-        }
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Short formatShort(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Short.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Integer formatInt(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Integer.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Float formatFloat(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Float.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Long formatLong(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Long.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-                || datePattern == null
-                || datePattern.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Byte formatByte(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Byte.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-     */
-    public static Long formatCreditCard(final String value) {
-        return GenericValidator.isCreditCard(value) ? Long.valueOf(value) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-    public static Double formatDouble(final String value) {
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
-#### Snippet
-```java
-            return Double.valueOf(value);
-        } catch (final NumberFormatException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
-#### Snippet
-```java
-    public Object validate(final String card) {
-        if (card == null || card.isEmpty()) {
-            return null;
-        }
-        Object result = null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
-#### Snippet
-```java
-                            }
-                        }
-                        return null;
-                    }
-                    @Override
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/Field.java`
-#### Snippet
-```java
-    public String getMsg(final String key) {
-        final Msg msg = getMessage(key);
-        return (msg == null) ? null : msg.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/Field.java`
-#### Snippet
-```java
-    public Arg getArg(final String key, final int position) {
-        if ((position >= this.args.length) || (this.args[position] == null)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/validator/Field.java`
-#### Snippet
-```java
-        // infinite recursion
-        if ((arg == null) && key.equals(DEFAULT_ARG)) {
-            return null;
-        }
-
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `start` is redundant
-in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
-#### Snippet
-```java
-
-        final int length = value.length();
-        final int start = pos;
-        final int end = pos + key.length();
-
-```
-
 ### UnnecessaryLocalVariable
 Local variable `issn` is redundant
 in `src/main/java/org/apache/commons/validator/routines/ISSNValidator.java`
@@ -3093,66 +2830,16 @@ in `src/main/java/org/apache/commons/validator/routines/ISSNValidator.java`
         } catch (final CheckDigitException e) { // Should not happen
 ```
 
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+### UnnecessaryLocalVariable
+Local variable `start` is redundant
+in `src/main/java/org/apache/commons/validator/util/ValidatorUtils.java`
 #### Snippet
 ```java
-        try {
-            if (this.validationMethod == null) {
-                synchronized(this) {
-                    final ClassLoader loader = this.getClassLoader(params);
-                    this.loadValidationClass(loader);
-```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/validator/routines/RegexValidator.java`
-#### Snippet
-```java
-     */
-    RegexValidator(final List<String> regexs) {
-        this(regexs.toArray(new String[] {}), true);
-    }
+        final int length = value.length();
+        final int start = pos;
+        final int end = pos + key.length();
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
-#### Snippet
-```java
-                octetList.remove(0);
-            }
-            octets = octetList.toArray(new String[0]);
-        }
-        if (octets.length > IPV6_MAX_HEX_GROUPS) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/validator/routines/IBANValidator.java`
-#### Snippet
-```java
-         */
-        public Validator(final String countryCode, final int ibanLength, final String regexWithCC) {
-            this(countryCode, ibanLength, regexWithCC.substring(countryCode.length()), new String[] {});
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/commons/validator/Field.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked") // cannot instantiate generic array, so have to assume this is OK
-    protected Map<String, Arg>[] args = new Map[0];
-
-    /**
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
@@ -3168,35 +2855,22 @@ in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
     private static final Pattern AUTHORITY_PATTERN = Pattern.compile(AUTHORITY_REGEX);
 ```
 
-## RuleId[id=UseCompareMethod]
-### UseCompareMethod
-Expression can be replaced with 'Integer.compare'
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-    private int calculateCompareResult(final Calendar value, final Calendar compare, final int field) {
-        final int difference = value.get(field) - compare.get(field);
-        if (difference < 0) {
-            return -1;
-        }
-```
-
-### UseCompareMethod
-Expression can be replaced with 'Integer.compare'
-in `src/main/java/org/apache/commons/validator/routines/AbstractCalendarValidator.java`
-#### Snippet
-```java
-        final int valueQuarter   = calculateQuarter(value, monthOfFirstQuarter);
-        final int compareQuarter = calculateQuarter(compare, monthOfFirstQuarter);
-        if (valueQuarter < compareQuarter) {
-            return -1;
-        }
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `octetInt` initializer `0` is redundant
+in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
+#### Snippet
+```java
+                    return false;
+                }
+                int octetInt = 0;
+                try {
+                    octetInt = Integer.parseInt(octet, BASE_16);
+```
+
+### UnusedAssignment
 Variable `iIpSegment` initializer `0` is redundant
-in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
 #### Snippet
 ```java
             }
@@ -3216,54 +2890,6 @@ in `src/main/java/org/apache/commons/validator/UrlValidator.java`
             int segmentLength = 0;
 
             while (match) {
-```
-
-### UnusedAssignment
-Variable `iIpSegment` initializer `0` is redundant
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
-#### Snippet
-```java
-            }
-
-            int iIpSegment = 0;
-
-            try {
-```
-
-### UnusedAssignment
-Variable `octetInt` initializer `0` is redundant
-in `src/main/java/org/apache/commons/validator/routines/InetAddressValidator.java`
-#### Snippet
-```java
-                    return false;
-                }
-                int octetInt = 0;
-                try {
-                    octetInt = Integer.parseInt(octet, BASE_16);
-```
-
-### UnusedAssignment
-Variable `line` initializer `null` is redundant
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
-        try {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
-```
-
-### UnusedAssignment
-Variable `digit` initializer `0` is redundant
-in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
-#### Snippet
-```java
-        long sum = 0;
-        for (int count = 0; count < digits; count++) {
-            int digit = 0;
-            try {
-                digit = Integer.parseInt(cardNumber.charAt(count) + "");
 ```
 
 ### UnusedAssignment
@@ -3299,7 +2925,7 @@ in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getInstance(locale);
+                formatter = NumberFormat.getNumberInstance(locale);
 ```
 
 ### UnusedAssignment
@@ -3347,7 +2973,7 @@ in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
         if (value != null) {
             NumberFormat formatter = null;
             if (locale != null) {
-                formatter = NumberFormat.getNumberInstance(locale);
+                formatter = NumberFormat.getInstance(locale);
 ```
 
 ### UnusedAssignment
@@ -3363,6 +2989,30 @@ in `src/main/java/org/apache/commons/validator/GenericTypeValidator.java`
 ```
 
 ### UnusedAssignment
+Variable `iIpSegment` initializer `0` is redundant
+in `src/main/java/org/apache/commons/validator/EmailValidator.java`
+#### Snippet
+```java
+            }
+
+            int iIpSegment = 0;
+
+            try {
+```
+
+### UnusedAssignment
+Variable `line` initializer `null` is redundant
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(is)); // TODO encoding
+        try {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line).append("\n");
+```
+
+### UnusedAssignment
 Variable `result` initializer `null` is redundant
 in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java`
 #### Snippet
@@ -3372,6 +3022,30 @@ in `src/main/java/org/apache/commons/validator/routines/CreditCardValidator.java
         Object result = null;
         for (final CodeValidator cardType : cardTypes) {
             result = cardType.validate(card);
+```
+
+### UnusedAssignment
+Variable `digit` initializer `0` is redundant
+in `src/main/java/org/apache/commons/validator/CreditCardValidator.java`
+#### Snippet
+```java
+        long sum = 0;
+        for (int count = 0; count < digits; count++) {
+            int digit = 0;
+            try {
+                digit = Integer.parseInt(cardNumber.charAt(count) + "");
+```
+
+### UnusedAssignment
+Variable `indexProp` initializer `null` is redundant
+in `src/main/java/org/apache/commons/validator/Field.java`
+#### Snippet
+```java
+     */
+    private int getIndexedPropertySize(final Object bean) throws ValidatorException {
+        Object indexProp = null;
+
+        try {
 ```
 
 ### UnusedAssignment
@@ -3398,43 +3072,7 @@ in `src/main/java/org/apache/commons/validator/Field.java`
             field = (Field) super.clone();
 ```
 
-### UnusedAssignment
-Variable `indexProp` initializer `null` is redundant
-in `src/main/java/org/apache/commons/validator/Field.java`
-#### Snippet
-```java
-     */
-    private int getIndexedPropertySize(final Object bean) throws ValidatorException {
-        Object indexProp = null;
-
-        try {
-```
-
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `authority != null` is always `true`
-in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
-#### Snippet
-```java
-            return true; // this is a local file - nothing more to do here
-        }
-        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
-            return false;
-        }
-```
-
-### ConstantValue
-Condition `valid` is always `true` when reached
-in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
-#### Snippet
-```java
-
-            final boolean valid = this.isValid(result);
-            if (!valid || (valid && !onlyReturnErrors(params))) {
-                results.add(field, this.name, valid, result);
-            }
-```
-
 ### ConstantValue
 Condition `value != null` is always `true`
 in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
@@ -3460,6 +3098,30 @@ in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
 ```
 
 ### ConstantValue
+Condition `valid` is always `true` when reached
+in `src/main/java/org/apache/commons/validator/ValidatorAction.java`
+#### Snippet
+```java
+
+            final boolean valid = this.isValid(result);
+            if (!valid || (valid && !onlyReturnErrors(params))) {
+                results.add(field, this.name, valid, result);
+            }
+```
+
+### ConstantValue
+Condition `authority != null` is always `true`
+in `src/main/java/org/apache/commons/validator/routines/UrlValidator.java`
+#### Snippet
+```java
+            return true; // this is a local file - nothing more to do here
+        }
+        if ("file".equals(scheme) && authority != null && authority.contains(":")) {
+            return false;
+        }
+```
+
+### ConstantValue
 Condition `depend != null` is always `true`
 in `src/main/java/org/apache/commons/validator/Field.java`
 #### Snippet
@@ -3469,31 +3131,6 @@ in `src/main/java/org/apache/commons/validator/Field.java`
             if (depend != null && !depend.isEmpty()) {
                 this.dependencyList.add(depend);
             }
-```
-
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `getInstance()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/validator/routines/CurrencyValidator.java`
-#### Snippet
-```java
-     * @return A singleton instance of the CurrencyValidator.
-     */
-    public static BigDecimalValidator getInstance() {
-        return VALIDATOR;
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `getInstance()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/validator/routines/PercentValidator.java`
-#### Snippet
-```java
-     * @return A singleton instance of the PercentValidator.
-     */
-    public static BigDecimalValidator getInstance() {
-        return VALIDATOR;
-    }
 ```
 
 ## RuleId[id=CastCanBeRemovedNarrowingVariableType]
