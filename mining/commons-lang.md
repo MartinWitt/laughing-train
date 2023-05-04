@@ -1,121 +1,47 @@
 # commons-lang 
  
 # Bad smells
-I found 1263 bad smells with 6 repairable:
+I found 507 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=AssignmentToMethodParameter] | 347 | false |
-| RuleId[ruleID=ReturnNull] | 239 | false |
-| RuleId[ruleID=BoundedWildcard] | 115 | false |
-| RuleId[ruleID=UnnecessaryBoxing] | 108 | false |
-| RuleId[ruleID=UnnecessaryFullyQualifiedName] | 108 | false |
-| RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 49 | false |
-| RuleId[ruleID=UnnecessaryUnboxing] | 41 | false |
-| RuleId[ruleID=UtilityClassWithPublicConstructor] | 31 | false |
-| RuleId[ruleID=DeprecatedIsStillUsed] | 23 | false |
-| RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment] | 21 | false |
-| RuleId[ruleID=SuspiciousSystemArraycopy] | 19 | false |
-| RuleId[ruleID=FinalStaticMethod] | 18 | false |
-| RuleId[ruleID=ArrayEquality] | 18 | false |
-| RuleId[ruleID=MethodOverridesStaticMethod] | 18 | false |
-| RuleId[ruleID=ConstantValue] | 13 | false |
-| RuleId[ruleID=StaticInitializerReferencesSubClass] | 10 | false |
-| RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator] | 10 | false |
-| RuleId[ruleID=RedundantSuppression] | 9 | false |
-| RuleId[ruleID=NestedAssignment] | 8 | false |
-| RuleId[ruleID=AssignmentToForLoopParameter] | 6 | false |
-| RuleId[ruleID=StringEquality] | 5 | false |
-| RuleId[ruleID=SynchronizeOnThis] | 5 | false |
-| RuleId[ruleID=UnnecessaryToStringCall] | 4 | true |
-| RuleId[ruleID=NullArgumentToVariableArgMethod] | 4 | false |
-| RuleId[ruleID=CommentedOutCode] | 3 | false |
-| RuleId[ruleID=IOResource] | 2 | false |
-| RuleId[ruleID=MagicConstant] | 2 | false |
-| RuleId[ruleID=DataFlowIssue] | 2 | false |
-| RuleId[ruleID=RefusedBequest] | 2 | false |
-| RuleId[ruleID=StringBufferReplaceableByString] | 2 | false |
-| RuleId[ruleID=FunctionalExpressionCanBeFolded] | 2 | false |
-| RuleId[ruleID=RedundantMethodOverride] | 2 | false |
-| RuleId[ruleID=NonProtectedConstructorInAbstractClass] | 2 | true |
-| RuleId[ruleID=SuspiciousNameCombination] | 1 | false |
-| RuleId[ruleID=UnnecessaryCallToStringValueOf] | 1 | false |
-| RuleId[ruleID=MismatchedJavadocCode] | 1 | false |
-| RuleId[ruleID=NonShortCircuitBoolean] | 1 | false |
-| RuleId[ruleID=NumberEquality] | 1 | false |
-| RuleId[ruleID=SuspiciousInvocationHandlerImplementation] | 1 | false |
-| RuleId[ruleID=NegativeIntConstantInLongContext] | 1 | false |
-| RuleId[ruleID=SystemOutErr] | 1 | false |
-| RuleId[ruleID=ClassNameSameAsAncestorName] | 1 | false |
-| RuleId[ruleID=UnnecessaryContinue] | 1 | false |
-| RuleId[ruleID=PointlessBitwiseExpression] | 1 | false |
-| RuleId[ruleID=HtmlWrongAttributeValue] | 1 | false |
-| RuleId[ruleID=ZeroLengthArrayInitialization] | 1 | false |
-| RuleId[ruleID=FuseStreamOperations] | 1 | false |
-| RuleId[ruleID=TypeParameterExtendsObject] | 1 | false |
-## RuleId[ruleID=IOResource]
-### RuleId[ruleID=IOResource]
-'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
-#### Snippet
-```java
-
-        // don't just rely on instanceof Serializable:
-        ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
-        for (final L listener : listeners) {
-            try {
-```
-
-### RuleId[ruleID=IOResource]
-'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
-#### Snippet
-```java
-            } catch (final IOException exception) {
-                //recreate test stream in case of indeterminate state
-                testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
-            }
-        }
-```
-
-## RuleId[ruleID=SuspiciousNameCombination]
-### RuleId[ruleID=SuspiciousNameCombination]
-'y1' should probably not be assigned to 'x2'
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-            delta1 = delta2;
-            a2 = (int) (x1 / y1);
-            x2 = y1;
-            y2 = x1 - a2 * y1;
-            numer2 = a1 * numer1 + numer0;
-```
-
-## RuleId[ruleID=StringEquality]
-### RuleId[ruleID=StringEquality]
-String values are compared using `==`, not 'equals()'
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static int compare(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
-            return 0;
-        }
-```
-
-### RuleId[ruleID=StringEquality]
-String values are compared using `==`, not 'equals()'
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
-        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
-            return 0;
-        }
-```
-
-### RuleId[ruleID=StringEquality]
+| UnnecessaryUnicodeEscape | 250 | false |
+| UNCHECKED_WARNING | 41 | false |
+| DeprecatedIsStillUsed | 24 | false |
+| JavadocReference | 22 | false |
+| RedundantCast | 20 | false |
+| SuspiciousSystemArraycopy | 19 | false |
+| NullableProblems | 19 | false |
+| FinalStaticMethod | 18 | false |
+| DuplicatedCode | 14 | false |
+| ConstantValue | 12 | false |
+| Deprecation | 11 | false |
+| StaticInitializerReferencesSubClass | 10 | false |
+| StringEquality | 5 | false |
+| JavadocLinkAsPlainText | 5 | false |
+| UnnecessaryToStringCall | 4 | true |
+| NullArgumentToVariableArgMethod | 4 | false |
+| CommentedOutCode | 3 | false |
+| MagicConstant | 2 | false |
+| DataFlowIssue | 2 | false |
+| RefusedBequest | 2 | false |
+| StringBufferReplaceableByString | 2 | false |
+| SuspiciousMethodCalls | 2 | false |
+| FunctionalExpressionCanBeFolded | 2 | false |
+| JavadocDeclaration | 2 | false |
+| SuspiciousNameCombination | 1 | false |
+| UnnecessaryCallToStringValueOf | 1 | false |
+| DanglingJavadoc | 1 | false |
+| RedundantTypeArguments | 1 | false |
+| NumberEquality | 1 | false |
+| SuspiciousInvocationHandlerImplementation | 1 | false |
+| NegativeIntConstantInLongContext | 1 | false |
+| RedundantMethodOverride | 1 | false |
+| PointlessBitwiseExpression | 1 | false |
+| UnnecessaryContinue | 1 | false |
+| FuseStreamOperations | 1 | false |
+| TypeParameterExtendsObject | 1 | false |
+## RuleId[id=StringEquality]
+### StringEquality
 String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
@@ -127,7 +53,7 @@ in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
         }
 ```
 
-### RuleId[ruleID=StringEquality]
+### StringEquality
 String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
@@ -139,7 +65,7 @@ in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
         }
 ```
 
-### RuleId[ruleID=StringEquality]
+### StringEquality
 String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
@@ -151,8 +77,45 @@ in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
         }
 ```
 
-## RuleId[ruleID=MagicConstant]
-### RuleId[ruleID=MagicConstant]
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static int compare(final String str1, final String str2, final boolean nullIsLess) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
+            return 0;
+        }
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
+        if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
+            return 0;
+        }
+```
+
+## RuleId[id=SuspiciousNameCombination]
+### SuspiciousNameCombination
+'y1' should probably not be assigned to 'x2'
+in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
+#### Snippet
+```java
+            delta1 = delta2;
+            a2 = (int) (x1 / y1);
+            x2 = y1;
+            y2 = x1 - a2 * y1;
+            numer2 = a1 * numer1 + numer0;
+```
+
+## RuleId[id=MagicConstant]
+### MagicConstant
 Should be one of: Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, ...
 in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
 #### Snippet
@@ -164,7 +127,7 @@ in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
         }
 ```
 
-### RuleId[ruleID=MagicConstant]
+### MagicConstant
 Should be one of: Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY, ...
 in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
 #### Snippet
@@ -176,597 +139,766 @@ in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
         }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RegExUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToDoubleFunction' to 'org.apache.commons.lang3.function.FailableIntToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToDoubleFunction.java`
 #### Snippet
 ```java
- * @since 3.8
- */
-public class RegExUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FormattableUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/text/FormattableUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class FormattableUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `LockingVisitors` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
-#### Snippet
-```java
- * @since 3.11
- */
-public class LockingVisitors {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CharEncoding` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/CharEncoding.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class CharEncoding {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Suppliers` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/function/Suppliers.java`
-#### Snippet
-```java
- * @since 3.13.0
- */
-public class Suppliers {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SerializationUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class SerializationUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `SystemUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class SystemUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `WordUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class WordUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `NumberUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class NumberUtils {
-
-    /** Reusable Long constant for zero. */
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClassUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class ClassUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClassLoaderUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ClassLoaderUtils.java`
-#### Snippet
-```java
- * @since 3.10
- */
-public class ClassLoaderUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MethodUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-public class MethodUtils {
-
-    private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Streams` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class Streams {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Validate` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class Validate {
-
-    private static final String DEFAULT_NOT_NAN_EX_MESSAGE =
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RandomStringUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class RandomStringUtils {
-
-    private static ThreadLocalRandom random() {
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `FieldUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-public class FieldUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Conversion` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/Conversion.java`
-#### Snippet
-```java
- */
-
-public class Conversion {
-
-    private static final boolean[] TTTT = {true, true, true, true};
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArchUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ArchUtils.java`
-#### Snippet
-```java
- * @since 3.6
- */
-public class ArchUtils {
-
-    private static final Map<String, Processor> ARCH_TO_PROCESSOR;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StringEscapeUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class StringEscapeUtils {
-
-    /* ESCAPE TRANSLATORS */
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArraySorter` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ArraySorter.java`
-#### Snippet
-```java
- * @since 3.12.0
- */
-public class ArraySorter {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DurationUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
-#### Snippet
-```java
- * @since 3.12.0
- */
-public class DurationUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ConstructorUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-public class ConstructorUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DurationFormatUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
- * @since 2.1
- */
-public class DurationFormatUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EnumUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class EnumUtils {
-
-    private static final String CANNOT_STORE_S_S_VALUES_IN_S_BITS = "Cannot store %s %s values in %s bits";
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CharSetUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/CharSetUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class CharSetUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EventUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/event/EventUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class EventUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DateUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class DateUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `IntStreams` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/stream/IntStreams.java`
-#### Snippet
-```java
- * @since 3.13.0
- */
-public class IntStreams {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Streams` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
- * @since 3.11
- */
-public class Streams {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
- */
-//@Immutable
-public class StringUtils {
-
-    // Performance testing notes (JDK 1.4, Jul03, scolebourne)
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ClassPathUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ClassPathUtils.java`
-#### Snippet
-```java
- */
-//@Immutable
-public class ClassPathUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ObjectUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation") // deprecated class StrBuilder is imported
-// because it is part of the signature of deprecated methods
-public class ObjectUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `EntityArrays` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class EntityArrays {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `BooleanUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class BooleanUtils {
-
-    private static final List<Boolean> BOOLEAN_LIST = Collections.unmodifiableList(Arrays.asList(Boolean.FALSE, Boolean.TRUE));
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `TypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class TypeUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `AnnotationUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/AnnotationUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class AnnotationUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
- * @since 3.5
- */
-public class ThreadUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `RandomUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/RandomUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class RandomUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `IEEE754rUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/math/IEEE754rUtils.java`
-#### Snippet
-```java
- * @since 2.4
- */
-public class IEEE754rUtils {
-
-     /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CharSequenceUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class CharSequenceUtils {
-
-    private static final int NOT_FOUND = -1;
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Charsets` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/Charsets.java`
-#### Snippet
-```java
- * @since 3.10
- */
-class Charsets {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `MemberUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-final class MemberUtils {
-    // TODO extract an interface to implement compareParameterSets(...)?
+     */
+    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
+        return NOP;
+    }
 
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `InheritanceUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/InheritanceUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntConsumer' to 'org.apache.commons.lang3.function.FailableIntConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
 #### Snippet
 ```java
- * @since 3.2
- */
-public class InheritanceUtils {
+     */
+    static <E extends Throwable> FailableIntConsumer<E> nop() {
+        return NOP;
+    }
 
-    /**
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `DateFormatUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleFunction' to 'org.apache.commons.lang3.function.FailableToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java`
 #### Snippet
 ```java
- * @since 2.0
- */
-public class DateFormatUtils {
+     */
+    static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
+        return NOP;
+    }
 
-    /**
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `CharUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntFunction' to 'org.apache.commons.lang3.function.FailableIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
 #### Snippet
 ```java
- * @since 2.1
- */
-public class CharUtils {
+     */
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
+        return NOP;
+    }
 
-    private static final String[] CHAR_STRING_ARRAY = new String[128];
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `LocaleUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/LocaleUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiConsumer' to 'org.apache.commons.lang3.function.FailableBiConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java`
 #### Snippet
 ```java
- * @since 2.2
- */
-public class LocaleUtils {
-    private static final char UNDERSCORE = '_';
-    private static final char DASH = '-';
+     */
+    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
+        return NOP;
+    }
+
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `Functions` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/Functions.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongUnaryOperator' to 'org.apache.commons.lang3.function.FailableLongUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class Functions {
+     */
+   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
+        return NOP;
+    }
 
-    /**
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ExceptionUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToLongFunction' to 'org.apache.commons.lang3.function.FailableIntToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToLongFunction.java`
 #### Snippet
 ```java
- * @since 1.0
- */
-public class ExceptionUtils {
+     */
+    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
+        return NOP;
+    }
 
-    private static final int NOT_FOUND = -1;
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-Class `ArrayUtils` has only 'static' members, and lacks a 'private' constructor
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjDoubleConsumer' to 'org.apache.commons.lang3.function.FailableObjDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java`
+#### Snippet
+```java
+     */
+   static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongFunction' to 'org.apache.commons.lang3.function.FailableToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToLongFunction<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableConsumer' to 'org.apache.commons.lang3.function.FailableConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongConsumer' to 'org.apache.commons.lang3.function.FailableLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToIntFunction' to 'org.apache.commons.lang3.function.FailableLongToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongToIntFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntBiFunction' to 'org.apache.commons.lang3.function.FailableToIntBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleBiFunction' to 'org.apache.commons.lang3.function.FailableToDoubleBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjLongConsumer' to 'org.apache.commons.lang3.function.FailableObjLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjLongConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongBiFunction' to 'org.apache.commons.lang3.function.FailableToLongBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator' to 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiFunction' to 'org.apache.commons.lang3.function.FailableBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToIntFunction' to 'org.apache.commons.lang3.function.FailableDoubleToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToIntFunction.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToLongFunction' to 'org.apache.commons.lang3.function.FailableDoubleToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongFunction' to 'org.apache.commons.lang3.function.FailableLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
+#### Snippet
+```java
+     */
+   static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjIntConsumer' to 'org.apache.commons.lang3.function.FailableObjIntConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjIntConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableObjIntConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleConsumer' to 'org.apache.commons.lang3.function.FailableDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntFunction' to 'org.apache.commons.lang3.function.FailableToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToDoubleFunction' to 'org.apache.commons.lang3.function.FailableLongToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongToDoubleFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableFunction' to 'org.apache.commons.lang3.function.FailableFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
+#### Snippet
+```java
+     */
+    static <T, R, E extends Throwable> FailableFunction<T, R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntUnaryOperator' to 'org.apache.commons.lang3.function.FailableIntUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleFunction' to 'org.apache.commons.lang3.function.FailableDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
+#### Snippet
+```java
+     */
+    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
- * @since 2.0
- */
-public class ArrayUtils {
+     */
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
 
-    /**
 ```
 
-## RuleId[ruleID=SuspiciousSystemArraycopy]
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Array and element cannot both be null");
+        }
+        return (T[]) add(array, index, element, clss);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `String`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `format(java.util.Locale, String, Object...)`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `Throwable`
+in `src/main/java/org/apache/commons/lang3/exception/package-info.java`
+#### Snippet
+```java
+ * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
+ * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
+ * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation
+ * and examination routines.</p>
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `MultipartKey`
+in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
+#### Snippet
+```java
+
+        /**
+         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
+         *
+         * @param keys the set of objects that make up the key.  Each key may be null.
+```
+
+### JavadocReference
+Cannot resolve symbol `Object`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * It, and its buddies ({@link org.apache.commons.lang3.builder.EqualsBuilder}, {@link org.apache.commons.lang3.builder.CompareToBuilder}, {@link org.apache.commons.lang3.builder.ToStringBuilder}), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
+ *
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+```
+
+### JavadocReference
+Cannot resolve symbol `equals(Object)`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * It, and its buddies ({@link org.apache.commons.lang3.builder.EqualsBuilder}, {@link org.apache.commons.lang3.builder.CompareToBuilder}, {@link org.apache.commons.lang3.builder.ToStringBuilder}), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
+ *
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+```
+
+### JavadocReference
+Cannot resolve symbol `Object`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ *
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+```
+
+### JavadocReference
+Cannot resolve symbol `toString()`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ *
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+```
+
+### JavadocReference
+Cannot resolve symbol `Object`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `hashCode()`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * @see Object#equals(Object)
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Comparable`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+ *
+ * @since 1.0
+```
+
+### JavadocReference
+Cannot resolve symbol `compareTo(Object)`
+in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
+#### Snippet
+```java
+ * @see Object#toString()
+ * @see Object#hashCode()
+ * @see Comparable#compareTo(Object)
+ *
+ * @since 1.0
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `capitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
+     * @since 2.0
+```
+
+### JavadocReference
+Cannot resolve symbol `capitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
+     * @since 2.0
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * </ul>
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#swapCase(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `swapCase(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * </ul>
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#swapCase(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `uncapitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * @param str the String to uncapitalize, may be null
+     * @return the uncapitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
+     * @see #capitalize(String)
+     * @since 2.0
+```
+
+### JavadocReference
+Cannot resolve symbol `uncapitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * @param str the String to uncapitalize, may be null
+     * @return the uncapitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
+     * @see #capitalize(String)
+     * @since 2.0
+```
+
+## RuleId[id=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `varArgsArray` is not of an array type
 in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 #### Snippet
@@ -778,55 +910,55 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
         if (varArgComponentType.isPrimitive()) {
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -838,7 +970,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
             System.arraycopy(array, index + 1, result, index, length - index - 1);
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -850,7 +982,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
             System.arraycopy(array, index + 1, result, index, length - index - 1);
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -862,7 +994,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -874,7 +1006,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -886,7 +1018,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         if (index < length) {
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -898,7 +1030,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         if (index < length) {
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -910,7 +1042,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         return result;
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `result` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -922,7 +1054,55 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         return result;
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+```
+
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
+```
+
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
+        }
+        return result;
+```
+
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
+        }
+        return result;
+```
+
+### SuspiciousSystemArraycopy
 `array` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -934,7 +1114,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         }
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
+### SuspiciousSystemArraycopy
 `newArray` is not of an array type
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -946,56 +1126,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         }
 ```
 
-### RuleId[ruleID=SuspiciousSystemArraycopy]
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
-```
-
-### RuleId[ruleID=SuspiciousSystemArraycopy]
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
-```
-
-### RuleId[ruleID=SuspiciousSystemArraycopy]
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
-        }
-```
-
-### RuleId[ruleID=SuspiciousSystemArraycopy]
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
-        }
-```
-
-## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
 Method invocation `put` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1007,7 +1139,7 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
                     typeVarAssigns.getOrDefault(typeArg, typeArg)
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Method invocation `keySet` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1019,116 +1151,8 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
             final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
 ```
 
-## RuleId[ruleID=StaticInitializerReferencesSubClass]
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * namely space, tab, newline, formfeed.
-     */
-    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
-    /**
-     * Matches the String trim() whitespace characters.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the double quote character.
-     */
-    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
-    /**
-     * Matches the double quote character.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the space character.
-     */
-    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
-    /**
-     * Matches the same characters as StringTokenizer,
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the comma character.
-     */
-    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
-    /**
-     * Matches the tab character.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the String trim() whitespace characters.
-     */
-    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
-    /**
-     * Matches the double quote character.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches no characters.
-     */
-    private static final StrMatcher NONE_MATCHER = new NoMatcher();
-
-    /**
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the double quote character.
-     */
-    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
-    /**
-     * Matches the single or double quote character.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the tab character.
-     */
-    private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
-    /**
-     * Matches the space character.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the single or double quote character.
-     */
-    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
-    /**
-     * Matches no characters.
-```
-
-### RuleId[ruleID=StaticInitializerReferencesSubClass]
+## RuleId[id=StaticInitializerReferencesSubClass]
+### StaticInitializerReferencesSubClass
 Referencing subclass MapStrLookup from superclass StrLookup initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
 #### Snippet
@@ -1140,56 +1164,116 @@ in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
     /**
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'isSupported' is still used
-in `src/main/java/org/apache/commons/lang3/CharEncoding.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
+     * Matches the double quote character.
      */
-    @Deprecated
-    public static boolean isSupported(final String name) {
-        if (name == null) {
-            return false;
+    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
+    /**
+     * Matches the single or double quote character.
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'getNanosOfMiili' is still used
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
+     * Matches the space character.
      */
-    @Deprecated
-    public static int getNanosOfMiili(final Duration duration) {
-        return getNanosOfMilli(duration);
-    }
+    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+    /**
+     * Matches the same characters as StringTokenizer,
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'findThreads' is still used
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
+     * Matches the comma character.
      */
-    @Deprecated
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
-        return findThreads(getSystemThreadGroup(), true, predicate);
-    }
+    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
+    /**
+     * Matches the tab character.
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ThreadPredicate' is still used
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
-    // When breaking BC, replace this with Predicate<Thread>
-    @FunctionalInterface
-    public interface ThreadPredicate {
-
-        /**
+     * Matches the single or double quote character.
+     */
+    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
+    /**
+     * Matches no characters.
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the double quote character.
+     */
+    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
+    /**
+     * Matches the double quote character.
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the tab character.
+     */
+    private static final StrMatcher TAB_MATCHER = new CharMatcher('\t');
+    /**
+     * Matches the space character.
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches no characters.
+     */
+    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the String trim() whitespace characters.
+     */
+    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
+    /**
+     * Matches the double quote character.
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * namely space, tab, newline, formfeed.
+     */
+    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
+    /**
+     * Matches the String trim() whitespace characters.
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'ALWAYS_TRUE_PREDICATE' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
@@ -1201,19 +1285,7 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
     private static final Predicate<?> ALWAYS_TRUE = t -> true;
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'findThreadGroups' is still used
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
-        return findThreadGroups(getSystemThreadGroup(), true, predicate);
-    }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'ThreadGroupPredicate' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
@@ -1225,7 +1297,19 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
         /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'ThreadPredicate' is still used
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
+#### Snippet
+```java
+    // When breaking BC, replace this with Predicate<Thread>
+    @FunctionalInterface
+    public interface ThreadPredicate {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'findThreadGroups' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
@@ -1237,91 +1321,43 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
     }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+### DeprecatedIsStillUsed
+Deprecated member 'findThreads' is still used
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
-
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
+        return findThreads(getSystemThreadGroup(), true, predicate);
+    }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_TIME_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+### DeprecatedIsStillUsed
+Deprecated member 'findThreadGroups' is still used
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ss");
-
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
+        return findThreadGroups(getSystemThreadGroup(), true, predicate);
+    }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_DATETIME_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+### DeprecatedIsStillUsed
+Deprecated member 'isSupported' is still used
+in `src/main/java/org/apache/commons/lang3/CharEncoding.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO_8601_EXTENDED_DATETIME_FORMAT;
-
-    /**
+    public static boolean isSupported(final String name) {
+        if (name == null) {
+            return false;
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_DATE_TIME_ZONE_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
-            = FastDateFormat.getInstance("yyyy-MM-ddZZ");
-
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_TIME_NO_T_TIME_ZONE_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT = ISO_8601_EXTENDED_TIME_TIME_ZONE_FORMAT;
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'ISO_DATE_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_DATE_FORMAT = ISO_8601_EXTENDED_DATE_FORMAT;
-
-    /**
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'toCharacterObject' is still used
 in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
@@ -1333,43 +1369,115 @@ in `src/main/java/org/apache/commons/lang3/CharUtils.java`
     }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'FailableBiFunction' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
+### DeprecatedIsStillUsed
+Deprecated member 'getNanosOfMiili' is still used
+in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @FunctionalInterface
-    public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
-
-        /**
+    public static int getNanosOfMiili(final Duration duration) {
+        return getNanosOfMilli(duration);
+    }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'FailablePredicate' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_TIME_NO_T_TIME_ZONE_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @FunctionalInterface
-    public interface FailablePredicate<I, T extends Throwable> {
+    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT = ISO_8601_EXTENDED_TIME_TIME_ZONE_FORMAT;
 
-        /**
+    /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'FailableRunnable' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_TIME_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @FunctionalInterface
-    public interface FailableRunnable<T extends Throwable> {
+    public static final FastDateFormat ISO_TIME_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ss");
 
-        /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_DATE_TIME_ZONE_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
+            = FastDateFormat.getInstance("yyyy-MM-ddZZ");
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_DATETIME_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO_8601_EXTENDED_DATETIME_FORMAT;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_DATE_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATE_FORMAT = ISO_8601_EXTENDED_DATE_FORMAT;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getUserName' is still used
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String getUserName() {
+        return SystemProperties.getUserName();
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'FailableCallable' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
@@ -1381,19 +1489,31 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
         /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'FailableBiPredicate' is still used
+### DeprecatedIsStillUsed
+Deprecated member 'FailablePredicate' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+    public interface FailablePredicate<I, T extends Throwable> {
 
         /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'FailableBiFunction' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'FailableSupplier' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
@@ -1405,7 +1525,7 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
         /**
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'FailableBiConsumer' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
@@ -1417,20 +1537,44 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
         /**
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### RuleId[ruleID=CommentedOutCode]
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+### DeprecatedIsStillUsed
+Deprecated member 'FailableRunnable' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
-        } catch (final SecurityException ex) {
-            // we are not allowed to look at this property
-            // System.err.println("Caught a SecurityException reading the system property '" + property
-            // + "'; the SystemUtils property value will default to null.");
-            return null;
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableRunnable<T extends Throwable> {
+
+        /**
 ```
 
-### RuleId[ruleID=CommentedOutCode]
+### DeprecatedIsStillUsed
+Deprecated member 'FailableBiPredicate' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+
+        /**
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/lang3/SystemProperties.java`
+#### Snippet
+```java
+        } catch (final SecurityException ignore) {
+            // We are not allowed to look at this property.
+            //
+            // System.err.println("Caught a SecurityException reading the system property '" + property
+            // + "'; the SystemUtils property value will default to null.");
+```
+
+### CommentedOutCode
 Commented out code (9 lines)
 in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
 #### Snippet
@@ -1442,7 +1586,7 @@ in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
 //            //       If so then calling toString() on it is better than reverting to
 ```
 
-### RuleId[ruleID=CommentedOutCode]
+### CommentedOutCode
 Commented out code (4 lines)
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -1454,8 +1598,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 //            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
 ```
 
-## RuleId[ruleID=UnnecessaryCallToStringValueOf]
-### RuleId[ruleID=UnnecessaryCallToStringValueOf]
+## RuleId[id=UnnecessaryCallToStringValueOf]
+### UnnecessaryCallToStringValueOf
 Unnecessary `String.valueOf()` call
 in `src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java`
 #### Snippet
@@ -1467,8 +1611,8 @@ in `src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java`
 }
 ```
 
-## RuleId[ruleID=RefusedBequest]
-### RuleId[ruleID=RefusedBequest]
+## RuleId[id=RefusedBequest]
+### RefusedBequest
 Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
 #### Snippet
@@ -1480,7 +1624,7 @@ in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
             return cloneReset();
 ```
 
-### RuleId[ruleID=RefusedBequest]
+### RefusedBequest
 Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
 #### Snippet
@@ -1492,21 +1636,254 @@ in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
     }
 ```
 
-## RuleId[ruleID=MismatchedJavadocCode]
-### RuleId[ruleID=MismatchedJavadocCode]
-Method is specified to return array but the return type is list
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
 ```java
-     * @param cls
-     *            the {@link Class} to query
-     * @return an array of Fields (possibly empty).
-     * @throws IllegalArgumentException
-     *             if the class is {@code null}
+        if (value == null) {
+            if (trueValue == null) {
+                return Boolean.TRUE;
+            }
+            if (falseValue == null) {
+                return Boolean.FALSE;
+            }
+            if (nullValue == null) {
+                return null;
+            }
+        } else if (value.equals(trueValue)) {
+            return Boolean.TRUE;
+        } else if (value.equals(falseValue)) {
+            return Boolean.FALSE;
+        } else if (value.equals(nullValue)) {
+            return null;
+        }
 ```
 
-## RuleId[ruleID=StringBufferReplaceableByString]
-### RuleId[ruleID=StringBufferReplaceableByString]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/Conversion.java`
+#### Snippet
+```java
+        final StringBuilder sb = new StringBuilder(dstInit);
+        int append = sb.length();
+        for (int i = 0; i < nHexs; i++) {
+            final int shift = i * 4 + srcPos;
+            final int bits = 0xF & (src >> shift);
+            if (dstPos + i == append) {
+                ++append;
+                sb.append(intToHexDigit(bits));
+            } else {
+                sb.setCharAt(dstPos + i, intToHexDigit(bits));
+            }
+        }
+        return sb.toString();
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
+#### Snippet
+```java
+        final long[] result = new long[(enumClass.getEnumConstants().length - 1) / Long.SIZE + 1];
+        for (final E value : condensed) {
+            result[value.ordinal() / Long.SIZE] |= 1L << (value.ordinal() % Long.SIZE);
+        }
+        ArrayUtils.reverse(result);
+        return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+        Objects.requireNonNull(throwable, "throwable");
+        if (throwable instanceof RuntimeException) {
+            throw (RuntimeException) throwable;
+        }
+        if (throwable instanceof Error) {
+            throw (Error) throwable;
+        }
+        if (throwable instanceof IOException) {
+            throw new UncheckedIOException((IOException) throwable);
+        }
+        throw new UndeclaredThrowableException(throwable);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
+#### Snippet
+```java
+        Objects.requireNonNull(object, "object");
+        final String name = object.getClass().getName();
+        final String hexString = identityHashCodeHex(object);
+        builder.ensureCapacity(builder.length() +  name.length() + 1 + hexString.length());
+        builder.append(name)
+              .append(AT_SIGN)
+              .append(hexString);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
+#### Snippet
+```java
+        if (comparison != 0) {
+            return this;
+        }
+        if (lhs == rhs) {
+            return this;
+        }
+        if (lhs == null) {
+            comparison = -1;
+            return this;
+        }
+        if (rhs == null) {
+            comparison = 1;
+            return this;
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
+#### Snippet
+```java
+        if (!isEquals) {
+            return this;
+        }
+        if (lhs == rhs) {
+            return this;
+        }
+        if (lhs == null || rhs == null) {
+            this.setEquals(false);
+            return this;
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
+#### Snippet
+```java
+        buffer.append(arrayStart);
+        for (int i = 0; i < array.length; i++) {
+            if (i > 0) {
+                buffer.append(arraySeparator);
+            }
+            appendDetail(buffer, fieldName, array[i]);
+        }
+        buffer.append(arrayEnd);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+#### Snippet
+```java
+        if (str == null) {
+            return appendNull();
+        }
+        final int strLen = str.length();
+        if (strLen > 0) {
+            final int len = length();
+            ensureCapacity(len + strLen);
+            str.getChars(0, strLen, buffer, len);
+            size += strLen;
+        }
+        return this;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+#### Snippet
+```java
+        if (str == null) {
+            return appendNull();
+        }
+        if (startIndex < 0 || startIndex > str.length()) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
+        if (length < 0 || startIndex + length > str.length()) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
+        }
+        if (length > 0) {
+            final int len = length();
+            ensureCapacity(len + length);
+            str.getChars(startIndex, startIndex + length, buffer, len);
+            size += length;
+        }
+        return this;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
+#### Snippet
+```java
+        if (source == null) {
+            return false;
+        }
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        if (!substitute(buf, 0, length)) {
+            return false;
+        }
+        source.replace(offset, offset + length, buf.toString());
+        return true;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
+#### Snippet
+```java
+        final int delimLen = delimiters == null ? -1 : delimiters.length;
+        if (StringUtils.isEmpty(str) || delimLen == 0) {
+            return str;
+        }
+        final char[] buffer = str.toCharArray();
+        boolean capitalizeNext = true;
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
+#### Snippet
+```java
+            switch(tokenLen) {
+            case 1:
+                return ISO_8601_1_STRATEGY;
+            case 2:
+                return ISO_8601_2_STRATEGY;
+            case 3:
+                return ISO_8601_3_STRATEGY;
+            default:
+                throw new IllegalArgumentException("invalid number of X");
+            }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
+#### Snippet
+```java
+            if (offset < 0) {
+                buffer.append('-');
+                offset = -offset;
+            } else {
+                buffer.append('+');
+            }
+
+            final int hours = offset / (60 * 60 * 1000);
+            appendDigits(buffer, hours);
+```
+
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/lang3/arch/Processor.java`
 #### Snippet
@@ -1518,7 +1895,7 @@ in `src/main/java/org/apache/commons/lang3/arch/Processor.java`
         return builder.toString();
 ```
 
-### RuleId[ruleID=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
 #### Snippet
@@ -1530,21 +1907,141 @@ in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
         builder.append(name)
 ```
 
-## RuleId[ruleID=NonShortCircuitBoolean]
-### RuleId[ruleID=NonShortCircuitBoolean]
-Non-short-circuit boolean expression `left != null | middle != null`
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'org.apache.commons.lang3.text.StrBuilder' is deprecated
+in `src/main/java/org/apache/commons/lang3/text/package-info.java`
+#### Snippet
+```java
+ * with lots of static methods).
+ *
+ * <p>Amongst other classes, the text package provides a replacement for {@link java.lang.StringBuffer} named {@link org.apache.commons.lang3.text.StrBuilder}, a class for substituting variables within a String named {@link org.apache.commons.lang3.text.StrSubstitutor} and a replacement for {@link java.util.StringTokenizer} named {@link org.apache.commons.lang3.text.StrTokenizer}.
+ * While somewhat ungainly, the {@code Str} prefix has been used to ensure we don't clash with any current or future standard Java classes.</p>
+ *
+```
+
+### Deprecation
+'org.apache.commons.lang3.text.StrSubstitutor' is deprecated
+in `src/main/java/org/apache/commons/lang3/text/package-info.java`
+#### Snippet
+```java
+ * with lots of static methods).
+ *
+ * <p>Amongst other classes, the text package provides a replacement for {@link java.lang.StringBuffer} named {@link org.apache.commons.lang3.text.StrBuilder}, a class for substituting variables within a String named {@link org.apache.commons.lang3.text.StrSubstitutor} and a replacement for {@link java.util.StringTokenizer} named {@link org.apache.commons.lang3.text.StrTokenizer}.
+ * While somewhat ungainly, the {@code Str} prefix has been used to ensure we don't clash with any current or future standard Java classes.</p>
+ *
+```
+
+### Deprecation
+'org.apache.commons.lang3.text.StrTokenizer' is deprecated
+in `src/main/java/org/apache/commons/lang3/text/package-info.java`
+#### Snippet
+```java
+ * with lots of static methods).
+ *
+ * <p>Amongst other classes, the text package provides a replacement for {@link java.lang.StringBuffer} named {@link org.apache.commons.lang3.text.StrBuilder}, a class for substituting variables within a String named {@link org.apache.commons.lang3.text.StrSubstitutor} and a replacement for {@link java.util.StringTokenizer} named {@link org.apache.commons.lang3.text.StrTokenizer}.
+ * While somewhat ungainly, the {@code Str} prefix has been used to ensure we don't clash with any current or future standard Java classes.</p>
+ *
+```
+
+### Deprecation
+'org.apache.commons.lang3.StringEscapeUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
+#### Snippet
+```java
+ * <p>Lang has a series of String utilities.
+ * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
+ * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
+ * RandomStringUtils speaks for itself.
+ * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
+```
+
+### Deprecation
+'org.apache.commons.lang3.CharEncoding' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
+#### Snippet
+```java
+ * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
+ *
+ * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
+ *
+ * <h2>Serialization - SerializationUtils, SerializationException</h2>
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
      */
-    public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : nullTriple();
+    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### RuleId[ruleID=UnnecessaryToStringCall]
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
 #### Snippet
@@ -1556,31 +2053,7 @@ in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
                 buffer.append(paddedValue(years, padWithZeros, count));
 ```
 
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return str + suffix.toString();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return prefix.toString() + str;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1592,201 +2065,32 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
             builder.append('.').append(raw.getSimpleName());
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            if (buffer[i] == ch) {
-                final int start = i;
-                while (++i < size) {
-                    if (buffer[i] != ch) {
-                        break;
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-                final int len = i - start;
-                deleteImpl(start, i, len);
-                i -= len;
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `si`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-            if (matchIndexes[i] != -1) {
-                ms1[si] = min.charAt(i);
-                si++;
             }
         }
+        return prefix.toString() + str;
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `si`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-            if (matchFlags[i]) {
-                ms2[si] = max.charAt(i);
-                si++;
             }
         }
-```
-
-### RuleId[ruleID=AssignmentToForLoopParameter]
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-            indexRef[0] = i;
-            final String token = parseToken(pattern, indexRef);
-            i = indexRef[0];
-
-            final int tokenLen = token.length();
-```
-
-## RuleId[ruleID=FinalStaticMethod]
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 2.4
-     */
-    public static final String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
+        return str + suffix.toString();
     }
+
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeHtml4(final String input) {
-        return UNESCAPE_HTML4.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @see #escapeXml11(String)
-     */
-    public static final String unescapeXml(final String input) {
-        return UNESCAPE_XML.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeHtml3(final String input) {
-        return UNESCAPE_HTML3.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeHtml4(final String input) {
-        return ESCAPE_HTML4.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@link String}, {@code null} if null string input
-     */
-    public static final String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
-    }
-```
-
-### RuleId[ruleID=FinalStaticMethod]
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
@@ -1798,7 +2102,115 @@ in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeHtml3(final String input) {
+        return UNESCAPE_HTML3.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 2.4
+     */
+    public static final String unescapeCsv(final String input) {
+        return UNESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final String escapeJson(final String input) {
+        return ESCAPE_JSON.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final String unescapeJson(final String input) {
+        return UNESCAPE_JSON.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeEcmaScript(final String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeHtml4(final String input) {
+        return ESCAPE_HTML4.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @see #escapeXml11(String)
+     */
+    public static final String unescapeXml(final String input) {
+        return UNESCAPE_XML.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return String with escaped values, {@code null} if null string input
+     */
+    public static final String escapeJava(final String input) {
+        return ESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeHtml4(final String input) {
+        return UNESCAPE_HTML4.translate(input);
+    }
+```
+
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
@@ -1810,19 +2222,19 @@ in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @since 3.0
+     * @return a new unescaped {@link String}, {@code null} if null string input
      */
-    public static final String escapeHtml3(final String input) {
-        return ESCAPE_HTML3.translate(input);
+    public static final String unescapeJava(final String input) {
+        return UNESCAPE_JAVA.translate(input);
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
@@ -1834,19 +2246,19 @@ in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @since 3.2
+     * @since 3.0
      */
-    public static final ParameterizedType parameterize(final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Objects.requireNonNull(rawClass, "rawClass");
+    public static final String escapeHtml3(final String input) {
+        return ESCAPE_HTML3.translate(input);
+    }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1854,11 +2266,11 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Type... typeArguments) {
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
         Objects.requireNonNull(rawClass, "rawClass");
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1870,7 +2282,19 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
     }
 ```
 
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterize(final Class<?> rawClass,
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        Objects.requireNonNull(rawClass, "rawClass");
+```
+
+### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
@@ -1878,12 +2302,63 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
      * @since 3.2
      */
     public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        final Type... typeArguments) {
         Objects.requireNonNull(rawClass, "rawClass");
 ```
 
-## RuleId[ruleID=NumberEquality]
-### RuleId[ruleID=NumberEquality]
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
+#### Snippet
+```java
+    private static final Map<String, String> reverseAbbreviationMap;
+
+    /** Feed abbreviation maps. */
+    static {
+        final Map<String, String> map = new HashMap<>();
+```
+
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Map.getOrDefault()'
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+            typeVarAssigns.put(
+                    typeParams[i],
+                    typeVarAssigns.getOrDefault(typeArg, typeArg)
+            );
+        }
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'List.contains()'
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+
+            // argument of parameterizedType is a type variable of cls
+            if (typeVarList.contains(typeArg)
+            // type variable of parameterizedType has an assignment in
+                    // the super type.
+```
+
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
+#### Snippet
+```java
+    public static <R> R rethrow(final Throwable throwable) {
+        // claim that the typeErasure invocation throws a RuntimeException
+        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
+    }
+
+```
+
+## RuleId[id=NumberEquality]
+### NumberEquality
 Number objects are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
 #### Snippet
@@ -1895,8 +2370,8 @@ in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
         }
 ```
 
-## RuleId[ruleID=SuspiciousInvocationHandlerImplementation]
-### RuleId[ruleID=SuspiciousInvocationHandlerImplementation]
+## RuleId[id=SuspiciousInvocationHandlerImplementation]
+### SuspiciousInvocationHandlerImplementation
 Null might be returned when proxying method 'equals()': this may cause NullPointerException
 in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
 #### Snippet
@@ -1908,1389 +2383,237 @@ in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
     }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java`
 #### Snippet
 ```java
-     * @see #andThen(FailableLongUnaryOperator)
-     */
-    default FailableLongUnaryOperator<E> compose(final FailableLongUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
-        return (final long v) -> applyAsLong(before.applyAsLong(v));
-```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
-#### Snippet
-```java
-     * @see #compose(FailableLongUnaryOperator)
-     */
-    default FailableLongUnaryOperator<E> andThen(final FailableLongUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
-        return (final long t) -> after.applyAsLong(applyAsLong(t));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-     * @param tok  the token to add
-     */
-    private void addToken(final List<String> list, String tok) {
-        if (StringUtils.isEmpty(tok)) {
-            if (isIgnoreEmptyTokens()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Lock`
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
-#### Snippet
-```java
-         * @see #applyWriteLocked(FailableFunction)
-         */
-        protected <T> T lockApplyUnlock(final Supplier<Lock> lockSupplier, final FailableFunction<O, T, ?> function) {
-            final Lock lock = lockSupplier.get();
-            lock.lock();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
-#### Snippet
-```java
-         * @see #applyWriteLocked(FailableFunction)
-         */
-        protected <T> T lockApplyUnlock(final Supplier<Lock> lockSupplier, final FailableFunction<O, T, ?> function) {
-            final Lock lock = lockSupplier.get();
-            lock.lock();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Lock`
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
-#### Snippet
-```java
-         * @see #acceptWriteLocked(FailableConsumer)
-         */
-        protected void lockAcceptUnlock(final Supplier<Lock> lockSupplier, final FailableConsumer<O, ?> consumer) {
-            final Lock lock = lockSupplier.get();
-            lock.lock();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
-#### Snippet
-```java
-         * @see #acceptWriteLocked(FailableConsumer)
-         */
-        protected void lockAcceptUnlock(final Supplier<Lock> lockSupplier, final FailableConsumer<O, ?> consumer) {
-            final Lock lock = lockSupplier.get();
-            lock.lock();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableBiPredicate<T, U, E> and(final FailableBiPredicate<? super T, ? super U, E> other) {
-        Objects.requireNonNull(other);
-        return (final T t, final U u) -> test(t, u) && other.test(t, u);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableBiPredicate<T, U, E> or(final FailableBiPredicate<? super T, ? super U, E> other) {
-        Objects.requireNonNull(other);
-        return (final T t, final U u) -> test(t, u) || other.test(t, u);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
-#### Snippet
-```java
-     * @throws NullPointerException if {@code after} is null
-     */
-    default FailableIntConsumer<E> andThen(final FailableIntConsumer<E> after) {
-        Objects.requireNonNull(after);
-        return (final int t) -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableDoublePredicate<E> and(final FailableDoublePredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) && other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableDoublePredicate<E> or(final FailableDoublePredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) || other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableIntPredicate<E> or(final FailableIntPredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) || other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableIntPredicate<E> and(final FailableIntPredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) && other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
-#### Snippet
-```java
-     * @throws NullPointerException when {@code after} is null.
-     */
-    default FailableDoubleConsumer<E> andThen(final FailableDoubleConsumer<E> after) {
-        Objects.requireNonNull(after);
-        return (final double t) -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Class`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-                }
-
-                private void walkInterfaces(final Set<Class<?>> addTo, final Class<?> c) {
-                    for (final Class<?> iface : c.getInterfaces()) {
-                        if (!seenInterfaces.contains(iface)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Class`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     * @param interfacesFound the {@link Set} of interfaces for the class
-     */
-    private static void getAllInterfaces(Class<?> cls, final HashSet<Class<?>> interfacesFound) {
-        while (cls != null) {
-            final Class<?>[] interfaces = cls.getInterfaces();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
-#### Snippet
-```java
-     * @throws NullPointerException when {@code after} is null.
-     */
-    default <V> FailableFunction<T, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
-        Objects.requireNonNull(after);
-        return (final T t) -> after.apply(apply(t));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
-#### Snippet
-```java
-     * @see #andThen(FailableFunction)
-     */
-    default <V> FailableFunction<V, R, E> compose(final FailableFunction<? super V, ? extends T, E> before) {
-        Objects.requireNonNull(before);
-        return (final V v) -> apply(before.apply(v));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     * @return a pair formed from the map entry
-     */
-    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        final L left;
-        final R right;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     * @return a pair formed from the map entry
-     */
-    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        final L left;
-        final R right;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-     */
-    public static <K, V> V createIfAbsent(final ConcurrentMap<K, V> map, final K key,
-            final ConcurrentInitializer<V> init) throws ConcurrentException {
-        if (map == null || init == null) {
-            return null;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableLongPredicate<E> and(final FailableLongPredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) && other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailableLongPredicate<E> or(final FailableLongPredicate<E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) || other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
-#### Snippet
-```java
-     * @throws NullPointerException when {@code after} is null.
-     */
-    default <V> FailableBiFunction<T, U, V, E> andThen(final FailableFunction<? super R, ? extends V, E> after) {
-        Objects.requireNonNull(after);
-        return (final T t, final U u) -> after.apply(apply(t, u));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * predicate, otherwise {@code false}
-         */
-        public boolean anyMatch(final FailablePredicate<O, ?> predicate) {
-            assertNotTerminated();
-            return stream().anyMatch(Functions.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public FailableStream<O> filter(final FailablePredicate<O, ?> predicate){
-            assertNotTerminated();
-            stream = stream.filter(Functions.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
-            assertNotTerminated();
-            return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public <R> FailableStream<R> map(final FailableFunction<O, R, ?> mapper) {
-            assertNotTerminated();
-            return new FailableStream<>(stream.map(Functions.asFunction(mapper)));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * @param elementType The element type.
-         */
-        public ArrayCollector(final Class<O> elementType) {
-            this.elementType = elementType;
-        }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * @param action a non-interfering action to perform on the elements
-         */
-        public void forEach(final FailableConsumer<O, ?> action) {
-            makeTerminated();
-            stream().forEach(Functions.asConsumer(action));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O`
-in `src/main/java/org/apache/commons/lang3/Streams.java`
-#### Snippet
-```java
-         * provided predicate or the stream is empty, otherwise {@code false}.
-         */
-        public boolean allMatch(final FailablePredicate<O, ?> predicate) {
-            assertNotTerminated();
-            return stream().allMatch(Functions.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
-#### Snippet
-```java
-     * @see #andThen(FailableIntUnaryOperator)
-     */
-    default FailableIntUnaryOperator<E> compose(final FailableIntUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
-        return (final int v) -> applyAsInt(before.applyAsInt(v));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
-#### Snippet
-```java
-     * @see #compose(FailableIntUnaryOperator)
-     */
-    default FailableIntUnaryOperator<E> andThen(final FailableIntUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
-        return (final int t) -> after.applyAsInt(applyAsInt(t));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends BackgroundInitializer`
-in `src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java`
-#### Snippet
-```java
-         */
-        private MultiBackgroundInitializerResults(
-                final Map<String, BackgroundInitializer<?>> inits,
-                final Map<String, Object> results,
-                final Map<String, ConcurrentException> excepts) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends ConcurrentException`
-in `src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java`
-#### Snippet
-```java
-                final Map<String, BackgroundInitializer<?>> inits,
-                final Map<String, Object> results,
-                final Map<String, ConcurrentException> excepts) {
-            initializers = inits;
-            resultObjects = results;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
-#### Snippet
-```java
-     * @param classLoader the class loader to be used
-     */
-    private void createProxy(final Class<L> listenerInterface, final ClassLoader classLoader) {
-        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
-                new Class[] { listenerInterface }, createInvocationHandler()));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Instant`
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static <E extends Throwable> Duration of(final FailableConsumer<Instant, E> consumer) throws E {
-        return since(now(consumer::accept));
+    @Override
+    public V get(final long timeout, final TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        return future.get(timeout, unit);
     }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Long`
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
 #### Snippet
 ```java
      */
-    @SuppressWarnings("boxing") // boxing unavoidable
-    public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
-            throws T {
-        if (consumer != null && duration != null) {
+    @Override
+    public int compareTo(final Fraction other) {
+        if (this == other) {
+            return 0;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
 #### Snippet
 ```java
      */
-    @SuppressWarnings("boxing") // boxing unavoidable
-    public static <T extends Throwable> void accept(final FailableBiConsumer<Long, Integer, T> consumer, final Duration duration)
-            throws T {
-        if (consumer != null && duration != null) {
+    @Override // Therefore has to use StringBuffer
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
+            final FieldPosition pos) {
+        return formatter.format(obj, toAppendTo, pos);
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Instant`
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
 #### Snippet
 ```java
+    @Override // Therefore has to use StringBuffer
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
+            final FieldPosition pos) {
+        return formatter.format(obj, toAppendTo, pos);
     }
-
-    private static <E extends Throwable> Instant now(final FailableConsumer<Instant, E> nowConsumer) throws E {
-        final Instant start = Instant.now();
-        nowConsumer.accept(start);
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Future`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object parseObject(final String source, final ParsePosition pos) {
+        return parser.parseObject(source, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java`
 #### Snippet
 ```java
-     * @return a new stream.
      */
-    static <T> Stream<UncheckedFuture<T>> map(final Collection<Future<T>> futures) {
-        return futures.stream().map(UncheckedFuture::on);
+    @Override
+    V get(long timeout, TimeUnit unit);
+
+}
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFormatsByArgumentIndex(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
     }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends StrategyAndWidth`
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
 #### Snippet
 ```java
+     */
+    @Override
+    public void setFormats(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public final void applyPattern(final String pattern) {
+        if (registry == null) {
+            super.applyPattern(pattern);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Thread newThread(final Runnable runnable) {
+        final Thread thread = getWrappedFactory().newThread(runnable);
+        initializeThread(thread);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object parseObject(final String source, final ParsePosition pos) {
+        return parser.parseObject(source, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+        return toAppendTo.append(printer.format(obj));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
+#### Snippet
+```java
+         */
+        @Override
+        public T get(final long timeout, final TimeUnit unit) {
+            return value;
         }
-
-        int getMaxWidth(final ListIterator<StrategyAndWidth> lt) {
-            if (!strategy.isNumber() || !lt.hasNext()) {
-                return 0;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/org/apache/commons/lang3/CharRange.java`
 #### Snippet
 ```java
-     * @throws NullPointerException if other is null
      */
-    default FailablePredicate<T, E> and(final FailablePredicate<? super T, E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) && other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
-#### Snippet
-```java
-     * @throws NullPointerException if other is null
-     */
-    default FailablePredicate<T, E> or(final FailablePredicate<? super T, E> other) {
-        Objects.requireNonNull(other);
-        return t -> test(t) || other.test(t);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
-#### Snippet
-```java
-     * @return the modifiable list of enums, never null
-     */
-    public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
-        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
+    @Override
+    public Iterator<Character> iterator() {
+        return new CharacterIterator(this);
     }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     * @since 3.13.0
-     */
-    public static <E extends Enum<E>> E getFirstEnumIgnoreCase(final Class<E> enumClass, final String enumName, final Function<E, String> stringFunction,
-        final E defaultEnum) {
-        if (enumName == null || !enumClass.isEnum()) {
+        /** {@inheritDoc} */
+        @Override
+        public void write(final char[] cbuf, final int off, final int len) {
+            StrBuilder.this.append(cbuf, off, len);
+        }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     * @since 3.13.0
-     */
-    public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
-        return Stream.of(enumClass.getEnumConstants()).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
-    }
+        /** {@inheritDoc} */
+        @Override
+        public void write(final String str, final int off, final int len) {
+            StrBuilder.this.append(str, off, len);
+        }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     * @since 3.13.0
-     */
-    public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
-        return Stream.of(enumClass.getEnumConstants()).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
-    }
+        /** {@inheritDoc} */
+        @Override
+        public int read(final char[] b, final int off, int len) {
+            if (off < 0 || len < 0 || off > b.length ||
+                    off + len > b.length || off + len < 0) {
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends K`
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     * @since 3.13.0
-     */
-    public static <E extends Enum<E>, K> Map<K, E> getEnumMap(final Class<E> enumClass, final Function<E, K> keyFunction) {
-        return Stream.of(enumClass.getEnumConstants()).collect(Collectors.toMap(keyFunction::apply, Function.identity()));
-    }
+        /** {@inheritDoc} */
+        @Override
+        public void write(final String str) {
+            StrBuilder.this.append(str);
+        }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends L`
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     * @since 3.10
-     */
-    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : nullPair();
-    }
+        /** {@inheritDoc} */
+        @Override
+        public void write(final char[] cbuf) {
+            StrBuilder.this.append(cbuf);
+        }
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : nullPair();
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         * @return {@code true} if any elements of the stream match the provided predicate, otherwise {@code false}
-         */
-        public boolean anyMatch(final FailablePredicate<T, ?> predicate) {
-            assertNotTerminated();
-            return stream().anyMatch(Failable.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public <R> FailableStream<R> map(final FailableFunction<T, R, ?> mapper) {
-            assertNotTerminated();
-            return new FailableStream<>(stream.map(Failable.asFunction(mapper)));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public <R> FailableStream<R> map(final FailableFunction<T, R, ?> mapper) {
-            assertNotTerminated();
-            return new FailableStream<>(stream.map(Failable.asFunction(mapper)));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         * @return the new stream
-         */
-        public FailableStream<T> filter(final FailablePredicate<T, ?> predicate) {
-            assertNotTerminated();
-            stream = stream.filter(Failable.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         *         otherwise {@code false}.
-         */
-        public boolean allMatch(final FailablePredicate<T, ?> predicate) {
-            assertNotTerminated();
-            return stream().allMatch(Failable.asPredicate(predicate));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-         * @param action a non-interfering action to perform on the elements
-         */
-        public void forEach(final FailableConsumer<T, ?> action) {
-            makeTerminated();
-            stream().forEach(Failable.asConsumer(action));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/stream/Streams.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static <E> Stream<E> of(final Iterator<E> iterator) {
-        return iterator == null ? Stream.empty() : StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <T extends CharSequence> T getIfBlank(final T str, final Supplier<T> defaultSupplier) {
-        return isBlank(str) ? Suppliers.get(defaultSupplier) : str;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <T extends CharSequence> T getIfEmpty(final T str, final Supplier<T> defaultSupplier) {
-        return isEmpty(str) ? Suppliers.get(defaultSupplier) : str;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super CharSequence`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @since 3.12.0
-     */
-    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
-        final CharSequence cs, final CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super CharSequence`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @since 3.12.0
-     */
-    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
-        final CharSequence cs, final CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
-#### Snippet
-```java
-     * @see #andThen(FailableDoubleUnaryOperator)
-     */
-    default FailableDoubleUnaryOperator<E> compose(final FailableDoubleUnaryOperator<E> before) {
-        Objects.requireNonNull(before);
-        return (final double v) -> applyAsDouble(before.applyAsDouble(v));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
-#### Snippet
-```java
-     * @see #compose(FailableDoubleUnaryOperator)
-     */
-    default FailableDoubleUnaryOperator<E> andThen(final FailableDoubleUnaryOperator<E> after) {
-        Objects.requireNonNull(after);
-        return (final double t) -> after.applyAsDouble(applyAsDouble(t));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <T> T getIfNull(final T object, final Supplier<T> defaultSupplier) {
-        return object != null ? object : Suppliers.get(defaultSupplier);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-     */
-    @SafeVarargs
-    public static <T> T median(final Comparator<T> comparator, final T... items) {
-        Validate.notEmpty(items, "null/empty items");
-        Validate.noNullElements(items);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
-#### Snippet
-```java
-     * @throws NullPointerException when {@code after} is null
-     */
-    default FailableConsumer<T, E> andThen(final FailableConsumer<? super T, E> after) {
-        Objects.requireNonNull(after);
-        return (final T t) -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
-#### Snippet
-```java
-     * @throws NullPointerException if {@code after} is null
-     */
-    default FailableLongConsumer<E> andThen(final FailableLongConsumer<E> after) {
-        Objects.requireNonNull(after);
-        return (final long t) -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Boolean`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static void forEach(final Consumer<Boolean> action) {
-        values().forEach(action);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TypeVariable`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-    private static Map<TypeVariable<?>, Type> getTypeArguments(
-            final ParameterizedType parameterizedType, final Class<?> toClass,
-            final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
-        final Class<?> cls = getRawType(parameterizedType);
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-    private static Map<TypeVariable<?>, Type> getTypeArguments(
-            final ParameterizedType parameterizedType, final Class<?> toClass,
-            final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
-        final Class<?> cls = getRawType(parameterizedType);
-
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    private static Type unrollVariableAssignments(TypeVariable<?> typeVariable, final Map<TypeVariable<?>, Type> typeVarAssigns) {
-        Type result;
-        do {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException if the type cannot be substituted
-     */
-    private static Type substituteTypeVariables(final Type type, final Map<TypeVariable<?>, Type> typeVarAssigns) {
-        if (type instanceof TypeVariable<?> && typeVarAssigns != null) {
-            final Type replacementType = typeVarAssigns.get(type);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @return array of map values corresponding to specified keys
-     */
-    private static Type[] extractTypeArgumentsFrom(final Map<TypeVariable<?>, Type> mappings, final TypeVariable<?>[] variables) {
-        final Type[] result = new Type[variables.length];
-        int index = 0;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super TypeVariable`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     */
-    private static <T> void mapTypeVariablesToArguments(final Class<T> cls,
-            final ParameterizedType parameterizedType, final Map<TypeVariable<?>, Type> typeVarAssigns) {
-        // capture the type variables from the owner type that have assignments
-        final Type ownerType = parameterizedType.getOwnerType();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends TypeVariable`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     */
-    private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, final Class<?> toClass,
-            final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
-        // make sure they're assignable
-        if (!isAssignable(cls, toClass)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Type`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     */
-    private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, final Class<?> toClass,
-            final Map<TypeVariable<?>, Type> subtypeVarAssigns) {
-        // make sure they're assignable
-        if (!isAssignable(cls, toClass)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Thread`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static Collection<Thread> findThreads(final ThreadGroup threadGroup, final boolean recurse, final Predicate<Thread> predicate) {
-        Objects.requireNonNull(threadGroup, "The group must not be null");
-        Objects.requireNonNull(predicate, "The predicate must not be null");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super ThreadGroup`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final Predicate<ThreadGroup> predicate) {
-        Objects.requireNonNull(threadGroup, "threadGroup");
-        Objects.requireNonNull(predicate, "predicate");
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-    }
-
-    private static <T> Predicate<T> namePredicate(final String name, final Function<T, String> nameGetter) {
-        return (Predicate<T>) t -> t != null && Objects.equals(nameGetter.apply(t), Objects.requireNonNull(name));
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/Range.java`
-#### Snippet
-```java
-     * @throws RuntimeException if ranges cannot be compared
-     */
-    public boolean isBeforeRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/Range.java`
-#### Snippet
-```java
-     * @throws RuntimeException if ranges cannot be compared
-     */
-    public boolean containsRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/Range.java`
-#### Snippet
-```java
-     * @throws RuntimeException if ranges cannot be compared
-     */
-    public boolean isAfterRange(final Range<T> otherRange) {
-        if (otherRange == null) {
-            return false;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiPredicate}
-     */
-    public static <T, U> BiPredicate<T, U> asBiPredicate(final FailableBiPredicate<T, U, ?> predicate) {
-        return (input1, input2) -> test(predicate, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiPredicate}
-     */
-    public static <T, U> BiPredicate<T, U> asBiPredicate(final FailableBiPredicate<T, U, ?> predicate) {
-        return (input1, input2) -> test(predicate, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Function}
-     */
-    public static <T, R> Function<T, R> asFunction(final FailableFunction<T, R, ?> function) {
-        return input -> apply(function, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Function}
-     */
-    public static <T, R> Function<T, R> asFunction(final FailableFunction<T, R, ?> function) {
-        return input -> apply(function, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Supplier}
-     */
-    public static <T> Supplier<T> asSupplier(final FailableSupplier<T, ?> supplier) {
-        return () -> get(supplier);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Consumer}
-     */
-    public static <T> Consumer<T> asConsumer(final FailableConsumer<T, ?> consumer) {
-        return input -> accept(consumer, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Callable}
-     */
-    public static <V> Callable<V> asCallable(final FailableCallable<V, ?> callable) {
-        return () -> call(callable);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiConsumer}
-     */
-    public static <T, U> BiConsumer<T, U> asBiConsumer(final FailableBiConsumer<T, U, ?> consumer) {
-        return (input1, input2) -> accept(consumer, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiConsumer}
-     */
-    public static <T, U> BiConsumer<T, U> asBiConsumer(final FailableBiConsumer<T, U, ?> consumer) {
-        return (input1, input2) -> accept(consumer, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiFunction}
-     */
-    public static <T, U, R> BiFunction<T, U, R> asBiFunction(final FailableBiFunction<T, U, R, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiFunction}
-     */
-    public static <T, U, R> BiFunction<T, U, R> asBiFunction(final FailableBiFunction<T, U, R, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends R`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link BiFunction}
-     */
-    public static <T, U, R> BiFunction<T, U, R> asBiFunction(final FailableBiFunction<T, U, R, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
-     * @return a standard {@link Predicate}
-     */
-    public static <T> Predicate<T> asPredicate(final FailablePredicate<T, ?> predicate) {
-        return input -> test(predicate, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends E`
-in `src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java`
-#### Snippet
-```java
-     * @throws NullPointerException when {@code after} is null.
-     */
-    default FailableBiConsumer<T, U, E> andThen(final FailableBiConsumer<? super T, ? super U, E> after) {
-        Objects.requireNonNull(after);
-        return (t, u) -> {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Locale`
-in `src/main/java/org/apache/commons/lang3/LocaleUtils.java`
-#### Snippet
-```java
-    }
-
-    private static List<Locale> availableLocaleList(final Predicate<Locale> predicate) {
-        return availableLocaleList().stream().filter(predicate).collect(Collectors.toList());
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Throwable`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-    @SafeVarargs
-    public static void tryWithResources(final FailableRunnable<? extends Throwable> action,
-        final FailableConsumer<Throwable, ? extends Throwable> errorHandler,
-        final FailableRunnable<? extends Throwable>... resources) {
-        final org.apache.commons.lang3.function.FailableRunnable<?>[] fr = new org.apache.commons.lang3.function.FailableRunnable[resources.length];
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O> Supplier<O> asSupplier(final FailableSupplier<O, ?> supplier) {
-        return () -> get(supplier);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <I> Predicate<I> asPredicate(final FailablePredicate<I, ?> predicate) {
-        return input -> test(predicate, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
-        return input -> apply(function, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <I, O> Function<I, O> asFunction(final FailableFunction<I, O, ?> function) {
-        return input -> apply(function, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O1`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2> BiPredicate<O1, O2> asBiPredicate(final FailableBiPredicate<O1, O2, ?> predicate) {
-        return (input1, input2) -> test(predicate, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O2`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2> BiPredicate<O1, O2> asBiPredicate(final FailableBiPredicate<O1, O2, ?> predicate) {
-        return (input1, input2) -> test(predicate, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O1`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2> BiConsumer<O1, O2> asBiConsumer(final FailableBiConsumer<O1, O2, ?> consumer) {
-        return (input1, input2) -> accept(consumer, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O2`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2> BiConsumer<O1, O2> asBiConsumer(final FailableBiConsumer<O1, O2, ?> consumer) {
-        return (input1, input2) -> accept(consumer, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O> Callable<O> asCallable(final FailableCallable<O, ?> callable) {
-        return () -> call(callable);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super I`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <I> Consumer<I> asConsumer(final FailableConsumer<I, ?> consumer) {
-        return input -> accept(consumer, input);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O1`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super O2`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends O`
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <O1, O2, O> BiFunction<O1, O2, O> asBiFunction(final FailableBiFunction<O1, O2, O, ?> function) {
-        return (input1, input2) -> apply(function, input1, input2);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Throwable`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static void forEach(final Throwable throwable, final Consumer<Throwable> consumer) {
-        stream(throwable).forEach(consumer);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     * @since 3.4
-     */
-    public static <T> boolean isSorted(final T[] array, final Comparator<T> comparator) {
-        Objects.requireNonNull(comparator, "comparator");
-        if (getLength(array) < 2) {
-```
-
-## RuleId[ruleID=NegativeIntConstantInLongContext]
-### RuleId[ruleID=NegativeIntConstantInLongContext]
+## RuleId[id=NegativeIntConstantInLongContext]
+### NegativeIntConstantInLongContext
 Negative int hexadecimal constant in long context
 in `src/main/java/org/apache/commons/lang3/Conversion.java`
 #### Snippet
@@ -3302,1787 +2625,69 @@ in `src/main/java/org/apache/commons/lang3/Conversion.java`
         return dst;
 ```
 
-## RuleId[ruleID=RedundantSuppression]
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
 #### Snippet
 ```java
-     * @throws IllegalArgumentException if the array types are incompatible
-     */
-    public static <T> T[] addAll(final T[] array1, @SuppressWarnings("unchecked") final T... array2) {
-        if (array1 == null) {
-            return clone(array2);
+ * Combines the monitor and visitor pattern to work with {@link java.util.concurrent.locks.Lock locked objects}. Locked
+ * objects are an alternative to synchronization. This, on Wikipedia, is known as the Visitor pattern
+ * (https://en.wikipedia.org/wiki/Visitor_pattern), and from the "Gang of Four" "Design Patterns" book's Visitor pattern
+ * [Gamma, E., Helm, R., &amp; Johnson, R. (1998). Visitor. In Design patterns elements of reusable object oriented software (pp. 331-344). Reading: Addison Wesley.].
+ *
 ```
 
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static <T> T[] toArray(@SuppressWarnings("unchecked") final T... items) {
-        return items;
-    }
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation") // deprecated class StrBuilder is imported
-// because it is part of the signature of deprecated methods
-public class ObjectUtils {
-
-    /**
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("resource") // inputStream is managed by the caller
-    public static <T> T deserialize(final InputStream inputStream) {
-        Objects.requireNonNull(inputStream, "inputStream");
-        try (ObjectInputStream in = new ObjectInputStream(inputStream)) {
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("resource") // outputStream is managed by the caller
-    public static void serialize(final Serializable obj, final OutputStream outputStream) {
-        Objects.requireNonNull(outputStream, "outputStream");
-        try (ObjectOutputStream out = new ObjectOutputStream(outputStream)) {
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("resource")
-    public static void printRootCauseStackTrace(final Throwable throwable, final PrintStream printStream) {
-        if (throwable == null) {
-            return;
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("resource")
-    public static void printRootCauseStackTrace(final Throwable throwable, final PrintWriter printWriter) {
-        if (throwable == null) {
-            return;
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     */
-    private static <T> StringBuilder appendAllTo(final StringBuilder builder, final String sep,
-        @SuppressWarnings("unchecked") final T... types) {
-        Validate.notEmpty(Validate.noNullElements(types));
-        if (types.length > 0) {
-```
-
-### RuleId[ruleID=RedundantSuppression]
-Redundant suppression
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-     * @since 2.3
-     */
-    public <T> StrBuilder appendAll(@SuppressWarnings("unchecked") final T... array) {
-        /*
-         * @SuppressWarnings used to hide warning about vararg usage. We cannot
-```
-
-## RuleId[ruleID=UtilityClassWithPublicConstructor]
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `FormattableUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/text/FormattableUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class FormattableUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `SerializationUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class SerializationUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `SystemUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class SystemUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `WordUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class WordUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `NumberUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class NumberUtils {
-
-    /** Reusable Long constant for zero. */
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ClassUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class ClassUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `MethodUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-public class MethodUtils {
-
-    private static final Comparator<Method> METHOD_BY_SIGNATURE = Comparator.comparing(Method::toString);
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `Validate` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class Validate {
-
-    private static final String DEFAULT_NOT_NAN_EX_MESSAGE =
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `RandomStringUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class RandomStringUtils {
-
-    private static ThreadLocalRandom random() {
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `FieldUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
-#### Snippet
-```java
- * @since 2.5
- */
-public class FieldUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `StringEscapeUtils` has only 'static' members, and a 'public' constructor
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class StringEscapeUtils {
-
-    /* ESCAPE TRANSLATORS */
+     * is that in Json, forward-slash (/) is escaped.</p>
+     *
+     * <p>See https://www.ietf.org/rfc/rfc4627.txt for further details.</p>
+     *
+     * <p>Example:</p>
 ```
 
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ConstructorUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
 #### Snippet
 ```java
- * @since 2.5
- */
-public class ConstructorUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `DurationFormatUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
- * @since 2.1
- */
-public class DurationFormatUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `EnumUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class EnumUtils {
-
-    private static final String CANNOT_STORE_S_S_VALUES_IN_S_BITS = "Cannot store %s %s values in %s bits";
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `CharSetUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/CharSetUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class CharSetUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `DateUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class DateUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `StringUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
- */
-//@Immutable
-public class StringUtils {
-
-    // Performance testing notes (JDK 1.4, Jul03, scolebourne)
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ClassPathUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/ClassPathUtils.java`
-#### Snippet
-```java
- */
-//@Immutable
-public class ClassPathUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ObjectUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation") // deprecated class StrBuilder is imported
-// because it is part of the signature of deprecated methods
-public class ObjectUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `BooleanUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class BooleanUtils {
-
-    private static final List<Boolean> BOOLEAN_LIST = Collections.unmodifiableList(Arrays.asList(Boolean.FALSE, Boolean.TRUE));
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `TypeUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class TypeUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `AnnotationUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/AnnotationUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class AnnotationUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ThreadUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
- * @since 3.5
- */
-public class ThreadUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `RandomUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/RandomUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class RandomUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `CharSequenceUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
- * @since 3.0
- */
-public class CharSequenceUtils {
-
-    private static final int NOT_FOUND = -1;
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `InheritanceUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/reflect/InheritanceUtils.java`
-#### Snippet
-```java
- * @since 3.2
- */
-public class InheritanceUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `DateFormatUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class DateFormatUtils {
-
-    /**
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `CharUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
- * @since 2.1
- */
-public class CharUtils {
-
-    private static final String[] CHAR_STRING_ARRAY = new String[128];
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `LocaleUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/LocaleUtils.java`
-#### Snippet
-```java
- * @since 2.2
- */
-public class LocaleUtils {
-    private static final char UNDERSCORE = '_';
-    private static final char DASH = '-';
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ExceptionUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
- * @since 1.0
- */
-public class ExceptionUtils {
-
-    private static final int NOT_FOUND = -1;
-```
-
-### RuleId[ruleID=UtilityClassWithPublicConstructor]
-Class `ArrayUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
- * @since 2.0
- */
-public class ArrayUtils {
-
-    /**
-```
-
-## RuleId[ruleID=UnnecessaryBoxing]
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-            final char cur = current;
-            prepareNext();
-            return Character.valueOf(cur);
-        }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Long getLeft() {
-                    return Long.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Integer getRight() {
-                    return Integer.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Double getLeft() {
-                    return Double.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Byte getLeft() {
-                    return Byte.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Byte getRight() {
-                    return Byte.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Double getRight() {
-                    return Double.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Character getLeft() {
-                    return Character.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Boolean getRight() {
-                    return Boolean.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Short getLeft() {
-                    return Short.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Float getLeft() {
-                    return Float.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Short getRight() {
-                    return Short.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Integer getLeft() {
-                    return Integer.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Character getRight() {
-                    return Character.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Long getRight() {
-                    return Long.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Float getRight() {
-                    return Float.valueOf(rhs);
-                }
-            });
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java`
-#### Snippet
-```java
-                @Override
-                public Boolean getLeft() {
-                    return Boolean.valueOf(lhs);
-                }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
+     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
+     *             rendering this method obsolete. The JDK discussion about this change can be found
+     *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
+     * @since 3.3
      */
-    public ToStringBuilder append(final String fieldName, final Object[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
 ```
 
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
 #### Snippet
 ```java
-     */
-    public ToStringBuilder append(final String fieldName, final boolean[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
+     * </p>
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
 ```
 
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
 #### Snippet
 ```java
-     */
-    public ToStringBuilder append(final String fieldName, final short[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+     * <p>
 ```
 
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final float[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final long[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final int[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final Object obj, final boolean fullDetail) {
-        style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final char[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final double[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-     */
-    public ToStringBuilder append(final String fieldName, final byte[] array, final boolean fullDetail) {
-        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
-        return this;
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-    @Override
-    public Boolean build() {
-        return Boolean.valueOf(isEquals());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java`
-#### Snippet
-```java
-    @Override
-    public Double getValue() {
-        return Double.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableDouble.java`
-#### Snippet
-```java
-     */
-    public Double toDouble() {
-        return Double.valueOf(doubleValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/text/FormattableUtils.java`
-#### Snippet
-```java
-            final int precision, final char padChar, final CharSequence ellipsis) {
-        Validate.isTrue(ellipsis == null || precision < 0 || ellipsis.length() <= precision,
-                "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, Integer.valueOf(precision));
-        final StringBuilder buf = new StringBuilder(seq);
-        if (precision >= 0 && precision < seq.length()) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableShort.java`
-#### Snippet
-```java
-     */
-    public Short toShort() {
-        return Short.valueOf(shortValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableShort.java`
-#### Snippet
-```java
-    @Override
-    public Short getValue() {
-        return Short.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-    @Override
-    public Integer build() {
-        return Integer.valueOf(toComparison());
-    }
-}
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Integer INTEGER_TWO = Integer.valueOf(2);
-    /** Reusable Integer constant for minus one. */
-    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
-    /** Reusable Short constant for zero. */
-    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
-    /** Reusable Byte constant for one. */
-    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
-    /** Reusable Byte constant for minus one. */
-    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
-    /** Reusable Integer constant for one. */
-    public static final Integer INTEGER_ONE = Integer.valueOf(1);
-    /** Reusable Integer constant for two */
-    public static final Integer INTEGER_TWO = Integer.valueOf(2);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Long LONG_ZERO = Long.valueOf(0L);
-    /** Reusable Long constant for one. */
-    public static final Long LONG_ONE = Long.valueOf(1L);
-    /** Reusable Long constant for minus one. */
-    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
-    /** Reusable Float constant for one. */
-    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
-    /** Reusable Float constant for minus one. */
-    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Long LONG_ONE = Long.valueOf(1L);
-    /** Reusable Long constant for minus one. */
-    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
-    /** Reusable Integer constant for zero. */
-    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-     * @since 3.12.0
-     */
-    public static final Long LONG_INT_MIN_VALUE = Long.valueOf(Integer.MIN_VALUE);
-
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
-    /** Reusable Float constant for zero. */
-    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
-    /** Reusable Float constant for one. */
-    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
-    /** Reusable Byte constant for zero. */
-    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
-    /** Reusable Byte constant for one. */
-    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Integer INTEGER_ONE = Integer.valueOf(1);
-    /** Reusable Integer constant for two */
-    public static final Integer INTEGER_TWO = Integer.valueOf(2);
-    /** Reusable Integer constant for minus one. */
-    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
-    /** Reusable Byte constant for minus one. */
-    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
-    /** Reusable Double constant for zero. */
-    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-
-    /** Reusable Long constant for zero. */
-    public static final Long LONG_ZERO = Long.valueOf(0L);
-    /** Reusable Long constant for one. */
-    public static final Long LONG_ONE = Long.valueOf(1L);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-     * @since 3.12.0
-     */
-    public static final Long LONG_INT_MAX_VALUE = Long.valueOf(Integer.MAX_VALUE);
-
-    /**
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
-    /** Reusable Double constant for zero. */
-    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
-    /** Reusable Double constant for one. */
-    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Short SHORT_ONE = Short.valueOf((short) 1);
-    /** Reusable Short constant for minus one. */
-    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
-    /** Reusable Byte constant for zero. */
-    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
-    /** Reusable Float constant for minus one. */
-    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
-
-    /**
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
-    /** Reusable Short constant for zero. */
-    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
-    /** Reusable Short constant for one. */
-    public static final Short SHORT_ONE = Short.valueOf((short) 1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
-    /** Reusable Integer constant for zero. */
-    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
-    /** Reusable Integer constant for one. */
-    public static final Integer INTEGER_ONE = Integer.valueOf(1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
-    /** Reusable Double constant for one. */
-    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
-    /** Reusable Double constant for minus one. */
-    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
-    /** Reusable Short constant for one. */
-    public static final Short SHORT_ONE = Short.valueOf((short) 1);
-    /** Reusable Short constant for minus one. */
-    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
-    /** Reusable Double constant for minus one. */
-    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
-    /** Reusable Float constant for zero. */
-    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableLong.java`
-#### Snippet
-```java
-     */
-    public Long toLong() {
-        return Long.valueOf(longValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableLong.java`
-#### Snippet
-```java
-    @Override
-    public Long getValue() {
-        return Long.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java`
-#### Snippet
-```java
-     */
-    public Float toFloat() {
-        return Float.valueOf(floatValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableFloat.java`
-#### Snippet
-```java
-    @Override
-    public Float getValue() {
-        return Float.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    @Override
-    public Integer build() {
-        return Integer.valueOf(toHashCode());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-     */
-    public static <T> T[] validIndex(final T[] array, final int index) {
-        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-     */
-    public static <T extends Collection<?>> T validIndex(final T collection, final int index) {
-        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-     */
-    public static <T extends CharSequence> T validIndex(final T chars, final int index) {
-        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-    public static void isTrue(final boolean expression, final String message, final long value) {
-        if (!expression) {
-            throw new IllegalArgumentException(String.format(message, Long.valueOf(value)));
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
-                final Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
-                throw new IllegalArgumentException(getMessage(message, values2));
-            }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-        for (final Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
-            if (it.next() == null) {
-                final Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
-                throw new IllegalArgumentException(getMessage(message, values2));
-            }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/Validate.java`
-#### Snippet
-```java
-    public static void isTrue(final boolean expression, final String message, final double value) {
-        if (!expression) {
-            throw new IllegalArgumentException(String.format(message, Double.valueOf(value)));
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(duration, "duration");
-        // intValue() does not do a narrowing conversion here
-        return LONG_TO_INT_RANGE.fit(Long.valueOf(duration.toMillis())).intValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return String.format(FMT_TO_STRING, Integer.valueOf(System.identityHashCode(this)),
-                String.valueOf(getObject()));
-    }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
-#### Snippet
-```java
-        final E[] constants = asEnum(enumClass).getEnumConstants();
-        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
-            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
-
-        return enumClass;
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
-#### Snippet
-```java
-        final E[] constants = asEnum(enumClass).getEnumConstants();
-        Validate.isTrue(constants.length <= Long.SIZE, CANNOT_STORE_S_S_VALUES_IN_S_BITS,
-            Integer.valueOf(constants.length), enumClass.getSimpleName(), Integer.valueOf(Long.SIZE));
-
-        return enumClass;
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-    // package protected, for access from FastDateFormat; do not make public or protected
-    F getDateInstance(final int dateStyle, final TimeZone timeZone, final Locale locale) {
-        return getDateTimeInstance(Integer.valueOf(dateStyle), null, timeZone, locale);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-    // package protected, for access from FastDateFormat; do not make public or protected
-    F getTimeInstance(final int timeStyle, final TimeZone timeZone, final Locale locale) {
-        return getDateTimeInstance(null, Integer.valueOf(timeStyle), timeZone, locale);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java`
-#### Snippet
-```java
-     */
-    public Boolean toBoolean() {
-        return Boolean.valueOf(booleanValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java`
-#### Snippet
-```java
-    @Override
-    public Boolean getValue() {
-        return Boolean.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableByte.java`
-#### Snippet
-```java
-    @Override
-    public Byte getValue() {
-        return Byte.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableByte.java`
-#### Snippet
-```java
-     */
-    public Byte toByte() {
-        return Byte.valueOf(byteValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableInt.java`
-#### Snippet
-```java
-    @Override
-    public Integer getValue() {
-        return Integer.valueOf(this.value);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableInt.java`
-#### Snippet
-```java
-     */
-    public Integer toInteger() {
-        return Integer.valueOf(intValue());
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-     */
-    public static Boolean oneHot(final Boolean... array) {
-        return Boolean.valueOf(oneHot(ArrayUtils.toPrimitive(array)));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-         */
-        public Builder priority(final int priority) {
-            this.priority = Integer.valueOf(priority);
-            return this;
-        }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-
-        if (getNamingPattern() != null) {
-            final Long count = Long.valueOf(threadCounter.incrementAndGet());
-            thread.setName(String.format(getNamingPattern(), count));
-        }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-         */
-        public Builder daemon(final boolean daemon) {
-            this.daemon = Boolean.valueOf(daemon);
-            return this;
-        }
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static Character toCharacterObject(final String str) {
-        return StringUtils.isEmpty(str) ? null : Character.valueOf(str.charAt(0));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static long[] add(final long[] array, final int index, final long element) {
-        return (long[]) add(array, index, Long.valueOf(element), Long.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_FLOAT_OBJECT_ARRAY;
-        }
-        return setAll(new Float[array.length], i -> Float.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Short, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final short v : values) {
-            final Short boxed = Short.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_LONG_OBJECT_ARRAY;
-        }
-        return setAll(new Long[array.length], i -> Long.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static double[] add(final double[] array, final int index, final double element) {
-        return (double[]) add(array, index, Double.valueOf(element), Double.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Character, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final char v : values) {
-            final Character boxed = Character.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static byte[] add(final byte[] array, final int index, final byte element) {
-        return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static int[] add(final int[] array, final int index, final int element) {
-        return (int[]) add(array, index, Integer.valueOf(element), Integer.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final Map<Byte, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final byte v : values) {
-            final Byte boxed = Byte.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static boolean[] add(final boolean[] array, final int index, final boolean element) {
-        return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Long, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final long v : values) {
-            final Long boxed = Long.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_INTEGER_OBJECT_ARRAY;
-        }
-        return setAll(new Integer[array.length], i -> Integer.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static char[] add(final char[] array, final int index, final char element) {
-        return (char[]) add(array, index, Character.valueOf(element), Character.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static short[] add(final short[] array, final int index, final short element) {
-        return (short[]) add(array, index, Short.valueOf(element), Short.TYPE);
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_CHARACTER_OBJECT_ARRAY;
-        }
-        return setAll(new Character[array.length], i -> Character.valueOf(array[i]));
-     }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_SHORT_OBJECT_ARRAY;
-        }
-        return setAll(new Short[array.length], i -> Short.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_DOUBLE_OBJECT_ARRAY;
-        }
-        return setAll(new Double[array.length], i -> Double.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Float, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final float v : values) {
-            final Float boxed = Float.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Boolean, MutableInt> occurrences = new HashMap<>(2); // only two possible values here
-        for (final boolean v : values) {
-            final Boolean boxed = Boolean.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return EMPTY_BYTE_OBJECT_ARRAY;
-        }
-        return setAll(new Byte[array.length], i -> Byte.valueOf(array[i]));
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Integer, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final int v : values) {
-            final Integer boxed = Integer.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final HashMap<Double, MutableInt> occurrences = new HashMap<>(values.length);
-        for (final double v : values) {
-            final Double boxed = Double.valueOf(v);
-            final MutableInt count = occurrences.get(boxed);
-            if (count == null) {
-```
-
-### RuleId[ruleID=UnnecessaryBoxing]
-Unnecessary boxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static float[] add(final float[] array, final int index, final float element) {
-        return (float[]) add(array, index, Float.valueOf(element), Float.TYPE);
-    }
-
-```
-
-## RuleId[ruleID=FunctionalExpressionCanBeFolded]
-### RuleId[ruleID=FunctionalExpressionCanBeFolded]
+## RuleId[id=FunctionalExpressionCanBeFolded]
+### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
 in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
 #### Snippet
@@ -5094,7 +2699,7 @@ in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
 
 ```
 
-### RuleId[ruleID=FunctionalExpressionCanBeFolded]
+### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
 in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
 #### Snippet
@@ -5106,527 +2711,8 @@ in `src/main/java/org/apache/commons/lang3/EnumUtils.java`
 
 ```
 
-## RuleId[ruleID=SystemOutErr]
-### RuleId[ruleID=SystemOutErr]
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     */
-    public static void printRootCauseStackTrace(final Throwable throwable) {
-        printRootCauseStackTrace(throwable, System.err);
-    }
-
-```
-
-## RuleId[ruleID=UnnecessaryUnboxing]
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-                    try {
-                        final Float f = createFloat(str);
-                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !isZero(mant, dec))) {
-                            //If it's too big for a float or the float value = 0 and the string
-                            //has non-zeros in it, then float does not have the precision we want
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-                    try {
-                        final Double d = createDouble(str);
-                        if (!(d.isInfinite() || d.doubleValue() == 0.0D && !isZero(mant, dec))) {
-                            return d;
-                        }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-            final Double d = createDouble(str);
-            if (!f.isInfinite()
-                    && !(f.floatValue() == 0.0F && !isZero(mant, dec))
-                    && f.toString().equals(d.toString())) {
-                return f;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-                return f;
-            }
-            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mant, dec))) {
-                final BigDecimal b = createBigDecimal(str);
-                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-            if (!d.isInfinite() && !(d.doubleValue() == 0.0D && !isZero(mant, dec))) {
-                final BigDecimal b = createBigDecimal(str);
-                if (b.compareTo(BigDecimal.valueOf(d.doubleValue())) == 0) {
-                    return d;
-                }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-            return defaultFullDetail;
-        }
-        return fullDetailRequest.booleanValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-            //LANG-1669: Mimic fix done in OpenJDK 17 to resolve issue with parsing newly supported day periods added in OpenJDK 16
-            if (Calendar.AM_PM != this.field || iVal <= 1) {
-                calendar.set(field, iVal.intValue());
-            }
-        }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-                final DateFormat formatter;
-                if (dateStyle == null) {
-                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), safeLocale);
-                } else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), safeLocale);
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-                    formatter = DateFormat.getTimeInstance(timeStyle.intValue(), safeLocale);
-                } else if (timeStyle == null) {
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), safeLocale);
-                } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), safeLocale);
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), safeLocale);
-                } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), safeLocale);
-                }
-                return ((SimpleDateFormat) formatter).toPattern();
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-                    formatter = DateFormat.getDateInstance(dateStyle.intValue(), safeLocale);
-                } else {
-                    formatter = DateFormat.getDateTimeInstance(dateStyle.intValue(), timeStyle.intValue(), safeLocale);
-                }
-                return ((SimpleDateFormat) formatter).toPattern();
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java`
-#### Snippet
-```java
-    @Override
-    public void setValue(final Boolean value) {
-        this.value = value.booleanValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java`
-#### Snippet
-```java
-     */
-    public MutableBoolean(final Boolean value) {
-        this.value = value.booleanValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return nullValue;
-        }
-        return bool.booleanValue() ? trueValue : falseValue;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-     */
-    public static boolean toBoolean(final Boolean bool) {
-        return bool != null && bool.booleanValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return null;
-        }
-        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return null;
-        }
-        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return nullValue;
-        }
-        return bool.booleanValue() ? trueValue : falseValue;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return null;
-        }
-        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return valueIfNull;
-        }
-        return bool.booleanValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return nullString;
-        }
-        return bool.booleanValue() ? trueString : falseString;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-
-        if (getPriority() != null) {
-            thread.setPriority(getPriority().intValue());
-        }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-
-        if (getDaemonFlag() != null) {
-            thread.setDaemon(getDaemonFlag().booleanValue());
-        }
-    }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-        }
-        if (obj instanceof Long) {
-            return format(((Long) obj).longValue(), toAppendTo);
-        }
-        throw new IllegalArgumentException("Unknown class: " + ClassUtils.getName(obj, "<null>"));
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static char toChar(final Character ch) {
-        return Objects.requireNonNull(ch, "ch").charValue();
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static char toChar(final Character ch, final char defaultValue) {
-        return ch != null ? ch.charValue() : defaultValue;
-    }
-
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Boolean b = array[i];
-            result[i] = b == null ? valueForNull : b.booleanValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final long[] result = new long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].longValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Float b = array[i];
-            result[i] = b == null ? valueForNull : b.floatValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Byte b = array[i];
-            result[i] = b == null ? valueForNull : b.byteValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Character b = array[i];
-            result[i] = b == null ? valueForNull : b.charValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Long b = array[i];
-            result[i] = b == null ? valueForNull : b.longValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final short[] result = new short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].shortValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Integer b = array[i];
-            result[i] = b == null ? valueForNull : b.intValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final char[] result = new char[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].charValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final double[] result = new double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].doubleValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final byte[] result = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].byteValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Double b = array[i];
-            result[i] = b == null ? valueForNull : b.doubleValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        for (int i = 0; i < array.length; i++) {
-            final Short b = array[i];
-            result[i] = b == null ? valueForNull : b.shortValue();
-        }
-        return result;
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        final float[] result = new float[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].floatValue();
-        }
-        return result;
-```
-
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### RuleId[ruleID=ClassNameSameAsAncestorName]
-Class name `Builder` is the same as one of its superclass' names
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-     *
-     */
-    public static class Builder
-        implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {
-
-```
-
-## RuleId[ruleID=RedundantMethodOverride]
-### RuleId[ruleID=RedundantMethodOverride]
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
 Method `isNumber()` is identical to its super method
 in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
 #### Snippet
@@ -5638,5871 +2724,274 @@ in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
         }
 ```
 
-### RuleId[ruleID=RedundantMethodOverride]
-Method `isNumber()` is identical to its super method
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-         */
-        @Override
-        boolean isNumber() {
-            return false;
-        }
-```
-
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see #replacePattern(String, String, String)
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-    public static String replaceAll(final String text, final String regex, final String replacement) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
 #### Snippet
 ```java
      *
-     * @see java.util.regex.Matcher#replaceAll(String)
-     * @see java.util.regex.Pattern
-     */
-    public static String replaceAll(final String text, final Pattern regex, final String replacement) {
+     * <p>
+     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(Class)}. See
+     * relevant notes there.
+     * </p>
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
 #### Snippet
 ```java
-     * @see #removePattern(String, String)
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
+     * </p>
+     * <p>
+     * The {@link #lookup(String)} method always returns a String, regardless of
+     * the underlying data, by converting it as necessary. For example:
+     * </p>
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-    public static String removeAll(final String text, final String regex) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     *
-     * @see java.util.regex.Matcher#replaceFirst(String)
-     * @see java.util.regex.Pattern
-     */
-    public static String replaceFirst(final String text, final Pattern regex, final String replacement) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see #replaceFirst(String, String, String)
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-    public static String removeFirst(final String text, final String regex) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-/**
- * Helpers to process Strings using regular expressions.
- * @see java.util.regex.Pattern
- * @since 3.8
- */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see #replaceAll(String, Pattern, String)
-     * @see java.util.regex.Matcher#replaceAll(String)
-     * @see java.util.regex.Pattern
-     */
-    public static String removeAll(final String text, final Pattern regex) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see #replaceFirst(String, Pattern, String)
-     * @see java.util.regex.Matcher#replaceFirst(String)
-     * @see java.util.regex.Pattern
-     */
-    public static String removeFirst(final String text, final Pattern regex) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     *
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/RegExUtils.java`
-#### Snippet
-```java
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     */
-    public static String replaceFirst(final String text, final String regex, final String replacement) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-         *
-         * @throws UnsupportedOperationException Always thrown.
-         * @see java.util.Iterator#remove()
-         */
-        @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-     * Required for serialization support. Lang version 2.0.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 8270183163158333422L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
- * <p>
- * This class can split a String into many smaller strings. It aims
- * to do a similar job to {@link java.util.StringTokenizer StringTokenizer},
- * however it offers much more control and flexibility including implementing
- * the {@link ListIterator} interface. By default, it is set up
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
- * <p>
- * This class uses reflection to determine the fields to append. Because these fields are usually private, the class
- * uses {@link java.lang.reflect.AccessibleObject#setAccessible(java.lang.reflect.AccessibleObject[], boolean)} to
- * change the visibility of the fields. This will fail under a security manager, unless the appropriate permissions are
- * set up correctly.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
- * <p>
- * This class uses reflection to determine the fields to append. Because these fields are usually private, the class
- * uses {@link java.lang.reflect.AccessibleObject#setAccessible(java.lang.reflect.AccessibleObject[], boolean)} to
- * change the visibility of the fields. This will fail under a security manager, unless the appropriate permissions are
- * set up correctly.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- * <li>{@link #accept(java.lang.reflect.Field)}</li>
- * <li>{@link #getValue(java.lang.reflect.Field)}</li>
- * </ul>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
- * <ul>
- * <li>{@link #accept(java.lang.reflect.Field)}</li>
- * <li>{@link #getValue(java.lang.reflect.Field)}</li>
- * </ul>
- * <p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
-     *
-     * @throws IllegalArgumentException
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     * @throws IllegalAccessException
-     *             see {@link java.lang.reflect.Field#get(Object)}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     * @throws IllegalAccessException
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     *
-     * @see java.lang.reflect.Field#get(Object)
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ReflectionToStringBuilder.java`
-#### Snippet
-```java
-     *             see {@link java.lang.reflect.Field#get(Object)}
-     *
-     * @see java.lang.reflect.Field#get(Object)
-     */
-    protected Object getValue(final Field field) throws IllegalAccessException {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent.locks` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `t -> {...}` to `Predicate` is redundant
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
 
-/**
- * Combines the monitor and visitor pattern to work with {@link java.util.concurrent.locks.Lock locked objects}. Locked
- * objects are an alternative to synchronization. This, on Wikipedia, is known as the Visitor pattern
- * (https://en.wikipedia.org/wiki/Visitor_pattern), and from the "Gang of Four" "Design Patterns" book's Visitor pattern
+    private static <T> Predicate<T> namePredicate(final String name, final Function<T, String> nameGetter) {
+        return (Predicate<T>) t -> t != null && Objects.equals(nameGetter.apply(t), Objects.requireNonNull(name));
+    }
+
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
+### RedundantCast
+Casting `deserialize(...)` to `T` is redundant
 in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
 #### Snippet
 ```java
-         * @param classLoader classloader to use
-         * @throws IOException if an I/O error occurs while reading stream header.
-         * @see java.io.ObjectInputStream
-         */
-        ClassLoaderAwareObjectInputStream(final InputStream in, final ClassLoader classLoader) throws IOException {
+    @SuppressWarnings("unchecked") // OK, because we serialized a type `T`
+    public static <T extends Serializable> T roundtrip(final T obj) {
+        return (T) deserialize(serialize(obj));
+    }
+
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-
-    /**
-     * Custom specialization of the standard JDK {@link java.io.ObjectInputStream}
-     * that uses a custom  {@link ClassLoader} to resolve a class.
-     * If the specified {@link ClassLoader} is not able to resolve the class,
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-
-/**
- * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.
- *
- * <p>It is consistent with {@code equals(Object)} and
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
- * <p>Alternatively, there are {@link #reflectionCompare(Object, Object) reflectionCompare} methods that use
- * reflection to determine the fields to append. Because fields can be private,
- * {@code reflectionCompare} uses {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} to
- * bypass normal access control checks. This will fail under a security manager,
- * unless the appropriate permissions are set up correctly. It is also
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/mutable/MutableObject.java`
-#### Snippet
-```java
-     * Required for serialization support.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 86241875189L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Utility method for {@link #createNumber(java.lang.String)}.
-     *
-     * <p>This will check if the magnitude of the number is zero by checking if there
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Utility method for {@link #createNumber(java.lang.String)}.
-     *
-     * <p>Returns mantissa of the given number.</p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Utility method for {@link #createNumber(java.lang.String)}.
-     *
-     * <p>Returns {@code true} if s is {@code null} or empty.</p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-     * Required for serialization support.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 7628716375283629643L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
-     * primitive classes and {@code null}s.
-     * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
-     * primitive classes and {@code null}s.
-     * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
-     * primitive classes and {@code null}s.
-     * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this method takes into account widenings of
-     * primitive classes and {@code null}s.
-     * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-
-    /**
-     * Appends the {@link System#identityHashCode(java.lang.Object)}.
-     *
-     * @param buffer  the {@link StringBuffer} to populate
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-         * Required for serialization support.
-         *
-         * @see java.io.Serializable
-         */
-        private static final long serialVersionUID = 1L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * locale.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param locale  optional locale, overrides system locale
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * and locale.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone  optional time zone, overrides time zone of
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-/**
- * FastDateFormat is a fast and thread-safe version of
- * {@link java.text.SimpleDateFormat}.
- *
- * <p>To obtain an instance of FastDateFormat, use one of the static factory methods:
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * Constructs a new FastDateFormat.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
-     * @param timeZone  non-null time zone to use
-     * @param locale  non-null locale to use
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * default locale.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @return a pattern based date/time formatter
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * Constructs a new FastDateFormat.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
-     * @param timeZone  non-null time zone to use
-     * @param locale  non-null locale to use
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * Gets the pattern used by this formatter.
-     *
-     * @return the pattern, {@link java.text.SimpleDateFormat} compatible
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     * time zone.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone  optional time zone, overrides time zone of
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.annotation` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
-     * @param searchSupers
-     *            determines if a lookup in the entire inheritance hierarchy of the given class should be performed
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.annotation` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link java.lang.annotation.Annotation} that must be present on a method to be matched
-     * @return an array of Methods (possibly empty).
-     * @throws NullPointerException if the class or annotation are {@code null}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
-#### Snippet
-```java
- * A fluent {@link BitSet} with additional operations.
- * <p>
- * Originally from Apache Commons VFS with more added to act as a fluent replacement for {@link java.util.BitSet}.
- * </p>
- * @since 3.13.0
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new escaped {@link String}, {@code null} if null string input
-     * @see #unescapeXml(String)
-     * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
-     */
     @Deprecated
+    public static long[] removeAllOccurences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-     * @return a new escaped {@link String}, {@code null} if null string input
-     * @see #unescapeXml(String)
-     * @deprecated use {@link #escapeXml10(java.lang.String)} or {@link #escapeXml11(java.lang.String)} instead.
-     */
     @Deprecated
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-/**
- * FastDateParser is a fast and thread-safe version of
- * {@link java.text.SimpleDateFormat}.
- *
- * <p>To obtain a proxy to a FastDateParser, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * Required for serialization support.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 3L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * This is called from constructor and from readObject (de-serialization)
-     *
-     * @param definingCalendar the {@link java.util.Calendar} instance used to initialize this FastDateParser
-     */
-    private void init(final Calendar definingCalendar) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * factory methods of {@link FastDateFormat} to get a cached FastDateParser instance.
-     *
-     * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone non-null time zone to use
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * Constructs a new FastDateParser.
-     *
-     * @param pattern non-null {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone non-null time zone to use
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * This implementation updates the ParsePosition if the parse succeeds.
-     * However, it sets the error index to the position before the failed field unlike
-     * the method {@link java.text.SimpleDateFormat#parse(String, ParsePosition)} which sets
-     * the error index to after the failed field.
-     * <p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.commons.lang3.time` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * parsed, then the index will point to just after the end of the input buffer.
-     *
-     * @see org.apache.commons.lang3.time.DateParser#parse(String, java.text.ParsePosition)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-     * parsed, then the index will point to just after the end of the input buffer.
-     *
-     * @see org.apache.commons.lang3.time.DateParser#parse(String, java.text.ParsePosition)
-     */
-    @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-     * @return the constructor, {@code null} if no matching accessible constructor found
-     * @see Class#getConstructor
-     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
-     * @throws NullPointerException if {@code cls} is {@code null}
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/CharSet.java`
-#### Snippet
-```java
-     * Required for serialization support. Lang version 2.0.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 5947847346149275958L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.commons.lang3.time` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-     * for the ISO 8601 period format used in durations.
-     *
-     * @see org.apache.commons.lang3.time.FastDateFormat
-     * @see java.text.SimpleDateFormat
-     */
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-     *
-     * @see org.apache.commons.lang3.time.FastDateFormat
-     * @see java.text.SimpleDateFormat
-     */
-    public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.SSS'S'";
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-     * and locale.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern, this will not be null.
-     * @param timeZone  time zone, this will not be null.
-     * @param locale  locale, this will not be null.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-     * and locale.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern, non-null
-     * @param timeZone  the time zone, null means use the default TimeZone
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-         *
-         * @throws UnsupportedOperationException Always thrown.
-         * @see java.util.Iterator#remove()
-         */
-        @Override
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if the date string or pattern array is null
-     * @throws ParseException if none of the date patterns were suitable
-     * @see java.util.Calendar#isLenient()
-     */
-    private static Date parseDateWithLeniency(final String dateStr, final Locale locale, final String[] parsePatterns,
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-/**
- * A suite of utilities surrounding the use of the
- * {@link java.util.Calendar} and {@link java.util.Date} object.
- *
- * <p>DateUtils contains a lot of common methods considering manipulations
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-/**
- * A suite of utilities surrounding the use of the
- * {@link java.util.Calendar} and {@link java.util.Date} object.
- *
- * <p>DateUtils contains a lot of common methods considering manipulations
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-/**
- * Operations on {@link java.lang.String} that are
- * {@code null} safe.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see #replacePattern(String, String, String)
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-     *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     *
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-     *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see #replaceFirst(String, String, String)
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see String#replaceFirst(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-     *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see #removePattern(String, String)
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @see String#replaceAll(String, String)
-     * @see java.util.regex.Pattern
-     * @see java.util.regex.Pattern#DOTALL
-     * @since 3.5
-     *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-         * Required for serialization support. Declare serialization compatibility with Commons Lang 1.0
-         *
-         * @see java.io.Serializable
-         */
-        private static final long serialVersionUID = 7092611880189329093L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-     *
-     * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(Object)} method returns
-     * {@code null} if the {@link Map} contains {@code null} or if there
-     * is no matching key. The {@code null} placeholder can be used to
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-     *
-     * <p>For example, in a {@link HashMap} the
-     * {@link java.util.HashMap#get(Object)} method returns
-     * {@code null} if the {@link Map} contains {@code null} or if there is
-     * no matching key. The {@code null} placeholder can be used to distinguish
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-     * @return a negative value if c1 &lt; c2, zero if c1 = c2
-     *  and a positive value if c1 &gt; c2
-     * @see java.util.Comparator#compare(Object, Object)
-     */
-    public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/mutable/MutableBoolean.java`
-#### Snippet
-```java
-     * Required for serialization support.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = -4830728138360036487L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * In cases where the interface specified by {@code toClass} is
-     * (indirectly) implemented more than once (e.g. where {@code toClass}
-     * specifies the interface {@link java.lang.Iterable Iterable} and
-     * {@code type} specifies a parameterized type that implements both
-     * {@link java.util.Set Set} and {@link java.util.Collection Collection}),
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * specifies the interface {@link java.lang.Iterable Iterable} and
-     * {@code type} specifies a parameterized type that implements both
-     * {@link java.util.Set Set} and {@link java.util.Collection Collection}),
-     * this method will look at the inheritance hierarchy of only one of the
-     * implementations/subclasses; the first interface encountered that isn't a
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * specifies the interface {@link java.lang.Iterable Iterable} and
-     * {@code type} specifies a parameterized type that implements both
-     * {@link java.util.Set Set} and {@link java.util.Collection Collection}),
-     * this method will look at the inheritance hierarchy of only one of the
-     * implementations/subclasses; the first interface encountered that isn't a
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * Example: {@link java.util.TreeSet
-     * TreeSet} sets its parameter as the parameter for
-     * {@link java.util.NavigableSet NavigableSet}, which in turn sets the
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * parameter of {@link java.util.SortedSet}, which in turn sets the
-     * parameter of {@link Set}, which in turn sets the parameter of
-     * {@link java.util.Collection}, which in turn sets the parameter of
-     * {@link Iterable}. Since {@link TreeSet}'s parameter maps
-     * (indirectly) to {@link Iterable}'s parameter, it will be able to
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/Range.java`
-#### Snippet
-```java
-     * Serialization version.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 1L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/function/Failable.java`
-#### Snippet
-```java
- *
- * <p>
- * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a {@link FailableConsumer
- * FailableConsumer&lt;O,? extends Throwable&gt;}, this can be written like follows:
- * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java`
-#### Snippet
-```java
-
-/**
- * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
- * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java`
-#### Snippet
-```java
-
-/**
- * Contains common code for working with {@link java.lang.reflect.Method Methods}/{@link java.lang.reflect.Constructor Constructors},
- * extracted and refactored from {@link MethodUtils} when it was imported from Commons BeanUtils.
- *
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-     * factory methods of {@link FastDateFormat} to get a cached FastDatePrinter instance.
-     *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
-     * @param timeZone  non-null time zone to use
-     * @param locale  non-null locale to use
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-     * Required for serialization support.
-     *
-     * @see java.io.Serializable
-     */
-    private static final long serialVersionUID = 1L;
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.text` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-/**
- * FastDatePrinter is a fast and thread-safe version of
- * {@link java.text.SimpleDateFormat}.
- *
- * <p>To obtain a FastDatePrinter, use {@link FastDateFormat#getInstance(String, TimeZone, Locale)}
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/TimeZones.java`
-#### Snippet
-```java
-
-/**
- * Helps to deal with {@link java.util.TimeZone}s.
- *
- * @since 3.7
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/TimeZones.java`
-#### Snippet
-```java
-
-    /**
-     * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
-     */
-    public static final String GMT_ID = "GMT";
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.commons.lang3.time` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
- *
- * <p>Formatting is performed using the thread-safe
- * {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
- *
- * <p>Note that the JDK has a bug wherein calling Calendar.get(int) will
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
- *
- * <p>
- * By replacing a {@link java.util.function.Consumer Consumer&lt;O&gt;} with a {@link FailableConsumer
- * FailableConsumer&lt;O,? extends Throwable&gt;}, this can be written like follows:
- * </p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `org.apache.commons.lang3.function` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
- * </p>
- * @since 3.9
- * @deprecated Use {@link org.apache.commons.lang3.function.Failable}.
- */
-@Deprecated
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-
-    /**
-     * A functional interface like {@link java.util.concurrent.Callable} that declares a {@link Throwable}.
-     *
-     * <p>TODO for 4.0: Move to org.apache.commons.lang3.function.</p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     *
-     * <p>The result of this method vary by JDK version as this method
-     * uses {@link Throwable#printStackTrace(java.io.PrintWriter)}.
-     * On JDK1.3 and earlier, the cause exception will not be shown
-     * unless the specified throwable alters printStackTrace.</p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-     *
-     * <p>The result of this method vary by JDK version as this method
-     * uses {@link Throwable#printStackTrace(java.io.PrintWriter)}.
-     * On JDK1.3 and earlier, the cause exception will not be shown
-     * unless the specified throwable alters printStackTrace.</p>
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Converts the given array into a {@link java.util.Map}. Each element of the array
-     * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
-     * elements, where the first element is used as key and the second as
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    /**
-     * Converts the given array into a {@link java.util.Map}. Each element of the array
-     * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
-     * elements, where the first element is used as key and the second as
-     * value.
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or
-     *  an Array containing at least two elements, may be {@code null}
-     * @return a {@link Map} that was created from the array
-```
-
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     *  itself an Array containing less than two elements
-     * @throws IllegalArgumentException  if the array contains elements other
-     *  than {@link java.util.Map.Entry} and an Array
-     */
-    public static Map<Object, Object> toMap(final Object[] array) {
-```
-
-## RuleId[ruleID=NestedAssignment]
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            ensureCapacity(size + 1);
-            int read;
-            while ((read = r.read(buffer, size, buffer.length - size)) != -1) {
-                size += read;
-                ensureCapacity(size + 1);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-                while (pos < bufEnd) {
-                    if (substitutionInVariablesEnabled
-                            && (endMatchLen = pfxMatcher.isMatch(chars,
-                                    pos, offset, bufEnd)) != 0) {
-                        // found a nested variable start
-                        nestedVarCount++;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-                                        break;
-                                    }
-                                    if ((valueDelimiterMatchLen = valueDelimMatcher.isMatch(varNameExprChars, i)) != 0) {
-                                        varName = varNameExpr.substring(0, i);
-                                        varDefaultValue = varNameExpr.substring(i + valueDelimiterMatchLen);
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        int count = 0;
-        int idx = 0;
-        while ((idx = CharSequenceUtils.indexOf(str, sub, idx)) != INDEX_NOT_FOUND) {
-            count++;
-            idx += sub.length();
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java`
-#### Snippet
-```java
-                result = object;
-                if (result == NO_INIT) {
-                    object = result = initialize();
-                }
-            }
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/concurrent/AtomicSafeInitializer.java`
-#### Snippet
-```java
-        T result;
-
-        while ((result = reference.get()) == null) {
-            if (factory.compareAndSet(null, this)) {
-                reference.set(initialize());
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java`
-#### Snippet
-```java
-            executor = getExternalExecutor();
-            if (executor == null) {
-                executor = tempExec = createExecutor();
-            } else {
-                tempExec = null;
-```
-
-### RuleId[ruleID=NestedAssignment]
-Result of assignment expression used
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        int count;
-        int set;
-        while ((set = indices.nextSetBit(srcIndex)) != -1) {
-            count = set - srcIndex;
-            if (count > 0) {
-```
-
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`current = (char) (current + 1)` could be simplified to 'current += 1'
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-                    }
-                } else {
-                    current = (char) (current + 1);
-                }
-            } else if (current < range.end) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`current = (char) (current + 1)` could be simplified to 'current += 1'
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-                }
-            } else if (current < range.end) {
-                current = (char) (current + 1);
-            } else {
-                hasNext = false;
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`answer = answer + 2` could be simplified to 'answer += 2'
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-                answer++;
-            } else {
-                answer = answer + 2;
-            }
-        }
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final byte[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final byte element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final Object[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final Object element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final boolean[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final boolean element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final short[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final short element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final long[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final long element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final int[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final int element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final Object object) {
-        if (object == null) {
-            iTotal = iTotal * iConstant;
-
-        } else if (ObjectUtils.isArray(object)) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final float[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final float element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final double[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final double element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`iTotal = iTotal * iConstant` could be simplified to 'iTotal \*= iConstant'
-in `src/main/java/org/apache/commons/lang3/builder/HashCodeBuilder.java`
-#### Snippet
-```java
-    public HashCodeBuilder append(final char[] array) {
-        if (array == null) {
-            iTotal = iTotal * iConstant;
-        } else {
-            for (final char element : array) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY)` could be simplified to 'milliseconds -= (days \* DateUtils.MILLIS_PER_DAY)'
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-        if (Token.containsTokenWithValue(tokens, d)) {
-            days = milliseconds / DateUtils.MILLIS_PER_DAY;
-            milliseconds = milliseconds - (days * DateUtils.MILLIS_PER_DAY);
-        }
-        if (Token.containsTokenWithValue(tokens, H)) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR)` could be simplified to 'milliseconds -= (hours \* DateUtils.MILLIS_PER_HOUR)'
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-        if (Token.containsTokenWithValue(tokens, H)) {
-            hours = milliseconds / DateUtils.MILLIS_PER_HOUR;
-            milliseconds = milliseconds - (hours * DateUtils.MILLIS_PER_HOUR);
-        }
-        if (Token.containsTokenWithValue(tokens, m)) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE)` could be simplified to 'milliseconds -= (minutes \* DateUtils.MILLIS_PER_MINUTE)'
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-        if (Token.containsTokenWithValue(tokens, m)) {
-            minutes = milliseconds / DateUtils.MILLIS_PER_MINUTE;
-            milliseconds = milliseconds - (minutes * DateUtils.MILLIS_PER_MINUTE);
-        }
-        if (Token.containsTokenWithValue(tokens, s)) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND)` could be simplified to 'milliseconds -= (seconds \* DateUtils.MILLIS_PER_SECOND)'
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-        if (Token.containsTokenWithValue(tokens, s)) {
-            seconds = milliseconds / DateUtils.MILLIS_PER_SECOND;
-            milliseconds = milliseconds - (seconds * DateUtils.MILLIS_PER_SECOND);
-        }
-
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`time = time - millisecs` could be simplified to 'time -= millisecs'
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-        final int millisecs = val.get(Calendar.MILLISECOND);
-        if (ModifyType.TRUNCATE == modType || millisecs < 500) {
-            time = time - millisecs;
-        }
-        if (field == Calendar.SECOND) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`time = time - (seconds * 1000L)` could be simplified to 'time -= (seconds \* 1000L)'
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-        final int seconds = val.get(Calendar.SECOND);
-        if (!done && (ModifyType.TRUNCATE == modType || seconds < 30)) {
-            time = time - (seconds * 1000L);
-        }
-        if (field == Calendar.MINUTE) {
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`time = time - (minutes * 60000L)` could be simplified to 'time -= (minutes \* 60000L)'
-in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
-#### Snippet
-```java
-        final int minutes = val.get(Calendar.MINUTE);
-        if (!done && (ModifyType.TRUNCATE == modType || minutes < 30)) {
-            time = time - (minutes * 60000L);
-        }
-
-```
-
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-`value = value / 10` could be simplified to 'value /= 10'
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-            while (value != 0) {
-                work[digit++] = (char) (value % 10 + '0');
-                value = value / 10;
-            }
-
-```
-
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractCircuitBreaker()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/lang3/concurrent/AbstractCircuitBreaker.java`
-#### Snippet
-```java
-     * Creates an {@link AbstractCircuitBreaker}. It also creates an internal {@link PropertyChangeSupport}.
-     */
-    public AbstractCircuitBreaker() {
-        changeSupport = new PropertyChangeSupport(this);
+    public static int[] removeAllOccurences(final int[] array, final int element) {
+        return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
-```
-
-### RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-Constructor `AbstractFutureProxy()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java`
-#### Snippet
-```java
-     * @param future the delegate.
-     */
-    public AbstractFutureProxy(final Future<V> future) {
-        this.future = Objects.requireNonNull(future, "future");
-    }
-```
-
-## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `pos`
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-                return 0;
-            }
-            for (int i = 0; i < chars.length; i++, pos++) {
-                if (chars[i] != buffer[pos]) {
-                    return 0;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-        if (start > end) {
-            final char temp = start;
-            start = end;
-            end = temp;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-            final char temp = start;
-            start = end;
-            end = temp;
-        }
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `tok`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-            }
-            if (isEmptyTokenAsNull()) {
-                tok = null;
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-                break;
-            }
-            start += removeLen;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `style`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-    public ToStringBuilder(final Object object, ToStringStyle style, StringBuffer buffer) {
-        if (style == null) {
-            style = getDefaultStyle();
-        }
-        if (buffer == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `buffer`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java`
-#### Snippet
-```java
-        }
-        if (buffer == null) {
-            buffer = new StringBuffer(512);
-        }
-        this.buffer = buffer;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        if (pos > 0) {
-            final int whole = Integer.parseInt(str.substring(0, pos));
-            str = str.substring(pos + 1);
-            pos = str.indexOf('/');
-            if (pos < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-    public static Fraction getFraction(double value) {
-        final int sign = value < 0 ? -1 : 1;
-        value = Math.abs(value);
-        if (value > Integer.MAX_VALUE || Double.isNaN(value)) {
-            throw new ArithmeticException("The value must not be greater than Integer.MAX_VALUE or NaN");
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        }
-        final int wholeNumber = (int) value;
-        value -= wholeNumber;
-
-        int numer0 = 0; // the pre-previous
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `numerator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        // allow 2^k/-2^31 as a valid fraction (where k>0)
-        if (denominator == Integer.MIN_VALUE && (numerator & 1) == 0) {
-            numerator /= 2;
-            denominator /= 2;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `denominator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        if (denominator == Integer.MIN_VALUE && (numerator & 1) == 0) {
-            numerator /= 2;
-            denominator /= 2;
-        }
-        if (denominator < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `numerator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-                throw new ArithmeticException("overflow: can't negate");
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `denominator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-        // simplify fraction.
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `numerator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        // simplify fraction.
-        final int gcd = greatestCommonDivisor(numerator, denominator);
-        numerator /= gcd;
-        denominator /= gcd;
-        return new Fraction(numerator, denominator);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `denominator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        final int gcd = greatestCommonDivisor(numerator, denominator);
-        numerator /= gcd;
-        denominator /= gcd;
-        return new Fraction(numerator, denominator);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `u`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        // overflow)
-        if (u > 0) {
-            u = -u;
-        } // make u negative
-        if (v > 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        } // make u negative
-        if (v > 0) {
-            v = -v;
-        } // make v negative
-        // B1. [Find power of 2]
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `u`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        int k = 0;
-        while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { // while u and v are both even...
-            u /= 2;
-            v /= 2;
-            k++; // cast out twos.
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-        while ((u & 1) == 0 && (v & 1) == 0 && k < 31) { // while u and v are both even...
-            u /= 2;
-            v /= 2;
-            k++; // cast out twos.
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `u`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-            // B5 [reset max(u,v)]
-            if (t > 0) {
-                u = -t;
-            } else {
-                v = t;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `v`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-                u = -t;
-            } else {
-                v = t;
-            }
-            // B6/B3. at this point both u and v should be odd.
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `numerator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-                throw new ArithmeticException("overflow: can't negate");
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `denominator`
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-            }
-            numerator = -numerator;
-            denominator = -denominator;
-        }
-        return new Fraction(numerator, denominator);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `newLineStr`
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-        }
-        if (newLineStr == null) {
-            newLineStr = System.lineSeparator();
-        }
-        if (wrapLength < 1) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `wrapLength`
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-        }
-        if (wrapLength < 1) {
-            wrapLength = 1;
-        }
-        if (StringUtils.isBlank(wrapOn)) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `wrapOn`
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-        }
-        if (StringUtils.isBlank(wrapOn)) {
-            wrapOn = " ";
-        }
-        final Pattern patternToWrapOn = Pattern.compile(wrapOn);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `context`
-in `src/main/java/org/apache/commons/lang3/exception/ContextedException.java`
-#### Snippet
-```java
-        super(message, cause);
-        if (context == null) {
-            context = new DefaultExceptionContext();
-        }
-        exceptionContext = context;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static byte min(byte a, final byte b, final byte c) {
-        if (b < a) {
-            a = b;
-        }
-        if (c < a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c < a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static int max(int a, final int b, final int c) {
-        if (b > a) {
-            a = b;
-        }
-        if (c > a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c > a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static int min(int a, final int b, final int c) {
-        if (b < a) {
-            a = b;
-        }
-        if (c < a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c < a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static byte max(byte a, final byte b, final byte c) {
-        if (b > a) {
-            a = b;
-        }
-        if (c > a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c > a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static long max(long a, final long b, final long c) {
-        if (b > a) {
-            a = b;
-        }
-        if (c > a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c > a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static long min(long a, final long b, final long c) {
-        if (b < a) {
-            a = b;
-        }
-        if (c < a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c < a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static short min(short a, final short b, final short c) {
-        if (b < a) {
-            a = b;
-        }
-        if (c < a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c < a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static short max(short a, final short b, final short c) {
-        if (b > a) {
-            a = b;
-        }
-        if (c > a) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-        }
-        if (c > a) {
-            a = c;
-        }
-        return a;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public String substring(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
+    public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            }
-            if (pos + len > size()) {
-                len = StrBuilder.this.size() - pos;
-            }
-            StrBuilder.this.getChars(pos, pos + len, b, off);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            final StrMatcher matcher, final String replaceStr,
-            final int startIndex, int endIndex, final int replaceCount) {
-        endIndex = validateRange(startIndex, endIndex);
-        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            ensureCapacity(size + 4);
-            System.arraycopy(buffer, index, buffer, index + 4, size - index);
-            buffer[index++] = 't';
-            buffer[index++] = 'r';
-            buffer[index++] = 'u';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            System.arraycopy(buffer, index, buffer, index + 4, size - index);
-            buffer[index++] = 't';
-            buffer[index++] = 'r';
-            buffer[index++] = 'u';
-            buffer[index] = 'e';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            buffer[index++] = 't';
-            buffer[index++] = 'r';
-            buffer[index++] = 'u';
-            buffer[index] = 'e';
-            size += 4;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            ensureCapacity(size + 5);
-            System.arraycopy(buffer, index, buffer, index + 5, size - index);
-            buffer[index++] = 'f';
-            buffer[index++] = 'a';
-            buffer[index++] = 'l';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            System.arraycopy(buffer, index, buffer, index + 5, size - index);
-            buffer[index++] = 'f';
-            buffer[index++] = 'a';
-            buffer[index++] = 'l';
-            buffer[index++] = 's';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            buffer[index++] = 'f';
-            buffer[index++] = 'a';
-            buffer[index++] = 'l';
-            buffer[index++] = 's';
-            buffer[index] = 'e';
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            buffer[index++] = 'a';
-            buffer[index++] = 'l';
-            buffer[index++] = 's';
-            buffer[index] = 'e';
-            size += 5;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        public long skip(long n) {
-            if (pos + n > StrBuilder.this.size()) {
-                n = StrBuilder.this.size() - pos;
-            }
-            if (n < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        validateIndex(index);
-        if (str == null) {
-            str = nullText;
-        }
-        if (str != null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `to`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-            if (removeLen > 0) {
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `replaceCount`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-                }
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final char ch, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (startIndex < 0) {
-            return -1;
+    public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
+        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public int indexOf(final StrMatcher matcher, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (matcher == null || startIndex >= size) {
-            return -1;
+    public static float[] removeAllOccurrences(final float[] array, final float element) {
+        return (float[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static short[] removeAllOccurences(final short[] array, final short element) {
+        return (short[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public char[] toCharArray(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len == 0) {
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (startIndex >= size) {
-            return -1;
+    public static char[] removeAllOccurrences(final char[] array, final char element) {
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
+        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public StrBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = StringUtils.length(replaceStr);
-        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
+    public static double[] removeAllOccurrences(final double[] array, final double element) {
+        return (double[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-    public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
-            return -1;
+    public static int[] removeAllOccurrences(final int[] array, final int element) {
+        return (int[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nullText`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-    public StrBuilder setNullText(String nullText) {
-        if (StringUtils.isEmpty(nullText)) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `destination`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        final int len = length();
-        if (destination == null || destination.length < len) {
-            destination = new char[len];
-        }
-        System.arraycopy(buffer, 0, destination, 0, len);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `initialCapacity`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-    public StrBuilder(int initialCapacity) {
-        if (initialCapacity <= 0) {
-            initialCapacity = CAPACITY;
-        }
-        buffer = new char[initialCapacity];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public StrBuilder delete(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len > 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `priorVariables`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-                            // on the first call initialize priorVariables
-                            if (priorVariables == null) {
-                                priorVariables = new ArrayList<>();
-                                priorVariables.add(new String(chars,
-                                        offset, length));
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `cls`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-            }
-
-            cls = cls.getSuperclass();
-        }
+    public static long[] removeAllOccurrences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        if (className.startsWith("[")) {
-            while (className.charAt(0) == '[') {
-                className = className.substring(1);
-                arrayPrefix.append("[]");
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-            // Strip Object type encoding
-            if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
-                className = className.substring(1, className.length() - 1);
-            }
+    @Deprecated
+    public static char[] removeAllOccurences(final char[] array, final char element) {
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    }
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-
-            if (reverseAbbreviationMap.containsKey(className)) {
-                className = reverseAbbreviationMap.get(className);
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `cls`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        if (autoboxing) {
-            if (cls.isPrimitive() && !toClass.isPrimitive()) {
-                cls = primitiveToWrapper(cls);
-                if (cls == null) {
-                    return false;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `cls`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-            }
-            if (toClass.isPrimitive() && !cls.isPrimitive()) {
-                cls = wrapperToPrimitive(cls);
-                if (cls == null) {
-                    return false;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        // Strip array encoding
-        while (className.charAt(0) == '[') {
-            className = className.substring(1);
-        }
-        // Strip Object type encoding
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        // Strip Object type encoding
-        if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
-            className = className.substring(1);
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `classArray`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        }
-        if (classArray == null) {
-            classArray = ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
-        if (toClassArray == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `toClassArray`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        }
-        if (toClassArray == null) {
-            toClassArray = ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
-        for (int i = 0; i < classArray.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    private static String getCanonicalName(String className) {
-        className = StringUtils.deleteWhitespace(className);
-        if (className == null) {
-            return null;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        while (className.startsWith("[")) {
-            dim++;
-            className = className.substring(1);
-        }
-        if (dim < 1) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        }
-        if (className.startsWith("L")) {
-            className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
-        } else if (!className.isEmpty()) {
-            className = reverseAbbreviationMap.get(className.substring(0, 1));
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `className`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-            className = className.substring(1, className.endsWith(";") ? className.length() - 1 : className.length());
-        } else if (!className.isEmpty()) {
-            className = reverseAbbreviationMap.get(className.substring(0, 1));
-        }
-        final StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `sizeEndText`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setSizeEndText(String sizeEndText) {
-        if (sizeEndText == null) {
-            sizeEndText = StringUtils.EMPTY;
-        }
-        this.sizeEndText = sizeEndText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `fieldSeparator`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setFieldSeparator(String fieldSeparator) {
-        if (fieldSeparator == null) {
-            fieldSeparator = StringUtils.EMPTY;
-        }
-        this.fieldSeparator = fieldSeparator;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `nullText`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setNullText(String nullText) {
-        if (nullText == null) {
-            nullText = StringUtils.EMPTY;
-        }
-        this.nullText = nullText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `arraySeparator`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setArraySeparator(String arraySeparator) {
-        if (arraySeparator == null) {
-            arraySeparator = StringUtils.EMPTY;
-        }
-        this.arraySeparator = arraySeparator;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `contentEnd`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setContentEnd(String contentEnd) {
-        if (contentEnd == null) {
-            contentEnd = StringUtils.EMPTY;
-        }
-        this.contentEnd = contentEnd;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `summaryObjectStartText`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setSummaryObjectStartText(String summaryObjectStartText) {
-        if (summaryObjectStartText == null) {
-            summaryObjectStartText = StringUtils.EMPTY;
-        }
-        this.summaryObjectStartText = summaryObjectStartText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `fieldNameValueSeparator`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setFieldNameValueSeparator(String fieldNameValueSeparator) {
-        if (fieldNameValueSeparator == null) {
-            fieldNameValueSeparator = StringUtils.EMPTY;
-        }
-        this.fieldNameValueSeparator = fieldNameValueSeparator;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `sizeStartText`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setSizeStartText(String sizeStartText) {
-        if (sizeStartText == null) {
-            sizeStartText = StringUtils.EMPTY;
-        }
-        this.sizeStartText = sizeStartText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `arrayStart`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setArrayStart(String arrayStart) {
-        if (arrayStart == null) {
-            arrayStart = StringUtils.EMPTY;
-        }
-        this.arrayStart = arrayStart;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `contentStart`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setContentStart(String contentStart) {
-        if (contentStart == null) {
-            contentStart = StringUtils.EMPTY;
-        }
-        this.contentStart = contentStart;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `arrayEnd`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setArrayEnd(String arrayEnd) {
-        if (arrayEnd == null) {
-            arrayEnd = StringUtils.EMPTY;
-        }
-        this.arrayEnd = arrayEnd;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `summaryObjectEndText`
-in `src/main/java/org/apache/commons/lang3/builder/ToStringStyle.java`
-#### Snippet
-```java
-    protected void setSummaryObjectEndText(String summaryObjectEndText) {
-        if (summaryObjectEndText == null) {
-            summaryObjectEndText = StringUtils.EMPTY;
-        }
-        this.summaryObjectEndText = summaryObjectEndText;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        if (method.isVarArgs()) {
-            final Class<?>[] methodParameterTypes = method.getParameterTypes();
-            args = getVarArgs(args, methodParameterTypes);
-        }
-        return args;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeMethod(object, forceAccess, methodName, args, ClassUtils.toClass(args));
+    public static short[] removeAllOccurrences(final short[] array, final short element) {
+        return (short[]) removeAll((Object) array, indexesOf(array, element));
     }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeExactStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
+    @Deprecated
+    public static double[] removeAllOccurences(final double[] array, final double element) {
+        return (double[]) removeAll((Object) array, indexesOf(array, element));
     }
+
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getMatchingAccessibleMethod(cls, methodName,
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getMatchingAccessibleMethod(cls, methodName,
-                parameterTypes);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-                    + methodName + "() on class: " + cls.getName());
-        }
-        args = toVarArgs(method, args);
-        return method.invoke(null, args);
+    @Deprecated
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `method`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-
-        // Check the implemented interfaces and subinterfaces
-        method = getAccessibleMethodFromInterfaceNest(cls, methodName,
-                parameterTypes);
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `method`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        // Check the superclass chain
-        if (method == null) {
-            method = getAccessibleMethodFromSuperclass(cls, methodName,
-                    parameterTypes);
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Objects.requireNonNull(object, "object");
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        args = ArrayUtils.nullToEmpty(args);
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(object, "object");
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        args = ArrayUtils.nullToEmpty(args);
-
-        final String messagePrefix;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            throw new NoSuchMethodException(messagePrefix + methodName + "() on object: " + cls.getName());
-        }
-        args = toVarArgs(method, args);
-
-        return method.invoke(object, args);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeStaticMethod(cls, methodName, args, ClassUtils.toClass(args));
+    @Deprecated
+    public static float[] removeAllOccurences(final float[] array, final float element) {
+        return (float[]) removeAll((Object) array, indexesOf(array, element));
     }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
-        if (method == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeExactMethod(object, methodName, args, ClassUtils.toClass(args));
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `cls`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            final String methodName, final Class<?>... parameterTypes) {
-        // Search up the superclass chain
-        for (; cls != null; cls = cls.getSuperclass()) {
-
-            // Check the implemented interfaces of the parent class
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Objects.requireNonNull(object, "object");
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Class<?> cls = object.getClass();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(object, "object");
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Class<?> cls = object.getClass();
-        final Method method = getAccessibleMethod(cls, methodName, parameterTypes);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeMethod(object, methodName, args, ClassUtils.toClass(args));
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-        if (start == 0 && end == 0) {
-            if (chars != null) {
-                end = chars.length;
-            } else if (!letters && !numbers) {
-                end = Character.MAX_CODE_POINT;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-                end = chars.length;
-            } else if (!letters && !numbers) {
-                end = Character.MAX_CODE_POINT;
-            } else {
-                end = 'z' + 1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-                end = Character.MAX_CODE_POINT;
-            } else {
-                end = 'z' + 1;
-                start = ' ';
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-            } else {
-                end = 'z' + 1;
-                start = ' ';
-            }
-        } else if (end <= start) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-        final int gap = end - start;
-
-        while (count-- != 0) {
-            final int codePoint;
-            if (chars == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-                case Character.PRIVATE_USE:
-                case Character.SURROGATE:
-                    count++;
-                    continue;
-                }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-            final int numberOfChars = Character.charCount(codePoint);
-            if (count == 0 && numberOfChars > 1) {
-                count++;
-                continue;
-            }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-
-                if (numberOfChars == 2) {
-                    count--;
-                }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `count`
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-
-            } else {
-                count++;
-            }
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `context`
-in `src/main/java/org/apache/commons/lang3/exception/ContextedRuntimeException.java`
-#### Snippet
-```java
-        super(message, cause);
-        if (context == null) {
-            context = new DefaultExceptionContext();
-        }
-        exceptionContext = context;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-            InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
-        if (ctor == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-        if (ctor.isVarArgs()) {
-            final Class<?>[] methodParameterTypes = ctor.getParameterTypes();
-            args = MethodUtils.getVarArgs(args, methodParameterTypes);
-        }
-        return ctor.newInstance(args);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            Class<?>[] parameterTypes) throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException, InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `parameterTypes`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            InvocationTargetException, InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
-        final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
-        if (ctor == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-            InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeExactConstructor(cls, args, ClassUtils.toClass(args));
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `args`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-            InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        return invokeConstructor(cls, args, ClassUtils.toClass(args));
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `locale`
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-    // This must remain private, see LANG-884
-    private F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
-        locale = LocaleUtils.toLocale(locale);
-        final String pattern = getPatternForStyle(dateStyle, timeStyle, locale);
-        return getInstance(pattern, timeZone, locale);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // handle negatives
-        if (end < 0) {
-            end = str.length() + end; // remember end is negative
-        }
-        if (start < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (start < 0) {
-            start = str.length() + start; // remember start is negative
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // check length next
-        if (end > str.length()) {
-            end = str.length();
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (start < 0) {
-            start = 0;
-        }
-        if (end < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (end < 0) {
-            end = 0;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `overlay`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (overlay == null) {
-            overlay = EMPTY;
-        }
-        final int len = str.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        final int len = str.length();
-        if (start < 0) {
-            start = 0;
-        }
-        if (start > len) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (start > len) {
-            start = len;
-        }
-        if (end < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (end < 0) {
-            end = 0;
-        }
-        if (end > len) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (end > len) {
-            end = len;
-        }
-        if (start > end) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        if (start > end) {
-            final int temp = start;
-            start = end;
-            end = temp;
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `end`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            final int temp = start;
-            start = end;
-            end = temp;
-        }
-        return str.substring(0, start) +
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `pos`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (pos < 0) {
-            pos = 0;
-        }
-        if (str.length() <= pos + len) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startPos`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        final int strLength = str.length();
-        if (startPos > strLength - searchStrLength) {
-            startPos = strLength - searchStrLength;
-        }
-        if (startPos < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `padStr`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (isEmpty(padStr)) {
-            padStr = SPACE;
-        }
-        final int padLen = padStr.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startPos`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (startPos < 0) {
-            startPos = 0;
-        }
-        final int endLimit = str.length() - searchStr.length() + 1;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            // swap the two strings to consume less memory
-            final CharSequence tmp = s;
-            s = t;
-            t = tmp;
-            n = m;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `t`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            final CharSequence tmp = s;
-            s = t;
-            t = tmp;
-            n = m;
-            m = t.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String strip(String str, final String stripChars) {
-        str = stripStart(str, stripChars);
-        return stripEnd(str, stripChars);
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `searchString`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-         }
-         if (ignoreCase) {
-             searchString = searchString.toLowerCase();
-         }
-         int start = 0;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `max`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-             buf.append(text, start, end).append(replacement);
-             start = end + replLength;
-             if (--max == 0) {
-                 break;
-             }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `padStr`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (isEmpty(padStr)) {
-            padStr = SPACE;
-        }
-        final int padLen = padStr.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            return str;
-        }
-        str = leftPad(str, strLen + pads / 2, padChar);
-        str = rightPad(str, size, padChar);
-        return str;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        str = leftPad(str, strLen + pads / 2, padChar);
-        str = rightPad(str, size, padChar);
-        return str;
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `padStr`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (isEmpty(padStr)) {
-            padStr = SPACE;
-        }
-        final int strLen = str.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            return str;
-        }
-        str = leftPad(str, strLen + pads / 2, padStr);
-        str = rightPad(str, size, padStr);
-        return str;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        str = leftPad(str, strLen + pads / 2, padStr);
-        str = rightPad(str, size, padStr);
-        return str;
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (offset > strLen) {
-            offset = strLen;
-        }
-        if (strLen - offset < maxWidth - abbrevMarkerLength) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (strLen - offset < maxWidth - abbrevMarkerLength) {
-            offset = strLen - (maxWidth - abbrevMarkerLength);
-        }
-        if (offset <= abbrevMarkerLength+1) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            return null;
-        }
-        str = strip(str, null);
-        return str.isEmpty() ? null : str; // NOSONARLINT str cannot be null here
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `replaceChars`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (replaceChars == null) {
-            replaceChars = EMPTY;
-        }
-        boolean modified = false;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `s`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            // swap the input strings to consume less memory
-            final CharSequence tmp = s;
-            s = t;
-            t = tmp;
-            n = m;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `t`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            final CharSequence tmp = s;
-            s = t;
-            t = tmp;
-            n = m;
-            m = t.length();
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // handle negatives, which means last n characters
-        if (start < 0) {
-            start = str.length() + start; // remember start is negative
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (start < 0) {
-            start = 0;
-        }
-        if (start > str.length()) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `typeArguments`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-    public static Type unrollVariables(Map<TypeVariable<?>, Type> typeArguments, final Type type) {
-        if (typeArguments == null) {
-            typeArguments = Collections.emptyMap();
-        }
-        if (containsTypeVariables(type)) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `typeVariable`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-                break;
-            }
-            typeVariable = (TypeVariable<?>) result;
-        } while (true);
-        return result;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `cls`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-
-            // work with wrapper the wrapper class instead of the primitive
-            cls = ClassUtils.primitiveToWrapper(cls);
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `type`
-in `src/main/java/org/apache/commons/lang3/AnnotationUtils.java`
-#### Snippet
-```java
-        }
-        if (type.isArray()) {
-            type = type.getComponentType();
-        }
-        return type.isPrimitive() || type.isEnum() || type.isAnnotation()
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/AnnotationUtils.java`
-#### Snippet
-```java
-        protected void appendDetail(final StringBuffer buffer, final String fieldName, Object value) {
-            if (value instanceof Annotation) {
-                value = AnnotationUtils.toString((Annotation) value);
-            }
-            super.appendDetail(buffer, fieldName, value);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-        }
-        if (start >= sz) {
-            start = sz - 1;
-        }
-        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-        final int sz = cs.length();
-        if (start < 0) {
-            start = 0;
-        }
-        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-
-        if (start > len1) {
-            start = len1;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-
-        if (start + len2 > len1) {
-            start = len1 - len2;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `srcClass`
-in `src/main/java/org/apache/commons/lang3/reflect/MemberUtils.java`
-#### Snippet
-```java
-            }
-            cost++;
-            srcClass = srcClass.getSuperclass();
-        }
-        /*
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-            case 4:
-                buffer.append((char) (value / 1000 + '0'));
-                value %= 1000;
-            case 3:
-                if (value >= 100) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-                if (value >= 100) {
-                    buffer.append((char) (value / 100 + '0'));
-                    value %= 100;
-                } else {
-                    buffer.append('0');
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-                if (value >= 10) {
-                    buffer.append((char) (value / 10 + '0'));
-                    value %= 10;
-                } else {
-                    buffer.append('0');
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-            while (value != 0) {
-                work[digit++] = (char) (value % 10 + '0');
-                value = value / 10;
-            }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `minFieldWidth`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-            while (digit < minFieldWidth) {
-                buffer.append('0');
-                --minFieldWidth;
-            }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `calendar`
-in `src/main/java/org/apache/commons/lang3/time/FastDatePrinter.java`
-#### Snippet
-```java
-        // do not pass in calendar directly, this will cause TimeZone of FastDatePrinter to be ignored
-        if (!calendar.getTimeZone().equals(timeZone)) {
-            calendar = (Calendar) calendar.clone();
-            calendar.setTimeZone(timeZone);
-        }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `chain`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-            final Class<? extends Throwable> type) {
-        if (chain instanceof UndeclaredThrowableException) {
-            chain = chain.getCause();
-        }
-        return type.isInstance(chain);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `methodNames`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-                return cause;
-            }
-            methodNames = CAUSE_METHOD_NAMES;
-        }
-        return Stream.of(methodNames).map(m -> getCauseUsingMethodName(throwable, m)).filter(Objects::nonNull).findFirst().orElse(null);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `fromIndex`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-        }
-        if (fromIndex < 0) {
-            fromIndex = 0;
-        }
-        final Throwable[] throwables = getThrowables(throwable);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `throwable`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-        while (throwable != null && !list.contains(throwable)) {
-            list.add(throwable);
-            throwable = throwable.getCause();
-        }
-        return list;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `fromIndex`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-        }
-        if (fromIndex < 0) {
-            fromIndex = 0;
-        }
-        final Throwable[] throwables = getThrowables(throwable);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        final double min = valueToFind - tolerance;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        final boolean searchNaN = Float.isNaN(valueToFind);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex, tolerance);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        final double min = valueToFind - tolerance;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final long aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final long aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final long aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final int aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final int aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final int aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final float aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final float aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final float aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, objectToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final Object aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final Object aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final Object aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final double aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final double aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final double aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final byte aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final byte aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final byte aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        if (objectToFind == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive > array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive > array.length) {
-            endIndexExclusive = array.length;
-        }
-        final int newSize = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        final boolean searchNaN = Double.isNaN(valueToFind);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final boolean aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final boolean aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final boolean aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndexInclusive < 0) {
-            startIndexInclusive = 0;
-        }
-        if (endIndexExclusive >= array.length) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `endIndexExclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (endIndexExclusive >= array.length) {
-            endIndexExclusive = array.length;
-        }
-        int n = endIndexExclusive - startIndexInclusive;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        offset %= n;
-        if (offset < 0) {
-            offset += n;
-        }
-        // For algorithm explanations and proof of O(n) time complexity and O(1) space complexity
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                swap(array, startIndexInclusive, startIndexInclusive + n - n_offset,  n_offset);
-                n = offset;
-                offset -= n_offset;
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndexInclusive`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            } else if (offset < n_offset) {
-                swap(array, startIndexInclusive, startIndexInclusive + n_offset,  offset);
-                startIndexInclusive += offset;
-                n = n_offset;
-            } else {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        for (int i = startIndex; i < array.length; i++) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        if (offset1 == offset2) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            return;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final short aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final short aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final short aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset1 < 0) {
-            offset1 = 0;
-        }
-        if (offset2 < 0) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (offset2 < 0) {
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            offset2 = 0;
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final char aux = array[offset1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset1`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final char aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `offset2`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            final char aux = array[offset1];
-            array[offset1] = array[offset2];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex < 0) {
-            startIndex = 0;
-        }
-        if (objectToFind == null) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        while (startIndex < array.length) {
-            startIndex = indexOf(array, valueToFind, startIndex);
-
-            if (startIndex == INDEX_NOT_FOUND) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-            bitSet.set(startIndex);
-            ++startIndex;
-        }
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        }
-        if (startIndex >= array.length) {
-            startIndex = array.length - 1;
-        }
-        for (int i = startIndex; i >= 0; i--) {
-```
 
-## RuleId[ruleID=UnnecessaryContinue]
-### RuleId[ruleID=UnnecessaryContinue]
-`continue` is unnecessary as the last statement in a loop
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-                lastWasGap = false;
-            } else {
-                continue; // ignore ch
-            }
-        }
 ```
 
-## RuleId[ruleID=PointlessBitwiseExpression]
-### RuleId[ruleID=PointlessBitwiseExpression]
+## RuleId[id=PointlessBitwiseExpression]
+### PointlessBitwiseExpression
 `0xffffffff & (src >> shift)` can be replaced with '(src \>\> shift)'
 in `src/main/java/org/apache/commons/lang3/Conversion.java`
 #### Snippet
@@ -11514,3302 +3003,3022 @@ in `src/main/java/org/apache/commons/lang3/Conversion.java`
         return dst;
 ```
 
-## RuleId[ruleID=ReturnNull]
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
+## RuleId[id=UnnecessaryUnicodeEscape]
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-            return tokens[tokenPos++];
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-            return cloneReset();
-        } catch (final CloneNotSupportedException ex) {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-    public String getContent() {
-        if (chars == null) {
-            return null;
-        }
-        return new String(chars);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-            return tokens[--tokenPos];
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
-#### Snippet
-```java
-    /** NOP singleton */
-    @SuppressWarnings("rawtypes")
-    FailableDoubleFunction NOP = t -> null;
 
     /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-            if (c[pos.getIndex()] == QUOTE) {
-                next(pos);
-                return appendTo == null ? null : appendTo.append(c, start,
-                        pos.getIndex() - start);
-            }
+     *
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
+     *
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/Suppliers.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-     */
-    public static <T> T get(final Supplier<T> supplier) {
-        return supplier == null ? null : supplier.get();
-    }
 
+    /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/SerializationUtils.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-    public static <T extends Serializable> T clone(final T object) {
-        if (object == null) {
-            return null;
-        }
-        final byte[] objectData = serialize(object);
+     * <pre>
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-            // System.err.println("Caught a SecurityException reading the system property '" + property
-            // + "'; the SystemUtils property value will default to null.");
-            return null;
-        }
-    }
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
+     *
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A1` can be replaced with '¡'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+    private static final String[][] ISO8859_1_ESCAPE = {
+        {"\u00A0", "&nbsp;"}, // non-breaking space
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A2` can be replaced with '¢'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A0", "&nbsp;"}, // non-breaking space
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A3` can be replaced with '£'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A4` can be replaced with '¤'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A5` can be replaced with '¥'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A6` can be replaced with '¦'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A7` can be replaced with '§'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A8` can be replaced with '¨'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A9` can be replaced with '©'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AA` can be replaced with 'ª'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AB` can be replaced with '\<\<'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AC` can be replaced with '¬'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AE` can be replaced with '®'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AF` can be replaced with '¯'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B0` can be replaced with '°'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B1` can be replaced with '±'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B2` can be replaced with '²'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B3` can be replaced with '³'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B4` can be replaced with '´'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B5` can be replaced with 'µ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B6` can be replaced with '¶'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B7` can be replaced with '·'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B8` can be replaced with '¸'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B9` can be replaced with '¹'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BA` can be replaced with 'º'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BB` can be replaced with '\>\>'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BC` can be replaced with '¼'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BD` can be replaced with '½'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BE` can be replaced with '¾'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BF` can be replaced with '¿'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C0` can be replaced with 'À'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C1` can be replaced with 'Á'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C2` can be replaced with 'Â'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C3` can be replaced with 'Ã'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C4` can be replaced with 'Ä'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C5` can be replaced with 'Å'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C6` can be replaced with 'Æ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C7` can be replaced with 'Ç'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C8` can be replaced with 'È'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C9` can be replaced with 'É'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CA` can be replaced with 'Ê'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CB` can be replaced with 'Ë'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CC` can be replaced with 'Ì'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CD` can be replaced with 'Í'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CE` can be replaced with 'Î'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CF` can be replaced with 'Ï'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D0` can be replaced with 'Ð'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D1` can be replaced with 'Ñ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D2` can be replaced with 'Ò'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D3` can be replaced with 'Ó'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D4` can be replaced with 'Ô'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D5` can be replaced with 'Õ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D6` can be replaced with 'Ö'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D7` can be replaced with '×'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D8` can be replaced with 'Ø'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D9` can be replaced with 'Ù'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DA` can be replaced with 'Ú'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DB` can be replaced with 'Û'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DC` can be replaced with 'Ü'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DD` can be replaced with 'Ý'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DE` can be replaced with 'Þ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DF` can be replaced with 'ß'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E0` can be replaced with 'à'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E1` can be replaced with 'á'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E2` can be replaced with 'â'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E3` can be replaced with 'ã'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E4` can be replaced with 'ä'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E5` can be replaced with 'å'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E6` can be replaced with 'æ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E7` can be replaced with 'ç'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E8` can be replaced with 'è'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E9` can be replaced with 'é'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EA` can be replaced with 'ê'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EB` can be replaced with 'ë'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EC` can be replaced with 'ì'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00ED` can be replaced with 'í'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EE` can be replaced with 'î'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EF` can be replaced with 'ï'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F0` can be replaced with 'ð'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F1` can be replaced with 'ñ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F2` can be replaced with 'ò'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F3` can be replaced with 'ó'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F4` can be replaced with 'ô'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F5` can be replaced with 'õ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F6` can be replaced with 'ö'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F7` can be replaced with '÷'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F8` can be replaced with 'ø'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F9` can be replaced with 'ù'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FA` can be replaced with 'ú'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FB` can be replaced with 'û'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FC` can be replaced with 'ü'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FD` can be replaced with 'ý'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FE` can be replaced with 'þ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+    };
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FF` can be replaced with 'ÿ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+    };
+
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0192` can be replaced with 'ƒ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+    private static final String[][] HTML40_EXTENDED_ESCAPE = {
+        // <!-- Latin Extended-B -->
+        {"\u0192", "&fnof;"}, // latin small f with hook = function= florin, U+0192 ISOtech -->
+        // <!-- Greek -->
+        {"\u0391", "&Alpha;"}, // greek capital letter alpha, U+0391 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0391` can be replaced with 'Α'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0192", "&fnof;"}, // latin small f with hook = function= florin, U+0192 ISOtech -->
+        // <!-- Greek -->
+        {"\u0391", "&Alpha;"}, // greek capital letter alpha, U+0391 -->
+        {"\u0392", "&Beta;"}, // greek capital letter beta, U+0392 -->
+        {"\u0393", "&Gamma;"}, // greek capital letter gamma, U+0393 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0392` can be replaced with 'Β'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Greek -->
+        {"\u0391", "&Alpha;"}, // greek capital letter alpha, U+0391 -->
+        {"\u0392", "&Beta;"}, // greek capital letter beta, U+0392 -->
+        {"\u0393", "&Gamma;"}, // greek capital letter gamma, U+0393 ISOgrk3 -->
+        {"\u0394", "&Delta;"}, // greek capital letter delta, U+0394 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0393` can be replaced with 'Γ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0391", "&Alpha;"}, // greek capital letter alpha, U+0391 -->
+        {"\u0392", "&Beta;"}, // greek capital letter beta, U+0392 -->
+        {"\u0393", "&Gamma;"}, // greek capital letter gamma, U+0393 ISOgrk3 -->
+        {"\u0394", "&Delta;"}, // greek capital letter delta, U+0394 ISOgrk3 -->
+        {"\u0395", "&Epsilon;"}, // greek capital letter epsilon, U+0395 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0394` can be replaced with 'Δ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0392", "&Beta;"}, // greek capital letter beta, U+0392 -->
+        {"\u0393", "&Gamma;"}, // greek capital letter gamma, U+0393 ISOgrk3 -->
+        {"\u0394", "&Delta;"}, // greek capital letter delta, U+0394 ISOgrk3 -->
+        {"\u0395", "&Epsilon;"}, // greek capital letter epsilon, U+0395 -->
+        {"\u0396", "&Zeta;"}, // greek capital letter zeta, U+0396 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0395` can be replaced with 'Ε'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0393", "&Gamma;"}, // greek capital letter gamma, U+0393 ISOgrk3 -->
+        {"\u0394", "&Delta;"}, // greek capital letter delta, U+0394 ISOgrk3 -->
+        {"\u0395", "&Epsilon;"}, // greek capital letter epsilon, U+0395 -->
+        {"\u0396", "&Zeta;"}, // greek capital letter zeta, U+0396 -->
+        {"\u0397", "&Eta;"}, // greek capital letter eta, U+0397 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0396` can be replaced with 'Ζ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0394", "&Delta;"}, // greek capital letter delta, U+0394 ISOgrk3 -->
+        {"\u0395", "&Epsilon;"}, // greek capital letter epsilon, U+0395 -->
+        {"\u0396", "&Zeta;"}, // greek capital letter zeta, U+0396 -->
+        {"\u0397", "&Eta;"}, // greek capital letter eta, U+0397 -->
+        {"\u0398", "&Theta;"}, // greek capital letter theta, U+0398 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0397` can be replaced with 'Η'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0395", "&Epsilon;"}, // greek capital letter epsilon, U+0395 -->
+        {"\u0396", "&Zeta;"}, // greek capital letter zeta, U+0396 -->
+        {"\u0397", "&Eta;"}, // greek capital letter eta, U+0397 -->
+        {"\u0398", "&Theta;"}, // greek capital letter theta, U+0398 ISOgrk3 -->
+        {"\u0399", "&Iota;"}, // greek capital letter iota, U+0399 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0398` can be replaced with 'Θ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0396", "&Zeta;"}, // greek capital letter zeta, U+0396 -->
+        {"\u0397", "&Eta;"}, // greek capital letter eta, U+0397 -->
+        {"\u0398", "&Theta;"}, // greek capital letter theta, U+0398 ISOgrk3 -->
+        {"\u0399", "&Iota;"}, // greek capital letter iota, U+0399 -->
+        {"\u039A", "&Kappa;"}, // greek capital letter kappa, U+039A -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0399` can be replaced with 'Ι'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0397", "&Eta;"}, // greek capital letter eta, U+0397 -->
+        {"\u0398", "&Theta;"}, // greek capital letter theta, U+0398 ISOgrk3 -->
+        {"\u0399", "&Iota;"}, // greek capital letter iota, U+0399 -->
+        {"\u039A", "&Kappa;"}, // greek capital letter kappa, U+039A -->
+        {"\u039B", "&Lambda;"}, // greek capital letter lambda, U+039B ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039A` can be replaced with 'Κ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0398", "&Theta;"}, // greek capital letter theta, U+0398 ISOgrk3 -->
+        {"\u0399", "&Iota;"}, // greek capital letter iota, U+0399 -->
+        {"\u039A", "&Kappa;"}, // greek capital letter kappa, U+039A -->
+        {"\u039B", "&Lambda;"}, // greek capital letter lambda, U+039B ISOgrk3 -->
+        {"\u039C", "&Mu;"}, // greek capital letter mu, U+039C -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039B` can be replaced with 'Λ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0399", "&Iota;"}, // greek capital letter iota, U+0399 -->
+        {"\u039A", "&Kappa;"}, // greek capital letter kappa, U+039A -->
+        {"\u039B", "&Lambda;"}, // greek capital letter lambda, U+039B ISOgrk3 -->
+        {"\u039C", "&Mu;"}, // greek capital letter mu, U+039C -->
+        {"\u039D", "&Nu;"}, // greek capital letter nu, U+039D -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039C` can be replaced with 'Μ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039A", "&Kappa;"}, // greek capital letter kappa, U+039A -->
+        {"\u039B", "&Lambda;"}, // greek capital letter lambda, U+039B ISOgrk3 -->
+        {"\u039C", "&Mu;"}, // greek capital letter mu, U+039C -->
+        {"\u039D", "&Nu;"}, // greek capital letter nu, U+039D -->
+        {"\u039E", "&Xi;"}, // greek capital letter xi, U+039E ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039D` can be replaced with 'Ν'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039B", "&Lambda;"}, // greek capital letter lambda, U+039B ISOgrk3 -->
+        {"\u039C", "&Mu;"}, // greek capital letter mu, U+039C -->
+        {"\u039D", "&Nu;"}, // greek capital letter nu, U+039D -->
+        {"\u039E", "&Xi;"}, // greek capital letter xi, U+039E ISOgrk3 -->
+        {"\u039F", "&Omicron;"}, // greek capital letter omicron, U+039F -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039E` can be replaced with 'Ξ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039C", "&Mu;"}, // greek capital letter mu, U+039C -->
+        {"\u039D", "&Nu;"}, // greek capital letter nu, U+039D -->
+        {"\u039E", "&Xi;"}, // greek capital letter xi, U+039E ISOgrk3 -->
+        {"\u039F", "&Omicron;"}, // greek capital letter omicron, U+039F -->
+        {"\u03A0", "&Pi;"}, // greek capital letter pi, U+03A0 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u039F` can be replaced with 'Ο'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039D", "&Nu;"}, // greek capital letter nu, U+039D -->
+        {"\u039E", "&Xi;"}, // greek capital letter xi, U+039E ISOgrk3 -->
+        {"\u039F", "&Omicron;"}, // greek capital letter omicron, U+039F -->
+        {"\u03A0", "&Pi;"}, // greek capital letter pi, U+03A0 ISOgrk3 -->
+        {"\u03A1", "&Rho;"}, // greek capital letter rho, U+03A1 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A0` can be replaced with 'Π'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039E", "&Xi;"}, // greek capital letter xi, U+039E ISOgrk3 -->
+        {"\u039F", "&Omicron;"}, // greek capital letter omicron, U+039F -->
+        {"\u03A0", "&Pi;"}, // greek capital letter pi, U+03A0 ISOgrk3 -->
+        {"\u03A1", "&Rho;"}, // greek capital letter rho, U+03A1 -->
+        // <!-- there is no Sigmaf, and no U+03A2 character either -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A1` can be replaced with 'Ρ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u039F", "&Omicron;"}, // greek capital letter omicron, U+039F -->
+        {"\u03A0", "&Pi;"}, // greek capital letter pi, U+03A0 ISOgrk3 -->
+        {"\u03A1", "&Rho;"}, // greek capital letter rho, U+03A1 -->
+        // <!-- there is no Sigmaf, and no U+03A2 character either -->
+        {"\u03A3", "&Sigma;"}, // greek capital letter sigma, U+03A3 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A3` can be replaced with 'Σ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A1", "&Rho;"}, // greek capital letter rho, U+03A1 -->
+        // <!-- there is no Sigmaf, and no U+03A2 character either -->
+        {"\u03A3", "&Sigma;"}, // greek capital letter sigma, U+03A3 ISOgrk3 -->
+        {"\u03A4", "&Tau;"}, // greek capital letter tau, U+03A4 -->
+        {"\u03A5", "&Upsilon;"}, // greek capital letter upsilon, U+03A5 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A4` can be replaced with 'Τ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- there is no Sigmaf, and no U+03A2 character either -->
+        {"\u03A3", "&Sigma;"}, // greek capital letter sigma, U+03A3 ISOgrk3 -->
+        {"\u03A4", "&Tau;"}, // greek capital letter tau, U+03A4 -->
+        {"\u03A5", "&Upsilon;"}, // greek capital letter upsilon, U+03A5 ISOgrk3 -->
+        {"\u03A6", "&Phi;"}, // greek capital letter phi, U+03A6 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A5` can be replaced with 'Υ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A3", "&Sigma;"}, // greek capital letter sigma, U+03A3 ISOgrk3 -->
+        {"\u03A4", "&Tau;"}, // greek capital letter tau, U+03A4 -->
+        {"\u03A5", "&Upsilon;"}, // greek capital letter upsilon, U+03A5 ISOgrk3 -->
+        {"\u03A6", "&Phi;"}, // greek capital letter phi, U+03A6 ISOgrk3 -->
+        {"\u03A7", "&Chi;"}, // greek capital letter chi, U+03A7 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A6` can be replaced with 'Φ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A4", "&Tau;"}, // greek capital letter tau, U+03A4 -->
+        {"\u03A5", "&Upsilon;"}, // greek capital letter upsilon, U+03A5 ISOgrk3 -->
+        {"\u03A6", "&Phi;"}, // greek capital letter phi, U+03A6 ISOgrk3 -->
+        {"\u03A7", "&Chi;"}, // greek capital letter chi, U+03A7 -->
+        {"\u03A8", "&Psi;"}, // greek capital letter psi, U+03A8 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A7` can be replaced with 'Χ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A5", "&Upsilon;"}, // greek capital letter upsilon, U+03A5 ISOgrk3 -->
+        {"\u03A6", "&Phi;"}, // greek capital letter phi, U+03A6 ISOgrk3 -->
+        {"\u03A7", "&Chi;"}, // greek capital letter chi, U+03A7 -->
+        {"\u03A8", "&Psi;"}, // greek capital letter psi, U+03A8 ISOgrk3 -->
+        {"\u03A9", "&Omega;"}, // greek capital letter omega, U+03A9 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A8` can be replaced with 'Ψ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A6", "&Phi;"}, // greek capital letter phi, U+03A6 ISOgrk3 -->
+        {"\u03A7", "&Chi;"}, // greek capital letter chi, U+03A7 -->
+        {"\u03A8", "&Psi;"}, // greek capital letter psi, U+03A8 ISOgrk3 -->
+        {"\u03A9", "&Omega;"}, // greek capital letter omega, U+03A9 ISOgrk3 -->
+        {"\u03B1", "&alpha;"}, // greek small letter alpha, U+03B1 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03A9` can be replaced with 'Ω'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A7", "&Chi;"}, // greek capital letter chi, U+03A7 -->
+        {"\u03A8", "&Psi;"}, // greek capital letter psi, U+03A8 ISOgrk3 -->
+        {"\u03A9", "&Omega;"}, // greek capital letter omega, U+03A9 ISOgrk3 -->
+        {"\u03B1", "&alpha;"}, // greek small letter alpha, U+03B1 ISOgrk3 -->
+        {"\u03B2", "&beta;"}, // greek small letter beta, U+03B2 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B1` can be replaced with 'α'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A8", "&Psi;"}, // greek capital letter psi, U+03A8 ISOgrk3 -->
+        {"\u03A9", "&Omega;"}, // greek capital letter omega, U+03A9 ISOgrk3 -->
+        {"\u03B1", "&alpha;"}, // greek small letter alpha, U+03B1 ISOgrk3 -->
+        {"\u03B2", "&beta;"}, // greek small letter beta, U+03B2 ISOgrk3 -->
+        {"\u03B3", "&gamma;"}, // greek small letter gamma, U+03B3 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B2` can be replaced with 'β'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03A9", "&Omega;"}, // greek capital letter omega, U+03A9 ISOgrk3 -->
+        {"\u03B1", "&alpha;"}, // greek small letter alpha, U+03B1 ISOgrk3 -->
+        {"\u03B2", "&beta;"}, // greek small letter beta, U+03B2 ISOgrk3 -->
+        {"\u03B3", "&gamma;"}, // greek small letter gamma, U+03B3 ISOgrk3 -->
+        {"\u03B4", "&delta;"}, // greek small letter delta, U+03B4 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B3` can be replaced with 'γ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B1", "&alpha;"}, // greek small letter alpha, U+03B1 ISOgrk3 -->
+        {"\u03B2", "&beta;"}, // greek small letter beta, U+03B2 ISOgrk3 -->
+        {"\u03B3", "&gamma;"}, // greek small letter gamma, U+03B3 ISOgrk3 -->
+        {"\u03B4", "&delta;"}, // greek small letter delta, U+03B4 ISOgrk3 -->
+        {"\u03B5", "&epsilon;"}, // greek small letter epsilon, U+03B5 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B4` can be replaced with 'δ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B2", "&beta;"}, // greek small letter beta, U+03B2 ISOgrk3 -->
+        {"\u03B3", "&gamma;"}, // greek small letter gamma, U+03B3 ISOgrk3 -->
+        {"\u03B4", "&delta;"}, // greek small letter delta, U+03B4 ISOgrk3 -->
+        {"\u03B5", "&epsilon;"}, // greek small letter epsilon, U+03B5 ISOgrk3 -->
+        {"\u03B6", "&zeta;"}, // greek small letter zeta, U+03B6 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B5` can be replaced with 'ε'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B3", "&gamma;"}, // greek small letter gamma, U+03B3 ISOgrk3 -->
+        {"\u03B4", "&delta;"}, // greek small letter delta, U+03B4 ISOgrk3 -->
+        {"\u03B5", "&epsilon;"}, // greek small letter epsilon, U+03B5 ISOgrk3 -->
+        {"\u03B6", "&zeta;"}, // greek small letter zeta, U+03B6 ISOgrk3 -->
+        {"\u03B7", "&eta;"}, // greek small letter eta, U+03B7 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B6` can be replaced with 'ζ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B4", "&delta;"}, // greek small letter delta, U+03B4 ISOgrk3 -->
+        {"\u03B5", "&epsilon;"}, // greek small letter epsilon, U+03B5 ISOgrk3 -->
+        {"\u03B6", "&zeta;"}, // greek small letter zeta, U+03B6 ISOgrk3 -->
+        {"\u03B7", "&eta;"}, // greek small letter eta, U+03B7 ISOgrk3 -->
+        {"\u03B8", "&theta;"}, // greek small letter theta, U+03B8 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B7` can be replaced with 'η'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B5", "&epsilon;"}, // greek small letter epsilon, U+03B5 ISOgrk3 -->
+        {"\u03B6", "&zeta;"}, // greek small letter zeta, U+03B6 ISOgrk3 -->
+        {"\u03B7", "&eta;"}, // greek small letter eta, U+03B7 ISOgrk3 -->
+        {"\u03B8", "&theta;"}, // greek small letter theta, U+03B8 ISOgrk3 -->
+        {"\u03B9", "&iota;"}, // greek small letter iota, U+03B9 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B8` can be replaced with 'θ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B6", "&zeta;"}, // greek small letter zeta, U+03B6 ISOgrk3 -->
+        {"\u03B7", "&eta;"}, // greek small letter eta, U+03B7 ISOgrk3 -->
+        {"\u03B8", "&theta;"}, // greek small letter theta, U+03B8 ISOgrk3 -->
+        {"\u03B9", "&iota;"}, // greek small letter iota, U+03B9 ISOgrk3 -->
+        {"\u03BA", "&kappa;"}, // greek small letter kappa, U+03BA ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03B9` can be replaced with 'ι'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B7", "&eta;"}, // greek small letter eta, U+03B7 ISOgrk3 -->
+        {"\u03B8", "&theta;"}, // greek small letter theta, U+03B8 ISOgrk3 -->
+        {"\u03B9", "&iota;"}, // greek small letter iota, U+03B9 ISOgrk3 -->
+        {"\u03BA", "&kappa;"}, // greek small letter kappa, U+03BA ISOgrk3 -->
+        {"\u03BB", "&lambda;"}, // greek small letter lambda, U+03BB ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BA` can be replaced with 'κ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B8", "&theta;"}, // greek small letter theta, U+03B8 ISOgrk3 -->
+        {"\u03B9", "&iota;"}, // greek small letter iota, U+03B9 ISOgrk3 -->
+        {"\u03BA", "&kappa;"}, // greek small letter kappa, U+03BA ISOgrk3 -->
+        {"\u03BB", "&lambda;"}, // greek small letter lambda, U+03BB ISOgrk3 -->
+        {"\u03BC", "&mu;"}, // greek small letter mu, U+03BC ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BB` can be replaced with 'λ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03B9", "&iota;"}, // greek small letter iota, U+03B9 ISOgrk3 -->
+        {"\u03BA", "&kappa;"}, // greek small letter kappa, U+03BA ISOgrk3 -->
+        {"\u03BB", "&lambda;"}, // greek small letter lambda, U+03BB ISOgrk3 -->
+        {"\u03BC", "&mu;"}, // greek small letter mu, U+03BC ISOgrk3 -->
+        {"\u03BD", "&nu;"}, // greek small letter nu, U+03BD ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BC` can be replaced with 'μ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BA", "&kappa;"}, // greek small letter kappa, U+03BA ISOgrk3 -->
+        {"\u03BB", "&lambda;"}, // greek small letter lambda, U+03BB ISOgrk3 -->
+        {"\u03BC", "&mu;"}, // greek small letter mu, U+03BC ISOgrk3 -->
+        {"\u03BD", "&nu;"}, // greek small letter nu, U+03BD ISOgrk3 -->
+        {"\u03BE", "&xi;"}, // greek small letter xi, U+03BE ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BD` can be replaced with 'ν'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BB", "&lambda;"}, // greek small letter lambda, U+03BB ISOgrk3 -->
+        {"\u03BC", "&mu;"}, // greek small letter mu, U+03BC ISOgrk3 -->
+        {"\u03BD", "&nu;"}, // greek small letter nu, U+03BD ISOgrk3 -->
+        {"\u03BE", "&xi;"}, // greek small letter xi, U+03BE ISOgrk3 -->
+        {"\u03BF", "&omicron;"}, // greek small letter omicron, U+03BF NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BE` can be replaced with 'ξ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BC", "&mu;"}, // greek small letter mu, U+03BC ISOgrk3 -->
+        {"\u03BD", "&nu;"}, // greek small letter nu, U+03BD ISOgrk3 -->
+        {"\u03BE", "&xi;"}, // greek small letter xi, U+03BE ISOgrk3 -->
+        {"\u03BF", "&omicron;"}, // greek small letter omicron, U+03BF NEW -->
+        {"\u03C0", "&pi;"}, // greek small letter pi, U+03C0 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03BF` can be replaced with 'ο'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BD", "&nu;"}, // greek small letter nu, U+03BD ISOgrk3 -->
+        {"\u03BE", "&xi;"}, // greek small letter xi, U+03BE ISOgrk3 -->
+        {"\u03BF", "&omicron;"}, // greek small letter omicron, U+03BF NEW -->
+        {"\u03C0", "&pi;"}, // greek small letter pi, U+03C0 ISOgrk3 -->
+        {"\u03C1", "&rho;"}, // greek small letter rho, U+03C1 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C0` can be replaced with 'π'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BE", "&xi;"}, // greek small letter xi, U+03BE ISOgrk3 -->
+        {"\u03BF", "&omicron;"}, // greek small letter omicron, U+03BF NEW -->
+        {"\u03C0", "&pi;"}, // greek small letter pi, U+03C0 ISOgrk3 -->
+        {"\u03C1", "&rho;"}, // greek small letter rho, U+03C1 ISOgrk3 -->
+        {"\u03C2", "&sigmaf;"}, // greek small letter final sigma, U+03C2 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C1` can be replaced with 'ρ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03BF", "&omicron;"}, // greek small letter omicron, U+03BF NEW -->
+        {"\u03C0", "&pi;"}, // greek small letter pi, U+03C0 ISOgrk3 -->
+        {"\u03C1", "&rho;"}, // greek small letter rho, U+03C1 ISOgrk3 -->
+        {"\u03C2", "&sigmaf;"}, // greek small letter final sigma, U+03C2 ISOgrk3 -->
+        {"\u03C3", "&sigma;"}, // greek small letter sigma, U+03C3 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C2` can be replaced with 'ς'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C0", "&pi;"}, // greek small letter pi, U+03C0 ISOgrk3 -->
+        {"\u03C1", "&rho;"}, // greek small letter rho, U+03C1 ISOgrk3 -->
+        {"\u03C2", "&sigmaf;"}, // greek small letter final sigma, U+03C2 ISOgrk3 -->
+        {"\u03C3", "&sigma;"}, // greek small letter sigma, U+03C3 ISOgrk3 -->
+        {"\u03C4", "&tau;"}, // greek small letter tau, U+03C4 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C3` can be replaced with 'σ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C1", "&rho;"}, // greek small letter rho, U+03C1 ISOgrk3 -->
+        {"\u03C2", "&sigmaf;"}, // greek small letter final sigma, U+03C2 ISOgrk3 -->
+        {"\u03C3", "&sigma;"}, // greek small letter sigma, U+03C3 ISOgrk3 -->
+        {"\u03C4", "&tau;"}, // greek small letter tau, U+03C4 ISOgrk3 -->
+        {"\u03C5", "&upsilon;"}, // greek small letter upsilon, U+03C5 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C4` can be replaced with 'τ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C2", "&sigmaf;"}, // greek small letter final sigma, U+03C2 ISOgrk3 -->
+        {"\u03C3", "&sigma;"}, // greek small letter sigma, U+03C3 ISOgrk3 -->
+        {"\u03C4", "&tau;"}, // greek small letter tau, U+03C4 ISOgrk3 -->
+        {"\u03C5", "&upsilon;"}, // greek small letter upsilon, U+03C5 ISOgrk3 -->
+        {"\u03C6", "&phi;"}, // greek small letter phi, U+03C6 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C5` can be replaced with 'υ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C3", "&sigma;"}, // greek small letter sigma, U+03C3 ISOgrk3 -->
+        {"\u03C4", "&tau;"}, // greek small letter tau, U+03C4 ISOgrk3 -->
+        {"\u03C5", "&upsilon;"}, // greek small letter upsilon, U+03C5 ISOgrk3 -->
+        {"\u03C6", "&phi;"}, // greek small letter phi, U+03C6 ISOgrk3 -->
+        {"\u03C7", "&chi;"}, // greek small letter chi, U+03C7 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C6` can be replaced with 'φ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C4", "&tau;"}, // greek small letter tau, U+03C4 ISOgrk3 -->
+        {"\u03C5", "&upsilon;"}, // greek small letter upsilon, U+03C5 ISOgrk3 -->
+        {"\u03C6", "&phi;"}, // greek small letter phi, U+03C6 ISOgrk3 -->
+        {"\u03C7", "&chi;"}, // greek small letter chi, U+03C7 ISOgrk3 -->
+        {"\u03C8", "&psi;"}, // greek small letter psi, U+03C8 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C7` can be replaced with 'χ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C5", "&upsilon;"}, // greek small letter upsilon, U+03C5 ISOgrk3 -->
+        {"\u03C6", "&phi;"}, // greek small letter phi, U+03C6 ISOgrk3 -->
+        {"\u03C7", "&chi;"}, // greek small letter chi, U+03C7 ISOgrk3 -->
+        {"\u03C8", "&psi;"}, // greek small letter psi, U+03C8 ISOgrk3 -->
+        {"\u03C9", "&omega;"}, // greek small letter omega, U+03C9 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C8` can be replaced with 'ψ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C6", "&phi;"}, // greek small letter phi, U+03C6 ISOgrk3 -->
+        {"\u03C7", "&chi;"}, // greek small letter chi, U+03C7 ISOgrk3 -->
+        {"\u03C8", "&psi;"}, // greek small letter psi, U+03C8 ISOgrk3 -->
+        {"\u03C9", "&omega;"}, // greek small letter omega, U+03C9 ISOgrk3 -->
+        {"\u03D1", "&thetasym;"}, // greek small letter theta symbol, U+03D1 NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03C9` can be replaced with 'ω'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C7", "&chi;"}, // greek small letter chi, U+03C7 ISOgrk3 -->
+        {"\u03C8", "&psi;"}, // greek small letter psi, U+03C8 ISOgrk3 -->
+        {"\u03C9", "&omega;"}, // greek small letter omega, U+03C9 ISOgrk3 -->
+        {"\u03D1", "&thetasym;"}, // greek small letter theta symbol, U+03D1 NEW -->
+        {"\u03D2", "&upsih;"}, // greek upsilon with hook symbol, U+03D2 NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03D1` can be replaced with 'ϑ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C8", "&psi;"}, // greek small letter psi, U+03C8 ISOgrk3 -->
+        {"\u03C9", "&omega;"}, // greek small letter omega, U+03C9 ISOgrk3 -->
+        {"\u03D1", "&thetasym;"}, // greek small letter theta symbol, U+03D1 NEW -->
+        {"\u03D2", "&upsih;"}, // greek upsilon with hook symbol, U+03D2 NEW -->
+        {"\u03D6", "&piv;"}, // greek pi symbol, U+03D6 ISOgrk3 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03D2` can be replaced with 'ϒ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03C9", "&omega;"}, // greek small letter omega, U+03C9 ISOgrk3 -->
+        {"\u03D1", "&thetasym;"}, // greek small letter theta symbol, U+03D1 NEW -->
+        {"\u03D2", "&upsih;"}, // greek upsilon with hook symbol, U+03D2 NEW -->
+        {"\u03D6", "&piv;"}, // greek pi symbol, U+03D6 ISOgrk3 -->
+        // <!-- General Punctuation -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u03D6` can be replaced with 'ϖ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03D1", "&thetasym;"}, // greek small letter theta symbol, U+03D1 NEW -->
+        {"\u03D2", "&upsih;"}, // greek upsilon with hook symbol, U+03D2 NEW -->
+        {"\u03D6", "&piv;"}, // greek pi symbol, U+03D6 ISOgrk3 -->
+        // <!-- General Punctuation -->
+        {"\u2022", "&bull;"}, // bullet = black small circle, U+2022 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2022` can be replaced with '•'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u03D6", "&piv;"}, // greek pi symbol, U+03D6 ISOgrk3 -->
+        // <!-- General Punctuation -->
+        {"\u2022", "&bull;"}, // bullet = black small circle, U+2022 ISOpub -->
+        // <!-- bullet is NOT the same as bullet operator, U+2219 -->
+        {"\u2026", "&hellip;"}, // horizontal ellipsis = three dot leader, U+2026 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2026` can be replaced with '...'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2022", "&bull;"}, // bullet = black small circle, U+2022 ISOpub -->
+        // <!-- bullet is NOT the same as bullet operator, U+2219 -->
+        {"\u2026", "&hellip;"}, // horizontal ellipsis = three dot leader, U+2026 ISOpub -->
+        {"\u2032", "&prime;"}, // prime = minutes = feet, U+2032 ISOtech -->
+        {"\u2033", "&Prime;"}, // double prime = seconds = inches, U+2033 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2032` can be replaced with '′'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- bullet is NOT the same as bullet operator, U+2219 -->
+        {"\u2026", "&hellip;"}, // horizontal ellipsis = three dot leader, U+2026 ISOpub -->
+        {"\u2032", "&prime;"}, // prime = minutes = feet, U+2032 ISOtech -->
+        {"\u2033", "&Prime;"}, // double prime = seconds = inches, U+2033 ISOtech -->
+        {"\u203E", "&oline;"}, // overline = spacing overscore, U+203E NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2033` can be replaced with '″'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2026", "&hellip;"}, // horizontal ellipsis = three dot leader, U+2026 ISOpub -->
+        {"\u2032", "&prime;"}, // prime = minutes = feet, U+2032 ISOtech -->
+        {"\u2033", "&Prime;"}, // double prime = seconds = inches, U+2033 ISOtech -->
+        {"\u203E", "&oline;"}, // overline = spacing overscore, U+203E NEW -->
+        {"\u2044", "&frasl;"}, // fraction slash, U+2044 NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u203E` can be replaced with '‾'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2032", "&prime;"}, // prime = minutes = feet, U+2032 ISOtech -->
+        {"\u2033", "&Prime;"}, // double prime = seconds = inches, U+2033 ISOtech -->
+        {"\u203E", "&oline;"}, // overline = spacing overscore, U+203E NEW -->
+        {"\u2044", "&frasl;"}, // fraction slash, U+2044 NEW -->
+        // <!-- Letterlike Symbols -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2044` can be replaced with '⁄'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2033", "&Prime;"}, // double prime = seconds = inches, U+2033 ISOtech -->
+        {"\u203E", "&oline;"}, // overline = spacing overscore, U+203E NEW -->
+        {"\u2044", "&frasl;"}, // fraction slash, U+2044 NEW -->
+        // <!-- Letterlike Symbols -->
+        {"\u2118", "&weierp;"}, // script capital P = power set= Weierstrass p, U+2118 ISOamso -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2118` can be replaced with '℘'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2044", "&frasl;"}, // fraction slash, U+2044 NEW -->
+        // <!-- Letterlike Symbols -->
+        {"\u2118", "&weierp;"}, // script capital P = power set= Weierstrass p, U+2118 ISOamso -->
+        {"\u2111", "&image;"}, // blackletter capital I = imaginary part, U+2111 ISOamso -->
+        {"\u211C", "&real;"}, // blackletter capital R = real part symbol, U+211C ISOamso -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2111` can be replaced with 'ℑ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Letterlike Symbols -->
+        {"\u2118", "&weierp;"}, // script capital P = power set= Weierstrass p, U+2118 ISOamso -->
+        {"\u2111", "&image;"}, // blackletter capital I = imaginary part, U+2111 ISOamso -->
+        {"\u211C", "&real;"}, // blackletter capital R = real part symbol, U+211C ISOamso -->
+        {"\u2122", "&trade;"}, // trade mark sign, U+2122 ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u211C` can be replaced with 'ℜ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2118", "&weierp;"}, // script capital P = power set= Weierstrass p, U+2118 ISOamso -->
+        {"\u2111", "&image;"}, // blackletter capital I = imaginary part, U+2111 ISOamso -->
+        {"\u211C", "&real;"}, // blackletter capital R = real part symbol, U+211C ISOamso -->
+        {"\u2122", "&trade;"}, // trade mark sign, U+2122 ISOnum -->
+        {"\u2135", "&alefsym;"}, // alef symbol = first transfinite cardinal, U+2135 NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2122` can be replaced with '™'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2111", "&image;"}, // blackletter capital I = imaginary part, U+2111 ISOamso -->
+        {"\u211C", "&real;"}, // blackletter capital R = real part symbol, U+211C ISOamso -->
+        {"\u2122", "&trade;"}, // trade mark sign, U+2122 ISOnum -->
+        {"\u2135", "&alefsym;"}, // alef symbol = first transfinite cardinal, U+2135 NEW -->
+        // <!-- alef symbol is NOT the same as hebrew letter alef, U+05D0 although the
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2135` can be replaced with 'ℵ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u211C", "&real;"}, // blackletter capital R = real part symbol, U+211C ISOamso -->
+        {"\u2122", "&trade;"}, // trade mark sign, U+2122 ISOnum -->
+        {"\u2135", "&alefsym;"}, // alef symbol = first transfinite cardinal, U+2135 NEW -->
+        // <!-- alef symbol is NOT the same as hebrew letter alef, U+05D0 although the
+        // same glyph could be used to depict both characters -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2190` can be replaced with '←'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // same glyph could be used to depict both characters -->
+        // <!-- Arrows -->
+        {"\u2190", "&larr;"}, // leftwards arrow, U+2190 ISOnum -->
+        {"\u2191", "&uarr;"}, // upwards arrow, U+2191 ISOnum-->
+        {"\u2192", "&rarr;"}, // rightwards arrow, U+2192 ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2191` can be replaced with '↑'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Arrows -->
+        {"\u2190", "&larr;"}, // leftwards arrow, U+2190 ISOnum -->
+        {"\u2191", "&uarr;"}, // upwards arrow, U+2191 ISOnum-->
+        {"\u2192", "&rarr;"}, // rightwards arrow, U+2192 ISOnum -->
+        {"\u2193", "&darr;"}, // downwards arrow, U+2193 ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2192` can be replaced with '→'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2190", "&larr;"}, // leftwards arrow, U+2190 ISOnum -->
+        {"\u2191", "&uarr;"}, // upwards arrow, U+2191 ISOnum-->
+        {"\u2192", "&rarr;"}, // rightwards arrow, U+2192 ISOnum -->
+        {"\u2193", "&darr;"}, // downwards arrow, U+2193 ISOnum -->
+        {"\u2194", "&harr;"}, // left right arrow, U+2194 ISOamsa -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2193` can be replaced with '↓'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2191", "&uarr;"}, // upwards arrow, U+2191 ISOnum-->
+        {"\u2192", "&rarr;"}, // rightwards arrow, U+2192 ISOnum -->
+        {"\u2193", "&darr;"}, // downwards arrow, U+2193 ISOnum -->
+        {"\u2194", "&harr;"}, // left right arrow, U+2194 ISOamsa -->
+        {"\u21B5", "&crarr;"}, // downwards arrow with corner leftwards= carriage return, U+21B5 NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2194` can be replaced with '↔'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2192", "&rarr;"}, // rightwards arrow, U+2192 ISOnum -->
+        {"\u2193", "&darr;"}, // downwards arrow, U+2193 ISOnum -->
+        {"\u2194", "&harr;"}, // left right arrow, U+2194 ISOamsa -->
+        {"\u21B5", "&crarr;"}, // downwards arrow with corner leftwards= carriage return, U+21B5 NEW -->
+        {"\u21D0", "&lArr;"}, // leftwards double arrow, U+21D0 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21B5` can be replaced with '↵'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2193", "&darr;"}, // downwards arrow, U+2193 ISOnum -->
+        {"\u2194", "&harr;"}, // left right arrow, U+2194 ISOamsa -->
+        {"\u21B5", "&crarr;"}, // downwards arrow with corner leftwards= carriage return, U+21B5 NEW -->
+        {"\u21D0", "&lArr;"}, // leftwards double arrow, U+21D0 ISOtech -->
+        // <!-- ISO 10646 does not say that lArr is the same as the 'is implied by'
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21D0` can be replaced with '⇐'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2194", "&harr;"}, // left right arrow, U+2194 ISOamsa -->
+        {"\u21B5", "&crarr;"}, // downwards arrow with corner leftwards= carriage return, U+21B5 NEW -->
+        {"\u21D0", "&lArr;"}, // leftwards double arrow, U+21D0 ISOtech -->
+        // <!-- ISO 10646 does not say that lArr is the same as the 'is implied by'
+        // arrow but also does not have any other character for that function.
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21D1` can be replaced with '⇑'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // arrow but also does not have any other character for that function.
+        // So ? lArr canbe used for 'is implied by' as ISOtech suggests -->
+        {"\u21D1", "&uArr;"}, // upwards double arrow, U+21D1 ISOamsa -->
+        {"\u21D2", "&rArr;"}, // rightwards double arrow, U+21D2 ISOtech -->
+        // <!-- ISO 10646 does not say this is the 'implies' character but does not
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21D2` can be replaced with '⇒'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // So ? lArr canbe used for 'is implied by' as ISOtech suggests -->
+        {"\u21D1", "&uArr;"}, // upwards double arrow, U+21D1 ISOamsa -->
+        {"\u21D2", "&rArr;"}, // rightwards double arrow, U+21D2 ISOtech -->
+        // <!-- ISO 10646 does not say this is the 'implies' character but does not
+        // have another character with this function so ?rArr can be used for
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21D3` can be replaced with '⇓'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // have another character with this function so ?rArr can be used for
+        // 'implies' as ISOtech suggests -->
+        {"\u21D3", "&dArr;"}, // downwards double arrow, U+21D3 ISOamsa -->
+        {"\u21D4", "&hArr;"}, // left right double arrow, U+21D4 ISOamsa -->
+        // <!-- Mathematical Operators -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u21D4` can be replaced with '⇔'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // 'implies' as ISOtech suggests -->
+        {"\u21D3", "&dArr;"}, // downwards double arrow, U+21D3 ISOamsa -->
+        {"\u21D4", "&hArr;"}, // left right double arrow, U+21D4 ISOamsa -->
+        // <!-- Mathematical Operators -->
+        {"\u2200", "&forall;"}, // for all, U+2200 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2200` can be replaced with '∀'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u21D4", "&hArr;"}, // left right double arrow, U+21D4 ISOamsa -->
+        // <!-- Mathematical Operators -->
+        {"\u2200", "&forall;"}, // for all, U+2200 ISOtech -->
+        {"\u2202", "&part;"}, // partial differential, U+2202 ISOtech -->
+        {"\u2203", "&exist;"}, // there exists, U+2203 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2202` can be replaced with '∂'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Mathematical Operators -->
+        {"\u2200", "&forall;"}, // for all, U+2200 ISOtech -->
+        {"\u2202", "&part;"}, // partial differential, U+2202 ISOtech -->
+        {"\u2203", "&exist;"}, // there exists, U+2203 ISOtech -->
+        {"\u2205", "&empty;"}, // empty set = null set = diameter, U+2205 ISOamso -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2203` can be replaced with '∃'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2200", "&forall;"}, // for all, U+2200 ISOtech -->
+        {"\u2202", "&part;"}, // partial differential, U+2202 ISOtech -->
+        {"\u2203", "&exist;"}, // there exists, U+2203 ISOtech -->
+        {"\u2205", "&empty;"}, // empty set = null set = diameter, U+2205 ISOamso -->
+        {"\u2207", "&nabla;"}, // nabla = backward difference, U+2207 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2205` can be replaced with '∅'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2202", "&part;"}, // partial differential, U+2202 ISOtech -->
+        {"\u2203", "&exist;"}, // there exists, U+2203 ISOtech -->
+        {"\u2205", "&empty;"}, // empty set = null set = diameter, U+2205 ISOamso -->
+        {"\u2207", "&nabla;"}, // nabla = backward difference, U+2207 ISOtech -->
+        {"\u2208", "&isin;"}, // element of, U+2208 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2207` can be replaced with '∇'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2203", "&exist;"}, // there exists, U+2203 ISOtech -->
+        {"\u2205", "&empty;"}, // empty set = null set = diameter, U+2205 ISOamso -->
+        {"\u2207", "&nabla;"}, // nabla = backward difference, U+2207 ISOtech -->
+        {"\u2208", "&isin;"}, // element of, U+2208 ISOtech -->
+        {"\u2209", "&notin;"}, // not an element of, U+2209 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2208` can be replaced with '∈'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2205", "&empty;"}, // empty set = null set = diameter, U+2205 ISOamso -->
+        {"\u2207", "&nabla;"}, // nabla = backward difference, U+2207 ISOtech -->
+        {"\u2208", "&isin;"}, // element of, U+2208 ISOtech -->
+        {"\u2209", "&notin;"}, // not an element of, U+2209 ISOtech -->
+        {"\u220B", "&ni;"}, // contains as member, U+220B ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2209` can be replaced with '∉'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2207", "&nabla;"}, // nabla = backward difference, U+2207 ISOtech -->
+        {"\u2208", "&isin;"}, // element of, U+2208 ISOtech -->
+        {"\u2209", "&notin;"}, // not an element of, U+2209 ISOtech -->
+        {"\u220B", "&ni;"}, // contains as member, U+220B ISOtech -->
+        // <!-- should there be a more memorable name than 'ni'? -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u220B` can be replaced with '∋'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2208", "&isin;"}, // element of, U+2208 ISOtech -->
+        {"\u2209", "&notin;"}, // not an element of, U+2209 ISOtech -->
+        {"\u220B", "&ni;"}, // contains as member, U+220B ISOtech -->
+        // <!-- should there be a more memorable name than 'ni'? -->
+        {"\u220F", "&prod;"}, // n-ary product = product sign, U+220F ISOamsb -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u220F` can be replaced with '∏'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u220B", "&ni;"}, // contains as member, U+220B ISOtech -->
+        // <!-- should there be a more memorable name than 'ni'? -->
+        {"\u220F", "&prod;"}, // n-ary product = product sign, U+220F ISOamsb -->
+        // <!-- prod is NOT the same character as U+03A0 'greek capital letter pi'
+        // though the same glyph might be used for both -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2211` can be replaced with '∑'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- prod is NOT the same character as U+03A0 'greek capital letter pi'
+        // though the same glyph might be used for both -->
+        {"\u2211", "&sum;"}, // n-ary summation, U+2211 ISOamsb -->
+        // <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
+        // though the same glyph might be used for both -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2212` can be replaced with '−'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
+        // though the same glyph might be used for both -->
+        {"\u2212", "&minus;"}, // minus sign, U+2212 ISOtech -->
+        {"\u2217", "&lowast;"}, // asterisk operator, U+2217 ISOtech -->
+        {"\u221A", "&radic;"}, // square root = radical sign, U+221A ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2217` can be replaced with '∗'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // though the same glyph might be used for both -->
+        {"\u2212", "&minus;"}, // minus sign, U+2212 ISOtech -->
+        {"\u2217", "&lowast;"}, // asterisk operator, U+2217 ISOtech -->
+        {"\u221A", "&radic;"}, // square root = radical sign, U+221A ISOtech -->
+        {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u221A` can be replaced with '√'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2212", "&minus;"}, // minus sign, U+2212 ISOtech -->
+        {"\u2217", "&lowast;"}, // asterisk operator, U+2217 ISOtech -->
+        {"\u221A", "&radic;"}, // square root = radical sign, U+221A ISOtech -->
+        {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
+        {"\u221E", "&infin;"}, // infinity, U+221E ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u221D` can be replaced with '∝'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2217", "&lowast;"}, // asterisk operator, U+2217 ISOtech -->
+        {"\u221A", "&radic;"}, // square root = radical sign, U+221A ISOtech -->
+        {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
+        {"\u221E", "&infin;"}, // infinity, U+221E ISOtech -->
+        {"\u2220", "&ang;"}, // angle, U+2220 ISOamso -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u221E` can be replaced with '∞'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u221A", "&radic;"}, // square root = radical sign, U+221A ISOtech -->
+        {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
+        {"\u221E", "&infin;"}, // infinity, U+221E ISOtech -->
+        {"\u2220", "&ang;"}, // angle, U+2220 ISOamso -->
+        {"\u2227", "&and;"}, // logical and = wedge, U+2227 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2220` can be replaced with '∠'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
+        {"\u221E", "&infin;"}, // infinity, U+221E ISOtech -->
+        {"\u2220", "&ang;"}, // angle, U+2220 ISOamso -->
+        {"\u2227", "&and;"}, // logical and = wedge, U+2227 ISOtech -->
+        {"\u2228", "&or;"}, // logical or = vee, U+2228 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2227` can be replaced with '∧'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u221E", "&infin;"}, // infinity, U+221E ISOtech -->
+        {"\u2220", "&ang;"}, // angle, U+2220 ISOamso -->
+        {"\u2227", "&and;"}, // logical and = wedge, U+2227 ISOtech -->
+        {"\u2228", "&or;"}, // logical or = vee, U+2228 ISOtech -->
+        {"\u2229", "&cap;"}, // intersection = cap, U+2229 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2228` can be replaced with '∨'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2220", "&ang;"}, // angle, U+2220 ISOamso -->
+        {"\u2227", "&and;"}, // logical and = wedge, U+2227 ISOtech -->
+        {"\u2228", "&or;"}, // logical or = vee, U+2228 ISOtech -->
+        {"\u2229", "&cap;"}, // intersection = cap, U+2229 ISOtech -->
+        {"\u222A", "&cup;"}, // union = cup, U+222A ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2229` can be replaced with '∩'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2227", "&and;"}, // logical and = wedge, U+2227 ISOtech -->
+        {"\u2228", "&or;"}, // logical or = vee, U+2228 ISOtech -->
+        {"\u2229", "&cap;"}, // intersection = cap, U+2229 ISOtech -->
+        {"\u222A", "&cup;"}, // union = cup, U+222A ISOtech -->
+        {"\u222B", "&int;"}, // integral, U+222B ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u222A` can be replaced with '∪'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2228", "&or;"}, // logical or = vee, U+2228 ISOtech -->
+        {"\u2229", "&cap;"}, // intersection = cap, U+2229 ISOtech -->
+        {"\u222A", "&cup;"}, // union = cup, U+222A ISOtech -->
+        {"\u222B", "&int;"}, // integral, U+222B ISOtech -->
+        {"\u2234", "&there4;"}, // therefore, U+2234 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u222B` can be replaced with '∫'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2229", "&cap;"}, // intersection = cap, U+2229 ISOtech -->
+        {"\u222A", "&cup;"}, // union = cup, U+222A ISOtech -->
+        {"\u222B", "&int;"}, // integral, U+222B ISOtech -->
+        {"\u2234", "&there4;"}, // therefore, U+2234 ISOtech -->
+        {"\u223C", "&sim;"}, // tilde operator = varies with = similar to, U+223C ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2234` can be replaced with '∴'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u222A", "&cup;"}, // union = cup, U+222A ISOtech -->
+        {"\u222B", "&int;"}, // integral, U+222B ISOtech -->
+        {"\u2234", "&there4;"}, // therefore, U+2234 ISOtech -->
+        {"\u223C", "&sim;"}, // tilde operator = varies with = similar to, U+223C ISOtech -->
+        // <!-- tilde operator is NOT the same character as the tilde, U+007E, although
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u223C` can be replaced with '∼'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u222B", "&int;"}, // integral, U+222B ISOtech -->
+        {"\u2234", "&there4;"}, // therefore, U+2234 ISOtech -->
+        {"\u223C", "&sim;"}, // tilde operator = varies with = similar to, U+223C ISOtech -->
+        // <!-- tilde operator is NOT the same character as the tilde, U+007E, although
+        // the same glyph might be used to represent both -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2245` can be replaced with '≅'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- tilde operator is NOT the same character as the tilde, U+007E, although
+        // the same glyph might be used to represent both -->
+        {"\u2245", "&cong;"}, // approximately equal to, U+2245 ISOtech -->
+        {"\u2248", "&asymp;"}, // almost equal to = asymptotic to, U+2248 ISOamsr -->
+        {"\u2260", "&ne;"}, // not equal to, U+2260 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2248` can be replaced with '≈'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // the same glyph might be used to represent both -->
+        {"\u2245", "&cong;"}, // approximately equal to, U+2245 ISOtech -->
+        {"\u2248", "&asymp;"}, // almost equal to = asymptotic to, U+2248 ISOamsr -->
+        {"\u2260", "&ne;"}, // not equal to, U+2260 ISOtech -->
+        {"\u2261", "&equiv;"}, // identical to, U+2261 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2260` can be replaced with '≠'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2245", "&cong;"}, // approximately equal to, U+2245 ISOtech -->
+        {"\u2248", "&asymp;"}, // almost equal to = asymptotic to, U+2248 ISOamsr -->
+        {"\u2260", "&ne;"}, // not equal to, U+2260 ISOtech -->
+        {"\u2261", "&equiv;"}, // identical to, U+2261 ISOtech -->
+        {"\u2264", "&le;"}, // less-than or equal to, U+2264 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2261` can be replaced with '≡'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2248", "&asymp;"}, // almost equal to = asymptotic to, U+2248 ISOamsr -->
+        {"\u2260", "&ne;"}, // not equal to, U+2260 ISOtech -->
+        {"\u2261", "&equiv;"}, // identical to, U+2261 ISOtech -->
+        {"\u2264", "&le;"}, // less-than or equal to, U+2264 ISOtech -->
+        {"\u2265", "&ge;"}, // greater-than or equal to, U+2265 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2264` can be replaced with '≤'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2260", "&ne;"}, // not equal to, U+2260 ISOtech -->
+        {"\u2261", "&equiv;"}, // identical to, U+2261 ISOtech -->
+        {"\u2264", "&le;"}, // less-than or equal to, U+2264 ISOtech -->
+        {"\u2265", "&ge;"}, // greater-than or equal to, U+2265 ISOtech -->
+        {"\u2282", "&sub;"}, // subset of, U+2282 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2265` can be replaced with '≥'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2261", "&equiv;"}, // identical to, U+2261 ISOtech -->
+        {"\u2264", "&le;"}, // less-than or equal to, U+2264 ISOtech -->
+        {"\u2265", "&ge;"}, // greater-than or equal to, U+2265 ISOtech -->
+        {"\u2282", "&sub;"}, // subset of, U+2282 ISOtech -->
+        {"\u2283", "&sup;"}, // superset of, U+2283 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2282` can be replaced with '⊂'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2264", "&le;"}, // less-than or equal to, U+2264 ISOtech -->
+        {"\u2265", "&ge;"}, // greater-than or equal to, U+2265 ISOtech -->
+        {"\u2282", "&sub;"}, // subset of, U+2282 ISOtech -->
+        {"\u2283", "&sup;"}, // superset of, U+2283 ISOtech -->
+        // <!-- note that nsup, 'not a superset of, U+2283' is not covered by the
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2283` can be replaced with '⊃'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2265", "&ge;"}, // greater-than or equal to, U+2265 ISOtech -->
+        {"\u2282", "&sub;"}, // subset of, U+2282 ISOtech -->
+        {"\u2283", "&sup;"}, // superset of, U+2283 ISOtech -->
+        // <!-- note that nsup, 'not a superset of, U+2283' is not covered by the
+        // Symbol font encoding and is not included. Should it be, for symmetry?
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2284` can be replaced with '⊄'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // Symbol font encoding and is not included. Should it be, for symmetry?
+        // It is in ISOamsn -->,
+        {"\u2284", "&nsub;"}, // not a subset of, U+2284 ISOamsn -->
+        {"\u2286", "&sube;"}, // subset of or equal to, U+2286 ISOtech -->
+        {"\u2287", "&supe;"}, // superset of or equal to, U+2287 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2286` can be replaced with '⊆'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // It is in ISOamsn -->,
+        {"\u2284", "&nsub;"}, // not a subset of, U+2284 ISOamsn -->
+        {"\u2286", "&sube;"}, // subset of or equal to, U+2286 ISOtech -->
+        {"\u2287", "&supe;"}, // superset of or equal to, U+2287 ISOtech -->
+        {"\u2295", "&oplus;"}, // circled plus = direct sum, U+2295 ISOamsb -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2287` can be replaced with '⊇'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2284", "&nsub;"}, // not a subset of, U+2284 ISOamsn -->
+        {"\u2286", "&sube;"}, // subset of or equal to, U+2286 ISOtech -->
+        {"\u2287", "&supe;"}, // superset of or equal to, U+2287 ISOtech -->
+        {"\u2295", "&oplus;"}, // circled plus = direct sum, U+2295 ISOamsb -->
+        {"\u2297", "&otimes;"}, // circled times = vector product, U+2297 ISOamsb -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2295` can be replaced with '⊕'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2286", "&sube;"}, // subset of or equal to, U+2286 ISOtech -->
+        {"\u2287", "&supe;"}, // superset of or equal to, U+2287 ISOtech -->
+        {"\u2295", "&oplus;"}, // circled plus = direct sum, U+2295 ISOamsb -->
+        {"\u2297", "&otimes;"}, // circled times = vector product, U+2297 ISOamsb -->
+        {"\u22A5", "&perp;"}, // up tack = orthogonal to = perpendicular, U+22A5 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2297` can be replaced with '⊗'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2287", "&supe;"}, // superset of or equal to, U+2287 ISOtech -->
+        {"\u2295", "&oplus;"}, // circled plus = direct sum, U+2295 ISOamsb -->
+        {"\u2297", "&otimes;"}, // circled times = vector product, U+2297 ISOamsb -->
+        {"\u22A5", "&perp;"}, // up tack = orthogonal to = perpendicular, U+22A5 ISOtech -->
+        {"\u22C5", "&sdot;"}, // dot operator, U+22C5 ISOamsb -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u22A5` can be replaced with '⊥'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2295", "&oplus;"}, // circled plus = direct sum, U+2295 ISOamsb -->
+        {"\u2297", "&otimes;"}, // circled times = vector product, U+2297 ISOamsb -->
+        {"\u22A5", "&perp;"}, // up tack = orthogonal to = perpendicular, U+22A5 ISOtech -->
+        {"\u22C5", "&sdot;"}, // dot operator, U+22C5 ISOamsb -->
+        // <!-- dot operator is NOT the same character as U+00B7 middle dot -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u22C5` can be replaced with '⋅'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2297", "&otimes;"}, // circled times = vector product, U+2297 ISOamsb -->
+        {"\u22A5", "&perp;"}, // up tack = orthogonal to = perpendicular, U+22A5 ISOtech -->
+        {"\u22C5", "&sdot;"}, // dot operator, U+22C5 ISOamsb -->
+        // <!-- dot operator is NOT the same character as U+00B7 middle dot -->
+        // <!-- Miscellaneous Technical -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2308` can be replaced with '⌈'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- dot operator is NOT the same character as U+00B7 middle dot -->
+        // <!-- Miscellaneous Technical -->
+        {"\u2308", "&lceil;"}, // left ceiling = apl upstile, U+2308 ISOamsc -->
+        {"\u2309", "&rceil;"}, // right ceiling, U+2309 ISOamsc -->
+        {"\u230A", "&lfloor;"}, // left floor = apl downstile, U+230A ISOamsc -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2309` can be replaced with '⌉'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Miscellaneous Technical -->
+        {"\u2308", "&lceil;"}, // left ceiling = apl upstile, U+2308 ISOamsc -->
+        {"\u2309", "&rceil;"}, // right ceiling, U+2309 ISOamsc -->
+        {"\u230A", "&lfloor;"}, // left floor = apl downstile, U+230A ISOamsc -->
+        {"\u230B", "&rfloor;"}, // right floor, U+230B ISOamsc -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u230A` can be replaced with '⌊'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2308", "&lceil;"}, // left ceiling = apl upstile, U+2308 ISOamsc -->
+        {"\u2309", "&rceil;"}, // right ceiling, U+2309 ISOamsc -->
+        {"\u230A", "&lfloor;"}, // left floor = apl downstile, U+230A ISOamsc -->
+        {"\u230B", "&rfloor;"}, // right floor, U+230B ISOamsc -->
+        {"\u2329", "&lang;"}, // left-pointing angle bracket = bra, U+2329 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u230B` can be replaced with '⌋'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2309", "&rceil;"}, // right ceiling, U+2309 ISOamsc -->
+        {"\u230A", "&lfloor;"}, // left floor = apl downstile, U+230A ISOamsc -->
+        {"\u230B", "&rfloor;"}, // right floor, U+230B ISOamsc -->
+        {"\u2329", "&lang;"}, // left-pointing angle bracket = bra, U+2329 ISOtech -->
+        // <!-- lang is NOT the same character as U+003C 'less than' or U+2039 'single left-pointing angle quotation
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2329` can be replaced with '〈'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u230A", "&lfloor;"}, // left floor = apl downstile, U+230A ISOamsc -->
+        {"\u230B", "&rfloor;"}, // right floor, U+230B ISOamsc -->
+        {"\u2329", "&lang;"}, // left-pointing angle bracket = bra, U+2329 ISOtech -->
+        // <!-- lang is NOT the same character as U+003C 'less than' or U+2039 'single left-pointing angle quotation
+        // mark' -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u232A` can be replaced with '〉'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- lang is NOT the same character as U+003C 'less than' or U+2039 'single left-pointing angle quotation
+        // mark' -->
+        {"\u232A", "&rang;"}, // right-pointing angle bracket = ket, U+232A ISOtech -->
+        // <!-- rang is NOT the same character as U+003E 'greater than' or U+203A
+        // 'single right-pointing angle quotation mark' -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u25CA` can be replaced with '◊'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // 'single right-pointing angle quotation mark' -->
+        // <!-- Geometric Shapes -->
+        {"\u25CA", "&loz;"}, // lozenge, U+25CA ISOpub -->
+        // <!-- Miscellaneous Symbols -->
+        {"\u2660", "&spades;"}, // black spade suit, U+2660 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2660` can be replaced with '♠'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u25CA", "&loz;"}, // lozenge, U+25CA ISOpub -->
+        // <!-- Miscellaneous Symbols -->
+        {"\u2660", "&spades;"}, // black spade suit, U+2660 ISOpub -->
+        // <!-- black here seems to mean filled as opposed to hollow -->
+        {"\u2663", "&clubs;"}, // black club suit = shamrock, U+2663 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2663` can be replaced with '♣'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2660", "&spades;"}, // black spade suit, U+2660 ISOpub -->
+        // <!-- black here seems to mean filled as opposed to hollow -->
+        {"\u2663", "&clubs;"}, // black club suit = shamrock, U+2663 ISOpub -->
+        {"\u2665", "&hearts;"}, // black heart suit = valentine, U+2665 ISOpub -->
+        {"\u2666", "&diams;"}, // black diamond suit, U+2666 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2665` can be replaced with '♥'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- black here seems to mean filled as opposed to hollow -->
+        {"\u2663", "&clubs;"}, // black club suit = shamrock, U+2663 ISOpub -->
+        {"\u2665", "&hearts;"}, // black heart suit = valentine, U+2665 ISOpub -->
+        {"\u2666", "&diams;"}, // black diamond suit, U+2666 ISOpub -->
+
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2666` can be replaced with '♦'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2663", "&clubs;"}, // black club suit = shamrock, U+2663 ISOpub -->
+        {"\u2665", "&hearts;"}, // black heart suit = valentine, U+2665 ISOpub -->
+        {"\u2666", "&diams;"}, // black diamond suit, U+2666 ISOpub -->
+
+        // <!-- Latin Extended-A -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0152` can be replaced with 'Œ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+
+        // <!-- Latin Extended-A -->
+        {"\u0152", "&OElig;"}, // -- latin capital ligature OE, U+0152 ISOlat2 -->
+        {"\u0153", "&oelig;"}, // -- latin small ligature oe, U+0153 ISOlat2 -->
+        // <!-- ligature is a misnomer, this is a separate character in some languages -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0153` can be replaced with 'œ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Latin Extended-A -->
+        {"\u0152", "&OElig;"}, // -- latin capital ligature OE, U+0152 ISOlat2 -->
+        {"\u0153", "&oelig;"}, // -- latin small ligature oe, U+0153 ISOlat2 -->
+        // <!-- ligature is a misnomer, this is a separate character in some languages -->
+        {"\u0160", "&Scaron;"}, // -- latin capital letter S with caron, U+0160 ISOlat2 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0160` can be replaced with 'Š'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0153", "&oelig;"}, // -- latin small ligature oe, U+0153 ISOlat2 -->
+        // <!-- ligature is a misnomer, this is a separate character in some languages -->
+        {"\u0160", "&Scaron;"}, // -- latin capital letter S with caron, U+0160 ISOlat2 -->
+        {"\u0161", "&scaron;"}, // -- latin small letter s with caron, U+0161 ISOlat2 -->
+        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0161` can be replaced with 'š'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- ligature is a misnomer, this is a separate character in some languages -->
+        {"\u0160", "&Scaron;"}, // -- latin capital letter S with caron, U+0160 ISOlat2 -->
+        {"\u0161", "&scaron;"}, // -- latin small letter s with caron, U+0161 ISOlat2 -->
+        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+        // <!-- Spacing Modifier Letters -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0178` can be replaced with 'Ÿ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0160", "&Scaron;"}, // -- latin capital letter S with caron, U+0160 ISOlat2 -->
+        {"\u0161", "&scaron;"}, // -- latin small letter s with caron, U+0161 ISOlat2 -->
+        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+        // <!-- Spacing Modifier Letters -->
+        {"\u02C6", "&circ;"}, // -- modifier letter circumflex accent, U+02C6 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u02C6` can be replaced with 'ˆ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u0178", "&Yuml;"}, // -- latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+        // <!-- Spacing Modifier Letters -->
+        {"\u02C6", "&circ;"}, // -- modifier letter circumflex accent, U+02C6 ISOpub -->
+        {"\u02DC", "&tilde;"}, // small tilde, U+02DC ISOdia -->
+        // <!-- General Punctuation -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u02DC` can be replaced with '˜'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        // <!-- Spacing Modifier Letters -->
+        {"\u02C6", "&circ;"}, // -- modifier letter circumflex accent, U+02C6 ISOpub -->
+        {"\u02DC", "&tilde;"}, // small tilde, U+02DC ISOdia -->
+        // <!-- General Punctuation -->
+        {"\u2002", "&ensp;"}, // en space, U+2002 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2013` can be replaced with '--'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u200E", "&lrm;"}, // left-to-right mark, U+200E NEW RFC 2070 -->
+        {"\u200F", "&rlm;"}, // right-to-left mark, U+200F NEW RFC 2070 -->
+        {"\u2013", "&ndash;"}, // en dash, U+2013 ISOpub -->
+        {"\u2014", "&mdash;"}, // em dash, U+2014 ISOpub -->
+        {"\u2018", "&lsquo;"}, // left single quotation mark, U+2018 ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2014` can be replaced with '---'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u200F", "&rlm;"}, // right-to-left mark, U+200F NEW RFC 2070 -->
+        {"\u2013", "&ndash;"}, // en dash, U+2013 ISOpub -->
+        {"\u2014", "&mdash;"}, // em dash, U+2014 ISOpub -->
+        {"\u2018", "&lsquo;"}, // left single quotation mark, U+2018 ISOnum -->
+        {"\u2019", "&rsquo;"}, // right single quotation mark, U+2019 ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2018` can be replaced with '''
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2013", "&ndash;"}, // en dash, U+2013 ISOpub -->
+        {"\u2014", "&mdash;"}, // em dash, U+2014 ISOpub -->
+        {"\u2018", "&lsquo;"}, // left single quotation mark, U+2018 ISOnum -->
+        {"\u2019", "&rsquo;"}, // right single quotation mark, U+2019 ISOnum -->
+        {"\u201A", "&sbquo;"}, // single low-9 quotation mark, U+201A NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2019` can be replaced with '''
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2014", "&mdash;"}, // em dash, U+2014 ISOpub -->
+        {"\u2018", "&lsquo;"}, // left single quotation mark, U+2018 ISOnum -->
+        {"\u2019", "&rsquo;"}, // right single quotation mark, U+2019 ISOnum -->
+        {"\u201A", "&sbquo;"}, // single low-9 quotation mark, U+201A NEW -->
+        {"\u201C", "&ldquo;"}, // left double quotation mark, U+201C ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u201A` can be replaced with '‚'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2018", "&lsquo;"}, // left single quotation mark, U+2018 ISOnum -->
+        {"\u2019", "&rsquo;"}, // right single quotation mark, U+2019 ISOnum -->
+        {"\u201A", "&sbquo;"}, // single low-9 quotation mark, U+201A NEW -->
+        {"\u201C", "&ldquo;"}, // left double quotation mark, U+201C ISOnum -->
+        {"\u201D", "&rdquo;"}, // right double quotation mark, U+201D ISOnum -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u201C` can be replaced with '"'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2019", "&rsquo;"}, // right single quotation mark, U+2019 ISOnum -->
+        {"\u201A", "&sbquo;"}, // single low-9 quotation mark, U+201A NEW -->
+        {"\u201C", "&ldquo;"}, // left double quotation mark, U+201C ISOnum -->
+        {"\u201D", "&rdquo;"}, // right double quotation mark, U+201D ISOnum -->
+        {"\u201E", "&bdquo;"}, // double low-9 quotation mark, U+201E NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u201D` can be replaced with '"'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u201A", "&sbquo;"}, // single low-9 quotation mark, U+201A NEW -->
+        {"\u201C", "&ldquo;"}, // left double quotation mark, U+201C ISOnum -->
+        {"\u201D", "&rdquo;"}, // right double quotation mark, U+201D ISOnum -->
+        {"\u201E", "&bdquo;"}, // double low-9 quotation mark, U+201E NEW -->
+        {"\u2020", "&dagger;"}, // dagger, U+2020 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u201E` can be replaced with '„'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u201C", "&ldquo;"}, // left double quotation mark, U+201C ISOnum -->
+        {"\u201D", "&rdquo;"}, // right double quotation mark, U+201D ISOnum -->
+        {"\u201E", "&bdquo;"}, // double low-9 quotation mark, U+201E NEW -->
+        {"\u2020", "&dagger;"}, // dagger, U+2020 ISOpub -->
+        {"\u2021", "&Dagger;"}, // double dagger, U+2021 ISOpub -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2020` can be replaced with '†'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u201D", "&rdquo;"}, // right double quotation mark, U+201D ISOnum -->
+        {"\u201E", "&bdquo;"}, // double low-9 quotation mark, U+201E NEW -->
+        {"\u2020", "&dagger;"}, // dagger, U+2020 ISOpub -->
+        {"\u2021", "&Dagger;"}, // double dagger, U+2021 ISOpub -->
+        {"\u2030", "&permil;"}, // per mille sign, U+2030 ISOtech -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2021` can be replaced with '‡'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u201E", "&bdquo;"}, // double low-9 quotation mark, U+201E NEW -->
+        {"\u2020", "&dagger;"}, // dagger, U+2020 ISOpub -->
+        {"\u2021", "&Dagger;"}, // double dagger, U+2021 ISOpub -->
+        {"\u2030", "&permil;"}, // per mille sign, U+2030 ISOtech -->
+        {"\u2039", "&lsaquo;"}, // single left-pointing angle quotation mark, U+2039 ISO proposed -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2030` can be replaced with '‰'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2020", "&dagger;"}, // dagger, U+2020 ISOpub -->
+        {"\u2021", "&Dagger;"}, // double dagger, U+2021 ISOpub -->
+        {"\u2030", "&permil;"}, // per mille sign, U+2030 ISOtech -->
+        {"\u2039", "&lsaquo;"}, // single left-pointing angle quotation mark, U+2039 ISO proposed -->
+        // <!-- lsaquo is proposed but not yet ISO standardized -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2039` can be replaced with '‹'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2021", "&Dagger;"}, // double dagger, U+2021 ISOpub -->
+        {"\u2030", "&permil;"}, // per mille sign, U+2030 ISOtech -->
+        {"\u2039", "&lsaquo;"}, // single left-pointing angle quotation mark, U+2039 ISO proposed -->
+        // <!-- lsaquo is proposed but not yet ISO standardized -->
+        {"\u203A", "&rsaquo;"}, // single right-pointing angle quotation mark, U+203A ISO proposed -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u203A` can be replaced with '›'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u2039", "&lsaquo;"}, // single left-pointing angle quotation mark, U+2039 ISO proposed -->
+        // <!-- lsaquo is proposed but not yet ISO standardized -->
+        {"\u203A", "&rsaquo;"}, // single right-pointing angle quotation mark, U+203A ISO proposed -->
+        // <!-- rsaquo is proposed but not yet ISO standardized -->
+        {"\u20AC", "&euro;"}, // -- euro sign, U+20AC NEW -->
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u20AC` can be replaced with '€'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u203A", "&rsaquo;"}, // single right-pointing angle quotation mark, U+203A ISO proposed -->
+        // <!-- rsaquo is proposed but not yet ISO standardized -->
+        {"\u20AC", "&euro;"}, // -- euro sign, U+20AC NEW -->
+    };
+
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * StringUtils.isAsciiPrintable("ab2c")   = true
+     * StringUtils.isAsciiPrintable("!ab-c~") = true
+     * StringUtils.isAsciiPrintable("\u0020") = true
+     * StringUtils.isAsciiPrintable("\u0021") = true
+     * StringUtils.isAsciiPrintable("\u007e") = true
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0021` can be replaced with '!'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * StringUtils.isAsciiPrintable("!ab-c~") = true
+     * StringUtils.isAsciiPrintable("\u0020") = true
+     * StringUtils.isAsciiPrintable("\u0021") = true
+     * StringUtils.isAsciiPrintable("\u007e") = true
+     * StringUtils.isAsciiPrintable("\u007f") = false
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u007e` can be replaced with '\~'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * StringUtils.isAsciiPrintable("\u0020") = true
+     * StringUtils.isAsciiPrintable("\u0021") = true
+     * StringUtils.isAsciiPrintable("\u007e") = true
+     * StringUtils.isAsciiPrintable("\u007f") = false
+     * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00fc` can be replaced with 'ü'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * StringUtils.isAsciiPrintable("\u007e") = true
+     * StringUtils.isAsciiPrintable("\u007f") = false
+     * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
+     * </pre>
+     *
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00fc` can be replaced with 'ü'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+     * StringUtils.isAsciiPrintable("\u007e") = true
+     * StringUtils.isAsciiPrintable("\u007f") = false
+     * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
+     * </pre>
+     *
+```
+
+## RuleId[id=UnnecessaryContinue]
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
 in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
 ```java
-    public static String wrap(final String str, int wrapLength, String newLineStr, final boolean wrapLongWords, String wrapOn) {
-        if (str == null) {
-            return null;
-        }
-        if (newLineStr == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static Long createLong(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return Long.decode(str);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static BigInteger createBigInteger(final String str) {
-        if (str == null) {
-            return null;
-        }
-        if (str.isEmpty()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static Double createDouble(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return Double.valueOf(str);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static BigDecimal createBigDecimal(final String str) {
-        if (str == null) {
-            return null;
-        }
-        // handle JDK1.3.1 bug where "" throws IndexOutOfBoundsException
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static Integer createInteger(final String str) {
-        if (str == null) {
-            return null;
-        }
-        // decode() handles 0xAABD and 0777 (hex and octal) as well.
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static Float createFloat(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return Float.valueOf(str);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/math/NumberUtils.java`
-#### Snippet
-```java
-    public static Number createNumber(final String str) {
-        if (str == null) {
-            return null;
-        }
-        if (StringUtils.isBlank(str)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
-#### Snippet
-```java
-    /** NOP singleton */
-    @SuppressWarnings("rawtypes")
-    FailableIntFunction NOP = t -> null;
-
-    /**
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final String source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-        final StrLookup<?> resolver = getVariableResolver();
-        if (resolver == null) {
-            return null;
-        }
-        return resolver.lookup(variableName);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final String source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StrBuilder source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StrBuilder source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StringBuffer source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final Object source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder().append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source) {
-        if (source == null) {
-            return null;
-        }
-        return replace(source, 0, source.length());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StringBuffer source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final char[] source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length).append(source);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final char[] source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
-#### Snippet
-```java
-        public String lookup(final String key) {
-            if (map == null) {
-                return null;
-            }
-            final Object obj = map.get(key);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
-#### Snippet
-```java
-            final Object obj = map.get(key);
-            if (obj == null) {
-                return null;
-            }
-            return obj.toString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/JavaVersion.java`
-#### Snippet
-```java
-    static JavaVersion get(final String versionStr) {
-        if (versionStr == null) {
-            return null;
-        }
-        switch (versionStr) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/JavaVersion.java`
-#### Snippet
-```java
-                return JAVA_RECENT;
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static List<Class<?>> convertClassNamesToClasses(final List<String> classNames) {
-        if (classNames == null) {
-            return null;
-        }
-        final List<Class<?>> classes = new ArrayList<>(classNames.size());
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static Class<?>[] wrappersToPrimitives(final Class<?>... classes) {
-        if (classes == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static List<Class<?>> getAllInterfaces(final Class<?> cls) {
-        if (cls == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static List<Class<?>> getAllSuperclasses(final Class<?> cls) {
-        if (cls == null) {
-            return null;
-        }
-        final List<Class<?>> classes = new ArrayList<>();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static Class<?>[] toClass(final Object... array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        }
-        final Class<?>[] classes = new Class[array.length];
-        Arrays.setAll(classes, i -> array[i] == null ? null : array[i].getClass());
-        return classes;
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-        className = StringUtils.deleteWhitespace(className);
-        if (className == null) {
-            return null;
-        }
-        int dim = 0;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static <T> Class<T> getComponentType(final Class<T[]> cls) {
-        return cls == null ? null : (Class<T>) cls.getComponentType();
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     */
-    public static List<String> convertClassesToClassNames(final List<Class<?>> classes) {
-        return classes == null ? null : classes.stream().map(e -> getName(e, null)).collect(Collectors.toList());
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-    public static Class<?>[] primitivesToWrappers(final Class<?>... classes) {
-        if (classes == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
-#### Snippet
-```java
-    /** NOP singleton */
-    @SuppressWarnings("rawtypes")
-    FailableFunction NOP = t -> null;
-
-    /**
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(annotationCls, "annotationCls");
-        if (!ignoreAccess && !MemberUtils.isAccessible(method)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-                    return parentClass.getMethod(methodName, parameterTypes);
-                } catch (final NoSuchMethodException e) {
-                    return null;
-                }
-            }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            parentClass = parentClass.getSuperclass();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-    public static Method getAccessibleMethod(Method method) {
-        if (!MemberUtils.isAccessible(method)) {
-            return null;
-        }
-        // If the declaring class is public, we are done
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            if (parameterTypeName != null && parameterTypeSuperClassName != null && !methodParameterComponentTypeName.equals(parameterTypeName)
-                && !methodParameterComponentTypeName.equals(parameterTypeSuperClassName)) {
-                return null;
+                lastWasGap = false;
+            } else {
+                continue; // ignore ch
             }
         }
 ```
 
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-    private static List<Class<?>> getAllSuperclassesAndInterfaces(final Class<?> cls) {
-        if (cls == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            return getAccessibleMethod(cls.getMethod(methodName, parameterTypes));
-        } catch (final NoSuchMethodException e) {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-
-        if (candidates.isEmpty()) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/time/CalendarUtils.java`
-#### Snippet
-```java
-        final Map<String, Integer> displayNames = calendar.getDisplayNames(Calendar.MONTH, style, locale);
-        if (displayNames == null) {
-            return null;
-        }
-        final String[] monthNames = new String[displayNames.size()];
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-    public static <K, V> V putIfAbsent(final ConcurrentMap<K, V> map, final K key, final V value) {
-        if (map == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-            final ExecutionException ex) {
-        if (ex == null || ex.getCause() == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-    public static ConcurrentException extractCause(final ExecutionException ex) {
-        if (ex == null || ex.getCause() == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-            final ConcurrentInitializer<V> init) throws ConcurrentException {
-        if (map == null || init == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-    public static <T> T initialize(final ConcurrentInitializer<T> initializer)
-            throws ConcurrentException {
-        return initializer != null ? initializer.get() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
-#### Snippet
-```java
-    /** NOP singleton */
-    @SuppressWarnings("rawtypes")
-    FailableBiFunction NOP = (t, u) -> null;
-
-    /**
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/time/FastTimeZone.java`
-#### Snippet
-```java
-            return new GmtTimeZone(parseSign(m.group(1)), hours, minutes);
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
-#### Snippet
-```java
-            if (!MemberUtils.isAccessible(field)) {
-                if (!forceAccess) {
-                    return null;
-                }
-                field.setAccessible(true);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
-#### Snippet
-```java
-            // ignore
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/event/EventListenerSupport.java`
-#### Snippet
-```java
-                method.invoke(listener, args);
-            }
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-        cal.clear();
-
-        return parse(source, pos, cal) ? cal.getTime() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
-#### Snippet
-```java
-        StrategyAndWidth getNextStrategy() {
-            if (currentIdx >= pattern.length()) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(ctor, "ctor");
-        return MemberUtils.isAccessible(ctor)
-                && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/ConstructorUtils.java`
-#### Snippet
-```java
-            return getAccessibleConstructor(cls.getConstructor(parameterTypes));
-        } catch (final NoSuchMethodException e) {
-            return null;
-        }
-    }
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharSet.java`
-#### Snippet
-```java
-    public static CharSet getInstance(final String... setStrs) {
-        if (setStrs == null) {
-            return null;
-        }
-        if (setStrs.length == 1) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharSetUtils.java`
-#### Snippet
-```java
-    public static String keep(final String str, final String... set) {
-        if (str == null) {
-            return null;
-        }
-        if (str.isEmpty() || deepEmpty(set)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/event/EventUtils.java`
-#### Snippet
-```java
-                return MethodUtils.invokeMethod(target, methodName);
-            }
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            final String str, final String separator, final int max, final boolean preserveAllTokens) {
-        if (str == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String substring(final String str, int start, int end) {
-        if (str == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // handle null, zero and one elements before building a buffer
-        if (iterator == null) {
-            return null;
-        }
-        if (!iterator.hasNext()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final byte[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String leftPad(final String str, final int size, String padStr) {
-        if (str == null) {
-            return null;
-        }
-        if (isEmpty(padStr)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String trimToNull(final String str) {
-        final String ts = trim(str);
-        return isEmpty(ts) ? null : ts;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final float[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String lowerCase(final String str, final Locale locale) {
-        if (str == null) {
-            return null;
-        }
-        return str.toLowerCase(LocaleUtils.toLocale(locale));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String lowerCase(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return str.toLowerCase();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static int[] toCodePoints(final CharSequence cs) {
-        if (cs == null) {
-            return null;
-        }
-        if (cs.length() == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String reverseDelimited(final String str, final char separatorChar) {
-        if (str == null) {
-            return null;
-        }
-        // could implement manually, but simple way is to reuse other,
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String chop(final String str) {
-        if (str == null) {
-            return null;
-        }
-        final int strLen = str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String upperCase(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return str.toUpperCase();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final char[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String mid(final String str, int pos, final int len) {
-        if (str == null) {
-            return null;
-        }
-        if (len < 0 || pos > str.length()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    private static String[] splitByCharacterType(final String str, final boolean camelCase) {
-        if (str == null) {
-            return null;
-        }
-        if (str.isEmpty()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String valueOf(final char[] value) {
-        return value == null ? null : String.valueOf(value);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String left(final String str, final int len) {
-        if (str == null) {
-            return null;
-        }
-        if (len < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final List<?> list, final String separator, final int startIndex, final int endIndex) {
-        if (list == null) {
-            return null;
-        }
-        final int noOfItems = endIndex - startIndex;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final byte[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final short[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final long[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final short[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final boolean[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String trim(final String str) {
-        return str == null ? null : str.trim();
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String join(final Object[] array, final String delimiter) {
-        return array != null ? join(array, toStringOrEmpty(delimiter), 0, array.length) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String toRootUpperCase(final String source) {
-        return source == null ? null : source.toUpperCase(Locale.ROOT);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String rotate(final String str, final int shift) {
-        if (str == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String overlay(final String str, String overlay, int start, int end) {
-        if (str == null) {
-            return null;
-        }
-        if (overlay == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final char[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final Object[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String upperCase(final String str, final Locale locale) {
-        if (str == null) {
-            return null;
-        }
-        return str.toUpperCase(LocaleUtils.toLocale(locale));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String rightPad(final String str, final int size, String padStr) {
-        if (str == null) {
-            return null;
-        }
-        if (isEmpty(padStr)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final long[] array, final char separator) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, separator, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String toRootLowerCase(final String source) {
-        return source == null ? null : source.toLowerCase(Locale.ROOT);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String leftPad(final String str, final int size, final char padChar) {
-        if (str == null) {
-            return null;
-        }
-        final int pads = size - str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String stripToNull(String str) {
-        if (str == null) {
-            return null;
-        }
-        str = strip(str, null);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        str = strip(str, null);
-        return str.isEmpty() ? null : str; // NOSONARLINT str cannot be null here
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (str == null) {
-            return null;
-        }
-        final int len = str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (str == null) {
-            return null;
-        }
-        final int len = str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final double[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String replaceChars(final String str, final char searchChar, final char replaceChar) {
-        if (str == null) {
-            return null;
-        }
-        return str.replace(searchChar, replaceChar);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String join(final Iterable<?> iterable, final char separator) {
-        return iterable != null ? join(iterable.iterator(), separator) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final double[] array, final char delimiter) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, delimiter, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String right(final String str, final int len) {
-        if (str == null) {
-            return null;
-        }
-        if (len < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String substring(final String str, int start) {
-        if (str == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String join(final Iterable<?> iterable, final String separator) {
-        return iterable != null ? join(iterable.iterator(), separator) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final int[] array, final char separator) {
-        if (array == null) {
-            return null;
-        }
-        return join(array, separator, 0, array.length);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final boolean[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String substringBetween(final String str, final String open, final String close) {
-        if (!ObjectUtils.allNotNull(str, open, close)) {
-            return null;
-        }
-        final int start = str.indexOf(open);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final List<?> list, final char separator, final int startIndex, final int endIndex) {
-        if (list == null) {
-            return null;
-        }
-        final int noOfItems = endIndex - startIndex;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String reverse(final String str) {
-        if (str == null) {
-            return null;
-        }
-        return new StringBuilder(str).reverse().toString();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String[] substringsBetween(final String str, final String open, final String close) {
-        if (str == null || isEmpty(open) || isEmpty(close)) {
-            return null;
-        }
-        final int strLen = str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final Object[] array, final String delimiter, final int startIndex, final int endIndex) {
-        return array != null ? Streams.of(array).skip(startIndex).limit(Math.max(0, endIndex - startIndex))
-            .collect(LangCollectors.joining(delimiter, EMPTY, EMPTY, StringUtils::toStringOrEmpty)) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final float[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (str == null) {
-            return null;
-        }
-        if (offset > str.length()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // Performance tuned for 2.0 (JDK1.4)
-        if (str == null) {
-            return null;
-        }
-        if (repeat <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String join(final int[] array, final char delimiter, final int startIndex, final int endIndex) {
-        if (array == null) {
-            return null;
-        }
-        if (endIndex - startIndex <= 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        // handle null, zero and one elements before building a buffer
-        if (iterator == null) {
-            return null;
-        }
-        if (!iterator.hasNext()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String rightPad(final String str, final int size, final char padChar) {
-        if (str == null) {
-            return null;
-        }
-        final int pads = size - str.length();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-    public static String stripAccents(final String input) {
-        if (input == null) {
-            return null;
-        }
-        final StringBuilder decomposed = new StringBuilder(Normalizer.normalize(input, Normalizer.Form.NFD));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static <T> Class<T> getClass(final T object) {
-        return object == null ? null : (Class<T>) object.getClass();
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-    @SafeVarargs
-    public static <T> T getFirstNonNull(final Supplier<T>... suppliers) {
-        return Streams.of(suppliers).map(s -> s != null ? s.get() : null).filter(Objects::nonNull).findFirst().orElse(null);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-    public static String identityToString(final Object object) {
-        if (object == null) {
-            return null;
-        }
-        final String name = object.getClass().getName();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
-#### Snippet
-```java
-            return result;
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-        }
-        if (str == null) {
-            return null;
-        }
-        switch (str.length()) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-    public static Boolean toBooleanObject(final Integer value) {
-        if (value == null) {
-            return null;
-        }
-        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-    public static Integer toIntegerObject(final Boolean bool) {
-        if (bool == null) {
-            return null;
-        }
-        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-        }
-        if (value == nullValue) {
-            return null;
-        }
-        throw new IllegalArgumentException("The Integer did not match any specified value");
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-    public static Boolean negate(final Boolean bool) {
-        if (bool == null) {
-            return null;
-        }
-        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            }
-            if (nullString == null) {
-                return null;
-            }
-        } else if (str.equals(trueString)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return Boolean.FALSE;
-        } else if (str.equals(nullString)) {
-            return null;
-        }
-        // no match
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            }
-            if (nullValue == null) {
-                return null;
-            }
-        } else if (value.equals(trueValue)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-            return Boolean.FALSE;
-        } else if (value.equals(nullValue)) {
-            return null;
-        }
-        throw new IllegalArgumentException("The Integer did not match any specified value");
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
-#### Snippet
-```java
-    /** NOP singleton */
-    @SuppressWarnings("rawtypes")
-    FailableLongFunction NOP = t -> null;
-
-    /**
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        // make sure they're assignable
-        if (!isAssignable(cls, toClass)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        if (type instanceof Class<?>) {
-            final Class<?> cls = (Class<?>) type;
-            return cls.isArray() ? cls.getComponentType() : null;
-        }
-        if (type instanceof GenericArrayType) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-            return ((GenericArrayType) type).getGenericComponentType();
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        // compatibility check
-        if (!isAssignable(cls, superClass)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-        throw new IllegalStateException("found an unhandled type: " + type);
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        // make sure they're assignable
-        if (!isAssignable(cls, toClass)) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        if (type instanceof TypeVariable<?>) {
-            if (assigningType == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-            // variable
-            if (!(genericDeclaration instanceof Class<?>)) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-            // declaring type
-            if (typeVarAssigns == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-
-            if (typeArgument == null) {
-                return null;
-            }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        // (hand-waving) this is not the method you're looking for
-        if (type instanceof WildcardType) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-        }
-        final Collection<Thread> result = findThreads((Predicate<Thread>) t -> t != null && t.getId() == threadId);
-        return result.isEmpty() ? null : result.iterator().next();
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-            return thread;
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-            return thread;
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/text/translate/CharSequenceTranslator.java`
-#### Snippet
-```java
-    public final String translate(final CharSequence input) {
-        if (input == null) {
-            return null;
-        }
-        try {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-     */
-    public static CharSequence subSequence(final CharSequence cs, final int start) {
-        return cs == null ? null : cs.subSequence(start, cs.length());
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/concurrent/BackgroundInitializer.java`
-#### Snippet
-```java
-        } catch (final ExecutionException execex) {
-            ConcurrentUtils.handleCause(execex);
-            return null; // should not be reached
-        } catch (final InterruptedException iex) {
-            // reset interrupted state
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-
-    private static TimeZone getTimeZone(final Calendar calendar) {
-        return calendar == null ? null : calendar.getTimeZone();
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static String unicodeEscaped(final Character ch) {
-        return ch != null ? unicodeEscaped(ch.charValue()) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static String toString(final Character ch) {
-        return ch != null ? toString(ch.charValue()) : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    public static Character toCharacterObject(final String str) {
-        return StringUtils.isEmpty(str) ? null : Character.valueOf(str.charAt(0));
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/LocaleUtils.java`
-#### Snippet
-```java
-        if (str == null) {
-            // TODO Should this return the default locale?
-            return null;
-        }
-        if (str.isEmpty()) { // LANG-941 - JDK 8 introduced an empty locale where all fields are blank
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-    public static Throwable getRootCause(final Throwable throwable) {
-        final List<Throwable> list = getThrowableList(throwable);
-        return list.isEmpty() ? null : list.get(list.size() - 1);
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-    public static Throwable getCause(final Throwable throwable, String[] methodNames) {
-        if (throwable == null) {
-            return null;
-        }
-        if (methodNames == null) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-    private static <T extends Throwable> T throwableOf(final Throwable throwable, final Class<T> type, int fromIndex, final boolean subclass) {
-        if (throwable == null || type == null) {
-            return null;
-        }
-        if (fromIndex < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-        final Throwable[] throwables = getThrowables(throwable);
-        if (fromIndex >= throwables.length) {
-            return null;
-        }
-        if (subclass) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static String[] toStringArray(final Object[] array, final String valueForNullElements) {
-        if (null == array) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static String[] toStringArray(final Object[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static float[] insert(final int index, final float[] array, final float... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Object toPrimitive(final Object array) {
-        if (array == null) {
-            return null;
-        }
-        final Class<?> ct = array.getClass().getComponentType();
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static long[] insert(final int index, final long[] array, final long... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static short[] toPrimitive(final Short[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Character[] toObject(final char[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static double[] insert(final int index, final double[] array, final double... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static int[] clone(final int[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static double[] toPrimitive(final Double[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static double[] toPrimitive(final Double[] array, final double valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    static Object removeAll(final Object array, final BitSet indices) {
-        if (array == null) {
-            return null;
-        }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static boolean[] clone(final boolean[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static short[] subarray(final short[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static double[] subarray(final double[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static byte[] insert(final int index, final byte[] array, final byte... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static short[] clone(final short[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static char[] insert(final int index, final char[] array, final char... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static char[] toPrimitive(final Character[] array, final char valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static float[] subarray(final float[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Boolean[] toObject(final boolean[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static float[] clone(final float[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static char[] toPrimitive(final Character[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static byte[] toPrimitive(final Byte[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static byte[] subarray(final byte[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static long[] clone(final long[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static boolean[] subarray(final boolean[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static int[] insert(final int index, final int[] array, final int... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static int[] toPrimitive(final Integer[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Float[] toObject(final float[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Long[] toObject(final long[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static long[] toPrimitive(final Long[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static long[] toPrimitive(final Long[] array, final long valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static long[] subarray(final long[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Integer[] toObject(final int[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static boolean[] insert(final int index, final boolean[] array, final boolean... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Double[] toObject(final double[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static char[] subarray(final char[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static <T> T[] subarray(final T[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static byte[] clone(final byte[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static int[] subarray(final int[] array, int startIndexInclusive, int endIndexExclusive) {
-        if (array == null) {
-            return null;
-        }
-        if (startIndexInclusive < 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Map<Object, Object> toMap(final Object[] array) {
-        if (array == null) {
-            return null;
-        }
-        final Map<Object, Object> map = new HashMap<>((int) (array.length * 1.5));
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static short[] insert(final int index, final short[] array, final short... values) {
-        if (array == null) {
-            return null;
-        }
-        if (ArrayUtils.isEmpty(values)) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static <T> T[] clone(final T[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static char[] clone(final char[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static double[] clone(final double[] array) {
-        return array != null ? array.clone() : null;
-    }
-
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Short[] toObject(final short[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static Byte[] toObject(final byte[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-### RuleId[ruleID=ReturnNull]
-Return of `null`
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    public static float[] toPrimitive(final Float[] array) {
-        if (array == null) {
-            return null;
-        }
-        if (array.length == 0) {
-```
-
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-
-        return wrapWith.concat(str).concat(wrapWith);
-    }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-
-        return wrapWith.concat(str).concat(wrapWith);
-    }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            return leftPad(str, size, String.valueOf(padChar));
-        }
-        return repeat(padChar, pads).concat(str);
-    }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (pads == padLen) {
-            return padStr.concat(str);
-        }
-        if (pads < padLen) {
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (pads < padLen) {
-            return padStr.substring(0, pads).concat(str);
-        }
-        final char[] padding = new char[pads];
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            padding[i] = padChars[i % padLen];
-        }
-        return new String(padding).concat(str);
-    }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-
-        if (pads == padLen) {
-            return str.concat(padStr);
-        }
-        if (pads < padLen) {
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-        if (pads < padLen) {
-            return str.concat(padStr.substring(0, pads));
-        }
-        final char[] padding = new char[pads];
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            padding[i] = padChars[i % padLen];
-        }
-        return str.concat(new String(padding));
-    }
-
-```
-
-### RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            return rightPad(str, size, String.valueOf(padChar));
-        }
-        return str.concat(repeat(padChar, pads));
-    }
-
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### RuleId[ruleID=HtmlWrongAttributeValue]
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-20-03-13-48.990.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=ArrayEquality]
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/EqualsBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-### RuleId[ruleID=ArrayEquality]
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/lang3/builder/CompareToBuilder.java`
-#### Snippet
-```java
-            return this;
-        }
-        if (lhs == rhs) {
-            return this;
-        }
-```
-
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-        final Type[] filteredArgumentTypes = Arrays.copyOf(parameterizedType.getActualTypeArguments(),
-            parameterizedType.getActualTypeArguments().length);
-        int[] indexesToRemove = {};
-        for (int i = 0; i < filteredArgumentTypes.length; i++) {
-            if (filteredArgumentTypes[i] instanceof TypeVariable<?> && containsVariableTypeSameParametrizedTypeBound(
-```
-
-## RuleId[ruleID=SynchronizeOnThis]
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java`
-#### Snippet
-```java
-        Objects.requireNonNull(backgroundInitializer, "backgroundInitializer");
-
-        synchronized (this) {
-            if (isStarted()) {
-                throw new IllegalStateException("addInitializer() must not be called after start()!");
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/lang3/concurrent/MultiBackgroundInitializer.java`
-#### Snippet
-```java
-    protected MultiBackgroundInitializerResults initialize() throws Exception {
-        final Map<String, BackgroundInitializer<?>> inits;
-        synchronized (this) {
-            // create a snapshot to operate on
-            inits = new HashMap<>(childInitializers);
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java`
-#### Snippet
-```java
-            canPass = acquirePermit();
-            if (!canPass) {
-                wait();
-            }
-        } while (!canPass);
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/lang3/concurrent/TimedSemaphore.java`
-#### Snippet
-```java
-        periodCount++;
-        acquireCount = 0;
-        notifyAll();
-    }
-
-```
-
-### RuleId[ruleID=SynchronizeOnThis]
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/lang3/concurrent/LazyInitializer.java`
-#### Snippet
-```java
-
-        if (result == NO_INIT) {
-            synchronized (this) {
-                result = object;
-                if (result == NO_INIT) {
-```
-
-## RuleId[ruleID=FuseStreamOperations]
-### RuleId[ruleID=FuseStreamOperations]
+## RuleId[id=FuseStreamOperations]
+### FuseStreamOperations
 Stream may be extended replacing 'sort'
 in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 #### Snippet
@@ -14821,20 +6030,8 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
         // Sort methods by signature to force deterministic result
 ```
 
-## RuleId[ruleID=NullArgumentToVariableArgMethod]
-### RuleId[ruleID=NullArgumentToVariableArgMethod]
-Confusing argument `null`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-     */
-    public static String uncapitalize(final String str) {
-        return uncapitalize(str, null);
-    }
-
-```
-
-### RuleId[ruleID=NullArgumentToVariableArgMethod]
+## RuleId[id=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
@@ -14846,19 +6043,7 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 
 ```
 
-### RuleId[ruleID=NullArgumentToVariableArgMethod]
-Confusing argument `null`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
-#### Snippet
-```java
-     */
-    public static String initials(final String str) {
-        return initials(str, null);
-    }
-
-```
-
-### RuleId[ruleID=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
@@ -14870,8 +6055,32 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 
 ```
 
-## RuleId[ruleID=TypeParameterExtendsObject]
-### RuleId[ruleID=TypeParameterExtendsObject]
+### NullArgumentToVariableArgMethod
+Confusing argument `null`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
+#### Snippet
+```java
+     */
+    public static String uncapitalize(final String str) {
+        return uncapitalize(str, null);
+    }
+
+```
+
+### NullArgumentToVariableArgMethod
+Confusing argument `null`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
+#### Snippet
+```java
+     */
+    public static String initials(final String str) {
+        return initials(str, null);
+    }
+
+```
+
+## RuleId[id=TypeParameterExtendsObject]
+### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 #### Snippet
@@ -14883,8 +6092,8 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
             messagePrefix = "No such method: ";
 ```
 
-## RuleId[ruleID=ConstantValue]
-### RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
+### ConstantValue
 Condition `parameterTypeSuperClassName != null` is always `true`
 in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 #### Snippet
@@ -14896,115 +6105,7 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
                 return null;
 ```
 
-### RuleId[ruleID=ConstantValue]
-Condition `tmp.length() != duration.length()` is always `false`
-in `src/main/java/org/apache/commons/lang3/time/DurationFormatUtils.java`
-#### Snippet
-```java
-                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", StringUtils.EMPTY);
-                    duration = tmp;
-                    if (tmp.length() != duration.length()) {
-                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", StringUtils.EMPTY);
-                    }
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `repeat` is always 'true'
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-
-        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Condition `lastMatch` is always `true` when reached
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            i++;
-        }
-        if (match || preserveAllTokens && lastMatch) {
-            list.add(str.substring(start, i));
-        }
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static short[] addFirst(final short[] array, final short element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static float[] addFirst(final float[] array, final float element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static char[] addFirst(final char[] array, final char element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static <T> T[] addFirst(final T[] array, final T element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static long[] addFirst(final long[] array, final long element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static byte[] addFirst(final byte[] array, final byte element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### RuleId[ruleID=ConstantValue]
+### ConstantValue
 Value `array` is always 'null'
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -15016,19 +6117,55 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
-### RuleId[ruleID=ConstantValue]
+### ConstantValue
 Value `array` is always 'null'
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static double[] addFirst(final double[] array, final double element) {
+    public static long[] addFirst(final long[] array, final long element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
 ```
 
-### RuleId[ruleID=ConstantValue]
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static char[] addFirst(final char[] array, final char element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+```
+
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static <T> T[] addFirst(final T[] array, final T element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+```
+
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static short[] addFirst(final short[] array, final short element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+```
+
+### ConstantValue
 Value `array` is always 'null'
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -15040,220 +6177,63 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `emptyArray()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java`
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    @SuppressWarnings("unchecked")
-    public static <L, M, R> ImmutableTriple<L, M, R>[] emptyArray() {
-        return (ImmutableTriple<L, M, R>[]) EMPTY_ARRAY;
+    public static double[] addFirst(final double[] array, final double element) {
+        return array == null ? add(array, element) : insert(0, array, element);
     }
+
 ```
 
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofNonNull()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java`
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-     * @since 3.13.0
      */
-    public static <L, M, R> ImmutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
-        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(middle, "middle"), Objects.requireNonNull(right, "right"));
+    public static float[] addFirst(final float[] array, final float element) {
+        return array == null ? add(array, element) : insert(0, array, element);
     }
+
 ```
 
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutableTriple.java`
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-     * @return a triple formed from the three parameters, not null
      */
-    public static <L, M, R> ImmutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return left != null | middle != null || right != null ? new ImmutableTriple<>(left, middle, right) : nullTriple();
+    public static byte[] addFirst(final byte[] array, final byte element) {
+        return array == null ? add(array, element) : insert(0, array, element);
     }
+
 ```
 
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `emptyArray()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java`
+### ConstantValue
+Value `repeat` is always 'true'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <L, M, R> MutableTriple<L, M, R>[] emptyArray() {
-        return (MutableTriple<L, M, R>[]) EMPTY_ARRAY;
+        }
+
+        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
     }
+
 ```
 
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java`
+### ConstantValue
+Condition `lastMatch` is always `true` when reached
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * @return a triple formed from the three parameters, not null
-     */
-    public static <L, M, R> MutableTriple<L, M, R> of(final L left, final M middle, final R right) {
-        return new MutableTriple<>(left, middle, right);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofNonNull()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutableTriple.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static <L, M, R> MutableTriple<L, M, R> ofNonNull(final L left, final M middle, final R right) {
-        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(middle, "middle"), Objects.requireNonNull(right, "right"));
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `below()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `above()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper above(final int codePoint) {
-        return outsideOf(0, codePoint);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `between()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
-        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `outsideOf()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return the newly created {@link UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper outsideOf(final int codePointLow, final int codePointHigh) {
-        return new JavaUnicodeEscaper(codePointLow, codePointHigh, false);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     * @return a pair formed from the two parameters, not null
-     */
-    public static <L, R> MutablePair<L, R> of(final L left, final R right) {
-        return new MutablePair<>(left, right);
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofNonNull()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static <L, R> MutablePair<L, R> ofNonNull(final L left, final R right) {
-        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(right, "right"));
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `emptyArray()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <L, R> MutablePair<L, R>[] emptyArray() {
-        return (MutablePair<L, R>[]) EMPTY_ARRAY;
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/MutablePair.java`
-#### Snippet
-```java
-     * @return a pair formed from the map entry
-     */
-    public static <L, R> MutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        final L left;
-        final R right;
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
-#### Snippet
-```java
-     * @since 3.10
-     */
-    public static <L, R> ImmutablePair<L, R> of(final Map.Entry<L, R> pair) {
-        return pair != null ? new ImmutablePair<>(pair.getKey(), pair.getValue()) : nullPair();
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `of()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
-#### Snippet
-```java
-     * @return a pair formed from the two parameters, not null
-     */
-    public static <L, R> ImmutablePair<L, R> of(final L left, final R right) {
-        return left != null || right != null ? new ImmutablePair<>(left, right) : nullPair();
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `ofNonNull()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
-#### Snippet
-```java
-     * @since 3.13.0
-     */
-    public static <L, R> ImmutablePair<L, R> ofNonNull(final L left, final R right) {
-        return of(Objects.requireNonNull(left, "left"), Objects.requireNonNull(right, "right"));
-    }
-```
-
-### RuleId[ruleID=MethodOverridesStaticMethod]
-Method `emptyArray()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/lang3/tuple/ImmutablePair.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <L, R> ImmutablePair<L, R>[] emptyArray() {
-        return (ImmutablePair<L, R>[]) EMPTY_ARRAY;
-    }
+            i++;
+        }
+        if (match || preserveAllTokens && lastMatch) {
+            list.add(str.substring(start, i));
+        }
 ```
 
