@@ -61,18 +61,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/MailingListsReport.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[requiredArray.size()\]'
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
-#### Snippet
-```java
-                    properties);
-
-            return requiredArray.toArray(new String[requiredArray.size()]);
-        }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[var.size()\]'
 in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 #### Snippet
@@ -82,6 +70,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
                     tableCell(StringUtils.join(var.toArray(new String[var.size()]), ", "));
                 } else {
                     tableCell(null);
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[requiredArray.size()\]'
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+                    properties);
+
+            return requiredArray.toArray(new String[requiredArray.size()]);
+        }
+
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -243,30 +243,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.jav
 ```
 
 ### JavadocReference
-Cannot resolve symbol `RepositorySystem`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-         * @param project {@link MavenProject}
-         * @param projectBuilder {@link ProjectBuilder}
-         * @param repositorySystem {@link RepositorySystem}
-         * @param buildingRequest {@link ProjectBuildingRequest}
-         * @param excludes the list of plugins to be excluded from the report
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectBuildingRequest`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-         * @param projectBuilder {@link ProjectBuilder}
-         * @param repositorySystem {@link RepositorySystem}
-         * @param buildingRequest {@link ProjectBuildingRequest}
-         * @param excludes the list of plugins to be excluded from the report
-         */
-```
-
-### JavadocReference
 Cannot resolve symbol `Sink`
 in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 #### Snippet
@@ -300,6 +276,30 @@ in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
          * @param plugins {@link Artifact}
          * @param reports {@link Artifact}
          * @param project {@link MavenProject}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param project {@link MavenProject}
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         * @param excludes the list of plugins to be excluded from the report
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
+#### Snippet
+```java
+         * @param projectBuilder {@link ProjectBuilder}
+         * @param repositorySystem {@link RepositorySystem}
+         * @param buildingRequest {@link ProjectBuildingRequest}
+         * @param excludes the list of plugins to be excluded from the report
+         */
 ```
 
 ### JavadocReference
@@ -363,6 +363,30 @@ in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `createLinkPatternedText(String,String)`
+in `src/main/java/org/apache/maven/report/projectinfo/MailingListsReport.java`
+#### Snippet
+```java
+         * @param defaultHref the String to use in case href is null.
+         * @return a link pattern.
+         * @see #createLinkPatternedText(String,String)
+         */
+        private String createURILinkPatternedText(String text, String href, String defaultHref) {
+```
+
+### JavadocReference
+Cannot resolve symbol `I18N`
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
+#### Snippet
+```java
+public abstract class AbstractProjectInfoRenderer extends AbstractMavenReportRenderer {
+    /**
+     * {@link I18N}.
+     */
+    protected I18N i18n;
+```
+
+### JavadocReference
 Cannot resolve symbol `Sink`
 in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
 #### Snippet
@@ -384,18 +408,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRendere
      * @param i18n {@link I18N}
      * @param locale {@link Locale}
      */
-```
-
-### JavadocReference
-Cannot resolve symbol `I18N`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoRenderer.java`
-#### Snippet
-```java
-public abstract class AbstractProjectInfoRenderer extends AbstractMavenReportRenderer {
-    /**
-     * {@link I18N}.
-     */
-    protected I18N i18n;
 ```
 
 ### JavadocReference
@@ -519,63 +531,123 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/ManagementDep
 ```
 
 ### JavadocReference
-Cannot resolve symbol `createLinkPatternedText(String,String)`
-in `src/main/java/org/apache/maven/report/projectinfo/MailingListsReport.java`
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
 #### Snippet
 ```java
-         * @param defaultHref the String to use in case href is null.
-         * @return a link pattern.
-         * @see #createLinkPatternedText(String,String)
-         */
-        private String createURILinkPatternedText(String text, String href, String defaultHref) {
+     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MavenReportException`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Cannot resolve symbol `SCOPE_COMPILE`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
 #### Snippet
 ```java
-     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
-     * dependencies map.
-     * @throws MavenReportException
-     */
-    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
+     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MavenReportException`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
 #### Snippet
 ```java
-     * @param buildingRequest
-     * @return root node of dependency tree
-     * @throws MavenReportException
-     */
-    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Sink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Cannot resolve symbol `SCOPE_PROVIDED`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
 #### Snippet
 ```java
+     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+```
 
-    /**
-     * @param sink {@link Sink}
-     * @return {@link DependencyNodeVisitor}
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_RUNTIME`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_COMPILE
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
      */
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DependencyNodeVisitor`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Cannot resolve symbol `SCOPE_SYSTEM`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
 #### Snippet
 ```java
-    /**
-     * @param sink {@link Sink}
-     * @return {@link DependencyNodeVisitor}
+     * @see Artifact#SCOPE_PROVIDED
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
      */
-    public DependencyNodeVisitor getSerializingDependencyNodeVisitor(Sink sink) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
+```
+
+### JavadocReference
+Cannot resolve symbol `SCOPE_TEST`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
+#### Snippet
+```java
+     * @see Artifact#SCOPE_RUNTIME
+     * @see Artifact#SCOPE_SYSTEM
+     * @see Artifact#SCOPE_TEST
+     */
+    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
 ```
 
 ### JavadocReference
@@ -612,6 +684,66 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
      * @param log {@link Log}
      * @param dependencies {@link ManagementDependencies}
      * @param artifactMetadataSource {@link ArtifactMetadataSource}
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactMetadataSource`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param log {@link Log}
+     * @param dependencies {@link ManagementDependencies}
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystem`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param dependencies {@link ManagementDependencies}
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param artifactMetadataSource {@link ArtifactMetadataSource}
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repoUtils {@link RepositoryUtils}
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuildingRequest`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+#### Snippet
+```java
+     * @param repositorySystem {@link RepositorySystem}
+     * @param projectBuilder {@link ProjectBuilder}
+     * @param buildingRequest {@link ProjectBuildingRequest}
+     * @param repoUtils {@link RepositoryUtils}
+     * @param licenseMappings {@link LicenseMapping}
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactResolverException`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+    /**
+     * @param artifact not null
+     * @throws ArtifactResolverException if any
+     */
+    public void resolve(Artifact artifact) throws ArtifactResolverException {
 ```
 
 ### JavadocReference
@@ -723,186 +855,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUti
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ArtifactResolverException`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
-#### Snippet
-```java
-    /**
-     * @param artifact not null
-     * @throws ArtifactResolverException if any
-     */
-    public void resolve(Artifact artifact) throws ArtifactResolverException {
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactMetadataSource`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-     * @param log {@link Log}
-     * @param dependencies {@link ManagementDependencies}
-     * @param artifactMetadataSource {@link ArtifactMetadataSource}
-     * @param repositorySystem {@link RepositorySystem}
-     * @param projectBuilder {@link ProjectBuilder}
-```
-
-### JavadocReference
-Cannot resolve symbol `RepositorySystem`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-     * @param dependencies {@link ManagementDependencies}
-     * @param artifactMetadataSource {@link ArtifactMetadataSource}
-     * @param repositorySystem {@link RepositorySystem}
-     * @param projectBuilder {@link ProjectBuilder}
-     * @param buildingRequest {@link ProjectBuildingRequest}
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectBuilder`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-     * @param artifactMetadataSource {@link ArtifactMetadataSource}
-     * @param repositorySystem {@link RepositorySystem}
-     * @param projectBuilder {@link ProjectBuilder}
-     * @param buildingRequest {@link ProjectBuildingRequest}
-     * @param repoUtils {@link RepositoryUtils}
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectBuildingRequest`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-     * @param repositorySystem {@link RepositorySystem}
-     * @param projectBuilder {@link ProjectBuilder}
-     * @param buildingRequest {@link ProjectBuildingRequest}
-     * @param repoUtils {@link RepositoryUtils}
-     * @param licenseMappings {@link LicenseMapping}
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
-     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-```
-
-### JavadocReference
-Cannot resolve symbol `SCOPE_COMPILE`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @param isTransitively <code>true</code> to return transitive dependencies, <code>false</code> otherwise.
-     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-```
-
-### JavadocReference
-Cannot resolve symbol `SCOPE_PROVIDED`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @return a map with supported scopes as key and a list of <code>Artifact</code> as values.
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-```
-
-### JavadocReference
-Cannot resolve symbol `SCOPE_RUNTIME`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_COMPILE
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `SCOPE_SYSTEM`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_PROVIDED
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-     */
-    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
-```
-
-### JavadocReference
-Cannot resolve symbol `SCOPE_TEST`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/Dependencies.java`
-#### Snippet
-```java
-     * @see Artifact#SCOPE_RUNTIME
-     * @see Artifact#SCOPE_SYSTEM
-     * @see Artifact#SCOPE_TEST
-     */
-    public Map<String, List<Artifact>> getDependenciesByScope(boolean isTransitively) {
-```
-
-### JavadocReference
 Cannot resolve symbol `AbstractMavenReportRenderer`
 in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
 #### Snippet
@@ -939,15 +891,51 @@ in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.jav
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+Cannot resolve symbol `Sink`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-     * @param withOptional <code>true</code> to include the optional column, <code>false</code> otherwise.
-     * @return the dependency table header with/without classifier/optional column
-     * @see #renderArtifactRow(Artifact, boolean, boolean)
+
+    /**
+     * @param sink {@link Sink}
+     * @return {@link DependencyNodeVisitor}
      */
-    private String[] getDependencyTableHeader(boolean withClassifier, boolean withOptional) {
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyNodeVisitor`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    /**
+     * @param sink {@link Sink}
+     * @return {@link DependencyNodeVisitor}
+     */
+    public DependencyNodeVisitor getSerializingDependencyNodeVisitor(Sink sink) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+     * @throws MavenReportException
+     */
+    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+     */
+    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
 ```
 
 ### JavadocReference
@@ -1154,6 +1142,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
      */
 ```
 
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+     * @param withOptional <code>true</code> to include the optional column, <code>false</code> otherwise.
+     * @return the dependency table header with/without classifier/optional column
+     * @see #renderArtifactRow(Artifact, boolean, boolean)
+     */
+    private String[] getDependencyTableHeader(boolean withClassifier, boolean withOptional) {
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `classLoader` might be null
@@ -1206,366 +1206,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java
 ```
 
 ### JavadocDeclaration
-`@param locale` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Generate the statistic table
-     *
-     * @param locale
-     * @param sink
-     * @param result
-```
-
-### JavadocDeclaration
-`@param sink` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param locale
-     * @param sink
-     * @param result
-     */
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param locale
-     * @param sink
-     * @param result
-     */
-    private void generateStats(Locale locale, Sink sink, DependencyAnalyzeResult result) {
-```
-
-### JavadocDeclaration
-`@param locale` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Generate the convergence table for all dependencies
-     *
-     * @param locale
-     * @param sink
-     * @param result
-```
-
-### JavadocDeclaration
-`@param sink` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param locale
-     * @param sink
-     * @param result
-     */
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param locale
-     * @param sink
-     * @param result
-     */
-    private void generateConvergence(Locale locale, Sink sink, DependencyAnalyzeResult result) {
-```
-
-### JavadocDeclaration
-`@param sink` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Generate version details for a given dependency
-     *
-     * @param sink
-     * @param artifactMap
-     * @param version
-```
-
-### JavadocDeclaration
-`@param artifactMap` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param sink
-     * @param artifactMap
-     * @param version
-     */
-```
-
-### JavadocDeclaration
-`@param version` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param sink
-     * @param artifactMap
-     * @param version
-     */
-    private void generateVersionDetails(
-```
-
-### JavadocDeclaration
-`@param dependencyMap` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Get snapshots dependencies from all dependency map.
-     *
-     * @param dependencyMap
-     * @return snapshots dependencies
-     */
-```
-
-### JavadocDeclaration
-`@param allDependencies` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Get all dependencies (both directive & transitive dependencies) by specified dependency node.
-     *
-     * @param allDependencies
-     * @param reactorProject
-     * @param node
-```
-
-### JavadocDeclaration
-`@param reactorProject` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param allDependencies
-     * @param reactorProject
-     * @param node
-     */
-```
-
-### JavadocDeclaration
-`@param node` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param allDependencies
-     * @param reactorProject
-     * @param node
-     */
-    private void getAllDependencyMap(
-```
-
-### JavadocDeclaration
-`@param artifact` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Convert Artifact to Dependency
-     *
-     * @param artifact
-     * @return Dependency object
-     */
-```
-
-### JavadocDeclaration
-`@param locale` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Generate the legend table
-     *
-     * @param locale
-     * @param sink
-     */
-```
-
-### JavadocDeclaration
-`@param sink` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param locale
-     * @param sink
-     */
-    private void generateLegend(Locale locale, Sink sink) {
-```
-
-### JavadocDeclaration
-`@param sink` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Generate the detail table for a given dependency
-     *
-     * @param sink
-     * @param depList
-     */
-```
-
-### JavadocDeclaration
-`@param depList` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param sink
-     * @param depList
-     */
-    private void generateDependencyDetails(Locale locale, Sink sink, List<ReverseDependencyLink> depList) {
-```
-
-### JavadocDeclaration
-`@param conflictingDependencyMap` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Get conflicting dependency map base on specified dependency node.
-     *
-     * @param conflictingDependencyMap
-     * @param reactorProject
-     * @param node
-```
-
-### JavadocDeclaration
-`@param reactorProject` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param conflictingDependencyMap
-     * @param reactorProject
-     * @param node
-     */
-```
-
-### JavadocDeclaration
-`@param node` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param conflictingDependencyMap
-     * @param reactorProject
-     * @param node
-     */
-    private void getConflictingDependencyMap(
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
-     * dependencies map.
-     * @throws MavenReportException
-     */
-    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
-```
-
-### JavadocDeclaration
-`@param buildingRequest` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Get root node of dependency tree for a given project
-     *
-     * @param buildingRequest
-     * @return root node of dependency tree
-     * @throws MavenReportException
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @param buildingRequest
-     * @return root node of dependency tree
-     * @throws MavenReportException
-     */
-    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
-```
-
-### JavadocDeclaration
-`@param reverseDependencies` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * To check whether dependency list contains a given artifact.
-     *
-     * @param reverseDependencies
-     * @param art
-     * @return contains:true; Not contains:false;
-```
-
-### JavadocDeclaration
-`@param art` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param reverseDependencies
-     * @param art
-     * @return contains:true; Not contains:false;
-     */
-```
-
-### JavadocDeclaration
-`@param conflictingDependencyMap` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Produce DependencyAnalyzeResult base on conflicting dependencies map, all dependencies map.
-     *
-     * @param conflictingDependencyMap
-     * @param allDependencies
-     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
-```
-
-### JavadocDeclaration
-`@param allDependencies` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param conflictingDependencyMap
-     * @param allDependencies
-     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
-     * dependencies map.
-```
-
-### JavadocDeclaration
-`@param node` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * Get all descendants nodes for a given dependency node.
-     *
-     * @param node
-     * @return set of descendants artifacts.
-     */
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     *
-     * @param rootNode the dependency tree root node to serialize
-     * @return the serialized dependency tree
-     */
-    private void serializeDependencyTree(DependencyNode rootNode, String key, Sink sink) {
-```
-
-### JavadocDeclaration
 `@param nodes` tag description is missing
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVersionMap.java`
 #### Snippet
@@ -1575,6 +1215,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVer
      * @param nodes
      * @return contains:true; not contains:false;
      */
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+         * Create a table cell with a link to the given url. The url is not validated.
+         *
+         * @param url
+         */
+        private void tableCellForUrl(String url) {
 ```
 
 ### JavadocDeclaration
@@ -1698,15 +1350,27 @@ in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 ```
 
 ### JavadocDeclaration
-`@param url` tag description is missing
+`@param requiredHeaders` tag description is missing
 in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 #### Snippet
 ```java
-         * Create a table cell with a link to the given url. The url is not validated.
-         *
-         * @param url
+
+        /**
+         * @param requiredHeaders
+         * @return
          */
-        private void tableCellForUrl(String url) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+#### Snippet
+```java
+        /**
+         * @param requiredHeaders
+         * @return
+         */
+        private String[] getRequiredDevHeaderArray(Map<String, Boolean> requiredHeaders) {
 ```
 
 ### JavadocDeclaration
@@ -1734,63 +1398,363 @@ in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 ```
 
 ### JavadocDeclaration
-`@param requiredHeaders` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-
-        /**
-         * @param requiredHeaders
-         * @return
-         */
+     * Generate version details for a given dependency
+     *
+     * @param sink
+     * @param artifactMap
+     * @param version
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+`@param artifactMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-        /**
-         * @param requiredHeaders
-         * @return
-         */
-        private String[] getRequiredDevHeaderArray(Map<String, Boolean> requiredHeaders) {
+     *
+     * @param sink
+     * @param artifactMap
+     * @param version
+     */
 ```
 
 ### JavadocDeclaration
-`@param gitRepo` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+`@param version` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-         * </p>
-         *
-         * @param gitRepo
-         */
-        private void anonymousAccessGit(GitScmProviderRepository gitRepo) {
+     * @param sink
+     * @param artifactMap
+     * @param version
+     */
+    private void generateVersionDetails(
 ```
 
 ### JavadocDeclaration
-`@param starteamRepo` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+`@param allDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-         * </p>
-         *
-         * @param starteamRepo
-         */
-        private void developerAccessStarteam(StarteamScmProviderRepository starteamRepo) {
+     * Get all dependencies (both directive & transitive dependencies) by specified dependency node.
+     *
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
 ```
 
 ### JavadocDeclaration
-`@param hgRepo` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+`@param reactorProject` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-         * </p>
-         *
-         * @param hgRepo
-         */
-        private void anonymousAccessMercurial(HgScmProviderRepository hgRepo) {
+     *
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
+     */
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param allDependencies
+     * @param reactorProject
+     * @param node
+     */
+    private void getAllDependencyMap(
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the statistic table
+     *
+     * @param locale
+     * @param sink
+     * @param result
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     * @param result
+     */
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @param result
+     */
+    private void generateStats(Locale locale, Sink sink, DependencyAnalyzeResult result) {
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get all descendants nodes for a given dependency node.
+     *
+     * @param node
+     * @return set of descendants artifacts.
+     */
+```
+
+### JavadocDeclaration
+`@param artifact` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Convert Artifact to Dependency
+     *
+     * @param artifact
+     * @return Dependency object
+     */
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the detail table for a given dependency
+     *
+     * @param sink
+     * @param depList
+     */
+```
+
+### JavadocDeclaration
+`@param depList` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param sink
+     * @param depList
+     */
+    private void generateDependencyDetails(Locale locale, Sink sink, List<ReverseDependencyLink> depList) {
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the convergence table for all dependencies
+     *
+     * @param locale
+     * @param sink
+     * @param result
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     * @param result
+     */
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param locale
+     * @param sink
+     * @param result
+     */
+    private void generateConvergence(Locale locale, Sink sink, DependencyAnalyzeResult result) {
+```
+
+### JavadocDeclaration
+`@param buildingRequest` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get root node of dependency tree for a given project
+     *
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param buildingRequest
+     * @return root node of dependency tree
+     * @throws MavenReportException
+     */
+    private DependencyNode getNode(ProjectBuildingRequest buildingRequest) throws MavenReportException {
+```
+
+### JavadocDeclaration
+`@param conflictingDependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Produce DependencyAnalyzeResult base on conflicting dependencies map, all dependencies map.
+     *
+     * @param conflictingDependencyMap
+     * @param allDependencies
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+```
+
+### JavadocDeclaration
+`@param allDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param conflictingDependencyMap
+     * @param allDependencies
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+```
+
+### JavadocDeclaration
+`@param dependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get snapshots dependencies from all dependency map.
+     *
+     * @param dependencyMap
+     * @return snapshots dependencies
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @return DependencyAnalyzeResult contains conflicting dependencies map, snapshot dependencies map and all
+     * dependencies map.
+     * @throws MavenReportException
+     */
+    private DependencyAnalyzeResult analyzeDependencyTree() throws MavenReportException {
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param rootNode the dependency tree root node to serialize
+     * @return the serialized dependency tree
+     */
+    private void serializeDependencyTree(DependencyNode rootNode, String key, Sink sink) {
+```
+
+### JavadocDeclaration
+`@param reverseDependencies` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * To check whether dependency list contains a given artifact.
+     *
+     * @param reverseDependencies
+     * @param art
+     * @return contains:true; Not contains:false;
+```
+
+### JavadocDeclaration
+`@param art` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param reverseDependencies
+     * @param art
+     * @return contains:true; Not contains:false;
+     */
+```
+
+### JavadocDeclaration
+`@param conflictingDependencyMap` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Get conflicting dependency map base on specified dependency node.
+     *
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+```
+
+### JavadocDeclaration
+`@param reactorProject` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+     */
+```
+
+### JavadocDeclaration
+`@param node` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param conflictingDependencyMap
+     * @param reactorProject
+     * @param node
+     */
+    private void getConflictingDependencyMap(
+```
+
+### JavadocDeclaration
+`@param locale` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * Generate the legend table
+     *
+     * @param locale
+     * @param sink
+     */
+```
+
+### JavadocDeclaration
+`@param sink` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     *
+     * @param locale
+     * @param sink
+     */
+    private void generateLegend(Locale locale, Sink sink) {
 ```
 
 ### JavadocDeclaration
@@ -1806,18 +1770,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 ```
 
 ### JavadocDeclaration
-`@param gitRepo` tag description is missing
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
-#### Snippet
-```java
-         * </p>
-         *
-         * @param gitRepo
-         */
-        private void developerAccessGit(GitScmProviderRepository gitRepo) {
-```
-
-### JavadocDeclaration
 `@param svnRepo` tag description is missing
 in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
@@ -1827,6 +1779,42 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
          * @param svnRepo
          * @see <a href="http://svnbook.red-bean.com/">http://svnbook.red-bean.com/</a>
          */
+```
+
+### JavadocDeclaration
+`@param starteamRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param starteamRepo
+         */
+        private void developerAccessStarteam(StarteamScmProviderRepository starteamRepo) {
+```
+
+### JavadocDeclaration
+`@param cvsRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param cvsRepo
+         * @see <a
+         *      href="https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115">https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115</a>
+```
+
+### JavadocDeclaration
+`@param gitRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param gitRepo
+         */
+        private void developerAccessGit(GitScmProviderRepository gitRepo) {
 ```
 
 ### JavadocDeclaration
@@ -1842,15 +1830,27 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 ```
 
 ### JavadocDeclaration
-`@param cvsRepo` tag description is missing
+`@param hgRepo` tag description is missing
 in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
 ```java
          * </p>
          *
-         * @param cvsRepo
-         * @see <a
-         *      href="https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115">https://www.cvshome.org/docs/manual/cvs-1.12.12/cvs_16.html#SEC115</a>
+         * @param hgRepo
+         */
+        private void anonymousAccessMercurial(HgScmProviderRepository hgRepo) {
+```
+
+### JavadocDeclaration
+`@param gitRepo` tag description is missing
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+         * </p>
+         *
+         * @param gitRepo
+         */
+        private void anonymousAccessGit(GitScmProviderRepository gitRepo) {
 ```
 
 ### JavadocDeclaration
@@ -1903,18 +1903,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `pluginManagementExcludes` may be 'final'
-in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private List<String> pluginManagementExcludes = null;
-
-    // ----------------------------------------------------------------------
-```
-
-### FieldMayBeFinal
 Field `model` may be 'final'
 in `src/main/java/org/apache/maven/report/projectinfo/CiManagementReport.java`
 #### Snippet
@@ -1939,37 +1927,13 @@ in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java
 ```
 
 ### FieldMayBeFinal
-Field `dependency` may be 'final'
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Field `pluginManagementExcludes` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/PluginManagementReport.java`
 #### Snippet
 ```java
      */
-    private static class ReverseDependencyLink {
-        private Dependency dependency;
-
-        protected MavenProject project;
-```
-
-### FieldMayBeFinal
-Field `filter` may be 'final'
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-    private DependencyCollectorBuilder dependencyCollectorBuilder;
-
-    private ArtifactFilter filter = null;
-
-    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `projectMap` may be 'final'
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-    private ArtifactFilter filter = null;
-
-    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
+    @Parameter
+    private List<String> pluginManagementExcludes = null;
 
     // ----------------------------------------------------------------------
 ```
@@ -1999,15 +1963,39 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVer
 ```
 
 ### FieldMayBeFinal
-Field `webAccessUrl` may be 'final'
-in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+Field `dependency` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-        private String checkoutDirectoryName;
+     */
+    private static class ReverseDependencyLink {
+        private Dependency dependency;
 
-        private String webAccessUrl;
+        protected MavenProject project;
+```
 
-        private String scmTag;
+### FieldMayBeFinal
+Field `projectMap` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    private ArtifactFilter filter = null;
+
+    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
+
+    // ----------------------------------------------------------------------
+```
+
+### FieldMayBeFinal
+Field `filter` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+    private DependencyCollectorBuilder dependencyCollectorBuilder;
+
+    private ArtifactFilter filter = null;
+
+    private Map<MavenProject, DependencyNode> projectMap = new HashMap<>();
 ```
 
 ### FieldMayBeFinal
@@ -2023,15 +2011,15 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 ```
 
 ### FieldMayBeFinal
-Field `devConnection` may be 'final'
+Field `webAccessUrl` may be 'final'
 in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
 ```java
-        private String anonymousConnection;
-
-        private String devConnection;
-
         private String checkoutDirectoryName;
+
+        private String webAccessUrl;
+
+        private String scmTag;
 ```
 
 ### FieldMayBeFinal
@@ -2047,6 +2035,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 ```
 
 ### FieldMayBeFinal
+Field `model` may be 'final'
+in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
+#### Snippet
+```java
+        private Log log;
+
+        private Model model;
+
+        private ScmManager scmManager;
+```
+
+### FieldMayBeFinal
 Field `scmManager` may be 'final'
 in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
@@ -2059,15 +2059,15 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 ```
 
 ### FieldMayBeFinal
-Field `model` may be 'final'
+Field `devConnection` may be 'final'
 in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 #### Snippet
 ```java
-        private Log log;
+        private String anonymousConnection;
 
-        private Model model;
+        private String devConnection;
 
-        private ScmManager scmManager;
+        private String checkoutDirectoryName;
 ```
 
 ### FieldMayBeFinal
@@ -2253,8 +2253,32 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationRepor
 #### Snippet
 ```java
      */
+    @Parameter(defaultValue = "${project.version}", required = true)
+    protected String version;
+
+    /**
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+     */
     @Parameter(defaultValue = "${project.groupId}", required = true)
     protected String groupId;
+
+    /**
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${project.artifactId}", required = true)
+    protected String artifactId;
 
     /**
 ```
@@ -2276,18 +2300,6 @@ Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
 #### Snippet
 ```java
-         */
-        @Override
-        protected void renderBody() {
-            startSection(getTitle());
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
-#### Snippet
-```java
      */
     @Parameter(defaultValue = "${project.packaging}", required = true)
     protected String packaging;
@@ -2300,23 +2312,11 @@ Class member declared `protected` in 'final' class
 in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
 #### Snippet
 ```java
-     */
-    @Parameter(defaultValue = "${project.artifactId}", required = true)
-    protected String artifactId;
+         */
+        @Override
+        protected void renderBody() {
+            startSection(getTitle());
 
-    /**
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${project.version}", required = true)
-    protected String version;
-
-    /**
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -2395,19 +2395,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
          * <p>
 ```
 
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
-#### Snippet
-```java
-
-                    if (!outputFile.getParentFile().exists()) {
-                        outputFile.getParentFile().mkdirs();
-                    }
-
-```
-
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
@@ -2431,5 +2418,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
             if (scmRepository != null && scmProvider.equalsIgnoreCase(scmRepository.getProvider())) {
                 return true;
             }
+```
+
+## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
+#### Snippet
+```java
+
+                    if (!outputFile.getParentFile().exists()) {
+                        outputFile.getParentFile().mkdirs();
+                    }
+
 ```
 
