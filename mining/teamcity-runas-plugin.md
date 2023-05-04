@@ -1,10 +1,10 @@
 # teamcity-runas-plugin 
  
 # Bad smells
-I found 59 bad smells with 5 repairable:
+I found 62 bad smells with 5 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SpringBeanConstructorArgInspection | 17 | false |
+| SpringBeanConstructorArgInspection | 20 | false |
 | UNUSED_IMPORT | 9 | false |
 | UnnecessaryModifier | 4 | true |
 | DuplicatedCode | 3 | false |
@@ -261,6 +261,59 @@ public class FileAccessParser implements TextParser<AccessControlList> {
 ```
 
 ## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsBuildStartContextProcessor'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------|---|-----------|
+| **RunAsBuildStartContextProcessor(...):** |   | **Bean:** |
+| RunAsConfiguration runAsConfiguration     |   | **???**   |
+in `runAs-server/src/main/resources/META-INF/build-server-plugin-runAs.xml`
+#### Snippet
+```java
+
+  <bean class="jetbrains.buildServer.runAs.server.RunAsConfiguration"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBuildStartContextProcessor"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsPasswordsProvider"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBean"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsPasswordsProvider'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------|---|-----------|
+| **RunAsPasswordsProvider(...):**      |   | **Bean:** |
+| RunAsConfiguration runAsConfiguration |   | **???**   |
+in `runAs-server/src/main/resources/META-INF/build-server-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.server.RunAsConfiguration"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBuildStartContextProcessor"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsPasswordsProvider"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBean"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBeanDefinitionRegistryPostProcessor"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'RunAsBeanDefinitionRegistryPostProcessor'#treeend
+
+*** ** * ** ***
+
+|----------------------------------------------------|---|-----------|
+| **RunAsBeanDefinitionRegistryPostProcessor(...):** |   | **Bean:** |
+| RunAsConfiguration runAsConfiguration              |   | **???**   |
+in `runAs-server/src/main/resources/META-INF/build-server-plugin-runAs.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.runAs.server.RunAsPasswordsProvider"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBean"/>
+  <bean class="jetbrains.buildServer.runAs.server.RunAsBeanDefinitionRegistryPostProcessor"/>
+</beans>
+```
+
 ### SpringBeanConstructorArgInspection
 No matching constructor found in class 'PathsServiceImpl'#treeend
 
@@ -782,18 +835,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxFileAccessS
 
 ### Deprecation
 'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
-#### Snippet
-```java
-    }
-
-    final CommandLineSetup icaclsCommandLineSetup = new CommandLineSetup(ICACLS_TOOL_NAME, args, Collections.<CommandLineResource>emptyList());
-    try {
-      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
-```
-
-### Deprecation
-'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpecificSetupBuilder.java`
 #### Snippet
 ```java
@@ -802,6 +843,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpe
     final CommandLineSetup runAsCommandLineSetup = new CommandLineSetup(
       runAsToolPath.getAbsolutePath(),
       Arrays.asList(
+```
+
+### Deprecation
+'CommandLineSetup(java.lang.String, java.util.List, java.util.List)' is deprecated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsFileAccessService.java`
+#### Snippet
+```java
+    }
+
+    final CommandLineSetup icaclsCommandLineSetup = new CommandLineSetup(ICACLS_TOOL_NAME, args, Collections.<CommandLineResource>emptyList());
+    try {
+      final ExecResult result = myCommandLineExecutor.runProcess(icaclsCommandLineSetup, EXECUTION_TIMEOUT_SECONDS);
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -818,6 +871,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LogUtils.java`
 ```
 
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurSuCmdLineSetup =
+    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  @NotNull private final ToolProvidersRegistry myToolProvidersRegistry;
+  @NotNull private final BuildRunnerContextProvider myBuildRunnerContextProvider;
+```
+
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
@@ -840,18 +905,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesE
     new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
   private static final CommandLineSetup OurSuCmdLineSetup =
     new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
-  private static final CommandLineSetup OurSuCmdLineSetup =
-    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
-  @NotNull private final ToolProvidersRegistry myToolProvidersRegistry;
-  @NotNull private final BuildRunnerContextProvider myBuildRunnerContextProvider;
 ```
 
 ## RuleId[id=UnusedAssignment]
