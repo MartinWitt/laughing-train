@@ -161,7 +161,32 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   }
 ```
 
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\.git)`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+
+  /* Matches github ssh urls of format git@github.com:owner/repo.git */
+  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
+
+  /* Matches github http and https urls of format https://github.com/owner/repo.git */
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
+#### Snippet
+```java
+      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
+      if (!m.matches()) {
+        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
+      }
+      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
@@ -196,30 +221,5 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
           LOG.debug("Connecting to " + myURL.toString() + "using username + [" + cr.getUserName() + "] and password");
         }
         client.setCredentials(cr.getUserName(), cr.getPassword());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
-#### Snippet
-```java
-      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
-      if (!m.matches()) {
-        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
-      }
-      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
-```
-
-## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\.git)`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-
-  /* Matches github ssh urls of format git@github.com:owner/repo.git */
-  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
-
-  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
