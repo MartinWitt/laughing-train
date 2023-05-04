@@ -1,177 +1,21 @@
 # assertj-automation 
  
 # Bad smells
-I found 93 bad smells with 10 repairable:
+I found 67 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalUsedAsFieldOrParameterType | 43 | false |
-| BoundedWildcard | 19 | false |
 | SimplifyOptionalCallChains | 10 | false |
-| SizeReplaceableByIsEmpty | 8 | true |
 | DataFlowIssue | 3 | false |
 | UnnecessaryToStringCall | 2 | true |
-| OptionalContainsCollection | 2 | false |
 | OptionalGetWithoutIsPresent | 2 | false |
 | UnstableApiUsage | 2 | false |
-| ReturnNull | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
+| DuplicatedCode | 1 | false |
+| JavadocReference | 1 | false |
+| Deprecation | 1 | false |
+| RedundantCast | 1 | false |
+| JavadocLinkAsPlainText | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void redundantAssertion1(
-            Optional<T> optional,
-            T innerValue,
-            String description1,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(
-            Optional<T> optional,
-            T innerValue,
-            // The first assertion is unnecessary
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void redundantAssertion2(
-            Optional<T> optional,
-            T innerValue,
-            String description1,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'result'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjRefactoring.java`
-#### Snippet
-```java
-    }
-
-    private void describe(Optional<AssertjCheckerResult> result, Tree tree, VisitorState state) {
-        if (result.isPresent()) {
-            AssertjCheckerResult value = result.get();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before4(Optional<T> thing) {
-        assertThat(!thing.isEmpty()).isFalse();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before2(Optional<T> thing) {
-        assertThat(!thing.isPresent()).isTrue();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before6(Optional<T> thing) {
-        assertThat(Optional.empty()).isEqualTo(thing);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before3(Optional<T> thing) {
-        assertThat(thing.isEmpty()).isTrue();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Optional<T> thing) {
-        assertThat(thing).isEmpty();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before5(Optional<T> thing) {
-        assertThat(thing).isEqualTo(Optional.empty());
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before1(Optional<T> thing) {
-        assertThat(thing.isPresent()).isFalse();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'failMessage'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjAssertThatThrownBy.java`
-#### Snippet
-```java
-            List<? extends StatementTree> throwingStatements,
-            VariableTree catchParameter,
-            Optional<String> failMessage,
-            VisitorState state) {
-        int startPos = ((JCTree) throwingStatements.iterator().next()).getStartPosition();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before4(Optional<T> thing) {
-        assertThat(!thing.isEmpty()).isTrue();
-    }
-```
-
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'thing'
 in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
@@ -201,6 +45,18 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
 #### Snippet
 ```java
+
+    @BeforeTemplate
+    void before3(Optional<T> thing) {
+        assertThat(thing.isEmpty()).isFalse();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
+#### Snippet
+```java
     @AfterTemplate
     @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
     void after(Optional<T> thing) {
@@ -215,8 +71,8 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before3(Optional<T> thing) {
-        assertThat(thing.isEmpty()).isFalse();
+    void before4(Optional<T> thing) {
+        assertThat(!thing.isEmpty()).isTrue();
     }
 ```
 
@@ -227,20 +83,8 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(thing.isPresent()).describedAs(description, descriptionArgs).isTrue();
+    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
     }
 ```
 
@@ -263,8 +107,8 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
+    void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
     }
 ```
 
@@ -278,6 +122,54 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
     void before3(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
         assertThat(thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(thing.isPresent()).describedAs(description, descriptionArgs).isTrue();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
+#### Snippet
+```java
+    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
+    void after(
+            Optional<T> optional,
+            T innerValue,
+            // The first assertion is unnecessary
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
+#### Snippet
+```java
+    @BeforeTemplate
+    void redundantAssertion2(
+            Optional<T> optional,
+            T innerValue,
+            String description1,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
+#### Snippet
+```java
+    @BeforeTemplate
+    void redundantAssertion1(
+            Optional<T> optional,
+            T innerValue,
+            String description1,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -299,32 +191,8 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before2(Optional<T> optional, T innerValue) {
-        assertThat(optional).isEqualTo(Optional.of(innerValue));
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void redundantAssertion1(Optional<T> optional, T innerValue) {
-        assertThat(optional).isPresent();
-        assertThat(optional).hasValue(innerValue);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Optional<T> optional, T innerValue) {
-        assertThat(optional).contains(innerValue);
+    void before(Optional<T> optional, T innerValue) {
+        assertThat(optional.get()).isEqualTo(innerValue);
     }
 ```
 
@@ -347,21 +215,129 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before(Optional<T> optional, T innerValue) {
-        assertThat(optional.get()).isEqualTo(innerValue);
+    void redundantAssertion1(Optional<T> optional, T innerValue) {
+        assertThat(optional).isPresent();
+        assertThat(optional).hasValue(innerValue);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before2(Optional<T> optional, T innerValue) {
+        assertThat(optional).isEqualTo(Optional.of(innerValue));
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
+#### Snippet
+```java
+    @AfterTemplate
+    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
+    void after(Optional<T> optional, T innerValue) {
+        assertThat(optional).contains(innerValue);
     }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
 #### Snippet
 ```java
 
     @BeforeTemplate
-    void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
+    void before3(Optional<T> thing) {
+        assertThat(thing.isEmpty()).isTrue();
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before2(Optional<T> thing) {
+        assertThat(!thing.isPresent()).isTrue();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before5(Optional<T> thing) {
+        assertThat(thing).isEqualTo(Optional.empty());
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before4(Optional<T> thing) {
+        assertThat(!thing.isEmpty()).isFalse();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before6(Optional<T> thing) {
+        assertThat(Optional.empty()).isEqualTo(thing);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+    @AfterTemplate
+    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
+    void after(Optional<T> thing) {
+        assertThat(thing).isEmpty();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
+    void before1(Optional<T> thing) {
+        assertThat(thing.isPresent()).isFalse();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'failMessage'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjAssertThatThrownBy.java`
+#### Snippet
+```java
+            List<? extends StatementTree> throwingStatements,
+            VariableTree catchParameter,
+            Optional<String> failMessage,
+            VisitorState state) {
+        int startPos = ((JCTree) throwingStatements.iterator().next()).getStartPosition();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -373,30 +349,6 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
     @BeforeTemplate
     void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
         assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isTrue();
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before6(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(Optional.empty()).describedAs(description, descriptionArgs).isEqualTo(thing);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'thing'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void before5(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(thing).describedAs(description, descriptionArgs).isEqualTo(Optional.empty());
     }
 ```
 
@@ -419,6 +371,18 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
+    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
+#### Snippet
+```java
+
+    @BeforeTemplate
     void before3(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
         assertThat(thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
     }
@@ -431,57 +395,45 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
+    void before5(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(thing).describedAs(description, descriptionArgs).isEqualTo(Optional.empty());
     }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
 #### Snippet
 ```java
-        }
 
-        Builder fix(Optional<? extends Fix> value) {
-            this.fix = Preconditions.checkNotNull(value, "Fix is required");
-            return this;
+    @BeforeTemplate
+    void before6(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(Optional.empty()).describedAs(description, descriptionArgs).isEqualTo(thing);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'fix'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
+`Optional` used as type for parameter 'thing'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmptyWithDescription.java`
 #### Snippet
 ```java
 
-    private final String description;
-    private final Optional<? extends Fix> fix;
-
-    private AssertjCheckerResult(String description, Optional<? extends Fix> fix) {
+    @BeforeTemplate
+    void before1(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'fix'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
-#### Snippet
-```java
-    private final Optional<? extends Fix> fix;
-
-    private AssertjCheckerResult(String description, Optional<? extends Fix> fix) {
-        this.description = description;
-        this.fix = fix;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'fix'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
+`Optional` used as type for parameter 'optional'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsWithDescription.java`
 #### Snippet
 ```java
 
-        private String description;
-        private Optional<? extends Fix> fix = Optional.empty();
-
-        private Builder() {}
+    @BeforeTemplate
+    void before3(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
+        assertThat(optional.isPresent() && optional.get().equals(innerValue))
+                .describedAs(description, descriptionArgs)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -515,166 +467,158 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 ```java
 
     @BeforeTemplate
-    void before3(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
-        assertThat(optional.isPresent() && optional.get().equals(innerValue))
-                .describedAs(description, descriptionArgs)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsWithDescription.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
     void before2(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
         assertThat(optional).describedAs(description, descriptionArgs).isEqualTo(Optional.of(innerValue));
     }
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCollectionAssert.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
 #### Snippet
 ```java
-            return IterableType.SET;
-        } else {
-            return null;
         }
-    }
+
+        Builder fix(Optional<? extends Fix> value) {
+            this.fix = Preconditions.checkNotNull(value, "Fix is required");
+            return this;
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsEmpty.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'fix'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void bad1(Collection<T> things) {
-        assertThat(things.size() == 0).isTrue();
-    }
 
+    private final String description;
+    private final Optional<? extends Fix> fix;
+
+    private AssertjCheckerResult(String description, Optional<? extends Fix> fix) {
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsEmptyWithDescription.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'fix'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void bad1(Collection<T> things, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.size() == 0).describedAs(description, descriptionArgs).isTrue();
-    }
 
+        private String description;
+        private Optional<? extends Fix> fix = Optional.empty();
+
+        private Builder() {}
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsNotEmptyWithDescription.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'fix'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCheckerResult.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void bad2(Collection<T> things, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.size() == 0).describedAs(description, descriptionArgs).isFalse();
-    }
+    private final Optional<? extends Fix> fix;
 
+    private AssertjCheckerResult(String description, Optional<? extends Fix> fix) {
+        this.description = description;
+        this.fix = fix;
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() != 0` can be replaced with '!things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsNotEmptyWithDescription.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'result'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjRefactoring.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void bad1(Collection<T> things, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.size() != 0).describedAs(description, descriptionArgs).isTrue();
     }
 
+    private void describe(Optional<AssertjCheckerResult> result, Tree tree, VisitorState state) {
+        if (result.isPresent()) {
+            AssertjCheckerResult value = result.get();
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapIsEmptyWithDescription.java`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjBooleanAssert.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void before1(Map<K, V> things, String description, @Repeated Object descriptionArgs) {
-        assertThat(things.size() == 0).describedAs(description, descriptionArgs).isTrue();
-    }
-
+        if (!matcher.matches(tree, state)) {
+            return Optional.empty();
+        }
+        List<? extends ExpressionTree> arguments = tree.getArguments();
+        if (arguments.size() != 1) {
+            return Optional.empty();
+        }
+        ExpressionTree argument = Iterables.getOnlyElement(arguments);
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapIsEmpty.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Symbol `Type` is inaccessible from here
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/MoreSuggestedFixes.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void before1(Map<K, V> things) {
-        assertThat(things.size() == 0).isTrue();
-    }
 
+    /**
+     * Identical to {@link SuggestedFixes#prettyType(VisitorState, SuggestedFix.Builder, Type)} unless the compiling JVM
+     * is not supported by error-prone (JDK13) in which case a fallback is attempted.
+     */
 ```
 
-### SizeReplaceableByIsEmpty
-`things.size() != 0` can be replaced with '!things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsNotEmpty.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'addFix(java.util.Optional)' is deprecated
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjRefactoring.java`
 #### Snippet
 ```java
-    @BeforeTemplate
-    void bad1(Collection<T> things) {
-        assertThat(things.size() != 0).isTrue();
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`things.size() == 0` can be replaced with 'things.isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjCollectionIsNotEmpty.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void bad2(Collection<T> things) {
-        assertThat(things.size() == 0).isFalse();
-    }
-
+            state.reportMatch(buildDescription(tree)
+                    .setMessage(value.description())
+                    .addFix(value.fix())
+                    .build());
+        }
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjPrimitiveComparison.java`
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
 #### Snippet
 ```java
-        BinaryTree binaryTree = (BinaryTree) target;
-        Optional<Type> maybeTarget = getPromotionType(binaryTree.getLeftOperand(), binaryTree.getRightOperand(), state);
-        if (!maybeTarget.isPresent()) {
-            return Optional.empty();
-        }
-```
+    @BeforeTemplate
+    void before2(Optional<T> thing) {
+        assertThat(!thing.isPresent()).isFalse();
+    }
 
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjPrimitiveComparison.java`
-#### Snippet
-```java
-                ? negate(binaryTree.getKind()).flatMap(AssertjPrimitiveComparison::getAssertionName)
-                : getAssertionName(binaryTree.getKind());
-        if (!comparison.isPresent()) {
-            return Optional.empty();
-        }
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isPresent()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
 #### Snippet
 ```java
     @BeforeTemplate
     void before4(Optional<T> thing) {
-        assertThat(!thing.isEmpty()).isFalse();
+        assertThat(!thing.isEmpty()).isTrue();
+    }
+
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isPresent()'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
+#### Snippet
+```java
+    @BeforeTemplate
+    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
+    }
+
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
+#### Snippet
+```java
+    @BeforeTemplate
+    void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
+        assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
     }
 
 ```
@@ -693,48 +637,12 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isPresent()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
+in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsEmpty.java`
 #### Snippet
 ```java
     @BeforeTemplate
     void before4(Optional<T> thing) {
-        assertThat(!thing.isEmpty()).isTrue();
-    }
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresent.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void before2(Optional<T> thing) {
-        assertThat(!thing.isPresent()).isFalse();
-    }
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void before2(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(!thing.isPresent()).describedAs(description, descriptionArgs).isFalse();
-    }
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isPresent()'
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalIsPresentWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void before4(Optional<T> thing, String description, @Repeated Object descriptionArgs) {
-        assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isTrue();
+        assertThat(!thing.isEmpty()).isFalse();
     }
 
 ```
@@ -761,6 +669,30 @@ in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOp
         assertThat(!thing.isEmpty()).describedAs(description, descriptionArgs).isFalse();
     }
 
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjPrimitiveComparison.java`
+#### Snippet
+```java
+        BinaryTree binaryTree = (BinaryTree) target;
+        Optional<Type> maybeTarget = getPromotionType(binaryTree.getLeftOperand(), binaryTree.getRightOperand(), state);
+        if (!maybeTarget.isPresent()) {
+            return Optional.empty();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjPrimitiveComparison.java`
+#### Snippet
+```java
+                ? negate(binaryTree.getKind()).flatMap(AssertjPrimitiveComparison::getAssertionName)
+                : getAssertionName(binaryTree.getKind());
+        if (!comparison.isPresent()) {
+            return Optional.empty();
+        }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -800,19 +732,6 @@ in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjCol
                         state.getEndPosition(Iterables.getLast(tree.getArguments())))
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjRefactoring.java`
-#### Snippet
-```java
-    @SuppressWarnings("unused") // Required by ServiceLoader
-    public AssertjRefactoring() {
-        this(discoveredChecks.toArray(new AssertjChecker[0]));
-    }
-
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -838,258 +757,30 @@ in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjAss
         }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void redundantAssertion1(
-            Optional<T> optional,
-            T innerValue,
-            String description1,
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(
-            Optional<T> optional,
-            T innerValue,
-            // The first assertion is unnecessary
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsRedundantWithDescription.java`
-#### Snippet
-```java
-    @BeforeTemplate
-    void redundantAssertion2(
-            Optional<T> optional,
-            T innerValue,
-            String description1,
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsEntryWithDescription.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, V expectedValue, String description, @Repeated Object descriptionArgs) {
-        assertThat(things).describedAs(description, descriptionArgs).containsEntry(key, expectedValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsEntryWithDescription.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, V expectedValue, String description, @Repeated Object descriptionArgs) {
-        assertThat(things).describedAs(description, descriptionArgs).containsEntry(key, expectedValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsEntry.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, V expectedValue) {
-        assertThat(things).containsEntry(key, expectedValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsEntry.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, V expectedValue) {
-        assertThat(things).containsEntry(key, expectedValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super SingleAssertMatch`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjSingleAssertMatcher.java`
-#### Snippet
-```java
-
-    private AssertjSingleAssertMatcher(
-            BiFunction<SingleAssertMatch, VisitorState, Optional<AssertjCheckerResult>> function) {
-        this.function = function;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super VisitorState`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjSingleAssertMatcher.java`
-#### Snippet
-```java
-
-    private AssertjSingleAssertMatcher(
-            BiFunction<SingleAssertMatch, VisitorState, Optional<AssertjCheckerResult>> function) {
-        this.function = function;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void redundantAssertion1(Optional<T> optional, T innerValue) {
-        assertThat(optional).isPresent();
-        assertThat(optional).hasValue(innerValue);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Optional<T> optional, T innerValue) {
-        assertThat(optional).contains(innerValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContains.java`
-#### Snippet
-```java
-
-    @BeforeTemplate
-    void redundantAssertion2(Optional<T> optional, T innerValue) {
-        assertThat(optional).isPresent();
-        assertThat(optional).contains(innerValue);
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapDoesNotContainKey.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key) {
-        assertThat(things).doesNotContainKey(key);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsKey.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key) {
-        assertThat(things).containsKey(key);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapDoesNotContainKeyWithDescription.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, String description, @Repeated Object descriptionArgs) {
-        assertThat(things).describedAs(description, descriptionArgs).doesNotContainKey(key);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjMapContainsKeyWithDescription.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Map<K, V> things, K key, String description, @Repeated Object descriptionArgs) {
-        assertThat(things).describedAs(description, descriptionArgs).containsKey(key);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `assertj-refaster-rules/src/main/java/com/palantir/assertj/refaster/AssertjOptionalContainsWithDescription.java`
-#### Snippet
-```java
-    @AfterTemplate
-    @UseImportPolicy(ImportPolicy.STATIC_IMPORT_ALWAYS)
-    void after(Optional<T> optional, T innerValue, String description, @Repeated Object descriptionArgs) {
-        assertThat(optional).describedAs(description, descriptionArgs).contains(innerValue);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `(type, state) -> {...}` to `TypePredicate` is redundant
 in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/PreferAssertj.java`
 #### Snippet
 ```java
-            VisitorState state,
-            int actualIndex,
-            BiConsumer<String, SuggestedFix.Builder> assertThat) {
-        SuggestedFix.Builder fix = SuggestedFix.builder();
-        String qualified = qualifyAssertThat(fix, state);
+                // Allows uses of direct imports to be migrated as well,
+                // e.g. 'org.hamcrest.core.Is.is'.
+                (TypePredicate) (type, state) -> matcherPredicate.apply(type, state)
+                        // Limit to Hamcrest packages to avoid interaction with non-standard library code
+                        && type.toString().startsWith("org.hamcrest.")
 ```
 
-### BoundedWildcard
-Can generalize to `? super SuggestedFix.Builder`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/PreferAssertj.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjBooleanAssert.java`
 #### Snippet
 ```java
-            VisitorState state,
-            int actualIndex,
-            BiConsumer<String, SuggestedFix.Builder> assertThat) {
-        SuggestedFix.Builder fix = SuggestedFix.builder();
-        String qualified = qualifyAssertThat(fix, state);
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjSingleAssertMatcher.java`
-#### Snippet
-```java
-    }
-
-    private static Optional<List<MethodInvocationTree>> matchAssertj(
-            ExpressionTree inputExpressionTree, VisitorState state) {
-        if (inputExpressionTree == null) {
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `assertj-error-prone/src/main/java/com/palantir/assertj/errorprone/AssertjSingleAssertMatcher.java`
-#### Snippet
-```java
-                return matchAssertj(ASTHelpers.getReceiver(methodInvocationTree), state);
-            } else if (ASSERTION.matches(methodInvocationTree, state)) {
-                Optional<List<MethodInvocationTree>> result =
-                        matchAssertj(ASTHelpers.getReceiver(methodInvocationTree), state);
-                result.ifPresent(list -> list.add(methodInvocationTree));
+    /**
+     * Matches references to Boolean.TRUE and Boolean.FALSE. This method differs from Matchers.booleanConstant because
+     * it does not match the opposite value. See https://github.com/google/error-prone/issues/1454.
+     */
+    static Matcher<ExpressionTree> booleanConstant(boolean value) {
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
