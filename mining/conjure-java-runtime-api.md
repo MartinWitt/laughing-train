@@ -10,33 +10,21 @@ I found 27 bad smells with 0 repairable:
 | SimplifyOptionalCallChains | 3 | false |
 | JavadocReference | 2 | false |
 | JavadocLinkAsPlainText | 2 | false |
-| DefaultAnnotationParam | 1 | false |
 | RedundantMethodOverride | 1 | false |
+| DefaultAnnotationParam | 1 | false |
 | DanglingJavadoc | 1 | false |
 | JavadocDeclaration | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'first'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
+`Optional` used as type for parameter 'sslConfig'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
 #### Snippet
 ```java
+    Optional<ProxyConfiguration> proxyConfiguration();
 
-    // Returns the first Optional if present, or the second Optional otherwise.
-    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'second'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
-#### Snippet
-```java
-
-    // Returns the first Optional if present, or the second Optional otherwise.
-    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
+    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
+        return PartialServiceConfiguration.builder()
+                .uris(uris)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -70,18 +58,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```java
         }
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause, QosReason reason) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, cause, reason);
-            this.retryAfter = retryAfter;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryAfter'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-        }
-
         private Throttle(Optional<Duration> retryAfter, QosReason reason) {
             super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
             this.retryAfter = retryAfter;
@@ -100,28 +76,39 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sslConfig'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
+`Optional` used as type for parameter 'retryAfter'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-    Optional<ProxyConfiguration> proxyConfiguration();
+        }
 
-    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
-        return PartialServiceConfiguration.builder()
-                .uris(uris)
+        private Throttle(Optional<Duration> retryAfter, Throwable cause, QosReason reason) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, cause, reason);
+            this.retryAfter = retryAfter;
 ```
 
-## RuleId[id=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'first'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
 #### Snippet
 ```java
-@JsonSerialize(as = ImmutableSerializableError.class)
-@Value.Immutable
-@Value.Style(overshadowImplementation = false)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class SerializableError implements Serializable {
+
+    // Returns the first Optional if present, or the second Optional otherwise.
+    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'second'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
+#### Snippet
+```java
+
+    // Returns the first Optional if present, or the second Optional otherwise.
+    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
 ```
 
 ## RuleId[id=RedundantMethodOverride]
@@ -137,19 +124,20 @@ in `extras/jackson-support/src/main/java/com/palantir/conjure/java/api/ext/jacks
     }
 ```
 
-## RuleId[id=JavadocReference]
-### JavadocReference
-Cannot resolve symbol `com.palantir.sls.versions.OrderableSlsVersion`
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/VersionParser.java`
+## RuleId[id=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
 ```java
-/**
- * An optimized version parser that supports version numbers with up to four segments,
- * covering the most common {@link com.palantir.sls.versions.OrderableSlsVersion} and
- * browser user-agent version strings.
- * <p>
+@JsonSerialize(as = ImmutableSerializableError.class)
+@Value.Immutable
+@Value.Style(overshadowImplementation = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class SerializableError implements Serializable {
 ```
 
+## RuleId[id=JavadocReference]
 ### JavadocReference
 Symbol `args` is inaccessible from here
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
@@ -160,6 +148,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
      * message, as well as the {@link Arg#isSafeForLogging safe} and unsafe {@link ServiceException#args parameters}.
      */
     public static SerializableError forException(ServiceException exception) {
+```
+
+### JavadocReference
+Cannot resolve symbol `com.palantir.sls.versions.OrderableSlsVersion`
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/VersionParser.java`
+#### Snippet
+```java
+/**
+ * An optimized version parser that supports version numbers with up to four segments,
+ * covering the most common {@link com.palantir.sls.versions.OrderableSlsVersion} and
+ * browser user-agent version strings.
+ * <p>
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -276,27 +276,15 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'defaultFallbackToCommonNameVerification' is still used
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServicesConfigBlock.java`
+Deprecated member 'fallbackToCommonNameVerification' is still used
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
 #### Snippet
 ```java
-    @JsonProperty("fallbackToCommonNameVerification")
+    @Deprecated
     @JsonAlias("fallback-to-common-name-verification")
-    public abstract Optional<Boolean> defaultFallbackToCommonNameVerification();
+    Optional<Boolean> fallbackToCommonNameVerification();
 
-    public static Builder builder() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getExceptionClass' is still used
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
-#### Snippet
-```java
-    @Value.Auxiliary
-    @SuppressWarnings("checkstyle:designforextension")
-    abstract Optional<String> getExceptionClass();
-
-    /**
+    /** Proxy configuration for connecting to the service. If absent, uses system proxy configuration. */
 ```
 
 ### DeprecatedIsStillUsed
@@ -312,30 +300,30 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'fallbackToCommonNameVerification' is still used
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
+Deprecated member 'getExceptionClass' is still used
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
 ```java
-    @Deprecated
-    @JsonAlias("fallback-to-common-name-verification")
-    Optional<Boolean> fallbackToCommonNameVerification();
+    @Value.Auxiliary
+    @SuppressWarnings("checkstyle:designforextension")
+    abstract Optional<String> getExceptionClass();
 
-    /** Proxy configuration for connecting to the service. If absent, uses system proxy configuration. */
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'defaultFallbackToCommonNameVerification' is still used
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServicesConfigBlock.java`
+#### Snippet
+```java
+    @JsonProperty("fallbackToCommonNameVerification")
+    @JsonAlias("fallback-to-common-name-verification")
+    public abstract Optional<Boolean> defaultFallbackToCommonNameVerification();
+
+    public static Builder builder() {
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
-#### Snippet
-```java
-     * formatted primary user agent can be found. Incorrectly formatted informational agents are omitted.
-     *
-     * <p>Valid user agent strings loosely follow RFC 7230 (https://tools.ietf.org/html/rfc7230#section-3.2.6).
-     */
-    public static UserAgent parse(String userAgent) {
-```
-
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgent.java`
@@ -346,5 +334,17 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Us
  * (https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2) requires headers to be joined on commas, individual
  * {@link Agent} header strings must never contain commas.
  */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
+#### Snippet
+```java
+     * formatted primary user agent can be found. Incorrectly formatted informational agents are omitted.
+     *
+     * <p>Valid user agent strings loosely follow RFC 7230 (https://tools.ietf.org/html/rfc7230#section-3.2.6).
+     */
+    public static UserAgent parse(String userAgent) {
 ```
 
