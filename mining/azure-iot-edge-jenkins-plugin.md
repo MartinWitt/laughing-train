@@ -10,22 +10,22 @@ I found 30 bad smells with 0 repairable:
 | TrivialStringConcatenation | 3 | false |
 | RedundantMethodOverride | 2 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
-| JavadocReference | 1 | false |
 | IOStreamConstructor | 1 | false |
+| JavadocReference | 1 | false |
 | CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | FieldMayBeFinal | 1 | false |
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
+in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
 #### Snippet
 ```java
-            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
-            sha256_HMAC.init(secret_key);
-            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
-        } catch (Exception e) {
-            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
+            String line = "";
+            exitCode = p.join();
+            output = new String(baos.toByteArray(), Constants.CHARSET_UTF_8);
+            if (listener != null && printCommand) listener.getLogger().println(output);
+        } catch (IOException e) {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -54,6 +54,18 @@ in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
+in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
+#### Snippet
+```java
+            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
+            sha256_HMAC.init(secret_key);
+            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
+        } catch (Exception e) {
+            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
@@ -64,22 +76,10 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 
 ```
 
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
-#### Snippet
-```java
-            String line = "";
-            exitCode = p.join();
-            output = new String(baos.toByteArray(), Constants.CHARSET_UTF_8);
-            if (listener != null && printCommand) listener.getLogger().println(output);
-        } catch (IOException e) {
-```
-
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `isApplicable()` is identical to its super method
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
 #### Snippet
 ```java
 
@@ -91,7 +91,7 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 
 ### RedundantMethodOverride
 Method `isApplicable()` is identical to its super method
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
 
@@ -114,19 +114,6 @@ in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
             String toSign = resourceUri + "\n" + expires;
 ```
 
-## RuleId[id=JavadocReference]
-### JavadocReference
-Cannot resolve symbol `Item`
-in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
-#### Snippet
-```java
-         * Leave for backward compatibility in azure-function plugin.
-         *
-         * @deprecated see {@link #listResourceGroupItems(Item, String)}.
-         */
-        @Deprecated
-```
-
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
@@ -138,6 +125,19 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
             InputStream stream = new FileInputStream(deploymentJsonPath);
             JSONObject deploymentJson = new JSONObject(IOUtils.toString(stream, Constants.CHARSET_UTF_8));
             stream.close();
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Item`
+in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
+#### Snippet
+```java
+         * Leave for backward compatibility in azure-function plugin.
+         *
+         * @deprecated see {@link #listResourceGroupItems(Item, String)}.
+         */
+        @Deprecated
 ```
 
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
@@ -241,6 +241,18 @@ import java.util.regex.Pattern;
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
+#### Snippet
+```java
+        String output = null;
+        if (File.pathSeparatorChar == ':') {
+            command = "" + command;
+        } else {
+            command = "cmd /c " + command;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
@@ -263,18 +275,6 @@ in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 
 ```
 
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
-#### Snippet
-```java
-        String output = null;
-        if (File.pathSeparatorChar == ':') {
-            command = "" + command;
-        } else {
-            command = "cmd /c " + command;
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Inefficient conversion from ByteArrayOutputStream
@@ -288,42 +288,41 @@ in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
         } catch (IOException e) {
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `mavenProperties` may be 'final'
-in `src/main/java/com/microsoft/jenkins/iotedge/AzureIoTEdgePlugin.java`
-#### Snippet
-```java
-
-public class AzureIoTEdgePlugin extends Plugin {
-    private static Properties mavenProperties;
-    static {
-        mavenProperties = new Properties();
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `moduleContents` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
+Variable `credentialId` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
 #### Snippet
 ```java
-            boolean result = credentialFile.delete();
-            if (credentialMap.size() != 0) {
-                JSONObject moduleContents = null;
-                if (deploymentJson.has("modulesContent")) {
-                    moduleContents = deploymentJson.getJSONObject("modulesContent");
+        try {
+            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
+            String credentialId = null;
+            String url = "", username = "", password = "";
+
 ```
 
 ### UnusedAssignment
-Variable `condition` initializer `""` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
+Variable `url` initializer `""` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+#### Snippet
+```java
+            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
+            String credentialId = null;
+            String url = "", username = "", password = "";
+
+            if (isAcr) {
+```
+
+### UnusedAssignment
+Variable `writer` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
 #### Snippet
 ```java
 
-            // deploy using azure cli
-            String condition = "";
-            if (deploymentType.equals("multiple")) {
-                condition = targetCondition;
+    protected void writeEnvFile(String path, String url, String bypassModules) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(path, Constants.CHARSET_UTF_8);
 ```
 
 ### UnusedAssignment
@@ -351,38 +350,39 @@ in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
 ```
 
 ### UnusedAssignment
-Variable `writer` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
+Variable `moduleContents` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
-
-    protected void writeEnvFile(String path, String url, String bypassModules) {
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(path, Constants.CHARSET_UTF_8);
+            boolean result = credentialFile.delete();
+            if (credentialMap.size() != 0) {
+                JSONObject moduleContents = null;
+                if (deploymentJson.has("modulesContent")) {
+                    moduleContents = deploymentJson.getJSONObject("modulesContent");
 ```
 
 ### UnusedAssignment
-Variable `credentialId` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+Variable `condition` initializer `""` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/EdgeDeployBuilder.java`
 #### Snippet
 ```java
-        try {
-            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
-            String credentialId = null;
-            String url = "", username = "", password = "";
 
+            // deploy using azure cli
+            String condition = "";
+            if (deploymentType.equals("multiple")) {
+                condition = targetCondition;
 ```
 
-### UnusedAssignment
-Variable `url` initializer `""` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/EdgePushBuilder.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `mavenProperties` may be 'final'
+in `src/main/java/com/microsoft/jenkins/iotedge/AzureIoTEdgePlugin.java`
 #### Snippet
 ```java
-            boolean isAcr = dockerRegistryType.equals(Constants.DOCKER_REGISTRY_TYPE_ACR);
-            String credentialId = null;
-            String url = "", username = "", password = "";
 
-            if (isAcr) {
+public class AzureIoTEdgePlugin extends Plugin {
+    private static Properties mavenProperties;
+    static {
+        mavenProperties = new Properties();
 ```
 
