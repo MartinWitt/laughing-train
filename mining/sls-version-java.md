@@ -141,11 +141,11 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.jav
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
+in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
 ```java
 /**
- * An SLS version matcher as defined by the [SLS
+ * An orderable version string as defined by the [SLS
  * spec](https://github.com/palantir/sls-version-java#sls-product-version-specification).
  */
 @Value.Immutable
@@ -153,11 +153,11 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 #### Snippet
 ```java
 /**
- * An orderable version string as defined by the [SLS
+ * An SLS version matcher as defined by the [SLS
  * spec](https://github.com/palantir/sls-version-java#sls-product-version-specification).
  */
 @Value.Immutable
