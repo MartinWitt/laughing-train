@@ -51,18 +51,6 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `out` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    double[] coords = new double[2];
-    h3Api.cellToLatLng(h3, coords);
-    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
-    return out;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -72,6 +60,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     long result = h3Api.cellToCenterChild(h3, childRes);
 
     return result;
+```
+
+### UnnecessaryLocalVariable
+Local variable `out` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    double[] coords = new double[2];
+    h3Api.cellToLatLng(h3, coords);
+    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
+    return out;
+  }
 ```
 
 ## RuleId[id=FinalStaticMethod]
