@@ -66,30 +66,6 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/Label.java`
-#### Snippet
-```java
-   * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
-   * convention that a subroutine calling another one is "older" than the callee). This field is
-   * computed in {@link MethodWriter#computeMaxStackAndLocal}, if the method contains JSR
-   * instructions.
-   */
-```
-
-### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/Label.java`
-#### Snippet
-```java
-  /**
-   * The number of elements in the input stack of the basic block corresponding to this label. This
-   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
-   */
-  short inputStackSize;
-```
-
-### JavadocReference
 Symbol `computeAllFrames` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/Label.java`
 #### Snippet
@@ -111,6 +87,42 @@ in `asm/src/main/java/org/objectweb/asm/Label.java`
    * MethodWriter#computeMaxStackAndLocal} to compute stack map frames and the maximum stack size,
    * respectively, as well as in {@link #markSubroutine} and {@link #addSubroutineRetSuccessors} to
    * compute the basic blocks belonging to subroutines and their outgoing edges. Outside of these
+```
+
+### JavadocReference
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/Label.java`
+#### Snippet
+```java
+  /**
+   * The number of elements in the input stack of the basic block corresponding to this label. This
+   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
+   */
+  short inputStackSize;
+```
+
+### JavadocReference
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/Label.java`
+#### Snippet
+```java
+   * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
+   * convention that a subroutine calling another one is "older" than the callee). This field is
+   * computed in {@link MethodWriter#computeMaxStackAndLocal}, if the method contains JSR
+   * instructions.
+   */
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of this class. The previous ones can be accessed with
+   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -151,11 +163,23 @@ in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
 
 ### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible type annotation of this class. The previous ones can be accessed with
+   * The last runtime visible annotation of this field. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of this field. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
@@ -163,14 +187,50 @@ in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
 
 ### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of this field. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible annotation of this field. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `computeAllFrames` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/Frame.java`
+#### Snippet
+```java
+ *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
+ *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
+ *       the basic block). See {@link MethodWriter#computeAllFrames}.
+ * </ul>
+ *
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
-   * The runtime invisible parameter annotations of this method. Each array element contains the
-   * last annotation of a parameter (which can be {@literal null} - the previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
+   * The runtime visible parameter annotations of this method. Each array element contains the last
+   * annotation of a parameter (which can be {@literal null} - the previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
    */
-  private AnnotationWriter[] lastRuntimeInvisibleParameterAnnotations;
+  private AnnotationWriter[] lastRuntimeVisibleParameterAnnotations;
 ```
 
 ### JavadocReference
@@ -179,10 +239,34 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible type annotation of this method. The previous ones can be accessed with
+   * The last runtime invisible annotation of this method. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -234,39 +318,15 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES`
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * Indicates what must be computed. Must be one of {@link #COMPUTE_ALL_FRAMES}, {@link
-   * #COMPUTE_INSERTED_FRAMES}, {@link COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES}, {@link
-   * #COMPUTE_MAX_STACK_AND_LOCAL} or {@link #COMPUTE_NOTHING}.
-   */
-```
-
-### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this method. The previous ones can be accessed with
+   * The last runtime visible type annotation of this method. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -274,11 +334,11 @@ Symbol `previousAnnotation` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
-   * The runtime visible parameter annotations of this method. Each array element contains the last
-   * annotation of a parameter (which can be {@literal null} - the previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
+   * The runtime invisible parameter annotations of this method. Each array element contains the
+   * last annotation of a parameter (which can be {@literal null} - the previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
    */
-  private AnnotationWriter[] lastRuntimeVisibleParameterAnnotations;
+  private AnnotationWriter[] lastRuntimeInvisibleParameterAnnotations;
 ```
 
 ### JavadocReference
@@ -294,99 +354,15 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 ```
 
 ### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
+Cannot resolve symbol `COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES`
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   * Indicates what must be computed. Must be one of {@link #COMPUTE_ALL_FRAMES}, {@link
+   * #COMPUTE_INSERTED_FRAMES}, {@link COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES}, {@link
+   * #COMPUTE_MAX_STACK_AND_LOCAL} or {@link #COMPUTE_NOTHING}.
    */
-  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible type annotation of this field. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this field. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible type annotation of this field. The previous ones can be accessed with
-   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible annotation of this field. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `computeAllFrames` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/Frame.java`
-#### Snippet
-```java
- *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
- *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
- *       the basic block). See {@link MethodWriter#computeAllFrames}.
- * </ul>
- *
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this record component. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible annotation of this record component. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
 ```
 
 ### JavadocReference
@@ -407,6 +383,18 @@ in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
 #### Snippet
 ```java
   /**
+   * The last runtime visible annotation of this record component. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+  /**
    * The last runtime visible type annotation of this record component. The previous ones can be
    * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
@@ -414,15 +402,15 @@ in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
 ```
 
 ### JavadocReference
-Symbol `frames` is inaccessible from here
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
 #### Snippet
 ```java
   /**
-   * Expands the {@link FrameNode} "instructions" of the given method into {@link Frame} objects and
-   * stores them at the corresponding indices of the {@link #frames} array. The expanded frames are
-   * also associated with the label and line number nodes immediately preceding each frame node.
-   *
+   * The last runtime invisible annotation of this record component. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
 ```
 
 ### JavadocReference
@@ -447,6 +435,18 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
    * @param requireFrame whether a frame must already exist or not in {@link #frames} at
    *     'insnIndex'.
    * @throws AnalyzerException if the frames have incompatible sizes or if the frame at 'insnIndex'
+```
+
+### JavadocReference
+Symbol `frames` is inaccessible from here
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
+#### Snippet
+```java
+  /**
+   * Expands the {@link FrameNode} "instructions" of the given method into {@link Frame} objects and
+   * stores them at the corresponding indices of the {@link #frames} array. The expanded frames are
+   * also associated with the label and line number nodes immediately preceding each frame node.
+   *
 ```
 
 ## RuleId[id=ManualArrayToCollectionCopy]
@@ -526,18 +526,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/JSRInlinerAdapter.java`
 ```
 
 ### DataFlowIssue
-Dereference of `listOfBlocksToProcess` may produce `NullPointerException`
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-    // graph, and add these blocks to the list of blocks to process (if not already done).
-    Label listOfBlocksToProcess = firstBasicBlock;
-    listOfBlocksToProcess.nextListElement = Label.EMPTY_LIST;
-    int maxStackSize = maxStack;
-    while (listOfBlocksToProcess != Label.EMPTY_LIST) {
-```
-
-### DataFlowIssue
 Dereference of `directory.listFiles()` may produce `NullPointerException`
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
 #### Snippet
@@ -559,6 +547,18 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
           classFile = readInputStream(getResourceAsStream(name.replace('.', '/') + ".class"));
         } catch (IOException e) {
           throw new ClassNotFoundException(name, e);
+```
+
+### DataFlowIssue
+Dereference of `listOfBlocksToProcess` may produce `NullPointerException`
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+    // graph, and add these blocks to the list of blocks to process (if not already done).
+    Label listOfBlocksToProcess = firstBasicBlock;
+    listOfBlocksToProcess.nextListElement = Label.EMPTY_LIST;
+    int maxStackSize = maxStack;
+    while (listOfBlocksToProcess != Label.EMPTY_LIST) {
 ```
 
 ### DataFlowIssue
@@ -651,18 +651,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
 ## RuleId[id=FinalMethodInFinalClass]
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-   * @param attributePrototypes a set of attribute prototypes.
-   */
-  final void collectAttributePrototypes(final Attribute.Set attributePrototypes) {
-    attributePrototypes.addAttributes(firstAttribute);
-    attributePrototypes.addAttributes(firstCodeAttribute);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
 in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
 #### Snippet
 ```java
@@ -671,6 +659,18 @@ in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
   final void collectAttributePrototypes(final Attribute.Set attributePrototypes) {
     attributePrototypes.addAttributes(firstAttribute);
   }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+   * @param attributePrototypes a set of attribute prototypes.
+   */
+  final void collectAttributePrototypes(final Attribute.Set attributePrototypes) {
+    attributePrototypes.addAttributes(firstAttribute);
+    attributePrototypes.addAttributes(firstCodeAttribute);
 ```
 
 ### FinalMethodInFinalClass
@@ -924,6 +924,18 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.
         return BasicValue.INT_VALUE;
       case LDC:
         Object value = ((LdcInsnNode) insn).cst;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/InstructionAdapter.java`
+#### Snippet
+```java
+        break;
+      case Opcodes.SIPUSH:
+        iconst(operand);
+        break;
+      case Opcodes.NEWARRAY:
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1439,18 +1451,6 @@ in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
           builder.addInsn(insnIndex, opcode);
           break;
         case 0xAA: // tableswitch
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/InstructionAdapter.java`
-#### Snippet
-```java
-        break;
-      case Opcodes.SIPUSH:
-        iconst(operand);
-        break;
-      case Opcodes.NEWARRAY:
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -2326,11 +2326,11 @@ Link specified as plain text
 in `asm-util/src/main/java/org/objectweb/asm/util/Printer.java`
 #### Snippet
 ```java
-   *     is not required to correspond to the i'th parameter descriptor in the method
-   *     descriptor</i>, in particular in case of synthetic parameters (see
+   *     be strictly less when a method has synthetic parameters and when these parameters are
+   *     ignored when computing parameter indices for the purpose of parameter annotations (see
    *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   * @param descriptor the class descriptor of the annotation class.
-   * @param visible {@literal true} if the annotation is visible at runtime.
+   * @param visible {@literal true} to define the number of method parameters that can have
+   *     annotations visible at runtime, {@literal false} to define the number of method parameters
 ```
 
 ### JavadocLinkAsPlainText
@@ -2338,11 +2338,11 @@ Link specified as plain text
 in `asm-util/src/main/java/org/objectweb/asm/util/Printer.java`
 #### Snippet
 ```java
-   *     be strictly less when a method has synthetic parameters and when these parameters are
-   *     ignored when computing parameter indices for the purpose of parameter annotations (see
+   *     is not required to correspond to the i'th parameter descriptor in the method
+   *     descriptor</i>, in particular in case of synthetic parameters (see
    *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   * @param visible {@literal true} to define the number of method parameters that can have
-   *     annotations visible at runtime, {@literal false} to define the number of method parameters
+   * @param descriptor the class descriptor of the annotation class.
+   * @param visible {@literal true} if the annotation is visible at runtime.
 ```
 
 ### JavadocLinkAsPlainText
@@ -2505,18 +2505,6 @@ public class AdapterBenchmark extends AbstractBenchmark {
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `visitInterface()` is identical to its super method
-in `asm/src/main/java/org/objectweb/asm/signature/SignatureWriter.java`
-#### Snippet
-```java
-
-  @Override
-  public SignatureVisitor visitInterface() {
-    return this;
-  }
-```
-
-### RedundantMethodOverride
 Method `visitClassBound()` is identical to its super method
 in `asm/src/main/java/org/objectweb/asm/signature/SignatureWriter.java`
 #### Snippet
@@ -2524,6 +2512,18 @@ in `asm/src/main/java/org/objectweb/asm/signature/SignatureWriter.java`
 
   @Override
   public SignatureVisitor visitClassBound() {
+    return this;
+  }
+```
+
+### RedundantMethodOverride
+Method `visitInterface()` is identical to its super method
+in `asm/src/main/java/org/objectweb/asm/signature/SignatureWriter.java`
+#### Snippet
+```java
+
+  @Override
+  public SignatureVisitor visitInterface() {
     return this;
   }
 ```
@@ -2979,6 +2979,30 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/SignatureRemapper.java`
 ```
 
 ### FieldMayBeFinal
+Field `handlers` may be 'final'
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
+#### Snippet
+```java
+   * exception handler block.
+   */
+  private List<Label> handlers;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `referencedLabels` may be 'final'
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
+#### Snippet
+```java
+
+  /** The labels referenced by the visited method. */
+  private Set<Label> referencedLabels;
+
+  /** The index of the instruction corresponding to the last visited stack map frame. */
+```
+
+### FieldMayBeFinal
 Field `checkDataFlow` may be 'final'
 in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
 #### Snippet
@@ -3000,30 +3024,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
   private Map<Label, Integer> labelInsnIndices;
 
   // -----------------------------------------------------------------------------------------------
-```
-
-### FieldMayBeFinal
-Field `referencedLabels` may be 'final'
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
-#### Snippet
-```java
-
-  /** The labels referenced by the visited method. */
-  private Set<Label> referencedLabels;
-
-  /** The index of the instruction corresponding to the last visited stack map frame. */
-```
-
-### FieldMayBeFinal
-Field `handlers` may be 'final'
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
-#### Snippet
-```java
-   * exception handler block.
-   */
-  private List<Label> handlers;
-
-  /**
 ```
 
 ### FieldMayBeFinal
@@ -3093,11 +3093,47 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmFactory.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V17 = 0 << 16 | 61;
   int V18 = 0 << 16 | 62;
   int V19 = 0 << 16 | 63;
   int V20 = 0 << 16 | 64;
   int V21 = 0 << 16 | 65;
+```
 
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
 ```
 
 ### PointlessBitwiseExpression
@@ -3117,11 +3153,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
 ```
 
 ### PointlessBitwiseExpression
@@ -3141,11 +3177,23 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
   int V14 = 0 << 16 | 58;
   int V15 = 0 << 16 | 59;
   int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
 ```
 
 ### PointlessBitwiseExpression
@@ -3153,11 +3201,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
   int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
 ```
 
 ### PointlessBitwiseExpression
@@ -3165,23 +3213,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_7 = 0 << 16 | 51;
   int V1_8 = 0 << 16 | 52;
   int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-  /**
+  int V12 = 0 << 16 | 56;
 ```
 
 ### PointlessBitwiseExpression
@@ -3189,23 +3225,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
   int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
 ```
 
 ### PointlessBitwiseExpression
@@ -3249,59 +3273,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
   int V15 = 0 << 16 | 59;
   int V16 = 0 << 16 | 60;
   int V17 = 0 << 16 | 61;
   int V18 = 0 << 16 | 62;
   int V19 = 0 << 16 | 63;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
 ```
 
 ### PointlessBitwiseExpression
@@ -3317,15 +3293,15 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
 ```
 
 ### PointlessBitwiseExpression
@@ -3333,11 +3309,23 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
 ```
 
 ### PointlessBitwiseExpression
@@ -3345,11 +3333,35 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+
   int ASM4 = 4 << 16 | 0 << 8;
   int ASM5 = 5 << 16 | 0 << 8;
   int ASM6 = 6 << 16 | 0 << 8;
   int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
 ```
 
 ### PointlessBitwiseExpression
@@ -3369,23 +3381,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
+  int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
   int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
   int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
 ```
 
 ### PointlessBitwiseExpression
@@ -3393,11 +3393,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V17 = 0 << 16 | 61;
   int V18 = 0 << 16 | 62;
   int V19 = 0 << 16 | 63;
   int V20 = 0 << 16 | 64;
   int V21 = 0 << 16 | 65;
+
 ```
 
 ### PointlessBitwiseExpression
@@ -3405,11 +3405,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_4 = 0 << 16 | 48;
   int V1_5 = 0 << 16 | 49;
   int V1_6 = 0 << 16 | 50;
   int V1_7 = 0 << 16 | 51;
   int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -3423,18 +3423,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
     int pos = startPos;
     switch (getChar(signature, pos)) {
       case 'B':
-```
-
-### UnnecessaryLocalVariable
-Local variable `offsetDelta` is redundant
-in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
-#### Snippet
-```java
-      int frameType = parser.u1();
-      if (frameType < 64) {
-        int offsetDelta = frameType;
-        bytecodeOffset += offsetDelta + 1;
-        builder.addInsnIndex("SAME ", bytecodeOffset);
 ```
 
 ### UnnecessaryLocalVariable
@@ -3459,6 +3447,18 @@ in `asm/src/main/java/org/objectweb/asm/Type.java`
       for (int i = valueBegin, end = valueEnd; i < end; i++) {
         hashCode = 17 * (hashCode + valueBuffer.charAt(i));
       }
+```
+
+### UnnecessaryLocalVariable
+Local variable `offsetDelta` is redundant
+in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
+#### Snippet
+```java
+      int frameType = parser.u1();
+      if (frameType < 64) {
+        int offsetDelta = frameType;
+        bytecodeOffset += offsetDelta + 1;
+        builder.addInsnIndex("SAME ", bytecodeOffset);
 ```
 
 ## RuleId[id=ConfusingMainMethod]
@@ -3512,18 +3512,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-The value `insnNode` assigned to `firstInsn` is never used
-in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
-#### Snippet
-```java
-    ++size;
-    if (firstInsn == null) {
-      firstInsn = insnNode;
-      lastInsn = insnNode;
-    } else {
-```
-
-### UnusedAssignment
 The value `insnNode` assigned to `lastInsn` is never used
 in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
 #### Snippet
@@ -3533,6 +3521,18 @@ in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
       lastInsn = insnNode;
     } else {
       lastInsn.nextInsn = insnNode;
+```
+
+### UnusedAssignment
+The value `insnNode` assigned to `firstInsn` is never used
+in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
+#### Snippet
+```java
+    ++size;
+    if (firstInsn == null) {
+      firstInsn = insnNode;
+      lastInsn = insnNode;
+    } else {
 ```
 
 ### UnusedAssignment
@@ -3568,7 +3568,7 @@ in `asm/src/main/java/org/objectweb/asm/Attribute.java`
 ```java
     final int maxStack = -1;
     final int maxLocals = -1;
-    return computeAttributesSize(symbolTable, code, codeLength, maxStack, maxLocals);
+    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
   }
 
 ```
@@ -3580,7 +3580,7 @@ in `asm/src/main/java/org/objectweb/asm/Attribute.java`
 ```java
     final int maxStack = -1;
     final int maxLocals = -1;
-    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
+    return computeAttributesSize(symbolTable, code, codeLength, maxStack, maxLocals);
   }
 
 ```
@@ -3610,15 +3610,15 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmAdapter.java`
 ```
 
 ### ConstantValue
-Value `frameTypes` is always 'null'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
+Condition `Opcodes.class.getField(version) != null` is always `true`
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmGenerator.java`
 #### Snippet
 ```java
-  private Object[] remapFrameTypes(final int numTypes, final Object[] frameTypes) {
-    if (frameTypes == null) {
-      return frameTypes;
-    }
-    Object[] remappedFrameTypes = null;
+      try {
+        String version = "ASM" + i;
+        if (Opcodes.class.getField(version) != null) {
+          return version;
+        }
 ```
 
 ### ConstantValue
@@ -3638,19 +3638,7 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-        super.visitParameterAnnotation(parameter, remapper.mapDesc(descriptor), visible);
-    return annotationVisitor == null
-        ? annotationVisitor
-        : createAnnotationRemapper(descriptor, annotationVisitor);
-  }
-```
-
-### ConstantValue
-Value `annotationVisitor` is always 'null'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
-#### Snippet
-```java
-        super.visitTryCatchAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3663,6 +3651,18 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
         super.visitAnnotation(remapper.mapDesc(descriptor), visible);
+    return annotationVisitor == null
+        ? annotationVisitor
+        : createAnnotationRemapper(descriptor, annotationVisitor);
+  }
+```
+
+### ConstantValue
+Value `annotationVisitor` is always 'null'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
+#### Snippet
+```java
+        super.visitParameterAnnotation(parameter, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3698,7 +3698,7 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
+        super.visitTryCatchAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3706,15 +3706,15 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 ```
 
 ### ConstantValue
-Condition `Opcodes.class.getField(version) != null` is always `true`
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmGenerator.java`
+Value `frameTypes` is always 'null'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-      try {
-        String version = "ASM" + i;
-        if (Opcodes.class.getField(version) != null) {
-          return version;
-        }
+  private Object[] remapFrameTypes(final int numTypes, final Object[] frameTypes) {
+    if (frameTypes == null) {
+      return frameTypes;
+    }
+    Object[] remappedFrameTypes = null;
 ```
 
 ### ConstantValue
