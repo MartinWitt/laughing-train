@@ -150,19 +150,6 @@ import org.jetbrains.coverage.org.objectweb.asm.Label;
 import org.jetbrains.coverage.org.objectweb.asm.Opcodes;
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `reportFileExists` may be 'final'
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-  private static final int MAGIC = 284996684;
-
-  private static boolean reportFileExists = "true".equals(System.getProperty("kover.offline.report.exists", "false"));
-
-  public static void dump(File file, RawProjectData data) {
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -177,6 +164,18 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
 ```
 
 ### CommentedOutCode
+Commented out code (6 lines)
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+
+  public static void writeINT(DataOutput record, int val) throws IOException {
+    /*
+    if (0 <= val && val < 255)
+      record.writeByte(val);
+```
+
+### CommentedOutCode
 Commented out code (3 lines)
 in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.java`
 #### Snippet
@@ -188,16 +187,17 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
         //}
 ```
 
-### CommentedOutCode
-Commented out code (6 lines)
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `reportFileExists` may be 'final'
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
 #### Snippet
 ```java
+  private static final int MAGIC = 284996684;
 
-  public static void writeINT(DataOutput record, int val) throws IOException {
-    /*
-    if (0 <= val && val < 255)
-      record.writeByte(val);
+  private static boolean reportFileExists = "true".equals(System.getProperty("kover.offline.report.exists", "false"));
+
+  public static void dump(File file, RawProjectData data) {
 ```
 
 ## RuleId[id=ConstantValue]
@@ -229,6 +229,54 @@ in `test-discovery/src/com/intellij/rt/coverage/data/SocketTestDiscoveryProtocol
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+    try {
+      if (!reportFileExists && !file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+      if (!reportFileExists && !file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
+#### Snippet
+```java
+    final File traceFile = new File(tracesDirectory, name + ".tr");
+    if (!traceFile.exists()) {
+      traceFile.createNewFile();
+    }
+    DataOutputStream os = null;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+      myLock = new File(target.getParentFile(), target.getName() + ".lck");
+      if (myLock.getParentFile() != null) {
+        myLock.getParentFile().mkdirs();
+      }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
 in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
 #### Snippet
 ```java
@@ -249,18 +297,6 @@ in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
     htmlDir.mkdirs();
     final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
     builder.setReportDir(htmlDir);
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
-#### Snippet
-```java
-    final File traceFile = new File(tracesDirectory, name + ".tr");
-    if (!traceFile.exists()) {
-      traceFile.createNewFile();
-    }
-    DataOutputStream os = null;
 ```
 
 ### IgnoreResultOfCall
@@ -297,41 +333,5 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       result.mkdirs();
     }
     return result;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-    try {
-      if (!reportFileExists && !file.exists()) {
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-      }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-      if (!reportFileExists && !file.exists()) {
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-      }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-      myLock = new File(target.getParentFile(), target.getName() + ".lck");
-      if (myLock.getParentFile() != null) {
-        myLock.getParentFile().mkdirs();
-      }
-    }
 ```
 
