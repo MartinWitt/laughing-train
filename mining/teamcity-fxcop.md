@@ -157,6 +157,25 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     try {
 ```
 
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopMsBuildSearch.java`
+#### Snippet
+```java
+    return CollectionsUtil.filterAndConvertCollection(msBuildTools.descendingSet(), new Converter<File, String>() {
+      @Override
+      public File createFrom(@NotNull final String name) {
+        return new File(parameters.get(name), FXCOP_EXE_RELATIVE_PATH);
+      }
+    }, new Filter<String>() {
+      @Override
+      public boolean accept(@NotNull final String name) {
+        return StringUtil.isNotEmpty(parameters.get(name));
+      }
+    });
+```
+
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
 ### SpringXmlAutowireExplicitlyInspection
 Make autowired dependency explicit
@@ -180,25 +199,6 @@ in `fxcop-server/src/META-INF/build-server-plugin-fxcop.xml`
            default-autowire="constructor">
 
   <bean id="fxcopRunType" class="jetbrains.buildServer.fxcop.server.FxCopRunType"/>
-```
-
-## RuleId[id=DuplicatedCode]
-### DuplicatedCode
-Duplicated code
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopMsBuildSearch.java`
-#### Snippet
-```java
-    return CollectionsUtil.filterAndConvertCollection(msBuildTools.descendingSet(), new Converter<File, String>() {
-      @Override
-      public File createFrom(@NotNull final String name) {
-        return new File(parameters.get(name), FXCOP_EXE_RELATIVE_PATH);
-      }
-    }, new Filter<String>() {
-      @Override
-      public boolean accept(@NotNull final String name) {
-        return StringUtil.isNotEmpty(parameters.get(name));
-      }
-    });
 ```
 
 ## RuleId[id=RegExpSimplifiable]
