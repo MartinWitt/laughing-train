@@ -76,18 +76,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieIndexCon
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-            }
-
-            final Long currentTime = System.currentTimeMillis();
-            final String checkpoint = serializeMetadataMap();
-            String cassandraCols = String.format("job, time_stamp, checkpoint");
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
@@ -96,6 +84,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager
         final Long currentTime = System.currentTimeMillis();
 
         final String fileLocation = new Path(this.baseMetadataPath, currentTime.toString()).toString();
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+            }
+
+            final Long currentTime = System.currentTimeMillis();
+            final String checkpoint = serializeMetadataMap();
+            String cassandraCols = String.format("job, time_stamp, checkpoint");
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -155,10 +155,10 @@ in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.
 #### Snippet
 ```java
      */
-    private Configuration getJsonConfiguration(@NotEmpty final String jsonConf) {
+    private Configuration getFileConfiguration(@NotEmpty final String filePath) {
         final Configuration conf = new Configuration();
-        conf.loadYamlStream(IOUtils.toInputStream(jsonConf), Optional.absent());
-        return conf;
+        try {
+            final FileSystem fs = FSUtils.getFs(conf, Optional.absent());
 ```
 
 ### Deprecation
@@ -167,10 +167,10 @@ in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.
 #### Snippet
 ```java
      */
-    private Configuration getFileConfiguration(@NotEmpty final String filePath) {
+    private Configuration getJsonConfiguration(@NotEmpty final String jsonConf) {
         final Configuration conf = new Configuration();
-        try {
-            final FileSystem fs = FSUtils.getFs(conf, Optional.absent());
+        conf.loadYamlStream(IOUtils.toInputStream(jsonConf), Optional.absent());
+        return conf;
 ```
 
 ### Deprecation
@@ -226,18 +226,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/retry/RetryableFunction.java
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeResolver.java`
 #### Snippet
 ```java
-            while (fieldNamesOfResolvedNode.hasNext()) {
-                final String fieldNameOfResolvedNode = fieldNamesOfResolvedNode.next();
-                root.put(fieldNameOfResolvedNode, resolvedNode.get(fieldNameOfResolvedNode));
-            }
-        } else {
-```
-
-### Deprecation
-'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeResolver.java`
-#### Snippet
-```java
                     .orElse(overridingNode);
                 log.info("Copying fieldName: {} value: {}", fieldName, nodeToPutAtFieldName);
                 ((ObjectNode) parentDefaultNode).put(fieldName, nodeToPutAtFieldName);
@@ -258,6 +246,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeRes
 ```
 
 ### Deprecation
+'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeResolver.java`
+#### Snippet
+```java
+            while (fieldNamesOfResolvedNode.hasNext()) {
+                final String fieldNameOfResolvedNode = fieldNamesOfResolvedNode.next();
+                root.put(fieldNameOfResolvedNode, resolvedNode.get(fieldNameOfResolvedNode));
+            }
+        } else {
+```
+
+### Deprecation
 'Configuration()' is deprecated
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
 #### Snippet
@@ -267,6 +267,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfigur
         return newBuilder(new Configuration(), tableKey);
     }
 
+```
+
+### Deprecation
+'getYear()' is deprecated
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
+#### Snippet
+```java
+                objKey = String.format("%s/%s_%0" + this.digitNum + "d",
+                        String.join("/", this.awsConf.getObjectKey(),
+                                String.valueOf(date.getYear() + 1900),
+                                String.valueOf(date.getMonth() + 1),
+                                String.valueOf(date.getDate())),
+```
+
+### Deprecation
+'getMonth()' is deprecated
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
+#### Snippet
+```java
+                        String.join("/", this.awsConf.getObjectKey(),
+                                String.valueOf(date.getYear() + 1900),
+                                String.valueOf(date.getMonth() + 1),
+                                String.valueOf(date.getDate())),
+                        this.conf.getFileNamePrefix(), partNum);
+```
+
+### Deprecation
+'getDate()' is deprecated
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
+#### Snippet
+```java
+                                String.valueOf(date.getYear() + 1900),
+                                String.valueOf(date.getMonth() + 1),
+                                String.valueOf(date.getDate())),
+                        this.conf.getFileNamePrefix(), partNum);
+            } else {
 ```
 
 ### Deprecation
@@ -315,42 +351,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
                 final Date day = new Date(msgDay.getYear(),  msgDay.getMonth(), msgDay.getDate());
                 dates.add(day);
             });
-```
-
-### Deprecation
-'getYear()' is deprecated
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
-#### Snippet
-```java
-                objKey = String.format("%s/%s_%0" + this.digitNum + "d",
-                        String.join("/", this.awsConf.getObjectKey(),
-                                String.valueOf(date.getYear() + 1900),
-                                String.valueOf(date.getMonth() + 1),
-                                String.valueOf(date.getDate())),
-```
-
-### Deprecation
-'getMonth()' is deprecated
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
-#### Snippet
-```java
-                        String.join("/", this.awsConf.getObjectKey(),
-                                String.valueOf(date.getYear() + 1900),
-                                String.valueOf(date.getMonth() + 1),
-                                String.valueOf(date.getDate())),
-                        this.conf.getFileNamePrefix(), partNum);
-```
-
-### Deprecation
-'getDate()' is deprecated
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
-#### Snippet
-```java
-                                String.valueOf(date.getYear() + 1900),
-                                String.valueOf(date.getMonth() + 1),
-                                String.valueOf(date.getDate())),
-                        this.conf.getFileNamePrefix(), partNum);
-            } else {
 ```
 
 ## RuleId[id=ManualMinMaxCalculation]
@@ -505,14 +505,26 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/IMetadataManager.ja
 ```
 
 ### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/reporters/Reportable.java`
+#### Snippet
+```java
+ */
+public interface Reportable {
+    void gaugeAll(@NonNull final IReporter reporter);
+}
+
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `marmaray/src/main/java/com/uber/marmaray/common/metadata/NoOpMetadataManager.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<StringValue> remove(@NotEmpty final String key) {
-        return Optional.absent();
+    public void set(@NotEmpty final String key, @NonNull final StringValue value) {
+        // no-op
     }
 ```
 
@@ -535,20 +547,20 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/NoOpMetadataManager
 ```java
 
     @Override
-    public void set(@NotEmpty final String key, @NonNull final StringValue value) {
-        // no-op
+    public Optional<StringValue> remove(@NotEmpty final String key) {
+        return Optional.absent();
     }
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/reporters/Reportable.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/AvroPayload.java`
 #### Snippet
 ```java
- */
-public interface Reportable {
-    void gaugeAll(@NonNull final IReporter reporter);
-}
+    private static class AvroPayloadInternal implements IAvroPayloadInternal {
+
+        @NonNull
+        private final GenericRecord record;
 
 ```
 
@@ -561,18 +573,6 @@ public class AvroPayload implements IPayload<GenericRecord>, IData, Serializable
 
     @NonNull
     private IAvroPayloadInternal payloadInterval;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/AvroPayload.java`
-#### Snippet
-```java
-    private static class AvroPayloadInternal implements IAvroPayloadInternal {
-
-        @NonNull
-        private final GenericRecord record;
 
 ```
 
@@ -598,6 +598,18 @@ public interface IReporter<T extends Metric> {
     void gauge(@NonNull final T m);
 
     void finish();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/schema/HDFSSchemaService.java`
+#### Snippet
+```java
+
+        @Override
+        public GenericRecord read(final byte[] buffer) throws InvalidDataException {
+            final DatumReader<GenericRecord> datumReader = new SpecificDatumReader<>(getSchema());
+            final ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
 ```
 
 ### NullableProblems
@@ -637,18 +649,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/spark/SparkArgs.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/schema/HDFSSchemaService.java`
-#### Snippet
-```java
-
-        @Override
-        public GenericRecord read(final byte[] buffer) throws InvalidDataException {
-            final DatumReader<GenericRecord> datumReader = new SpecificDatumReader<>(getSchema());
-            final ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 #### Snippet
@@ -657,18 +657,6 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
     private final ConcurrentHashMap<String, CustomizedInterProcessMutex> lockMap;
     @NonNull
     private Optional<CuratorFramework> client;
-    @NonNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
-#### Snippet
-```java
-@Slf4j
-public class LockManager implements AutoCloseable {
-    @NonNull
-    private final ConcurrentHashMap<String, CustomizedInterProcessMutex> lockMap;
     @NonNull
 ```
 
@@ -685,15 +673,15 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/schema/ISchemaService.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 #### Snippet
 ```java
-     */
-    interface ISchemaServiceWriter {
-        byte[] write(@NonNull final GenericRecord record) throws InvalidDataException;
-    }
-}
+@Slf4j
+public class LockManager implements AutoCloseable {
+    @NonNull
+    private final ConcurrentHashMap<String, CustomizedInterProcessMutex> lockMap;
+    @NonNull
 ```
 
 ### NullableProblems
@@ -706,6 +694,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/ISchemaService.java`
         GenericRecord read(@NonNull final byte[] buffer) throws InvalidDataException;
     }
 
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/schema/ISchemaService.java`
+#### Snippet
+```java
+     */
+    interface ISchemaServiceWriter {
+        byte[] write(@NonNull final GenericRecord record) throws InvalidDataException;
+    }
+}
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Optional<StringValue> remove(@NotEmpty final String key) {
+        final String val = getMetadataMap().remove(key);
+        return val == null ? Optional.absent() : Optional.of(new StringValue(val));
 ```
 
 ### NullableProblems
@@ -733,15 +745,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadata
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaOffsetResetter.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public Optional<StringValue> remove(@NotEmpty final String key) {
-        final String val = getMetadataMap().remove(key);
-        return val == null ? Optional.absent() : Optional.of(new StringValue(val));
+    private final IKafkaOffsetSelector offsetSelector;
+
+    @NonNull
+    @Getter
+    @Setter
 ```
 
 ### NullableProblems
@@ -757,15 +769,39 @@ public class KafkaOffsetResetter {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaOffsetResetter.java`
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
 #### Snippet
 ```java
-    private final IKafkaOffsetSelector offsetSelector;
+     */
+    @Override
+    public Optional<StringValue> remove(@NotEmpty final String key) {
+        this.metadataManagersList.forEach(metadataManager -> metadataManager.remove(key));
+        return Optional.fromNullable(getMetadataMap().remove(key));
+```
 
-    @NonNull
-    @Getter
-    @Setter
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Optional<StringValue> get(@NotEmpty final String key) throws MetadataException {
+        return getMetadataMap().containsKey(key) ? Optional.of(getMetadataMap().get(key)) : Optional.absent();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void set(@NotEmpty final String key, @NonNull final StringValue value) throws MetadataException {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
+        this.metadataManagersList.forEach(metadataManager -> metadataManager.set(key, value));
 ```
 
 ### NullableProblems
@@ -790,66 +826,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkData
     public void setJobMetrics(final JobMetrics jobMetrics) {
         // ignored
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
-#### Snippet
-```java
-
-    @Override
-    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
-        // ignored, no need to compute data feed level metrics for now.
-        // Data is either dispersed or not and row count is tracked as job level metric
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
-#### Snippet
-```java
-    }
-
-    @Override public void setJobMetrics(final JobMetrics jobMetrics) {
-        // ignored
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Optional<StringValue> get(@NotEmpty final String key) throws MetadataException {
-        return getMetadataMap().containsKey(key) ? Optional.of(getMetadataMap().get(key)) : Optional.absent();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Optional<StringValue> remove(@NotEmpty final String key) {
-        this.metadataManagersList.forEach(metadataManager -> metadataManager.remove(key));
-        return Optional.fromNullable(getMetadataMap().remove(key));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void set(@NotEmpty final String key, @NonNull final StringValue value) throws MetadataException {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
-        this.metadataManagersList.forEach(metadataManager -> metadataManager.set(key, value));
 ```
 
 ### NullableProblems
@@ -878,10 +854,58 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metrics/IMetricable.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
 #### Snippet
 ```java
-     */
+
+    @Override
+    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
+        // ignored, no need to compute data feed level metrics for now.
+        // Data is either dispersed or not and row count is tracked as job level metric
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
+#### Snippet
+```java
+    }
+
+    @Override public void setJobMetrics(final JobMetrics jobMetrics) {
+        // ignored
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
+#### Snippet
+```java
+
+    @Override
+    public void setJobMetrics(final JobMetrics jobMetrics) {
+        // ignored
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
+#### Snippet
+```java
+
+    @Override
+    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
+        this.dataFeedMetrics = Optional.of(dataFeedMetrics);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+#### Snippet
+```java
+
     @Override
     public Optional<StringValue> remove(@NotEmpty final String key) {
         return Optional.fromNullable(getMetadataMap().remove(key));
@@ -890,10 +914,10 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
-     */
+
     @Override
     public Optional<StringValue> get(@NotEmpty final String key) throws MetadataException {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
@@ -902,10 +926,10 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
-     */
+
     @Override
     public void set(@NotEmpty final String key, @NonNull final StringValue value) throws MetadataException {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
@@ -925,66 +949,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<StringValue> remove(@NotEmpty final String key) {
-        return Optional.fromNullable(getMetadataMap().remove(key));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-
-    @Override
-    public void set(@NotEmpty final String key, @NonNull final StringValue value) throws MetadataException {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
-        getMetadataMap().put(key, value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<StringValue> get(@NotEmpty final String key) throws MetadataException {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
-        return getMetadataMap().containsKey(key) ? Optional.of(getMetadataMap().get(key)) : Optional.absent();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
-#### Snippet
-```java
-
-    @Override
-    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
-        this.dataFeedMetrics = Optional.of(dataFeedMetrics);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
-#### Snippet
-```java
-
-    @Override
-    public void setJobMetrics(final JobMetrics jobMetrics) {
-        // ignored
-    }
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/SinkStatManager.java`
 #### Snippet
@@ -993,18 +957,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/SinkStatManager.java`
     @Getter
     @NonNull
     private final String tableName;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/SinkStatManager.java`
-#### Snippet
-```java
-
-    @Getter
-    @NonNull
-    private final SinkStat currentStat = new SinkStat();
 
 ```
 
@@ -1022,6 +974,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/SinkStatManager.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/SinkStatManager.java`
+#### Snippet
+```java
+
+    @Getter
+    @NonNull
+    private final SinkStat currentStat = new SinkStat();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
 #### Snippet
 ```java
@@ -1030,6 +994,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
     @NonNull
     private final ExecutorService threadPool;
 
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void set(@NotEmpty final String key, @NonNull final StringValue value) throws MetadataException {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
+        getMetadataMap().put(key, value);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Optional<StringValue> remove(@NotEmpty final String key) {
+        return Optional.fromNullable(getMetadataMap().remove(key));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Optional<StringValue> get(@NotEmpty final String key) throws MetadataException {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(key));
+        return getMetadataMap().containsKey(key) ? Optional.of(getMetadataMap().get(key)) : Optional.absent();
 ```
 
 ### NullableProblems
@@ -1073,11 +1073,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/job/Job.java`
 #### Snippet
 ```java
+public class Job {
+
     @NonNull
     private final JobDag jobDag;
     @NonNull
-    private final Configuration conf;
-
 ```
 
 ### NullableProblems
@@ -1085,11 +1085,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/job/Job.java`
 #### Snippet
 ```java
-public class Job {
-
     @NonNull
     private final JobDag jobDag;
     @NonNull
+    private final Configuration conf;
+
 ```
 
 ### NullableProblems
@@ -1123,18 +1123,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/HoodieSinkDa
 ```java
 
     @Override
-    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
-        //ignored
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/HoodieSinkDataConverter.java`
-#### Snippet
-```java
-
-    @Override
     public void setJobMetrics(final JobMetrics jobMetrics) {
         // ignored
     }
@@ -1153,27 +1141,75 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/HoodieSinkDa
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/HoodieSinkDataConverter.java`
 #### Snippet
 ```java
-    private final JobDagActions postJobDagActions;
 
-    @NonNull
-    private final JobMetrics jobMetrics;
-    @Getter
+    @Override
+    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
+        //ignored
+    }
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
 #### Snippet
 ```java
-    public static final String LAST_RUNTIME_METADATA_KEY = "runtime";
-    public static final String LAST_EXECUTION_METADATA_KEY = "last_execution";
+        private final String jobFrequency;
+
+        @NonNull
+        private final TimerMetric managerTimerMetric;
+        @NonNull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
+#### Snippet
+```java
+        @NonNull
+        private final LockManager lockManager;
+        @NonNull
+        private final String jobFrequency;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
+#### Snippet
+```java
+        @NonNull
+        private final TimerMetric managerTimerMetric;
+        @NonNull
+        private final HashMap<String, TimerMetric> dagTimerMetricMap;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
+#### Snippet
+```java
+    private static final Object lock = new Object();
+
     @NonNull
-    private final ISource<K, R> source;
-    @NonNull
+    private final Queue<Dag> jobDags = new ConcurrentLinkedDeque<>();
+    private final JobDagActions postJobManagerActions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
+#### Snippet
+```java
+        private static final String DATA_FEED_TAG = "data_feed_name";
+
+        @NonNull
+        private final LockManager lockManager;
+        @NonNull
 ```
 
 ### NullableProblems
@@ -1205,6 +1241,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
 #### Snippet
 ```java
+    private final JobDagActions postJobDagActions;
+
+    @NonNull
+    private final JobMetrics jobMetrics;
+    @Getter
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
+#### Snippet
+```java
     @NonNull
     private final ISource<K, R> source;
     @NonNull
@@ -1214,62 +1262,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobDag.java`
 #### Snippet
 ```java
-        @NonNull
-        private final TimerMetric managerTimerMetric;
-        @NonNull
-        private final HashMap<String, TimerMetric> dagTimerMetricMap;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
-#### Snippet
-```java
-        private final String jobFrequency;
-
-        @NonNull
-        private final TimerMetric managerTimerMetric;
-        @NonNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
-#### Snippet
-```java
-        @NonNull
-        private final LockManager lockManager;
-        @NonNull
-        private final String jobFrequency;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
-#### Snippet
-```java
-        private static final String DATA_FEED_TAG = "data_feed_name";
-
-        @NonNull
-        private final LockManager lockManager;
-        @NonNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
-#### Snippet
-```java
-    private static final Object lock = new Object();
-
+    public static final String LAST_RUNTIME_METADATA_KEY = "runtime";
+    public static final String LAST_EXECUTION_METADATA_KEY = "last_execution";
     @NonNull
-    private final Queue<Dag> jobDags = new ConcurrentLinkedDeque<>();
-    private final JobDagActions postJobManagerActions;
+    private final ISource<K, R> source;
+    @NonNull
 ```
 
 ### NullableProblems
@@ -1293,126 +1293,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/file/JSONFileSourceD
     @Override
     public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
         //ignored
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataCSVConverter.java`
-#### Snippet
-```java
-
-    @Override
-    public void setJobMetrics(final JobMetrics jobMetrics) {
-        // ignored
-    }
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    }
-
-    protected abstract List<ConverterResult<ID, OD>> convert(@NonNull ID data) throws Exception;
-
-    private void reportMetrics(final long rddSize,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-     * {@link #convert(Object)}.
-     */
-    @NonNull
-    @Setter
-    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    private static final String CONVERTER_TAG_NAME = "CONVERTER_NAME";
-
-    @Getter @NonNull
-    protected Configuration conf;
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    }
-
-    public void setDataFeedMetrics(@NonNull final DataFeedMetrics topicMetrics) {
-        this.topicMetrics = Optional.of(topicMetrics);
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    protected ErrorExtractor errorExtractor;
-
-    @NonNull
-    protected Optional<DataFeedMetrics> topicMetrics = Optional.absent();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
-
-    @NonNull
-    protected ErrorExtractor errorExtractor;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-     * with no exceptions from {@link #convert(Object)}.
-     */
-    @NonNull
-    @Setter
-    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-     * @param data input payload
-     */
-    protected abstract void executeNode(@NonNull final Optional<IPayload> data);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-     * @return payload for child dag
-     */
-    protected Optional<IPayload> getDataForChild(@NonNull final JobSubDag childSubDag) {
-        return Optional.absent();
     }
 ```
 
@@ -1454,14 +1334,38 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataCSVConverter.java`
 #### Snippet
 ```java
 
     @Override
-    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
-        this.converter.setDataFeedMetrics(dataFeedMetrics);
-        this.dataFeedMetrics = Optional.of(dataFeedMetrics);
+    public void setJobMetrics(final JobMetrics jobMetrics) {
+        // ignored
+    }
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+     * @return payload for child dag
+     */
+    protected Optional<IPayload> getDataForChild(@NonNull final JobSubDag childSubDag) {
+        return Optional.absent();
+    }
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+     * @param data input payload
+     */
+    protected abstract void executeNode(@NonNull final Optional<IPayload> data);
+
+    /**
 ```
 
 ### NullableProblems
@@ -1477,27 +1381,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java`
 #### Snippet
 ```java
-    @NonNull
-    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
-    @NonNull
-    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
-#### Snippet
-```java
-    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
-    @Setter
-    @NonNull
-    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
-    @NonNull
+    @Override
+    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
+        this.converter.setDataFeedMetrics(dataFeedMetrics);
+        this.dataFeedMetrics = Optional.of(dataFeedMetrics);
 ```
 
 ### NullableProblems
@@ -1517,35 +1409,23 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-    @AllArgsConstructor
-    public class HoodieWriteResult {
-        @NonNull
-        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
-        @NonNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-
-    @Setter
-    @NonNull
-    @Getter
-    // If set then it is used for creating new hoodie commit.
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
         @NonNull
         private final Optional<JavaRDD<WriteStatus>> writeStatuses;
         @NonNull
         private final Optional<Exception> exception;
     }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+    @AllArgsConstructor
+    public class HoodieWriteResult {
+        @NonNull
+        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
+        @NonNull
 ```
 
 ### NullableProblems
@@ -1562,6 +1442,126 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+
+    @Setter
+    @NonNull
+    @Getter
+    // If set then it is used for creating new hoodie commit.
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
+    @Setter
+    @NonNull
+    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+    @NonNull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    @NonNull
+    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+    @NonNull
+    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+     * with no exceptions from {@link #convert(Object)}.
+     */
+    @NonNull
+    @Setter
+    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+    }
+
+    public void setDataFeedMetrics(@NonNull final DataFeedMetrics topicMetrics) {
+        this.topicMetrics = Optional.of(topicMetrics);
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+     * {@link #convert(Object)}.
+     */
+    @NonNull
+    @Setter
+    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+    }
+
+    protected abstract List<ConverterResult<ID, OD>> convert(@NonNull ID data) throws Exception;
+
+    private void reportMetrics(final long rddSize,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+    protected ErrorExtractor errorExtractor;
+
+    @NonNull
+    protected Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
+
+    @NonNull
+    protected ErrorExtractor errorExtractor;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+    private static final String CONVERTER_TAG_NAME = "CONVERTER_NAME";
+
+    @Getter @NonNull
+    protected Configuration conf;
+    /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `marmaray/src/main/java/com/uber/marmaray/common/job/SingleSinkSubDag.java`
 #### Snippet
 ```java
@@ -1570,18 +1570,6 @@ public class SingleSinkSubDag extends JobSubDag {
     @NonNull
     @Getter
     private final ISink sink;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceDataConverter.java`
-#### Snippet
-```java
-
-    @Override
-    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
-        //ignored
-    }
 ```
 
 ### NullableProblems
@@ -1594,6 +1582,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceD
     @NonNull
     @Getter
     private final List<Function<GenericRecord, GenericRecord>> updateFunctions;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceDataConverter.java`
+#### Snippet
+```java
+
+    @Override
+    public void setJobMetrics(final JobMetrics jobMetrics) {
+        // ignored
+    }
 ```
 
 ### NullableProblems
@@ -1615,21 +1615,9 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceD
 ```java
 
     @Override
-    public void setJobMetrics(final JobMetrics jobMetrics) {
-        // ignored
+    public void setDataFeedMetrics(final DataFeedMetrics dataFeedMetrics) {
+        //ignored
     }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceDataConverter.java`
-#### Snippet
-```java
-    @Getter
-    private final ISchemaServiceReader schemaServiceReader;
-    @NonNull
-    @Getter
-    private final List<String> fieldsToCache;
 ```
 
 ### NullableProblems
@@ -1658,6 +1646,18 @@ public class ConverterResult<ID, OD> implements Serializable {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/KafkaSourceDataConverter.java`
+#### Snippet
+```java
+    @Getter
+    private final ISchemaServiceReader schemaServiceReader;
+    @NonNull
+    @Getter
+    private final List<String> fieldsToCache;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
 in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
 #### Snippet
 ```java
@@ -1673,11 +1673,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/retry/RetryableFunction.java`
 #### Snippet
 ```java
-@Slf4j
 public class RetryableFunction<T, R> {
     @NonNull protected final IRetryStrategy retryStrategy;
     @NonNull protected final IFunctionThrowsException<T, R> func;
 
+    public RetryableFunction(@NonNull final IFunctionThrowsException<T, R> func,
 ```
 
 ### NullableProblems
@@ -1697,11 +1697,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lo
 in `marmaray/src/main/java/com/uber/marmaray/common/retry/RetryableFunction.java`
 #### Snippet
 ```java
+@Slf4j
 public class RetryableFunction<T, R> {
     @NonNull protected final IRetryStrategy retryStrategy;
     @NonNull protected final IFunctionThrowsException<T, R> func;
 
-    public RetryableFunction(@NonNull final IFunctionThrowsException<T, R> func,
 ```
 
 ### NullableProblems
@@ -1949,20 +1949,8 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfigur
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `getChangeLogColumns()` is identical to its super method
-in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieSinkErrorExtractor.java`
-#### Snippet
-```java
-
-    @Override
-    public String getChangeLogColumns(@NonNull final RawData rawdata) {
-        return DEFAULT_CHANGELOG_COLUMNS;
-    }
-```
-
-### RedundantMethodOverride
 Method `getErrorException()` is identical to its super method
-in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieSinkErrorExtractor.java`
+in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaSourceConverterErrorExtractor.java`
 #### Snippet
 ```java
 
@@ -1986,13 +1974,25 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaSourceConverterError
 
 ### RedundantMethodOverride
 Method `getErrorException()` is identical to its super method
-in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaSourceConverterErrorExtractor.java`
+in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieSinkErrorExtractor.java`
 #### Snippet
 ```java
 
     @Override
     public String getErrorException(@NonNull final ErrorData errorData) {
         return errorData.getErrMessage();
+    }
+```
+
+### RedundantMethodOverride
+Method `getChangeLogColumns()` is identical to its super method
+in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieSinkErrorExtractor.java`
+#### Snippet
+```java
+
+    @Override
+    public String getChangeLogColumns(@NonNull final RawData rawdata) {
+        return DEFAULT_CHANGELOG_COLUMNS;
     }
 ```
 
@@ -2109,18 +2109,6 @@ public class DoubleMetric extends Metric<Double> {
 
 ### Lombok
 Lombok needs a default constructor in the base class
-in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ErrorRecord.java`
-#### Snippet
-```java
- * Simple Java Bean used to construct {@link UtilTable} of {@ErrorRecord}
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class ErrorRecord extends UtilRecord {
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
 in `marmaray/src/main/java/com/uber/marmaray/common/dataset/MetricRecord.java`
 #### Snippet
 ```java
@@ -2132,15 +2120,15 @@ public class MetricRecord extends UtilRecord {
 ```
 
 ### Lombok
-Not generating setter for this field: Setters cannot be generated for final fields.
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+Lombok needs a default constructor in the base class
+in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ErrorRecord.java`
 #### Snippet
 ```java
-    @Getter
-    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
-    @Setter
-    @NonNull
-    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+ * Simple Java Bean used to construct {@link UtilTable} of {@ErrorRecord}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ErrorRecord extends UtilRecord {
 ```
 
 ### Lombok
@@ -2153,6 +2141,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
     @Setter
     @NonNull
     /**
+```
+
+### Lombok
+Not generating setter for this field: Setters cannot be generated for final fields.
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    @Getter
+    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
+    @Setter
+    @NonNull
+    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
 ```
 
 ## RuleId[id=ReturnFromFinallyBlock]
@@ -2195,18 +2195,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `jsc` initializer `Optional.absent()` is redundant
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
-#### Snippet
-```java
-    private final HoodieConfiguration hoodieConf;
-    private final AtomicBoolean saveChanges;
-    private transient Optional<JavaSparkContext> jsc = Optional.absent();
-    private Optional<Map<String, String>> metadataMap = Optional.absent();
-
-```
-
-### UnusedAssignment
 Variable `dataFeedMetrics` initializer `Optional.absent()` is redundant
 in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSchemaManager.java`
 #### Snippet
@@ -2219,15 +2207,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSc
 ```
 
 ### UnusedAssignment
-Variable `metadata` initializer `new HashMap`() is redundant
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+Variable `jsc` initializer `Optional.absent()` is redundant
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
 #### Snippet
 ```java
-                        }
-                    }
-                    HashMap<String, StringValue> metadata = new HashMap<String, StringValue>();
-                    final Row row = rows.get(0);
-                    metadata = deserializeMetadata((String) row.getObject("checkpoint"));
+    private final HoodieConfiguration hoodieConf;
+    private final AtomicBoolean saveChanges;
+    private transient Optional<JavaSparkContext> jsc = Optional.absent();
+    private Optional<Map<String, String>> metadataMap = Optional.absent();
+
 ```
 
 ### UnusedAssignment
@@ -2240,6 +2228,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
         ThreadPoolService currentService = null;
         synchronized (ThreadPoolService.class) {
             if (!service.isPresent()) {
+```
+
+### UnusedAssignment
+Variable `metadata` initializer `new HashMap`() is redundant
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+                        }
+                    }
+                    HashMap<String, StringValue> metadata = new HashMap<String, StringValue>();
+                    final Row row = rows.get(0);
+                    metadata = deserializeMetadata((String) row.getObject("checkpoint"));
 ```
 
 ### UnusedAssignment
@@ -2292,6 +2292,18 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
 ```
 
 ### ConstantValue
+Condition `this.fieldsToConvert.isPresent()` is always `true` when reached
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+            final Schema.Field field = this.inputSchema.get().getFields().get(i);
+            if (!this.fieldsToConvert.isPresent()
+                    || this.fieldsToConvert.isPresent()
+                    && this.fieldsToConvert.get().contains(field.name().toLowerCase())) {
+                final Object rawData = avroPayload.getData().get(field.name());
+```
+
+### ConstantValue
 Condition `topicPartitions == null` is always `true`
 in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 #### Snippet
@@ -2315,18 +2327,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
                 final Object rawData = genericRecord.get(field.name());
 ```
 
-### ConstantValue
-Condition `this.fieldsToConvert.isPresent()` is always `true` when reached
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-            final Schema.Field field = this.inputSchema.get().getFields().get(i);
-            if (!this.fieldsToConvert.isPresent()
-                    || this.fieldsToConvert.isPresent()
-                    && this.fieldsToConvert.get().contains(field.name().toLowerCase())) {
-                final Object rawData = avroPayload.getData().get(field.name());
-```
-
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -2336,54 +2336,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraMe
                 this.schema.getTableName(),
                 key,
                 oldestTimestamp.get());
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    public String getClusterName() {
-        return this.getConf().getProperty(CLUSTER_NAME).get().trim();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-        ConfigUtil.checkMandatoryProperties(this.conf, this.getMandatoryProperties());
-
-        this.partitionKeys = this.splitString(this.conf.getProperty(PARTITION_KEYS).get());
-
-        if (this.conf.getProperty(INITIAL_HOSTS).isPresent()) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    public String getTableName() {
-        return this.getConf().getProperty(TABLE_NAME).get().trim();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    public String getKeyspace() {
-        return this.getConf().getProperty(KEYSPACE).get().trim();
     }
 
 ```
@@ -2414,6 +2366,54 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSourceConf
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    public String getClusterName() {
+        return this.getConf().getProperty(CLUSTER_NAME).get().trim();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    public String getKeyspace() {
+        return this.getConf().getProperty(KEYSPACE).get().trim();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    public String getTableName() {
+        return this.getConf().getProperty(TABLE_NAME).get().trim();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+        ConfigUtil.checkMandatoryProperties(this.conf, this.getMandatoryProperties());
+
+        this.partitionKeys = this.splitString(this.conf.getProperty(PARTITION_KEYS).get());
+
+        if (this.conf.getProperty(INITIAL_HOSTS).isPresent()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 #### Snippet
 ```java
@@ -2422,6 +2422,18 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
                     client.get(), lockKey, lockInfo);
             try {
                 if (acquireLock(newLockValue)) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/LockManagerConfiguration.java`
+#### Snippet
+```java
+        if (this.isEnabled()) {
+            ConfigUtil.checkMandatoryProperties(conf, getMandatoryProperties());
+            this.zkBasePath = cleanZkBasePath(this.getConf().getProperty(ZK_BASE_PATH).get());
+        } else {
+            this.zkBasePath = null;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2446,18 +2458,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadata
             new HoodieWriteClient<>(jsc.get(), this.hoodieConf.getHoodieWriteConfig(), true);
         final String commitTime = writeClient.startCommit();
         log.info("Saving metadata info using hoodie-commit: {}", commitTime);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/LockManagerConfiguration.java`
-#### Snippet
-```java
-        if (this.isEnabled()) {
-            ConfigUtil.checkMandatoryProperties(conf, getMandatoryProperties());
-            this.zkBasePath = cleanZkBasePath(this.getConf().getProperty(ZK_BASE_PATH).get());
-        } else {
-            this.zkBasePath = null;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2522,18 +2522,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraMetad
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/MetadataManagerConfiguration.java`
-#### Snippet
-```java
-        this.conf = conf;
-        ConfigUtil.checkMandatoryProperties(this.conf, getMandatoryProperties());
-        this.jobName = this.conf.getProperty(MetadataManagerConfiguration.JOB_NAME).get();
-        if (this.conf.getProperty(MetadataManagerConfiguration.TYPE).isPresent()) {
-            this.metadataType = MetadataManagerType.valueOf(this.conf.getProperty(MetadataManagerConfiguration.TYPE)
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HiveConfiguration.java`
 #### Snippet
 ```java
@@ -2570,6 +2558,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HiveConfigurat
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/MetadataManagerConfiguration.java`
+#### Snippet
+```java
+        this.conf = conf;
+        ConfigUtil.checkMandatoryProperties(this.conf, getMandatoryProperties());
+        this.jobName = this.conf.getProperty(MetadataManagerConfiguration.JOB_NAME).get();
+        if (this.conf.getProperty(MetadataManagerConfiguration.TYPE).isPresent()) {
+            this.metadataType = MetadataManagerType.valueOf(this.conf.getProperty(MetadataManagerConfiguration.TYPE)
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+                metadataManager.getAllKeys().forEach(key -> {
+                        final Optional<StringValue> metadataManagerValue = metadataManager.get(key);
+                        log.info("metadata: key: {}, value: {}", key, metadataManagerValue.get());
+                        if (metadata.containsKey(key)) {
+                            final StringValue currentValue = metadata.get(key);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
 #### Snippet
 ```java
@@ -2578,18 +2590,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkData
                 final String line = convert(row).get(0).getSuccessData().get().getData();
                 final String rowKey = this.row_identifier.isEmpty() ? key
                         : row.getData().get(this.row_identifier).toString();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
-#### Snippet
-```java
-    private boolean checkpointGreaterThanNextPartition(@NonNull final Optional<StringValue> checkPoint) {
-        if (checkPoint.isPresent()
-                && checkPoint.get().getValue().compareTo(this.nextPartition.get()) > 0) {
-            return true;
-        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2606,14 +2606,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnit
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
 #### Snippet
 ```java
-                metadataManager.getAllKeys().forEach(key -> {
-                        final Optional<StringValue> metadataManagerValue = metadataManager.get(key);
-                        log.info("metadata: key: {}, value: {}", key, metadataManagerValue.get());
-                        if (metadata.containsKey(key)) {
-                            final StringValue currentValue = metadata.get(key);
+    private boolean checkpointGreaterThanNextPartition(@NonNull final Optional<StringValue> checkPoint) {
+        if (checkPoint.isPresent()
+                && checkPoint.get().getValue().compareTo(this.nextPartition.get()) > 0) {
+            return true;
+        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2750,6 +2750,114 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ZookeeperConfi
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+        if (this.timestampInfo.hasTimestamp()) {
+            final ByteBuffer bb = this.timestampInfo.isSaveAsLongType()
+                    ? LongType.instance.decompose(Long.parseLong(this.timestampInfo.getTimestamp().get()))
+                    : ByteBufferUtil.wrap(this.timestampInfo.getTimestamp().get());
+            insertStatement.value(timestampInfo.getTimestampFieldName(), bb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+            final ByteBuffer bb = this.timestampInfo.isSaveAsLongType()
+                    ? LongType.instance.decompose(Long.parseLong(this.timestampInfo.getTimestamp().get()))
+                    : ByteBufferUtil.wrap(this.timestampInfo.getTimestamp().get());
+            insertStatement.value(timestampInfo.getTimestampFieldName(), bb);
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ErrorTableConfiguration.java`
+#### Snippet
+```java
+        if (this.isEnabled()) {
+            ConfigUtil.checkMandatoryProperties(this.conf, getMandatoryProperties());
+            this.destPath = new Path(conf.getProperty(DESTINATION_PATH).get());
+        }
+        this.isDatePartitioned = conf.getBooleanProperty(IS_DATE_PARTITIONED, DEFAULT_IS_DATE_PARTITIONED);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataCSVConverter.java`
+#### Snippet
+```java
+        final String rowKey = data.first().getData().getSchema().getName();
+        final JavaPairRDD<String, String> lines = data.mapToPair(row -> {
+                final String line = this.convert(row).get(0).getSuccessData().get().getData();
+                log.debug("Line: {}", line);
+                return new Tuple2<>(rowKey, line);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HDFSSchemaServiceConfiguration.java`
+#### Snippet
+```java
+
+    public Path getPath() {
+        return new Path(this.conf.getProperty(PATH).get());
+    }
+    public static List<String> getMandatoryProperties() {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaSourceConfiguration.java`
+#### Snippet
+```java
+    public KafkaSourceConfiguration(@NonNull final Configuration conf) {
+        super(conf);
+        this.topicName = getConf().getProperty(KAFKA_TOPIC_NAME).get();
+        this.clusterName = getConf().getProperty(KAFKA_CLUSTER_NAME).get();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaSourceConfiguration.java`
+#### Snippet
+```java
+        super(conf);
+        this.topicName = getConf().getProperty(KAFKA_TOPIC_NAME).get();
+        this.clusterName = getConf().getProperty(KAFKA_CLUSTER_NAME).get();
+
+        //Try to initialize the start time. "start_date" is legacy, please use start_time moving forward.
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+            entry -> entry.getValue().stream().forEach(
+                jobSubDag -> {
+                    jobSubDag.setJobMetrics(this.jobMetrics.get());
+                    jobSubDag.setDataFeedMetrics(this.dataFeedMetrics.get());
+                }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+                jobSubDag -> {
+                    jobSubDag.setJobMetrics(this.jobMetrics.get());
+                    jobSubDag.setDataFeedMetrics(this.dataFeedMetrics.get());
+                }
+            ));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
 #### Snippet
 ```java
@@ -2798,42 +2906,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfig
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HDFSSchemaServiceConfiguration.java`
-#### Snippet
-```java
-
-    public Path getPath() {
-        return new Path(this.conf.getProperty(PATH).get());
-    }
-    public static List<String> getMandatoryProperties() {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ErrorTableConfiguration.java`
-#### Snippet
-```java
-        if (this.isEnabled()) {
-            ConfigUtil.checkMandatoryProperties(this.conf, getMandatoryProperties());
-            this.destPath = new Path(conf.getProperty(DESTINATION_PATH).get());
-        }
-        this.isDatePartitioned = conf.getBooleanProperty(IS_DATE_PARTITIONED, DEFAULT_IS_DATE_PARTITIONED);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataCSVConverter.java`
-#### Snippet
-```java
-        final String rowKey = data.first().getData().getSchema().getName();
-        final JavaPairRDD<String, String> lines = data.mapToPair(row -> {
-                final String line = this.convert(row).get(0).getSuccessData().get().getData();
-                log.debug("Line: {}", line);
-                return new Tuple2<>(rowKey, line);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
 #### Snippet
 ```java
@@ -2858,30 +2930,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-            entry -> entry.getValue().stream().forEach(
-                jobSubDag -> {
-                    jobSubDag.setJobMetrics(this.jobMetrics.get());
-                    jobSubDag.setDataFeedMetrics(this.dataFeedMetrics.get());
-                }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-                jobSubDag -> {
-                    jobSubDag.setJobMetrics(this.jobMetrics.get());
-                    jobSubDag.setDataFeedMetrics(this.dataFeedMetrics.get());
-                }
-            ));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
 #### Snippet
 ```java
@@ -2902,54 +2950,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
                     : ByteBufferUtil.wrap(this.timestampInfo.getTimestamp().get());
             row.addField(
                     new CassandraDataField(ByteBufferUtil.wrap(this.timestampInfo.getTimestampFieldName()), bb));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaSourceConfiguration.java`
-#### Snippet
-```java
-    public KafkaSourceConfiguration(@NonNull final Configuration conf) {
-        super(conf);
-        this.topicName = getConf().getProperty(KAFKA_TOPIC_NAME).get();
-        this.clusterName = getConf().getProperty(KAFKA_CLUSTER_NAME).get();
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaSourceConfiguration.java`
-#### Snippet
-```java
-        super(conf);
-        this.topicName = getConf().getProperty(KAFKA_TOPIC_NAME).get();
-        this.clusterName = getConf().getProperty(KAFKA_CLUSTER_NAME).get();
-
-        //Try to initialize the start time. "start_date" is legacy, please use start_time moving forward.
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-        if (this.timestampInfo.hasTimestamp()) {
-            final ByteBuffer bb = this.timestampInfo.isSaveAsLongType()
-                    ? LongType.instance.decompose(Long.parseLong(this.timestampInfo.getTimestamp().get()))
-                    : ByteBufferUtil.wrap(this.timestampInfo.getTimestamp().get());
-            insertStatement.value(timestampInfo.getTimestampFieldName(), bb);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-            final ByteBuffer bb = this.timestampInfo.isSaveAsLongType()
-                    ? LongType.instance.decompose(Long.parseLong(this.timestampInfo.getTimestamp().get()))
-                    : ByteBufferUtil.wrap(this.timestampInfo.getTimestamp().get());
-            insertStatement.value(timestampInfo.getTimestampFieldName(), bb);
-        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3002,18 +3002,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/SingleSinkSubDag.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkFunction.java`
-#### Snippet
-```java
-                    throw new ForkOperationException("Using unregistered key :" + key);
-                }
-                this.registeredKeys.get(key).get().add(1);
-            });
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
 #### Snippet
 ```java
@@ -3038,6 +3026,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitC
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkFunction.java`
+#### Snippet
+```java
+                    throw new ForkOperationException("Using unregistered key :" + key);
+                }
+                this.registeredKeys.get(key).get().add(1);
+            });
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
+#### Snippet
+```java
+     */
+    public String getTableName() {
+        return this.getConf().getProperty(getTablePropertyKey(HOODIE_TABLE_NAME, this.tableKey)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
 #### Snippet
 ```java
@@ -3056,18 +3068,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfigur
      * */
     public String getHoodieMetricsPrefix() {
         return this.getConf().getProperty(getTablePropertyKey(HOODIE_METRICS_PREFIX, this.tableKey)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
-#### Snippet
-```java
-     */
-    public String getTableName() {
-        return this.getConf().getProperty(getTablePropertyKey(HOODIE_TABLE_NAME, this.tableKey)).get();
     }
 
 ```
@@ -3173,18 +3173,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkC
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'JobDag(ISource, ISink, IMetadataManager, IWorkUnitCalculator, String, String, JobMetrics, ...)' as a member of raw type 'com.uber.marmaray.common.job.JobDag'
-in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.java`
-#### Snippet
-```java
-
-            log.info("Initializing job dag");
-            final JobDag jobDag = new JobDag(hiveSource, cassandraSink, metadataManager, workUnitCalculator,
-                    hiveSourceConf.getJobName(), hiveSourceConf.getJobName(), new JobMetrics("marmaray"),
-                    dataFeedMetrics, reporters);
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.concurrent.ConcurrentHashMap' to 'java.util.concurrent.ConcurrentHashMap'
 in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 #### Snippet
@@ -3209,6 +3197,18 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked call to 'JobDag(ISource, ISink, IMetadataManager, IWorkUnitCalculator, String, String, JobMetrics, ...)' as a member of raw type 'com.uber.marmaray.common.job.JobDag'
+in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.java`
+#### Snippet
+```java
+
+            log.info("Initializing job dag");
+            final JobDag jobDag = new JobDag(hiveSource, cassandraSink, metadataManager, workUnitCalculator,
+                    hiveSourceConf.getJobName(), hiveSourceConf.getJobName(), new JobMetrics("marmaray"),
+                    dataFeedMetrics, reporters);
+```
+
+### UNCHECKED_WARNING
 Unchecked call to 'gauge(T)' as a member of raw type 'com.uber.marmaray.common.reporters.IReporter'
 in `marmaray/src/main/java/com/uber/marmaray/common/reporters/Reporters.java`
 #### Snippet
@@ -3230,18 +3230,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnit
                 ? Collections.singletonList(this.nextPartition.get()) : Collections.EMPTY_LIST;
         return new ParquetWorkUnitCalculatorResult(workUnits, nextRunState);
     }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'RawData(T)' as a member of raw type 'com.uber.marmaray.common.data.RawData'
-in `marmaray/src/main/java/com/uber/marmaray/common/data/RawDataHelper.java`
-#### Snippet
-```java
-            return new BinaryRawData((byte[]) data);
-        }
-        return new RawData(data);
-    }
-}
 ```
 
 ### UNCHECKED_WARNING
@@ -3281,15 +3269,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'gauge(T)' as a member of raw type 'com.uber.marmaray.common.reporters.IReporter'
-in `marmaray/src/main/java/com/uber/marmaray/common/metrics/DataFeedMetrics.java`
+Unchecked call to 'RawData(T)' as a member of raw type 'com.uber.marmaray.common.data.RawData'
+in `marmaray/src/main/java/com/uber/marmaray/common/data/RawDataHelper.java`
 #### Snippet
 ```java
-
-    public void gauageFailureMetric(final IReporter reporter) {
-        this.failureMetricSet.forEach(reporter::gauge);
+            return new BinaryRawData((byte[]) data);
+        }
+        return new RawData(data);
     }
-
+}
 ```
 
 ### UNCHECKED_WARNING
@@ -3302,6 +3290,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metrics/DataFeedMetrics.java
         this.metricSet.forEach(reporter::gauge);
     }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'gauge(T)' as a member of raw type 'com.uber.marmaray.common.reporters.IReporter'
+in `marmaray/src/main/java/com/uber/marmaray/common/metrics/DataFeedMetrics.java`
+#### Snippet
+```java
+
+    public void gauageFailureMetric(final IReporter reporter) {
+        this.failureMetricSet.forEach(reporter::gauge);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
+#### Snippet
+```java
+            case MAP:
+                final Schema valueSchema = nonNullSchema.getValueType();
+                final Map<String, Object> map1 = (Map<String, Object>) field1;
+                final Map<String, Object> map2 = (Map<String, Object>) field2;
+                if (map1.size() != map2.size()) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
+#### Snippet
+```java
+                final Schema valueSchema = nonNullSchema.getValueType();
+                final Map<String, Object> map1 = (Map<String, Object>) field1;
+                final Map<String, Object> map2 = (Map<String, Object>) field2;
+                if (map1.size() != map2.size()) {
+                    return false;
 ```
 
 ### UNCHECKED_WARNING
@@ -3341,27 +3365,15 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
+Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future\>'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
 #### Snippet
 ```java
-            case MAP:
-                final Schema valueSchema = nonNullSchema.getValueType();
-                final Map<String, Object> map1 = (Map<String, Object>) field1;
-                final Map<String, Object> map2 = (Map<String, Object>) field2;
-                if (map1.size() != map2.size()) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
-#### Snippet
-```java
-                final Schema valueSchema = nonNullSchema.getValueType();
-                final Map<String, Object> map1 = (Map<String, Object>) field1;
-                final Map<String, Object> map2 = (Map<String, Object>) field2;
-                if (map1.size() != map2.size()) {
-                    return false;
+            ThreadPoolService.init(this.conf);
+            runtimeJobDagOrder.forEach(jobDag ->
+                    futures.add(ThreadPoolService.submit(
+                        () -> {
+                            SparkJobTracker.setJobName(javaSparkContext.sc(), jobDag.getDataFeedName());
 ```
 
 ### UNCHECKED_WARNING
@@ -3386,18 +3398,6 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/ErrorTableUtil.java`
             RDDWrapper<HoodieRecord<HoodieRecordPayload>> hoodieErrorRecords = new RDDWrapper(hoodieRecords, numErrors);
             hoodieSink.write(hoodieErrorRecords);
         } catch (IOException ioe) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future\>'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
-#### Snippet
-```java
-            ThreadPoolService.init(this.conf);
-            runtimeJobDagOrder.forEach(jobDag ->
-                    futures.add(ThreadPoolService.submit(
-                        () -> {
-                            SparkJobTracker.setJobName(javaSparkContext.sc(), jobDag.getDataFeedName());
 ```
 
 ### UNCHECKED_WARNING
@@ -3509,6 +3509,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/actions/JobDagActions.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'. Reason: 'kafkaConsumer' has raw type, so result of listTopics is erased
+in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
+#### Snippet
+```java
+                synchronized (KafkaUtil.class) {
+                    if (topicPartitions == null) {
+                        topicPartitions = kafkaConsumer.listTopics();
+                        KafkaUtil.topicPartitions = new ConcurrentHashMap<>(topicPartitions);
+                    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'KafkaConsumer(Map)' as a member of raw type 'org.apache.kafka.clients.consumer.KafkaConsumer'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
+#### Snippet
+```java
+     */
+    public static KafkaConsumer getKafkaConsumer(final Map<String, String> kafkaPrams) {
+        return new KafkaConsumer(kafkaPrams);
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked call to 'assign(Collection)' as a member of raw type 'org.apache.kafka.clients.consumer.KafkaConsumer'
 in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 #### Snippet
@@ -3542,30 +3566,6 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
             kafkaConsumer.endOffsets(topicPartitions);
         log.info("topic-partition latest offsets :{}", latestLeaderOffsets);
         return latestLeaderOffsets;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'. Reason: 'kafkaConsumer' has raw type, so result of listTopics is erased
-in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
-#### Snippet
-```java
-                synchronized (KafkaUtil.class) {
-                    if (topicPartitions == null) {
-                        topicPartitions = kafkaConsumer.listTopics();
-                        KafkaUtil.topicPartitions = new ConcurrentHashMap<>(topicPartitions);
-                    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'KafkaConsumer(Map)' as a member of raw type 'org.apache.kafka.clients.consumer.KafkaConsumer'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
-#### Snippet
-```java
-     */
-    public static KafkaConsumer getKafkaConsumer(final Map<String, String> kafkaPrams) {
-        return new KafkaConsumer(kafkaPrams);
-    }
-
 ```
 
 ### UNCHECKED_WARNING
@@ -3605,6 +3605,54 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+                    childNode -> statuses.add(
+                        new SubDagExecutionStatus(childNode,
+                            ThreadPoolService.submit(
+                                () -> {
+                                    childNode.execute(getDataForChild(childNode));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+                    childNode -> statuses.add(
+                        new SubDagExecutionStatus(childNode,
+                            ThreadPoolService.submit(
+                                () -> {
+                                    childNode.commit();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ErrorData(String, RawData)' as a member of raw type 'com.uber.marmaray.common.data.ErrorData'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+
+                    final JavaRDD<ErrorData> errorRDD = hoodieRecordAndErrorTupleRDD
+                            .map(r -> new ErrorData(r._2, RawDataHelper.getRawData(r._1)));
+
+                    ErrorTableUtil.writeErrorRecordsToErrorTable(this.jsc.sc(),
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.marmaray.common.metadata.IMetadataManager' to 'com.uber.marmaray.common.metadata.IMetadataManager'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+        this.op = op;
+        this.metadataMgr = metadataMgr;
+        this.sinkStatMgr = new SinkStatManager(this.hoodieConf.getTableName(), this.metadataMgr);
+        this.sinkStatMgr.init();
+        this.shouldSaveChangesInFuture = shouldSaveChangesInFuture;
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'com.uber.marmaray.common.data.IData' to 'com.uber.marmaray.common.data.RawData'
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
@@ -3626,54 +3674,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractData
         return new RDDWrapper<>(converter.getRDD(VALID_RECORD).map(r -> ((ValidData<OD>) r).getData()),
                 converter.getCount(VALID_RECORD));
     }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-                    childNode -> statuses.add(
-                        new SubDagExecutionStatus(childNode,
-                            ThreadPoolService.submit(
-                                () -> {
-                                    childNode.commit();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.concurrent.Future' to 'java.util.concurrent.Future'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-                    childNode -> statuses.add(
-                        new SubDagExecutionStatus(childNode,
-                            ThreadPoolService.submit(
-                                () -> {
-                                    childNode.execute(getDataForChild(childNode));
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.marmaray.common.metadata.IMetadataManager' to 'com.uber.marmaray.common.metadata.IMetadataManager'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-        this.op = op;
-        this.metadataMgr = metadataMgr;
-        this.sinkStatMgr = new SinkStatManager(this.hoodieConf.getTableName(), this.metadataMgr);
-        this.sinkStatMgr.init();
-        this.shouldSaveChangesInFuture = shouldSaveChangesInFuture;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ErrorData(String, RawData)' as a member of raw type 'com.uber.marmaray.common.data.ErrorData'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-
-                    final JavaRDD<ErrorData> errorRDD = hoodieRecordAndErrorTupleRDD
-                            .map(r -> new ErrorData(r._2, RawDataHelper.getRawData(r._1)));
-
-                    ErrorTableUtil.writeErrorRecordsToErrorTable(this.jsc.sc(),
 ```
 
 ### UNCHECKED_WARNING
@@ -3737,6 +3737,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeRes
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedList' to 'java.util.Deque'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/FSUtils.java`
+#### Snippet
+```java
+        return new Iterator<FileStatus>() {
+            private final Stack<String> pathsToProcess = new Stack<>();
+            private final Deque<FileStatus> newFilesQ = new LinkedList();
+            private String lastProcessedFile = toProcessAfter.toUri().getRawPath();
+            private final String pathToStopProcessingAfter = toProcessBefore.toUri().getRawPath();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'set(String, T)' as a member of raw type 'com.uber.marmaray.common.metadata.IMetadataManager'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
+#### Snippet
+```java
+        try {
+            if (!value.isEmpty()) {
+                this.metadataManager.set(key, new StringValue(mapper.writeValueAsString(value)));
+            }
+        } catch (JsonProcessingException e) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.google.common.base.Optional' to 'com.google.common.base.Optional'. Reason: 'this.metadataManager' has raw type, so result of get is erased
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
+#### Snippet
+```java
+     */
+    public Optional<Map<String, String>> get(@NotEmpty final String key) throws IOException {
+        final Optional<StringValue> metadataValues =  this.metadataManager.get(key);
+        if (metadataValues.isPresent()) {
+            return Optional.of(mapper.readValue(metadataValues.get().getValue(), typeRef));
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.lang.Class' to 'java.lang.Class\>'
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/cassandra/CassandraSSTableSink.java`
 #### Snippet
@@ -3760,42 +3796,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfigur
                 final String errorStr =
 ```
 
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.google.common.base.Optional' to 'com.google.common.base.Optional'. Reason: 'this.metadataManager' has raw type, so result of get is erased
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
-#### Snippet
-```java
-     */
-    public Optional<Map<String, String>> get(@NotEmpty final String key) throws IOException {
-        final Optional<StringValue> metadataValues =  this.metadataManager.get(key);
-        if (metadataValues.isPresent()) {
-            return Optional.of(mapper.readValue(metadataValues.get().getValue(), typeRef));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'set(String, T)' as a member of raw type 'com.uber.marmaray.common.metadata.IMetadataManager'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
-#### Snippet
-```java
-        try {
-            if (!value.isEmpty()) {
-                this.metadataManager.set(key, new StringValue(mapper.writeValueAsString(value)));
-            }
-        } catch (JsonProcessingException e) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedList' to 'java.util.Deque'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/FSUtils.java`
-#### Snippet
-```java
-        return new Iterator<FileStatus>() {
-            private final Stack<String> pathsToProcess = new Stack<>();
-            private final Deque<FileStatus> newFilesQ = new LinkedList();
-            private String lastProcessedFile = toProcessAfter.toUri().getRawPath();
-            private final String pathToStopProcessingAfter = toProcessBefore.toUri().getRawPath();
-```
-
 ## RuleId[id=JavadocReference]
 ### JavadocReference
 Symbol `getRecordKey(AvroPayload)` is inaccessible from here
@@ -3810,18 +3810,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/exceptions/InvalidDataExcept
 ```
 
 ### JavadocReference
-Symbol `dispersalType` is inaccessible from here
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/HdfsFileSink.java`
-#### Snippet
-```java
-    /**
-     * This method overrides write method in {@link FileSink}
-     * If the {@link FileSinkConfiguration#dispersalType} is OVERWRITE,
-     * it will delete previous files in the destination path.
-     * Then it will write new files to hdfs path: {@link FileSinkConfiguration #fullpath}
-```
-
-### JavadocReference
 Symbol `fullPath` is inaccessible from here
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/HdfsFileSink.java`
 #### Snippet
@@ -3831,6 +3819,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/HdfsFileSink.java
  * and then save to Hdfs path defined in {@link FileSinkConfiguration#fullPath}
  */
 @Slf4j
+```
+
+### JavadocReference
+Symbol `dispersalType` is inaccessible from here
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/HdfsFileSink.java`
+#### Snippet
+```java
+    /**
+     * This method overrides write method in {@link FileSink}
+     * If the {@link FileSinkConfiguration#dispersalType} is OVERWRITE,
+     * it will delete previous files in the destination path.
+     * Then it will write new files to hdfs path: {@link FileSinkConfiguration #fullpath}
 ```
 
 ### JavadocReference
@@ -3955,6 +3955,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
 ```
 
 ### DataFlowIssue
+Method invocation `limit` may produce `NullPointerException`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+                }
+                if (requiredKeysToFind.contains(field.name())
+                      && bb.limit() != 0) {
+                    requiredKeysToFind.remove(field.name());
+                }
+```
+
+### DataFlowIssue
 Passing a non-null argument to `Optional`
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
 #### Snippet
@@ -3976,18 +3988,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
                 return Optional.fromNullable(Long.parseLong(rawData.toString()));
             default:
                 if (this.dataFeedMetrics.isPresent()) {
-```
-
-### DataFlowIssue
-Method invocation `limit` may produce `NullPointerException`
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
-#### Snippet
-```java
-                }
-                if (requiredKeysToFind.contains(field.name())
-                      && bb.limit() != 0) {
-                    requiredKeysToFind.remove(field.name());
-                }
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -4017,14 +4017,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaBootstrap
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/utilities/ConfigUtil.java`
 #### Snippet
 ```java
-        final Cluster.Builder builder = Cluster.builder().withClusterName(this.config.getCluster());
-        builder.withCredentials(this.config.getUsername(), this.config.getPassword());
-        this.config.getInitialHosts().stream().forEach(host -> builder.addContactPoint(host));
-        if (this.config.getNativePort().isPresent()) {
-            builder.withPort(Integer.parseInt(this.config.getNativePort().get()));
+            log.warn("mandatory properties are empty");
+        }
+        mandatoryProps.stream().forEach(
+            prop -> {
+                if (!conf.getProperty(prop).isPresent()) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4041,14 +4041,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/utilities/ConfigUtil.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
 #### Snippet
 ```java
-            log.warn("mandatory properties are empty");
-        }
-        mandatoryProps.stream().forEach(
-            prop -> {
-                if (!conf.getProperty(prop).isPresent()) {
+        final Cluster.Builder builder = Cluster.builder().withClusterName(this.config.getCluster());
+        builder.withCredentials(this.config.getUsername(), this.config.getPassword());
+        this.config.getInitialHosts().stream().forEach(host -> builder.addContactPoint(host));
+        if (this.config.getNativePort().isPresent()) {
+            builder.withPort(Integer.parseInt(this.config.getNativePort().get()));
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4128,23 +4128,11 @@ in `marmaray/src/main/java/com/uber/marmaray/common/actions/JobDagActions.java`
 in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 #### Snippet
 ```java
-            @NotEmpty final String topicName, @NonNull final Set<TopicPartition> topicPartitions) {
-        final Set<Integer> partitions = new HashSet<>();
-        topicPartitions.stream().forEach(
-            tp -> {
-                partitions.add(tp.partition());
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
-#### Snippet
-```java
-            }
-        );
-        getTopicPartitions(kafkaConsumer, topicName).stream().forEach(p -> partitions.remove(p.partition()));
-        if (!partitions.isEmpty()) {
-            throw new JobRuntimeException(String.format("invalid partitions :{} : topic : {}",
+                        attemptNumber.incrementAndGet()
+                );
+                topicPartitions.stream().forEach(
+                    tp -> {
+                        try {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4164,47 +4152,23 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 #### Snippet
 ```java
-                        attemptNumber.incrementAndGet()
-                );
-                topicPartitions.stream().forEach(
-                    tp -> {
-                        try {
+            @NotEmpty final String topicName, @NonNull final Set<TopicPartition> topicPartitions) {
+        final Set<Integer> partitions = new HashSet<>();
+        topicPartitions.stream().forEach(
+            tp -> {
+                partitions.add(tp.partition());
 ```
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+in `marmaray/src/main/java/com/uber/marmaray/utilities/KafkaUtil.java`
 #### Snippet
 ```java
-            final List<ForkData<IData>> forkData = new ArrayList<>();
-
-            results.stream().forEach(t -> {
-                    if (t.getErrorData().isPresent()) {
-                        processRecordHandler(AbstractDataConverter.this.failureRecordHandler,
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-    public final void commit() {
-        log.info("calling {}'s childNodes' commit", this.name);
-        this.childNodes.entrySet().stream().forEach(
-            childNodesAtSamePriority -> {
-                final Queue<SubDagExecutionStatus> statuses = new LinkedList<>();
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-            childNodesAtSamePriority -> {
-                final Queue<SubDagExecutionStatus> statuses = new LinkedList<>();
-                childNodesAtSamePriority.getValue().stream().forEach(
-                    childNode -> statuses.add(
-                        new SubDagExecutionStatus(childNode,
+            }
+        );
+        getTopicPartitions(kafkaConsumer, topicName).stream().forEach(p -> partitions.remove(p.partition()));
+        if (!partitions.isEmpty()) {
+            throw new JobRuntimeException(String.format("invalid partitions :{} : topic : {}",
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4257,6 +4221,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+    public final void commit() {
+        log.info("calling {}'s childNodes' commit", this.name);
+        this.childNodes.entrySet().stream().forEach(
+            childNodesAtSamePriority -> {
+                final Queue<SubDagExecutionStatus> statuses = new LinkedList<>();
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+            childNodesAtSamePriority -> {
+                final Queue<SubDagExecutionStatus> statuses = new LinkedList<>();
+                childNodesAtSamePriority.getValue().stream().forEach(
+                    childNode -> statuses.add(
+                        new SubDagExecutionStatus(childNode,
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+            final List<ForkData<IData>> forkData = new ArrayList<>();
+
+            results.stream().forEach(t -> {
+                    if (t.getErrorData().isPresent()) {
+                        processRecordHandler(AbstractDataConverter.this.failureRecordHandler,
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `marmaray/src/main/java/com/uber/marmaray/utilities/MapUtil.java`
 #### Snippet
 ```java
@@ -4305,18 +4305,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkFunction.ja
 
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `marmaray/src/main/java/com/uber/marmaray/common/metrics/TimerMetric.java`
-#### Snippet
-```java
-
-    public TimerMetric(@NotEmpty final String metricName, @NonNull final Map<String, String> tags) {
-        this(metricName.toString());
-        this.addTags(tags);
-    }
-```
-
-### StringOperationCanBeSimplified
 `toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieIndexConfiguration.java`
 #### Snippet
@@ -4350,6 +4338,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieIndexCon
         } else if (HOODIE_IN_MEMORY_INDEX.equals(indexName.toLowerCase())) {
             return IndexType.INMEMORY;
         } else {
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `marmaray/src/main/java/com/uber/marmaray/common/metrics/TimerMetric.java`
+#### Snippet
+```java
+
+    public TimerMetric(@NotEmpty final String metricName, @NonNull final Map<String, String> tags) {
+        this(metricName.toString());
+        this.addTags(tags);
+    }
 ```
 
 ### StringOperationCanBeSimplified
@@ -4680,14 +4680,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSc
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
 #### Snippet
 ```java
-                    .collect(Collectors.toMap(r -> r.getString("column_name"), r ->  r.getString("type")));
-
-            log.info("Found columns: {}", columns.toString());
-            if (columns.isEmpty()) {
-                final String createTable = this.schemaManager.generateCreateTableStmt();
+            }
+        } else {
+            throw new JobRuntimeException(String.format("Attempting to finish illegal tier %s", tier.toString()));
+        }
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -4704,14 +4704,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
 #### Snippet
 ```java
-            }
-        } else {
-            throw new JobRuntimeException(String.format("Attempting to finish illegal tier %s", tier.toString()));
-        }
-    }
+                    .collect(Collectors.toMap(r -> r.getString("column_name"), r ->  r.getString("type")));
+
+            log.info("Found columns: {}", columns.toString());
+            if (columns.isEmpty()) {
+                final String createTable = this.schemaManager.generateCreateTableStmt();
 ```
 
 ### UnnecessaryToStringCall
@@ -4815,6 +4815,18 @@ Unnecessary `toString()` call
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
 #### Snippet
 ```java
+        final ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(contentBytes.length);
+        log.info("Uploading from {} to S3 bucket {}/{}", path.toString()
+                , this.awsConf.getBucketName(), this.awsConf.getObjectKey());
+        try (final InputStream inputStream = fileSystem.open(path)) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
+#### Snippet
+```java
             });
         log.info("number of partitions based on dates: {}", dates.size());
         log.info("dates: {}", dates.toString());
@@ -4834,22 +4846,10 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
                     });
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
-#### Snippet
-```java
-        final ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(contentBytes.length);
-        log.info("Uploading from {} to S3 bucket {}/{}", path.toString()
-                , this.awsConf.getBucketName(), this.awsConf.getObjectKey());
-        try (final InputStream inputStream = fileSystem.open(path)) {
-```
-
 ## RuleId[id=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
 'Set' may not contain objects of type 'List'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
 #### Snippet
 ```java
             final List<String> missingFields = requiredFields.
@@ -4861,7 +4861,7 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 
 ### SuspiciousMethodCalls
 'Set' may not contain objects of type 'List'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
 #### Snippet
 ```java
             final List<String> missingFields = requiredFields.
@@ -4921,18 +4921,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/file/FileWorkUnitCal
 ```
 
 ### InnerClassMayBeStatic
-Inner class `FieldInfo` may be 'static'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
-#### Snippet
-```java
-    }
-
-    private class FieldInfo {
-        final Schema.Type nonNullType;
-        final boolean isTimestampField;
-```
-
-### InnerClassMayBeStatic
 Inner class `SubDagExecutionStatus` may be 'static'
 in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
 #### Snippet
@@ -4954,6 +4942,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
     public class HoodieWriteResult {
         @NonNull
         private final Optional<JavaRDD<WriteStatus>> writeStatuses;
+```
+
+### InnerClassMayBeStatic
+Inner class `FieldInfo` may be 'static'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+    }
+
+    private class FieldInfo {
+        final Schema.Type nonNullType;
+        final boolean isTimestampField;
 ```
 
 ### InnerClassMayBeStatic
@@ -4983,14 +4983,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/spark/SparkFactory.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
 #### Snippet
 ```java
-    @Override
-    public ParquetWorkUnitCalculatorResult computeWorkUnits() {
-        /**
-         * The logic for computing work units is pretty straightforward here.
-         *
+
+@Slf4j
+/**
+ * {@link MultiMetadataManager} implements the {@link IMetadataManager} interface.
+ * It is a cassandra based metadata manager for HDFS files.
 ```
 
 ### DanglingJavadoc
@@ -5019,14 +5019,26 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManage
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnitCalculator.java`
+#### Snippet
+```java
+    @Override
+    public ParquetWorkUnitCalculatorResult computeWorkUnits() {
+        /**
+         * The logic for computing work units is pretty straightforward here.
+         *
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
 
-@Slf4j
-/**
- * {@link MultiMetadataManager} implements the {@link IMetadataManager} interface.
- * It is a cassandra based metadata manager for HDFS files.
+    @VisibleForTesting
+    /**
+     * This method assumes that the path points explicitly to a metadata file and is not a directory
+     * @param path
 ```
 
 ### DanglingJavadoc
@@ -5055,18 +5067,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    /**
-     * This method assumes that the path points explicitly to a metadata file and is not a directory
-     * @param path
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
 in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java`
 #### Snippet
 ```java
@@ -5079,14 +5079,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-        Preconditions.checkState(workUnitCalc.hasWorkUnits(), "no work to do :" + this.conf.getTopicName());
-        final List<OffsetRange> workUnits = workUnitCalc.getWorkUnits();
-        /**
-         * Since we are not opening more than one connection per "topic+partition"; so single spark partition may end up
-         * reading data more than spark's 2G partition limit. In order to avoid this and also to take advantage of all
+    @Setter
+    @NonNull
+    /**
+     * If set then it is used for sorting records during {@link HoodieWriteClientWrapper#bulkInsert(JavaRDD, String)}
+     */
 ```
 
 ### DanglingJavadoc
@@ -5103,14 +5103,14 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
 #### Snippet
 ```java
-    @Setter
-    @NonNull
-    /**
-     * If set then it is used for sorting records during {@link HoodieWriteClientWrapper#bulkInsert(JavaRDD, String)}
-     */
+        Preconditions.checkState(workUnitCalc.hasWorkUnits(), "no work to do :" + this.conf.getTopicName());
+        final List<OffsetRange> workUnits = workUnitCalc.getWorkUnits();
+        /**
+         * Since we are not opening more than one connection per "topic+partition"; so single spark partition may end up
+         * reading data more than spark's 2G partition limit. In order to avoid this and also to take advantage of all
 ```
 
 ### DanglingJavadoc
@@ -5177,18 +5177,6 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/GenericRecordUtil.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'ttl'
-in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraMetadataSchemaManager.java`
-#### Snippet
-```java
-                                      @NonNull final List<String> partitionKeys,
-                                      @NonNull final List<ClusterKey> clusteringKeys,
-                                      @NonNull final Optional<Long> ttl) {
-        super(schema, partitionKeys, clusteringKeys, ttl, Optional.absent(), Optional.absent(), false);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'oldestTimestamp'
 in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraMetadataSchemaManager.java`
 #### Snippet
@@ -5201,6 +5189,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraMe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'ttl'
+in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraMetadataSchemaManager.java`
+#### Snippet
+```java
+                                      @NonNull final List<String> partitionKeys,
+                                      @NonNull final List<ClusterKey> clusteringKeys,
+                                      @NonNull final Optional<Long> ttl) {
+        super(schema, partitionKeys, clusteringKeys, ttl, Optional.absent(), Optional.absent(), false);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'sparkSessionOptional'
 in `marmaray/src/main/java/com/uber/marmaray/common/spark/SparkFactory.java`
 #### Snippet
@@ -5210,6 +5210,54 @@ in `marmaray/src/main/java/com/uber/marmaray/common/spark/SparkFactory.java`
     private Optional<SparkSession> sparkSessionOptional = Optional.absent();
     /**
      * Uses {@link SparkSession} returned from {@link SparkFactory#getSparkSession}
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    @Getter
+    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'filteredColumns'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+     */
+    @Getter
+    private final Optional<Set<String>> filteredColumns;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'writeTimestamp'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    @Getter
+    private final Optional<String> writeTimestamp;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'writtenTime'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
+#### Snippet
+```java
+
+    @Getter
+    private final Optional<String> writtenTime;
+
+    public CassandraSinkConfiguration(@NonNull final Configuration conf,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5237,54 +5285,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSDatePartitionMa
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'writtenTime'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    @Getter
-    private final Optional<String> writtenTime;
-
-    public CassandraSinkConfiguration(@NonNull final Configuration conf,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    @Getter
-    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'writeTimestamp'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-
-    @Getter
-    private final Optional<String> writeTimestamp;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'filteredColumns'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/CassandraSinkConfiguration.java`
-#### Snippet
-```java
-     */
-    @Getter
-    private final Optional<Set<String>> filteredColumns;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'client'
 in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
 #### Snippet
@@ -5294,6 +5294,18 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/LockManager.java`
     private Optional<CuratorFramework> client;
     @NonNull
     private final LockManagerConfiguration lockConf;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timestamp'
+in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSinkSchemaManager.java`
+#### Snippet
+```java
+                                      @NonNull final List<String> partitionKeys,
+                                      @NonNull final List<ClusterKey> clusteringKeys,
+                                      @NonNull final Optional<Long> timestamp) {
+        super(schema, partitionKeys, clusteringKeys, Optional.absent(), Optional.absent(), timestamp, false);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5333,39 +5345,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSi
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timestamp'
-in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSinkSchemaManager.java`
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSchemaManager.java`
 #### Snippet
 ```java
-                                      @NonNull final List<String> partitionKeys,
-                                      @NonNull final List<ClusterKey> clusteringKeys,
-                                      @NonNull final Optional<Long> timestamp) {
-        super(schema, partitionKeys, clusteringKeys, Optional.absent(), Optional.absent(), timestamp, false);
-    }
-```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'metadataMap'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
-#### Snippet
-```java
-    private final AtomicBoolean saveChanges;
-    private transient Optional<JavaSparkContext> jsc = Optional.absent();
-    private Optional<Map<String, String>> metadataMap = Optional.absent();
+    @Getter
+    protected transient Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
 
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'jsc'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
-#### Snippet
-```java
-    private final HoodieConfiguration hoodieConf;
-    private final AtomicBoolean saveChanges;
-    private transient Optional<JavaSparkContext> jsc = Optional.absent();
-    private Optional<Map<String, String>> metadataMap = Optional.absent();
-
+    @Getter
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5405,18 +5393,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSc
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'timestamp'
-in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSchemaManager.java`
-#### Snippet
-```java
-    final List<ClusterKey> clusteringKeys;
-    final Optional<Long> ttl;
-    final Optional<Long> timestamp;
-    final Boolean orderRequired;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'ttl'
 in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSchemaManager.java`
 #### Snippet
@@ -5429,27 +5405,51 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSc
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
+`Optional` used as type for field 'timestamp'
 in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSchemaManager.java`
 #### Snippet
 ```java
+    final List<ClusterKey> clusteringKeys;
+    final Optional<Long> ttl;
+    final Optional<Long> timestamp;
+    final Boolean orderRequired;
 
-    @Getter
-    protected transient Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    @Getter
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'partition'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveRunState.java`
+`Optional` used as type for field 'jsc'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
 #### Snippet
 ```java
-public class HiveRunState implements IRunState<HiveRunState> {
-    @Getter
-    private Optional<String> partition;
-}
+    private final HoodieConfiguration hoodieConf;
+    private final AtomicBoolean saveChanges;
+    private transient Optional<JavaSparkContext> jsc = Optional.absent();
+    private Optional<Map<String, String>> metadataMap = Optional.absent();
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'metadataMap'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
+#### Snippet
+```java
+    private final AtomicBoolean saveChanges;
+    private transient Optional<JavaSparkContext> jsc = Optional.absent();
+    private Optional<Map<String, String>> metadataMap = Optional.absent();
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'partition'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/CassandraSinkUtil.java`
+#### Snippet
+```java
+    public static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
+
+    public static Optional<Long> computeTimestamp(final Optional<String> partition) {
+        if (partition.isPresent()) {
+            try {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5472,6 +5472,54 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HiveConfigurat
 
     @Getter
     private final Optional<String> partitionKeyName;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'partition'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveRunState.java`
+#### Snippet
+```java
+public class HiveRunState implements IRunState<HiveRunState> {
+    @Getter
+    private Optional<String> partition;
+}
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'startDate'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HiveSourceConfiguration.java`
+#### Snippet
+```java
+
+    @Getter
+    private final Optional<Date> startDate;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'metadataMap'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+
+    private final List<IMetadataManager<StringValue>> metadataManagersList;
+    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'timestamp'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/TimestampInfo.java`
+#### Snippet
+```java
+public class TimestampInfo implements Serializable {
+    @Getter
+    final Optional<String> timestamp;
 
     @Getter
 ```
@@ -5513,111 +5561,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/ParquetWorkUnit
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'partition'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/CassandraSinkUtil.java`
+`Optional` used as type for field 'outputSchema'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
 #### Snippet
 ```java
-    public static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
-
-    public static Optional<Long> computeTimestamp(final Optional<String> partition) {
-        if (partition.isPresent()) {
-            try {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'metadataMap'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-
-    private final List<IMetadataManager<StringValue>> metadataManagersList;
-    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'startDate'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HiveSourceConfiguration.java`
-#### Snippet
-```java
-
-    @Getter
-    private final Optional<Date> startDate;
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-
+    private final StructField[] fields;
+    private final Set<String> requiredKeys;
+    private Optional<Schema> outputSchema = Optional.absent();
     @Getter
     private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'oldestTimestamp'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
-    private int numTimestamps;
-    private Optional<String> oldestTimestamp;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'metadataMap'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-    protected final CassandraSchema schema;
-    protected final CassandraMetadataSchemaManager schemaManager;
-    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
-    private int numTimestamps;
-    private Optional<String> oldestTimestamp;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'timestamp'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/TimestampInfo.java`
-#### Snippet
-```java
-public class TimestampInfo implements Serializable {
-    @Getter
-    final Optional<String> timestamp;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'metadataMap'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-    // customers running jobs against the same metadata directory.  We eventually want to take locks on
-    // a directory (possivly via ZooKeeper) so only one job can operate at a time per job name.
-    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
-
-    @NonNull
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-
-    @Getter
-    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    /*
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5633,15 +5585,27 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceD
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'outputSchema'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/SparkSourceDataConverter.java`
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
-    private final StructField[] fields;
-    private final Set<String> requiredKeys;
-    private Optional<Schema> outputSchema = Optional.absent();
+
     @Getter
     private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
+
+    /*
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'metadataMap'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+#### Snippet
+```java
+    // customers running jobs against the same metadata directory.  We eventually want to take locks on
+    // a directory (possivly via ZooKeeper) so only one job can operate at a time per job name.
+    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
+
+    @NonNull
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5669,15 +5633,51 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'latestCheckpoint'
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSPartitionManager.java`
+`Optional` used as type for field 'oldestTimestamp'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
 #### Snippet
 ```java
-     */
-    public Optional<String> getNextPartition(
-            @NotEmpty final Optional<StringValue> latestCheckpoint) throws IOException {
-        if (this.isSinglePartition) {
-            log.info("Next partition: {}", this.rawDataRootPath);
+    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
+    private int numTimestamps;
+    private Optional<String> oldestTimestamp;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'metadataMap'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+    protected final CassandraSchema schema;
+    protected final CassandraMetadataSchemaManager schemaManager;
+    private Optional<Map<String, StringValue>> metadataMap = Optional.absent();
+    private int numTimestamps;
+    private Optional<String> oldestTimestamp;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+
+    @Getter
+    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'startTime'
+in `marmaray/src/main/java/com/uber/marmaray/common/metrics/DataFeedMetrics.java`
+#### Snippet
+```java
+    public TimerMetric createTimerMetric(@NonNull final String metricName,
+                                         @NonNull final Map<String, String> additionalTags,
+                                         @NonNull final Optional<Instant> startTime) {
+        final TimerMetric metric = startTime.isPresent()
+                ? new TimerMetric(metricName, additionalTags, startTime.get())
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5693,15 +5693,75 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSPartitionManage
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'startTime'
-in `marmaray/src/main/java/com/uber/marmaray/common/metrics/DataFeedMetrics.java`
+`Optional` used as type for parameter 'latestCheckpoint'
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSPartitionManager.java`
 #### Snippet
 ```java
-    public TimerMetric createTimerMetric(@NonNull final String metricName,
-                                         @NonNull final Map<String, String> additionalTags,
-                                         @NonNull final Optional<Instant> startTime) {
-        final TimerMetric metric = startTime.isPresent()
-                ? new TimerMetric(metricName, additionalTags, startTime.get())
+     */
+    public Optional<String> getNextPartition(
+            @NotEmpty final Optional<StringValue> latestCheckpoint) throws IOException {
+        if (this.isSinglePartition) {
+            log.info("Next partition: {}", this.rawDataRootPath);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'listOfNodes'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Optional<String> listOfNodes;
+
+    public CassandraClusterInfo(@NonNull final Optional<String> sslStoragePart,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'storagePort'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Optional<String> storagePort;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'nativeApplicationPort'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Optional<String> nativeApplicationPort;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'rpcPort'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Optional<String> rpcPort;
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'sslStoragePort'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Optional<String> sslStoragePort;
+
+    @Getter
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5741,66 +5801,6 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterI
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'listOfNodes'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
-#### Snippet
-```java
-    @Getter
-    @Setter
-    private Optional<String> listOfNodes;
-
-    public CassandraClusterInfo(@NonNull final Optional<String> sslStoragePart,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'storagePort'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
-#### Snippet
-```java
-    @Getter
-    @Setter
-    private Optional<String> storagePort;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sslStoragePort'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
-#### Snippet
-```java
-    @Getter
-    @Setter
-    private Optional<String> sslStoragePort;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'nativeApplicationPort'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
-#### Snippet
-```java
-    @Getter
-    @Setter
-    private Optional<String> nativeApplicationPort;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'rpcPort'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/cluster/CassandraClusterInfo.java`
-#### Snippet
-```java
-    @Getter
-    @Setter
-    private Optional<String> rpcPort;
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`>> used as type for field 'groupRDD'
 in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkOperator.java`
 #### Snippet
@@ -5810,30 +5810,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkOperator.ja
     private Optional<JavaRDD<ForkData<DI>>> groupRDD = Optional.absent();
     @Getter
     private final StorageLevel persistLevel;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tableName'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/ErrorTableUtil.java`
-#### Snippet
-```java
-    public static void writeErrorRecordsToErrorTable(@NonNull final SparkContext sc,
-                                                     @NonNull final Configuration conf,
-                                                     @NonNull final Optional<String> tableName,
-                                                     @NonNull final RDDWrapper<ErrorData> errorData,
-                                                     @NonNull final ErrorExtractor errorExtractor) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'filteredFields'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/schema/CassandraSchemaConverter.java`
-#### Snippet
-```java
-    public CassandraSchemaConverter(@NotEmpty final String keySpace,
-                                    @NotEmpty final String tableName,
-                                    @NonNull final Optional<Set<String>> filteredFields) {
-        this(keySpace, tableName, TimestampInfo.generateEmptyTimestampInfo(), filteredFields);
-    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5861,6 +5837,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/schema/CassandraS
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'filteredFields'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/schema/CassandraSchemaConverter.java`
+#### Snippet
+```java
+    public CassandraSchemaConverter(@NotEmpty final String keySpace,
+                                    @NotEmpty final String tableName,
+                                    @NonNull final Optional<Set<String>> filteredFields) {
+        this(keySpace, tableName, TimestampInfo.generateEmptyTimestampInfo(), filteredFields);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'jobExecutionStrategy'
 in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
 #### Snippet
@@ -5873,6 +5861,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/JobManager.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tableName'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/ErrorTableUtil.java`
+#### Snippet
+```java
+    public static void writeErrorRecordsToErrorTable(@NonNull final SparkContext sc,
+                                                     @NonNull final Configuration conf,
+                                                     @NonNull final Optional<String> tableName,
+                                                     @NonNull final RDDWrapper<ErrorData> errorData,
+                                                     @NonNull final ErrorExtractor errorExtractor) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'scope'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.java`
+#### Snippet
+```java
+
+    public Configuration(@NonNull final InputStream inputStream,
+        @NonNull final Optional<String> scope) {
+        loadYamlStream(inputStream, scope);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'scope'
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.java`
 #### Snippet
@@ -5882,6 +5894,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.
         @NonNull final Optional<String> scope) {
         loadYamlFile(yamlFile, scope);
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'scope'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.java`
+#### Snippet
+```java
+
+    public void loadYamlStream(@NonNull final InputStream yamlStream,
+        @NonNull final Optional<String> scope) {
+        try {
+            final ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5909,27 +5933,111 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'scope'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.java`
+`Optional` used as type for parameter 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/utilities/SchemaUtil.java`
 #### Snippet
 ```java
+    public static StructType generateSchemaFromParquet(@NonNull final FileSystem fs,
+                                                       @NotEmpty final String parquetDir,
+                                                       @NonNull final Optional<DataFeedMetrics> dataFeedMetrics)
+            throws IOException {
 
-    public Configuration(@NonNull final InputStream inputStream,
-        @NonNull final Optional<String> scope) {
-        loadYamlStream(inputStream, scope);
-    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'scope'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.java`
+`Optional`> used as type for parameter 'fieldsToConvert'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+    public CassandraSinkCQLDataConverter(@NonNull final Schema inputSchema,
+                                         @NonNull final Configuration conf,
+                                         @NonNull final Optional<Set<String>> fieldsToConvert,
+                                         @NonNull final List<String> requiredFields,
+                                         @NonNull final TimestampInfo timestampInfo,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'fieldsToConvert'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+     * from the schema.
+     */
+    private final Optional<Set<String>> fieldsToConvert;
+
+    /*
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
 #### Snippet
 ```java
 
-    public void loadYamlStream(@NonNull final InputStream yamlStream,
-        @NonNull final Optional<String> scope) {
-        try {
-            final ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
+    @Getter
+    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
+
+    /*
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'inputSchema'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+     */
+    private final List<String> requiredFields;
+    private Optional<Schema> inputSchema = Optional.absent();
+    private final TimestampInfo timestampInfo;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'data'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+     * #childNodes}'s {@link #execute(Optional)} method.
+     */
+    public final void execute(@NonNull final Optional<IPayload> data) {
+        Preconditions.checkState(this.dataFeedMetrics.isPresent() && this.jobMetrics.isPresent(),
+            "Missing dataFeed or job metrics");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'jobMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+
+    @Getter
+    private Optional<JobMetrics> jobMetrics = Optional.absent();
+
+    @Getter
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'data'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+     * @param data input payload
+     */
+    protected abstract void executeNode(@NonNull final Optional<IPayload> data);
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+#### Snippet
+```java
+
+    @Getter
+    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
+
+    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5942,30 +6050,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfig
     private final Optional<String> bucketName;
     @Getter
     private final Optional<String> objectKey;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sourcePartitionPath'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
-#### Snippet
-```java
-    private final String writeTimestamp;
-    @Getter
-    private final Optional<String> sourcePartitionPath;
-    @Getter
-    private final DispersalType dispersalType;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'awsRegion'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
-#### Snippet
-```java
-    //aws s3 properties
-    @Getter
-    private final Optional<String> awsRegion;
-    @Getter
-    private final Optional<String> bucketName;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5993,6 +6077,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfig
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'sourcePartitionPath'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
+#### Snippet
+```java
+    private final String writeTimestamp;
+    @Getter
+    private final Optional<String> sourcePartitionPath;
+    @Getter
+    private final DispersalType dispersalType;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'objectKey'
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
 #### Snippet
@@ -6005,63 +6101,27 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfig
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/utilities/SchemaUtil.java`
+`Optional` used as type for field 'awsRegion'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/FileSinkConfiguration.java`
 #### Snippet
 ```java
-    public static StructType generateSchemaFromParquet(@NonNull final FileSystem fs,
-                                                       @NotEmpty final String parquetDir,
-                                                       @NonNull final Optional<DataFeedMetrics> dataFeedMetrics)
-            throws IOException {
-
+    //aws s3 properties
+    @Getter
+    private final Optional<String> awsRegion;
+    @Getter
+    private final Optional<String> bucketName;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'failureRecordHandler'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    @NonNull
-    @Setter
-    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
-    /**
-     * If defined then {@link #successRecordHandler} will be invoked with output record if record conversion succeeds
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'topicMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+`Optional` used as type for field 'dataFeedMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java`
 #### Snippet
 ```java
 
-    @NonNull
-    protected Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+    @Getter
+    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
 
-    public AbstractDataConverter(@NonNull final Configuration conf, @NonNull final ErrorExtractor errorExtractor) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'recordHandler'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-        }
-
-        private <T> void processRecordHandler(@NonNull final Optional<VoidFunction<T>> recordHandler,
-                                              @NonNull final T data, @NotEmpty final String recordHandlerType) {
-            if (recordHandler.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'successRecordHandler'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
-#### Snippet
-```java
-    @NonNull
-    @Setter
-    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
-
-    @NonNull
+    public HiveSource(@NonNull final HiveSourceConfiguration hiveConf,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6074,6 +6134,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
                                             @NonNull final Optional<DataFeedMetrics> metrics) {
         final ByteBuffer bb;
         final FieldInfo fieldInfo = fieldInfoMap.get().get(field);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'inputSchemaAvro'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+     */
+    private Optional<Map<Schema.Field, FieldInfo>> fieldInfoMap = Optional.absent();
+    private Optional<Schema> inputSchemaAvro = Optional.absent();
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'fieldsToConvert'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+     * from the schema.
+     */
+    private final Optional<Set<String>> fieldsToConvert;
+    /*
+     * The required fields that must be populated in the schema.  These keys form the primary/partition/clustering
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'fieldInfoMap'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+     * This map caches per field information to avoid recalculations on each row.
+     */
+    private Optional<Map<Schema.Field, FieldInfo>> fieldInfoMap = Optional.absent();
+    private Optional<Schema> inputSchemaAvro = Optional.absent();
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6113,18 +6209,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'inputSchemaAvro'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
-#### Snippet
-```java
-     */
-    private Optional<Map<Schema.Field, FieldInfo>> fieldInfoMap = Optional.absent();
-    private Optional<Schema> inputSchemaAvro = Optional.absent();
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'dataFeedMetrics'
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
 #### Snippet
@@ -6137,135 +6221,39 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'fieldsToConvert'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+`Optional` used as type for parameter 'defaultDataPartitioner'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-     * from the schema.
-     */
-    private final Optional<Set<String>> fieldsToConvert;
-    /*
-     * The required fields that must be populated in the schema.  These keys form the primary/partition/clustering
+                      @NonNull final HoodieSinkOp op,
+                      @NonNull final IMetadataManager metadataMgr,
+                      @NonNull final Optional<String> defaultDataPartitioner) {
+      this(hoodieConf, hoodieSinkDataConverter, jsc, op, metadataMgr, false, defaultDataPartitioner);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'fieldInfoMap'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+`Optional` used as type for field 'exception'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-     * This map caches per field information to avoid recalculations on each row.
-     */
-    private Optional<Map<Schema.Field, FieldInfo>> fieldInfoMap = Optional.absent();
-    private Optional<Schema> inputSchemaAvro = Optional.absent();
-
+        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
+        @NonNull
+        private final Optional<Exception> exception;
+    }
+}
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'jobMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+`Optional`> used as type for field 'writeStatuses'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-
-    @Getter
-    private Optional<JobMetrics> jobMetrics = Optional.absent();
-
-    @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'data'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-     * #childNodes}'s {@link #execute(Optional)} method.
-     */
-    public final void execute(@NonNull final Optional<IPayload> data) {
-        Preconditions.checkState(this.dataFeedMetrics.isPresent() && this.jobMetrics.isPresent(),
-            "Missing dataFeed or job metrics");
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'data'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-     * @param data input payload
-     */
-    protected abstract void executeNode(@NonNull final Optional<IPayload> data);
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
-#### Snippet
-```java
-
-    @Getter
-    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'fieldsToConvert'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     * from the schema.
-     */
-    private final Optional<Set<String>> fieldsToConvert;
-
-    /*
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'inputSchema'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     */
-    private final List<String> requiredFields;
-    private Optional<Schema> inputSchema = Optional.absent();
-    private final TimestampInfo timestampInfo;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'fieldsToConvert'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-    public CassandraSinkCQLDataConverter(@NonNull final Schema inputSchema,
-                                         @NonNull final Configuration conf,
-                                         @NonNull final Optional<Set<String>> fieldsToConvert,
-                                         @NonNull final List<String> requiredFields,
-                                         @NonNull final TimestampInfo timestampInfo,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-
-    @Getter
-    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    /*
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dataFeedMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/hive/HiveSource.java`
-#### Snippet
-```java
-
-    @Getter
-    private Optional<DataFeedMetrics> dataFeedMetrics = Optional.absent();
-
-    public HiveSource(@NonNull final HiveSourceConfiguration hiveConf,
+    public class HoodieWriteResult {
+        @NonNull
+        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
+        @NonNull
+        private final Optional<Exception> exception;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6285,11 +6273,59 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
+    }
+
+    private void logWriteMetrics(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
+        if (writesStatuses.isPresent() && this.dataFeedMetrics.isPresent()) {
+            final LongAccumulator totalCount = writesStatuses.get().rdd().sparkContext().longAccumulator();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'writesStatuses'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
     public void commit(@NonNull final HoodieWriteClientWrapper hoodieWriteClient,
                           @NotEmpty final String commitTime,
                           @NonNull final Optional<JavaRDD<WriteStatus>> writesStatuses,
                           final boolean shouldSaveChangesInFuture) {
         updateSinkStat(writesStatuses);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'defaultDataPartitioner'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+     */
+    public static UserDefinedBulkInsertPartitioner getDataPartitioner(@NonNull final HoodieConfiguration hoodieConf,
+        @NonNull final Optional<String> defaultDataPartitioner) {
+        try {
+            return (UserDefinedBulkInsertPartitioner) Class.forName(hoodieConf.getHoodieDataPartitioner(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'writesStatuses'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+     * @param writesStatuses
+     */
+    private void updateSinkStat(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
+        if (writesStatuses.isPresent()) {
+            final LongAccumulator avgRecordSizeCounter = writesStatuses.get().rdd().sparkContext().longAccumulator();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'commitTime'
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+    @Getter
+    // If set then it is used for creating new hoodie commit.
+    private Optional<String> commitTime = Optional.absent();
+
+    @Setter
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6321,94 +6357,10 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java
 in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
 #### Snippet
 ```java
-    }
-
-    private void logWriteMetrics(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
-        if (writesStatuses.isPresent() && this.dataFeedMetrics.isPresent()) {
-            final LongAccumulator totalCount = writesStatuses.get().rdd().sparkContext().longAccumulator();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'writesStatuses'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
     public void commit(@NonNull final HoodieWriteClientWrapper hoodieWriteClient,
                           @NotEmpty final String commitTime,
                           @NonNull final Optional<JavaRDD<WriteStatus>> writesStatuses) {
         this.commit(hoodieWriteClient, commitTime, writesStatuses, this.shouldSaveChangesInFuture);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'writeStatuses'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-    public class HoodieWriteResult {
-        @NonNull
-        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
-        @NonNull
-        private final Optional<Exception> exception;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'writesStatuses'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-     * @param writesStatuses
-     */
-    private void updateSinkStat(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
-        if (writesStatuses.isPresent()) {
-            final LongAccumulator avgRecordSizeCounter = writesStatuses.get().rdd().sparkContext().longAccumulator();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'commitTime'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-    @Getter
-    // If set then it is used for creating new hoodie commit.
-    private Optional<String> commitTime = Optional.absent();
-
-    @Setter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'exception'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-        private final Optional<JavaRDD<WriteStatus>> writeStatuses;
-        @NonNull
-        private final Optional<Exception> exception;
-    }
-}
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'defaultDataPartitioner'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-     */
-    public static UserDefinedBulkInsertPartitioner getDataPartitioner(@NonNull final HoodieConfiguration hoodieConf,
-        @NonNull final Optional<String> defaultDataPartitioner) {
-        try {
-            return (UserDefinedBulkInsertPartitioner) Class.forName(hoodieConf.getHoodieDataPartitioner(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'defaultDataPartitioner'
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-                      @NonNull final HoodieSinkOp op,
-                      @NonNull final IMetadataManager metadataMgr,
-                      @NonNull final Optional<String> defaultDataPartitioner) {
-      this(hoodieConf, hoodieSinkDataConverter, jsc, op, metadataMgr, false, defaultDataPartitioner);
     }
 ```
 
@@ -6422,6 +6374,42 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.ja
     private static void reportReadMetrics(@NonNull final Optional<DataFeedMetrics> topicMetrics,
                                           @NonNull final LongAccumulator totalDataReadInBytes,
                                           final long totalPartitions) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'startDateFilterFunction'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    private final KafkaSourceDataConverter dataConverter;
+    @Getter
+    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
+    @Setter
+    @NonNull
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'filterRecordHandler'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    @Setter
+    @NonNull
+    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+    @NonNull
+    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'topicMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+#### Snippet
+```java
+    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+    @NonNull
+    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+    public KafkaSource(@NonNull final KafkaSourceConfiguration conf,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6461,18 +6449,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'startDateFilterFunction'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
-#### Snippet
-```java
-    private final KafkaSourceDataConverter dataConverter;
-    @Getter
-    private final Optional<Function<AvroPayload, Boolean>> startDateFilterFunction;
-    @Setter
-    @NonNull
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'jsc'
 in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
 #### Snippet
@@ -6485,27 +6461,51 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'topicMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+`Optional`> used as type for parameter 'recordHandler'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
 ```java
-    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
-    @NonNull
-    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+        }
 
-    public KafkaSource(@NonNull final KafkaSourceConfiguration conf,
+        private <T> void processRecordHandler(@NonNull final Optional<VoidFunction<T>> recordHandler,
+                                              @NonNull final T data, @NotEmpty final String recordHandlerType) {
+            if (recordHandler.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'filterRecordHandler'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaSource.java`
+`Optional`> used as type for field 'successRecordHandler'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
 ```java
+    @NonNull
     @Setter
+    protected Optional<VoidFunction<OD>> successRecordHandler = Optional.absent();
+
     @NonNull
-    private final Optional<VoidFunction<AvroPayload>> filterRecordHandler;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'failureRecordHandler'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
     @NonNull
-    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+    @Setter
+    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
+    /**
+     * If defined then {@link #successRecordHandler} will be invoked with output record if record conversion succeeds
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'topicMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+#### Snippet
+```java
+
+    @NonNull
+    protected Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+    public AbstractDataConverter(@NonNull final Configuration conf, @NonNull final ErrorExtractor errorExtractor) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6545,18 +6545,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/converterresult/C
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'chargebackCalculator'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
-#### Snippet
-```java
-    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
-
-    private Optional<IChargebackCalculator> chargebackCalculator = Optional.absent();
-
-    @Override
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'kafkaOffsetResetter'
 in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
 #### Snippet
@@ -6566,18 +6554,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitC
     private Optional<KafkaOffsetResetter> kafkaOffsetResetter = Optional.absent();
 
     @Getter
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'topicMetrics'
-in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
-#### Snippet
-```java
-    private Optional<KafkaRunState> previousRunState = Optional.absent();
-
-    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
-
-    private Optional<IChargebackCalculator> chargebackCalculator = Optional.absent();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6593,6 +6569,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitC
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'topicMetrics'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
+#### Snippet
+```java
+    private Optional<KafkaRunState> previousRunState = Optional.absent();
+
+    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+    private Optional<IChargebackCalculator> chargebackCalculator = Optional.absent();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'chargebackCalculator'
+in `marmaray/src/main/java/com/uber/marmaray/common/sources/kafka/KafkaWorkUnitCalculator.java`
+#### Snippet
+```java
+    private Optional<DataFeedMetrics> topicMetrics = Optional.absent();
+
+    private Optional<IChargebackCalculator> chargebackCalculator = Optional.absent();
+
+    @Override
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'scope'
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeResolver.java`
 #### Snippet
@@ -6602,42 +6602,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ConfigScopeRes
         @NonNull final Optional<String> scope, @NonNull final JsonNode rootJsonNode) {
         if (!scope.isPresent() || !rootJsonNode.isContainerNode()) {
             log.info("No scope overriding in effect. "
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'version'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
-#### Snippet
-```java
-
-    public HoodieConfiguration(@NonNull final Configuration conf, @NotEmpty final String tableKey,
-            @NonNull final Optional<String> version) {
-        this.conf = conf;
-        this.tableKey = tableKey;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'version'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
-#### Snippet
-```java
-        private final Configuration conf;
-        private final String tableKey;
-        private Optional<String> version = Optional.absent();
-
-        private Builder(@NonNull final Configuration conf, @NotEmpty final String tableKey) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'version'
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
-#### Snippet
-```java
-    private final String tableKey;
-    @Getter
-    private final Optional<String> version;
-
-    public HoodieConfiguration(@NonNull final Configuration conf, @NotEmpty final String tableKey,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6676,19 +6640,43 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/cassandra/CassandraSin
     public CassandraSink(@NonNull final CassandraSinkSchemaManager schemaManager,
 ```
 
-## RuleId[id=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `marmaray/src/main/java/com/uber/marmaray/utilities/ByteBufferUtil.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'version'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
+#### Snippet
+```java
+        private final Configuration conf;
+        private final String tableKey;
+        private Optional<String> version = Optional.absent();
+
+        private Builder(@NonNull final Configuration conf, @NotEmpty final String tableKey) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'version'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
 #### Snippet
 ```java
 
-    public static String convertToString(final ByteBuffer bb) {
-        return new String(bb.array(), Charset.forName(StandardCharsets.UTF_8.toString()));
-    }
-
+    public HoodieConfiguration(@NonNull final Configuration conf, @NotEmpty final String tableKey,
+            @NonNull final Optional<String> version) {
+        this.conf = conf;
+        this.tableKey = tableKey;
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'version'
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/HoodieConfiguration.java`
+#### Snippet
+```java
+    private final String tableKey;
+    @Getter
+    private final Optional<String> version;
+
+    public HoodieConfiguration(@NonNull final Configuration conf, @NotEmpty final String tableKey,
+```
+
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `marmaray/src/main/java/com/uber/marmaray/utilities/ByteBufferUtil.java`
@@ -6699,6 +6687,18 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/ByteBufferUtil.java`
             return ByteBuffer.wrap(value.getBytes(StandardCharsets.UTF_8.toString()));
         } catch (final UnsupportedEncodingException e) {
             // should never see this
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `marmaray/src/main/java/com/uber/marmaray/utilities/ByteBufferUtil.java`
+#### Snippet
+```java
+
+    public static String convertToString(final ByteBuffer bb) {
+        return new String(bb.array(), Charset.forName(StandardCharsets.UTF_8.toString()));
+    }
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -6764,6 +6764,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSDatePartitionMa
 ```
 
 ### JavadocDeclaration
+Javadoc pointing to itself
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieWriteStatus.java`
+#### Snippet
+```java
+
+    /**
+     * Overriding {@link #markSuccess(HoodieRecord, Optional)} to avoid caching
+     * {@link com.uber.hoodie.common.model.HoodieKey} for successfully written hoodie records.
+     */
+```
+
+### JavadocDeclaration
 `@throws` tag description is missing
 in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.java`
 #### Snippet
@@ -6785,42 +6797,6 @@ in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.
      * @throws IOException
      */
     private void run(final String[] args) throws IOException {
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieWriteStatus.java`
-#### Snippet
-```java
-
-    /**
-     * Overriding {@link #markSuccess(HoodieRecord, Optional)} to avoid caching
-     * {@link com.uber.hoodie.common.model.HoodieKey} for successfully written hoodie records.
-     */
-```
-
-### JavadocDeclaration
-Illegal character
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
-#### Snippet
-```java
-    /**
-     * This method will also be used by HoodieSink to retrieve and store metadata information.
-     * It returns {@link HashMap<String, String>} with hoodie metadata information to be saved into commit file.
-     * It returns {@link HashMap} instead of {@link Map} because hoodie needs it that way. Checkout
-     * {@link HoodieWriteClient#commit(String, JavaRDD, java.util.Optional)} for more info.
-```
-
-### JavadocDeclaration
-Illegal character
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
-#### Snippet
-```java
-    /**
-     * This method will also be used by HoodieSink to retrieve and store metadata information.
-     * It returns {@link HashMap<String, String>} with hoodie metadata information to be saved into commit file.
-     * It returns {@link HashMap} instead of {@link Map} because hoodie needs it that way. Checkout
-     * {@link HoodieWriteClient#commit(String, JavaRDD, java.util.Optional)} for more info.
 ```
 
 ### JavadocDeclaration
@@ -6848,6 +6824,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/schema/cassandra/CassandraSc
 ```
 
 ### JavadocDeclaration
+Illegal character
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
+#### Snippet
+```java
+    /**
+     * This method will also be used by HoodieSink to retrieve and store metadata information.
+     * It returns {@link HashMap<String, String>} with hoodie metadata information to be saved into commit file.
+     * It returns {@link HashMap} instead of {@link Map} because hoodie needs it that way. Checkout
+     * {@link HoodieWriteClient#commit(String, JavaRDD, java.util.Optional)} for more info.
+```
+
+### JavadocDeclaration
+Illegal character
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HoodieBasedMetadataManager.java`
+#### Snippet
+```java
+    /**
+     * This method will also be used by HoodieSink to retrieve and store metadata information.
+     * It returns {@link HashMap<String, String>} with hoodie metadata information to be saved into commit file.
+     * It returns {@link HashMap} instead of {@link Map} because hoodie needs it that way. Checkout
+     * {@link HoodieWriteClient#commit(String, JavaRDD, java.util.Optional)} for more info.
+```
+
+### JavadocDeclaration
 Wrong tag `ExceptionRecord`
 in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ExceptionRecord.java`
 #### Snippet
@@ -6860,54 +6860,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ExceptionRecord.java
 ```
 
 ### JavadocDeclaration
-`@param data` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
-#### Snippet
-```java
-    /**
-     * This API generates RDDPair for saving different file format(sequence, json,...)
-     * @param data
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
-#### Snippet
-```java
-     * This API generates RDDPair for saving different file format(sequence, json,...)
-     * @param data
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param data` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
-#### Snippet
-```java
-    /**
-     * No Column Header for json format
-     * @param data
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
-#### Snippet
-```java
-     * No Column Header for json format
-     * @param data
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
 `@throws` tag description is missing
 in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieUtil.java`
 #### Snippet
@@ -6917,6 +6869,102 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/HoodieUtil.java`
      * @throws IOException
      */
     public static void initHoodieDataset(@NonNull final FileSystem fs,
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+    /**
+     * remove operation on map
+     * @param key
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * remove operation on map
+     * @param key
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+    /**
+     * get operation from map
+     * @param key
+     * @return
+     * @throws MetadataException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * get operation from map
+     * @param key
+     * @return
+     * @throws MetadataException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * @param key
+     * @return
+     * @throws MetadataException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * set operation applies on generated temporarily
+     * map from Cassandra queries
+     * @param key
+     * @param value
+     * @throws MetadataException
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * map from Cassandra queries
+     * @param key
+     * @param value
+     * @throws MetadataException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+#### Snippet
+```java
+     * @param key
+     * @param value
+     * @throws MetadataException
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -6956,157 +7004,97 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManage
 ```
 
 ### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+`@param data` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
 #### Snippet
 ```java
     /**
-     * get operation from map
-     * @param key
+     * This API generates RDDPair for saving different file format(sequence, json,...)
+     * @param data
      * @return
-     * @throws MetadataException
+     */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
 #### Snippet
 ```java
-     * get operation from map
-     * @param key
+     * This API generates RDDPair for saving different file format(sequence, json,...)
+     * @param data
      * @return
-     * @throws MetadataException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param data` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
+#### Snippet
+```java
+    /**
+     * No Column Header for json format
+     * @param data
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
+#### Snippet
+```java
+     * No Column Header for json format
+     * @param data
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+#### Snippet
+```java
+     *
+     * @return Map of Metadata keys to values
+     * @throws IOException
+     */
+    public Map<String, StringValue> loadMetadata() throws IOException {
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+#### Snippet
+```java
+     * copy the file to it's permanent location without the temp extension.
+     *
+     * @return
+     * @throws IOException
      */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
-     * @param key
+     *
      * @return
-     * @throws MetadataException
+     * @throws IOException
      */
     @Override
 ```
 
 ### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
+IOException is not declared to be thrown by method saveChanges
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
 #### Snippet
 ```java
-    /**
-     * remove operation on map
-     * @param key
+     *
      * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     * remove operation on map
-     * @param key
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     * set operation applies on generated temporarily
-     * map from Cassandra queries
-     * @param key
-     * @param value
-     * @throws MetadataException
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     * map from Cassandra queries
-     * @param key
-     * @param value
-     * @throws MetadataException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/MultiMetadataManager.java`
-#### Snippet
-```java
-     * @param key
-     * @param value
-     * @throws MetadataException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-    /**
-     * remove operation on map
-     * @param key
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-     * remove operation on map
-     * @param key
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-    /**
-     * get operation from map
-     * @param key
-     * @return
-     * @throws MetadataException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-     * get operation from map
-     * @param key
-     * @return
-     * @throws MetadataException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
-#### Snippet
-```java
-     * @param key
-     * @return
-     * @throws MetadataException
+     * @throws IOException
      */
     @Override
 ```
@@ -7143,6 +7131,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
      * @param key
      * @param value
      * @throws MetadataException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+    /**
+     * remove operation on map
+     * @param key
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+     * remove operation on map
+     * @param key
+     * @return
      */
     @Override
 ```
@@ -7184,51 +7196,39 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetad
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
 #### Snippet
 ```java
-     * copy the file to it's permanent location without the temp extension.
-     *
+    /**
+     * get operation from map
+     * @param key
      * @return
-     * @throws IOException
+     * @throws MetadataException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+     * get operation from map
+     * @param key
+     * @return
+     * @throws MetadataException
      */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
 #### Snippet
 ```java
-     *
+     * @param key
      * @return
-     * @throws IOException
+     * @throws MetadataException
      */
     @Override
-```
-
-### JavadocDeclaration
-IOException is not declared to be thrown by method saveChanges
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-     *
-     * @return
-     * @throws IOException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/HDFSMetadataManager.java`
-#### Snippet
-```java
-     *
-     * @return Map of Metadata keys to values
-     * @throws IOException
-     */
-    public Map<String, StringValue> loadMetadata() throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -7328,6 +7328,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/Configuration.
 ```
 
 ### JavadocDeclaration
+`@param inputSchema` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+    /**
+     * This constructor gives the option to only convert certain fields from the schema
+     * @param inputSchema
+     * @param conf
+     * @param fieldsToConvert
+```
+
+### JavadocDeclaration
 `@param parquetDir` tag description is missing
 in `marmaray/src/main/java/com/uber/marmaray/utilities/SchemaUtil.java`
 #### Snippet
@@ -7352,27 +7364,63 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/SchemaUtil.java`
 ```
 
 ### JavadocDeclaration
-Wrong tag `ErrorRecord`
-in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ErrorRecord.java`
+`@param conf` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
 #### Snippet
 ```java
-
-/**
- * Simple Java Bean used to construct {@link UtilTable} of {@ErrorRecord}
- */
-@Data
+     * This constructor gives the option to only convert certain fields from the schema
+     * @param inputSchema
+     * @param conf
+     * @param fieldsToConvert
+     * @param requiredFields
 ```
 
 ### JavadocDeclaration
-Wrong tag `MetricRecord`
-in `marmaray/src/main/java/com/uber/marmaray/common/dataset/MetricRecord.java`
+`@param fieldsToConvert` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
 #### Snippet
 ```java
+     * @param inputSchema
+     * @param conf
+     * @param fieldsToConvert
+     * @param requiredFields
+     */
+```
 
-/**
- * Simple Java Bean used to construct {@link UtilTable} of {@MetricRecord}
- */
-@Data
+### JavadocDeclaration
+`@param requiredFields` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+     * @param conf
+     * @param fieldsToConvert
+     * @param requiredFields
+     */
+    public CassandraSinkCQLDataConverter(@NonNull final Schema inputSchema,
+```
+
+### JavadocDeclaration
+`@param allFieldsToConvert` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+     *
+     * All required fields listed, however, must exist in the fields to convert
+     * @param allFieldsToConvert
+     * @param requiredFields
+     */
+```
+
+### JavadocDeclaration
+`@param requiredFields` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
+#### Snippet
+```java
+     * All required fields listed, however, must exist in the fields to convert
+     * @param allFieldsToConvert
+     * @param requiredFields
+     */
+    private void validate(final Set<String> allFieldsToConvert, final List<String> requiredFields) {
 ```
 
 ### JavadocDeclaration
@@ -7424,27 +7472,111 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkData
 ```
 
 ### JavadocDeclaration
-Javadoc pointing to itself
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+Wrong tag `MetricRecord`
+in `marmaray/src/main/java/com/uber/marmaray/common/dataset/MetricRecord.java`
 #### Snippet
 ```java
-    protected Configuration conf;
-    /**
-     * If defined then {@link #failureRecordHandler} will be invoked with input record in case of any exception from
-     * {@link #convert(Object)}.
-     */
+
+/**
+ * Simple Java Bean used to construct {@link UtilTable} of {@MetricRecord}
+ */
+@Data
+```
+
+### JavadocDeclaration
+Wrong tag `ErrorRecord`
+in `marmaray/src/main/java/com/uber/marmaray/common/dataset/ErrorRecord.java`
+#### Snippet
+```java
+
+/**
+ * Simple Java Bean used to construct {@link UtilTable} of {@ErrorRecord}
+ */
+@Data
 ```
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
 #### Snippet
 ```java
-    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
     /**
-     * If defined then {@link #successRecordHandler} will be invoked with output record if record conversion succeeds
-     * with no exceptions from {@link #convert(Object)}.
+     * Will execute current node's {@link #executeNode(Optional)} followed by parallel execution of {@link
+     * #childNodes}'s {@link #execute(Optional)} method.
      */
+    public final void execute(@NonNull final Optional<IPayload> data) {
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+
+    /**
+     * {@link #updateSinkStat(Optional)} will compute {@link SinkStat} and persist changes into {@link IMetadataManager}.
+     * As a part of {@link SinkStat} computation; it will compute avg record size for current run.
+     * @param writesStatuses
+```
+
+### JavadocDeclaration
+`@param writesStatuses` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+     * {@link #updateSinkStat(Optional)} will compute {@link SinkStat} and persist changes into {@link IMetadataManager}.
+     * As a part of {@link SinkStat} computation; it will compute avg record size for current run.
+     * @param writesStatuses
+     */
+    private void updateSinkStat(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
+```
+
+### JavadocDeclaration
+`@param allFieldsToConvert` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+     *
+     * All required fields listed, however, must exist in the fields to convert
+     * @param allFieldsToConvert
+     * @param requiredFields
+     */
+```
+
+### JavadocDeclaration
+`@param numRecords` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+     * {@link HoodieConfiguration#HOODIE_TARGET_FILE_SIZE} and {@link SinkStatManager#getAvgRecordSize()} to figure
+     * out what should be the optimal bulk insert parallelism.
+     * @param numRecords
+     */
+    public boolean updateBulkInsertParallelism(final long numRecords) {
+```
+
+### JavadocDeclaration
+`@param numRecords` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+#### Snippet
+```java
+     * {@link HoodieConfiguration#HOODIE_TARGET_FILE_SIZE} and {@link SinkStatManager#getAvgRecordSize()} to figure
+     * out what should be the optimal insert parallelism.
+     * @param numRecords
+     */
+    public boolean updateInsertParallelism(final long numRecords) {
+```
+
+### JavadocDeclaration
+`@param requiredFields` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+#### Snippet
+```java
+     * All required fields listed, however, must exist in the fields to convert
+     * @param allFieldsToConvert
+     * @param requiredFields
+     */
+    private void validate(@NonNull final Set<String> allFieldsToConvert, @NonNull final List<String> requiredFields) {
 ```
 
 ### JavadocDeclaration
@@ -7496,111 +7628,27 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSin
 ```
 
 ### JavadocDeclaration
-`@param allFieldsToConvert` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
+Javadoc pointing to itself
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
 ```java
-     *
-     * All required fields listed, however, must exist in the fields to convert
-     * @param allFieldsToConvert
-     * @param requiredFields
+    protected Optional<VoidFunction<ID>> failureRecordHandler = Optional.absent();
+    /**
+     * If defined then {@link #successRecordHandler} will be invoked with output record if record conversion succeeds
+     * with no exceptions from {@link #convert(Object)}.
      */
-```
-
-### JavadocDeclaration
-`@param requiredFields` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkDataConverter.java`
-#### Snippet
-```java
-     * All required fields listed, however, must exist in the fields to convert
-     * @param allFieldsToConvert
-     * @param requiredFields
-     */
-    private void validate(@NonNull final Set<String> allFieldsToConvert, @NonNull final List<String> requiredFields) {
 ```
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `marmaray/src/main/java/com/uber/marmaray/common/job/JobSubDag.java`
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
 ```java
+    protected Configuration conf;
     /**
-     * Will execute current node's {@link #executeNode(Optional)} followed by parallel execution of {@link
-     * #childNodes}'s {@link #execute(Optional)} method.
+     * If defined then {@link #failureRecordHandler} will be invoked with input record in case of any exception from
+     * {@link #convert(Object)}.
      */
-    public final void execute(@NonNull final Optional<IPayload> data) {
-```
-
-### JavadocDeclaration
-`@param allFieldsToConvert` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     *
-     * All required fields listed, however, must exist in the fields to convert
-     * @param allFieldsToConvert
-     * @param requiredFields
-     */
-```
-
-### JavadocDeclaration
-`@param requiredFields` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     * All required fields listed, however, must exist in the fields to convert
-     * @param allFieldsToConvert
-     * @param requiredFields
-     */
-    private void validate(final Set<String> allFieldsToConvert, final List<String> requiredFields) {
-```
-
-### JavadocDeclaration
-`@param inputSchema` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-    /**
-     * This constructor gives the option to only convert certain fields from the schema
-     * @param inputSchema
-     * @param conf
-     * @param fieldsToConvert
-```
-
-### JavadocDeclaration
-`@param conf` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     * This constructor gives the option to only convert certain fields from the schema
-     * @param inputSchema
-     * @param conf
-     * @param fieldsToConvert
-     * @param requiredFields
-```
-
-### JavadocDeclaration
-`@param fieldsToConvert` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     * @param inputSchema
-     * @param conf
-     * @param fieldsToConvert
-     * @param requiredFields
-     */
-```
-
-### JavadocDeclaration
-`@param requiredFields` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/CassandraSinkCQLDataConverter.java`
-#### Snippet
-```java
-     * @param conf
-     * @param fieldsToConvert
-     * @param requiredFields
-     */
-    public CassandraSinkCQLDataConverter(@NonNull final Schema inputSchema,
 ```
 
 ### JavadocDeclaration
@@ -7628,75 +7676,39 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metrics/Metric.java`
 ```
 
 ### JavadocDeclaration
-`@param numRecords` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+Illegal character
+in `marmaray/src/main/java/com/uber/marmaray/utilities/MapUtil.java`
 #### Snippet
 ```java
-     * {@link HoodieConfiguration#HOODIE_TARGET_FILE_SIZE} and {@link SinkStatManager#getAvgRecordSize()} to figure
-     * out what should be the optimal insert parallelism.
-     * @param numRecords
+     * @param serializedMap Example format is k1{@link #KEY_VALUE_SEPARATOR}v1{@link #KEYS_SEPARATOR}k2{@link
+     * #KEY_VALUE_SEPARATOR}v2.
+     * @return deserialized {@link Map<String, String>}.
      */
-    public boolean updateInsertParallelism(final long numRecords) {
+    public static Map<String, String> deserializeMap(@NotEmpty final String serializedMap) {
 ```
 
 ### JavadocDeclaration
-Javadoc pointing to itself
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
+Illegal character
+in `marmaray/src/main/java/com/uber/marmaray/utilities/MapUtil.java`
 #### Snippet
 ```java
+     * @param serializedMap Example format is k1{@link #KEY_VALUE_SEPARATOR}v1{@link #KEYS_SEPARATOR}k2{@link
+     * #KEY_VALUE_SEPARATOR}v2.
+     * @return deserialized {@link Map<String, String>}.
+     */
+    public static Map<String, String> deserializeMap(@NotEmpty final String serializedMap) {
+```
 
+### JavadocDeclaration
+`@param successData` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/converterresult/ConverterResult.java`
+#### Snippet
+```java
     /**
-     * {@link #updateSinkStat(Optional)} will compute {@link SinkStat} and persist changes into {@link IMetadataManager}.
-     * As a part of {@link SinkStat} computation; it will compute avg record size for current run.
-     * @param writesStatuses
-```
-
-### JavadocDeclaration
-`@param writesStatuses` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-     * {@link #updateSinkStat(Optional)} will compute {@link SinkStat} and persist changes into {@link IMetadataManager}.
-     * As a part of {@link SinkStat} computation; it will compute avg record size for current run.
-     * @param writesStatuses
+     * Constructor for case that OD is schema conforming
+     * @param successData
      */
-    private void updateSinkStat(final Optional<JavaRDD<WriteStatus>> writesStatuses) {
-```
-
-### JavadocDeclaration
-`@param numRecords` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/hoodie/HoodieSink.java`
-#### Snippet
-```java
-     * {@link HoodieConfiguration#HOODIE_TARGET_FILE_SIZE} and {@link SinkStatManager#getAvgRecordSize()} to figure
-     * out what should be the optimal bulk insert parallelism.
-     * @param numRecords
-     */
-    public boolean updateBulkInsertParallelism(final long numRecords) {
-```
-
-### JavadocDeclaration
-Illegal character
-in `marmaray/src/main/java/com/uber/marmaray/utilities/MapUtil.java`
-#### Snippet
-```java
-     * @param serializedMap Example format is k1{@link #KEY_VALUE_SEPARATOR}v1{@link #KEYS_SEPARATOR}k2{@link
-     * #KEY_VALUE_SEPARATOR}v2.
-     * @return deserialized {@link Map<String, String>}.
-     */
-    public static Map<String, String> deserializeMap(@NotEmpty final String serializedMap) {
-```
-
-### JavadocDeclaration
-Illegal character
-in `marmaray/src/main/java/com/uber/marmaray/utilities/MapUtil.java`
-#### Snippet
-```java
-     * @param serializedMap Example format is k1{@link #KEY_VALUE_SEPARATOR}v1{@link #KEYS_SEPARATOR}k2{@link
-     * #KEY_VALUE_SEPARATOR}v2.
-     * @return deserialized {@link Map<String, String>}.
-     */
-    public static Map<String, String> deserializeMap(@NotEmpty final String serializedMap) {
+    public ConverterResult(@NonNull final OD successData) {
 ```
 
 ### JavadocDeclaration
@@ -7736,18 +7748,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/forkoperator/ForkFunction.ja
 ```
 
 ### JavadocDeclaration
-`@param successData` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/converterresult/ConverterResult.java`
-#### Snippet
-```java
-    /**
-     * Constructor for case that OD is schema conforming
-     * @param successData
-     */
-    public ConverterResult(@NonNull final OD successData) {
-```
-
-### JavadocDeclaration
 `@param key` tag description is missing
 in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
 #### Snippet
@@ -7769,6 +7769,30 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataT
      * @return
      */
     public boolean contains(@NotEmpty final String key) {
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
+#### Snippet
+```java
+    /**
+     * Set the metadata for this DAG, if not empty
+     * @param key
+     * @param value
+     */
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
+#### Snippet
+```java
+     * Set the metadata for this DAG, if not empty
+     * @param key
+     * @param value
+     */
+    public void set(@NotEmpty final String key, @NonNull final Map<String, String> value) {
 ```
 
 ### JavadocDeclaration
@@ -7808,27 +7832,15 @@ in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataT
 ```
 
 ### JavadocDeclaration
-`@param key` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
+`@param hadoopConf` tag description is missing
+in `marmaray/src/main/java/com/uber/marmaray/common/sinks/cassandra/CassandraSink.java`
 #### Snippet
 ```java
-    /**
-     * Set the metadata for this DAG, if not empty
-     * @param key
-     * @param value
+     * This method prepares the Cassandra table for the bulk load
+     *
+     * @param hadoopConf
      */
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/JobManagerMetadataTracker.java`
-#### Snippet
-```java
-     * Set the metadata for this DAG, if not empty
-     * @param key
-     * @param value
-     */
-    public void set(@NotEmpty final String key, @NonNull final Map<String, String> value) {
+    void setupCassandraTable(@NonNull final Configuration hadoopConf) {
 ```
 
 ### JavadocDeclaration
@@ -7841,18 +7853,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/sinks/file/AwsFileSink.java`
      * @param data
      * @return map of date to RDD
      */
-```
-
-### JavadocDeclaration
-`@param hadoopConf` tag description is missing
-in `marmaray/src/main/java/com/uber/marmaray/common/sinks/cassandra/CassandraSink.java`
-#### Snippet
-```java
-     * This method prepares the Cassandra table for the bulk load
-     *
-     * @param hadoopConf
-     */
-    void setupCassandraTable(@NonNull final Configuration hadoopConf) {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -7993,18 +7993,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/LockManagerCon
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `lines` is redundant
-in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
-#### Snippet
-```java
-            }
-        }
-        final JavaPairRDD<String, String> lines = data.mapToPair(row -> {
-                final String line = convert(row).get(0).getSuccessData().get().getData();
-                final String rowKey = this.row_identifier.isEmpty() ? key
-```
-
-### UnnecessaryLocalVariable
 Local variable `serializedData` is redundant
 in `marmaray/src/main/java/com/uber/marmaray/utilities/SparkUtil.java`
 #### Snippet
@@ -8017,15 +8005,15 @@ in `marmaray/src/main/java/com/uber/marmaray/utilities/SparkUtil.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `checkpoints` is redundant
-in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+Local variable `lines` is redundant
+in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/FileSinkDataJSONConverter.java`
 #### Snippet
 ```java
-            metadata.put(entry.getKey(), entry.getValue().getValue());
+            }
         }
-        String checkpoints = MapUtil.serializeMap(metadata);
-        return checkpoints;
-    }
+        final JavaPairRDD<String, String> lines = data.mapToPair(row -> {
+                final String line = convert(row).get(0).getSuccessData().get().getData();
+                final String rowKey = this.row_identifier.isEmpty() ? key
 ```
 
 ### UnnecessaryLocalVariable
@@ -8038,6 +8026,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/job/ThreadPoolService.java`
                 final Object result = this.wrappedCallable.call();
                 return result;
             } finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `checkpoints` is redundant
+in `marmaray/src/main/java/com/uber/marmaray/common/metadata/CassandraBasedMetadataManager.java`
+#### Snippet
+```java
+            metadata.put(entry.getKey(), entry.getValue().getValue());
+        }
+        String checkpoints = MapUtil.serializeMap(metadata);
+        return checkpoints;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -8165,18 +8165,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/spark/SparkFactory.java`
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.java`
-#### Snippet
-```java
-
-        final SparkArgs sparkArgs = new SparkArgs(
-            Arrays.asList(outputSchema),
-            SparkUtil.getSerializationClasses(),
-            conf);
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
 in `marmaray/src/main/java/com/uber/marmaray/common/configuration/LockManagerConfiguration.java`
 #### Snippet
 ```java
@@ -8185,6 +8173,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/LockManagerCon
         return Collections.unmodifiableList(Arrays.asList(ZK_BASE_PATH));
     }
 }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `marmaray/src/main/java/com/uber/marmaray/examples/job/ParquetToCassandraJob.java`
+#### Snippet
+```java
+
+        final SparkArgs sparkArgs = new SparkArgs(
+            Arrays.asList(outputSchema),
+            SparkUtil.getSerializationClasses(),
+            conf);
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -8225,6 +8225,18 @@ in `marmaray/src/main/java/com/uber/marmaray/common/configuration/ErrorTableConf
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
+in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaConfiguration.java`
+#### Snippet
+```java
+
+    public List<String> getMandatoryProperties() {
+        return Arrays.asList(KAFKA_BROKER_LIST);
+    }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
 in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractDataConverter.java`
 #### Snippet
 ```java
@@ -8245,18 +8257,6 @@ in `marmaray/src/main/java/com/uber/marmaray/common/converters/data/AbstractData
                         forkData.add(new ForkData<>(Arrays.asList(VALID_RECORD), t.getSuccessData().get()));
                     }
                 });
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `marmaray/src/main/java/com/uber/marmaray/common/configuration/KafkaConfiguration.java`
-#### Snippet
-```java
-
-    public List<String> getMandatoryProperties() {
-        return Arrays.asList(KAFKA_BROKER_LIST);
-    }
-
 ```
 
 ## RuleId[id=IntegerDivisionInFloatingPointContext]
