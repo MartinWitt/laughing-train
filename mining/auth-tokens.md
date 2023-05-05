@@ -87,7 +87,7 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.jav
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `destroy()` is identical to its super method
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
 #### Snippet
 ```java
 
@@ -99,7 +99,7 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBe
 
 ### RedundantMethodOverride
 Method `destroy()` is identical to its super method
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
 #### Snippet
 ```java
 
@@ -320,7 +320,7 @@ final class UuidStringConverter {
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
 #### Snippet
 ```java
             throws IOException, ServletException {
@@ -332,7 +332,7 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBe
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/BasicAuthToBearerTokenFilter.java`
 #### Snippet
 ```java
             throws IOException, ServletException {
