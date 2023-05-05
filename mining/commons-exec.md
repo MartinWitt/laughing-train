@@ -145,42 +145,6 @@ package org.apache.commons.exec.environment;
 ```
 
 ### CommentedOutCode
-Commented out code (25 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    }
-
-//    /**
-//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
-//     * at least not the way we use it in the execution context.
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-
-// No longer needed
-//        if (procEnvironment == null) {
-//            procEnvironment = createEnvironmentMap();
-//            final BufferedReader in = runProcEnvCommand();
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    @Deprecated
-    protected BufferedReader runProcEnvCommand() throws IOException {
-//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        final Executor exe = new DefaultExecutor();
-//        exe.setStreamHandler(new PumpStreamHandler(out));
-```
-
-### CommentedOutCode
 Commented out code (37 lines)
 in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
@@ -202,6 +166,42 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 //        if (executable != null) {
 //            commandLine = new CommandLine(executable);
 //            commandLine.addArguments(arguments);
+```
+
+### CommentedOutCode
+Commented out code (25 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+    }
+
+//    /**
+//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
+//     * at least not the way we use it in the execution context.
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+    @Deprecated
+    protected BufferedReader runProcEnvCommand() throws IOException {
+//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        final Executor exe = new DefaultExecutor();
+//        exe.setStreamHandler(new PumpStreamHandler(out));
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+
+// No longer needed
+//        if (procEnvironment == null) {
+//            procEnvironment = createEnvironmentMap();
+//            final BufferedReader in = runProcEnvCommand();
 ```
 
 ## RuleId[id=SwitchStatementWithTooFewBranches]
@@ -274,7 +274,7 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    void execute(CommandLine command, ExecuteResultHandler handler)
+    int execute(CommandLine command, Map<String, String> environment)
         throws ExecuteException, IOException;
 
     /**
@@ -286,34 +286,10 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    int execute(CommandLine command, Map<String, String> environment)
+    void execute(CommandLine command, ExecuteResultHandler handler)
         throws ExecuteException, IOException;
 
     /**
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    @Override
-    public int execute(final CommandLine command, final Map<String, String> environment)
-            throws ExecuteException, IOException {
-
-        if (workingDirectory != null && !workingDirectory.exists()) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    @Override
-    public void execute(final CommandLine command, final Map<String, String> environment,
-            final ExecuteResultHandler handler) throws ExecuteException, IOException {
-
-        if (workingDirectory != null && !workingDirectory.exists()) {
 ```
 
 ### DuplicateThrows
@@ -334,10 +310,34 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 #### Snippet
 ```java
     @Override
+    public int execute(final CommandLine command, final Map<String, String> environment)
+            throws ExecuteException, IOException {
+
+        if (workingDirectory != null && !workingDirectory.exists()) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    @Override
     public void execute(final CommandLine command, final ExecuteResultHandler handler)
             throws ExecuteException, IOException {
         execute(command, null, handler);
     }
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    @Override
+    public void execute(final CommandLine command, final Map<String, String> environment,
+            final ExecuteResultHandler handler) throws ExecuteException, IOException {
+
+        if (workingDirectory != null && !workingDirectory.exists()) {
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -372,7 +372,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult()) {
+        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
@@ -384,7 +384,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
+        while (!hasResult()) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
