@@ -36,20 +36,19 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
 
 ```
 
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@return` tag description is missing
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
+## RuleId[id=StaticInitializerReferencesSubClass]
+### StaticInitializerReferencesSubClass
+Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
+in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 #### Snippet
 ```java
-     * @param expected This is the state that the Recording should be in for a valid transition to occur
-     * @param others Additional <em>expected</em> states
-     * @return
+     * The default configuration is suitable for continuous recordings.
      */
-    private static String createIllegalStateExceptionMessage(State actual, State expected, State... others) {
+    public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
+
+    /**
 ```
 
-## RuleId[id=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
 Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
@@ -62,16 +61,17 @@ in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 
 ```
 
-### StaticInitializerReferencesSubClass
-Referencing subclass PredefinedConfiguration from superclass RecordingConfiguration initializer might lead to class loading deadlock
-in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-     * The default configuration is suitable for continuous recordings.
+     * @param expected This is the state that the Recording should be in for a valid transition to occur
+     * @param others Additional <em>expected</em> states
+     * @return
      */
-    public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
-
-    /**
+    private static String createIllegalStateExceptionMessage(State actual, State expected, State... others) {
 ```
 
 ## RuleId[id=UnusedAssignment]
