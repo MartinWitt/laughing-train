@@ -44,23 +44,11 @@ Variable is already assigned to this value
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-        } catch (RepositoryException e) {
-            //ignore
-            supportedPrivileges = null;
-        }
-        if (supportedPrivileges != null) {
-```
-
-### DataFlowIssue
-Condition `workspace instanceof JackrabbitWorkspace` is redundant and can be replaced with a null check
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-            // non-existing path. We can't determine what is supported there, so consider all registered privileges
-            Workspace workspace = jcrSession.getWorkspace();
-            if (workspace instanceof JackrabbitWorkspace) {
-                PrivilegeManager privilegeManager = ((JackrabbitWorkspace)workspace).getPrivilegeManager();
-                supportedPrivileges = privilegeManager.getRegisteredPrivileges();
+                    String[] strings = entry.getValue();
+                    if (rd.getRequiredType().isArray()) {
+                        value = strings;
+                    } else if (strings.length > 0) {
+                        //use the first one?
 ```
 
 ### DataFlowIssue
@@ -68,11 +56,11 @@ Variable is already assigned to this value
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-                    String[] strings = entry.getValue();
-                    if (rd.getRequiredType().isArray()) {
-                        value = strings;
-                    } else if (strings.length > 0) {
-                        //use the first one?
+        } catch (RepositoryException e) {
+            //ignore
+            supportedPrivileges = null;
+        }
+        if (supportedPrivileges != null) {
 ```
 
 ### DataFlowIssue
@@ -85,6 +73,18 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
             if (session instanceof JackrabbitSession) {
                 UserManager userManager = ((JackrabbitSession)session).getUserManager();
                 if (userManager != null) {
+```
+
+### DataFlowIssue
+Condition `workspace instanceof JackrabbitWorkspace` is redundant and can be replaced with a null check
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+            // non-existing path. We can't determine what is supported there, so consider all registered privileges
+            Workspace workspace = jcrSession.getWorkspace();
+            if (workspace instanceof JackrabbitWorkspace) {
+                PrivilegeManager privilegeManager = ((JackrabbitWorkspace)workspace).getPrivilegeManager();
+                supportedPrivileges = privilegeManager.getRegisteredPrivileges();
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -164,6 +164,18 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `rd` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/RestrictionDefinitionInfo.java`
+#### Snippet
+```java
+public class RestrictionDefinitionInfo implements RestrictionDefinition {
+    private String displayName;
+    private RestrictionDefinition rd;
+
+    public RestrictionDefinitionInfo(String displayName, RestrictionDefinition rd) {
+```
+
+### FieldMayBeFinal
 Field `displayName` may be 'final'
 in `src/main/java/org/apache/sling/starter/access/models/RestrictionDefinitionInfo.java`
 #### Snippet
@@ -201,14 +213,14 @@ public class PrincipalPrivilege {
 
 ### FieldMayBeFinal
 Field `rd` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/RestrictionDefinitionInfo.java`
+in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
 #### Snippet
 ```java
-public class RestrictionDefinitionInfo implements RestrictionDefinition {
-    private String displayName;
-    private RestrictionDefinition rd;
 
-    public RestrictionDefinitionInfo(String displayName, RestrictionDefinition rd) {
+public class RestrictionItem {
+    private RestrictionDefinition rd;
+    private Object value;
+    private boolean exists;
 ```
 
 ### FieldMayBeFinal
@@ -224,18 +236,6 @@ public class RestrictionItem {
 ```
 
 ### FieldMayBeFinal
-Field `rd` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
-#### Snippet
-```java
-
-public class RestrictionItem {
-    private RestrictionDefinition rd;
-    private Object value;
-    private boolean exists;
-```
-
-### FieldMayBeFinal
 Field `longestPath` may be 'final'
 in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 #### Snippet
@@ -248,18 +248,6 @@ in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 ```
 
 ### FieldMayBeFinal
-Field `depth` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
-#### Snippet
-```java
-    private boolean denied;
-    private String longestPath;
-    private long depth;
-    private String extraCssClasses;
-    private List<RestrictionItem> allowRestrictions;
-```
-
-### FieldMayBeFinal
 Field `name` may be 'final'
 in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 #### Snippet
@@ -269,6 +257,18 @@ public class PrivilegeItem {
     private String name;
     private boolean granted;
     private boolean denied;
+```
+
+### FieldMayBeFinal
+Field `depth` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
+#### Snippet
+```java
+    private boolean denied;
+    private String longestPath;
+    private long depth;
+    private String extraCssClasses;
+    private List<RestrictionItem> allowRestrictions;
 ```
 
 ## RuleId[id=ConstantValue]
