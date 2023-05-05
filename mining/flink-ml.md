@@ -66,30 +66,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translat
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.iteration.operator.allround.AllRoundOperatorWrapper' to 'org.apache.flink.iteration.operator.OperatorWrapper\>'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
-#### Snippet
-```java
-                Collections.emptySet(),
-                body,
-                new AllRoundOperatorWrapper(),
-                false);
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.iteration.operator.OperatorWrapper' to 'org.apache.flink.iteration.operator.OperatorWrapper\>'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
-#### Snippet
-```java
-                replayedIndices,
-                body,
-                wrapper,
-                true);
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'T'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/OperatorUtils.java`
 #### Snippet
@@ -127,15 +103,27 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayO
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.lang.Class' to 'java.lang.Class\>'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordTypeInfo.java`
+Unchecked assignment: 'org.apache.flink.iteration.operator.allround.AllRoundOperatorWrapper' to 'org.apache.flink.iteration.operator.OperatorWrapper\>'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 #### Snippet
 ```java
-    @Override
-    public Class<IterationRecord<T>> getTypeClass() {
-        return (Class) IterationRecord.class;
+                Collections.emptySet(),
+                body,
+                new AllRoundOperatorWrapper(),
+                false);
     }
+```
 
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.flink.iteration.operator.OperatorWrapper' to 'org.apache.flink.iteration.operator.OperatorWrapper\>'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+#### Snippet
+```java
+                replayedIndices,
+                body,
+                wrapper,
+                true);
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -148,6 +136,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/Iterati
         IterationRecordTypeInfo<T> that = (IterationRecordTypeInfo<T>) o;
         return Objects.equals(innerTypeInfo, that.innerTypeInfo);
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.lang.Class' to 'java.lang.Class\>'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordTypeInfo.java`
+#### Snippet
+```java
+    @Override
+    public Class<IterationRecord<T>> getTypeClass() {
+        return (Class) IterationRecord.class;
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -175,6 +175,150 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasMaxIter' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasMaxIter.java`
+#### Snippet
+```java
+    default T setMaxIter(int value) {
+        set(MAX_ITER, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasPredictionCol' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasPredictionCol.java`
+#### Snippet
+```java
+    default T setPredictionCol(String value) {
+        set(PREDICTION_COL, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasDistanceMeasure' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasDistanceMeasure.java`
+#### Snippet
+```java
+    default T setDistanceMeasure(String value) {
+        set(DISTANCE_MEASURE, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasFeaturesCol' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasFeaturesCol.java`
+#### Snippet
+```java
+    default T setFeaturesCol(String value) {
+        set(FEATURES_COL, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasNumFeatures' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasNumFeatures.java`
+#### Snippet
+```java
+    default T setNumFeatures(int value) {
+        set(NUM_FEATURES, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasHandleInvalid' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasHandleInvalid.java`
+#### Snippet
+```java
+    default T setHandleInvalid(String value) {
+        set(HANDLE_INVALID, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasSeed' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasSeed.java`
+#### Snippet
+```java
+    default T setSeed(long value) {
+        set(SEED, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.common.param.HasMultiClass' to 'T'
+in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasMultiClass.java`
+#### Snippet
+```java
+    default T setMultiClass(String value) {
+        set(MULTI_CLASS, value);
+        return (T) this;
+    }
+}
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
+#### Snippet
+```java
+            } else if (dataType instanceof MapTypeInfo) {
+                List<List<Object>> serializedMapKV = new ArrayList<>(2);
+                Map<Object, Object> mapObj = (Map) obj;
+                List<Object> keyBytesList = new ArrayList<>(mapObj.size());
+                List<Object> valueBytesList = new ArrayList<>(mapObj.size());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
+#### Snippet
+```java
+        List<String> fieldNames = output.getResolvedSchema().getColumnNames();
+        for (Row result :
+                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
+            Vector inputValue = result.getFieldAs(fieldNames.indexOf(lsh.getInputCol()));
+            DenseVector[] outputValue = result.getFieldAs(fieldNames.indexOf(lsh.getOutputCol()));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
+#### Snippet
+```java
+        output = model.approxNearestNeighbors(dataA, key, 2).select($("id"), $("distCol"));
+        for (Row result :
+                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
+            int idValue = result.getFieldAs(fieldNames.indexOf("id"));
+            double distValue = result.getFieldAs(result.getArity() - 1);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
+#### Snippet
+```java
+        output = model.approxSimilarityJoin(dataA, dataB, .6, "id");
+        for (Row result :
+                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
+            int idAValue = result.getFieldAs(0);
+            int idBValue = result.getFieldAs(1);
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'capture' to 'java.util.Map'
 in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/ServableReadWriteUtils.java`
 #### Snippet
@@ -187,18 +331,6 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/ServableReadWr
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/VectorParam.java`
-#### Snippet
-```java
-    @Override
-    public Vector jsonDecode(Object object) {
-        Map<String, Object> vecValues = (Map) object;
-        if (vecValues.size() == 1) {
-            List<Double> list = (List<Double>) vecValues.get("values");
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.flink.ml.param.Param\>' to 'org.apache.flink.ml.param.Param'
 in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.java`
 #### Snippet
@@ -208,6 +340,18 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.ja
         return (Param<V>) result.orElse(null);
     }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/VectorParam.java`
+#### Snippet
+```java
+    @Override
+    public Vector jsonDecode(Object object) {
+        Map<String, Object> vecValues = (Map) object;
+        if (vecValues.size() == 1) {
+            List<Double> list = (List<Double>) vecValues.get("values");
 ```
 
 ### UNCHECKED_WARNING
@@ -271,6 +415,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueue
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.HashSet'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
+#### Snippet
+```java
+
+            OperatorStateUtils.getUniqueElement(distinctLabelsState, "distinctLabelsState")
+                    .ifPresent(x -> distinctLabels = new HashSet<>(x));
+        }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List\>'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
 #### Snippet
@@ -295,14 +451,14 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/SGD.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.HashSet'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
+Unchecked cast: 'org.apache.flink.ml.feature.bucketizer.BucketizerParams' to 'T'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/bucketizer/BucketizerParams.java`
 #### Snippet
 ```java
-
-            OperatorStateUtils.getUniqueElement(distinctLabelsState, "distinctLabelsState")
-                    .ifPresent(x -> distinctLabels = new HashSet<>(x));
-        }
+    default T setSplitsArray(Double[][] value) {
+        set(SPLITS_ARRAY, value);
+        return (T) this;
+    }
 
 ```
 
@@ -316,42 +472,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/hashingtf/HashingTF.j
                 inputList = (Iterable<Object>) inputObj;
             } else {
                 throw new IllegalArgumentException(
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.feature.bucketizer.BucketizerParams' to 'T'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/bucketizer/BucketizerParams.java`
-#### Snippet
-```java
-    default T setSplitsArray(Double[][] value) {
-        set(SPLITS_ARRAY, value);
-        return (T) this;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
-#### Snippet
-```java
-        @Override
-        public List<Row> getResult(PriorityQueue<Row> accumulator) {
-            return new ArrayList<>(accumulator);
-        }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
-#### Snippet
-```java
-        @Override
-        public List<Row> getResult(PriorityQueue<Row> accumulator) {
-            return new ArrayList<>(accumulator);
-        }
-
 ```
 
 ### UNCHECKED_WARNING
@@ -403,6 +523,30 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
+#### Snippet
+```java
+        @Override
+        public List<Row> getResult(PriorityQueue<Row> accumulator) {
+            return new ArrayList<>(accumulator);
+        }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
+#### Snippet
+```java
+        @Override
+        public List<Row> getResult(PriorityQueue<Row> accumulator) {
+            return new ArrayList<>(accumulator);
+        }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.HashMap\[\]' to 'java.util.Map\[\]'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stringindexer/StringIndexer.java`
 #### Snippet
@@ -415,18 +559,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stringindexer/StringI
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet\[\]' to 'java.util.HashSet\[\]'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorindexer/VectorIndexer.java`
-#### Snippet
-```java
-
-        private HashSet<Double>[] convertToHashSetArray(List<Double>[] array) {
-            HashSet<Double>[] results = new HashSet[array.length];
-            for (int i = 0; i < array.length; i++) {
-                results[i] = new HashSet<>(array[i]);
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList\[\]' to 'java.util.List\[\]'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorindexer/VectorIndexer.java`
 #### Snippet
@@ -436,6 +568,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorindexer/VectorI
             List<Double>[] results = new ArrayList[array.length];
             for (int i = 0; i < array.length; i++) {
                 results[i] = new ArrayList<>(array[i]);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet\[\]' to 'java.util.HashSet\[\]'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorindexer/VectorIndexer.java`
+#### Snippet
+```java
+
+        private HashSet<Double>[] convertToHashSetArray(List<Double>[] array) {
+            HashSet<Double>[] results = new HashSet[array.length];
+            for (int i = 0; i < array.length; i++) {
+                results[i] = new HashSet<>(array[i]);
 ```
 
 ### UNCHECKED_WARNING
@@ -487,18 +631,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansModel
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.clustering.kmeans.KMeansParams' to 'T'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansParams.java`
-#### Snippet
-```java
-    default T setInitMode(String value) {
-        set(INIT_MODE, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List\>'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeatureselector/UnivariateFeatureSelector.java`
 #### Snippet
@@ -508,6 +640,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeaturesele
             pValuesAndIndices = IteratorUtils.toList(pValuesAndIndicesState.get().iterator());
         }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.flink.ml.clustering.kmeans.KMeansParams' to 'T'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansParams.java`
+#### Snippet
+```java
+    default T setInitMode(String value) {
+        set(INIT_MODE, value);
+        return (T) this;
+    }
+}
 ```
 
 ### UNCHECKED_WARNING
@@ -535,18 +679,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/Line
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap\[\]\[\]' to 'java.util.Map\[\]\[\]'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayesModelData.java`
-#### Snippet
-```java
-                        int featureSize = inputViewStreamWrapper.readInt();
-                        int numLabels = inputViewStreamWrapper.readInt();
-                        Map<Double, Double>[][] theta = new HashMap[numLabels][featureSize];
-                        for (int i = 0; i < featureSize; i++) {
-                            for (int j = 0; j < numLabels; j++) {
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/agglomerativeclustering/AgglomerativeClustering.java`
 #### Snippet
@@ -559,6 +691,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/agglomerativeclust
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap\[\]\[\]' to 'java.util.Map\[\]\[\]'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayesModelData.java`
+#### Snippet
+```java
+                        int featureSize = inputViewStreamWrapper.readInt();
+                        int numLabels = inputViewStreamWrapper.readInt();
+                        Map<Double, Double>[][] theta = new HashMap[numLabels][featureSize];
+                        for (int i = 0; i < featureSize; i++) {
+                            for (int j = 0; j < numLabels; j++) {
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.flink.ml.classification.logisticregression.OnlineLogisticRegressionModelParams' to 'T'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/OnlineLogisticRegressionModelParams.java`
 #### Snippet
@@ -568,66 +712,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregres
         return (T) this;
     }
 }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
-#### Snippet
-```java
-    // of the value.
-    private static <T> Object jsonEncodeHelper(Param<T> param, Object value) throws IOException {
-        return param.jsonEncode((T) value);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/OnlineLogisticRegression.java`
-#### Snippet
-```java
-            modelDataState.clear();
-
-            List<Row[]> pointsList = IteratorUtils.toList(localBatchDataState.get().iterator());
-            Row[] points = pointsList.remove(0);
-            localBatchDataState.update(pointsList);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.apache.flink.ml.common.broadcast.typeinfo.CacheElementTypeInfo'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementTypeInfo.java`
-#### Snippet
-```java
-        }
-
-        CacheElementTypeInfo<T> that = (CacheElementTypeInfo<T>) obj;
-        return Objects.equals(recordTypeInfo, that.recordTypeInfo);
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.lang.Class' to 'java.lang.Class\>'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementTypeInfo.java`
-#### Snippet
-```java
-    @Override
-    public Class<CacheElement<T>> getTypeClass() {
-        return (Class) CacheElement.class;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap\[\]' to 'java.util.Map\[\]'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
-#### Snippet
-```java
-                    Map<Double, Double>[] featureWeight =
-                            featureWeightMap.computeIfAbsent(
-                                    value.f0, x -> new HashMap[featureSize]);
-                    numMap.put(value.f0, value.f3);
-                    featureWeight[value.f1] = value.f2;
 ```
 
 ### UNCHECKED_WARNING
@@ -652,6 +736,66 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/Nai
             Map<Double, Double>[][] theta = new HashMap[numLabels][featureSize];
             double[] piArray = new double[numLabels];
             double[] labels = new double[numLabels];
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap\[\]' to 'java.util.Map\[\]'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
+#### Snippet
+```java
+                    Map<Double, Double>[] featureWeight =
+                            featureWeightMap.computeIfAbsent(
+                                    value.f0, x -> new HashMap[featureSize]);
+                    numMap.put(value.f0, value.f3);
+                    featureWeight[value.f1] = value.f2;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/OnlineLogisticRegression.java`
+#### Snippet
+```java
+            modelDataState.clear();
+
+            List<Row[]> pointsList = IteratorUtils.toList(localBatchDataState.get().iterator());
+            Row[] points = pointsList.remove(0);
+            localBatchDataState.update(pointsList);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
+#### Snippet
+```java
+    // of the value.
+    private static <T> Object jsonEncodeHelper(Param<T> param, Object value) throws IOException {
+        return param.jsonEncode((T) value);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.apache.flink.ml.common.broadcast.typeinfo.CacheElementTypeInfo'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementTypeInfo.java`
+#### Snippet
+```java
+        }
+
+        CacheElementTypeInfo<T> that = (CacheElementTypeInfo<T>) obj;
+        return Objects.equals(recordTypeInfo, that.recordTypeInfo);
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.lang.Class' to 'java.lang.Class\>'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementTypeInfo.java`
+#### Snippet
+```java
+    @Override
+    public Class<CacheElement<T>> getTypeClass() {
+        return (Class) CacheElement.class;
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -810,151 +954,43 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStream
     }
 ```
 
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
-#### Snippet
-```java
-        List<String> fieldNames = output.getResolvedSchema().getColumnNames();
-        for (Row result :
-                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
-            Vector inputValue = result.getFieldAs(fieldNames.indexOf(lsh.getInputCol()));
-            DenseVector[] outputValue = result.getFieldAs(fieldNames.indexOf(lsh.getOutputCol()));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
-#### Snippet
-```java
-        output = model.approxNearestNeighbors(dataA, key, 2).select($("id"), $("distCol"));
-        for (Row result :
-                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
-            int idValue = result.getFieldAs(fieldNames.indexOf("id"));
-            double distValue = result.getFieldAs(result.getArity() - 1);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
-#### Snippet
-```java
-        output = model.approxSimilarityJoin(dataA, dataB, .6, "id");
-        for (Row result :
-                (List<Row>) IteratorUtils.toList(tEnv.toDataStream(output).executeAndCollect())) {
-            int idAValue = result.getFieldAs(0);
-            int idBValue = result.getFieldAs(1);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasMaxIter' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasMaxIter.java`
-#### Snippet
-```java
-    default T setMaxIter(int value) {
-        set(MAX_ITER, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasPredictionCol' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasPredictionCol.java`
-#### Snippet
-```java
-    default T setPredictionCol(String value) {
-        set(PREDICTION_COL, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasDistanceMeasure' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasDistanceMeasure.java`
-#### Snippet
-```java
-    default T setDistanceMeasure(String value) {
-        set(DISTANCE_MEASURE, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasFeaturesCol' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasFeaturesCol.java`
-#### Snippet
-```java
-    default T setFeaturesCol(String value) {
-        set(FEATURES_COL, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasSeed' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasSeed.java`
-#### Snippet
-```java
-    default T setSeed(long value) {
-        set(SEED, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasMultiClass' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasMultiClass.java`
-#### Snippet
-```java
-    default T setMultiClass(String value) {
-        set(MULTI_CLASS, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasNumFeatures' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasNumFeatures.java`
-#### Snippet
-```java
-    default T setNumFeatures(int value) {
-        set(NUM_FEATURES, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.ml.common.param.HasHandleInvalid' to 'T'
-in `flink-ml-servable-lib/src/main/java/org/apache/flink/ml/common/param/HasHandleInvalid.java`
-#### Snippet
-```java
-    default T setHandleInvalid(String value) {
-        set(HANDLE_INVALID, value);
-        return (T) this;
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
-#### Snippet
-```java
-            } else if (dataType instanceof MapTypeInfo) {
-                List<List<Object>> serializedMapKV = new ArrayList<>(2);
-                Map<Object, Object> mapObj = (Map) obj;
-                List<Object> keyBytesList = new ArrayList<>(mapObj.size());
-                List<Object> valueBytesList = new ArrayList<>(mapObj.size());
-```
-
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.apache.flink.api.common.accumulators.Accumulator`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+    /**
+     * A stream sink that counts the number of all elements. The counting result is stored in an
+     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
+     * #COUNTER_NAME} and can be acquired by {@link
+     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.flink.api.common.JobExecutionResult`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
+     * #COUNTER_NAME} and can be acquired by {@link
+     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
+     *
+     * @param <T> The type of elements received by the sink.
+```
+
+### JavadocReference
+Cannot resolve symbol `getAccumulatorResult(String)`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
+     * #COUNTER_NAME} and can be acquired by {@link
+     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
+     *
+     * @param <T> The type of elements received by the sink.
+```
+
 ### JavadocReference
 Cannot resolve symbol `OutputTag`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationListener.java`
@@ -989,6 +1025,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationBody.ja
  *   <li>{@link DataStream#assignTimestampsAndWatermarks(WatermarkStrategy)}.
  *   <li>{@link DataStream#iterate()}.
  * </ul>
+```
+
+### JavadocReference
+Cannot resolve symbol `DataStream`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/DataStreamList.java`
+#### Snippet
+```java
+import java.util.List;
+
+/** A utility class to maintain a list of {@link DataStream}, which might have different types. */
+@Experimental
+public class DataStreamList {
 ```
 
 ### JavadocReference
@@ -1040,18 +1088,6 @@ public class ProxyStateSnapshotContext implements StateSnapshotContext {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DataStream`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/DataStreamList.java`
-#### Snippet
-```java
-import java.util.List;
-
-/** A utility class to maintain a list of {@link DataStream}, which might have different types. */
-@Experimental
-public class DataStreamList {
-```
-
-### JavadocReference
 Cannot resolve symbol `InternalTimeServiceManager`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyInternalTimeServiceManager.java`
 #### Snippet
@@ -1076,54 +1112,6 @@ public class ProxyStreamOperatorStateContext implements StreamOperatorStateConte
 ```
 
 ### JavadocReference
-Cannot resolve symbol `KeyedStateBackend`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyKeyedStateBackend.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-/** Proxy {@link KeyedStateBackend} for the wrapped operators. */
-public class ProxyKeyedStateBackend<K> implements CheckpointableKeyedStateBackend<K> {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `OperatorStateBackend`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyOperatorStateBackend.java`
-#### Snippet
-```java
-import java.util.concurrent.RunnableFuture;
-
-/** Proxy {@link OperatorStateBackend} for the wrapped Operator. */
-public class ProxyOperatorStateBackend implements OperatorStateBackend {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `SideOutputTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/SideOutputTransformationTranslator.java`
-#### Snippet
-```java
-import org.apache.flink.util.OutputTag;
-
-/** Draft translator for the {@link SideOutputTransformation}. */
-public class SideOutputTransformationTranslator
-        implements DraftTransformationTranslator<SideOutputTransformation<?>> {
-```
-
-### JavadocReference
-Cannot resolve symbol `KeyedMultipleInputTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/KeyedMultipleInputTransformationTranslator.java`
-#### Snippet
-```java
-import org.apache.flink.streaming.api.transformations.KeyedMultipleInputTransformation;
-
-/** Draft translator for the {@link KeyedMultipleInputTransformation}. */
-public class KeyedMultipleInputTransformationTranslator
-        implements DraftTransformationTranslator<KeyedMultipleInputTransformation<?>> {
-```
-
-### JavadocReference
 Cannot resolve symbol `PartitionTransformation`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/PartitionTransformationTranslator.java`
 #### Snippet
@@ -1133,6 +1121,18 @@ import org.apache.flink.streaming.runtime.partitioner.StreamPartitioner;
 /** Draft translator for the {@link PartitionTransformation}. */
 public class PartitionTransformationTranslator
         implements DraftTransformationTranslator<PartitionTransformation<?>> {
+```
+
+### JavadocReference
+Cannot resolve symbol `KeyedStateBackend`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyKeyedStateBackend.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+/** Proxy {@link KeyedStateBackend} for the wrapped operators. */
+public class ProxyKeyedStateBackend<K> implements CheckpointableKeyedStateBackend<K> {
+
 ```
 
 ### JavadocReference
@@ -1148,39 +1148,51 @@ public class ReduceTransformationTranslator
 ```
 
 ### JavadocReference
-Cannot resolve symbol `OneInputTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/OneInputTransformationTranslator.java`
+Cannot resolve symbol `KeyedMultipleInputTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/KeyedMultipleInputTransformationTranslator.java`
 #### Snippet
 ```java
-import org.apache.flink.streaming.api.transformations.OneInputTransformation;
+import org.apache.flink.streaming.api.transformations.KeyedMultipleInputTransformation;
 
-/** Draft translator for the {@link OneInputTransformation}. */
-public class OneInputTransformationTranslator
-        implements DraftTransformationTranslator<OneInputTransformation<?, ?>> {
+/** Draft translator for the {@link KeyedMultipleInputTransformation}. */
+public class KeyedMultipleInputTransformationTranslator
+        implements DraftTransformationTranslator<KeyedMultipleInputTransformation<?>> {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `BroadcastStateTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/BroadcastStateTransformationTranslator.java`
+Cannot resolve symbol `SideOutputTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/SideOutputTransformationTranslator.java`
 #### Snippet
 ```java
-import org.apache.flink.streaming.api.transformations.TwoInputTransformation;
+import org.apache.flink.util.OutputTag;
 
-/** Draft translator for the {@link BroadcastStateTransformation}. */
-public class BroadcastStateTransformationTranslator
-        implements DraftTransformationTranslator<BroadcastStateTransformation<?, ?, ?>> {
+/** Draft translator for the {@link SideOutputTransformation}. */
+public class SideOutputTransformationTranslator
+        implements DraftTransformationTranslator<SideOutputTransformation<?>> {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MultipleInputTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/MultipleInputTransformationTranslator.java`
+Cannot resolve symbol `OperatorStateBackend`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyOperatorStateBackend.java`
 #### Snippet
 ```java
-import org.apache.flink.streaming.api.transformations.MultipleInputTransformation;
+import java.util.concurrent.RunnableFuture;
 
-/** Draft translator for the {@link MultipleInputTransformation}. */
-public class MultipleInputTransformationTranslator
-        implements DraftTransformationTranslator<MultipleInputTransformation<?>> {
+/** Proxy {@link OperatorStateBackend} for the wrapped Operator. */
+public class ProxyOperatorStateBackend implements OperatorStateBackend {
+
+```
+
+### JavadocReference
+Cannot resolve symbol `UnionTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/UnionTransformationTranslator.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+/** Draft translator for the {@link UnionTransformation}. */
+public class UnionTransformationTranslator
+        implements DraftTransformationTranslator<UnionTransformation<?>> {
 ```
 
 ### JavadocReference
@@ -1196,6 +1208,42 @@ public class TwoInputTransformationTranslator
 ```
 
 ### JavadocReference
+Cannot resolve symbol `BroadcastStateTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/BroadcastStateTransformationTranslator.java`
+#### Snippet
+```java
+import org.apache.flink.streaming.api.transformations.TwoInputTransformation;
+
+/** Draft translator for the {@link BroadcastStateTransformation}. */
+public class BroadcastStateTransformationTranslator
+        implements DraftTransformationTranslator<BroadcastStateTransformation<?, ?, ?>> {
+```
+
+### JavadocReference
+Cannot resolve symbol `OneInputTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/OneInputTransformationTranslator.java`
+#### Snippet
+```java
+import org.apache.flink.streaming.api.transformations.OneInputTransformation;
+
+/** Draft translator for the {@link OneInputTransformation}. */
+public class OneInputTransformationTranslator
+        implements DraftTransformationTranslator<OneInputTransformation<?, ?>> {
+```
+
+### JavadocReference
+Cannot resolve symbol `MultipleInputTransformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/MultipleInputTransformationTranslator.java`
+#### Snippet
+```java
+import org.apache.flink.streaming.api.transformations.MultipleInputTransformation;
+
+/** Draft translator for the {@link MultipleInputTransformation}. */
+public class MultipleInputTransformationTranslator
+        implements DraftTransformationTranslator<MultipleInputTransformation<?>> {
+```
+
+### JavadocReference
 Cannot resolve symbol `KeyedBroadcastStateTransformation`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/KeyedBroadcastStateTransformationTranslator.java`
 #### Snippet
@@ -1205,18 +1253,6 @@ import org.apache.flink.streaming.api.transformations.TwoInputTransformation;
 /** Draft translator for the {@link KeyedBroadcastStateTransformation}. */
 public class KeyedBroadcastStateTransformationTranslator
         implements DraftTransformationTranslator<KeyedBroadcastStateTransformation<?, ?, ?, ?>> {
-```
-
-### JavadocReference
-Cannot resolve symbol `UnionTransformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/translator/UnionTransformationTranslator.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-/** Draft translator for the {@link UnionTransformation}. */
-public class UnionTransformationTranslator
-        implements DraftTransformationTranslator<UnionTransformation<?>> {
 ```
 
 ### JavadocReference
@@ -1256,18 +1292,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Output`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/BroadcastOutputFactory.java`
-#### Snippet
-```java
-import java.util.List;
-
-/** Factory that creates the corresponding {@link BroadcastOutput} from the {@link Output}. */
-public class BroadcastOutputFactory {
-
-```
-
-### JavadocReference
 Cannot resolve symbol `MailboxExecutor`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
 #### Snippet
@@ -1289,6 +1313,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOpe
  *       IterationListener.Context, Collector)}.
  * </ul>
  *
+```
+
+### JavadocReference
+Cannot resolve symbol `Output`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/BroadcastOutputFactory.java`
+#### Snippet
+```java
+import java.util.List;
+
+/** Factory that creates the corresponding {@link BroadcastOutput} from the {@link Output}. */
+public class BroadcastOutputFactory {
+
 ```
 
 ### JavadocReference
@@ -1497,14 +1533,14 @@ public class VectorTypeInfoFactory extends TypeInfoFactory<Vector> {
 
 ### JavadocReference
 Cannot resolve symbol `TypeInformation`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/typeinfo/DenseVectorTypeInfo.java`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/typeinfo/SparseVectorTypeInfo.java`
 #### Snippet
 ```java
-import org.apache.flink.ml.linalg.DenseVector;
+import org.apache.flink.ml.linalg.SparseVector;
 
-/** A {@link TypeInformation} for the {@link DenseVector} type. */
-public class DenseVectorTypeInfo extends TypeInformation<DenseVector> {
-    private static final long serialVersionUID = 1L;
+/** A {@link TypeInformation} for the {@link SparseVector} type. */
+public class SparseVectorTypeInfo extends TypeInformation<SparseVector> {
+    public static final SparseVectorTypeInfo INSTANCE = new SparseVectorTypeInfo();
 ```
 
 ### JavadocReference
@@ -1521,14 +1557,14 @@ public class VectorTypeInfo extends TypeInformation<Vector> {
 
 ### JavadocReference
 Cannot resolve symbol `TypeInformation`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/typeinfo/SparseVectorTypeInfo.java`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/typeinfo/DenseVectorTypeInfo.java`
 #### Snippet
 ```java
-import org.apache.flink.ml.linalg.SparseVector;
+import org.apache.flink.ml.linalg.DenseVector;
 
-/** A {@link TypeInformation} for the {@link SparseVector} type. */
-public class SparseVectorTypeInfo extends TypeInformation<SparseVector> {
-    public static final SparseVectorTypeInfo INSTANCE = new SparseVectorTypeInfo();
+/** A {@link TypeInformation} for the {@link DenseVector} type. */
+public class DenseVectorTypeInfo extends TypeInformation<DenseVector> {
+    private static final long serialVersionUID = 1L;
 ```
 
 ### JavadocReference
@@ -1562,8 +1598,8 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/Functions.java`
 ```java
 
     /**
-     * A {@link ScalarFunction} that converts a column of arrays of numeric type into a column of
-     * {@link DenseVector} instances.
+     * A {@link ScalarFunction} that converts a column of {@link Vector}s into a column of double
+     * arrays.
      */
 ```
 
@@ -1574,8 +1610,8 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/Functions.java`
 ```java
 
     /**
-     * A {@link ScalarFunction} that converts a column of {@link Vector}s into a column of double
-     * arrays.
+     * A {@link ScalarFunction} that converts a column of arrays of numeric type into a column of
+     * {@link DenseVector} instances.
      */
 ```
 
@@ -1652,18 +1688,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastSt
 ```
 
 ### JavadocReference
-Cannot resolve symbol `TwoInputStreamOperator`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/TwoInputBroadcastWrapperOperator.java`
-#### Snippet
-```java
-import org.apache.flink.streaming.runtime.watermarkstatus.WatermarkStatus;
-
-/** Wrapper for {@link TwoInputStreamOperator}. */
-public class TwoInputBroadcastWrapperOperator<IN1, IN2, OUT>
-        extends AbstractBroadcastWrapperOperator<OUT, TwoInputStreamOperator<IN1, IN2, OUT>>
-```
-
-### JavadocReference
 Cannot resolve symbol `OneInputStreamOperator`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/OneInputBroadcastWrapperOperator.java`
 #### Snippet
@@ -1673,6 +1697,18 @@ import org.apache.flink.streaming.runtime.watermarkstatus.WatermarkStatus;
 /** Wrapper for {@link OneInputStreamOperator}. */
 public class OneInputBroadcastWrapperOperator<IN, OUT>
         extends AbstractBroadcastWrapperOperator<OUT, OneInputStreamOperator<IN, OUT>>
+```
+
+### JavadocReference
+Cannot resolve symbol `TwoInputStreamOperator`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/TwoInputBroadcastWrapperOperator.java`
+#### Snippet
+```java
+import org.apache.flink.streaming.runtime.watermarkstatus.WatermarkStatus;
+
+/** Wrapper for {@link TwoInputStreamOperator}. */
+public class TwoInputBroadcastWrapperOperator<IN1, IN2, OUT>
+        extends AbstractBroadcastWrapperOperator<OUT, TwoInputStreamOperator<IN1, IN2, OUT>>
 ```
 
 ### JavadocReference
@@ -1713,18 +1749,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/EndOfStrea
 
 ### JavadocReference
 Cannot resolve symbol `SortingDataInput`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/sort/KeyAndValueSerializer.java`
-#### Snippet
-```java
-
-/**
- * A serializer used in {@link SortingDataInput} for serializing elements alongside their key and
- * timestamp. It serializes the record in a format known by the {@link FixedLengthByteKeyComparator}
- * and {@link VariableLengthByteKeyComparator}.
-```
-
-### JavadocReference
-Cannot resolve symbol `SortingDataInput`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/sort/VariableLengthByteKeyComparator.java`
 #### Snippet
 ```java
@@ -1733,6 +1757,18 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/sort/Varia
  * A comparator used in {@link SortingDataInput} which compares records keys and timestamps,. It
  * uses binary format produced by the {@link KeyAndValueSerializer}.
  *
+```
+
+### JavadocReference
+Cannot resolve symbol `SortingDataInput`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/sort/KeyAndValueSerializer.java`
+#### Snippet
+```java
+
+/**
+ * A serializer used in {@link SortingDataInput} for serializing elements alongside their key and
+ * timestamp. It serializes the record in a format known by the {@link FixedLengthByteKeyComparator}
+ * and {@link VariableLengthByteKeyComparator}.
 ```
 
 ### JavadocReference
@@ -1757,200 +1793,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Pipeline.java`
      *   <li>If a stage is an Estimator, invoke {@link Estimator#fit(Table...)} with the input
      *       tables to generate a Model. And if there is Estimator after this stage, transform the
      *       input tables using the generated Model to get result tables, then pass the result
-```
-
-### JavadocReference
-Cannot resolve symbol `AggregateFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `createAccumulator()`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `AggregateFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `merge(Object,
-* Object)`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `ReduceFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Applies a {@link ReduceFunction} on a bounded keyed data stream. The output stream contains
-     * one stream record for each key.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `AggregateFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `createAccumulator()`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `AggregateFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `merge(Object,
-* Object)`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
-     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
-     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
-     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
-```
-
-### JavadocReference
-Cannot resolve symbol `ReduceFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * A stream operator to apply {@link ReduceFunction} on the input bounded keyed data stream.
-     *
-     * <p>Note: this class is a copy of {@link
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.flink.streaming.api.operators.BatchGroupedReduceOperator`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     *
-     * <p>Note: this class is a copy of {@link
-     * org.apache.flink.streaming.api.operators.BatchGroupedReduceOperator} in case of unexpected
-     * changes of its implementation.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `DataStream`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * A CoGroup transformation combines the elements of two {@link DataStream DataStreams} into one
-     * DataStream. It groups each DataStream individually on a key and gives groups of both
-     * DataStreams with equal keys together into a {@link
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.flink.api.common.functions.CoGroupFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-     * DataStream. It groups each DataStream individually on a key and gives groups of both
-     * DataStreams with equal keys together into a {@link
-     * org.apache.flink.api.common.functions.CoGroupFunction}. If a DataStream has a group with no
-     * matching key in the other DataStream, the CoGroupFunction is called with an empty group for
-     * the non-existing group.
-```
-
-### JavadocReference
-Cannot resolve symbol `ReduceFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Applies a {@link ReduceFunction} on a bounded keyed data stream. The output stream contains
-     * one stream record for each key.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `AggregateFunction`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * A stream operator to apply {@link AggregateFunction#add(IN, ACC)} on each partition of the
-     * input bounded data stream.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `add(IN, ACC)`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-
-    /**
-     * A stream operator to apply {@link AggregateFunction#add(IN, ACC)} on each partition of the
-     * input bounded data stream.
-     */
 ```
 
 ### JavadocReference
@@ -2008,9 +1850,9 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStream
 ```java
 
     /**
-     * Applies a {@link MapPartitionFunction} on a bounded data stream.
-     *
-     * @param input The input data stream.
+     * A stream operator to apply {@link MapPartitionFunction} on each partition of the input
+     * bounded data stream.
+     */
 ```
 
 ### JavadocReference
@@ -2018,11 +1860,60 @@ Cannot resolve symbol `ReduceFunction`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
 #### Snippet
 ```java
-    }
 
-    /** A stream operator to apply {@link ReduceFunction} on the input bounded data stream. */
-    private static class ReduceOperator<T> extends AbstractUdfStreamOperator<T, ReduceFunction<T>>
-            implements OneInputStreamOperator<T, T>, BoundedOneInput {
+    /**
+     * Applies a {@link ReduceFunction} on a bounded data stream. The output stream contains at most
+     * one stream record and its parallelism is one.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `AggregateFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `createAccumulator()`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `AggregateFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `merge(Object,
+* Object)`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
 ```
 
 ### JavadocReference
@@ -2038,15 +1929,64 @@ public class DataStreamUtils {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MapPartitionFunction`
+Cannot resolve symbol `AggregateFunction`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
 #### Snippet
 ```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
 
-    /**
-     * A stream operator to apply {@link MapPartitionFunction} on each partition of the input
-     * bounded data stream.
-     */
+### JavadocReference
+Cannot resolve symbol `createAccumulator()`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `AggregateFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `merge(Object,
+* Object)`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     *
+     * <p>Note: If the parallelism of the input stream is N, this method would invoke {@link
+     * AggregateFunction#createAccumulator()} N times and {@link AggregateFunction#merge(Object,
+     * Object)} N - 1 times. Thus the initial accumulator should be neutral (e.g. empty list for
+     * list concatenation or `0` for summation), otherwise the aggregation result would be affected
+```
+
+### JavadocReference
+Cannot resolve symbol `ReduceFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+    }
+
+    /** A stream operator to apply {@link ReduceFunction} on the input bounded data stream. */
+    private static class ReduceOperator<T> extends AbstractUdfStreamOperator<T, ReduceFunction<T>>
+            implements OneInputStreamOperator<T, T>, BoundedOneInput {
 ```
 
 ### JavadocReference
@@ -2074,6 +2014,90 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStream
 ```
 
 ### JavadocReference
+Cannot resolve symbol `ReduceFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * Applies a {@link ReduceFunction} on a bounded keyed data stream. The output stream contains
+     * one stream record for each key.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `AggregateFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * A stream operator to apply {@link AggregateFunction#add(IN, ACC)} on each partition of the
+     * input bounded data stream.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `add(IN, ACC)`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * A stream operator to apply {@link AggregateFunction#add(IN, ACC)} on each partition of the
+     * input bounded data stream.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ReduceFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * Applies a {@link ReduceFunction} on a bounded keyed data stream. The output stream contains
+     * one stream record for each key.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `DataStream`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * A CoGroup transformation combines the elements of two {@link DataStream DataStreams} into one
+     * DataStream. It groups each DataStream individually on a key and gives groups of both
+     * DataStreams with equal keys together into a {@link
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.flink.api.common.functions.CoGroupFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+     * DataStream. It groups each DataStream individually on a key and gives groups of both
+     * DataStreams with equal keys together into a {@link
+     * org.apache.flink.api.common.functions.CoGroupFunction}. If a DataStream has a group with no
+     * matching key in the other DataStream, the CoGroupFunction is called with an empty group for
+     * the non-existing group.
+```
+
+### JavadocReference
+Cannot resolve symbol `MapPartitionFunction`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+
+    /**
+     * Applies a {@link MapPartitionFunction} on a bounded data stream.
+     *
+     * @param input The input data stream.
+```
+
+### JavadocReference
 Cannot resolve symbol `MapPartitionFunction`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
 #### Snippet
@@ -2104,60 +2128,49 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStream
 ```java
 
     /**
-     * Applies a {@link ReduceFunction} on a bounded data stream. The output stream contains at most
-     * one stream record and its parallelism is one.
+     * A stream operator to apply {@link ReduceFunction} on the input bounded keyed data stream.
      *
+     * <p>Note: this class is a copy of {@link
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.flink.api.common.accumulators.Accumulator`
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+Cannot resolve symbol `org.apache.flink.streaming.api.operators.BatchGroupedReduceOperator`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
 #### Snippet
 ```java
-    /**
-     * A stream sink that counts the number of all elements. The counting result is stored in an
-     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
-     * #COUNTER_NAME} and can be acquired by {@link
-     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
+     *
+     * <p>Note: this class is a copy of {@link
+     * org.apache.flink.streaming.api.operators.BatchGroupedReduceOperator} in case of unexpected
+     * changes of its implementation.
+     */
 ```
 
-### JavadocReference
-Cannot resolve symbol `org.apache.flink.api.common.JobExecutionResult`
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/types/BasicType.java`
 #### Snippet
 ```java
-     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
-     * #COUNTER_NAME} and can be acquired by {@link
-     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
-     *
-     * @param <T> The type of elements received by the sink.
+    DOUBLE,
+    STRING,
+    BYTE_STRING;
+}
+
 ```
 
-### JavadocReference
-Cannot resolve symbol `getAccumulatorResult(String)`
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
 #### Snippet
 ```java
-     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
-     * #COUNTER_NAME} and can be acquired by {@link
-     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
-     *
-     * @param <T> The type of elements received by the sink.
+    public enum StageType {
+        ESTIMATOR,
+        ALGO_OPERATOR;
+    }
+
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getInputs` will produce `NullPointerException`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
-#### Snippet
-```java
-                            Transformation<?> inputTransformation = dataStream.getTransformation();
-                            if (!(inputTransformation instanceof PhysicalTransformation)
-                                    && inputTransformation.getInputs().size() > 1) {
-                                // TODO: Support epoch watermark alignment for TailOperator.
-                                throw new UnsupportedOperationException(
-```
-
 ### DataFlowIssue
 Method invocation `translate` may produce `NullPointerException`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/DraftExecutionEnvironment.java`
@@ -2171,15 +2184,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/compile/DraftExe
 ```
 
 ### DataFlowIssue
-Method invocation `getNumFeedbackRecordsEachRound` may produce `NullPointerException`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headprocessor/RegularHeadOperatorRecordProcessor.java`
+Method invocation `getInputs` will produce `NullPointerException`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 #### Snippet
 ```java
-        checkArgument(headOperatorState != null, "The initialized state should not be null");
-
-        numFeedbackRecordsPerEpoch.putAll(headOperatorState.getNumFeedbackRecordsEachRound());
-        latestRoundAligned = headOperatorState.getLatestRoundAligned();
-        latestRoundGloballyAligned = headOperatorState.getLatestRoundGloballyAligned();
+                            Transformation<?> inputTransformation = dataStream.getTransformation();
+                            if (!(inputTransformation instanceof PhysicalTransformation)
+                                    && inputTransformation.getInputs().size() > 1) {
+                                // TODO: Support epoch watermark alignment for TailOperator.
+                                throw new UnsupportedOperationException(
 ```
 
 ### DataFlowIssue
@@ -2192,6 +2205,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOpe
                                 if (!(e.getCause() instanceof TaskMailbox.MailboxClosedException)) {
                                     throw e;
                                 }
+```
+
+### DataFlowIssue
+Method invocation `getNumFeedbackRecordsEachRound` may produce `NullPointerException`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headprocessor/RegularHeadOperatorRecordProcessor.java`
+#### Snippet
+```java
+        checkArgument(headOperatorState != null, "The initialized state should not be null");
+
+        numFeedbackRecordsPerEpoch.putAll(headOperatorState.getNumFeedbackRecordsEachRound());
+        latestRoundAligned = headOperatorState.getLatestRoundAligned();
+        latestRoundGloballyAligned = headOperatorState.getLatestRoundGloballyAligned();
 ```
 
 ### DataFlowIssue
@@ -2219,18 +2244,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### DataFlowIssue
-Method invocation `returnAll` may produce `NullPointerException`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
-#### Snippet
-```java
-            }
-            if (!segment.getCache().isEmpty()) {
-                segmentPool.returnAll(segment.getCache());
-            }
-        }
-```
-
-### DataFlowIssue
 Method invocation `addRecord` may produce `NullPointerException`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
 #### Snippet
@@ -2243,6 +2256,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### DataFlowIssue
+Method invocation `returnAll` may produce `NullPointerException`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
+#### Snippet
+```java
+            }
+            if (!segment.getCache().isEmpty()) {
+                segmentPool.returnAll(segment.getCache());
+            }
+        }
+```
+
+### DataFlowIssue
 Dereference of `numberOfChannels` may produce `NullPointerException`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/progresstrack/OperatorEpochWatermarkTracker.java`
 #### Snippet
@@ -2252,6 +2277,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/progresstrack/Op
         this.inputStatuses = new ArrayList<>(numberOfChannels.length);
         for (int numberOfChannel : numberOfChannels) {
             inputStatuses.add(new InputStatus(numberOfChannel));
+```
+
+### DataFlowIssue
+Method invocation `createSerializer` will produce `NullPointerException`
+in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
+#### Snippet
+```java
+            } else {
+                // other typeinfos will use the corresponding serializer to serialize data.
+                TypeSerializer serializer = dataType.createSerializer(null);
+                ByteArrayOutputStreamWithPos baos = new ByteArrayOutputStreamWithPos();
+                DataOutputViewStreamWrapper baosWrapper = new DataOutputViewStreamWrapper(baos);
 ```
 
 ### DataFlowIssue
@@ -2375,6 +2412,18 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 ```
 
 ### DataFlowIssue
+Dereference of `inputModelDataIds` may produce `NullPointerException`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+        Preconditions.checkArgument(inputModelDataIds != null, "setModelData() is not supported");
+        Preconditions.checkArgument(
+                inputModelDataIds.length == inputTables.length,
+                "number of provided tables %s does not match the expected number of tables %s",
+                inputTables.length,
+```
+
+### DataFlowIssue
 Argument `outputModelDataIds` might be null
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
 #### Snippet
@@ -2432,55 +2481,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
                             .transform(executionHelper.getTables(node.algoOpInputIds));
             executionHelper.setTables(node.outputIds, nodeOutputs);
             // Invokes getModelData().
-```
-
-### DataFlowIssue
-Dereference of `inputModelDataIds` may produce `NullPointerException`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-        Preconditions.checkArgument(inputModelDataIds != null, "setModelData() is not supported");
-        Preconditions.checkArgument(
-                inputModelDataIds.length == inputTables.length,
-                "number of provided tables %s does not match the expected number of tables %s",
-                inputTables.length,
-```
-
-### DataFlowIssue
-Method invocation `createSerializer` will produce `NullPointerException`
-in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
-#### Snippet
-```java
-            } else {
-                // other typeinfos will use the corresponding serializer to serialize data.
-                TypeSerializer serializer = dataType.createSerializer(null);
-                ByteArrayOutputStreamWithPos baos = new ByteArrayOutputStreamWithPos();
-                DataOutputViewStreamWrapper baosWrapper = new DataOutputViewStreamWrapper(baos);
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/types/BasicType.java`
-#### Snippet
-```java
-    DOUBLE,
-    STRING,
-    BYTE_STRING;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public enum StageType {
-        ESTIMATOR,
-        ALGO_OPERATOR;
-    }
-
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -3127,32 +3127,7 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/PipelineModel.java`
     @Override
 ```
 
-## RuleId[id=IOStreamConstructor]
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
-#### Snippet
-```java
-    public static Map<String, Map<String, Map<String, ?>>> parseJsonFile(String path)
-            throws IOException {
-        InputStream inputStream = new FileInputStream(path);
-        Map<String, ?> jsonMap = ReadWriteUtils.OBJECT_MAPPER.readValue(inputStream, Map.class);
-        Preconditions.checkArgument(
-```
-
 ## RuleId[id=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
-#### Snippet
-```java
-
-        @Override
-        protected int getCurrentOuterSnapshotVersion() {
-            return CURRENT_VERSION;
-        }
-```
-
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
@@ -3179,31 +3154,7 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/Iterati
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
-#### Snippet
-```java
-
-        @Override
-        protected void readOuterSnapshot(
-                int readOuterSnapshotVersion, DataInputView in, ClassLoader userCodeClassLoader)
-                throws IOException {
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
-#### Snippet
-```java
-
-        @Override
-        protected OuterSchemaCompatibility resolveOuterSchemaCompatibility(
-                PriorityQueueSerializer<T> newSerializer) {
-            return (this.comparator.getClass() == newSerializer.comparator.getClass())
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
 #### Snippet
 ```java
 
@@ -3244,9 +3195,45 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueue
 ```java
 
         @Override
+        protected void readOuterSnapshot(
+                int readOuterSnapshotVersion, DataInputView in, ClassLoader userCodeClassLoader)
+                throws IOException {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
+#### Snippet
+```java
+
+        @Override
         protected PriorityQueueSerializer<T> createOuterSerializerWithNestedSerializers(
                 TypeSerializer<?>[] nestedSerializers) {
             TypeSerializer<T> elementSerializer = (TypeSerializer<T>) nestedSerializers[0];
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
+#### Snippet
+```java
+
+        @Override
+        protected int getCurrentOuterSnapshotVersion() {
+            return CURRENT_VERSION;
+        }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/typeinfo/PriorityQueueSerializer.java`
+#### Snippet
+```java
+
+        @Override
+        protected OuterSchemaCompatibility resolveOuterSchemaCompatibility(
+                PriorityQueueSerializer<T> newSerializer) {
+            return (this.comparator.getClass() == newSerializer.comparator.getClass())
 ```
 
 ### ProtectedMemberInFinalClass
@@ -3285,6 +3272,19 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/Ca
             return new TypeSerializer[] {tIterationRecordSerializer.recordSerializer};
 ```
 
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+    public static Map<String, Map<String, Map<String, ?>>> parseJsonFile(String path)
+            throws IOException {
+        InputStream inputStream = new FileInputStream(path);
+        Map<String, ?> jsonMap = ReadWriteUtils.OBJECT_MAPPER.readValue(inputStream, Map.class);
+        Preconditions.checkArgument(
+```
+
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
 ### CollectionAddAllCanBeReplacedWithConstructor
 'addAll()' call can be replaced with parametrized constructor call
@@ -3309,6 +3309,21 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/recommendation/swing/Swing.ja
                                 .collect(Collectors.joining("" + semicolonDelimiter));
                 output.collect(new StreamRecord<>(Row.of(mainItem, itemList)));
             }
+```
+
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`status == HeadOperator.HeadOperatorStatus.RUNNING
+? false
+: true` can be simplified to 'status!=HeadOperator.HeadOperatorStatus.RUNNING'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperatorCheckpointAligner.java`
+#### Snippet
+```java
+                                new CheckpointAlignment(
+                                        true,
+                                        status == HeadOperator.HeadOperatorStatus.RUNNING
+                                                ? false
+                                                : true));
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -3336,34 +3351,7 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
             int numberOfStateEntries = 0;
 ```
 
-## RuleId[id=SimplifiableConditionalExpression]
-### SimplifiableConditionalExpression
-`status == HeadOperator.HeadOperatorStatus.RUNNING
-? false
-: true` can be simplified to 'status!=HeadOperator.HeadOperatorStatus.RUNNING'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperatorCheckpointAligner.java`
-#### Snippet
-```java
-                                new CheckpointAlignment(
-                                        true,
-                                        status == HeadOperator.HeadOperatorStatus.RUNNING
-                                                ? false
-                                                : true));
-```
-
 ## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-'Map\>' may not contain keys of type ''
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/MultipleInputPerRoundWrapperOperator.java`
-#### Snippet
-```java
-                    (round, wrappedOperator) -> {
-                        operatorInputsByEpoch
-                                .get(round)
-                                .get(inputIndex)
-                                .processWatermarkStatus(watermarkStatus);
-```
-
 ### SuspiciousMethodCalls
 'Map\>' may not contain keys of type ''
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/MultipleInputPerRoundWrapperOperator.java`
@@ -3374,6 +3362,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
                         operatorInputsByEpoch.get(round).get(inputIndex).processWatermark(mark);
                     });
         }
+```
+
+### SuspiciousMethodCalls
+'Map\>' may not contain keys of type ''
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/MultipleInputPerRoundWrapperOperator.java`
+#### Snippet
+```java
+                    (round, wrappedOperator) -> {
+                        operatorInputsByEpoch
+                                .get(round)
+                                .get(inputIndex)
+                                .processWatermarkStatus(watermarkStatus);
 ```
 
 ## RuleId[id=NullableProblems]
@@ -3414,15 +3414,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
+Not annotated parameter overrides @NotNull parameter
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentReader.java`
 #### Snippet
 ```java
 
-    /** The current writer for new records. */
-    @Nullable private SegmentWriter<T> currentSegmentWriter;
+        @Override
+        public int read(byte[] b, int off, int len) throws IOException {
+            int readLen = 0;
 
-    public DataCacheWriter(
 ```
 
 ### NullableProblems
@@ -3438,15 +3438,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentReader.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
 #### Snippet
 ```java
 
-        @Override
-        public int read(byte[] b, int off, int len) throws IOException {
-            int readLen = 0;
+    /** The current writer for new records. */
+    @Nullable private SegmentWriter<T> currentSegmentWriter;
 
+    public DataCacheWriter(
 ```
 
 ### NullableProblems
@@ -3490,18 +3490,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
 #### Snippet
 ```java
-    public final TableId[] modelInputIds;
-    public final TableId[] outputIds;
-    public final @Nullable TableId[] inputModelDataIds;
-    public final @Nullable TableId[] outputModelDataIds;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
     public final TableId[] outputIds;
     public final @Nullable TableId[] inputModelDataIds;
     public final @Nullable TableId[] outputModelDataIds;
@@ -3523,13 +3511,13 @@ public class GraphData {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
 #### Snippet
 ```java
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
+    public final TableId[] modelInputIds;
+    public final TableId[] outputIds;
+    public final @Nullable TableId[] inputModelDataIds;
+    public final @Nullable TableId[] outputModelDataIds;
 
 ```
 
@@ -3547,14 +3535,26 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
 #### Snippet
 ```java
+
+    public final int nodeId;
     public @Nullable Stage<?> stage;
     public final StageType stageType;
     public final @Nullable TableId[] estimatorInputIds;
-    public final TableId[] algoOpInputIds;
-    public final TableId[] outputIds;
 ```
 
 ### NullableProblems
@@ -3586,14 +3586,26 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
 #### Snippet
 ```java
-
-    public final int nodeId;
     public @Nullable Stage<?> stage;
     public final StageType stageType;
     public final @Nullable TableId[] estimatorInputIds;
+    public final TableId[] algoOpInputIds;
+    public final TableId[] outputIds;
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/RegularizationUtils.java`
+#### Snippet
+```java
+ * <p>elasticNet * reg * norm1(coefficient) + (1 - elasticNet) * (reg/2) * (norm2(coefficient))^2
+ *
+ * <p>See https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html.
+ */
+@Internal
+```
+
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/lossfunc/HingeLoss.java`
@@ -3608,14 +3620,14 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/lossfunc/HingeLoss.jav
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/RegularizationUtils.java`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
 #### Snippet
 ```java
- * <p>elasticNet * reg * norm1(coefficient) + (1 - elasticNet) * (reg/2) * (norm2(coefficient))^2
+ * </ul>
  *
- * <p>See https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html.
+ * <p>See: http://en.wikipedia.org/wiki/Chi-squared_test.
  */
-@Internal
+public class ChiSqTest implements AlgoOperator<ChiSqTest>, ChiSqTestParams<ChiSqTest> {
 ```
 
 ### JavadocLinkAsPlainText
@@ -3632,18 +3644,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/dct/DCT.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
-#### Snippet
-```java
- * Helper class to compute an approximate quantile summary. This implementation is based on the
- * algorithm proposed in the paper: "Space-efficient Online Computation of Quantile Summaries" by
- * Greenwald, Michael and Khanna, Sanjeev. (https://doi.org/10.1145/375663.375670)
- */
-@TypeInfo(QuantileSummaryTypeInfoFactory.class)
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/idf/IDF.java`
 #### Snippet
 ```java
@@ -3652,6 +3652,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/idf/IDF.java`
  * <p>See https://en.wikipedia.org/wiki/Tf%E2%80%93idf.
  */
 public class IDF implements Estimator<IDF, IDFModel>, IDFParams<IDF> {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
+#### Snippet
+```java
+ * Helper class to compute an approximate quantile summary. This implementation is based on the
+ * algorithm proposed in the paper: "Space-efficient Online Computation of Quantile Summaries" by
+ * Greenwald, Michael and Khanna, Sanjeev. (https://doi.org/10.1145/375663.375670)
+ */
+@TypeInfo(QuantileSummaryTypeInfoFactory.class)
 ```
 
 ### JavadocLinkAsPlainText
@@ -3676,18 +3688,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/ngram/NGram.java`
  * <p>See https://en.wikipedia.org/wiki/N-gram.
  */
 public class NGram implements Transformer<NGram>, NGramParams<NGram> {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
-#### Snippet
-```java
- * </ul>
- *
- * <p>See: http://en.wikipedia.org/wiki/Chi-squared_test.
- */
-public class ChiSqTest implements AlgoOperator<ChiSqTest>, ChiSqTestParams<ChiSqTest> {
 ```
 
 ### JavadocLinkAsPlainText
@@ -3788,6 +3788,18 @@ public class Knn implements Estimator<Knn, KnnModel>, KnnParams<Knn> {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/agglomerativeclustering/AgglomerativeClustering.java`
+#### Snippet
+```java
+ * each element depends only on the elements in the same mini-batch.
+ *
+ * <p>See https://en.wikipedia.org/wiki/Hierarchical_clustering.
+ */
+public class AgglomerativeClustering
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/LinearSVC.java`
 #### Snippet
 ```java
@@ -3812,14 +3824,14 @@ public class LogisticRegression
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/agglomerativeclustering/AgglomerativeClustering.java`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
 #### Snippet
 ```java
- * each element depends only on the elements in the same mini-batch.
+ * An Estimator which implements the naive bayes classification algorithm.
  *
- * <p>See https://en.wikipedia.org/wiki/Hierarchical_clustering.
+ * <p>See https://en.wikipedia.org/wiki/Naive_Bayes_classifier.
  */
-public class AgglomerativeClustering
+public class NaiveBayes
 ```
 
 ### JavadocLinkAsPlainText
@@ -3832,18 +3844,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregres
      * <p>See https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Ftrl
      *
      * <p>todo: makes ftrl to be a common optimizer and place it in org.apache.flink.ml.common.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
-#### Snippet
-```java
- * An Estimator which implements the naive bayes classification algorithm.
- *
- * <p>See https://en.wikipedia.org/wiki/Naive_Bayes_classifier.
- */
-public class NaiveBayes
 ```
 
 ## RuleId[id=TrivialIf]
@@ -4005,8 +4005,8 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
                         inputList -> {
                             //noinspection unchecked
                             DataStream<Row> data = (DataStream<Row>) inputList.get(0);
-                            return data.map(new PredictFunction(getInputCol()), outputTypeInfo);
-                        });
+                            return data.flatMap(
+                                    new FilterByBucketFunction(getInputCol(), getOutputCol(), key),
 ```
 
 ### RedundantCast
@@ -4017,8 +4017,8 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
                         inputList -> {
                             //noinspection unchecked
                             DataStream<Row> data = (DataStream<Row>) inputList.get(0);
-                            return data.flatMap(
-                                    new FilterByBucketFunction(getInputCol(), getOutputCol(), key),
+                            return data.map(new PredictFunction(getInputCol()), outputTypeInfo);
+                        });
 ```
 
 ### RedundantCast
@@ -4071,18 +4071,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headpro
 ```
 
 ### FieldMayBeFinal
-Field `numFeedbackRecordsEachRound` may be 'final'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headprocessor/HeadOperatorState.java`
-#### Snippet
-```java
-            new HeadOperatorState(Collections.emptyMap(), 0, 0);
-
-    private Map<Integer, Long> numFeedbackRecordsEachRound;
-
-    private int latestRoundAligned;
-```
-
-### FieldMayBeFinal
 Field `latestRoundAligned` may be 'final'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headprocessor/HeadOperatorState.java`
 #### Snippet
@@ -4095,6 +4083,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headpro
 ```
 
 ### FieldMayBeFinal
+Field `numFeedbackRecordsEachRound` may be 'final'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headprocessor/HeadOperatorState.java`
+#### Snippet
+```java
+            new HeadOperatorState(Collections.emptyMap(), 0, 0);
+
+    private Map<Integer, Long> numFeedbackRecordsEachRound;
+
+    private int latestRoundAligned;
+```
+
+### FieldMayBeFinal
 Field `headBuffer` may be 'final'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
 #### Snippet
@@ -4104,6 +4104,42 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.j
     private List<Double> headBuffer = new ArrayList<>();
 
     /** Whether the quantile summary has been compressed. */
+```
+
+### FieldMayBeFinal
+Field `mailboxExecutor` may be 'final'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
+#### Snippet
+```java
+
+        /** the mailboxExecutor of the consumer, used to avoid the possible stuck of consumer. */
+        private MailboxExecutor mailboxExecutor;
+
+        BroadcastItem(
+```
+
+### FieldMayBeFinal
+Field `cacheList` may be 'final'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
+#### Snippet
+```java
+
+        /** the cached list. */
+        private List<?> cacheList;
+
+        /** the mailboxExecutor of the consumer, used to avoid the possible stuck of consumer. */
+```
+
+### FieldMayBeFinal
+Field `cacheReady` may be 'final'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
+#### Snippet
+```java
+
+        /** whether this broadcast variable is ready to be consumed. */
+        private boolean cacheReady;
+
+        /** the cached list. */
 ```
 
 ### FieldMayBeFinal
@@ -4140,42 +4176,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/Br
     private ListState<Boolean>[] cacheReadyStates;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-```
-
-### FieldMayBeFinal
-Field `cacheReady` may be 'final'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
-#### Snippet
-```java
-
-        /** whether this broadcast variable is ready to be consumed. */
-        private boolean cacheReady;
-
-        /** the cached list. */
-```
-
-### FieldMayBeFinal
-Field `mailboxExecutor` may be 'final'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
-#### Snippet
-```java
-
-        /** the mailboxExecutor of the consumer, used to avoid the possible stuck of consumer. */
-        private MailboxExecutor mailboxExecutor;
-
-        BroadcastItem(
-```
-
-### FieldMayBeFinal
-Field `cacheList` may be 'final'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
-#### Snippet
-```java
-
-        /** the cached list. */
-        private List<?> cacheList;
-
-        /** the mailboxExecutor of the consumer, used to avoid the possible stuck of consumer. */
 ```
 
 ### FieldMayBeFinal
@@ -4256,30 +4256,6 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSo
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/DataStreamList.java`
-#### Snippet
-```java
-
-    public static DataStreamList of(DataStream<?>... streams) {
-        return new DataStreamList(Arrays.asList(streams));
-    }
-
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/ReplayableDataStreamList.java`
-#### Snippet
-```java
-        public ReplayableDataStreamList andNotReplay(DataStream<?>... nonReplayedStreams) {
-            return new ReplayableDataStreamList(
-                    getReplayedDataStreams(), Arrays.asList(nonReplayedStreams));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/ReplayableDataStreamList.java`
 #### Snippet
 ```java
@@ -4302,88 +4278,27 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/ReplayableDataSt
 
 ```
 
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/ReplayableDataStreamList.java`
 #### Snippet
 ```java
-                .stream()
-                .reduce(DataStream::union)
-                .get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
-#### Snippet
-```java
-                writer.addRecord(reader.next());
-            }
-            segment.setFsSize(writer.finish().get().getFsSize());
+        public ReplayableDataStreamList andNotReplay(DataStream<?>... nonReplayedStreams) {
+            return new ReplayableDataStreamList(
+                    getReplayedDataStreams(), Arrays.asList(nonReplayedStreams));
         }
     }
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheSnapshot.java`
-#### Snippet
-```java
-            }
-            if (cacheSuccess) {
-                segment.setCache(writer.finish().get().getCache());
-            }
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
-#### Snippet
-```java
-                        sampleSizeCount.values().stream().reduce(Double::sum);
-                Preconditions.checkArgument(sampleSizeOpt.isPresent());
-                sampleSize = sampleSizeOpt.get();
-            }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/imputer/Imputer.java`
-#### Snippet
-```java
-        @Override
-        public ImputerModelData getResult(Map<String, Tuple2<Double, Long>> map) {
-            long numRows = map.entrySet().stream().findFirst().get().getValue().f1;
-            Preconditions.checkState(
-                    numRows > 0, "The training set is empty or does not contains valid data.");
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeans.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/DataStreamList.java`
 #### Snippet
 ```java
 
-            KMeansModelData modelData =
-                    OperatorStateUtils.getUniqueElement(modelDataState, "modelData").get();
-            DenseVector[] centroids = modelData.centroids;
-            VectorWithNorm[] centroidsWithNorm = new VectorWithNorm[modelData.centroids.length];
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/OnlineLogisticRegression.java`
-#### Snippet
-```java
-            }
-            DenseVector modelData =
-                    OperatorStateUtils.getUniqueElement(modelDataState, "modelData").get();
-            modelDataState.clear();
+    public static DataStreamList of(DataStream<?>... streams) {
+        return new DataStreamList(Arrays.asList(streams));
+    }
 
 ```
 
@@ -4409,66 +4324,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 
         return new ProxyStreamPartitioner<>(streamPartitioner);
     }
-
-```
-
-### ConstantValue
-Value `event` is always 'null'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/HeadOperatorCoordinator.java`
-#### Snippet
-```java
-            sharedProgressAligner.reportSubtaskProgress(
-                    context.getOperatorId(), subtask, (SubtaskAlignedEvent) event);
-        } else if (event instanceof TerminatingOnInitializeEvent) {
-            sharedProgressAligner.notifyGloballyTerminating();
-        } else {
-```
-
-### ConstantValue
-Value `event` is always 'null'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/HeadOperatorCoordinator.java`
-#### Snippet
-```java
-            sharedProgressAligner.notifyGloballyTerminating();
-        } else {
-            throw new UnsupportedOperationException("Not supported event: " + event);
-        }
-    }
-```
-
-### ConstantValue
-Value `operatorStateBackend` is always 'null'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/AbstractPerRoundWrapperOperator.java`
-#### Snippet
-```java
-            }
-        } else {
-            LOG.warn("Unable to cleanup the operator state {}", operatorStateBackend);
-        }
-    }
-```
-
-### ConstantValue
-Value `inputChannel` is always 'null'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
-#### Snippet
-```java
-                }
-            }
-        } else if (inputChannel instanceof LocalInputChannel) {
-            PipelinedSubpartitionView subpartitionView =
-                    ReflectionUtils.getFieldValue(
-```
-
-### ConstantValue
-Value `inputChannel` is always 'null'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
-#### Snippet
-```java
-            }
-        } else {
-            LOG.warn("Unknown input channel type: " + inputChannel);
-        }
 
 ```
 
@@ -4533,39 +4388,63 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOpe
 ```
 
 ### ConstantValue
-Value `value` is always 'null'
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.java`
+Value `inputChannel` is always 'null'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
 #### Snippet
 ```java
-        V value = (V) paramMap.get(param);
-
-        if (value == null && !param.validator.validate(value)) {
-            throw new IllegalArgumentException(
-                    "Parameter " + param.name + "'s value should not be null");
+                }
+            }
+        } else if (inputChannel instanceof LocalInputChannel) {
+            PipelinedSubpartitionView subpartitionView =
+                    ReflectionUtils.getFieldValue(
 ```
 
 ### ConstantValue
-Condition `e instanceof TableException` is always `true`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTransformer.java`
+Value `inputChannel` is always 'null'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
 #### Snippet
 ```java
-            return true;
-        } catch (Exception e) {
-            if (e instanceof TableException
-                    && e.getMessage() != null
-                    && e.getMessage().matches(INSERT_ONLY_EXCEPTION_PATTERN)) {
+            }
+        } else {
+            LOG.warn("Unknown input channel type: " + inputChannel);
+        }
+
 ```
 
 ### ConstantValue
-Result of `inputId - 1` is always '0'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/TwoInputBroadcastWrapperOperator.java`
+Value `event` is always 'null'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/HeadOperatorCoordinator.java`
 #### Snippet
 ```java
-        if (inputId == 1) {
-            endInputX(
-                    inputId - 1,
-                    wrappedOperator::processElement1,
-                    wrappedOperator::processWatermark1,
+            sharedProgressAligner.reportSubtaskProgress(
+                    context.getOperatorId(), subtask, (SubtaskAlignedEvent) event);
+        } else if (event instanceof TerminatingOnInitializeEvent) {
+            sharedProgressAligner.notifyGloballyTerminating();
+        } else {
+```
+
+### ConstantValue
+Value `event` is always 'null'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/HeadOperatorCoordinator.java`
+#### Snippet
+```java
+            sharedProgressAligner.notifyGloballyTerminating();
+        } else {
+            throw new UnsupportedOperationException("Not supported event: " + event);
+        }
+    }
+```
+
+### ConstantValue
+Value `operatorStateBackend` is always 'null'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/AbstractPerRoundWrapperOperator.java`
+#### Snippet
+```java
+            }
+        } else {
+            LOG.warn("Unable to cleanup the operator state {}", operatorStateBackend);
+        }
+    }
 ```
 
 ### ConstantValue
@@ -4688,6 +4567,127 @@ in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.j
                     || dataType instanceof BasicTypeInfo) {
                 return pickler.dumps(obj);
             } else {
+```
+
+### ConstantValue
+Value `value` is always 'null'
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.java`
+#### Snippet
+```java
+        V value = (V) paramMap.get(param);
+
+        if (value == null && !param.validator.validate(value)) {
+            throw new IllegalArgumentException(
+                    "Parameter " + param.name + "'s value should not be null");
+```
+
+### ConstantValue
+Condition `e instanceof TableException` is always `true`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTransformer.java`
+#### Snippet
+```java
+            return true;
+        } catch (Exception e) {
+            if (e instanceof TableException
+                    && e.getMessage() != null
+                    && e.getMessage().matches(INSERT_ONLY_EXCEPTION_PATTERN)) {
+```
+
+### ConstantValue
+Result of `inputId - 1` is always '0'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/TwoInputBroadcastWrapperOperator.java`
+#### Snippet
+```java
+        if (inputId == 1) {
+            endInputX(
+                    inputId - 1,
+                    wrappedOperator::processElement1,
+                    wrappedOperator::processWatermark1,
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+#### Snippet
+```java
+                .stream()
+                .reduce(DataStream::union)
+                .get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
+#### Snippet
+```java
+                writer.addRecord(reader.next());
+            }
+            segment.setFsSize(writer.finish().get().getFsSize());
+        }
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheSnapshot.java`
+#### Snippet
+```java
+            }
+            if (cacheSuccess) {
+                segment.setCache(writer.finish().get().getCache());
+            }
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
+#### Snippet
+```java
+                        sampleSizeCount.values().stream().reduce(Double::sum);
+                Preconditions.checkArgument(sampleSizeOpt.isPresent());
+                sampleSize = sampleSizeOpt.get();
+            }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/imputer/Imputer.java`
+#### Snippet
+```java
+        @Override
+        public ImputerModelData getResult(Map<String, Tuple2<Double, Long>> map) {
+            long numRows = map.entrySet().stream().findFirst().get().getValue().f1;
+            Preconditions.checkState(
+                    numRows > 0, "The training set is empty or does not contains valid data.");
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeans.java`
+#### Snippet
+```java
+
+            KMeansModelData modelData =
+                    OperatorStateUtils.getUniqueElement(modelDataState, "modelData").get();
+            DenseVector[] centroids = modelData.centroids;
+            VectorWithNorm[] centroidsWithNorm = new VectorWithNorm[modelData.centroids.length];
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/OnlineLogisticRegression.java`
+#### Snippet
+```java
+            }
+            DenseVector modelData =
+                    OperatorStateUtils.getUniqueElement(modelDataState, "modelData").get();
+            modelDataState.clear();
+
 ```
 
 ## RuleId[id=NumericOverflow]
