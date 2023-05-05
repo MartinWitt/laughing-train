@@ -1,19 +1,19 @@
 # jkube 
  
 # Bad smells
-I found 529 bad smells with 92 repairable:
+I found 524 bad smells with 91 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | NonFinalFieldInEnum | 71 | false |
 | ProtectedMemberInFinalClass | 70 | true |
 | Deprecation | 45 | false |
-| UNCHECKED_WARNING | 37 | false |
-| FieldMayBeFinal | 32 | false |
+| UNCHECKED_WARNING | 35 | false |
+| FieldMayBeFinal | 31 | false |
 | RegExpRepeatedSpace | 27 | false |
 | DeprecatedIsStillUsed | 23 | false |
-| JavadocDeclaration | 19 | false |
+| JavadocDeclaration | 20 | false |
 | CdiInjectionPointsInspection | 18 | false |
-| AutoCloseableResource | 18 | false |
+| AutoCloseableResource | 17 | false |
 | JavadocLinkAsPlainText | 13 | false |
 | IOStreamConstructor | 13 | false |
 | DuplicatedCode | 11 | false |
@@ -38,7 +38,6 @@ I found 529 bad smells with 92 repairable:
 | OptionalUsedAsFieldOrParameterType | 3 | false |
 | WrapperTypeMayBePrimitive | 2 | false |
 | TrivialStringConcatenation | 2 | false |
-| FieldCanBeLocal | 2 | false |
 | RegExpUnexpectedAnchor | 2 | false |
 | DanglingJavadoc | 2 | false |
 | TrivialIf | 2 | false |
@@ -48,6 +47,7 @@ I found 529 bad smells with 92 repairable:
 | UnnecessaryLabelOnContinueStatement | 1 | false |
 | CloneableImplementsClone | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
+| FieldCanBeLocal | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | InfiniteLoopStatement | 1 | false |
 | PointlessNullCheck | 1 | false |
@@ -58,12 +58,23 @@ I found 529 bad smells with 92 repairable:
 | ImplicitArrayToString | 1 | false |
 | ConditionCoveredByFurtherCondition | 1 | false |
 | RedundantCast | 1 | false |
-| UnnecessaryLocalVariable | 1 | true |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | BusyWait | 1 | false |
 | UseBulkOperation | 1 | false |
 | BigDecimalMethodWithoutRoundingCalled | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[jars.size()\]'
+in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/ClassUtil.java`
+#### Snippet
+```java
+
+    private static URLClassLoader createURLClassLoader(Collection<URL> jars) {
+        return new URLClassLoader(jars.toArray(new URL[jars.size()]));
+    }
+
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new URL\[compileJars.size()\]'
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/ClassUtil.java`
@@ -86,18 +97,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/ClassUtil.j
             classLoaders = ArrayUtils.addAll(getClassLoaders(), additionalClassLoaders.toArray(new ClassLoader[additionalClassLoaders.size()]));
         }
         else {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[jars.size()\]'
-in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/ClassUtil.java`
-#### Snippet
-```java
-
-    private static URLClassLoader createURLClassLoader(Collection<URL> jars) {
-        return new URLClassLoader(jars.toArray(new URL[jars.size()]));
-    }
-
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -327,7 +326,7 @@ in `jkube-kit/jkube-kit-micronaut/src/main/java/org/eclipse/jkube/micronaut/enri
 
 ### NonFinalFieldInEnum
 Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/BaseGenerator.java`
 #### Snippet
 ```java
         protected String key;
@@ -335,42 +334,6 @@ in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/
         protected String defaultValue;
     }
 
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
 ```
 
 ### NonFinalFieldInEnum
@@ -383,114 +346,6 @@ in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/suppor
         protected String key;
         @Getter
         protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/BaseGenerator.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
 ```
 
 ### NonFinalFieldInEnum
@@ -519,35 +374,23 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/TriggersAnnotationEnricher.java`
+in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
 #### Snippet
 ```java
 
         @Getter
         protected String key;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
+        @Getter(AccessLevel.PUBLIC)
         protected String defaultValue;
 ```
 
 ### NonFinalFieldInEnum
 Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
 #### Snippet
 ```java
         protected String key;
-        @Getter
+        @Getter(AccessLevel.PUBLIC)
         protected String defaultValue;
     }
 
@@ -591,6 +434,66 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/TriggersAnnotationEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+#### Snippet
+```java
+
+    @Getter
+    protected String key;
+    @Getter
+    protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+#### Snippet
+```java
+    protected String key;
+    @Getter
+    protected String defaultValue;
+  }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/NameEnricher.java`
 #### Snippet
 ```java
@@ -602,27 +505,15 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
-#### Snippet
-```java
-    protected String key;
-    @Getter
-    protected String defaultValue;
-  }
-
-```
-
-### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/IngressEnricher.java`
 #### Snippet
 ```java
 
-    @Getter
-    protected String key;
-    @Getter
-    protected String defaultValue;
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
 ```
 
 ### NonFinalFieldInEnum
@@ -635,18 +526,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
         protected String defaultValue;
     }
 
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/IngressEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
 ```
 
 ### NonFinalFieldInEnum
@@ -675,30 +554,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ContainerEnvJavaOptionsMergeEnricher.java`
 #### Snippet
 ```java
@@ -722,8 +577,20 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 ```
 
 ### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
 #### Snippet
 ```java
 
@@ -731,30 +598,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
         protected String key;
         @Getter
         protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DebugEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
 ```
 
 ### NonFinalFieldInEnum
@@ -767,6 +610,18 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
         protected String key;
         @Getter
         protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DebugEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
 ```
 
 ### NonFinalFieldInEnum
@@ -794,32 +649,8 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
 #### Snippet
 ```java
 
@@ -831,55 +662,7 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### NonFinalFieldInEnum
 Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
 #### Snippet
 ```java
         protected String key;
@@ -915,6 +698,54 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
 in `jkube-kit/generator/karaf/src/main/java/org/eclipse/jkube/generator/karaf/KarafGenerator.java`
 #### Snippet
 ```java
@@ -935,6 +766,54 @@ in `jkube-kit/generator/karaf/src/main/java/org/eclipse/jkube/generator/karaf/Ka
     protected String defaultValue;
   }
 
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
 ```
 
 ### NonFinalFieldInEnum
@@ -951,6 +830,174 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
 
 ### NonFinalFieldInEnum
 Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
 in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/enricher/QuarkusHealthCheckEnricher.java`
 #### Snippet
 ```java
@@ -975,7 +1022,7 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/enricher
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generator/QuarkusGenerator.java`
+in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
 #### Snippet
 ```java
 
@@ -983,6 +1030,18 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generato
     protected String key;
     @Getter
     protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
+#### Snippet
+```java
+    protected String key;
+    @Getter
+    protected String defaultValue;
+  }
+
 ```
 
 ### NonFinalFieldInEnum
@@ -999,79 +1058,7 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generato
 
 ### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter(AccessLevel.PUBLIC)
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter(AccessLevel.PUBLIC)
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofile/enricher/AbstractMicroprofileHealthCheckEnricher.java`
+in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generator/QuarkusGenerator.java`
 #### Snippet
 ```java
 
@@ -1094,44 +1081,8 @@ in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofil
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### NonFinalFieldInEnum
 Non-final field `key` in enum 'Config'
-in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### NonFinalFieldInEnum
-Non-final field `defaultValue` in enum 'Config'
-in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
-#### Snippet
-```java
-    protected String key;
-    @Getter
-    protected String defaultValue;
-  }
-
-```
-
-### NonFinalFieldInEnum
-Non-final field `key` in enum 'Config'
-in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
+in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofile/enricher/AbstractMicroprofileHealthCheckEnricher.java`
 #### Snippet
 ```java
 
@@ -1153,6 +1104,54 @@ in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/Ver
 
 ```
 
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `key` in enum 'Config'
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### NonFinalFieldInEnum
+Non-final field `defaultValue` in enum 'Config'
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[P]` can be simplified to 'P'
@@ -1164,6 +1163,18 @@ in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/suppor
 	private static final String PORT_REGEX = "([a-zA-Z0-9_]+)(([\\.-_]+p)|([P]))ort";
 	private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
+```
+
+### RegExpSimplifiable
+`[-]` can be simplified to '-'
+in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/ImageName.java`
+#### Snippet
+```java
+    // ---------------------------------------------------------------------
+    // https://github.com/docker/docker/blob/04da4041757370fb6f85510c8977c5a18ddae380/vendor/github.com/docker/distribution/reference/regexp.go#L18
+    private static final String nameComponentRegexp = "[a-z0-9]+(?:(?:(?:[._]|__|[-]*)[a-z0-9]+)+)?";
+
+    // https://github.com/docker/docker/blob/04da4041757370fb6f85510c8977c5a18ddae380/vendor/github.com/docker/distribution/reference/regexp.go#L25
 ```
 
 ### RegExpSimplifiable
@@ -1200,18 +1211,6 @@ in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/Imag
     private static final Pattern IMAGE_NAME_REGEXP = Pattern.compile(nameComponentRegexp + "(?:(?:/" + nameComponentRegexp + ")+)?");
 
     // https://github.com/docker/docker/blob/04da4041757370fb6f85510c8977c5a18ddae380/vendor/github.com/docker/distribution/reference/regexp.go#L31
-```
-
-### RegExpSimplifiable
-`[-]` can be simplified to '-'
-in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/ImageName.java`
-#### Snippet
-```java
-    // ---------------------------------------------------------------------
-    // https://github.com/docker/docker/blob/04da4041757370fb6f85510c8977c5a18ddae380/vendor/github.com/docker/distribution/reference/regexp.go#L18
-    private static final String nameComponentRegexp = "[a-z0-9]+(?:(?:(?:[._]|__|[-]*)[a-z0-9]+)+)?";
-
-    // https://github.com/docker/docker/blob/04da4041757370fb6f85510c8977c5a18ddae380/vendor/github.com/docker/distribution/reference/regexp.go#L25
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -1313,42 +1312,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/validator/R
 ```
 
 ### Deprecation
-'com.google.cloud.tools.jib.api.LayerConfiguration' is deprecated
-in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-import static com.google.cloud.tools.jib.api.LayerConfiguration.DEFAULT_FILE_PERMISSIONS_PROVIDER;
-import static org.fusesource.jansi.Ansi.ansi;
-
-```
-
-### Deprecation
-'getExecutionProperties()' is deprecated
-in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenUtil.java`
-#### Snippet
-```java
-                properties.putAll(mavenSession.getSystemProperties());
-            }
-            if (mavenSession.getExecutionProperties() != null) {
-                properties.putAll(mavenSession.getExecutionProperties());
-            }
-```
-
-### Deprecation
-'getExecutionProperties()' is deprecated
-in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenUtil.java`
-#### Snippet
-```java
-            }
-            if (mavenSession.getExecutionProperties() != null) {
-                properties.putAll(mavenSession.getExecutionProperties());
-            }
-        }
-```
-
-### Deprecation
 'createConfigMapEntry(java.lang.String, java.nio.file.Path)' is deprecated
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ConfigMapEnricher.java`
 #### Snippet
@@ -1409,6 +1372,78 @@ in `jkube-kit/generator/karaf/src/main/java/org/eclipse/jkube/generator/karaf/Ka
 ```
 
 ### Deprecation
+'createOrReplace()' is deprecated
+in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/LocalServiceManager.java`
+#### Snippet
+```java
+        final Service previousService = Serialization.unmarshal(
+          service.getMetadata().getAnnotations().get(PREVIOUS_SERVICE_ANNOTATION), Service.class);
+        kubernetesClient.services().resource(previousService).createOrReplace();
+      } else if (service != null) {
+        kubernetesClient.services().resource(service).delete();
+```
+
+### Deprecation
+'createOrReplace()' is deprecated
+in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/LocalServiceManager.java`
+#### Snippet
+```java
+        .endSpec()
+        .build();
+      kubernetesClient.services().resource(newService).createOrReplace();
+      context.getManagedServices().put(localService, newService);
+    }
+```
+
+### Deprecation
+'createOrReplace()' is deprecated
+in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/KubernetesSshServiceForwarder.java`
+#### Snippet
+```java
+        .endContainer().endSpec();
+    }
+    return kubernetesClient.pods().resource(pod.build()).createOrReplace();
+      // Using createOrReplace instead of SSA because MockServer doesn't support this PATCH
+      // unless the resource already exists
+```
+
+### Deprecation
+'getExecutionProperties()' is deprecated
+in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenUtil.java`
+#### Snippet
+```java
+                properties.putAll(mavenSession.getSystemProperties());
+            }
+            if (mavenSession.getExecutionProperties() != null) {
+                properties.putAll(mavenSession.getExecutionProperties());
+            }
+```
+
+### Deprecation
+'getExecutionProperties()' is deprecated
+in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenUtil.java`
+#### Snippet
+```java
+            }
+            if (mavenSession.getExecutionProperties() != null) {
+                properties.putAll(mavenSession.getExecutionProperties());
+            }
+        }
+```
+
+### Deprecation
+'inline(org.eclipse.jkube.kit.common.Assembly)' is deprecated
+in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
+#### Snippet
+```java
+        .targetDir(getDeploymentDir(handler))
+        .excludeFinalOutputArtifact(true)
+        .inline(Assembly.builder()
+            .file(AssemblyFile.builder()
+                .source(sourceFile)
+```
+
+### Deprecation
 'replace()' is deprecated
 in `jkube-kit/watcher/standard/src/main/java/org/eclipse/jkube/watcher/standard/DockerImageWatcher.java`
 #### Snippet
@@ -1461,35 +1496,11 @@ in `jkube-kit/watcher/standard/src/main/java/org/eclipse/jkube/watcher/standard/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-
-    public void doCreateJob(Job job, String namespace, String sourceName) {
-        kubernetesClient.batch().v1().jobs().inNamespace(namespace).create(job);
-        log.info("Creating a Job from " + sourceName + " namespace " + namespace + " name " + getName(job));
-    }
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                if (old == null) {
-                    log.info("Creating " + kind + " " + name + " from " + sourceName);
-                    resource.create(entity);
-                } else {
-                    log.info("Updating " + kind + " " + name + " from " + sourceName);
-```
-
-### Deprecation
-'createOrReplace()' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                    copyAllImageStreamTags(entity, old);
-                    entity = patchService.compareAndPatchEntity(currentNamespace, entity, old);
-                    openShiftClient.resource(entity).inNamespace(currentNamespace).createOrReplace();
-                }
-            } catch (Exception e) {
+        log.info("Creating a Custom Resource Definition from " + sourceName + " name " + getName(entity));
+        try {
+            CustomResourceDefinition answer = kubernetesClient.apiextensions().v1().customResourceDefinitions().create(entity);
+            log.info("Created Custom Resource Definition result: %s", answer.getMetadata().getName());
+        } catch (Exception e) {
 ```
 
 ### Deprecation
@@ -1505,14 +1516,26 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ### Deprecation
+'createOrReplace()' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+            try {
+                log.info("Applying %s %s from %s", getKind(entity), getName(entity), sourceName);
+                kubernetesClient.resource(entity).inNamespace(applicableNamespace((HasMetadata) dto, namespace, fallbackNamespace)).createOrReplace();
+            } catch (Exception e) {
+                onApplyError("Failed to create " + getKind(entity) + " from " + sourceName + ". " + e, e);
+```
+
+### Deprecation
 'create(T)' is deprecated
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-                (serviceAccount));
         try {
-            Object answer = kubernetesClient.serviceAccounts().inNamespace(namespace).create(serviceAccount);
-            logGeneratedEntity("Created ServiceAccount: ", namespace, serviceAccount, answer);
+            Object answer;
+            answer = kubernetesClient.persistentVolumeClaims().inNamespace(namespace).create(entity);
+            logGeneratedEntity("Created PersistentVolumeClaim: ", namespace, entity, answer);
         } catch (Exception e) {
 ```
 
@@ -1521,47 +1544,11 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-                    } else {
-                        try {
-                            Object answer = openShiftClient.oAuthClients().withName(id).replace(entity);
-                            log.info("Updated OAuthClient result: %s", answer);
-                        } catch (Exception e) {
-```
-
-### Deprecation
-'createOrReplace()' is deprecated
-in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/LocalServiceManager.java`
-#### Snippet
-```java
-        final Service previousService = Serialization.unmarshal(
-          service.getMetadata().getAnnotations().get(PREVIOUS_SERVICE_ANNOTATION), Service.class);
-        kubernetesClient.services().resource(previousService).createOrReplace();
-      } else if (service != null) {
-        kubernetesClient.services().resource(service).delete();
-```
-
-### Deprecation
-'createOrReplace()' is deprecated
-in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/LocalServiceManager.java`
-#### Snippet
-```java
-        .endSpec()
-        .build();
-      kubernetesClient.services().resource(newService).createOrReplace();
-      context.getManagedServices().put(localService, newService);
-    }
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        log.info("Creating a Pod from " + sourceName + " namespace " + namespace + " name " + getName(pod));
-        try {
-            Object answer = kubernetesClient.pods().inNamespace(namespace).create(pod);
-            log.info("Created Pod result: " + answer);
-        } catch (Exception e) {
+                    log.info("Updating a ServiceAccount from " + sourceName);
+                    try {
+                        Object answer = kubernetesClient.serviceAccounts().inNamespace(currentNamespace).withName(id).replace(serviceAccount);
+                        logGeneratedEntity("Updated ServiceAccount: ", currentNamespace, serviceAccount, answer);
+                    } catch (Exception e) {
 ```
 
 ### Deprecation
@@ -1574,6 +1561,66 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
             Object answer = kubernetesClient.services().inNamespace(namespace).create(service);
             logGeneratedEntity("Created Service: ", namespace, service, answer);
         } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        log.info("Creating a " + kind + " from " + sourceName + " namespace " + namespace + " name " + getName(resource));
+        try {
+            Object answer = resources.inNamespace(namespace).create(resource);
+            logGeneratedEntity("Created " + kind + ": ", namespace, resource, answer);
+        } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+            log.info("Creating a Template from " + sourceName + " namespace " + namespace + " name " + getName(entity));
+            try {
+                final Template answer = asOpenShiftClient().templates().inNamespace(namespace).create(entity);
+                logGeneratedEntity("Created Template: ", namespace, entity, answer);
+            } catch (Exception e) {
+```
+
+### Deprecation
+'createOrReplace(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        }
+        kubernetesClient.genericKubernetesResources(genericKubernetesResource.getApiVersion(), genericKubernetesResource.getKind()).inNamespace(applyNamespace).withName(name)
+            .createOrReplace(genericKubernetesResource);
+        log.info("Created Custom Resource: %s %s/%s", apiGroupWithKind, applyNamespace, name);
+    }
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        log.info("Creating a ReplicationController from " + sourceName + " namespace " + namespace + " name " + getName(replicationController));
+        try {
+            Object answer = kubernetesClient.replicationControllers().inNamespace(namespace).create(replicationController);
+            logGeneratedEntity("Created ReplicationController: ", namespace, replicationController, answer);
+        } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        if (!isRunning(old)) {
+            try {
+                Object answer = kubernetesClient.namespaces().create(entity);
+                logGeneratedEntity("Created Namespace: ", currentNamespace, entity, answer);
+                return true;
 ```
 
 ### Deprecation
@@ -1605,34 +1652,10 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-        log.info("Creating a Secret from " + sourceName + " namespace " + namespace + " name " + getName(secret));
-        try {
-            Object answer = kubernetesClient.secrets().inNamespace(namespace).create(secret);
-            logGeneratedEntity("Created Secret: ", namespace, secret, answer);
-        } catch (Exception e) {
-```
 
-### Deprecation
-'replace(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                    log.info("Updating a ServiceAccount from " + sourceName);
-                    try {
-                        Object answer = kubernetesClient.serviceAccounts().inNamespace(currentNamespace).withName(id).replace(serviceAccount);
-                        logGeneratedEntity("Updated ServiceAccount: ", currentNamespace, serviceAccount, answer);
-                    } catch (Exception e) {
-```
-
-### Deprecation
-'createOrReplace(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        }
-        kubernetesClient.genericKubernetesResources(genericKubernetesResource.getApiVersion(), genericKubernetesResource.getKind()).inNamespace(applyNamespace).withName(name)
-            .createOrReplace(genericKubernetesResource);
-        log.info("Created Custom Resource: %s %s/%s", apiGroupWithKind, applyNamespace, name);
+    public void doCreateJob(Job job, String namespace, String sourceName) {
+        kubernetesClient.batch().v1().jobs().inNamespace(namespace).create(job);
+        log.info("Creating a Job from " + sourceName + " namespace " + namespace + " name " + getName(job));
     }
 ```
 
@@ -1641,11 +1664,11 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-        if (!isRunning(old)) {
-            try {
-                Object answer = kubernetesClient.namespaces().create(entity);
-                logGeneratedEntity("Created Namespace: ", currentNamespace, entity, answer);
-                return true;
+                (serviceAccount));
+        try {
+            Object answer = kubernetesClient.serviceAccounts().inNamespace(namespace).create(serviceAccount);
+            logGeneratedEntity("Created ServiceAccount: ", namespace, serviceAccount, answer);
+        } catch (Exception e) {
 ```
 
 ### Deprecation
@@ -1661,75 +1684,63 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ### Deprecation
+'replace(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+                    } else {
+                        try {
+                            Object answer = openShiftClient.oAuthClients().withName(id).replace(entity);
+                            log.info("Updated OAuthClient result: %s", answer);
+                        } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        log.info("Creating a Pod from " + sourceName + " namespace " + namespace + " name " + getName(pod));
+        try {
+            Object answer = kubernetesClient.pods().inNamespace(namespace).create(pod);
+            log.info("Created Pod result: " + answer);
+        } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        log.info("Creating a Secret from " + sourceName + " namespace " + namespace + " name " + getName(secret));
+        try {
+            Object answer = kubernetesClient.secrets().inNamespace(namespace).create(secret);
+            logGeneratedEntity("Created Secret: ", namespace, secret, answer);
+        } catch (Exception e) {
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+                if (old == null) {
+                    log.info("Creating " + kind + " " + name + " from " + sourceName);
+                    resource.create(entity);
+                } else {
+                    log.info("Updating " + kind + " " + name + " from " + sourceName);
+```
+
+### Deprecation
 'createOrReplace()' is deprecated
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-            try {
-                log.info("Applying %s %s from %s", getKind(entity), getName(entity), sourceName);
-                kubernetesClient.resource(entity).inNamespace(applicableNamespace((HasMetadata) dto, namespace, fallbackNamespace)).createOrReplace();
+                    copyAllImageStreamTags(entity, old);
+                    entity = patchService.compareAndPatchEntity(currentNamespace, entity, old);
+                    openShiftClient.resource(entity).inNamespace(currentNamespace).createOrReplace();
+                }
             } catch (Exception e) {
-                onApplyError("Failed to create " + getKind(entity) + " from " + sourceName + ". " + e, e);
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        log.info("Creating a " + kind + " from " + sourceName + " namespace " + namespace + " name " + getName(resource));
-        try {
-            Object answer = resources.inNamespace(namespace).create(resource);
-            logGeneratedEntity("Created " + kind + ": ", namespace, resource, answer);
-        } catch (Exception e) {
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        log.info("Creating a Custom Resource Definition from " + sourceName + " name " + getName(entity));
-        try {
-            CustomResourceDefinition answer = kubernetesClient.apiextensions().v1().customResourceDefinitions().create(entity);
-            log.info("Created Custom Resource Definition result: %s", answer.getMetadata().getName());
-        } catch (Exception e) {
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-            log.info("Creating a Template from " + sourceName + " namespace " + namespace + " name " + getName(entity));
-            try {
-                final Template answer = asOpenShiftClient().templates().inNamespace(namespace).create(entity);
-                logGeneratedEntity("Created Template: ", namespace, entity, answer);
-            } catch (Exception e) {
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        try {
-            Object answer;
-            answer = kubernetesClient.persistentVolumeClaims().inNamespace(namespace).create(entity);
-            logGeneratedEntity("Created PersistentVolumeClaim: ", namespace, entity, answer);
-        } catch (Exception e) {
-```
-
-### Deprecation
-'create(T)' is deprecated
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        log.info("Creating a ReplicationController from " + sourceName + " namespace " + namespace + " name " + getName(replicationController));
-        try {
-            Object answer = kubernetesClient.replicationControllers().inNamespace(namespace).create(replicationController);
-            logGeneratedEntity("Created ReplicationController: ", namespace, replicationController, answer);
-        } catch (Exception e) {
 ```
 
 ### Deprecation
@@ -1745,27 +1756,15 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ### Deprecation
-'createOrReplace()' is deprecated
-in `jkube-kit/remote-dev/src/main/java/org/eclipse/jkube/kit/remotedev/KubernetesSshServiceForwarder.java`
+'com.google.cloud.tools.jib.api.LayerConfiguration' is deprecated
+in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
 #### Snippet
 ```java
-        .endContainer().endSpec();
-    }
-    return kubernetesClient.pods().resource(pod.build()).createOrReplace();
-      // Using createOrReplace instead of SSA because MockServer doesn't support this PATCH
-      // unless the resource already exists
-```
+import javax.annotation.Nonnull;
 
-### Deprecation
-'inline(org.eclipse.jkube.kit.common.Assembly)' is deprecated
-in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
-#### Snippet
-```java
-        .targetDir(getDeploymentDir(handler))
-        .excludeFinalOutputArtifact(true)
-        .inline(Assembly.builder()
-            .file(AssemblyFile.builder()
-                .source(sourceFile)
+import static com.google.cloud.tools.jib.api.LayerConfiguration.DEFAULT_FILE_PERMISSIONS_PROVIDER;
+import static org.fusesource.jansi.Ansi.ansi;
+
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
@@ -1796,18 +1795,6 @@ in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/PropertyConfigHandler.java`
-#### Snippet
-```java
-                .env(MapUtil.mergeMaps(
-                        valueProvider.getMap(ENV_RUN, config == null ? null : config.getEnv()),
-                        valueProvider.getMap(ENV, Collections.<String, String>emptyMap())
-                ))
-                .labels(valueProvider.getMap(LABELS, config == null ? null : config.getLabels()))
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
 in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
 #### Snippet
 ```java
@@ -1820,14 +1807,14 @@ in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/ContainerDetails.java`
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/PropertyConfigHandler.java`
 #### Snippet
 ```java
-        return config.has(LABELS) ?
-                mapLabels(config.getAsJsonObject(LABELS)) :
-                Collections.<String, String>emptyMap();
-    }
-
+                .env(MapUtil.mergeMaps(
+                        valueProvider.getMap(ENV_RUN, config == null ? null : config.getEnv()),
+                        valueProvider.getMap(ENV, Collections.<String, String>emptyMap())
+                ))
+                .labels(valueProvider.getMap(LABELS, config == null ? null : config.getLabels()))
 ```
 
 ### RedundantTypeArguments
@@ -1854,6 +1841,18 @@ in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/Ver
 
 ```
 
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/ContainerDetails.java`
+#### Snippet
+```java
+        return config.has(LABELS) ?
+                mapLabels(config.getAsJsonObject(LABELS)) :
+                Collections.<String, String>emptyMap();
+    }
+
+```
+
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
@@ -1872,11 +1871,11 @@ Not annotated parameter overrides @NotNull parameter
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/hc/win/NamedPipe.java`
 #### Snippet
 ```java
-
+        return new FilterOutputStream(Channels.newOutputStream(channel)) {
             @Override
-            public int read(byte[] b, int off, int len) throws IOException {
-                int readed = super.read(b, off, len);
-                log.debug("RESPONSE %s", new String(b, off, len, StandardCharsets.UTF_8));
+            public void write(byte[] b, int off, int len) throws IOException {
+                if(log.isDebugEnabled()){
+                    String request = new String(b, off, len, StandardCharsets.UTF_8);
 ```
 
 ### NullableProblems
@@ -1884,11 +1883,11 @@ Not annotated parameter overrides @NotNull parameter
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/hc/win/NamedPipe.java`
 #### Snippet
 ```java
-        return new FilterOutputStream(Channels.newOutputStream(channel)) {
+
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
-                if(log.isDebugEnabled()){
-                    String request = new String(b, off, len, StandardCharsets.UTF_8);
+            public int read(byte[] b, int off, int len) throws IOException {
+                int readed = super.read(b, off, len);
+                log.debug("RESPONSE %s", new String(b, off, len, StandardCharsets.UTF_8));
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -1930,6 +1929,18 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/TemplateUti
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/JKubeProjectUtil.java`
+#### Snippet
+```java
+   * <p> In case no artifacts are found or configured, this method returns null.
+   *
+   * <p> TODO: https://github.com/eclipse/jkube/issues/817
+   * <br> This method prioritizes artifact inference instead of configuration. This is done to handle case of maven
+   * where value of artifact varies depending upon the maven phase in which goal was executed.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/EnvUtil.java`
 #### Snippet
 ```java
@@ -1942,14 +1953,26 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/EnvUtil.jav
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/JKubeProjectUtil.java`
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/GoTimeUtil.java`
 #### Snippet
 ```java
-   * <p> In case no artifacts are found or configured, this method returns null.
-   *
-   * <p> TODO: https://github.com/eclipse/jkube/issues/817
-   * <br> This method prioritizes artifact inference instead of configuration. This is done to handle case of maven
-   * where value of artifact varies depending upon the maven phase in which goal was executed.
+
+/**
+ * Utility methods for using durations according to Docker/Go format (https://golang.org/pkg/time/#ParseDuration).
+ */
+public class GoTimeUtil {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/auth/AuthConfigFactory.java`
+#### Snippet
+```java
+    /**
+     * Try using the AWS credentials provided via ENV variables.
+     * See https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+     */
+    private static AuthConfig getAuthConfigFromAwsEnvironmentVariables(AwsSdkHelper awsSdkHelper, KitLogger log) {
 ```
 
 ### JavadocLinkAsPlainText
@@ -1978,18 +2001,6 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/auth/AuthConfigFactory.java`
-#### Snippet
-```java
-    /**
-     * Try using the AWS credentials provided via ENV variables.
-     * See https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
-     */
-    private static AuthConfig getAuthConfigFromAwsEnvironmentVariables(AwsSdkHelper awsSdkHelper, KitLogger log) {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MojoExecutionService.java`
 #### Snippet
 ```java
@@ -2002,14 +2013,14 @@ in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MojoE
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
+in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/build/BuildConfiguration.java`
 #### Snippet
 ```java
-     * Generates the progress bar line.
-     *
-     * Taken from https://github.com/GoogleContainerTools/jib/blob/master/jib-plugins-common/src/main/java/com/google/cloud/tools/jib/plugins/common/logging/ProgressDisplayGenerator.java#L66
-     *
-     * @param progress the overall progress, with {@code 1.0} meaning fully complete
+   * Validate that the provided filename is a valid Windows filename.
+   *
+   * The validation of the Windows filename is copied from stackoverflow: https://stackoverflow.com/a/6804755
+   *
+   * @param filename the filename
 ```
 
 ### JavadocLinkAsPlainText
@@ -2026,26 +2037,14 @@ in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/GoTimeUtil.java`
+in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
 #### Snippet
 ```java
-
-/**
- * Utility methods for using durations according to Docker/Go format (https://golang.org/pkg/time/#ParseDuration).
- */
-public class GoTimeUtil {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/build/BuildConfiguration.java`
-#### Snippet
-```java
-   * Validate that the provided filename is a valid Windows filename.
-   *
-   * The validation of the Windows filename is copied from stackoverflow: https://stackoverflow.com/a/6804755
-   *
-   * @param filename the filename
+     * Generates the progress bar line.
+     *
+     * Taken from https://github.com/GoogleContainerTools/jib/blob/master/jib-plugins-common/src/main/java/com/google/cloud/tools/jib/plugins/common/logging/ProgressDisplayGenerator.java#L66
+     *
+     * @param progress the overall progress, with {@code 1.0} meaning fully complete
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -2059,18 +2058,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/validator/R
     private ResourceClassifier target = ResourceClassifier.KUBERNETES;
     private final List<ValidationRule> ignoreValidationRules = new ArrayList<>();
 
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/PatchService.java`
-#### Snippet
-```java
-public class PatchService {
-    private final KubernetesClient kubernetesClient;
-    private final KitLogger log;
-
-    private static final Map<String, EntityPatcher<? extends HasMetadata>> patchers;
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -2087,30 +2074,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/ExternalCommand.
 ```
 
 ### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
-#### Snippet
-```java
-        } finally {
-            jibBuildExecutor.shutdown();
-            jibBuildExecutor.awaitTermination(JIB_EXECUTOR_SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        }
-    }
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
-#### Snippet
-```java
-        } finally {
-            jibBuildExecutor.shutdown();
-            jibBuildExecutor.awaitTermination(JIB_EXECUTOR_SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
-        }
-    }
-```
-
-### IgnoreResultOfCall
 Result of `Matcher.matches()` is ignored
 in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/build/DockerFileBuilder.java`
 #### Snippet
@@ -2120,18 +2083,6 @@ in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/buil
             matcher.matches();
             Integer.valueOf(matcher.group(1));
             return input.toLowerCase();
-```
-
-### IgnoreResultOfCall
-Result of `Matcher.matches()` is ignored
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/PortMapping.java`
-#### Snippet
-```java
-            Matcher matcher = PROTOCOL_SPLIT_PATTERN.matcher(input);
-            // Matches always
-            matcher.matches();
-            String mapping = matcher.group(1);
-            String protocol = matcher.group(2);
 ```
 
 ### IgnoreResultOfCall
@@ -2183,6 +2134,18 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ### IgnoreResultOfCall
+Result of `Matcher.matches()` is ignored
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/PortMapping.java`
+#### Snippet
+```java
+            Matcher matcher = PROTOCOL_SPLIT_PATTERN.matcher(input);
+            // Matches always
+            matcher.matches();
+            String mapping = matcher.group(1);
+            String protocol = matcher.group(2);
+```
+
+### IgnoreResultOfCall
 Result of `CountDownLatch.await()` is ignored
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/openshift/OpenshiftBuildService.java`
 #### Snippet
@@ -2192,6 +2155,30 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
             readyLatch.await(nAwaitTimeout, TimeUnit.SECONDS);
         } catch (KubernetesClientException e) {
             log.error("Could not watch pod", e);
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
+#### Snippet
+```java
+        } finally {
+            jibBuildExecutor.shutdown();
+            jibBuildExecutor.awaitTermination(JIB_EXECUTOR_SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `jkube-kit/build/service/jib/src/main/java/org/eclipse/jkube/kit/service/jib/JibServiceUtil.java`
+#### Snippet
+```java
+        } finally {
+            jibBuildExecutor.shutdown();
+            jibBuildExecutor.awaitTermination(JIB_EXECUTOR_SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        }
+    }
 ```
 
 ## RuleId[id=RedundantMethodOverride]
@@ -2264,7 +2251,7 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/KitLogger.java`
 #### Snippet
 ```java
         @Override
-        public void debug(String format, Object... params) {
+        public void warn(String format, Object... params) {
             System.out.println(String.format(format,params));
         }
 
@@ -2276,7 +2263,7 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/KitLogger.java`
 #### Snippet
 ```java
         @Override
-        public void warn(String format, Object... params) {
+        public void debug(String format, Object... params) {
             System.out.println(String.format(format,params));
         }
 
@@ -2357,30 +2344,6 @@ in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util
 ```
 
 ### UnusedAssignment
-Variable `skipExtendedAuthentication` initializer `false` is redundant
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/auth/RegistryAuthConfig.java`
-#### Snippet
-```java
-    private final Map<String, String> defaultConfig;
-
-    private boolean skipExtendedAuthentication = false;
-
-    private final String propertyPrefix;
-```
-
-### UnusedAssignment
-Variable `tag` initializer `null` is redundant
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/openshift/ImageStreamService.java`
-#### Snippet
-```java
-            spec.setTags(tags);
-        }
-        TagReference tag = null;
-        if (tags.isEmpty()) {
-            tag = new TagReference();
-```
-
-### UnusedAssignment
 Variable `mainClass` initializer `null` is redundant
 in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/MainClassDetector.java`
 #### Snippet
@@ -2405,6 +2368,18 @@ in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/g
 ```
 
 ### UnusedAssignment
+Variable `tag` initializer `null` is redundant
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/openshift/ImageStreamService.java`
+#### Snippet
+```java
+            spec.setTags(tags);
+        }
+        TagReference tag = null;
+        if (tags.isEmpty()) {
+            tag = new TagReference();
+```
+
+### UnusedAssignment
 Variable `recreateMode` initializer `isRecreateMode()` is redundant
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
@@ -2414,6 +2389,18 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
                     boolean recreateMode = isRecreateMode();
                     // TODO seems you can't update templates right now
                     recreateMode = true;
+```
+
+### UnusedAssignment
+Variable `skipExtendedAuthentication` initializer `false` is redundant
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/auth/RegistryAuthConfig.java`
+#### Snippet
+```java
+    private final Map<String, String> defaultConfig;
+
+    private boolean skipExtendedAuthentication = false;
+
+    private final String propertyPrefix;
 ```
 
 ### UnusedAssignment
@@ -2429,6 +2416,30 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Value `getUrl` is always 'null'
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/handler/ProbeHandler.java`
+#### Snippet
+```java
+            }
+            if(getUrl==null)
+                return new TCPSocketAction(getUrl, portObj);
+            String validurl = getUrl.replaceFirst("(([a-zA-Z])+)://","http://");
+            try{
+```
+
+### ConstantValue
+Value `defaultName` is always 'null'
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+#### Snippet
+```java
+                        } else {
+                            PodSpecBuilder podSpecBuilder = new PodSpecBuilder(podSpec1);
+                            mergePodSpec(podSpecBuilder, podSpec2, defaultName);
+                            updateTemplate.setSpec(podSpecBuilder.build());
+                        }
+```
+
 ### ConstantValue
 Condition `config == null` is always `false`
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/PropertyConfigHandler.java`
@@ -2466,30 +2477,6 @@ in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/buil
 ```
 
 ### ConstantValue
-Value `getUrl` is always 'null'
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/handler/ProbeHandler.java`
-#### Snippet
-```java
-            }
-            if(getUrl==null)
-                return new TCPSocketAction(getUrl, portObj);
-            String validurl = getUrl.replaceFirst("(([a-zA-Z])+)://","http://");
-            try{
-```
-
-### ConstantValue
-Value `defaultName` is always 'null'
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
-#### Snippet
-```java
-                        } else {
-                            PodSpecBuilder podSpecBuilder = new PodSpecBuilder(podSpec1);
-                            mergePodSpec(podSpecBuilder, podSpec2, defaultName);
-                            updateTemplate.setSpec(podSpecBuilder.build());
-                        }
-```
-
-### ConstantValue
 Condition `recreateMode` is always `true`
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
@@ -2499,18 +2486,6 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
                     if (recreateMode) {
                         openShiftClient.templates().inNamespace(currentNamespace).withName(id).delete();
                         doCreateTemplate(entity, currentNamespace, sourceName);
-```
-
-### ConstantValue
-Condition `path != null` is always `true`
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                    if (basedir != null) {
-                        String path = FileUtil.getRelativePath(basedir, file).getPath();
-                        if (path != null) {
-                            fileLocation = FileUtil.stripPrefix(path, "/");
-                        }
 ```
 
 ### ConstantValue
@@ -2535,6 +2510,18 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
                 if (alwaysRecreate || isRecreateMode()) {
                     if (!isRecreateMode() && isIgnoreBoundPersistentVolumeClaims() && isBound(old)) {
                         log.warn("PersistentVolumeClaim " + id + " in namespace " + currentNamespace + " is already bound and will not be replaced with the new one from " + sourceName);
+```
+
+### ConstantValue
+Condition `path != null` is always `true`
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+                    if (basedir != null) {
+                        String path = FileUtil.getRelativePath(basedir, file).getPath();
+                        if (path != null) {
+                            fileLocation = FileUtil.stripPrefix(path, "/");
+                        }
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -2564,18 +2551,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/ClassUtil.j
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'entity1' has raw type, so result of entrySet is erased
-in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/UserConfigurationCompare.java`
-#### Snippet
-```java
-            return false;
-        }
-        Set<Map.Entry> entries = entity1.entrySet();
-        for (Map.Entry entry : entries) {
-            Object key = entry.getKey();
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'isAssignableFrom(Class)' as a member of raw type 'java.lang.Class'
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/UserConfigurationCompare.java`
 #### Snippet
@@ -2597,6 +2572,18 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/UserConfigu
         } else if (right.isAssignableFrom(left)) {
             return getCommonDenominator(left.getSuperclass(), right);
         } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'entity1' has raw type, so result of entrySet is erased
+in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/UserConfigurationCompare.java`
+#### Snippet
+```java
+            return false;
+        }
+        Set<Map.Entry> entries = entity1.entrySet();
+        for (Map.Entry entry : entries) {
+            Object key = entry.getKey();
 ```
 
 ### UNCHECKED_WARNING
@@ -2636,39 +2623,15 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/MapUtil.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'map' has raw type, so result of entrySet is erased
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
-#### Snippet
-```java
-	private Map<String, String> flatten(Map map) {
-		Map<String, String> flat = new HashMap<>();
-		Set<Entry> mapEntrySet = map.entrySet();
-		for (Entry mapEntry : mapEntrySet) {
-			String stringKey = String.valueOf(mapEntry.getKey());
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
 #### Snippet
 ```java
-        }
-
-        final Map<String, Object> startUpFeaturesObject = (Map<String, Object>) startupFeatures;
-        final Object feature = startUpFeaturesObject.get("feature");
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
-#### Snippet
-```java
-
-            if (feature instanceof List) {
-                final List<String> features = (List<String>) feature;
-
-                for (String featureValue : features) {
+            return meta;
+        } else if (mo instanceof Map) {
+            return (Map<String, Object>) mo;
+        } else {
+            throw new IllegalArgumentException("Metadata is expected to be a Map, not a " + mo.getClass());
 ```
 
 ### UNCHECKED_WARNING
@@ -2708,15 +2671,15 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
-in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenConfigurationExtractor.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'map' has raw type, so result of entrySet is erased
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
 #### Snippet
 ```java
-        final Object insertedValue = conf.get(currentElement.getName());
-        if (insertedValue instanceof List) {
-            ((List) insertedValue).add(currentElement.getValue());
-        } else if (insertedValue instanceof String) {
-            final List<String> list = new ArrayList<>();
+	private Map<String, String> flatten(Map map) {
+		Map<String, String> flat = new HashMap<>();
+		Set<Entry> mapEntrySet = map.entrySet();
+		for (Entry mapEntry : mapEntrySet) {
+			String stringKey = String.valueOf(mapEntry.getKey());
 ```
 
 ### UNCHECKED_WARNING
@@ -2756,87 +2719,159 @@ in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/buil
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'io.fabric8.openshift.client.OpenShiftClient' to 'T'
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/access/ClusterAccess.java`
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `jkube-kit/common-maven/src/main/java/org/eclipse/jkube/kit/common/util/MavenConfigurationExtractor.java`
 #### Snippet
 ```java
-    public <T extends KubernetesClient> T createDefaultClient() {
-        if (isOpenShift()) {
-            return (T) createOpenShiftClient();
-        }
-        return (T) createKubernetesClient();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'io.fabric8.kubernetes.client.KubernetesClient' to 'T'
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/access/ClusterAccess.java`
-#### Snippet
-```java
-            return (T) createOpenShiftClient();
-        }
-        return (T) createKubernetesClient();
-    }
-
+        final Object insertedValue = conf.get(currentElement.getName());
+        if (insertedValue instanceof List) {
+            ((List) insertedValue).add(currentElement.getValue());
+        } else if (insertedValue instanceof String) {
+            final List<String> list = new ArrayList<>();
 ```
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
 #### Snippet
 ```java
-            return meta;
-        } else if (mo instanceof Map) {
-            return (Map<String, Object>) mo;
-        } else {
-            throw new IllegalArgumentException("Metadata is expected to be a Map, not a " + mo.getClass());
+        }
+
+        final Map<String, Object> startUpFeaturesObject = (Map<String, Object>) startupFeatures;
+        final Object feature = startUpFeaturesObject.get("feature");
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'java.util.List\>'
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
 #### Snippet
 ```java
-    }
 
-    List<Map<String, ?>> users = (List<Map<String, ?>>) kubeConfig.get("users");
-    if (users == null) {
-      return null;
+            if (feature instanceof List) {
+                final List<String> features = (List<String>) feature;
+
+                for (String featureValue : features) {
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'java.util.Map'
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/generator/VertxPortsExtractor.java`
 #### Snippet
 ```java
-    for (Map<String, ?> userMap : users) {
-      if (userName.equals(userMap.get("name"))) {
-        return parseUser(userName, (Map<String, ?>) userMap.get("user"));
-      }
-    }
+                return null;
+            }
+            Map<String, Object> config = (Map<String, Object>)pluginConfiguration.get("config");
+            return config != null ? config.get("vertxConfig").toString() : null;
+        }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'java.util.List\>'
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
 #### Snippet
 ```java
-    }
-
-    for (Map<String, ?> contextMap : (List<Map<String, ?>>) kubeConfig.get("contexts")) {
-      if (currentContextName.equals(contextMap.get("name"))) {
-        return parseContext(kubeConfig, (Map<String, ?>) contextMap.get("context"));
+        return element.map(input -> {
+            if (input instanceof Map) {
+                return (Map<String, String>) input;
+            } else {
+                throw new IllegalArgumentException(String.format(
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'java.util.Map'
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
 #### Snippet
 ```java
-    for (Map<String, ?> contextMap : (List<Map<String, ?>>) kubeConfig.get("contexts")) {
-      if (currentContextName.equals(contextMap.get("name"))) {
-        return parseContext(kubeConfig, (Map<String, ?>) contextMap.get("context"));
-      }
-    }
+        return element.map(input -> {
+            if (input instanceof Map) {
+                final Collection<Object> values = ((Map<String, Object>) input).values();
+                List<String> elements = new ArrayList<>();
+                for (Object value : values) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
+#### Snippet
+```java
+                for (Object value : values) {
+                    if (value instanceof List) {
+                        List<String> currentValues = (List<String>) value;
+                        elements.addAll(currentValues);
+                    } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
+#### Snippet
+```java
+            Stream.of(path)).collect(Collectors.toList())) {
+            if (currentRoot instanceof Map) {
+                currentRoot = ((Map<String, Object>) currentRoot).get(key);
+                if (currentRoot == null) {
+                    return Optional.empty();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/develop/WatchMojo.java`
+#### Snippet
+```java
+                .removeVolumes(removeVolumes)
+                .containerNamePattern(containerNamePattern)
+                .buildTimestamp(getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP))
+                .gavLabel(getGavLabel())
+                .buildContext(initJKubeConfiguration())
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/ResourceMojo.java`
+#### Snippet
+```java
+        throws IOException {
+      return ConfigHelper.initImageConfiguration(
+          getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(),
+              DOCKER_BUILD_TIMESTAMP),
+          images, imageConfigResolver,
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
+in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
+#### Snippet
+```java
+        if (dispatcher == null) {
+            dispatcher = new LogDispatcher(hub.getDockerAccess());
+            getPluginContext().put(CONTEXT_KEY_LOG_DISPATCHER, dispatcher);
+        }
+        return dispatcher;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
+#### Snippet
+```java
+                    .offline(offline)
+                    .build();
+                resolvedImages = ConfigHelper.initImageConfiguration(getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP), images, imageConfigResolver, log, filter, this, jkubeServiceHub.getConfiguration());
+                executeInternal();
+            } catch (IOException | DependencyResolutionRequiredException exp) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
+#### Snippet
+```java
+            // TODO need to refactor d-m-p to avoid this call
+            EnvUtil.storeTimestamp(getBuildTimestampFile(project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP),
+                    getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP));
+
+            jkubeServiceHub.getBuildService().build(imageConfigs.toArray(new ImageConfiguration[0]));
 ```
 
 ### UNCHECKED_WARNING
@@ -2876,123 +2911,51 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/develop/WatchMojo.java`
+Unchecked cast: 'capture' to 'java.util.List\>'
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
 #### Snippet
 ```java
-                .removeVolumes(removeVolumes)
-                .containerNamePattern(containerNamePattern)
-                .buildTimestamp(getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP))
-                .gavLabel(getGavLabel())
-                .buildContext(initJKubeConfiguration())
+    }
+
+    for (Map<String, ?> contextMap : (List<Map<String, ?>>) kubeConfig.get("contexts")) {
+      if (currentContextName.equals(contextMap.get("name"))) {
+        return parseContext(kubeConfig, (Map<String, ?>) contextMap.get("context"));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/generator/VertxPortsExtractor.java`
+Unchecked cast: 'capture' to 'java.util.Map'
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
 #### Snippet
 ```java
-                return null;
-            }
-            Map<String, Object> config = (Map<String, Object>)pluginConfiguration.get("config");
-            return config != null ? config.get("vertxConfig").toString() : null;
-        }
+    for (Map<String, ?> contextMap : (List<Map<String, ?>>) kubeConfig.get("contexts")) {
+      if (currentContextName.equals(contextMap.get("name"))) {
+        return parseContext(kubeConfig, (Map<String, ?>) contextMap.get("context"));
+      }
+    }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/ResourceMojo.java`
+Unchecked cast: 'capture' to 'java.util.List\>'
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
 #### Snippet
 ```java
-      return ConfigHelper.initImageConfiguration(
-          null /* no minimal api version */,
-          getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(),
-              DOCKER_BUILD_TIMESTAMP),
-          images, imageConfigResolver,
+    }
+
+    List<Map<String, ?>> users = (List<Map<String, ?>>) kubeConfig.get("users");
+    if (users == null) {
+      return null;
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
+Unchecked cast: 'capture' to 'java.util.Map'
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/helper/KubernetesConfigAuthUtil.java`
 #### Snippet
 ```java
-        return element.map(input -> {
-            if (input instanceof Map) {
-                final Collection<Object> values = ((Map<String, Object>) input).values();
-                List<String> elements = new ArrayList<>();
-                for (Object value : values) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
-#### Snippet
-```java
-                for (Object value : values) {
-                    if (value instanceof List) {
-                        List<String> currentValues = (List<String>) value;
-                        elements.addAll(currentValues);
-                    } else {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
-#### Snippet
-```java
-        return element.map(input -> {
-            if (input instanceof Map) {
-                return (Map<String, String>) input;
-            } else {
-                throw new IllegalArgumentException(String.format(
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
-#### Snippet
-```java
-            Stream.of(path)).collect(Collectors.toList())) {
-            if (currentRoot instanceof Map) {
-                currentRoot = ((Map<String, Object>) currentRoot).get(key);
-                if (currentRoot == null) {
-                    return Optional.empty();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
-#### Snippet
-```java
-            // TODO need to refactor d-m-p to avoid this call
-            EnvUtil.storeTimestamp(getBuildTimestampFile(project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP),
-                    getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP));
-
-            jkubeServiceHub.getBuildService().build(imageConfigs.toArray(new ImageConfiguration[0]));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
-in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
-#### Snippet
-```java
-        if (dispatcher == null) {
-            dispatcher = new LogDispatcher(hub.getDockerAccess());
-            getPluginContext().put(CONTEXT_KEY_LOG_DISPATCHER, dispatcher);
-        }
-        return dispatcher;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/AbstractDockerMojo.java`
-#### Snippet
-```java
-                    .offline(offline)
-                    .build();
-                resolvedImages = ConfigHelper.initImageConfiguration(apiVersion, getBuildTimestamp(getPluginContext(), CONTEXT_KEY_BUILD_TIMESTAMP, project.getBuild().getDirectory(), DOCKER_BUILD_TIMESTAMP), images, imageConfigResolver, log, filter, this, jkubeServiceHub.getConfiguration());
-                executeInternal();
-            } catch (IOException | DependencyResolutionRequiredException exp) {
+    for (Map<String, ?> userMap : users) {
+      if (userName.equals(userMap.get("name"))) {
+        return parseUser(userName, (Map<String, ?>) userMap.get("user"));
+      }
+    }
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -3131,6 +3094,42 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/AssemblyConfigur
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'createConfigMapEntry' is still used
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Map.Entry<String, String> createConfigMapEntry(final String key, final Path file) throws IOException {
+        final byte[] bytes = Files.readAllBytes(file);
+        if (isFileWithBinaryContent(file)) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'addNewEntryToExistingConfigMap' is still used
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void addNewEntryToExistingConfigMap(ConfigMapBuilder configMapBuilder, Map.Entry<String, String> entry, final Path file)
+        throws IOException {
+        if (isFileWithBinaryContent(file)) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'addNewEntriesFromDirectoryToExistingConfigMap' is still used
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void addNewEntriesFromDirectoryToExistingConfigMap(ConfigMapBuilder configMapBuilder, final Path path)
+        throws IOException {
+        try (Stream<Path> files = Files.list(path)) {
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'ANNOTATION_KEY' is still used
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DockerRegistrySecretEnricher.java`
 #### Snippet
@@ -3144,18 +3143,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### DeprecatedIsStillUsed
 Deprecated member 'PULL_POLICY' is still used
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        PULL_POLICY("pullPolicy", JKUBE_DEFAULT_IMAGE_PULL_POLICY),
-        REPLICA_COUNT("replicaCount", "1"),
-        SCHEDULE("schedule", null);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'PULL_POLICY' is still used
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
 #### Snippet
 ```java
@@ -3164,6 +3151,18 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
     PULL_POLICY("pullPolicy", JKUBE_DEFAULT_IMAGE_PULL_POLICY),
     TYPE("type", null),
     REPLICA_COUNT("replicaCount", "1"),
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PULL_POLICY' is still used
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        PULL_POLICY("pullPolicy", JKUBE_DEFAULT_IMAGE_PULL_POLICY),
+        REPLICA_COUNT("replicaCount", "1"),
+        SCHEDULE("schedule", null);
 ```
 
 ### DeprecatedIsStillUsed
@@ -3215,42 +3214,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'addNewEntryToExistingConfigMap' is still used
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void addNewEntryToExistingConfigMap(ConfigMapBuilder configMapBuilder, Map.Entry<String, String> entry, final Path file)
-        throws IOException {
-        if (isFileWithBinaryContent(file)) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'createConfigMapEntry' is still used
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Map.Entry<String, String> createConfigMapEntry(final String key, final Path file) throws IOException {
-        final byte[] bytes = Files.readAllBytes(file);
-        if (isFileWithBinaryContent(file)) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'addNewEntriesFromDirectoryToExistingConfigMap' is still used
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void addNewEntriesFromDirectoryToExistingConfigMap(ConfigMapBuilder configMapBuilder, final Path path)
-        throws IOException {
-        try (Stream<Path> files = Files.list(path)) {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'DEPRECATED_JKUBE_ANNOTATION_PREFIX' is still used
 in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/JKubeAnnotations.java`
 #### Snippet
@@ -3260,90 +3223,6 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
     private static final String DEPRECATED_JKUBE_ANNOTATION_PREFIX = "jkube.io";
     private final String annotation;
 
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'startup' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private ProbeConfig startup;
-  private MetricsConfig metrics;
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'liveness' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private ProbeConfig liveness;
-  /**
-   * @deprecated Use nested controller configuration instead
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'env' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private Map<String, String> env;
-  private MetaDataConfig labels;
-  private MetaDataConfig annotations;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'controllerName' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private String controllerName;
-  @Singular
-  private List<ServiceConfig> services;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'containerPrivileged' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private boolean containerPrivileged;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'volumes' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-  @Deprecated
-  @Singular
-  private List<VolumeConfig> volumes;
-  @Singular
-  private List<SecretConfig> secrets;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'readiness' is still used
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private ProbeConfig readiness;
-  /**
-   * @deprecated Use nested controller configuration instead
 ```
 
 ### DeprecatedIsStillUsed
@@ -3359,6 +3238,30 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'env' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private Map<String, String> env;
+  private MetaDataConfig labels;
+  private MetaDataConfig annotations;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'startup' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private ProbeConfig startup;
+  private MetricsConfig metrics;
+
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'imagePullPolicy' is still used
 in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
 #### Snippet
@@ -3371,6 +3274,42 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'controllerName' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private String controllerName;
+  @Singular
+  private List<ServiceConfig> services;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'readiness' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private ProbeConfig readiness;
+  /**
+   * @deprecated Use nested controller configuration instead
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'volumes' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+  @Deprecated
+  @Singular
+  private List<VolumeConfig> volumes;
+  @Singular
+  private List<SecretConfig> secrets;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'replicas' is still used
 in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
 #### Snippet
@@ -3380,6 +3319,30 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
   private Integer replicas;
   private String namespace;
   private String serviceAccount;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'containerPrivileged' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private boolean containerPrivileged;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'liveness' is still used
+in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resource/ResourceConfig.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private ProbeConfig liveness;
+  /**
+   * @deprecated Use nested controller configuration instead
 ```
 
 ### DeprecatedIsStillUsed
@@ -3812,66 +3775,6 @@ in `jkube-kit/jkube-kit-micronaut/src/main/java/org/eclipse/jkube/micronaut/enri
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/BaseGenerator.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/BaseGenerator.java`
 #### Snippet
 ```java
@@ -3884,19 +3787,7 @@ in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/suppor
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/BaseGenerator.java`
 #### Snippet
 ```java
 
@@ -3904,78 +3795,6 @@ in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/spe
         protected String key;
         @Getter
         protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4004,61 +3823,25 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/TriggersAnnotationEnricher.java`
+in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
 #### Snippet
 ```java
 
         @Getter
         protected String key;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
+        @Getter(AccessLevel.PUBLIC)
         protected String defaultValue;
 ```
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
 #### Snippet
 ```java
         protected String key;
-        @Getter
+        @Getter(AccessLevel.PUBLIC)
         protected String defaultValue;
     }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/PersistentVolumeClaimStorageClassEnricher.java`
-#### Snippet
-```java
-
-    @Getter
-    protected String key;
-    @Getter
-    protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/PersistentVolumeClaimStorageClassEnricher.java`
-#### Snippet
-```java
-    protected String key;
-    @Getter
-    protected String defaultValue;
-  }
 
 ```
 
@@ -4076,6 +3859,90 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/PersistentVolumeClaimStorageClassEnricher.java`
+#### Snippet
+```java
+
+    @Getter
+    protected String key;
+    @Getter
+    protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/PersistentVolumeClaimStorageClassEnricher.java`
+#### Snippet
+```java
+    protected String key;
+    @Getter
+    protected String defaultValue;
+  }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/TriggersAnnotationEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+#### Snippet
+```java
+
+    @Getter
+    protected String key;
+    @Getter
+    protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+#### Snippet
+```java
+    protected String key;
+    @Getter
+    protected String defaultValue;
+  }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ControllerViaPluginConfigurationEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/NameEnricher.java`
 #### Snippet
 ```java
@@ -4088,26 +3955,14 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
-#### Snippet
-```java
-    protected String key;
-    @Getter
-    protected String defaultValue;
-  }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultControllerEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/IngressEnricher.java`
 #### Snippet
 ```java
 
-    @Getter
-    protected String key;
-    @Getter
-    protected String defaultValue;
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4120,18 +3975,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
         protected String defaultValue;
     }
 
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/IngressEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4160,30 +4003,6 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/ContainerEnvJavaOptionsMergeEnricher.java`
 #### Snippet
 ```java
@@ -4208,19 +4027,7 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
 #### Snippet
 ```java
         protected String key;
@@ -4232,14 +4039,14 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DebugEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DependencyEnricher.java`
 #### Snippet
 ```java
+
+        @Getter
         protected String key;
         @Getter
         protected String defaultValue;
-    }
-
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4252,6 +4059,18 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
         protected String key;
         @Getter
         protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DebugEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4280,19 +4099,7 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
 #### Snippet
 ```java
 
@@ -4304,67 +4111,7 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/VolumePermissionEnricher.java`
 #### Snippet
 ```java
         protected String key;
@@ -4400,6 +4147,54 @@ in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/ImageChangeTriggerEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/AutoTLSEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `jkube-kit/generator/karaf/src/main/java/org/eclipse/jkube/generator/karaf/KarafGenerator.java`
 #### Snippet
 ```java
@@ -4419,6 +4214,222 @@ in `jkube-kit/generator/karaf/src/main/java/org/eclipse/jkube/generator/karaf/Ka
     @Getter(AccessLevel.PUBLIC)
     protected String defaultValue;
   }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/DefaultServiceEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/generic/src/main/java/org/eclipse/jkube/enricher/generic/openshift/RouteEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/WebAppHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/PrometheusEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/AbstractHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/ServiceDiscoveryEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-wildfly-jar/src/main/java/org/eclipse/jkube/wildfly/jar/enricher/WildflyJARHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
 
 ```
 
@@ -4448,7 +4459,7 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/enricher
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generator/QuarkusGenerator.java`
+in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
 #### Snippet
 ```java
 
@@ -4456,6 +4467,18 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generato
     protected String key;
     @Getter
     protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
+#### Snippet
+```java
+    protected String key;
+    @Getter
+    protected String defaultValue;
+  }
+
 ```
 
 ### ProtectedMemberInFinalClass
@@ -4472,79 +4495,7 @@ in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generato
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter(AccessLevel.PUBLIC)
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/generator/java-exec/src/main/java/org/eclipse/jkube/generator/javaexec/JavaExecGenerator.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter(AccessLevel.PUBLIC)
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofile/enricher/AbstractMicroprofileHealthCheckEnricher.java`
+in `jkube-kit/jkube-kit-quarkus/src/main/java/org/eclipse/jkube/quarkus/generator/QuarkusGenerator.java`
 #### Snippet
 ```java
 
@@ -4568,43 +4519,7 @@ in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofil
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
-#### Snippet
-```java
-        protected String key;
-        @Getter
-        protected String defaultValue;
-    }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/jkube-kit-thorntail-v2/src/main/java/org/eclipse/jkube/thorntail/v2/enricher/ThorntailV2HealthCheckEnricher.java`
-#### Snippet
-```java
-
-        @Getter
-        protected String key;
-        @Getter
-        protected String defaultValue;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
-#### Snippet
-```java
-    protected String key;
-    @Getter
-    protected String defaultValue;
-  }
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `jkube-kit/generator/webapp/src/main/java/org/eclipse/jkube/generator/webapp/WebAppGenerator.java`
+in `jkube-kit/jkube-kit-microprofile/src/main/java/org/eclipse/jkube/microprofile/enricher/AbstractMicroprofileHealthCheckEnricher.java`
 #### Snippet
 ```java
 
@@ -4622,6 +4537,54 @@ in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/Ver
 
         @Getter
         protected String key;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
+    }
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/enricher/SpringBootHealthCheckEnricher.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
+#### Snippet
+```java
+
+        @Getter
+        protected String key;
+        @Getter
+        protected String defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
+#### Snippet
+```java
+        protected String key;
+        @Getter
+        protected String defaultValue;
     }
 
 ```
@@ -4665,6 +4628,18 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/validator/R
 
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
+in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+#### Snippet
+```java
+    private static Map<String,Object> readFragment(File file) throws IOException {
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
+        try (InputStream fis = new FileInputStream(file)) {
+            final Map<String, Object> ret = Serialization.unmarshal(fis, typeRef);
+            return ret != null ? ret : new HashMap<>();
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/KeyStoreUtil.java`
 #### Snippet
 ```java
@@ -4701,26 +4676,14 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
-in `jkube-kit/enricher/api/src/main/java/org/eclipse/jkube/kit/enricher/api/util/KubernetesResourceUtil.java`
+in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
 #### Snippet
 ```java
-    private static Map<String,Object> readFragment(File file) throws IOException {
-        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-        try (InputStream fis = new FileInputStream(file)) {
-            final Map<String, Object> ret = Serialization.unmarshal(fis, typeRef);
-            return ret != null ? ret : new HashMap<>();
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/PortMapping.java`
-#### Snippet
-```java
-        private void writeProperties(Properties props, String file) throws IOException {
-            File propFile = new File(file);
-            try (OutputStream os = new FileOutputStream(propFile)) {
-                props.store(os, "Docker ports");
-            } catch (IOException e) {
+        byte[] buffer = new byte[8192];
+        int bytesRead = -1;
+        try (InputStream is = new FileInputStream(file)) {
+            CRC32 crc = new CRC32();
+            int size = 0;
 ```
 
 ### IOStreamConstructor
@@ -4772,15 +4735,15 @@ in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/g
 ```
 
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/generator/SpringBootGenerator.java`
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `jkube-kit/build/api/src/main/java/org/eclipse/jkube/kit/build/api/model/PortMapping.java`
 #### Snippet
 ```java
-        byte[] buffer = new byte[8192];
-        int bytesRead = -1;
-        try (InputStream is = new FileInputStream(file)) {
-            CRC32 crc = new CRC32();
-            int size = 0;
+        private void writeProperties(Properties props, String file) throws IOException {
+            File propFile = new File(file);
+            try (OutputStream os = new FileOutputStream(propFile)) {
+                props.store(os, "Docker ports");
+            } catch (IOException e) {
 ```
 
 ## RuleId[id=CdiInjectionPointsInspection]
@@ -4792,30 +4755,6 @@ in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/O
 public class OpenShiftHelmPushTask extends KubernetesHelmPushTask implements OpenShiftJKubeTask {
   @Inject
   public OpenShiftHelmPushTask(Class<? extends OpenShiftExtension> extensionClass) {
-    super(extensionClass);
-    setDescription(
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftBuildTask.java`
-#### Snippet
-```java
-
-  @Inject
-  public OpenShiftBuildTask(Class<? extends OpenShiftExtension> extensionClass) {
-    super(extensionClass);
-    setDescription(
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftHelmTask.java`
-#### Snippet
-```java
-
-  @Inject
-  public OpenShiftHelmTask(Class<? extends OpenShiftExtension> extensionClass) {
     super(extensionClass);
     setDescription(
 ```
@@ -4834,36 +4773,36 @@ public class OpenShiftRemoteDevTask extends KubernetesRemoteDevTask implements O
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
+in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftHelmTask.java`
+#### Snippet
+```java
+
+  @Inject
+  public OpenShiftHelmTask(Class<? extends OpenShiftExtension> extensionClass) {
+    super(extensionClass);
+    setDescription(
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftBuildTask.java`
+#### Snippet
+```java
+
+  @Inject
+  public OpenShiftBuildTask(Class<? extends OpenShiftExtension> extensionClass) {
+    super(extensionClass);
+    setDescription(
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
 in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftDebugTask.java`
 #### Snippet
 ```java
 public class OpenShiftDebugTask extends KubernetesDebugTask implements OpenShiftJKubeTask {
   @Inject
   public OpenShiftDebugTask(Class<? extends OpenShiftExtension> extensionClass) {
-    super(extensionClass);
-    setDescription(
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftWatchTask.java`
-#### Snippet
-```java
-public class OpenShiftWatchTask extends KubernetesWatchTask implements OpenShiftJKubeTask {
-  @Inject
-  public OpenShiftWatchTask(Class<? extends OpenShiftExtension> extensionClass) {
-    super(extensionClass);
-    setDescription(
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftPushTask.java`
-#### Snippet
-```java
-public class OpenShiftPushTask extends KubernetesPushTask implements OpenShiftJKubeTask {
-  @Inject
-  public OpenShiftPushTask(Class<? extends OpenShiftExtension> extensionClass) {
     super(extensionClass);
     setDescription(
 ```
@@ -4882,12 +4821,36 @@ public class OpenShiftUndeployTask extends KubernetesUndeployTask implements Ope
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
+in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftWatchTask.java`
+#### Snippet
+```java
+public class OpenShiftWatchTask extends KubernetesWatchTask implements OpenShiftJKubeTask {
+  @Inject
+  public OpenShiftWatchTask(Class<? extends OpenShiftExtension> extensionClass) {
+    super(extensionClass);
+    setDescription(
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
 in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftApplyTask.java`
 #### Snippet
 ```java
 
   @Inject
   public OpenShiftApplyTask(Class<? extends OpenShiftExtension> extensionClass) {
+    super(extensionClass);
+    setDescription(
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `gradle-plugin/openshift/src/main/java/org/eclipse/jkube/gradle/plugin/task/OpenShiftPushTask.java`
+#### Snippet
+```java
+public class OpenShiftPushTask extends KubernetesPushTask implements OpenShiftJKubeTask {
+  @Inject
+  public OpenShiftPushTask(Class<? extends OpenShiftExtension> extensionClass) {
     super(extensionClass);
     setDescription(
 ```
@@ -4954,18 +4917,6 @@ in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/KubernetesHelmPushTask.java`
-#### Snippet
-```java
-public class KubernetesHelmPushTask extends AbstractJKubeTask {
-  @Inject
-  public KubernetesHelmPushTask(Class<? extends KubernetesExtension> extensionClass) {
-    super(extensionClass);
-    setDescription("Upload a helm chart to specified helm repository.");
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
 in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/KubernetesRemoteDevTask.java`
 #### Snippet
 ```java
@@ -4990,6 +4941,18 @@ in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
+in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/KubernetesHelmPushTask.java`
+#### Snippet
+```java
+public class KubernetesHelmPushTask extends AbstractJKubeTask {
+  @Inject
+  public KubernetesHelmPushTask(Class<? extends KubernetesExtension> extensionClass) {
+    super(extensionClass);
+    setDescription("Upload a helm chart to specified helm repository.");
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
 in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/task/KubernetesUndeployTask.java`
 #### Snippet
 ```java
@@ -5006,18 +4969,6 @@ Unnecessary `toString()` call
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/FileUtil.java`
 #### Snippet
 ```java
-            return path.substring(slashIndex + 1);
-        } else {
-            throw new IllegalArgumentException(String.format("URL %s should contain a name file to be downloaded.", url.toString()));
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/FileUtil.java`
-#### Snippet
-```java
         }
         final StringBuilder relativeFilePath = new StringBuilder();
         relativeFilePath.append(oldPath.relativize(newPath).toString());
@@ -5027,12 +4978,12 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/FileUtil.ja
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
+in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/FileUtil.java`
 #### Snippet
 ```java
-        if (!(startupFeatures instanceof Map)) {
-            throw new IllegalArgumentException(String.format("For element %s was expected a complex object but a simple object was found of type %s and value %s",
-                "startupFeatures", startupFeatures.getClass(), startupFeatures.toString()));
+            return path.substring(slashIndex + 1);
+        } else {
+            throw new IllegalArgumentException(String.format("URL %s should contain a name file to be downloaded.", url.toString()));
         }
 
 ```
@@ -5075,13 +5026,13 @@ in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/buil
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
+in `jkube-kit/enricher/specific/src/main/java/org/eclipse/jkube/kit/enricher/specific/KarafHealthCheckEnricher.java`
 #### Snippet
 ```java
-                throw new IllegalArgumentException(String.format(
-                    ERROR_MESSAGE,
-                    config.getKey(), input.getClass(), input.toString()));
-            }
+        if (!(startupFeatures instanceof Map)) {
+            throw new IllegalArgumentException(String.format("For element %s was expected a complex object but a simple object was found of type %s and value %s",
+                "startupFeatures", startupFeatures.getClass(), startupFeatures.toString()));
+        }
 
 ```
 
@@ -5095,6 +5046,18 @@ in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/Ver
                     config.getKey(), input.getClass(), input.toString()));
             }
         });
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `jkube-kit/jkube-kit-vertx/src/main/java/org/eclipse/jkube/vertx/enricher/VertxHealthCheckEnricher.java`
+#### Snippet
+```java
+                throw new IllegalArgumentException(String.format(
+                    ERROR_MESSAGE,
+                    config.getKey(), input.getClass(), input.toString()));
+            }
+
 ```
 
 ## RuleId[id=RegExpUnexpectedAnchor]
@@ -5161,18 +5124,6 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### InnerClassMayBeStatic
-Inner class `WindowsPipeDockerHostProvider` may be 'static'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/DockerConnectionDetector.java`
-#### Snippet
-```java
-
-    // Check for a windows pipe
-    class WindowsPipeDockerHostProvider implements DockerHostProvider {
-        @Override
-        public ConnectionParameter getConnectionParameter(String certPath) throws IOException {
-```
-
-### InnerClassMayBeStatic
 Inner class `UnixSocketDockerHostProvider` may be 'static'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/DockerConnectionDetector.java`
 #### Snippet
@@ -5192,6 +5143,18 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 
     // Lookup from the enviroment
     class EnvDockerHostProvider implements DockerHostProvider {
+        @Override
+        public ConnectionParameter getConnectionParameter(String certPath) throws IOException {
+```
+
+### InnerClassMayBeStatic
+Inner class `WindowsPipeDockerHostProvider` may be 'static'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/DockerConnectionDetector.java`
+#### Snippet
+```java
+
+    // Check for a windows pipe
+    class WindowsPipeDockerHostProvider implements DockerHostProvider {
         @Override
         public ConnectionParameter getConnectionParameter(String certPath) throws IOException {
 ```
@@ -5552,11 +5515,11 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/SpringBootConfigurationHelper.java`
 #### Snippet
 ```java
-    }
+    private static final int DEFAULT_SERVER_PORT = 8080;
 
-    private int propertyOffset(Optional<String> springBootVersion) {
-        Optional<Integer> majorVersion = majorVersion(springBootVersion);
-        int idx = majorVersion.map(v -> v - 1).orElse(0);
+    public SpringBootConfigurationHelper(Optional<String> springBootVersion) {
+        this.propertyOffset = propertyOffset(springBootVersion);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5576,11 +5539,11 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/SpringBootC
 in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/SpringBootConfigurationHelper.java`
 #### Snippet
 ```java
-    private static final int DEFAULT_SERVER_PORT = 8080;
-
-    public SpringBootConfigurationHelper(Optional<String> springBootVersion) {
-        this.propertyOffset = propertyOffset(springBootVersion);
     }
+
+    private int propertyOffset(Optional<String> springBootVersion) {
+        Optional<Integer> majorVersion = majorVersion(springBootVersion);
+        int idx = majorVersion.map(v -> v - 1).orElse(0);
 ```
 
 ## RuleId[id=ImplicitArrayToString]
@@ -5622,18 +5585,6 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### AutoCloseableResource
-'KubernetesClient' used without 'try'-with-resources statement
-in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/access/ClusterAccess.java`
-#### Snippet
-```java
-
-    private OpenShiftClient createOpenShiftClient() {
-        return createKubernetesClient().adapt(OpenShiftClient.class);
-    }
-
-```
-
-### AutoCloseableResource
 'Watch' used without 'try'-with-resources statement
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/PortForwardService.java`
 #### Snippet
@@ -5662,59 +5613,11 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-            String currentNamespace = applicableNamespace(entity, namespace, fallbackNamespace);
+        if (!exists) {
             try {
-                final OpenShiftClient openShiftClient = asOpenShiftClient();
-                Resource<ImageStream> resource = openShiftClient.imageStreams().inNamespace(currentNamespace).withName(name);
-                ImageStream old = resource.get();
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-            String currentNamespace = applicableNamespace(entity, namespace, fallbackNamespace);
-            applyNamespace(currentNamespace);
-            final OpenShiftClient openShiftClient = asOpenShiftClient();
-            BuildConfig old = openShiftClient.buildConfigs().inNamespace(currentNamespace).withName(id).get();
-            if (isRunning(old)) {
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                        "host: " + entity.getSpec().getHost() :
-                        "No Spec !"));
-                asOpenShiftClient().routes().inNamespace(namespace).resource(entity).create();
-            } catch (Exception e) {
-                onApplyError("Failed to create Route from " + sourceName + ". " + e + ". " + entity, e);
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-        if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
-            try {
-                asOpenShiftClient().buildConfigs().inNamespace(namespace).resource(entity).create();
-            } catch (Exception e) {
-                onApplyError("Failed to create BuildConfig from " + sourceName + ". " + e, e);
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-            log.info("Creating a Template from " + sourceName + " namespace " + namespace + " name " + getName(entity));
-            try {
-                final Template answer = asOpenShiftClient().templates().inNamespace(namespace).create(entity);
-                logGeneratedEntity("Created Template: ", namespace, entity, answer);
-            } catch (Exception e) {
+                Object answer = asOpenShiftClient().projectrequests().create(entity);
+                // Add project to created projects
+                projectsCreated.add(name);
 ```
 
 ### AutoCloseableResource
@@ -5734,35 +5637,11 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-        if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
-            try {
-                asOpenShiftClient().oAuthClients().resource(entity).create();
-            } catch (Exception e) {
-                onApplyError("Failed to create OAuthClient from " + sourceName + ". " + e + ". " + entity, e);
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-                return;
-            }
-            final OpenShiftClient openShiftClient = asOpenShiftClient();
-            OAuthClient old = openShiftClient.oAuthClients().withName(id).get();
-            if (isRunning(old)) {
-```
-
-### AutoCloseableResource
-'OpenShiftClient' used without 'try'-with-resources statement
-in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
-#### Snippet
-```java
-            ObjectMeta metadata = getOrCreateMetadata(entity);
-            metadata.setName(namespaceName);
-            String kubernetesClientNamespace = asOpenShiftClient().getNamespace();
-            if (isNotBlank(kubernetesClientNamespace)) {
-                Map<String, String> entityLabels = getOrCreateLabels(entity);
+            DeploymentConfig resource = (DeploymentConfig) dto;
+            if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
+                applyResource(resource, sourceName, asOpenShiftClient().deploymentConfigs());
+            } else {
+                log.warn("Not connected to OpenShift cluster so cannot apply entity %s", dto);
 ```
 
 ### AutoCloseableResource
@@ -5785,6 +5664,66 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
                 return;
             }
             final OpenShiftClient openShiftClient = asOpenShiftClient();
+            OAuthClient old = openShiftClient.oAuthClients().withName(id).get();
+            if (isRunning(old)) {
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+                        "host: " + entity.getSpec().getHost() :
+                        "No Spec !"));
+                asOpenShiftClient().routes().inNamespace(namespace).resource(entity).create();
+            } catch (Exception e) {
+                onApplyError("Failed to create Route from " + sourceName + ". " + e + ". " + entity, e);
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+            log.info("Creating a Template from " + sourceName + " namespace " + namespace + " name " + getName(entity));
+            try {
+                final Template answer = asOpenShiftClient().templates().inNamespace(namespace).create(entity);
+                logGeneratedEntity("Created Template: ", namespace, entity, answer);
+            } catch (Exception e) {
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+            ObjectMeta metadata = getOrCreateMetadata(entity);
+            metadata.setName(namespaceName);
+            String kubernetesClientNamespace = asOpenShiftClient().getNamespace();
+            if (isNotBlank(kubernetesClientNamespace)) {
+                Map<String, String> entityLabels = getOrCreateLabels(entity);
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+            String currentNamespace = applicableNamespace(entity, namespace, fallbackNamespace);
+            try {
+                final OpenShiftClient openShiftClient = asOpenShiftClient();
+                Resource<ImageStream> resource = openShiftClient.imageStreams().inNamespace(currentNamespace).withName(name);
+                ImageStream old = resource.get();
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+                return;
+            }
+            final OpenShiftClient openShiftClient = asOpenShiftClient();
             Route route = openShiftClient.routes().inNamespace(currentNamespace).withName(id).get();
             if (isRunning(route)) {
 ```
@@ -5794,11 +5733,11 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-        if (!exists) {
+        if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
             try {
-                Object answer = asOpenShiftClient().projectrequests().create(entity);
-                // Add project to created projects
-                projectsCreated.add(name);
+                asOpenShiftClient().buildConfigs().inNamespace(namespace).resource(entity).create();
+            } catch (Exception e) {
+                onApplyError("Failed to create BuildConfig from " + sourceName + ". " + e, e);
 ```
 
 ### AutoCloseableResource
@@ -5806,11 +5745,23 @@ in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/
 in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
 #### Snippet
 ```java
-            DeploymentConfig resource = (DeploymentConfig) dto;
-            if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
-                applyResource(resource, sourceName, asOpenShiftClient().deploymentConfigs());
-            } else {
-                log.warn("Not connected to OpenShift cluster so cannot apply entity %s", dto);
+            String currentNamespace = applicableNamespace(entity, namespace, fallbackNamespace);
+            applyNamespace(currentNamespace);
+            final OpenShiftClient openShiftClient = asOpenShiftClient();
+            BuildConfig old = openShiftClient.buildConfigs().inNamespace(currentNamespace).withName(id).get();
+            if (isRunning(old)) {
+```
+
+### AutoCloseableResource
+'OpenShiftClient' used without 'try'-with-resources statement
+in `jkube-kit/config/service/src/main/java/org/eclipse/jkube/kit/config/service/ApplyService.java`
+#### Snippet
+```java
+        if (OpenshiftHelper.isOpenShift(kubernetesClient)) {
+            try {
+                asOpenShiftClient().oAuthClients().resource(entity).create();
+            } catch (Exception e) {
+                onApplyError("Failed to create OAuthClient from " + sourceName + ". " + e + ". " + entity, e);
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -5853,75 +5804,15 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/AsciiDocPar
 ```
 
 ### JavadocDeclaration
-`@param f` tag description is missing
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
-#### Snippet
-```java
-	 * Reads the configuration from the file.
-	 *
-	 * @param f
-	 * @return
-	 * @throws IOException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
-#### Snippet
-```java
-	 *
-	 * @param f
-	 * @return
-	 * @throws IOException
-	 */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
-#### Snippet
-```java
-	 * @param f
-	 * @return
-	 * @throws IOException
-	 */
-	private Map<String, String> readConfig(File f) throws IOException {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
-#### Snippet
-```java
-	 *
-	 * @param candidate The string to check
-	 * @return
-	 */
-	private boolean isValidPortPropertyKey(String candidate) {
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `jkube-kit/profile/src/main/java/org/eclipse/jkube/kit/profile/ProfileUtil.java`
+Wrong tag `returntrue`
+in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/KubernetesHelper.java`
 #### Snippet
 ```java
      *
-     * <ul>
-     *     <li>A given directory with the name profiles.yml (and variations, {@link #findProfile(String, File[])}</li>
-     * </ul>
-     * @param profileArg the profile's name
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `jkube-kit/profile/src/main/java/org/eclipse/jkube/kit/profile/ProfileUtil.java`
-#### Snippet
-```java
-     * @return the merged configuration which can be empty if no profile is given
-     * @param config the provided configuration
-     * @throws IOException
+     * @param pod Pod object.
+     * @returntrue if Pod is ready, false otherwise.
      */
-    public static ProcessorConfig blendProfileWithConfiguration(ProcessorConfigurationExtractor configExtractor,
+    public static boolean isPodReady(Pod pod) {
 ```
 
 ### JavadocDeclaration
@@ -6021,6 +5912,78 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### JavadocDeclaration
+`@param f` tag description is missing
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
+#### Snippet
+```java
+	 * Reads the configuration from the file.
+	 *
+	 * @param f
+	 * @return
+	 * @throws IOException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
+#### Snippet
+```java
+	 *
+	 * @param f
+	 * @return
+	 * @throws IOException
+	 */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
+#### Snippet
+```java
+	 * @param f
+	 * @return
+	 * @throws IOException
+	 */
+	private Map<String, String> readConfig(File f) throws IOException {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `jkube-kit/generator/api/src/main/java/org/eclipse/jkube/generator/api/support/AbstractPortsExtractor.java`
+#### Snippet
+```java
+	 *
+	 * @param candidate The string to check
+	 * @return
+	 */
+	private boolean isValidPortPropertyKey(String candidate) {
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `jkube-kit/profile/src/main/java/org/eclipse/jkube/kit/profile/ProfileUtil.java`
+#### Snippet
+```java
+     *
+     * <ul>
+     *     <li>A given directory with the name profiles.yml (and variations, {@link #findProfile(String, File[])}</li>
+     * </ul>
+     * @param profileArg the profile's name
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `jkube-kit/profile/src/main/java/org/eclipse/jkube/kit/profile/ProfileUtil.java`
+#### Snippet
+```java
+     * @return the merged configuration which can be empty if no profile is given
+     * @param config the provided configuration
+     * @throws IOException
+     */
+    public static ProcessorConfig blendProfileWithConfiguration(ProcessorConfigurationExtractor configExtractor,
+```
+
+### JavadocDeclaration
 Javadoc pointing to itself
 in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/ImageName.java`
 #### Snippet
@@ -6094,18 +6057,6 @@ in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/validator/R
 ```
 
 ### FieldMayBeFinal
-Field `docker` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/VolumeService.java`
-#### Snippet
-```java
-public class VolumeService {
-   // DAO for accessing the docker daemon
-   private DockerAccess docker;
-
-   VolumeService(DockerAccess dockerAccess) {
-```
-
-### FieldMayBeFinal
 Field `cache` may be 'final'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/ImagePullCache.java`
 #### Snippet
@@ -6115,6 +6066,18 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
         private JsonObject cache;
 
 
+```
+
+### FieldMayBeFinal
+Field `docker` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/VolumeService.java`
+#### Snippet
+```java
+public class VolumeService {
+   // DAO for accessing the docker daemon
+   private DockerAccess docker;
+
+   VolumeService(DockerAccess dockerAccess) {
 ```
 
 ### FieldMayBeFinal
@@ -6142,6 +6105,18 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### FieldMayBeFinal
+Field `numUsers` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/log/SharedPrintStream.java`
+#### Snippet
+```java
+    private PrintStream printStream;
+
+    private AtomicInteger numUsers;
+
+    SharedPrintStream(PrintStream ps) {
+```
+
+### FieldMayBeFinal
 Field `printStream` may be 'final'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/log/SharedPrintStream.java`
 #### Snippet
@@ -6151,18 +6126,6 @@ class SharedPrintStream {
     private PrintStream printStream;
 
     private AtomicInteger numUsers;
-```
-
-### FieldMayBeFinal
-Field `url` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/UrlBuilder.java`
-#### Snippet
-```java
-
-        private Map<String,String> queryParams = new HashMap<>();
-        private String url;
-
-        public Builder(String url) {
 ```
 
 ### FieldMayBeFinal
@@ -6178,27 +6141,15 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### FieldMayBeFinal
-Field `numUsers` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/log/SharedPrintStream.java`
+Field `url` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/access/UrlBuilder.java`
 #### Snippet
 ```java
-    private PrintStream printStream;
 
-    private AtomicInteger numUsers;
+        private Map<String,String> queryParams = new HashMap<>();
+        private String url;
 
-    SharedPrintStream(PrintStream ps) {
-```
-
-### FieldMayBeFinal
-Field `suffix` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/helper/SuffixFileFilter.java`
-#### Snippet
-```java
-    public static final FilenameFilter PEM_FILTER = new SuffixFileFilter(".pem");
-
-    private String suffix;
-
-    public SuffixFileFilter(String suffix) {
+        public Builder(String url) {
 ```
 
 ### FieldMayBeFinal
@@ -6214,39 +6165,15 @@ public class Timestamp implements Comparable<Timestamp> {
 ```
 
 ### FieldMayBeFinal
-Field `project` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/helper/ImageNameFormatter.java`
+Field `suffix` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/helper/SuffixFileFilter.java`
 #### Snippet
 ```java
+    public static final FilenameFilter PEM_FILTER = new SuffixFileFilter(".pem");
 
-    private final Date now;
-    private JavaProject project;
+    private String suffix;
 
-    public ImageNameFormatter(JavaProject project, Date now) {
-```
-
-### FieldMayBeFinal
-Field `mapValueExtractor` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
-#### Snippet
-```java
-    private StringListValueExtractor stringListValueExtractor;
-    private IntListValueExtractor intListValueExtractor;
-    private MapValueExtractor mapValueExtractor;
-    private StringValueExtractor stringValueExtractor;
-    private IntValueExtractor intValueExtractor;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
-#### Snippet
-```java
-public class ValueProvider {
-    private String prefix;
-    private Properties properties;
-    private PropertyMode propertyMode;
-
+    public SuffixFileFilter(String suffix) {
 ```
 
 ### FieldMayBeFinal
@@ -6259,18 +6186,6 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
     private StringValueExtractor stringValueExtractor;
     private IntValueExtractor intValueExtractor;
     private LongValueExtractor longValueExtractor;
-```
-
-### FieldMayBeFinal
-Field `propertyMode` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
-#### Snippet
-```java
-    private String prefix;
-    private Properties properties;
-    private PropertyMode propertyMode;
-
-    private StringListValueExtractor stringListValueExtractor;
 ```
 
 ### FieldMayBeFinal
@@ -6310,18 +6225,6 @@ public class ValueProvider {
 ```
 
 ### FieldMayBeFinal
-Field `intValueExtractor` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
-#### Snippet
-```java
-    private MapValueExtractor mapValueExtractor;
-    private StringValueExtractor stringValueExtractor;
-    private IntValueExtractor intValueExtractor;
-    private LongValueExtractor longValueExtractor;
-    private BooleanValueExtractor booleanValueExtractor;
-```
-
-### FieldMayBeFinal
 Field `doubleValueExtractor` may be 'final'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
 #### Snippet
@@ -6331,6 +6234,18 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
     private DoubleValueExtractor doubleValueExtractor;
 
     /**
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
+#### Snippet
+```java
+public class ValueProvider {
+    private String prefix;
+    private Properties properties;
+    private PropertyMode propertyMode;
+
 ```
 
 ### FieldMayBeFinal
@@ -6346,6 +6261,30 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### FieldMayBeFinal
+Field `intValueExtractor` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
+#### Snippet
+```java
+    private MapValueExtractor mapValueExtractor;
+    private StringValueExtractor stringValueExtractor;
+    private IntValueExtractor intValueExtractor;
+    private LongValueExtractor longValueExtractor;
+    private BooleanValueExtractor booleanValueExtractor;
+```
+
+### FieldMayBeFinal
+Field `mapValueExtractor` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
+#### Snippet
+```java
+    private StringListValueExtractor stringListValueExtractor;
+    private IntListValueExtractor intListValueExtractor;
+    private MapValueExtractor mapValueExtractor;
+    private StringValueExtractor stringValueExtractor;
+    private IntValueExtractor intValueExtractor;
+```
+
+### FieldMayBeFinal
 Field `stringListValueExtractor` may be 'final'
 in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
 #### Snippet
@@ -6358,15 +6297,15 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### FieldMayBeFinal
-Field `imageLines` may be 'final'
-in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/helper/AnsiLoggerFacade.java`
+Field `propertyMode` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/config/handler/property/ValueProvider.java`
 #### Snippet
 ```java
+    private String prefix;
+    private Properties properties;
+    private PropertyMode propertyMode;
 
-    // Map remembering lines
-    private ThreadLocal<Map<String, Integer>> imageLines = new ThreadLocal<>();
-    private ThreadLocal<AtomicInteger> updateCount = new ThreadLocal<>();
-
+    private StringListValueExtractor stringListValueExtractor;
 ```
 
 ### FieldMayBeFinal
@@ -6394,6 +6333,18 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### FieldMayBeFinal
+Field `imageLines` may be 'final'
+in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/service/docker/helper/AnsiLoggerFacade.java`
+#### Snippet
+```java
+
+    // Map remembering lines
+    private ThreadLocal<Map<String, Integer>> imageLines = new ThreadLocal<>();
+    private ThreadLocal<AtomicInteger> updateCount = new ThreadLocal<>();
+
+```
+
+### FieldMayBeFinal
 Field `source` may be 'final'
 in `jkube-kit/config/image/src/main/java/org/eclipse/jkube/kit/config/image/build/DockerFileBuilder.java`
 #### Snippet
@@ -6418,15 +6369,15 @@ in `jkube-kit/config/resource/src/main/java/org/eclipse/jkube/kit/config/resourc
 ```
 
 ### FieldMayBeFinal
-Field `useReplicaSet` may be 'final'
+Field `resourceFileType` may be 'final'
 in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/ResourceMojo.java`
 #### Snippet
 ```java
-    // Whether to use replica sets or replication controller. Could be configurable
-    // but for now leave it hidden.
-    private boolean useReplicaSet = true;
+     */
+    @Parameter(property = "jkube.resourceType")
+    private ResourceFileType resourceFileType = yaml;
 
-    // The image configuration after resolving and customization
+    // When resource generation is delegated to Dekorate, should JKube resources be merged with Dekorate's
 ```
 
 ### FieldMayBeFinal
@@ -6442,28 +6393,15 @@ in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/
 ```
 
 ### FieldMayBeFinal
-Field `resourceFileType` may be 'final'
+Field `useReplicaSet` may be 'final'
 in `kubernetes-maven-plugin/plugin/src/main/java/org/eclipse/jkube/maven/plugin/mojo/build/ResourceMojo.java`
 #### Snippet
 ```java
-     */
-    @Parameter(property = "jkube.resourceType")
-    private ResourceFileType resourceFileType = yaml;
+    // Whether to use replica sets or replication controller. Could be configurable
+    // but for now leave it hidden.
+    private boolean useReplicaSet = true;
 
-    // When resource generation is delegated to Dekorate, should JKube resources be merged with Dekorate's
-```
-
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `answer` is redundant
-in `jkube-kit/common/src/main/java/org/eclipse/jkube/kit/common/util/KubernetesHelper.java`
-#### Snippet
-```java
-
-    public static String getEnvVar(List<EnvVar> envVarList, String name, String defaultValue) {
-        String answer = defaultValue;
-        if (envVarList != null) {
-            for (EnvVar envVar : envVarList) {
+    // The image configuration after resolving and customization
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
@@ -6544,18 +6482,6 @@ in `jkube-kit/build/service/docker/src/main/java/org/eclipse/jkube/kit/build/ser
 ```
 
 ### UnstableApiUsage
-'getDestinationDirectory()' is marked unstable with @Incubating
-in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/GradleUtil.java`
-#### Snippet
-```java
-      final SourceSetContainer sourceSetContainer = extractSourceSets(gradleProject);
-      if (sourceSetContainer != null) {
-        return sourceSetContainer.getByName(SourceSet.MAIN_SOURCE_SET_NAME).getJava().getDestinationDirectory()
-            .getAsFile().getOrNull();
-      }
-```
-
-### UnstableApiUsage
 'com.google.common.io.Closeables' is marked unstable with @Beta
 in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/watcher/SpringBootWatcher.java`
 #### Snippet
@@ -6577,5 +6503,17 @@ in `jkube-kit/jkube-kit-spring-boot/src/main/java/org/eclipse/jkube/springboot/w
                     Closeables.closeQuietly(reader);
                 }
             }
+```
+
+### UnstableApiUsage
+'getDestinationDirectory()' is marked unstable with @Incubating
+in `gradle-plugin/kubernetes/src/main/java/org/eclipse/jkube/gradle/plugin/GradleUtil.java`
+#### Snippet
+```java
+      final SourceSetContainer sourceSetContainer = extractSourceSets(gradleProject);
+      if (sourceSetContainer != null) {
+        return sourceSetContainer.getByName(SourceSet.MAIN_SOURCE_SET_NAME).getJava().getDestinationDirectory()
+            .getAsFile().getOrNull();
+      }
 ```
 
