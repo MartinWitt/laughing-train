@@ -23,8 +23,8 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
-            MetricNamespace metricNamespace,
             MetricDefinition definition,
+            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -35,8 +35,8 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
+            MetricNamespace metricNamespace,
             MetricDefinition definition,
-            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -76,79 +76,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
             if (manifestEntry == null) {
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'org.gradle.api.plugins.JavaPluginConvention' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
-        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
-        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
-    }
-```
-
-### Deprecation
-'getConvention()' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
-        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
-        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
-    }
-```
-
-### Deprecation
-'org.gradle.api.plugins.JavaPluginConvention' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
-        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
-        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
-    }
-```
-
-### Deprecation
-'org.gradle.api.plugins.JavaPluginConvention' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
-                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
-```
-
-### Deprecation
-'getConvention()' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
-                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
-```
-
-### Deprecation
-'org.gradle.api.plugins.JavaPluginConvention' is deprecated
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
-                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
-```
-
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
 ### CollectionAddAllCanBeReplacedWithConstructor
 'addAll()' call can be replaced with parametrized constructor call
@@ -160,6 +87,79 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
         modifiers.addAll(List.of(Modifier.PRIVATE, Modifier.FINAL));
         if (stagedBuilderSpec.isStatic()) {
             modifiers.add(Modifier.STATIC);
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+### Deprecation
+'getConvention()' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+        TaskProvider<CompileMetricSchemaTask> compileMetricSchema = project.getTasks()
+                .register(COMPILE_METRIC_SCHEMA, CompileMetricSchemaTask.class, task -> {
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
+    }
+```
+
+### Deprecation
+'getConvention()' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
+    }
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureJavaSource(Project project, Provider<Directory> outputDir) {
+        JavaPluginConvention javaPlugin = project.getConvention().findPlugin(JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(outputDir);
+    }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -178,7 +178,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -190,7 +190,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -314,18 +314,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/SchemaParser.jav
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
-#### Snippet
-```java
-            }
-
-            try (InputStream is = zipFile.getInputStream(manifestEntry)) {
-                return Optional.of(ObjectMappers.mapper.readValue(is, new TypeReference<List<MetricSchema>>() {}));
-            }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
@@ -346,5 +334,17 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
             String fromDisk = Files.readString(markdown.toPath().toAbsolutePath());
             Preconditions.checkState(
                     fromDisk.equals(upToDateContents),
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
+#### Snippet
+```java
+            }
+
+            try (InputStream is = zipFile.getInputStream(manifestEntry)) {
+                return Optional.of(ObjectMappers.mapper.readValue(is, new TypeReference<List<MetricSchema>>() {}));
+            }
 ```
 
