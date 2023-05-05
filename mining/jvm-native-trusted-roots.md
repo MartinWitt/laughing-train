@@ -35,10 +35,10 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
 #### Snippet
 ```java
-            }
 
-            try (InputStream stream = Files.newInputStream(file)) {
-                List<X509Certificate> list = PemReaderUtil.readPemBundle(stream, file.toString());
+        LOGGER.fine("Reading certificates from " + dir + ": file does not exist");
+        try (Stream<Path> filesStream = Files.list(dir)) {
+            List<Path> paths = filesStream.collect(Collectors.toList());
 
 ```
 
@@ -47,10 +47,10 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
 #### Snippet
 ```java
+            }
 
-        LOGGER.fine("Reading certificates from " + dir + ": file does not exist");
-        try (Stream<Path> filesStream = Files.list(dir)) {
-            List<Path> paths = filesStream.collect(Collectors.toList());
+            try (InputStream stream = Files.newInputStream(file)) {
+                List<X509Certificate> list = PemReaderUtil.readPemBundle(stream, file.toString());
 
 ```
 
