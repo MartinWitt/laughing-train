@@ -1,28 +1,22 @@
 # nifi-maven 
  
 # Bad smells
-I found 37 bad smells with 2 repairable:
+I found 42 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 7 | false |
-| ObsoleteCollection | 4 | false |
+| JavadocReference | 15 | false |
+| UNCHECKED_WARNING | 13 | false |
 | CollectionContainsUrl | 4 | false |
-| RedundantFieldInitialization | 3 | false |
-| AssignmentToMethodParameter | 3 | false |
-| ReturnNull | 3 | false |
 | ConstantValue | 3 | false |
-| NestedAssignment | 2 | false |
-| IOResource | 1 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| UnnecessaryFullyQualifiedName | 1 | false |
+| IOStreamConstructor | 2 | false |
+| AutoCloseableResource | 1 | false |
 | DataFlowIssue | 1 | false |
 | UnnecessarySemicolon | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
-| ZeroLengthArrayInitialization | 1 | false |
-| MissortedModifiers | 1 | false |
-## RuleId[id=IOResource]
-### IOResource
-'JarFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+| FieldMayBeFinal | 1 | false |
+| SortedCollectionWithNonComparableKeys | 1 | false |
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'JarFile' used without 'try'-with-resources statement
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
@@ -33,219 +27,7 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
         for (final Enumeration<JarEntry> jarEnumeration = jarFile.entries(); jarEnumeration.hasMoreElements();) {
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `NarDependencyUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/nifi/utils/NarDependencyUtils.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class NarDependencyUtils {
-    public static final String NAR = "nar";
-    public static final String COMPILE_STRING = "compile";
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.archiver` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-     * \@\component role="org.codehaus.plexus.archiver.Archiver" roleHint="jar"
-     */
-    @Component(role = org.codehaus.plexus.archiver.Archiver.class, hint = "jar")
-    private JarArchiver jarArchiver;
-    /**
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `providedServiceDefinitions` might be null
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-        } else {
-            final Class<?> serviceApiClass = Class.forName("org.apache.nifi.documentation.StandardServiceAPI", false, classLoader);
-            final List<Object> providedServices = getDocumentationServiceAPIs(serviceApiClass, providedServiceDefinitions);
-            final Map<String,Object> propertyServices = getDocumentationServiceAPIs(serviceApiClass, propertyServiceDefinitions);
-
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/org/apache/nifi/extension/definition/ExtensionType.java`
-#### Snippet
-```java
-    CONTROLLER_SERVICE,
-
-    REPORTING_TASK;
-
-}
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-        final byte[] buffer = new byte[8192];
-        int len;
-        while ((len = in.read(buffer)) >= 0) {
-            out.write(buffer, 0, len);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-
-```
-
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
-#### Snippet
-```java
-
-            narParent.accept(new DependencyNodeVisitor() {
-                final Stack<Artifact> hierarchy = new Stack<>();
-
-                @Override
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
-#### Snippet
-```java
-
-            narParent.accept(new DependencyNodeVisitor() {
-                final Stack<Artifact> hierarchy = new Stack<>();
-
-                @Override
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
-#### Snippet
-```java
-
-            root.accept(new DependencyNodeVisitor() {
-                final Stack<Artifact> hierarchy = new Stack<>();
-
-                @Override
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
-#### Snippet
-```java
-
-            root.accept(new DependencyNodeVisitor() {
-                final Stack<Artifact> hierarchy = new Stack<>();
-
-                @Override
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-    @Parameter(property = "narDependencyVersion")
-    protected String narDependencyVersion = null;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-    @Parameter(property = "narDependencyId")
-    protected String narDependencyId = null;
-
-    @Parameter(property = "narDependencyVersion")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-    @Parameter(property = "narDependencyGroup")
-    protected String narDependencyGroup = null;
-
-    @Parameter(property = "narDependencyId")
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `artifacts`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-            // the unskipped artifacts are in the resolved set.
-            artifacts = status.getResolvedDependencies();
-            unResolvedArtifacts.addAll(artifacts);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `classifier`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-    protected File getNarFile(File basedir, String finalName, String classifier) {
-        if (classifier == null) {
-            classifier = "";
-        } else if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
-            classifier = "-" + classifier;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `classifier`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-            classifier = "";
-        } else if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
-            classifier = "-" + classifier;
-        }
-
-```
-
 ## RuleId[id=CollectionContainsUrl]
-### CollectionContainsUrl
-Set `resourceUrls` may contain URL objects
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-
-    private Set<String> discoverClassNames(final String extensionType) throws IOException {
-        final Set<URL> resourceUrls = new HashSet<>();
-
-        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
-```
-
 ### CollectionContainsUrl
 Set `urls` may contain URL objects
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
@@ -282,180 +64,434 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
         }
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+### CollectionContainsUrl
+Set `resourceUrls` may contain URL objects
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+
+    private Set<String> discoverClassNames(final String extensionType) throws IOException {
+        final Set<URL> resourceUrls = new HashSet<>();
+
+        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.Collection'
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoader.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
+        this.urls = urls;
+        this.narArtifact = narArtifact;
+        this.allArtifacts = new ArrayList<>(otherArtifacts);
+        if (narArtifact != null) {
+            allArtifacts.add(narArtifact);
 ```
 
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoader.java`
+#### Snippet
+```java
+        this.urls = urls;
+        this.narArtifact = narArtifact;
+        this.allArtifacts = new ArrayList<>(otherArtifacts);
+        if (narArtifact != null) {
+            allArtifacts.add(narArtifact);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.Collection'
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoader.java`
+#### Snippet
+```java
+        this.urls = urls;
+        this.narArtifact = narArtifact;
+        this.allArtifacts = new ArrayList<>(otherArtifacts);
+        if (narArtifact != null) {
+            allArtifacts.add(narArtifact);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoader.java`
+#### Snippet
+```java
+        this.urls = urls;
+        this.narArtifact = narArtifact;
+        this.allArtifacts = new ArrayList<>(otherArtifacts);
+        if (narArtifact != null) {
+            allArtifacts.add(narArtifact);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+                    hierarchy.push(artifact);
+                    if (NarDependencyUtils.COMPILE_STRING.equals(artifact.getScope()) && !NarDependencyUtils.NAR.equals(artifact.getType())) {
+                        directDependencies.put(artifact.toString(), new ArrayList<>(hierarchy));
+                        return true;
+                    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+                    hierarchy.push(artifact);
+                    if (NarDependencyUtils.COMPILE_STRING.equals(artifact.getScope()) && !NarDependencyUtils.NAR.equals(artifact.getType())) {
+                        directDependencies.put(artifact.toString(), new ArrayList<>(hierarchy));
+                        return true;
+                    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+#### Snippet
+```java
+        this.projectBuilder = builder.projectBuilder;
+        this.localRepo = builder.localRepo;
+        this.remoteRepos = new ArrayList<>(builder.remoteRepos);
+        this.dependencyGraphBuilder = builder.dependencyGraphBuilder;
+        this.artifactResolver = builder.artifactResolver;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
+#### Snippet
+```java
+        this.projectBuilder = builder.projectBuilder;
+        this.localRepo = builder.localRepo;
+        this.remoteRepos = new ArrayList<>(builder.remoteRepos);
+        this.dependencyGraphBuilder = builder.dependencyGraphBuilder;
+        this.artifactResolver = builder.artifactResolver;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
         }
 
-        return null;
-    }
+        final List<Artifact> sorted = new ArrayList<>(artifacts);
+        Collections.sort(sorted);
 
 ```
 
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
         }
 
-        return null;
-    }
+        final List<Artifact> sorted = new ArrayList<>(artifacts);
+        Collections.sort(sorted);
 
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`classifier.trim().length() > 0` can be replaced with '!classifier.trim().isEmpty()'
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-        if (classifier == null) {
-            classifier = "";
-        } else if (classifier.trim().length() > 0 && !classifier.startsWith("-")) {
-            classifier = "-" + classifier;
-        }
+
+        final Method writeMethod = extensionClass.getMethod("getPropertyDescriptors");
+        final List<Object> propertyDescriptors = (List<Object>) writeMethod.invoke(extensionInstance);
+
+        if (propertyDescriptors == null) {
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-        getLog().debug("Creating class loader with following dependencies: " + urls);
-
-        final URL[] urlArray = urls.toArray(new URL[0]);
-        if (parent == null) {
-            return new ExtensionClassLoader(urlArray, narArtifact, artifacts);
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends ServiceAPIDefinition`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-    }
 
-    private List<Object> getDocumentationServiceAPIs(Class<?> serviceApiClass, Set<ServiceAPIDefinition> serviceDefinitions)
-            throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        final Constructor<?> ctr = serviceApiClass.getConstructor(String.class, String.class, String.class, String.class);
+        // calculate the skipped artifacts
+        Set<Artifact> skippedArtifacts = new HashSet<>(artifacts);
+        skippedArtifacts.removeAll(unMarkedArtifacts);
+
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ExtensionDefinition`
+### UNCHECKED_WARNING
+Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-    }
 
-    private void writeDocumentation(final Set<ExtensionDefinition> extensionDefinitions, final ExtensionClassLoader classLoader,
-                                    final Class<?> docWriterClass, final XMLStreamWriter xmlWriter, final File additionalDetailsDir)
-        throws InvocationTargetException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
+        // calculate the skipped artifacts
+        Set<Artifact> skippedArtifacts = new HashSet<>(artifacts);
+        skippedArtifacts.removeAll(unMarkedArtifacts);
+
 ```
 
-### BoundedWildcard
-Can generalize to `? super Class`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-    }
 
-    private void getInterfaceHierarchy(final Class<?> implementedInterface, final Set<Class<?>> interfaceHierarchy) {
-        final Class<?>[] parentInterfaces = implementedInterface.getInterfaces();
-        if (parentInterfaces == null) {
+            try (final InputStream in = jarFile.getInputStream(jarEntry);
+                 final OutputStream out = new FileOutputStream(destinationFile)) {
+                copy(in, out);
+            }
 ```
 
-### BoundedWildcard
-Can generalize to `? super ServiceAPIDefinition`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
-    }
+        createDirectory(additionalDetailsDir);
 
-    private void processImplementedInterface(final Class<?> implementedInterface, final Class<?> controllerServiceClass, final Set<ServiceAPIDefinition> serviceApis) {
-        if (controllerServiceClass.isAssignableFrom(implementedInterface) && !controllerServiceClass.equals(implementedInterface)) {
-            final ClassLoader interfaceClassLoader = implementedInterface.getClassLoader();
+        try (final OutputStream out = new FileOutputStream(docsFile)) {
+
+            final XMLStreamWriter xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(out, "UTF-8");
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Set`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `RepositorySystemSession`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
+     */
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandlerManager`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandler`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandlerManager`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandler`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystemSession`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
+     */
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandlerManager`
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandler`
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+    /**
+     * *
+     * The {@link ArtifactHandlerManager} into which any extension {@link ArtifactHandler} instances should have been injected when the extensions were loaded.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystemSession`
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
+     */
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `providedServiceDefinitions` might be null
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+        } else {
+            final Class<?> serviceApiClass = Class.forName("org.apache.nifi.documentation.StandardServiceAPI", false, classLoader);
+            final List<Object> providedServices = getDocumentationServiceAPIs(serviceApiClass, providedServiceDefinitions);
+            final Map<String,Object> propertyServices = getDocumentationServiceAPIs(serviceApiClass, propertyServiceDefinitions);
+
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/org/apache/nifi/extension/definition/ExtensionType.java`
+#### Snippet
+```java
+    CONTROLLER_SERVICE,
+
+    REPORTING_TASK;
+
+}
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `allArtifacts` may be 'final'
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
+    private static class ArtifactsHolder {
 
-
-    private Set<Artifact> gatherArtifacts(final MavenProject mavenProject, final Supplier<Set<Artifact>> setSupplier) throws MojoExecutionException {
-        final Set<Artifact> artifacts = setSupplier.get();
-        final DependencyNodeVisitor nodeVisitor = new DependencyNodeVisitor() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
-    }
-
-    private String findProvidedDependencyVersion(final Set<Artifact> artifacts, final String groupId, final String artifactId) {
-        final ProjectBuildingRequest projectRequest = new DefaultProjectBuildingRequest();
-        projectRequest.setRepositorySession(repoSession);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
-#### Snippet
-```java
         private Set<Artifact> allArtifacts = new TreeSet<>();
 
         public void addArtifacts(final Set<Artifact> artifacts) {
-            if (artifacts != null) {
-                allArtifacts.addAll(artifacts);
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
+## RuleId[id=SortedCollectionWithNonComparableKeys]
+### SortedCollectionWithNonComparableKeys
+Construction of sorted collection with non-comparable elements
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
 ```java
-public class ExtensionClassLoaderFactory {
+    private static class ArtifactsHolder {
 
-    private final static Set<String> EXCLUDED_ARTIFACT_IDS;
-    static {
-        final Set<String> excludedArtifactIds = new HashSet<>();
+        private Set<Artifact> allArtifacts = new TreeSet<>();
+
+        public void addArtifacts(final Set<Artifact> artifacts) {
 ```
 
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `propertyServiceDefinitions == null` is always `false` when reached
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
-                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
-            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
-            writeMethod.invoke(docWriter, extensionInstance);
-```
-
 ### ConstantValue
 Condition `extensionInterfaces == null` is always `false`
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
@@ -478,5 +514,17 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefin
         if (parentInterfaces == null) {
             return;
         }
+```
+
+### ConstantValue
+Condition `propertyServiceDefinitions == null` is always `false` when reached
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+        if ((providedServiceDefinitions == null || providedServiceDefinitions.isEmpty())
+                && (propertyServiceDefinitions == null || propertyServiceDefinitions.isEmpty())) {
+            final Method writeMethod = docWriterClass.getMethod("write", configurableComponentClass);
+            writeMethod.invoke(docWriter, extensionInstance);
 ```
 
