@@ -1,53 +1,166 @@
 # teamcity-webhooks 
  
 # Bad smells
-I found 20 bad smells with 1 repairable:
+I found 32 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UNUSED_IMPORT | 14 | false |
-| ReturnNull | 1 | false |
-| MissingDeprecatedAnnotation | 1 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| BoundedWildcard | 1 | false |
+| SpringJavaInjectionPointsAutowiringInspection | 5 | false |
+| Deprecation | 3 | false |
+| FieldMayBeFinal | 3 | false |
+| NonFinalFieldInEnum | 2 | false |
+| SpringXmlAutowireExplicitlyInspection | 1 | false |
+| JavadocReference | 1 | false |
+| JavadocDeclaration | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'RestApiFacade' type found.
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+    private final RestApiFacade restApiFacade;
+
+    public RestApiProducer(RestApiFacade restApiFacade) {
+        this.restApiFacade = restApiFacade;
+    }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'SBuildServer' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
 #### Snippet
 ```java
-        String password = project.getParametersProvider().get("teamcity.internal.webhooks.password");
 
-        if (username.isEmpty() || password == null) return null;
-
-        return new SimpleCredentials(username, password);
+    public WebhooksEventListener(WebhookDataProducer jsonProducer,
+                                 SBuildServer buildServer,
+                                 SSLTrustStoreProvider sslTrustStoreProvider,
+                                 HTTPRequestBuilder.RequestHandler requestHandler) {
 ```
 
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'SSLTrustStoreProvider' type found.
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
 #### Snippet
 ```java
- */
-@Component
-public class AsyncEventDispatcher {
-
-    private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+    public WebhooksEventListener(WebhookDataProducer jsonProducer,
+                                 SBuildServer buildServer,
+                                 SSLTrustStoreProvider sslTrustStoreProvider,
+                                 HTTPRequestBuilder.RequestHandler requestHandler) {
+        this.jsonProducer = jsonProducer;
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `EventNames` has only 'static' members, and lacks a 'private' constructor
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'RequestHandler' type found.
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
+#### Snippet
+```java
+                                 SBuildServer buildServer,
+                                 SSLTrustStoreProvider sslTrustStoreProvider,
+                                 HTTPRequestBuilder.RequestHandler requestHandler) {
+        this.jsonProducer = jsonProducer;
+        this.buildServer = buildServer;
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
 #### Snippet
 ```java
-public class WebhooksManager {
+    }
 
-    public static final class EventNames {
-        public static final String AGENT_REGISTRED = "AGENT_REGISTRED";
-        public static final String AGENT_UNREGISTERED = "AGENT_UNREGISTERED";
+    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
+                           AsyncEventDispatcher asyncEventDispatcher,
+                           WebhooksEventListener eventListener) {
+```
+
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `restApiUrl` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
+
+        private String restApiUrl;
+        private List<String> events;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `events` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
+```
+
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `webhooks-server/src/main/resources/META-INF/build-server-plugin-teamcity-webhook.xml`
+#### Snippet
+```java
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-autowire="constructor">
+    <context:component-scan base-package="jetbrains.buildServer.webhook"/>
+</beans>
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher`
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+#### Snippet
+```java
+ * Allows to publish simple events to all subscribed listeners asynchronously
+ * with keeping order of execution events per {@link AsyncEventListener#getSyncKey()}
+ * @deprecated since 2022.10, use {@link jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher} from teamcity core
+ */
+@Component
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventListener.java`
+#### Snippet
+```java
+    /**
+     * Overriding this method allows to define a list of listeners for which order of handling events is important
+     * @return key witch will be used for synchronization ordering events during the processing in {@link AsyncEventDispatcher}
+     */
+    default Object getSyncKey() {
+```
+
+### Deprecation
+'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/events/AsyncEvent.java`
+#### Snippet
+```java
+
+/**
+ * Simple event used by {@link jetbrains.buildServer.webhook.async.AsyncEventDispatcher}
+ * to allows listeners {@link jetbrains.buildServer.webhook.async.AsyncEventListener} handle it asynchronously
+ */
+```
+
+### Deprecation
+'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
+#### Snippet
+```java
+
+    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
+                           AsyncEventDispatcher asyncEventDispatcher,
+                           WebhooksEventListener eventListener) {
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -219,17 +332,17 @@ import static java.lang.String.format;
 /**
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends AsyncEvent`
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventListener.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@return` tag description is missing
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhookDataProducer.java`
 #### Snippet
 ```java
-    void handle(AsyncEvent event);
-
-    default void handle(List<AsyncEvent> events) {
-        for (AsyncEvent event : events) {
-            handle(event);
+     * @param event event triggered webhook sending
+     * @param fields list of required fields in webhook
+     * @return
+     */
+    String getJson(AsyncEvent event, String fields);
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
@@ -256,5 +369,42 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 public class AsyncEventDispatcher {
 
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `restApiUrl` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
+
+        private String restApiUrl;
+        private List<String> events;
+
+```
+
+### FieldMayBeFinal
+Field `events` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
+```
+
+### FieldMayBeFinal
+Field `lastErrorCodeMap` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
+#### Snippet
+```java
+
+    private static final Logger LOG = Logger.getInstance(WebhooksEventListener.class.getName());
+    private ConcurrentHashMap<String, String> lastErrorCodeMap = new ConcurrentHashMap<>();
+
+    private final WebhookDataProducer jsonProducer;
 ```
 
