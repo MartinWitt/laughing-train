@@ -32,6 +32,18 @@ I found 77 bad smells with 5 repairable:
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
+#### Snippet
+```java
+      content[0] = (byte) b;
+      final int read = in.read(content, 1, available);
+      final String message = new String(content, 0, read + 1, "UTF-8");
+      throw new IOException("Unexpected response from remote system: " + message);
+    }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHExecProcessAdapter.java`
 #### Snippet
 ```java
@@ -78,18 +90,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
       myLog.error("Wrong encoding name", e);
 ```
 
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
-#### Snippet
-```java
-      content[0] = (byte) b;
-      final int read = in.read(content, 1, available);
-      final String message = new String(content, 0, read + 1, "UTF-8");
-      throw new IOException("Unexpected response from remote system: " + message);
-    }
-```
-
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
@@ -118,15 +118,15 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked call to 'getMethod(String, Class...)' as a member of raw type 'java.lang.Class'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
+Unchecked call to 'getConstructor(Class...)' as a member of raw type 'java.lang.Class'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/smb/SmbDeployerRunner.java`
 #### Snippet
 ```java
-      ourJschConfigInitialized = true;
-      Class initializer = Class.forName("jetbrains.buildServer.util.jsch.JSchConfigInitializer");
-      Method initMethod = initializer.getMethod("initJSchConfig", Class.class);
-      initMethod.invoke(null, JSch.class);
-    } catch (ClassNotFoundException e) {
+    final boolean dnsOnly = Boolean.valueOf(context.getRunnerParameters().get(SMBRunnerConstants.DNS_ONLY_NAME_RESOLUTION));
+
+    final Constructor constructor = smbBuildProcessClass.getConstructor(BuildRunnerContext.class,
+            String.class, String.class, String.class, String.class, List.class, boolean.class);
+    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections, dnsOnly);
 ```
 
 ### UNCHECKED_WARNING
@@ -142,15 +142,15 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/smb/S
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'getConstructor(Class...)' as a member of raw type 'java.lang.Class'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/smb/SmbDeployerRunner.java`
+Unchecked call to 'getMethod(String, Class...)' as a member of raw type 'java.lang.Class'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
 #### Snippet
 ```java
-    final boolean dnsOnly = Boolean.valueOf(context.getRunnerParameters().get(SMBRunnerConstants.DNS_ONLY_NAME_RESOLUTION));
-
-    final Constructor constructor = smbBuildProcessClass.getConstructor(BuildRunnerContext.class,
-            String.class, String.class, String.class, String.class, List.class, boolean.class);
-    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections, dnsOnly);
+      ourJschConfigInitialized = true;
+      Class initializer = Class.forName("jetbrains.buildServer.util.jsch.JSchConfigInitializer");
+      Method initMethod = initializer.getMethod("initJSchConfig", Class.class);
+      initMethod.invoke(null, JSch.class);
+    } catch (ClassNotFoundException e) {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -241,6 +241,30 @@ import java.util.stream.Collectors;
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `myFailBuildOnExitCode` may be 'final'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
+#### Snippet
+```java
+
+class SSHProcessAdapterOptions {
+  private boolean myFailBuildOnExitCode;
+  private boolean myEnableSshAgentForwarding;
+
+```
+
+### FieldMayBeFinal
+Field `myEnableSshAgentForwarding` may be 'final'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
+#### Snippet
+```java
+class SSHProcessAdapterOptions {
+  private boolean myFailBuildOnExitCode;
+  private boolean myEnableSshAgentForwarding;
+
+  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
+```
+
+### FieldMayBeFinal
 Field `mySessionProvider` may be 'final'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/sftp/SftpBuildProcessAdapter.java`
 #### Snippet
@@ -276,54 +300,17 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
   public ScpProcessAdapter(@NotNull final BuildRunnerContext context,
 ```
 
-### FieldMayBeFinal
-Field `myEnableSshAgentForwarding` may be 'final'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
-#### Snippet
-```java
-class SSHProcessAdapterOptions {
-  private boolean myFailBuildOnExitCode;
-  private boolean myEnableSshAgentForwarding;
-
-  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
-```
-
-### FieldMayBeFinal
-Field `myFailBuildOnExitCode` may be 'final'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
-#### Snippet
-```java
-
-class SSHProcessAdapterOptions {
-  private boolean myFailBuildOnExitCode;
-  private boolean myEnableSshAgentForwarding;
-
-```
-
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `parts`
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
-#### Snippet
-```java
-  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
-                                                    @Nullable final ScpOperation chainTailOperation) {
-    String parts[] = remotePath.replace('\\', '/').split("\\/");
-    ScpOperation rootOperation = null;
-    DirScpOperation currentOperation = null;
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'PARAM_DOMAIN' is still used
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
+Deprecated member 'PARAM_HOST' is still used
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
 #### Snippet
 ```java
-  public static final String PARAM_PLAIN_PASSWORD = "jetbrains.buildServer.deployer.password";
+
   @Deprecated
-  public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
-  public static final String PARAM_TARGET_URL = "jetbrains.buildServer.deployer.targetUrl";
-  public static final String PARAM_SOURCE_PATH = "jetbrains.buildServer.deployer.sourcePath";
+  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
+  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
+  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
 ```
 
 ### DeprecatedIsStillUsed
@@ -339,15 +326,28 @@ in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/Dep
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'PARAM_HOST' is still used
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
+Deprecated member 'PARAM_DOMAIN' is still used
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
 #### Snippet
 ```java
-
+  public static final String PARAM_PLAIN_PASSWORD = "jetbrains.buildServer.deployer.password";
   @Deprecated
-  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
-  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
-  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
+  public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
+  public static final String PARAM_TARGET_URL = "jetbrains.buildServer.deployer.targetUrl";
+  public static final String PARAM_SOURCE_PATH = "jetbrains.buildServer.deployer.sourcePath";
+```
+
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `parts`
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
+#### Snippet
+```java
+  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
+                                                    @Nullable final ScpOperation chainTailOperation) {
+    String parts[] = remotePath.replace('\\', '/').split("\\/");
+    ScpOperation rootOperation = null;
+    DirScpOperation currentOperation = null;
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -648,6 +648,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/I
 
 ## RuleId[id=Deprecation]
 ### Deprecation
+'PARAM_DOMAIN' is deprecated
+in `deploy-runner-server/src/main/resources/buildServerResources/viewSmbDeployerParams.jsp`
+#### Snippet
+```java
+
+<div class="parameter">
+    Domain: <strong><props:displayValue name="<%=DeployerRunnerConstants.PARAM_DOMAIN%>" emptyValue="empty"/></strong>
+</div>
+
+```
+
+### Deprecation
 'PARAM_PLAIN_PASSWORD' is deprecated
 in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/converter/DeployerSettingsConverter.java`
 #### Snippet
@@ -767,18 +779,6 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/con
           newRunnerParams.put(DeployerRunnerConstants.PARAM_USERNAME, domain + "\\" + username);
 ```
 
-### Deprecation
-'PARAM_DOMAIN' is deprecated
-in `deploy-runner-server/src/main/resources/buildServerResources/viewSmbDeployerParams.jsp`
-#### Snippet
-```java
-
-<div class="parameter">
-    Domain: <strong><props:displayValue name="<%=DeployerRunnerConstants.PARAM_DOMAIN%>" emptyValue="empty"/></strong>
-</div>
-
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
@@ -842,7 +842,32 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/SyncB
         throw new RunBuildException(e);
 ```
 
+## RuleId[id=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/DataChannelProtection.java`
+#### Snippet
+```java
+
+  public String getCodeAsString() {
+    return "" + code;
+  }
+
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
+#### Snippet
+```java
+        sb.append((char) c);
+      } while (c != '\n');
+      throw new IOException("Remote system responded with error: " + sb.toString());
+    } else {
+      final int available = in.available();
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
@@ -879,31 +904,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
   }
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
-#### Snippet
-```java
-        sb.append((char) c);
-      } while (c != '\n');
-      throw new IOException("Remote system responded with error: " + sb.toString());
-    } else {
-      final int available = in.available();
-```
-
-## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/DataChannelProtection.java`
-#### Snippet
-```java
-
-  public String getCodeAsString() {
-    return "" + code;
-  }
-
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `myUseHttps` initializer `false` is redundant
@@ -925,8 +925,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "Container Deployer";
+  public String getDescription() {
+    return "Runner able to deploy WAR apps to different containers";
   }
 ```
 
@@ -937,20 +937,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDescription() {
-    return "Runner able to deploy WAR apps to different containers";
-  }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
-#### Snippet
-```java
-
-  @Override
-  public String getDescription() {
-    return "Deploys files/directories via FTP";
+  public String getDisplayName() {
+    return "Container Deployer";
   }
 ```
 
@@ -963,6 +951,18 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/Ftp
   @Override
   public String getDisplayName() {
     return "FTP Upload";
+  }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
+#### Snippet
+```java
+
+  @Override
+  public String getDescription() {
+    return "Deploys files/directories via FTP";
   }
 ```
 
