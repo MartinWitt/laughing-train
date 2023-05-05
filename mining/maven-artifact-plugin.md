@@ -35,68 +35,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
             String prop = reactorParent.getOriginalModel().getProperties().getProperty("project.build.outputTimestamp");
 ```
 
-## RuleId[id=IOStreamConstructor]
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
-#### Snippet
-```java
-        try (InputStream in = (pluginIssues == null)
-                ? getClass().getResourceAsStream("not-reproducible-plugins.properties")
-                : new FileInputStream(pluginIssues)) {
-            Properties prop = new Properties();
-            prop.load(in);
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-
-        try (PrintWriter p = new PrintWriter(new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(buildinfoFile), StandardCharsets.UTF_8)))) {
-            BuildInfoWriter bi = new BuildInfoWriter(getLog(), p, mono, artifactHandlerManager, rtInformation);
-            bi.setIgnoreJavadoc(ignoreJavadoc);
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
-#### Snippet
-```java
-                buildinfoFile.getParentFile(), buildinfoFile.getName().replaceFirst(".buildinfo$", ".buildcompare"));
-        try (PrintWriter p = new PrintWriter(new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(buildcompare), StandardCharsets.UTF_8)))) {
-            p.println("version=" + project.getVersion());
-            p.println("ok=" + ok);
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            referenceBuildinfo = getReference(null, buildinfoFile);
-            try (PrintWriter p = new PrintWriter(new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(referenceBuildinfo), StandardCharsets.UTF_8)))) {
-                BuildInfoWriter bi = new BuildInfoWriter(log, p, mono, artifactHandlerManager, rtInformation);
-
-```
-
 ## RuleId[id=JavadocReference]
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-     * @param buildinfo the build info file
-     * @return output properties
-     * @throws MojoExecutionException
-     */
-    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
-```
-
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -119,6 +58,67 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
      * @throws MojoExecutionException
      */
     private void checkAgainstReference(Map<Artifact, String> artifacts, boolean mono) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+     * @param buildinfo the build info file
+     * @return output properties
+     * @throws MojoExecutionException
+     */
+    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
+```
+
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+
+        try (PrintWriter p = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(buildinfoFile), StandardCharsets.UTF_8)))) {
+            BuildInfoWriter bi = new BuildInfoWriter(getLog(), p, mono, artifactHandlerManager, rtInformation);
+            bi.setIgnoreJavadoc(ignoreJavadoc);
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
+#### Snippet
+```java
+        try (InputStream in = (pluginIssues == null)
+                ? getClass().getResourceAsStream("not-reproducible-plugins.properties")
+                : new FileInputStream(pluginIssues)) {
+            Properties prop = new Properties();
+            prop.load(in);
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            referenceBuildinfo = getReference(null, buildinfoFile);
+            try (PrintWriter p = new PrintWriter(new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream(referenceBuildinfo), StandardCharsets.UTF_8)))) {
+                BuildInfoWriter bi = new BuildInfoWriter(log, p, mono, artifactHandlerManager, rtInformation);
+
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
+#### Snippet
+```java
+                buildinfoFile.getParentFile(), buildinfoFile.getName().replaceFirst(".buildinfo$", ".buildcompare"));
+        try (PrintWriter p = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(buildcompare), StandardCharsets.UTF_8)))) {
+            p.println("version=" + project.getVersion());
+            p.println("ok=" + ok);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -147,18 +147,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 ```
 
 ## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-     * @param buildinfo the build info file
-     * @return output properties
-     * @throws MojoExecutionException
-     */
-    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
-```
-
 ### JavadocDeclaration
 `@throws` tag description is missing
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -195,6 +183,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
     private void checkAgainstReference(Map<Artifact, String> artifacts, boolean mono) throws MojoExecutionException {
 ```
 
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+     * @param buildinfo the build info file
+     * @return output properties
+     * @throws MojoExecutionException
+     */
+    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
+```
+
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `lines` may be 'final'
@@ -209,42 +209,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.j
 ```
 
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `reference == null` is always `false` when reached
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
-#### Snippet
-```java
-        // reference file name is taken from repository format
-        File reference = new File(new File(referenceDir, a.getGroupId()), getRepositoryFilename(a));
-        if ((actual == null) || (reference == null)) {
-            return "missing file for " + a.getId() + " reference = "
-                    + (reference == null ? "null" : relative(reference)) + " actual = "
-```
-
-### ConstantValue
-Condition `reference == null` is always `false`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
-#### Snippet
-```java
-        if ((actual == null) || (reference == null)) {
-            return "missing file for " + a.getId() + " reference = "
-                    + (reference == null ? "null" : relative(reference)) + " actual = "
-                    + (actual == null ? "null" : relative(actual));
-        }
-```
-
-### ConstantValue
-Condition `actual == null` is always `true`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
-#### Snippet
-```java
-            return "missing file for " + a.getId() + " reference = "
-                    + (reference == null ? "null" : relative(reference)) + " actual = "
-                    + (actual == null ? "null" : relative(actual));
-        }
-        return "diffoscope " + relative(reference) + " " + relative(actual);
-```
-
 ### ConstantValue
 Condition `referenceBuildinfo == null` is always `true`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
@@ -279,6 +243,42 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                     if (javaVersion != null) {
                         p.println("java.version=" + javaVersion);
                         log.info("Reference build java.version: " + javaVersion);
+```
+
+### ConstantValue
+Condition `reference == null` is always `false` when reached
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
+#### Snippet
+```java
+        // reference file name is taken from repository format
+        File reference = new File(new File(referenceDir, a.getGroupId()), getRepositoryFilename(a));
+        if ((actual == null) || (reference == null)) {
+            return "missing file for " + a.getId() + " reference = "
+                    + (reference == null ? "null" : relative(reference)) + " actual = "
+```
+
+### ConstantValue
+Condition `reference == null` is always `false`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
+#### Snippet
+```java
+        if ((actual == null) || (reference == null)) {
+            return "missing file for " + a.getId() + " reference = "
+                    + (reference == null ? "null" : relative(reference)) + " actual = "
+                    + (actual == null ? "null" : relative(actual));
+        }
+```
+
+### ConstantValue
+Condition `actual == null` is always `true`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
+#### Snippet
+```java
+            return "missing file for " + a.getId() + " reference = "
+                    + (reference == null ? "null" : relative(reference)) + " actual = "
+                    + (actual == null ? "null" : relative(actual));
+        }
+        return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -333,18 +333,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
-#### Snippet
-```java
-        MavenProject root = mono ? project : getExecutionRoot();
-        File referenceDir = new File(root.getBuild().getDirectory(), "reference");
-        referenceDir.mkdirs();
-
-        // download or create reference buildinfo
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
@@ -354,5 +342,17 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                 dir.mkdir();
             }
         }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
+#### Snippet
+```java
+        MavenProject root = mono ? project : getExecutionRoot();
+        File referenceDir = new File(root.getBuild().getDirectory(), "reference");
+        referenceDir.mkdirs();
+
+        // download or create reference buildinfo
 ```
 
