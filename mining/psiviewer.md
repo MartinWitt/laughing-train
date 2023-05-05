@@ -26,6 +26,31 @@ I found 107 bad smells with 4 repairable:
 | RedundantTypeArguments | 1 | false |
 | UnusedAssignment | 1 | false |
 | JavadocLinkAsPlainText | 1 | false |
+## RuleId[id=StringEquality]
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+            _selectedElement = element;
+            updatePropertySheet();
+            if (reason != TREE_SELECTION_CHANGED)
+                changeTreeSelection();
+            applyHighlighting();
+```
+
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+                changeTreeSelection();
+            applyHighlighting();
+            if (reason != CARET_MOVED && element != null)
+                moveEditorCaret();
+        }
+```
+
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
@@ -243,31 +268,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
             // Send Data To Page
 ```
 
-## RuleId[id=StringEquality]
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-            _selectedElement = element;
-            updatePropertySheet();
-            if (reason != TREE_SELECTION_CHANGED)
-                changeTreeSelection();
-            applyHighlighting();
-```
-
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-                changeTreeSelection();
-            applyHighlighting();
-            if (reason != CARET_MOVED && element != null)
-                moveEditorCaret();
-        }
-```
-
 ## RuleId[id=MagicConstant]
 ### MagicConstant
 Should be one of: ListSelectionModel.SINGLE_SELECTION, ListSelectionModel.SINGLE_INTERVAL_SELECTION, ...
@@ -282,18 +282,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
-### UNCHECKED_WARNING
-Unchecked call to 'setModel(ComboBoxModel)' as a member of raw type 'javax.swing.JComboBox'
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-
-        //noinspection Since15
-        myLanguagesComboBox.setModel(new ListComboBoxModel<>(new ArrayList<>(languages)));
-
-        if (selectedLanguage != null && languages.contains(selectedLanguage))
-```
-
 ### UNCHECKED_WARNING
 Unchecked call to 'put(K, V)' as a member of raw type 'java.util.Map'
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
@@ -343,6 +331,18 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked call to 'setModel(ComboBoxModel)' as a member of raw type 'javax.swing.JComboBox'
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+
+        //noinspection Since15
+        myLanguagesComboBox.setModel(new ListComboBoxModel<>(new ArrayList<>(languages)));
+
+        if (selectedLanguage != null && languages.contains(selectedLanguage))
+```
+
+### UNCHECKED_WARNING
 Unchecked call to 'addFirst(E)' as a member of raw type 'java.util.LinkedList'
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
@@ -368,18 +368,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 
 ## RuleId[id=MarkedForRemoval]
 ### MarkedForRemoval
-'Integer(int)' is deprecated and marked for removal
-in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
-#### Snippet
-```java
-        _slider.addChangeListener(it -> {
-                    int value = ((JSlider) it.getSource()).getValue();
-                    _spinner.setValue(new Integer(value));
-                    updateColor(value);
-                }
-```
-
-### MarkedForRemoval
 'findPluginId(java.lang.@org.jetbrains.annotations.NotNull Throwable)' is deprecated and marked for removal
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
@@ -389,6 +377,18 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
             final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
             if (pluginId != null) {
                 final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+```
+
+### MarkedForRemoval
+'Integer(int)' is deprecated and marked for removal
+in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
+#### Snippet
+```java
+        _slider.addChangeListener(it -> {
+                    int value = ((JSlider) it.getSource()).getValue();
+                    _spinner.setValue(new Integer(value));
+                    updateColor(value);
+                }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -556,18 +556,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `filePath` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
-#### Snippet
-```java
-    private String getOptionsFilePath() {
-        String optionsPath = PathManager.getOptionsPath();
-        String filePath = optionsPath + File.separator + "pluginErrorReportSubmitter.xml";
-        return filePath;
-    }
-```
-
-### UnnecessaryLocalVariable
 Local variable `status` is redundant
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
@@ -579,7 +567,43 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
         if (ResultString == null)
 ```
 
+### UnnecessaryLocalVariable
+Local variable `filePath` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java`
+#### Snippet
+```java
+    private String getOptionsFilePath() {
+        String optionsPath = PathManager.getOptionsPath();
+        String filePath = optionsPath + File.separator + "pluginErrorReportSubmitter.xml";
+        return filePath;
+    }
+```
+
 ## RuleId[id=Deprecation]
+### Deprecation
+'message(java.util.@org.jetbrains.annotations.NotNull ResourceBundle, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.Object @org.jetbrains.annotations.NotNull ...)' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorReportSubmitterBundle.java`
+#### Snippet
+```java
+    public static String message(@PropertyKey(resourceBundle = "com.sylvanaar.idea.errorreporting.PluginErrorReportSubmitterBundle") String key,
+                                 Object... params) {
+        return CommonBundle.message(OUR_BUNDLE, key, params);
+    }
+}
+```
+
+### Deprecation
+'getPlugin(com.intellij.openapi.extensions.@org.jetbrains.annotations.Nullable PluginId)' is deprecated
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
+            if (pluginId != null) {
+                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+                if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled()) {
+                    descBuilder.append("Plugin ").append(ideaPluginDescriptor.getName()).append(" version: ").append(ideaPluginDescriptor.getVersion()).append("\n");
+```
+
 ### Deprecation
 'com.intellij.openapi.editor.event.CaretAdapter' is deprecated
 in `src/main/java/idea/plugin/psiviewer/controller/project/EditorListener.java`
@@ -602,18 +626,6 @@ in `src/main/java/idea/plugin/psiviewer/controller/application/PsiViewerApplicat
         return ServiceManager.getService(PsiViewerApplicationSettings.class);
     }
 
-```
-
-### Deprecation
-'message(java.util.@org.jetbrains.annotations.NotNull ResourceBundle, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.Object @org.jetbrains.annotations.NotNull ...)' is deprecated
-in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorReportSubmitterBundle.java`
-#### Snippet
-```java
-    public static String message(@PropertyKey(resourceBundle = "com.sylvanaar.idea.errorreporting.PluginErrorReportSubmitterBundle") String key,
-                                 Object... params) {
-        return CommonBundle.message(OUR_BUNDLE, key, params);
-    }
-}
 ```
 
 ### Deprecation
@@ -650,18 +662,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/PluginErrorSubmitDialog.java
                 DefaultJDOMExternalizer.readExternal(this, componentElement);
                 myUserTextField.setText(USERNAME);
             } catch (Exception e) {
-```
-
-### Deprecation
-'getPlugin(com.intellij.openapi.extensions.@org.jetbrains.annotations.Nullable PluginId)' is deprecated
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
-            if (pluginId != null) {
-                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
-                if (ideaPluginDescriptor != null && !ideaPluginDescriptor.isBundled()) {
-                    descBuilder.append("Plugin ").append(ideaPluginDescriptor.getName()).append(" version: ").append(ideaPluginDescriptor.getVersion()).append("\n");
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -724,9 +724,9 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 ```java
         }
 
-        public void visitXmlDecl(XmlDecl psiElement) {
+        public void visitXmlToken(XmlToken psiElement) {
         }
-
+    }
 ```
 
 ### NullableProblems
@@ -736,19 +736,7 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 ```java
         }
 
-        public void visitXmlFile(XmlFile psiElement) {
-            setIcon(IconCache.getIcon(XmlFile.class));
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
-#### Snippet
-```java
-        }
-        
-        public void visitXmlProlog(XmlProlog psiElement) {
+        public void visitXmlDoctype(XmlDoctype psiElement) {
         }
 
 ```
@@ -772,9 +760,21 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 ```java
         }
 
-        public void visitXmlToken(XmlToken psiElement) {
+        public void visitXmlTag(XmlTag psiElement) {
+            setIcon(IconCache.getIcon(XmlTag.class));
         }
-    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDocument(XmlDocument psiElement) {
+        }
+        
 ```
 
 ### NullableProblems
@@ -787,18 +787,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
         public void visitXmlAttributeValue(XmlAttributeValue psiElement) {
         }
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
-#### Snippet
-```java
-        }
-
-        public void visitXmlTag(XmlTag psiElement) {
-            setIcon(IconCache.getIcon(XmlTag.class));
-        }
 ```
 
 ### NullableProblems
@@ -819,8 +807,8 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 #### Snippet
 ```java
         }
-
-        public void visitXmlDoctype(XmlDoctype psiElement) {
+        
+        public void visitXmlProlog(XmlProlog psiElement) {
         }
 
 ```
@@ -832,21 +820,33 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 ```java
         }
 
-        public void visitXmlDocument(XmlDocument psiElement) {
+        public void visitXmlDecl(XmlDecl psiElement) {
         }
-        
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
 #### Snippet
 ```java
         }
 
-        public void visitXmlDoctype(XmlDoctype psiElement) {
-            setText("XmlDoctype");
+        public void visitXmlFile(XmlFile psiElement) {
+            setIcon(IconCache.getIcon(XmlFile.class));
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean submit(@NotNull IdeaLoggingEvent[] ideaLoggingEvents,
+                          @Nullable String additionalInfo,
+                          @NotNull Component component,
 ```
 
 ### NullableProblems
@@ -868,18 +868,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
 ```java
         }
 
-        public void visitXmlDecl(XmlDecl psiElement) {
-            setText("XmlDecl");
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
-#### Snippet
-```java
-        }
-
         public void visitXmlProlog(XmlProlog psiElement) {
             setText("XmlProlog");
         }
@@ -892,8 +880,20 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
 ```java
         }
 
-        public void visitXmlDocument(XmlDocument psiElement) {
-            setText("XmlDocument");
+        public void visitXmlDoctype(XmlDoctype psiElement) {
+            setText("XmlDoctype");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
+#### Snippet
+```java
+        }
+
+        public void visitXmlDecl(XmlDecl psiElement) {
+            setText("XmlDecl");
         }
 ```
 
@@ -911,14 +911,14 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
 #### Snippet
 ```java
+        }
 
-    @Override
-    public boolean submit(@NotNull IdeaLoggingEvent[] ideaLoggingEvents,
-                          @Nullable String additionalInfo,
-                          @NotNull Component component,
+        public void visitXmlDocument(XmlDocument psiElement) {
+            setText("XmlDocument");
+        }
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -1310,18 +1310,6 @@ in `src/main/java/idea/plugin/psiviewer/controller/application/Configuration.jav
 
 ### TrivialIf
 `if` statement can be simplified
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        }
-
-        if (languages.size() < 2) {
-            myLanguagesComboBox.setVisible(false);
-        } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 #### Snippet
 ```java
@@ -1330,5 +1318,17 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 } else if (targetPath.regionMatches(0, cookiePath, 0, cookiePath.length())) {
     return true;
 } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        }
+
+        if (languages.size() < 2) {
+            myLanguagesComboBox.setVisible(false);
+        } else {
 ```
 
