@@ -202,6 +202,53 @@ grpc:
 ```
 
 ### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.stream.kafka.binder.brokers'
+in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
+#### Snippet
+```java
+      kafka:
+        binder:
+          brokers: ${EVENTHUBS_NAMESPACE_NAME}.servicebus.windows.net:9093
+  kafka:
+    security:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.kafka.security.protocol'
+in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
+#### Snippet
+```java
+  kafka:
+    security:
+      protocol: SASL_SSL
+    properties:
+      sasl:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.kafka.properties.sasl.mechanism'
+in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
+#### Snippet
+```java
+    properties:
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${CONNECTION_STRING}";
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.kafka.properties.sasl.jaas.config'
+in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
+#### Snippet
+```java
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${CONNECTION_STRING}";
+
+```
+
+### SpringBootApplicationYaml
 Cannot resolve configuration property 'spring.cloud.stream.function.definition'
 in `samples/local-dapr/src/main/resources/application.yaml`
 #### Snippet
@@ -260,53 +307,6 @@ in `samples/local-dapr/src/main/resources/application.yaml`
 
 ```
 
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.cloud.stream.kafka.binder.brokers'
-in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
-#### Snippet
-```java
-      kafka:
-        binder:
-          brokers: ${EVENTHUBS_NAMESPACE_NAME}.servicebus.windows.net:9093
-  kafka:
-    security:
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.kafka.security.protocol'
-in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
-#### Snippet
-```java
-  kafka:
-    security:
-      protocol: SASL_SSL
-    properties:
-      sasl:
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.kafka.properties.sasl.mechanism'
-in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
-#### Snippet
-```java
-    properties:
-      sasl:
-        mechanism: PLAIN
-        jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${CONNECTION_STRING}";
-```
-
-### SpringBootApplicationYaml
-Cannot resolve configuration property 'spring.kafka.properties.sasl.jaas.config'
-in `samples/migration-kafka-to-dapr/src/main/resources/application-kafka.yml`
-#### Snippet
-```java
-        mechanism: PLAIN
-        jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="${CONNECTION_STRING}";
-
-```
-
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
@@ -333,6 +333,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Message`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
+#### Snippet
+```java
+
+/**
+ * Encapsulates {@link Message} payload and headers for serialization.
+ */
+public class DaprMessage implements Serializable {
+```
+
 ### JavadocReference
 Cannot resolve symbol `Message`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprConverter.java`
@@ -371,30 +383,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 
 ### JavadocReference
 Cannot resolve symbol `Message`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
-#### Snippet
-```java
-
-/**
- * Encapsulates {@link Message} payload and headers for serialization.
- */
-public class DaprMessage implements Serializable {
-```
-
-### JavadocReference
-Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
-#### Snippet
-```java
-
-/**
- * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
- */
-public class DaprMessageChannelBinder extends
-```
-
-### JavadocReference
-Cannot resolve symbol `Message`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessageConverter.java`
 #### Snippet
 ```java
@@ -415,6 +403,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
  * and turn a {@link DaprAppCallbackProtos.TopicEventRequest} to {@link Message}.
  */
 public class DaprMessageConverter implements DaprConverter<DaprProtos.PublishEventRequest.Builder,
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
+#### Snippet
+```java
+
+/**
+ * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
+ */
+public class DaprMessageChannelBinder extends
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -482,18 +482,6 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 ```
 
 ### FieldMayBeFinal
-Field `semaphore` may be 'final'
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
-#### Snippet
-```java
-	static class TestSource {
-
-		private AtomicBoolean semaphore = new AtomicBoolean(true);
-		private Random random = new Random();
-		private int[] ids = new int[]{100100, 100200, 100300};
-```
-
-### FieldMayBeFinal
 Field `random` may be 'final'
 in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
 #### Snippet
@@ -503,6 +491,18 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 		private Random random = new Random();
 		private int[] ids = new int[]{100100, 100200, 100300};
 
+```
+
+### FieldMayBeFinal
+Field `semaphore` may be 'final'
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+#### Snippet
+```java
+	static class TestSource {
+
+		private AtomicBoolean semaphore = new AtomicBoolean(true);
+		private Random random = new Random();
+		private int[] ids = new int[]{100100, 100200, 100300};
 ```
 
 ## RuleId[id=FieldCanBeLocal]
