@@ -36,8 +36,8 @@ I found 292 bad smells with 6 repairable:
 | ProtectedMemberInFinalClass | 1 | true |
 | StringBufferReplaceableByString | 1 | false |
 | SuspiciousToArrayCall | 1 | false |
-| CloneDeclaresCloneNotSupported | 1 | false |
 | InstantiationOfUtilityClass | 1 | false |
+| CloneDeclaresCloneNotSupported | 1 | false |
 ## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
@@ -77,6 +77,18 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `stream`
+in `src/main/java/org/apache/bcel/util/CodeHTML.java`
+#### Snippet
+```java
+     * Disassemble a stream of byte codes and return the string representation.
+     *
+     * @param stream data input stream
+     * @return String representation of byte code
+     */
+```
+
 ### JavadocReference
 Symbol `out` is inaccessible from here
 in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
@@ -137,18 +149,6 @@ in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
      */
 ```
 
-### JavadocReference
-Cannot resolve symbol `stream`
-in `src/main/java/org/apache/bcel/util/CodeHTML.java`
-#### Snippet
-```java
-     * Disassemble a stream of byte codes and return the string representation.
-     *
-     * @param stream data input stream
-     * @return String representation of byte code
-     */
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `AnnotationEntryGen.getAnnotationAttributes(cp, super.getAnnotationEntries())` might be null
@@ -163,15 +163,15 @@ in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 ```
 
 ### DataFlowIssue
-Dereference of `annAttributes` may produce `NullPointerException`
-in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+Casting `i` to `MULTIANEWARRAY` may produce `ClassCastException`
+in `src/main/java/org/apache/bcel/util/BCELFactory.java`
 #### Snippet
 ```java
-            // TODO: Sometime later, trash any attributes called 'RuntimeVisibleAnnotations' or 'RuntimeInvisibleAnnotations'
-            final Attribute[] annAttributes = AnnotationEntryGen.getAnnotationAttributes(cp, getAnnotationEntries());
-            attributes = new Attribute[attributeList.size() + annAttributes.length];
-            attributeList.toArray(attributes);
-            System.arraycopy(annAttributes, 0, attributes, attributeList.size(), annAttributes.length);
+            break;
+        case Const.MULTIANEWARRAY:
+            dim = ((MULTIANEWARRAY) i).getDimensions();
+            //$FALL-THROUGH$
+        case Const.NEWARRAY:
 ```
 
 ### DataFlowIssue
@@ -211,12 +211,36 @@ in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
 ```
 
 ### DataFlowIssue
+Dereference of `annAttributes` may produce `NullPointerException`
+in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+#### Snippet
+```java
+            // TODO: Sometime later, trash any attributes called 'RuntimeVisibleAnnotations' or 'RuntimeInvisibleAnnotations'
+            final Attribute[] annAttributes = AnnotationEntryGen.getAnnotationAttributes(cp, getAnnotationEntries());
+            attributes = new Attribute[attributeList.size() + annAttributes.length];
+            attributeList.toArray(attributes);
+            System.arraycopy(annAttributes, 0, attributes, attributeList.size(), annAttributes.length);
+```
+
+### DataFlowIssue
+Method invocation `getMaxLocals` may produce `NullPointerException`
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+        private int maxLocals() {
+            try {
+                return Repository.lookupClass(verifier.getClassName()).getMethods()[methodNo].getCode().getMaxLocals();
+            } catch (final ClassNotFoundException e) {
+                // FIXME: maybe not the best way to handle this
+```
+
+### DataFlowIssue
 Method invocation `getClassName` may produce `NullPointerException`
 in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
+            try {
                 final String fieldName = o.getFieldName(constantPoolGen);
-
                 final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
                 final Field f = jc.findField(fieldName, o.getType(constantPoolGen));
                 if (f == null) {
@@ -259,39 +283,15 @@ in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getMaxLocals` may produce `NullPointerException`
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-        private int maxLocals() {
-            try {
-                return Repository.lookupClass(verifier.getClassName()).getMethods()[methodNo].getCode().getMaxLocals();
-            } catch (final ClassNotFoundException e) {
-                // FIXME: maybe not the best way to handle this
-```
-
-### DataFlowIssue
 Method invocation `getClassName` may produce `NullPointerException`
 in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
-            try {
                 final String fieldName = o.getFieldName(constantPoolGen);
+
                 final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
                 final Field f = jc.findField(fieldName, o.getType(constantPoolGen));
                 if (f == null) {
-```
-
-### DataFlowIssue
-Casting `i` to `MULTIANEWARRAY` may produce `ClassCastException`
-in `src/main/java/org/apache/bcel/util/BCELFactory.java`
-#### Snippet
-```java
-            break;
-        case Const.MULTIANEWARRAY:
-            dim = ((MULTIANEWARRAY) i).getDimensions();
-            //$FALL-THROUGH$
-        case Const.NEWARRAY:
 ```
 
 ### DataFlowIssue
@@ -304,6 +304,18 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
                 if (classtype.equals(curr) || curr.subclassOf(classtype)) {
                     final Type tp = stack().peek(1);
                     if (tp == Type.NULL) {
+```
+
+### DataFlowIssue
+Method invocation `getClassName` may produce `NullPointerException`
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+    private Field visitFieldInstructionInternals(final FieldInstruction o) throws ClassNotFoundException {
+        final String fieldName = o.getFieldName(cpg);
+        final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
+        final Field f = jc.findField(fieldName, o.getType(cpg));
+        if (f == null) {
 ```
 
 ### DataFlowIssue
@@ -330,18 +342,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
                     if (t == Type.NULL) {
 ```
 
-### DataFlowIssue
-Method invocation `getClassName` may produce `NullPointerException`
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-    private Field visitFieldInstructionInternals(final FieldInstruction o) throws ClassNotFoundException {
-        final String fieldName = o.getFieldName(cpg);
-        final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
-        final Field f = jc.findField(fieldName, o.getType(cpg));
-        if (f == null) {
-```
-
 ## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with 'String.join'
@@ -361,35 +361,11 @@ Referencing subclass ObjectType from superclass Type initializer might lead to c
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
-    public static final BasicType LONG = new BasicType(Const.T_LONG);
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
     public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
     public static final ObjectType CLASS = new ObjectType("java.lang.Class");
     public static final ObjectType STRING = new ObjectType("java.lang.String");
     public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
-
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -397,23 +373,11 @@ Referencing subclass BasicType from superclass Type initializer might lead to cl
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final BasicType VOID = new BasicType(Const.T_VOID);
 
     public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
     public static final BasicType INT = new BasicType(Const.T_INT);
     public static final BasicType SHORT = new BasicType(Const.T_SHORT);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
+    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -433,23 +397,11 @@ Referencing subclass ObjectType from superclass Type initializer might lead to c
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
     public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
     public static final ObjectType CLASS = new ObjectType("java.lang.Class");
     public static final ObjectType STRING = new ObjectType("java.lang.String");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-
-    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
-    public static final BasicType INT = new BasicType(Const.T_INT);
-    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
-    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
+    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
+    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -465,27 +417,15 @@ in `src/main/java/org/apache/bcel/generic/Type.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final BasicType INT = new BasicType(Const.T_INT);
     public static final BasicType SHORT = new BasicType(Const.T_SHORT);
     public static final BasicType BYTE = new BasicType(Const.T_BYTE);
     public static final BasicType LONG = new BasicType(Const.T_LONG);
     public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -493,11 +433,11 @@ Referencing subclass BasicType from superclass Type initializer might lead to cl
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final BasicType LONG = new BasicType(Const.T_LONG);
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final BasicType VOID = new BasicType(Const.T_VOID);
+
+    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
+    public static final BasicType INT = new BasicType(Const.T_INT);
+    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -513,15 +453,27 @@ in `src/main/java/org/apache/bcel/generic/Type.java`
 ```
 
 ### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
+    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
+    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
 Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
+    public static final BasicType INT = new BasicType(Const.T_INT);
     public static final BasicType SHORT = new BasicType(Const.T_SHORT);
     public static final BasicType BYTE = new BasicType(Const.T_BYTE);
     public static final BasicType LONG = new BasicType(Const.T_LONG);
     public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -529,253 +481,72 @@ Referencing subclass ObjectType from superclass Type initializer might lead to c
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
     public static final ObjectType CLASS = new ObjectType("java.lang.Class");
     public static final ObjectType STRING = new ObjectType("java.lang.String");
     public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
     public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
-```
-
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-    public String getEnumValueString() {
-        return ((ConstantUtf8) getConstantPool().getConstant(valueIdx)).getBytes();
-        // ConstantString cu8 =
-        // (ConstantString)getConstantPool().getConstant(valueIdx);
-        // return
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
-        return cu8.getBytes();
-        // ConstantString cu8 =
-        // (ConstantString)getConstantPool().getConstant(valueIdx);
-        // return
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-    // here?
-    public String getEnumTypeString() {
-        // Constant cc = getConstantPool().getConstant(typeIdx);
-        // ConstantClass cu8 =
-        // (ConstantClass)getConstantPool().getConstant(typeIdx);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/verifier/exc/VerifierConstraintViolatedException.java`
-#### Snippet
-```java
- */
-public abstract class VerifierConstraintViolatedException extends RuntimeException {
-    // /** The name of the offending class that did not pass the verifier. */
-    // String name_of_offending_class;
 
 ```
 
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-        stack.push(bm);
-        bm.accept(visitor);
-        // BootstrapMethod[] bms = bm.getBootstrapMethods();
-        // for (int i = 0; i < bms.length; i++)
-        // {
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
 ```
 
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-        final String bootClassPathProp = System.getProperty("sun.boot.class.path");
-        final String extDirs = System.getProperty("java.ext.dirs");
-        // System.out.println("java.version = " + System.getProperty("java.version"));
-        // System.out.println("java.class.path = " + classPathProp);
-        // System.out.println("sun.boot.class.path=" + bootClassPathProp);
+    public static final BasicType LONG = new BasicType(Const.T_LONG);
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
 ```
 
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/ClassElementValueGen.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
-        return cu8.getBytes();
-        // ConstantClass c = (ConstantClass)getConstantPool().getConstant(idx);
-        // ConstantUtf8 utf8 =
-        // (ConstantUtf8)getConstantPool().getConstant(c.getNameIndex());
+    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
+    public static final BasicType LONG = new BasicType(Const.T_LONG);
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
 ```
 
-### CommentedOutCode
-Commented out code (19 lines)
-in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
+### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-     * Internal debugging routines.
-     */
-//    private static final String pattern2string( String pattern ) {
-//        return pattern2string(pattern, true);
-//    }
-```
-
-### CommentedOutCode
-Commented out code (22 lines)
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-                }
-            }
-//            else if (c == null) { // entries may be null
-//                // nothing to do
-//            } else if (c instanceof ConstantInteger) {
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/generic/ElementValuePairGen.java`
-#### Snippet
-```java
-        // Could assert nvp.getNameString() points to the same thing as
-        // constantPoolGen.getConstant(nvp.getNameIndex())
-        // if
-        // (!nvp.getNameString().equals(((ConstantUtf8)constantPoolGen.getConstant(nvp.getNameIndex())).getBytes()))
-        // {
-```
-
-### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
-#### Snippet
-```java
-            // System.err.println("WARNING: " + u[i]);
-            // Everything should have been read now
-            // if(file.available() > 0) {
-            // int bytes = file.available();
-            // byte[] buf = new byte[bytes];
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-            // TODO: This can only be checked if using Staerk-et-al's "set of object types" instead of a
-            // "wider cast object type" created during verification.
-            // if (! (objectref.isAssignmentCompatibleWith(mg.getType())) ) {
-            // constraintViolated(o, "Type on stack top which should be returned is a '"+stack().peek()+
-            // "' which is not assignment compatible with the return type of this method, '"+mg.getType()+"'.");
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-        // It cannot be done using Staerk-et-al's "set of object types" instead of a
-        // "wider cast object type", anyway.
-        // if (! objectref.isAssignmentCompatibleWith(mg.getReturnType() )) {
-        // constraintViolated(o, "The 'objectref' type "+objectref+
-        // " at the stack top is not assignment compatible with the return type '"+mg.getReturnType()+"' of the method.");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-    public void setFrame(final Frame f) { // TODO could be package-protected?
-        this.frame = f;
-        // if (singleInstance.mg == null || singleInstance.cpg == null)
-        // throw new AssertionViolatedException("Forgot to set important values first.");
-    }
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-                    + "'; Instruction expects a ReferenceType or a ReturnadressType.");
-            }
-            // if (stacktop instanceof ReferenceType) {
-            // referenceTypeIsInitialized(o, (ReferenceType) stacktop);
-            // }
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-            constraintViolated(o, "The 'objectref' is not of a ReferenceType or of ReturnaddressType but of " + stack().peek() + ".");
-        }
-        // if (stack().peek() instanceof ReferenceType) {
-        // referenceTypeIsInitialized(o, (ReferenceType) (stack().peek()) );
-        // }
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-                    // TODO: This can only be checked when using Staerk-et-al's "set of object types"
-                    // instead of a "wider cast object type" created during verification.
-                    // if ( ! rFromStack.isAssignmentCompatibleWith(rFromDesc) ) {
-                    // constraintViolated(o, "Expecting a '"+fromDesc+"' but found a '"+fromStack+
-                    // "' on the stack (which is not assignment compatible).");
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-        // TODO: This can only be checked if we're using Staerk-et-al's "set of object types"
-        // instead of "wider cast object types" generated during verification.
-        // if ( ! Repository.implementationOf(objref_classname, theInterface) ) {
-        // constraintViolated(o, "The 'objref' item '"+objref+"' does not implement '"+theInterface+"' as expected.");
-        // }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/util/CodeHTML.java`
-#### Snippet
-```java
-                bytes.readUnsignedByte(); // Redundant
-                bytes.readUnsignedByte(); // Reserved
-//                    int nargs = bytes.readUnsignedByte(); // Redundant
-//                    int reserved = bytes.readUnsignedByte(); // Reserved
-                final ConstantInterfaceMethodref c = constantPool.getConstant(mIndex, Const.CONSTANT_InterfaceMethodref, ConstantInterfaceMethodref.class);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'i_position' is still used
-in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
+Deprecated member 'attributes_count' is still used
+in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
 #### Snippet
 ```java
      */
-    @Deprecated
-    protected int i_position = -1; // byte code offset of instruction
-    private Set<InstructionTargeter> targeters;
+    @java.lang.Deprecated
+    protected int attributes_count; // No. of attributes
 
+    // @since 6.0
 ```
 
 ### DeprecatedIsStillUsed
@@ -815,15 +586,87 @@ in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'attributes_count' is still used
-in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
+Deprecated member 'i_position' is still used
+in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected int i_position = -1; // byte code offset of instruction
+    private Set<InstructionTargeter> targeters;
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'InstructionConstants' is still used
+in `src/main/java/org/apache/bcel/generic/InstructionConstants.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface InstructionConstants {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member '_this' is still used
+in `src/main/java/org/apache/bcel/verifier/structurals/Frame.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected static UninitializedObjectType _this;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'vec' is still used
+in `src/main/java/org/apache/bcel/util/ClassQueue.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected LinkedList<JavaClass> vec = new LinkedList<>(); // TODO not used externally
+
+    public JavaClass dequeue() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'name_and_type_index' is still used
+in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
 #### Snippet
 ```java
      */
     @java.lang.Deprecated
-    protected int attributes_count; // No. of attributes
+    protected int name_and_type_index; // TODO make private (has getter & setter)
 
-    // @since 6.0
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'class_index' is still used
+in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
+#### Snippet
+```java
+     */
+    @java.lang.Deprecated
+    protected int class_index; // TODO make private (has getter & setter)
+    // This field has the same meaning for all subclasses.
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'access_flags' is still used
+in `src/main/java/org/apache/bcel/classfile/AccessFlags.java`
+#### Snippet
+```java
+     */
+    @java.lang.Deprecated
+    protected int access_flags; // TODO not used externally at present
+
+    public AccessFlags() {
 ```
 
 ### DeprecatedIsStillUsed
@@ -863,30 +706,6 @@ in `src/main/java/org/apache/bcel/generic/ElementValueGen.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'InstructionConstants' is still used
-in `src/main/java/org/apache/bcel/generic/InstructionConstants.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface InstructionConstants {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member '_this' is still used
-in `src/main/java/org/apache/bcel/verifier/structurals/Frame.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected static UninitializedObjectType _this;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'fixed_length' is still used
 in `src/main/java/org/apache/bcel/generic/Select.java`
 #### Snippet
@@ -894,18 +713,6 @@ in `src/main/java/org/apache/bcel/generic/Select.java`
      */
     @Deprecated
     protected int fixed_length; // fixed length defined by subclasses TODO could be package-protected?
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'match_length' is still used
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected int match_length; // number of cases TODO could be package-protected?
 
     /**
 ```
@@ -923,51 +730,244 @@ in `src/main/java/org/apache/bcel/generic/Select.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'access_flags' is still used
-in `src/main/java/org/apache/bcel/classfile/AccessFlags.java`
-#### Snippet
-```java
-     */
-    @java.lang.Deprecated
-    protected int access_flags; // TODO not used externally at present
-
-    public AccessFlags() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'vec' is still used
-in `src/main/java/org/apache/bcel/util/ClassQueue.java`
+Deprecated member 'match_length' is still used
+in `src/main/java/org/apache/bcel/generic/Select.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    protected LinkedList<JavaClass> vec = new LinkedList<>(); // TODO not used externally
-
-    public JavaClass dequeue() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'class_index' is still used
-in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
-#### Snippet
-```java
-     */
-    @java.lang.Deprecated
-    protected int class_index; // TODO make private (has getter & setter)
-    // This field has the same meaning for all subclasses.
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'name_and_type_index' is still used
-in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
-#### Snippet
-```java
-     */
-    @java.lang.Deprecated
-    protected int name_and_type_index; // TODO make private (has getter & setter)
+    protected int match_length; // number of cases TODO could be package-protected?
 
     /**
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
+        return cu8.getBytes();
+        // ConstantString cu8 =
+        // (ConstantString)getConstantPool().getConstant(valueIdx);
+        // return
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+    public String getEnumValueString() {
+        return ((ConstantUtf8) getConstantPool().getConstant(valueIdx)).getBytes();
+        // ConstantString cu8 =
+        // (ConstantString)getConstantPool().getConstant(valueIdx);
+        // return
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+    // here?
+    public String getEnumTypeString() {
+        // Constant cc = getConstantPool().getConstant(typeIdx);
+        // ConstantClass cu8 =
+        // (ConstantClass)getConstantPool().getConstant(typeIdx);
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/ClassElementValueGen.java`
+#### Snippet
+```java
+        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
+        return cu8.getBytes();
+        // ConstantClass c = (ConstantClass)getConstantPool().getConstant(idx);
+        // ConstantUtf8 utf8 =
+        // (ConstantUtf8)getConstantPool().getConstant(c.getNameIndex());
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/generic/ElementValuePairGen.java`
+#### Snippet
+```java
+        // Could assert nvp.getNameString() points to the same thing as
+        // constantPoolGen.getConstant(nvp.getNameIndex())
+        // if
+        // (!nvp.getNameString().equals(((ConstantUtf8)constantPoolGen.getConstant(nvp.getNameIndex())).getBytes()))
+        // {
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
+#### Snippet
+```java
+            // System.err.println("WARNING: " + u[i]);
+            // Everything should have been read now
+            // if(file.available() > 0) {
+            // int bytes = file.available();
+            // byte[] buf = new byte[bytes];
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
+#### Snippet
+```java
+        stack.push(bm);
+        bm.accept(visitor);
+        // BootstrapMethod[] bms = bm.getBootstrapMethods();
+        // for (int i = 0; i < bms.length; i++)
+        // {
+```
+
+### CommentedOutCode
+Commented out code (19 lines)
+in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
+#### Snippet
+```java
+     * Internal debugging routines.
+     */
+//    private static final String pattern2string( String pattern ) {
+//        return pattern2string(pattern, true);
+//    }
+```
+
+### CommentedOutCode
+Commented out code (22 lines)
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+                }
+            }
+//            else if (c == null) { // entries may be null
+//                // nothing to do
+//            } else if (c instanceof ConstantInteger) {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/util/CodeHTML.java`
+#### Snippet
+```java
+                bytes.readUnsignedByte(); // Redundant
+                bytes.readUnsignedByte(); // Reserved
+//                    int nargs = bytes.readUnsignedByte(); // Redundant
+//                    int reserved = bytes.readUnsignedByte(); // Reserved
+                final ConstantInterfaceMethodref c = constantPool.getConstant(mIndex, Const.CONSTANT_InterfaceMethodref, ConstantInterfaceMethodref.class);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/verifier/exc/VerifierConstraintViolatedException.java`
+#### Snippet
+```java
+ */
+public abstract class VerifierConstraintViolatedException extends RuntimeException {
+    // /** The name of the offending class that did not pass the verifier. */
+    // String name_of_offending_class;
+
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        final String bootClassPathProp = System.getProperty("sun.boot.class.path");
+        final String extDirs = System.getProperty("java.ext.dirs");
+        // System.out.println("java.version = " + System.getProperty("java.version"));
+        // System.out.println("java.class.path = " + classPathProp);
+        // System.out.println("sun.boot.class.path=" + bootClassPathProp);
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                    // TODO: This can only be checked when using Staerk-et-al's "set of object types"
+                    // instead of a "wider cast object type" created during verification.
+                    // if ( ! rFromStack.isAssignmentCompatibleWith(rFromDesc) ) {
+                    // constraintViolated(o, "Expecting a '"+fromDesc+"' but found a '"+fromStack+
+                    // "' on the stack (which is not assignment compatible).");
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+        // TODO: This can only be checked if we're using Staerk-et-al's "set of object types"
+        // instead of "wider cast object types" generated during verification.
+        // if ( ! Repository.implementationOf(objref_classname, theInterface) ) {
+        // constraintViolated(o, "The 'objref' item '"+objref+"' does not implement '"+theInterface+"' as expected.");
+        // }
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+            // TODO: This can only be checked if using Staerk-et-al's "set of object types" instead of a
+            // "wider cast object type" created during verification.
+            // if (! (objectref.isAssignmentCompatibleWith(mg.getType())) ) {
+            // constraintViolated(o, "Type on stack top which should be returned is a '"+stack().peek()+
+            // "' which is not assignment compatible with the return type of this method, '"+mg.getType()+"'.");
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+        // It cannot be done using Staerk-et-al's "set of object types" instead of a
+        // "wider cast object type", anyway.
+        // if (! objectref.isAssignmentCompatibleWith(mg.getReturnType() )) {
+        // constraintViolated(o, "The 'objectref' type "+objectref+
+        // " at the stack top is not assignment compatible with the return type '"+mg.getReturnType()+"' of the method.");
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                    + "'; Instruction expects a ReferenceType or a ReturnadressType.");
+            }
+            // if (stacktop instanceof ReferenceType) {
+            // referenceTypeIsInitialized(o, (ReferenceType) stacktop);
+            // }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+    public void setFrame(final Frame f) { // TODO could be package-protected?
+        this.frame = f;
+        // if (singleInstance.mg == null || singleInstance.cpg == null)
+        // throw new AssertionViolatedException("Forgot to set important values first.");
+    }
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+            constraintViolated(o, "The 'objectref' is not of a ReferenceType or of ReturnaddressType but of " + stack().peek() + ".");
+        }
+        // if (stack().peek() instanceof ReferenceType) {
+        // referenceTypeIsInitialized(o, (ReferenceType) (stack().peek()) );
+        // }
 ```
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
@@ -996,18 +996,6 @@ in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
 ```
 
 ### UnnecessaryCallToStringValueOf
-Unnecessary `String.valueOf()` call
-in `src/main/java/org/apache/bcel/verifier/structurals/OperandStack.java`
-#### Snippet
-```java
-            sb.append(peek(i));
-            sb.append(" (Size: ");
-            sb.append(String.valueOf(peek(i).getSize()));
-            sb.append(")\n");
-        }
-```
-
-### UnnecessaryCallToStringValueOf
 Unnecessary `Integer.toString()` call
 in `src/main/java/org/apache/bcel/verifier/structurals/LocalVariables.java`
 #### Snippet
@@ -1017,6 +1005,18 @@ in `src/main/java/org/apache/bcel/verifier/structurals/LocalVariables.java`
             sb.append(Integer.toString(i));
             sb.append(": ");
             sb.append(locals[i]);
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `String.valueOf()` call
+in `src/main/java/org/apache/bcel/verifier/structurals/OperandStack.java`
+#### Snippet
+```java
+            sb.append(peek(i));
+            sb.append(" (Size: ");
+            sb.append(String.valueOf(peek(i).getSize()));
+            sb.append(")\n");
+        }
 ```
 
 ## RuleId[id=RefusedBequest]
@@ -1034,18 +1034,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Frame.java`
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `src/main/java/org/apache/bcel/verifier/structurals/OperandStack.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Object clone() {
-        final OperandStack newstack = new OperandStack(this.maxStack);
-        @SuppressWarnings("unchecked") // OK because this.stack is the same type
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/bcel/verifier/structurals/LocalVariables.java`
 #### Snippet
 ```java
@@ -1056,7 +1044,32 @@ in `src/main/java/org/apache/bcel/verifier/structurals/LocalVariables.java`
         System.arraycopy(this.locals, 0, lvs.locals, 0, locals.length);
 ```
 
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `src/main/java/org/apache/bcel/verifier/structurals/OperandStack.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object clone() {
+        final OperandStack newstack = new OperandStack(this.maxStack);
+        @SuppressWarnings("unchecked") // OK because this.stack is the same type
+```
+
 ## RuleId[id=DuplicateBranchesInSwitch]
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            return Integer.toString(s.getBytes());
+        case PRIMITIVE_BYTE:
+            final ConstantInteger b = cpool.getConstantInteger(getIndex());
+            return Integer.toString(b.getBytes());
+        case PRIMITIVE_CHAR:
+            final ConstantInteger ch = cpool.getConstantInteger(getIndex());
+```
+
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
@@ -1094,19 +1107,6 @@ in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
             return Integer.toString(ch.getBytes());
         case PRIMITIVE_BOOLEAN:
             final ConstantInteger bo = (ConstantInteger) getConstantPool().getConstant(idx);
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            return Integer.toString(s.getBytes());
-        case PRIMITIVE_BYTE:
-            final ConstantInteger b = cpool.getConstantInteger(getIndex());
-            return Integer.toString(b.getBytes());
-        case PRIMITIVE_CHAR:
-            final ConstantInteger ch = cpool.getConstantInteger(getIndex());
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1436,30 +1436,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-
-    /**
-     * @return list of super classes of this class in ascending order, i.e., java.lang.Object is always the last element
-     * @throws ClassNotFoundException if any of the superclasses can't be found
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `src/main/java/org/apache/bcel/generic/TargetLostException.java`
-#### Snippet
-```java
-
-    /**
-     * @return list of instructions still being targeted.
-     */
-    public InstructionHandle[] getTargets() {
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
 in `src/main/java/org/apache/bcel/Repository.java`
 #### Snippet
 ```java
@@ -1482,6 +1458,30 @@ in `src/main/java/org/apache/bcel/Repository.java`
      */
 ```
 
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+
+    /**
+     * @return list of super classes of this class in ascending order, i.e., java.lang.Object is always the last element
+     * @throws ClassNotFoundException if any of the superclasses can't be found
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `src/main/java/org/apache/bcel/generic/TargetLostException.java`
+#### Snippet
+```java
+
+    /**
+     * @return list of instructions still being targeted.
+     */
+    public InstructionHandle[] getTargets() {
+```
+
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
@@ -1498,26 +1498,14 @@ in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
+in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
 #### Snippet
 ```java
-                @Override
-                public InputStream getInputStream() throws IOException {
-                    return new FileInputStream(file);
+                    dataInputStream = new DataInputStream(new BufferedInputStream(zip.getInputStream(entry), BUFSIZE));
+                } else {
+                    dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName), BUFSIZE));
                 }
-
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-            final File file = toFile(name);
-            try {
-                return file.exists() ? new FileInputStream(file) : null;
-            } catch (final IOException e) {
-                return null;
+            }
 ```
 
 ### IOStreamConstructor
@@ -1534,27 +1522,26 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
-in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-                    dataInputStream = new DataInputStream(new BufferedInputStream(zip.getInputStream(entry), BUFSIZE));
-                } else {
-                    dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName), BUFSIZE));
-                }
-            }
+            final File file = toFile(name);
+            try {
+                return file.exists() ? new FileInputStream(file) : null;
+            } catch (final IOException e) {
+                return null;
 ```
 
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder result` can be replaced with 'String'
-in `src/main/java/org/apache/bcel/classfile/ElementValuePair.java`
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
+                @Override
+                public InputStream getInputStream() throws IOException {
+                    return new FileInputStream(file);
+                }
 
-    public String toShortString() {
-        final StringBuilder result = new StringBuilder();
-        result.append(getNameString()).append("=").append(getValue().toShortString());
-        return result.toString();
 ```
 
 ## RuleId[id=Deprecation]
@@ -1572,50 +1559,14 @@ in `src/main/java/org/apache/bcel/generic/ArrayType.java`
 
 ### Deprecation
 'org.apache.bcel.Constants' is deprecated
-in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
+in `src/main/java/org/apache/bcel/util/Class2HTML.java`
 #### Snippet
 ```java
- * @see LocalVariableTypeTable
+ * appropriate method in the Code frame.
  */
-public final class LocalVariable implements Cloneable, Node, Constants {
+public class Class2HTML implements Constants {
 
-    static final LocalVariable[] EMPTY_ARRAY = {};
-```
-
-### Deprecation
-'org.apache.bcel.generic.InstructionConstants' is deprecated
-in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
-#### Snippet
-```java
- * @see InstructionConst
- */
-public class InstructionFactory implements InstructionConstants {
-
-    private static class MethodObject {
-```
-
-### Deprecation
-'org.apache.bcel.Constants' is deprecated
-in `src/main/java/org/apache/bcel/classfile/CodeException.java`
-#### Snippet
-```java
- * @see Code
- */
-public final class CodeException implements Cloneable, Node, Constants {
-
-    /**
-```
-
-### Deprecation
-'org.apache.bcel.Constants' is deprecated
-in `src/main/java/org/apache/bcel/verifier/structurals/UninitializedObjectType.java`
-#### Snippet
-```java
- * 147: 4.9.4 for more details.
- */
-public class UninitializedObjectType extends ReferenceType implements Constants {
-
-    /** The "initialized" version. */
+    private static String classPackage; // name of package, unclean to make it static, but ...
 ```
 
 ### Deprecation
@@ -1631,6 +1582,30 @@ public class JavaWrapper {
 ```
 
 ### Deprecation
+'org.apache.bcel.Constants' is deprecated
+in `src/main/java/org/apache/bcel/verifier/structurals/UninitializedObjectType.java`
+#### Snippet
+```java
+ * 147: 4.9.4 for more details.
+ */
+public class UninitializedObjectType extends ReferenceType implements Constants {
+
+    /** The "initialized" version. */
+```
+
+### Deprecation
+'getClassName(org.apache.bcel.generic.ConstantPoolGen)' is deprecated
+in `src/main/java/org/apache/bcel/util/BCELFactory.java`
+#### Snippet
+```java
+    public void visitFieldInstruction(final FieldInstruction i) {
+        final short opcode = i.getOpcode();
+        final String className = i.getClassName(constantPoolGen);
+        final String fieldName = i.getFieldName(constantPoolGen);
+        final Type type = i.getFieldType(constantPoolGen);
+```
+
+### Deprecation
 'org.apache.bcel.generic.InstructionConstants' is deprecated
 in `src/main/java/org/apache/bcel/generic/PUSH.java`
 #### Snippet
@@ -1640,18 +1615,6 @@ in `src/main/java/org/apache/bcel/generic/PUSH.java`
 public final class PUSH implements CompoundInstruction, VariableLengthInstruction, InstructionConstants {
 
     private final Instruction instruction;
-```
-
-### Deprecation
-'org.apache.bcel.Constants' is deprecated
-in `src/main/java/org/apache/bcel/util/Class2HTML.java`
-#### Snippet
-```java
- * appropriate method in the Code frame.
- */
-public class Class2HTML implements Constants {
-
-    private static String classPackage; // name of package, unclean to make it static, but ...
 ```
 
 ### Deprecation
@@ -1679,30 +1642,116 @@ public final class Pass2Verifier extends PassVerifier implements Constants {
 ```
 
 ### Deprecation
-'getClassName(org.apache.bcel.generic.ConstantPoolGen)' is deprecated
-in `src/main/java/org/apache/bcel/util/BCELFactory.java`
+'org.apache.bcel.Constants' is deprecated
+in `src/main/java/org/apache/bcel/classfile/CodeException.java`
 #### Snippet
 ```java
-    public void visitFieldInstruction(final FieldInstruction i) {
-        final short opcode = i.getOpcode();
-        final String className = i.getClassName(constantPoolGen);
-        final String fieldName = i.getFieldName(constantPoolGen);
-        final Type type = i.getFieldType(constantPoolGen);
+ * @see Code
+ */
+public final class CodeException implements Cloneable, Node, Constants {
+
+    /**
+```
+
+### Deprecation
+'org.apache.bcel.Constants' is deprecated
+in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
+#### Snippet
+```java
+ * @see LocalVariableTypeTable
+ */
+public final class LocalVariable implements Cloneable, Node, Constants {
+
+    static final LocalVariable[] EMPTY_ARRAY = {};
+```
+
+### Deprecation
+'org.apache.bcel.generic.InstructionConstants' is deprecated
+in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
+#### Snippet
+```java
+ * @see InstructionConst
+ */
+public class InstructionFactory implements InstructionConstants {
+
+    private static class MethodObject {
+```
+
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder result` can be replaced with 'String'
+in `src/main/java/org/apache/bcel/classfile/ElementValuePair.java`
+#### Snippet
+```java
+
+    public String toShortString() {
+        final StringBuilder result = new StringBuilder();
+        result.append(getNameString()).append("=").append(getValue().toShortString());
+        return result.toString();
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+        buf.append(")");
+        return access + (!access.isEmpty() ? " " : "") + // May be an empty string
+            type + " " + name + buf.toString();
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+                final int temp = unwrap(Utility.CONSUMER_CHARS) + consumedChars;
+                wrap(Utility.CONSUMER_CHARS, temp);
+                return type + brackets.toString();
+            }
+            case 'V':
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+            }
+        } catch (final IOException e) {
+            throw new ClassFormatException("Byte code error: " + buf.toString(), e);
+        }
+        return buf.toString();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/bcel/util/BCELifier.java`
+#### Snippet
+```java
+            }
+        }
+        return "new Type[] { " + args.toString() + " }";
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/bcel/verifier/statics/Pass1Verifier.java`
+#### Snippet
+```java
+            // BCEL does not catch every possible RuntimeException; e.g. if
+            // a constant pool index is referenced that does not exist.
+            return new VerificationResult(VerificationResult.VERIFIED_REJECTED, "Parsing via BCEL did not succeed. " + " exception occurred:\n" + e.toString());
+            // Don't think we want to dump a stack trace unless we have some sort of a debug option.
+            // e.getClass().getName()+" occurred:\n"+Utility.getStackTrace(e));
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/apache/bcel/util/Class2HTML.java`
-#### Snippet
-```java
-                if (argv[i].equals("-d")) { // Specify target directory, default '.'
-                    dir = argv[++i];
-                    if (!dir.endsWith("" + sep)) {
-                        dir = dir + sep;
-                    }
-```
-
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
@@ -1729,6 +1778,18 @@ in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `src/main/java/org/apache/bcel/util/Class2HTML.java`
+#### Snippet
+```java
+                if (argv[i].equals("-d")) { // Specify target directory, default '.'
+                    dir = argv[++i];
+                    if (!dir.endsWith("" + sep)) {
+                        dir = dir + sep;
+                    }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `src/main/java/org/apache/bcel/util/CodeHTML.java`
 #### Snippet
 ```java
@@ -1739,102 +1800,17 @@ in `src/main/java/org/apache/bcel/util/CodeHTML.java`
                     printWriter.println("<TR VALIGN=TOP><TD>" + anchor2 + "</TD><TD>" + anchor + str + "</TR>");
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/bcel/verifier/statics/Pass1Verifier.java`
-#### Snippet
-```java
-            // BCEL does not catch every possible RuntimeException; e.g. if
-            // a constant pool index is referenced that does not exist.
-            return new VerificationResult(VerificationResult.VERIFIED_REJECTED, "Parsing via BCEL did not succeed. " + " exception occurred:\n" + e.toString());
-            // Don't think we want to dump a stack trace unless we have some sort of a debug option.
-            // e.getClass().getName()+" occurred:\n"+Utility.getStackTrace(e));
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/bcel/util/BCELifier.java`
-#### Snippet
-```java
-            }
-        }
-        return "new Type[] { " + args.toString() + " }";
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-            }
-        } catch (final IOException e) {
-            throw new ClassFormatException("Byte code error: " + buf.toString(), e);
-        }
-        return buf.toString();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-                final int temp = unwrap(Utility.CONSUMER_CHARS) + consumedChars;
-                wrap(Utility.CONSUMER_CHARS, temp);
-                return type + brackets.toString();
-            }
-            case 'V':
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-        buf.append(")");
-        return access + (!access.isEmpty() ? " " : "") + // May be an empty string
-            type + " " + name + buf.toString();
-    }
-
-```
-
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
 #### Snippet
 ```java
     }
 
+    /******************** Private utility methods **********************/
     /**
-     * @since 6.0
-     * @Override public void visitStackMapTable(StackMapTable obj) { }
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-     */
-
-    /**
-     * @since 6.0
-     * @Override public void visitStackMapTableEntry(StackMapTableEntry obj) { }
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
-#### Snippet
-```java
-public abstract class ConstantCP extends Constant {
-
-    /**
-     * References to the constants containing the class and the field signature
-     */
+     * Checks whether the header of the file is ok. Of course, this has to be the first action on successive file reads.
 ```
 
 ### DanglingJavadoc
@@ -1875,14 +1851,50 @@ in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
+in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
+#### Snippet
+```java
+public abstract class ConstantCP extends Constant {
+
+    /**
+     * References to the constants containing the class and the field signature
+     */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
     }
 
-    /******************** Private utility methods **********************/
     /**
-     * Checks whether the header of the file is ok. Of course, this has to be the first action on successive file reads.
+     * WARNING:
+     *
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+    }
+
+    /**
+     * @since 6.0
+     * @Override public void visitStackMapTable(StackMapTable obj) { }
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+     */
+
+    /**
+     * @since 6.0
+     * @Override public void visitStackMapTableEntry(StackMapTableEntry obj) { }
 ```
 
 ### DanglingJavadoc
@@ -1981,29 +1993,17 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
      * Ensures the general preconditions of an instruction that accesses the stack. This method is here because BCEL has no
 ```
 
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-    }
-
-    /**
-     * WARNING:
-     *
-```
-
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/org/apache/bcel/classfile/Field.java`
+in `src/main/java/org/apache/bcel/classfile/ElementValue.java`
 #### Snippet
 ```java
 
-    /**
-     * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.2.2
-     *
-     * @return type of field
+/**
+ * The element_value structure is documented at https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html#jvms-4.7.16.1
+ *
+ * <pre>
 ```
 
 ### JavadocLinkAsPlainText
@@ -2020,14 +2020,14 @@ in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/org/apache/bcel/classfile/ElementValue.java`
+in `src/main/java/org/apache/bcel/classfile/Field.java`
 #### Snippet
 ```java
 
-/**
- * The element_value structure is documented at https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html#jvms-4.7.16.1
- *
- * <pre>
+    /**
+     * See https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.2.2
+     *
+     * @return type of field
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -2082,18 +2082,6 @@ in `src/main/java/org/apache/bcel/verifier/NativeVerifier.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.err.println()' call
-in `src/main/java/org/apache/bcel/generic/InstructionList.java`
-#### Snippet
-```java
-            out.flush();
-        } catch (final IOException e) {
-            System.err.println(e);
-            return ArrayUtils.EMPTY_BYTE_ARRAY;
-        }
-```
-
-### ThrowablePrintedToSystemOut
-'Throwable' argument `e` to 'System.err.println()' call
 in `src/main/java/org/apache/bcel/generic/Instruction.java`
 #### Snippet
 ```java
@@ -2116,6 +2104,18 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
         return str;
 ```
 
+### ThrowablePrintedToSystemOut
+'Throwable' argument `e` to 'System.err.println()' call
+in `src/main/java/org/apache/bcel/generic/InstructionList.java`
+#### Snippet
+```java
+            out.flush();
+        } catch (final IOException e) {
+            System.err.println(e);
+            return ArrayUtils.EMPTY_BYTE_ARRAY;
+        }
+```
+
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `visitStackMapType()` is identical to its super method
@@ -2130,18 +2130,6 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `visitMethodParameter()` is identical to its super method
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitMethodParameter(final MethodParameter obj) {
-    }
-
-```
-
-### RedundantMethodOverride
 Method `visitConstantDynamic()` is identical to its super method
 in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 #### Snippet
@@ -2149,6 +2137,18 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
      */
     @Override
     public void visitConstantDynamic(final ConstantDynamic obj) {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `visitMethodParameter()` is identical to its super method
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitMethodParameter(final MethodParameter obj) {
     }
 
 ```
@@ -2168,18 +2168,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
-`@param constantPool` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/ConstantPool.java`
-#### Snippet
-```java
-
-    /**
-     * @param constantPool
-     */
-    public void setConstantPool(final Constant[] constantPool) {
-```
-
-### JavadocDeclaration
 `@param sourceFileIndex` tag description is missing
 in `src/main/java/org/apache/bcel/classfile/SourceFile.java`
 #### Snippet
@@ -2189,6 +2177,66 @@ in `src/main/java/org/apache/bcel/classfile/SourceFile.java`
      * @param sourceFileIndex
      */
     public void setSourceFileIndex(final int sourceFileIndex) {
+```
+
+### JavadocDeclaration
+`@param byteCodeOffset` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
+#### Snippet
+```java
+     * DO NOT USE
+     *
+     * @param byteCodeOffset
+     * @param numberOfLocals NOT USED
+     * @param typesOfLocals array of {@link StackMapType}s of locals
+```
+
+### JavadocDeclaration
+`@param byteCodeOffset` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
+#### Snippet
+```java
+     *
+     * @param tag the frameType to use
+     * @param byteCodeOffset
+     * @param typesOfLocals array of {@link StackMapType}s of locals
+     * @param typesOfStackItems array ot {@link StackMapType}s of stack items
+```
+
+### JavadocDeclaration
+`@param input` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+#### Snippet
+```java
+     * Factory method to create an AnnotionEntry from a DataInput
+     *
+     * @param input
+     * @param constantPool
+     * @param isRuntimeVisible
+```
+
+### JavadocDeclaration
+`@param constantPool` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+#### Snippet
+```java
+     *
+     * @param input
+     * @param constantPool
+     * @param isRuntimeVisible
+     * @return the entry
+```
+
+### JavadocDeclaration
+`@param isRuntimeVisible` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+#### Snippet
+```java
+     * @param input
+     * @param constantPool
+     * @param isRuntimeVisible
+     * @return the entry
+     * @throws IOException if an I/O error occurs.
 ```
 
 ### JavadocDeclaration
@@ -2228,147 +2276,15 @@ in `src/main/java/org/apache/bcel/util/BCELComparator.java`
 ```
 
 ### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-     * The primitive class names corresponding to the T_XX constants, e.g., CLASS_TYPE_NAMES[T_INT] = "java.lang.Integer"
-     *
-     * @param index
-     * @return the class name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return the CONSTANT_NAMES entry at the given index
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return Number of words produced onto operand stack
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return the attribute name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
+`@param constantPool` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/ConstantPool.java`
 #### Snippet
 ```java
 
     /**
-     * @param index
-     * @return the ACCESS_NAMES entry at the given index
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return Number of byte code operands
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return the method handle name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return Number of words consumed on operand stack
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return the short type name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-     * The primitive type names corresponding to the T_XX constants, e.g., TYPE_NAMES[T_INT] = "int"
-     *
-     * @param index
-     * @return the type name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/Const.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @return the item name
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param classPath` tag description is missing
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-     * Search for classes in given path.
-     *
-     * @param classPath
+     * @param constantPool
      */
-    public ClassPath(final String classPath) {
+    public void setConstantPool(final Constant[] constantPool) {
 ```
 
 ### JavadocDeclaration
@@ -2380,150 +2296,6 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
      * @return field matching given name and type, null if field is not found or not accessible from this class.
      * @throws ClassNotFoundException
      * @since 6.8.0
-     */
-```
-
-### JavadocDeclaration
-`@param pmgIndex` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/PMGClass.java`
-#### Snippet
-```java
-
-    /**
-     * @param pmgIndex
-     */
-    public void setPMGIndex(final int pmgIndex) {
-```
-
-### JavadocDeclaration
-`@param pmgClassIndex` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/PMGClass.java`
-#### Snippet
-```java
-
-    /**
-     * @param pmgClassIndex
-     */
-    public void setPMGClassIndex(final int pmgClassIndex) {
-```
-
-### JavadocDeclaration
-`@param byteCodeOffset` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
-#### Snippet
-```java
-     * DO NOT USE
-     *
-     * @param byteCodeOffset
-     * @param numberOfLocals NOT USED
-     * @param typesOfLocals array of {@link StackMapType}s of locals
-```
-
-### JavadocDeclaration
-`@param byteCodeOffset` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/StackMapEntry.java`
-#### Snippet
-```java
-     *
-     * @param tag the frameType to use
-     * @param byteCodeOffset
-     * @param typesOfLocals array of {@link StackMapType}s of locals
-     * @param typesOfStackItems array ot {@link StackMapType}s of stack items
-```
-
-### JavadocDeclaration
-`@param cp` tag description is missing
-in `src/main/java/org/apache/bcel/generic/PUSH.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param cp
-     * @param value
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `src/main/java/org/apache/bcel/generic/PUSH.java`
-#### Snippet
-```java
-     *
-     * @param cp
-     * @param value
-     * @since 6.0
-     */
-```
-
-### JavadocDeclaration
-`@param bytes` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/Synthetic.java`
-#### Snippet
-```java
-
-    /**
-     * @param bytes
-     */
-    public void setBytes(final byte[] bytes) {
-```
-
-### JavadocDeclaration
-`@param array` tag description is missing
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param array
-     * @since 6.0
-     */
-```
-
-### JavadocDeclaration
-`@param array` tag description is missing
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param array
-     * @since 6.0
-     */
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param index
-     * @param value
-     * @since 6.0
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-     *
-     * @param index
-     * @param value
-     * @since 6.0
-     */
-```
-
-### JavadocDeclaration
-`@param array` tag description is missing
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param array
-     * @since 6.0
      */
 ```
 
@@ -2552,88 +2324,328 @@ in `src/main/java/org/apache/bcel/generic/ArrayElementValueGen.java`
 ```
 
 ### JavadocDeclaration
-`@param input` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+`@param cp` tag description is missing
+in `src/main/java/org/apache/bcel/generic/PUSH.java`
 #### Snippet
 ```java
-     * Factory method to create an AnnotionEntry from a DataInput
+    /**
      *
-     * @param input
-     * @param constantPool
-     * @param isRuntimeVisible
+     * @param cp
+     * @param value
+     * @since 6.0
 ```
 
 ### JavadocDeclaration
-`@param constantPool` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+`@param value` tag description is missing
+in `src/main/java/org/apache/bcel/generic/PUSH.java`
 #### Snippet
 ```java
      *
-     * @param input
-     * @param constantPool
-     * @param isRuntimeVisible
-     * @return the entry
+     * @param cp
+     * @param value
+     * @since 6.0
+     */
 ```
 
 ### JavadocDeclaration
-`@param isRuntimeVisible` tag description is missing
-in `src/main/java/org/apache/bcel/classfile/AnnotationEntry.java`
+`@param pmgIndex` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/PMGClass.java`
 #### Snippet
 ```java
-     * @param input
-     * @param constantPool
-     * @param isRuntimeVisible
-     * @return the entry
-     * @throws IOException if an I/O error occurs.
+
+    /**
+     * @param pmgIndex
+     */
+    public void setPMGIndex(final int pmgIndex) {
+```
+
+### JavadocDeclaration
+`@param pmgClassIndex` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/PMGClass.java`
+#### Snippet
+```java
+
+    /**
+     * @param pmgClassIndex
+     */
+    public void setPMGClassIndex(final int pmgClassIndex) {
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @param value
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+     *
+     * @param index
+     * @param value
+     * @since 6.0
+     */
+```
+
+### JavadocDeclaration
+`@param array` tag description is missing
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param array
+     * @since 6.0
+     */
+```
+
+### JavadocDeclaration
+`@param array` tag description is missing
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param array
+     * @since 6.0
+     */
+```
+
+### JavadocDeclaration
+`@param array` tag description is missing
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param array
+     * @since 6.0
+     */
+```
+
+### JavadocDeclaration
+`@param bytes` tag description is missing
+in `src/main/java/org/apache/bcel/classfile/Synthetic.java`
+#### Snippet
+```java
+
+    /**
+     * @param bytes
+     */
+    public void setBytes(final byte[] bytes) {
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return Number of words produced onto operand stack
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return the method handle name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return the item name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+
+    /**
+     * @param index
+     * @return the ACCESS_NAMES entry at the given index
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return Number of words consumed on operand stack
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+     * The primitive type names corresponding to the T_XX constants, e.g., TYPE_NAMES[T_INT] = "int"
+     *
+     * @param index
+     * @return the type name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return the CONSTANT_NAMES entry at the given index
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return the attribute name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return the short type name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param index
+     * @return Number of byte code operands
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `src/main/java/org/apache/bcel/Const.java`
+#### Snippet
+```java
+     * The primitive class names corresponding to the T_XX constants, e.g., CLASS_TYPE_NAMES[T_INT] = "java.lang.Integer"
+     *
+     * @param index
+     * @return the class name
+     * @since 6.0
+```
+
+### JavadocDeclaration
+`@param classPath` tag description is missing
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+     * Search for classes in given path.
+     *
+     * @param classPath
+     */
+    public ClassPath(final String classPath) {
 ```
 
 ## RuleId[id=RedundantCast]
 ### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantCP` is redundant
-in `src/main/java/org/apache/bcel/generic/NameSignatureInstruction.java`
+Casting `super.getConstantPool().getConstant(...)` to `ConstantInteger` is redundant
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
 #### Snippet
 ```java
-    public ConstantNameAndType getNameAndType(final ConstantPoolGen cpg) {
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        return (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
-    }
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
-in `src/main/java/org/apache/bcel/generic/NameSignatureInstruction.java`
-#### Snippet
-```java
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        return (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
-    }
-
-```
-
-### RedundantCast
-Casting `type` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
-#### Snippet
-```java
-
-    private static boolean isString(final Type type) {
-        return type instanceof ObjectType && ((ObjectType) type).getClassName().equals("java.lang.String");
-    }
-
-```
-
-### RedundantCast
-Casting `destType` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
-#### Snippet
-```java
-            return new CHECKCAST(cp.addArrayClass((ArrayType) destType));
+            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
         }
-        return new CHECKCAST(cp.addClass(((ObjectType) destType).getClassName()));
+        final ConstantInteger s = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
+        return (short) s.getBytes();
     }
+```
 
+### RedundantCast
+Casting `super.getConstantPool().getConstant(...)` to `ConstantFloat` is redundant
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
+        }
+        final ConstantFloat f = (ConstantFloat) super.getConstantPool().getConstant(getIndex());
+        return f.getBytes();
+    }
+```
+
+### RedundantCast
+Casting `super.getConstantPool().getConstant(...)` to `ConstantLong` is redundant
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
+        }
+        final ConstantLong j = (ConstantLong) super.getConstantPool().getConstant(getIndex());
+        return j.getBytes();
+    }
+```
+
+### RedundantCast
+Casting `super.getConstantPool().getConstant(...)` to `ConstantDouble` is redundant
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueDouble() on a non DOUBLE ElementValue");
+        }
+        final ConstantDouble d = (ConstantDouble) super.getConstantPool().getConstant(getIndex());
+        return d.getBytes();
+    }
+```
+
+### RedundantCast
+Casting `super.getConstantPool().getConstant(...)` to `ConstantInteger` is redundant
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
+        }
+        final ConstantInteger bo = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
+        return bo.getBytes() != 0;
+    }
 ```
 
 ### RedundantCast
@@ -2673,135 +2685,15 @@ in `src/main/java/org/apache/bcel/classfile/Code.java`
 ```
 
 ### RedundantCast
-Casting `super.getConstantPool().getConstant(...)` to `ConstantInteger` is redundant
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+Casting `cp.getConstant(...)` to `ConstantCP` is redundant
+in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
 #### Snippet
 ```java
-            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
-        }
-        final ConstantInteger s = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
-        return (short) s.getBytes();
-    }
-```
-
-### RedundantCast
-Casting `super.getConstantPool().getConstant(...)` to `ConstantFloat` is redundant
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
-        }
-        final ConstantFloat f = (ConstantFloat) super.getConstantPool().getConstant(getIndex());
-        return f.getBytes();
-    }
-```
-
-### RedundantCast
-Casting `super.getConstantPool().getConstant(...)` to `ConstantDouble` is redundant
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueDouble() on a non DOUBLE ElementValue");
-        }
-        final ConstantDouble d = (ConstantDouble) super.getConstantPool().getConstant(getIndex());
-        return d.getBytes();
-    }
-```
-
-### RedundantCast
-Casting `super.getConstantPool().getConstant(...)` to `ConstantInteger` is redundant
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
-        }
-        final ConstantInteger bo = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
-        return bo.getBytes() != 0;
-    }
-```
-
-### RedundantCast
-Casting `super.getConstantPool().getConstant(...)` to `ConstantLong` is redundant
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
-        }
-        final ConstantLong j = (ConstantLong) super.getConstantPool().getConstant(getIndex());
-        return j.getBytes();
-    }
-```
-
-### RedundantCast
-Casting `this` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesClassExact()
-                && (this.equals(T) || Repository.instanceOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
-                return true;
-            }
-```
-
-### RedundantCast
-Casting `T` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesClassExact()
-                && (this.equals(T) || Repository.instanceOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
-                return true;
-            }
-```
-
-### RedundantCast
-Casting `this` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
-                && Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName())) {
-                return true;
-            }
-```
-
-### RedundantCast
-Casting `T` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
-                && Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName())) {
-                return true;
-            }
-```
-
-### RedundantCast
-Casting `this` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
-                && (this.equals(T) || Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
-                return true;
-            }
-```
-
-### RedundantCast
-Casting `T` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-             */
-            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
-                && (this.equals(T) || Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
-                return true;
-            }
+    public String getClassName(final ConstantPoolGen cpg) {
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
+        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
+        if (className.startsWith("[")) {
 ```
 
 ### RedundantCast
@@ -2833,30 +2725,6 @@ Casting `cp.getConstant(...)` to `ConstantCP` is redundant
 in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
 #### Snippet
 ```java
-    public String getClassName(final ConstantPoolGen cpg) {
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
-        if (className.startsWith("[")) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantCP` is redundant
-in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
-#### Snippet
-```java
-    public ReferenceType getReferenceType(final ConstantPoolGen cpg) {
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
-        if (className.startsWith("[")) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantCP` is redundant
-in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
-#### Snippet
-```java
     public String getName(final ConstantPoolGen cpg) {
         final ConstantPool cp = cpg.getConstantPool();
         final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
@@ -2878,6 +2746,102 @@ in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
 
 ### RedundantCast
 Casting `cp.getConstant(...)` to `ConstantCP` is redundant
+in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
+#### Snippet
+```java
+    public ReferenceType getReferenceType(final ConstantPoolGen cpg) {
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
+        String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
+        if (className.startsWith("[")) {
+```
+
+### RedundantCast
+Casting `type` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/util/BCELFactory.java`
+#### Snippet
+```java
+        switch (opcode) {
+        case Const.NEW:
+            printWriter.println("il.append(_factory.createNew(\"" + ((ObjectType) type).getClassName() + "\"));");
+            break;
+        case Const.MULTIANEWARRAY:
+```
+
+### RedundantCast
+Casting `this` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesClassExact()
+                && (this.equals(T) || Repository.instanceOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `T` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesClassExact()
+                && (this.equals(T) || Repository.instanceOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `this` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
+                && Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName())) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `T` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
+                && Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName())) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `this` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
+                && (this.equals(T) || Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `T` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+             */
+            if (T instanceof ObjectType && ((ObjectType) T).referencesInterfaceExact()
+                && (this.equals(T) || Repository.implementationOf(((ObjectType) this).getClassName(), ((ObjectType) T).getClassName()))) {
+                return true;
+            }
+```
+
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantCP` is redundant
 in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
 #### Snippet
 ```java
@@ -2886,90 +2850,6 @@ in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
         final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
         final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
         return Utility.pathToPackage(className);
-```
-
-### RedundantCast
-Casting `t` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-            }
-            if (t instanceof ObjectType) {
-                final Verifier v = VerifierFactory.getVerifier(((ObjectType) t).getClassName());
-                final VerificationResult vr = v.doPass2();
-                if (vr.getStatus() != VerificationResult.VERIFIED_OK) {
-```
-
-### RedundantCast
-Casting `t` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-                }
-                if (t instanceof ObjectType) {
-                    final Verifier v = VerifierFactory.getVerifier(((ObjectType) t).getClassName());
-                    final VerificationResult vr = v.doPass2();
-                    if (vr.getStatus() != VerificationResult.VERIFIED_OK) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-            }
-            final int nameAndTypeIndex = obj.getNameAndTypeIndex();
-            final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(nameAndTypeIndex);
-            final String name = ((ConstantUtf8) cp.getConstant(cnat.getNameIndex())).getBytes(); // Field or Method name
-            if (!validInterfaceMethodName(name)) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantClass` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-            final int classIndex = obj.getClassIndex();
-            final ConstantClass cc = (ConstantClass) cp.getConstant(classIndex);
-            final String className = ((ConstantUtf8) cp.getConstant(cc.getNameIndex())).getBytes(); // Class Name in internal form
-            if (!validClassName(className)) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-            }
-            final int nameAndTypeIndex = obj.getNameAndTypeIndex();
-            final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(nameAndTypeIndex);
-            final String name = ((ConstantUtf8) cp.getConstant(cnat.getNameIndex())).getBytes(); // Field or Method name
-            if (!validFieldName(name)) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantClass` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-            final int classIndex = obj.getClassIndex();
-            final ConstantClass cc = (ConstantClass) cp.getConstant(classIndex);
-            final String className = ((ConstantUtf8) cp.getConstant(cc.getNameIndex())).getBytes(); // Class Name in internal form
-            if (!validClassName(className)) {
-```
-
-### RedundantCast
-Casting `cp.getConstant(...)` to `ConstantClass` is redundant
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-                    checkIndex(obj, excIndice, CONST_Class);
-
-                    final ConstantClass cc = (ConstantClass) cp.getConstant(excIndice);
-                    checkIndex(cc, cc.getNameIndex(), CONST_Utf8); // can't be sure this ConstantClass has already been visited (checked)!
-                    // convert internal notation on-the-fly to external notation:
 ```
 
 ### RedundantCast
@@ -3009,6 +2889,30 @@ in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
 ```
 
 ### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+            }
+            final int nameAndTypeIndex = obj.getNameAndTypeIndex();
+            final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(nameAndTypeIndex);
+            final String name = ((ConstantUtf8) cp.getConstant(cnat.getNameIndex())).getBytes(); // Field or Method name
+            if (!validFieldName(name)) {
+```
+
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantClass` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+            final int classIndex = obj.getClassIndex();
+            final ConstantClass cc = (ConstantClass) cp.getConstant(classIndex);
+            final String className = ((ConstantUtf8) cp.getConstant(cc.getNameIndex())).getBytes(); // Class Name in internal form
+            if (!validClassName(className)) {
+```
+
+### RedundantCast
 Casting `act` to `ObjectType` is redundant
 in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
 #### Snippet
@@ -3033,27 +2937,111 @@ in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
 ```
 
 ### RedundantCast
-Casting `type` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/util/BCELFactory.java`
-#### Snippet
-```java
-        switch (opcode) {
-        case Const.NEW:
-            printWriter.println("il.append(_factory.createNew(\"" + ((ObjectType) type).getClassName() + "\"));");
-            break;
-        case Const.MULTIANEWARRAY:
-```
-
-### RedundantCast
-Casting `objref` to `ObjectType` is redundant
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
 #### Snippet
 ```java
             }
+            final int nameAndTypeIndex = obj.getNameAndTypeIndex();
+            final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(nameAndTypeIndex);
+            final String name = ((ConstantUtf8) cp.getConstant(cnat.getNameIndex())).getBytes(); // Field or Method name
+            if (!validInterfaceMethodName(name)) {
+```
 
-            final String objRefClassName = ((ObjectType) objref).getClassName();
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantClass` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
 
-            final String theClass = o.getClassName(cpg);
+            final int classIndex = obj.getClassIndex();
+            final ConstantClass cc = (ConstantClass) cp.getConstant(classIndex);
+            final String className = ((ConstantUtf8) cp.getConstant(cc.getNameIndex())).getBytes(); // Class Name in internal form
+            if (!validClassName(className)) {
+```
+
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantClass` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+                    checkIndex(obj, excIndice, CONST_Class);
+
+                    final ConstantClass cc = (ConstantClass) cp.getConstant(excIndice);
+                    checkIndex(cc, cc.getNameIndex(), CONST_Utf8); // can't be sure this ConstantClass has already been visited (checked)!
+                    // convert internal notation on-the-fly to external notation:
+```
+
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantCP` is redundant
+in `src/main/java/org/apache/bcel/generic/NameSignatureInstruction.java`
+#### Snippet
+```java
+    public ConstantNameAndType getNameAndType(final ConstantPoolGen cpg) {
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
+        return (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
+    }
+```
+
+### RedundantCast
+Casting `cp.getConstant(...)` to `ConstantNameAndType` is redundant
+in `src/main/java/org/apache/bcel/generic/NameSignatureInstruction.java`
+#### Snippet
+```java
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
+        return (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
+    }
+
+```
+
+### RedundantCast
+Casting `t` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+            }
+            if (t instanceof ObjectType) {
+                final Verifier v = VerifierFactory.getVerifier(((ObjectType) t).getClassName());
+                final VerificationResult vr = v.doPass2();
+                if (vr.getStatus() != VerificationResult.VERIFIED_OK) {
+```
+
+### RedundantCast
+Casting `t` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+                }
+                if (t instanceof ObjectType) {
+                    final Verifier v = VerifierFactory.getVerifier(((ObjectType) t).getClassName());
+                    final VerificationResult vr = v.doPass2();
+                    if (vr.getStatus() != VerificationResult.VERIFIED_OK) {
+```
+
+### RedundantCast
+Casting `type` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
+#### Snippet
+```java
+
+    private static boolean isString(final Type type) {
+        return type instanceof ObjectType && ((ObjectType) type).getClassName().equals("java.lang.String");
+    }
+
+```
+
+### RedundantCast
+Casting `destType` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
+#### Snippet
+```java
+            return new CHECKCAST(cp.addArrayClass((ArrayType) destType));
+        }
+        return new CHECKCAST(cp.addClass(((ObjectType) destType).getClassName()));
+    }
+
 ```
 
 ### RedundantCast
@@ -3081,6 +3069,18 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantCast
+Casting `objref` to `ObjectType` is redundant
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+            }
+
+            final String objRefClassName = ((ObjectType) objref).getClassName();
+
+            final String theClass = o.getClassName(cpg);
+```
+
+### RedundantCast
 Casting `t` to `ObjectType` is redundant
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
@@ -3104,19 +3104,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
             final VerificationResult vr = v.doPass2();
 ```
 
-## RuleId[id=CloneDeclaresCloneNotSupported]
-### CloneDeclaresCloneNotSupported
-`clone()` does not declare 'CloneNotSupportedException'
-in `src/main/java/org/apache/bcel/verifier/structurals/Frame.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected Object clone() {
-        return new Frame(locals.getClone(), stack.getClone());
-    }
-```
-
 ## RuleId[id=InstantiationOfUtilityClass]
 ### InstantiationOfUtilityClass
 Instantiation of utility class `GraphicalVerifier`
@@ -3128,6 +3115,19 @@ in `src/main/java/org/apache/bcel/verifier/GraphicalVerifier.java`
         new GraphicalVerifier();
     }
 
+```
+
+## RuleId[id=CloneDeclaresCloneNotSupported]
+### CloneDeclaresCloneNotSupported
+`clone()` does not declare 'CloneNotSupportedException'
+in `src/main/java/org/apache/bcel/verifier/structurals/Frame.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected Object clone() {
+        return new Frame(locals.getClone(), stack.getClone());
+    }
 ```
 
 ## RuleId[id=CopyConstructorMissesField]
@@ -3194,18 +3194,6 @@ in `src/main/java/org/apache/bcel/classfile/Field.java`
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
-in `src/main/java/org/apache/bcel/classfile/Method.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        return bcelComparator.equals(this, obj);
-    }
-```
-
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
 in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
@@ -3252,6 +3240,18 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
     }
 ```
 
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `src/main/java/org/apache/bcel/classfile/Method.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        return bcelComparator.equals(this, obj);
+    }
+```
+
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `index` initializer `-1` is redundant
@@ -3266,27 +3266,27 @@ in `src/main/java/org/apache/bcel/classfile/StackMapType.java`
 ```
 
 ### UnusedAssignment
-Variable `attr` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/classfile/Attribute.java`
+Variable `parameters` initializer `EMPTY_METHOD_PARAMETER_ARRAY` is redundant
+in `src/main/java/org/apache/bcel/classfile/MethodParameters.java`
 #### Snippet
 ```java
-    @Override
-    public Object clone() {
-        Attribute attr = null;
-        try {
-            attr = (Attribute) super.clone();
+    private static final MethodParameter[] EMPTY_METHOD_PARAMETER_ARRAY = {};
+
+    private MethodParameter[] parameters = EMPTY_METHOD_PARAMETER_ARRAY;
+
+    MethodParameters(final int nameIndex, final int length, final DataInput input, final ConstantPool constantPool) throws IOException {
 ```
 
 ### UnusedAssignment
-Variable `i` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
+Variable `obj` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/generic/Instruction.java`
 #### Snippet
 ```java
-            }
-            final String name = "org.apache.bcel.generic." + shortNames[src - Const.T_CHAR] + "2" + shortNames[dest - Const.T_CHAR];
-            Instruction i = null;
-            try {
-                i = (Instruction) Class.forName(name).newInstance();
+        boolean wide = false;
+        short opcode = (short) bytes.readUnsignedByte();
+        Instruction obj = null;
+        if (opcode == Const.WIDE) { // Read next opcode after wide byte
+            wide = true;
 ```
 
 ### UnusedAssignment
@@ -3299,78 +3299,6 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
     private byte source = HEAP; // Generated in memory
 
     private boolean isAnonymous;
-```
-
-### UnusedAssignment
-Variable `jc` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
-#### Snippet
-```java
-                    rejected = true;
-                }
-                JavaClass jc = null;
-                try {
-                    jc = Repository.lookupClass(v.getClassName());
-```
-
-### UnusedAssignment
-Variable `jc` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
-#### Snippet
-```java
-                    rejected = true;
-                }
-                JavaClass jc = null;
-                try {
-                    jc = Repository.lookupClass(v.getClassName());
-```
-
-### UnusedAssignment
-Variable `attributes` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/generic/ClassGen.java`
-#### Snippet
-```java
-        final Field[] fields = getFields();
-        final Method[] methods = getMethods();
-        Attribute[] attributes = null;
-        if (annotationList.isEmpty()) {
-            attributes = getAttributes();
-```
-
-### UnusedAssignment
-Variable `superclassNameIndex` initializer `-1` is redundant
-in `src/main/java/org/apache/bcel/generic/ClassGen.java`
-#### Snippet
-```java
-    private final String fileName;
-    private int classNameIndex = -1;
-    private int superclassNameIndex = -1;
-    private int major = Const.MAJOR_1_1;
-    private int minor = Const.MINOR_1_1;
-```
-
-### UnusedAssignment
-Variable `classNameIndex` initializer `-1` is redundant
-in `src/main/java/org/apache/bcel/generic/ClassGen.java`
-#### Snippet
-```java
-    private String superClassName;
-    private final String fileName;
-    private int classNameIndex = -1;
-    private int superclassNameIndex = -1;
-    private int major = Const.MAJOR_1_1;
-```
-
-### UnusedAssignment
-Variable `method` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/util/JavaWrapper.java`
-#### Snippet
-```java
-    public void runMain(final String className, final String[] argv) throws ClassNotFoundException {
-        final Class<?> cl = loader.loadClass(className);
-        Method method = null;
-        try {
-            method = cl.getMethod("main", argv.getClass());
 ```
 
 ### UnusedAssignment
@@ -3398,27 +3326,51 @@ in `src/main/java/org/apache/bcel/util/Class2HTML.java`
 ```
 
 ### UnusedAssignment
-Variable `obj` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/generic/Instruction.java`
+Variable `method` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/util/JavaWrapper.java`
 #### Snippet
 ```java
-        boolean wide = false;
-        short opcode = (short) bytes.readUnsignedByte();
-        Instruction obj = null;
-        if (opcode == Const.WIDE) { // Read next opcode after wide byte
-            wide = true;
+    public void runMain(final String className, final String[] argv) throws ClassNotFoundException {
+        final Class<?> cl = loader.loadClass(className);
+        Method method = null;
+        try {
+            method = cl.getMethod("main", argv.getClass());
 ```
 
 ### UnusedAssignment
-Variable `returnedType` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
+Variable `type` initializer `""` is redundant
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
-                }
-                // see JVM $4.8.2
-                Type returnedType = null;
-                final OperandStack inStack = ic.getInFrame().getStack();
-                if (inStack.size() >= 1) {
+     */
+    public static String signatureToString(final String signature, final boolean chopit) {
+        String type = "";
+        String typeParams = "";
+        int index = 0;
+```
+
+### UnusedAssignment
+The value `unwrap(CONSUMER_CHARS)` assigned to `index` is never used
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+            // add return type
+            type = type + typeSignatureToString(signature.substring(index), chopit);
+            index += unwrap(CONSUMER_CHARS); // update position
+            // ignore any throws information in the signature
+            return type;
+```
+
+### UnusedAssignment
+Variable `clazz` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/util/ClassLoader.java`
+#### Snippet
+```java
+        final int index = className.indexOf(BCEL_TOKEN);
+        final String realName = className.substring(index + BCEL_TOKEN.length());
+        JavaClass clazz = null;
+        try {
+            final byte[] bytes = Utility.decode(realName, true);
 ```
 
 ### UnusedAssignment
@@ -3446,27 +3398,15 @@ in `src/main/java/org/apache/bcel/util/ClassLoader.java`
 ```
 
 ### UnusedAssignment
-Variable `clazz` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/util/ClassLoader.java`
+The value `in.read()` assigned to `ch` is never used
+in `src/main/java/org/apache/bcel/classfile/Signature.java`
 #### Snippet
 ```java
-        final int index = className.indexOf(BCEL_TOKEN);
-        final String realName = className.substring(index + BCEL_TOKEN.length());
-        JavaClass clazz = null;
-        try {
-            final byte[] bytes = Utility.decode(realName, true);
-```
-
-### UnusedAssignment
-Variable `parameters` initializer `EMPTY_METHOD_PARAMETER_ARRAY` is redundant
-in `src/main/java/org/apache/bcel/classfile/MethodParameters.java`
-#### Snippet
-```java
-    private static final MethodParameter[] EMPTY_METHOD_PARAMETER_ARRAY = {};
-
-    private MethodParameter[] parameters = EMPTY_METHOD_PARAMETER_ARRAY;
-
-    MethodParameters(final int nameIndex, final int length, final DataInput input, final ConstantPool constantPool) throws IOException {
+                }
+                buf.append(buf2);
+                ch = in.read();
+                in.unread();
+                // System.out.println("so far:" + buf2 + ":next:" +(char)ch);
 ```
 
 ### UnusedAssignment
@@ -3482,15 +3422,99 @@ in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
 ```
 
 ### UnusedAssignment
-The value `in.read()` assigned to `ch` is never used
-in `src/main/java/org/apache/bcel/classfile/Signature.java`
+Variable `attr` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/classfile/Attribute.java`
+#### Snippet
+```java
+    @Override
+    public Object clone() {
+        Attribute attr = null;
+        try {
+            attr = (Attribute) super.clone();
+```
+
+### UnusedAssignment
+Variable `classNameIndex` initializer `-1` is redundant
+in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+#### Snippet
+```java
+    private String superClassName;
+    private final String fileName;
+    private int classNameIndex = -1;
+    private int superclassNameIndex = -1;
+    private int major = Const.MAJOR_1_1;
+```
+
+### UnusedAssignment
+Variable `superclassNameIndex` initializer `-1` is redundant
+in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+#### Snippet
+```java
+    private final String fileName;
+    private int classNameIndex = -1;
+    private int superclassNameIndex = -1;
+    private int major = Const.MAJOR_1_1;
+    private int minor = Const.MINOR_1_1;
+```
+
+### UnusedAssignment
+Variable `attributes` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+#### Snippet
+```java
+        final Field[] fields = getFields();
+        final Method[] methods = getMethods();
+        Attribute[] attributes = null;
+        if (annotationList.isEmpty()) {
+            attributes = getAttributes();
+```
+
+### UnusedAssignment
+Variable `i` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
+#### Snippet
+```java
+            }
+            final String name = "org.apache.bcel.generic." + shortNames[src - Const.T_CHAR] + "2" + shortNames[dest - Const.T_CHAR];
+            Instruction i = null;
+            try {
+                i = (Instruction) Class.forName(name).newInstance();
+```
+
+### UnusedAssignment
+Variable `returnedType` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
 #### Snippet
 ```java
                 }
-                buf.append(buf2);
-                ch = in.read();
-                in.unread();
-                // System.out.println("so far:" + buf2 + ":next:" +(char)ch);
+                // see JVM $4.8.2
+                Type returnedType = null;
+                final OperandStack inStack = ic.getInFrame().getStack();
+                if (inStack.size() >= 1) {
+```
+
+### UnusedAssignment
+Variable `jc` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
+#### Snippet
+```java
+                    rejected = true;
+                }
+                JavaClass jc = null;
+                try {
+                    jc = Repository.lookupClass(v.getClassName());
+```
+
+### UnusedAssignment
+Variable `jc` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
+#### Snippet
+```java
+                    rejected = true;
+                }
+                JavaClass jc = null;
+                try {
+                    jc = Repository.lookupClass(v.getClassName());
 ```
 
 ### UnusedAssignment
@@ -3517,43 +3541,7 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
         }
 ```
 
-### UnusedAssignment
-Variable `type` initializer `""` is redundant
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-     */
-    public static String signatureToString(final String signature, final boolean chopit) {
-        String type = "";
-        String typeParams = "";
-        int index = 0;
-```
-
-### UnusedAssignment
-The value `unwrap(CONSUMER_CHARS)` assigned to `index` is never used
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-            // add return type
-            type = type + typeSignatureToString(signature.substring(index), chopit);
-            index += unwrap(CONSUMER_CHARS); // update position
-            // ignore any throws information in the signature
-            return type;
-```
-
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `zipFile != null` is always `true`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            if (zipFile != null) {
-                zipFile.close();
-            }
-```
-
 ### ConstantValue
 Condition `i < size` is always `true` when reached
 in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
@@ -3564,30 +3552,6 @@ in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
                 while ((Character.isLetterOrDigit(ch) || ch == '_') && i < size) {
                     name.append(ch);
                     if (++i >= size) {
-```
-
-### ConstantValue
-Condition `rejected` is always `true`
-in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
-#### Snippet
-```java
-        }
-        pass3aTextPane.setText(all3amsg.toString());
-        pass3aTextPane.setBackground(all3aok ? Color.green : rejected ? Color.red : Color.yellow);
-    }
-
-```
-
-### ConstantValue
-Condition `rejected` is always `true`
-in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
-#### Snippet
-```java
-        }
-        pass3bTextPane.setText(all3bmsg.toString());
-        pass3bTextPane.setBackground(all3bok ? Color.green : rejected ? Color.red : Color.yellow);
-    }
-
 ```
 
 ### ConstantValue
@@ -3626,7 +3590,67 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
             }
 ```
 
+### ConstantValue
+Condition `rejected` is always `true`
+in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
+#### Snippet
+```java
+        }
+        pass3aTextPane.setText(all3amsg.toString());
+        pass3aTextPane.setBackground(all3aok ? Color.green : rejected ? Color.red : Color.yellow);
+    }
+
+```
+
+### ConstantValue
+Condition `rejected` is always `true`
+in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
+#### Snippet
+```java
+        }
+        pass3bTextPane.setText(all3bmsg.toString());
+        pass3bTextPane.setBackground(all3bok ? Color.green : rejected ? Color.red : Color.yellow);
+    }
+
+```
+
+### ConstantValue
+Condition `zipFile != null` is always `true`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            if (zipFile != null) {
+                zipFile.close();
+            }
+```
+
 ## RuleId[id=NonAtomicOperationOnVolatileField]
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `created`
+in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
+#### Snippet
+```java
+        super(Const.CONSTANT_Utf8);
+        this.value = Objects.requireNonNull(value, "value");
+        created++;
+    }
+
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `created`
+in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
+#### Snippet
+```java
+        super(Const.CONSTANT_Utf8);
+        value = dataInput.readUTF();
+        created++;
+    }
+
+```
+
 ### NonAtomicOperationOnVolatileField
 Non-atomic operation on volatile field `skipped`
 in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
@@ -3649,29 +3673,5 @@ in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
         considered++;
         synchronized (ConstantUtf8.class) { // might be better with a specific lock object
             ConstantUtf8 result = Cache.CACHE.get(value);
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `created`
-in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
-#### Snippet
-```java
-        super(Const.CONSTANT_Utf8);
-        value = dataInput.readUTF();
-        created++;
-    }
-
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `created`
-in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
-#### Snippet
-```java
-        super(Const.CONSTANT_Utf8);
-        this.value = Objects.requireNonNull(value, "value");
-        created++;
-    }
-
 ```
 
