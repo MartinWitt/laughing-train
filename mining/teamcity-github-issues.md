@@ -113,18 +113,6 @@ in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
 ### SpringXmlAutowireExplicitlyInspection
 Make autowired dependency explicit
-in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
-#### Snippet
-```java
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-       default-autowire="constructor">
-  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
-  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
-```
-
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
 in `TeamCity.GitHubIssues-server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
@@ -133,6 +121,18 @@ in `TeamCity.GitHubIssues-server/fake-teamcity-server-plugin-context.xml`
        default-autowire="constructor">
   <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
   <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -167,6 +167,18 @@ Unnecessary `toString()` call
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
 #### Snippet
 ```java
+      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
+      if (!m.matches()) {
+        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
+      }
+      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
+#### Snippet
+```java
       if (myCredentials == null) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Connecting to " + myURL.toString() + "anonymously");
@@ -196,18 +208,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
           LOG.debug("Connecting to " + myURL.toString() + "using username + [" + cr.getUserName() + "] and password");
         }
         client.setCredentials(cr.getUserName(), cr.getPassword());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
-#### Snippet
-```java
-      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
-      if (!m.matches()) {
-        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
-      }
-      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
