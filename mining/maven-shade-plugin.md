@@ -27,18 +27,6 @@ I found 136 bad smells with 22 repairable:
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `src/main/java/org/apache/maven/plugins/shade/resource/ComponentsXmlResourceTransformer.java`
-#### Snippet
-```java
-        Xpp3Dom child = dom.getChild(element);
-
-        if (child == null || value == null || value.length() <= 0) {
-            return;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `src/main/java/org/apache/maven/plugins/shade/resource/PluginXmlResourceTransformer.java`
 #### Snippet
 ```java
@@ -52,6 +40,18 @@ in `src/main/java/org/apache/maven/plugins/shade/resource/PluginXmlResourceTrans
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
 in `src/main/java/org/apache/maven/plugins/shade/resource/PluginXmlResourceTransformer.java`
+#### Snippet
+```java
+        Xpp3Dom child = dom.getChild(element);
+
+        if (child == null || value == null || value.length() <= 0) {
+            return;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/org/apache/maven/plugins/shade/resource/ComponentsXmlResourceTransformer.java`
 #### Snippet
 ```java
         Xpp3Dom child = dom.getChild(element);
@@ -108,54 +108,6 @@ in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
     /**
      * @param project {@link MavenProject}
      * @param log {@link Log}
-     * @param entryPoints
-```
-
-### JavadocReference
-Cannot resolve symbol `Log`
-in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
-#### Snippet
-```java
-    /**
-     * @param project {@link MavenProject}
-     * @param log {@link Log}
-     * @param entryPoints
-     * @throws IOException in case of error.
-```
-
-### JavadocReference
-Cannot resolve symbol `MavenProject`
-in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @param project {@link MavenProject}
-     * @param log {@link Log}
-     * @param simpleFilters {@link SimpleFilter}
-```
-
-### JavadocReference
-Cannot resolve symbol `Log`
-in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
-#### Snippet
-```java
-    /**
-     * @param project {@link MavenProject}
-     * @param log {@link Log}
-     * @param simpleFilters {@link SimpleFilter}
-     * @param entryPoints
-```
-
-### JavadocReference
-Cannot resolve symbol `MavenProject`
-in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @param project {@link MavenProject}
-     * @param log {@link Log}
      * @throws IOException in case of error.
 ```
 
@@ -172,6 +124,66 @@ in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @param project {@link MavenProject}
+     * @param log {@link Log}
+     * @param simpleFilters {@link SimpleFilter}
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
+#### Snippet
+```java
+    /**
+     * @param project {@link MavenProject}
+     * @param log {@link Log}
+     * @param simpleFilters {@link SimpleFilter}
+     * @param entryPoints
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @param project {@link MavenProject}
+     * @param log {@link Log}
+     * @param entryPoints
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
+#### Snippet
+```java
+    /**
+     * @param project {@link MavenProject}
+     * @param log {@link Log}
+     * @param entryPoints
+     * @throws IOException in case of error.
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/shade/mojo/ShadeMojo.java`
+#### Snippet
+```java
+
+    /**
+     * @throws MojoExecutionException in case of an error.
+     */
+    @Override
+```
+
+### JavadocReference
 Cannot resolve symbol `Element`
 in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
@@ -181,6 +193,126 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
      * @param element {@link Element}
      * @param counter {@link Counter}
      * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     * Method write
+     *
+     * @param project {@link Model}
+     * @param writer {@link OutputStreamWriter}
+     * @param document {@link Document}
+```
+
+### JavadocReference
+Cannot resolve symbol `Document`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     * @param project {@link Model}
+     * @param writer {@link OutputStreamWriter}
+     * @param document {@link Document}
+     * @throws IOException in case of an error.
+     */
 ```
 
 ### JavadocReference
@@ -308,71 +440,59 @@ Cannot resolve symbol `Element`
 in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
+     * @param list The list of elements.
+     * @param parent The parent.
+     * @return {@link Element}
+     */
+    protected Element findAndReplaceSimpleLists(
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     * @param name The name.
+     * @param parent The parent.
+     * @return {@link Element}
+     */
+    protected Element updateElement(Counter counter, Element parent, String name, boolean shouldExist) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
      * @param parent The parent.
      * @param counter {@link Counter}
-     * @param parentDom {@link Element}
+     * @param child {@link Element}
      */
-    protected void replaceXpp3DOM(Element parent, Xpp3Dom parentDom, Counter counter) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
+    protected void insertAtPreferredLocation(Element parent, Element child, Counter counter) {
 ```
 
 ### JavadocReference
@@ -409,198 +529,6 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
      * @param element {@link Element}
      * @param counter {@link Counter}
      * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Xpp3Dom`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param counter {@link Counter}
-     * @param dom {@link Xpp3Dom}
-     * @param name The name.
-     * @param parent The parent.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     * @param name The name.
-     * @param parent The parent.
-     * @return {@link Element}
-     */
-    protected Element findAndReplaceXpp3DOM(Counter counter, Element parent, String name, Xpp3Dom dom) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param value The value.
-     * @param element {@link Element}
-     * @param counter {@link Counter}
-     * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Model`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     * Method write
-     *
-     * @param project {@link Model}
-     * @param jdomFormat {@link Format}
-     * @param writer {@link Writer}
-```
-
-### JavadocReference
-Cannot resolve symbol `Format`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     *
-     * @param project {@link Model}
-     * @param jdomFormat {@link Format}
-     * @param writer {@link Writer}
-     * @param document {@link Document}
-```
-
-### JavadocReference
-Cannot resolve symbol `Document`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     * @param jdomFormat {@link Format}
-     * @param writer {@link Writer}
-     * @param document {@link Document}
-     * @throws IOException in case of an error.
-     */
 ```
 
 ### JavadocReference
@@ -668,6 +596,78 @@ Cannot resolve symbol `Element`
 in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
+     * @param parent The parent.
+     * @param counter {@link Counter}
+     * @param parentDom {@link Element}
+     */
+    protected void replaceXpp3DOM(Element parent, Xpp3Dom parentDom, Counter counter) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Xpp3Dom`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param counter {@link Counter}
+     * @param dom {@link Xpp3Dom}
+     * @param name The name.
+     * @param parent The parent.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     * @param name The name.
+     * @param parent The parent.
+     * @return {@link Element}
+     */
+    protected Element findAndReplaceXpp3DOM(Counter counter, Element parent, String name, Xpp3Dom dom) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
      *
      * @param value The value.
      * @param element {@link Element}
@@ -707,7 +707,19 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
      * Method write
      *
      * @param project {@link Model}
-     * @param writer {@link OutputStreamWriter}
+     * @param jdomFormat {@link Format}
+     * @param writer {@link Writer}
+```
+
+### JavadocReference
+Cannot resolve symbol `Format`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param project {@link Model}
+     * @param jdomFormat {@link Format}
+     * @param writer {@link Writer}
      * @param document {@link Document}
 ```
 
@@ -716,8 +728,8 @@ Cannot resolve symbol `Document`
 in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
-     * @param project {@link Model}
-     * @param writer {@link OutputStreamWriter}
+     * @param jdomFormat {@link Format}
+     * @param writer {@link Writer}
      * @param document {@link Document}
      * @throws IOException in case of an error.
      */
@@ -728,18 +740,6 @@ Cannot resolve symbol `Element`
 in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
-     * @param name The name.
-     * @param parent The parent.
-     * @return {@link Element}
-     */
-    protected Element updateElement(Counter counter, Element parent, String name, boolean shouldExist) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
      *
      * @param value The value.
      * @param element {@link Element}
@@ -757,30 +757,6 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
      * @param element {@link Element}
      * @param counter {@link Counter}
      * @param xmlTag The XMLTag.
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     * @param parent The parent.
-     * @param counter {@link Counter}
-     * @param child {@link Element}
-     */
-    protected void insertAtPreferredLocation(Element parent, Element child, Counter counter) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Element`
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     * @param list The list of elements.
-     * @param parent The parent.
-     * @return {@link Element}
-     */
-    protected Element findAndReplaceSimpleLists(
 ```
 
 ### JavadocReference
@@ -868,15 +844,39 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/shade/mojo/ShadeMojo.java`
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
 
-    /**
-     * @throws MojoExecutionException in case of an error.
-     */
-    @Override
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
+```
+
+### JavadocReference
+Cannot resolve symbol `Element`
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     *
+     * @param value The value.
+     * @param element {@link Element}
+     * @param counter {@link Counter}
+     * @param xmlTag The XMLTag.
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -922,11 +922,11 @@ in `src/main/java/org/apache/maven/plugins/shade/mojo/RelativizePath.java`
 in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
 ```java
-     * @param project {@link MavenProject}
      * @param log {@link Log}
+     * @param simpleFilters {@link SimpleFilter}
      * @param entryPoints
-     * @throws IOException in case of error.
-     */
+     * @throws IOException in case of errors.
+     * @since 1.6
 ```
 
 ### JavadocDeclaration
@@ -934,11 +934,11 @@ in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
 ```java
+     * @param project {@link MavenProject}
      * @param log {@link Log}
-     * @param simpleFilters {@link SimpleFilter}
      * @param entryPoints
-     * @throws IOException in case of errors.
-     * @since 1.6
+     * @throws IOException in case of error.
+     */
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -968,30 +968,6 @@ in `src/main/java/org/apache/maven/plugins/shade/mojo/ArchiveFilter.java`
 ```
 
 ### FieldMayBeFinal
-Field `includes` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/mojo/ArtifactSelector.java`
-#### Snippet
-```java
-class ArtifactSelector {
-
-    private Collection<ArtifactId> includes;
-
-    private Collection<ArtifactId> excludes;
-```
-
-### FieldMayBeFinal
-Field `excludes` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/mojo/ArtifactSelector.java`
-#### Snippet
-```java
-    private Collection<ArtifactId> includes;
-
-    private Collection<ArtifactId> excludes;
-
-    ArtifactSelector(Artifact projectArtifact, ArtifactSet artifactSet, String groupPrefix) {
-```
-
-### FieldMayBeFinal
 Field `level` may be 'final'
 in `src/main/java/org/apache/maven/plugins/shade/pom/Counter.java`
 #### Snippet
@@ -1001,66 +977,6 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/Counter.java`
     private int level;
 
     // ----------------/
-```
-
-### FieldMayBeFinal
-Field `includes` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
-#### Snippet
-```java
-    private Set<File> jars;
-
-    private Set<String> includes;
-
-    private Set<String> excludes;
-```
-
-### FieldMayBeFinal
-Field `excludes` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
-#### Snippet
-```java
-    private Set<String> includes;
-
-    private Set<String> excludes;
-
-    private boolean excludeDefaults = true;
-```
-
-### FieldMayBeFinal
-Field `jars` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
-#### Snippet
-```java
-public class SimpleFilter implements Filter {
-
-    private Set<File> jars;
-
-    private Set<String> includes;
-```
-
-### FieldMayBeFinal
-Field `components` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/resource/ComponentsXmlResourceTransformer.java`
-#### Snippet
-```java
- */
-public class ComponentsXmlResourceTransformer extends AbstractCompatibilityTransformer {
-    private Map<String, Xpp3Dom> components = new LinkedHashMap<>();
-
-    private long time = Long.MIN_VALUE;
-```
-
-### FieldMayBeFinal
-Field `dataMap` may be 'final'
-in `src/main/java/org/apache/maven/plugins/shade/resource/ResourceBundleAppendingTransformer.java`
-#### Snippet
-```java
- */
-public class ResourceBundleAppendingTransformer extends AbstractCompatibilityTransformer {
-    private Map<String, ByteArrayOutputStream> dataMap = new HashMap<>();
-
-    private Pattern resourceBundlePattern;
 ```
 
 ### FieldMayBeFinal
@@ -1100,6 +1016,54 @@ public class PluginXmlResourceTransformer extends AbstractCompatibilityTransform
 ```
 
 ### FieldMayBeFinal
+Field `components` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/resource/ComponentsXmlResourceTransformer.java`
+#### Snippet
+```java
+ */
+public class ComponentsXmlResourceTransformer extends AbstractCompatibilityTransformer {
+    private Map<String, Xpp3Dom> components = new LinkedHashMap<>();
+
+    private long time = Long.MIN_VALUE;
+```
+
+### FieldMayBeFinal
+Field `includes` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/mojo/ArtifactSelector.java`
+#### Snippet
+```java
+class ArtifactSelector {
+
+    private Collection<ArtifactId> includes;
+
+    private Collection<ArtifactId> excludes;
+```
+
+### FieldMayBeFinal
+Field `excludes` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/mojo/ArtifactSelector.java`
+#### Snippet
+```java
+    private Collection<ArtifactId> includes;
+
+    private Collection<ArtifactId> excludes;
+
+    ArtifactSelector(Artifact projectArtifact, ArtifactSet artifactSet, String groupPrefix) {
+```
+
+### FieldMayBeFinal
+Field `dataMap` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/resource/ResourceBundleAppendingTransformer.java`
+#### Snippet
+```java
+ */
+public class ResourceBundleAppendingTransformer extends AbstractCompatibilityTransformer {
+    private Map<String, ByteArrayOutputStream> dataMap = new HashMap<>();
+
+    private Pattern resourceBundlePattern;
+```
+
+### FieldMayBeFinal
 Field `log` may be 'final'
 in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
@@ -1109,6 +1073,42 @@ public class MinijarFilter implements Filter {
     private Log log;
 
     private Set<Clazz> removable;
+```
+
+### FieldMayBeFinal
+Field `jars` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
+#### Snippet
+```java
+public class SimpleFilter implements Filter {
+
+    private Set<File> jars;
+
+    private Set<String> includes;
+```
+
+### FieldMayBeFinal
+Field `includes` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
+#### Snippet
+```java
+    private Set<File> jars;
+
+    private Set<String> includes;
+
+    private Set<String> excludes;
+```
+
+### FieldMayBeFinal
+Field `excludes` may be 'final'
+in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
+#### Snippet
+```java
+    private Set<String> includes;
+
+    private Set<String> excludes;
+
+    private boolean excludeDefaults = true;
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1313,43 +1313,7 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
-    protected void updatePlugin(Plugin value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "groupId", value.getGroupId(), "org.apache.maven.plugins");
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     */
-    protected void updateProfile(Profile value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "id", value.getId(), "default");
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     */
-    protected void updateExtension(Extension value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "groupId", value.getGroupId(), null);
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     */
-    protected void updateMailingList(MailingList value, String xmlTag, Counter counter, Element element) {
+    protected void updateLicense(License value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
         findAndReplaceSimpleElement(innerCount, root, "name", value.getName(), null);
@@ -1361,10 +1325,22 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
-    protected void updateModel(Model value, String xmlTag, Counter counter, Element element) {
+    protected void updateContributor(Contributor value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
-        updateParent(value.getParent(), "parent", innerCount, root);
+        findAndReplaceSimpleElement(innerCount, root, "name", value.getName(), null);
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     */
+    protected void updatePlugin(Plugin value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "groupId", value.getGroupId(), "org.apache.maven.plugins");
 ```
 
 ### UnnecessaryLocalVariable
@@ -1385,6 +1361,18 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
+    protected void updateExtension(Extension value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "groupId", value.getGroupId(), null);
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     */
     protected void updateDeveloper(Developer value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
@@ -1397,22 +1385,10 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
-    protected void updatePluginExecution(PluginExecution value, String xmlTag, Counter counter, Element element) {
+    protected void updateModel(Model value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "id", value.getId(), "default");
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-    // CHECKSTYLE_OFF: LineLength
-    protected void updateNotifier(Notifier value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "type", value.getType(), "mail");
+        updateParent(value.getParent(), "parent", innerCount, root);
 ```
 
 ### UnnecessaryLocalVariable
@@ -1421,22 +1397,10 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
-    protected void updateLicense(License value, String xmlTag, Counter counter, Element element) {
+    protected void updateResource(Resource value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "name", value.getName(), null);
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     */
-    protected void updateContributor(Contributor value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "name", value.getName(), null);
+        findAndReplaceSimpleElement(innerCount, root, "targetPath", value.getTargetPath(), null);
 ```
 
 ### UnnecessaryLocalVariable
@@ -1469,18 +1433,6 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
-    protected void updateResource(Resource value, String xmlTag, Counter counter, Element element) {
-        Element root = element;
-        Counter innerCount = new Counter(counter.getDepth() + 1);
-        findAndReplaceSimpleElement(innerCount, root, "targetPath", value.getTargetPath(), null);
-```
-
-### UnnecessaryLocalVariable
-Local variable `root` is redundant
-in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
-#### Snippet
-```java
-     */
     protected void updateReportSet(ReportSet value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
@@ -1505,10 +1457,58 @@ in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
 #### Snippet
 ```java
      */
+    protected void updateMailingList(MailingList value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "name", value.getName(), null);
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     */
+    protected void updatePluginExecution(PluginExecution value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "id", value.getId(), "default");
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+    // CHECKSTYLE_OFF: LineLength
+    protected void updateNotifier(Notifier value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "type", value.getType(), "mail");
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     */
     protected void updateReportPlugin(ReportPlugin value, String xmlTag, Counter counter, Element element) {
         Element root = element;
         Counter innerCount = new Counter(counter.getDepth() + 1);
         findAndReplaceSimpleElement(innerCount, root, "groupId", value.getGroupId(), "org.apache.maven.plugins");
+```
+
+### UnnecessaryLocalVariable
+Local variable `root` is redundant
+in `src/main/java/org/apache/maven/plugins/shade/pom/MavenJDOMWriter.java`
+#### Snippet
+```java
+     */
+    protected void updateProfile(Profile value, String xmlTag, Counter counter, Element element) {
+        Element root = element;
+        Counter innerCount = new Counter(counter.getDepth() + 1);
+        findAndReplaceSimpleElement(innerCount, root, "id", value.getId(), "default");
 ```
 
 ## RuleId[id=CdiInjectionPointsInspection]
@@ -1519,9 +1519,9 @@ in `src/main/java/org/apache/maven/plugins/shade/mojo/ShadeMojo.java`
 ```java
 
     @Inject
-    private MavenProjectHelper projectHelper;
+    private RepositorySystem repositorySystem;
 
-    @Inject
+    /**
 ```
 
 ### CdiInjectionPointsInspection
@@ -1541,11 +1541,11 @@ Unsatisfied dependency: no bean matches the injection point
 in `src/main/java/org/apache/maven/plugins/shade/mojo/ShadeMojo.java`
 #### Snippet
 ```java
-     */
-    @Inject
-    private DependencyGraphBuilder dependencyGraphBuilder;
 
-    /**
+    @Inject
+    private MavenProjectHelper projectHelper;
+
+    @Inject
 ```
 
 ### CdiInjectionPointsInspection
@@ -1553,9 +1553,9 @@ Unsatisfied dependency: no bean matches the injection point
 in `src/main/java/org/apache/maven/plugins/shade/mojo/ShadeMojo.java`
 #### Snippet
 ```java
-
+     */
     @Inject
-    private RepositorySystem repositorySystem;
+    private DependencyGraphBuilder dependencyGraphBuilder;
 
     /**
 ```
@@ -1602,26 +1602,14 @@ import org.codehaus.plexus.util.SelectorUtils;
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
+in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
 ```java
-            final Set<String> excludes,
-            final boolean excludeDefaults) {
-        this.jars = (jars != null) ? Collections.<File>unmodifiableSet(jars) : Collections.<File>emptySet();
-        this.includes = normalizePatterns(includes);
-        this.excludes = normalizePatterns(excludes);
-```
+     */
+    public MinijarFilter(MavenProject project, Log log) throws IOException {
+        this(project, log, Collections.<SimpleFilter>emptyList(), Collections.<String>emptySet());
+    }
 
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
-#### Snippet
-```java
-            final Set<String> excludes,
-            final boolean excludeDefaults) {
-        this.jars = (jars != null) ? Collections.<File>unmodifiableSet(jars) : Collections.<File>emptySet();
-        this.includes = normalizePatterns(includes);
-        this.excludes = normalizePatterns(excludes);
 ```
 
 ### RedundantTypeArguments
@@ -1630,8 +1618,8 @@ in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
 ```java
      */
-    public MinijarFilter(MavenProject project, Log log, Set<String> entryPoints) throws IOException {
-        this(project, log, Collections.<SimpleFilter>emptyList(), entryPoints);
+    public MinijarFilter(MavenProject project, Log log) throws IOException {
+        this(project, log, Collections.<SimpleFilter>emptyList(), Collections.<String>emptySet());
     }
 
 ```
@@ -1654,22 +1642,34 @@ in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
 #### Snippet
 ```java
      */
-    public MinijarFilter(MavenProject project, Log log) throws IOException {
-        this(project, log, Collections.<SimpleFilter>emptyList(), Collections.<String>emptySet());
+    public MinijarFilter(MavenProject project, Log log, Set<String> entryPoints) throws IOException {
+        this(project, log, Collections.<SimpleFilter>emptyList(), entryPoints);
     }
 
 ```
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `src/main/java/org/apache/maven/plugins/shade/filter/MinijarFilter.java`
+in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
 #### Snippet
 ```java
-     */
-    public MinijarFilter(MavenProject project, Log log) throws IOException {
-        this(project, log, Collections.<SimpleFilter>emptyList(), Collections.<String>emptySet());
-    }
+            final Set<String> excludes,
+            final boolean excludeDefaults) {
+        this.jars = (jars != null) ? Collections.<File>unmodifiableSet(jars) : Collections.<File>emptySet();
+        this.includes = normalizePatterns(includes);
+        this.excludes = normalizePatterns(excludes);
+```
 
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/maven/plugins/shade/filter/SimpleFilter.java`
+#### Snippet
+```java
+            final Set<String> excludes,
+            final boolean excludeDefaults) {
+        this.jars = (jars != null) ? Collections.<File>unmodifiableSet(jars) : Collections.<File>emptySet();
+        this.includes = normalizePatterns(includes);
+        this.excludes = normalizePatterns(excludes);
 ```
 
 ## RuleId[id=UnusedAssignment]
