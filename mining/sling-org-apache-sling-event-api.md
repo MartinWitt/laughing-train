@@ -34,24 +34,24 @@ in `src/main/java/org/apache/sling/event/jobs/QueueConfiguration.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/sling/event/jobs/consumer/JobExecutionContext.java`
-#### Snippet
-```java
-    ResultBuilder result();
-
-    public interface ResultBuilder {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/sling/event/jobs/JobBuilder.java`
 #### Snippet
 ```java
      * This is a builder interface for creating schedule information
      */
     public interface ScheduleBuilder {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/sling/event/jobs/consumer/JobExecutionContext.java`
+#### Snippet
+```java
+    ResultBuilder result();
+
+    public interface ResultBuilder {
 
         /**
 ```
