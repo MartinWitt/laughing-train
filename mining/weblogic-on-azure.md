@@ -8,7 +8,7 @@ I found 8 bad smells with 0 repairable:
 ## RuleId[id=WebProperties]
 ### WebProperties
 Cannot resolve class or package 'javax'
-in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
+in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
     <servlet>
@@ -20,19 +20,7 @@ in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 
 ### WebProperties
 Cannot resolve class or package 'faces'
-in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
-#### Snippet
-```java
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-```
-
-### WebProperties
-Cannot resolve class or package 'webapp'
-in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
+in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
     <servlet>
@@ -44,19 +32,7 @@ in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 
 ### WebProperties
 Cannot resolve class or package 'javax'
-in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
-#### Snippet
-```java
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-```
-
-### WebProperties
-Cannot resolve class or package 'faces'
-in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
+in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
     <servlet>
@@ -79,7 +55,7 @@ in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 ```
 
 ### WebProperties
-Cannot resolve class 'FacesServlet'
+Cannot resolve class or package 'faces'
 in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
@@ -93,6 +69,30 @@ in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 ### WebProperties
 Cannot resolve class 'FacesServlet'
 in `coherence/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+```
+
+### WebProperties
+Cannot resolve class or package 'webapp'
+in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+```
+
+### WebProperties
+Cannot resolve class 'FacesServlet'
+in `javaee/weblogic-cafe/src/main/webapp/WEB-INF/web.xml`
 #### Snippet
 ```java
     <servlet>
