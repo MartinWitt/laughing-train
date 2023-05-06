@@ -70,6 +70,42 @@ in `src/main/java/com/uber/cadence/samples/calculation/Activities.java`
 ```
 
 ### JavadocDeclaration
+`@param values` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * classes(local activity, heartbeat etc) into binary.
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+    @Override
+```
+
+### JavadocDeclaration
 `@param content` tag description is missing
 in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
 #### Snippet
@@ -135,42 +171,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
 #### Snippet
 ```java
      * @param <T>
-     * @return
-     * @throws DataConverterException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param values` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * classes(local activity, heartbeat etc) into binary.
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * @param values
      * @return
      * @throws DataConverterException
      */
