@@ -1,7 +1,7 @@
 # Grammar-Kit 
  
 # Bad smells
-I found 99 bad smells with 0 repairable:
+I found 98 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnstableApiUsage | 15 | false |
@@ -28,7 +28,6 @@ I found 99 bad smells with 0 repairable:
 | SwitchStatementDensity | 1 | false |
 | CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | Deprecation | 1 | false |
-| NullableProblems | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 ## RuleId[id=MagicConstant]
@@ -180,6 +179,30 @@ in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
 ```
 
 ### DataFlowIssue
+Argument `element` might be null
+in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
+#### Snippet
+```java
+        }
+        else if (!meta && !metaRuleRef) {
+          inlineExpressionUsage(myProject, element, expression);
+        }
+      }
+```
+
+### DataFlowIssue
+Method invocation `getModifierList` may produce `NullPointerException`
+in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
+#### Snippet
+```java
+    inlineExpressionUsage(project, (BnfExpression)parent, expression);
+    if (!(parent instanceof BnfExternalExpression)) {
+      for (BnfModifier modifier : rule.getModifierList()) {
+        if (modifier.getText().equals("external")) {
+          modifier.getNextSibling().delete(); // whitespace
+```
+
+### DataFlowIssue
 Argument `context.getEditor()` might be null
 in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
 #### Snippet
@@ -201,30 +224,6 @@ in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
               ExceptionUtil.rethrowAllAsUnchecked(e);
             }
           });
-```
-
-### DataFlowIssue
-Method invocation `getModifierList` may produce `NullPointerException`
-in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
-#### Snippet
-```java
-    inlineExpressionUsage(project, (BnfExpression)parent, expression);
-    if (!(parent instanceof BnfExternalExpression)) {
-      for (BnfModifier modifier : rule.getModifierList()) {
-        if (modifier.getText().equals("external")) {
-          modifier.getNextSibling().delete(); // whitespace
-```
-
-### DataFlowIssue
-Argument `element` might be null
-in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
-#### Snippet
-```java
-        }
-        else if (!meta && !metaRuleRef) {
-          inlineExpressionUsage(myProject, element, expression);
-        }
-      }
 ```
 
 ### DataFlowIssue
@@ -303,18 +302,6 @@ in `src/org/intellij/grammar/editor/BnfExpressionMarkerAnnotator.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
-#### Snippet
-```java
-          // not supported
-          return false;
-          //method = generateExternalCall(rule, clause, GrammarUtil.getExternalRuleExpressions(subRule), nextName);
-          //return method + "(builder_, level_ + 1" + clause.toString() + ")";
-        }
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
 #### Snippet
@@ -324,6 +311,18 @@ in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
     //if (recoverRoot == null && (isRule || firstNonTrivial)) {
     //  frameName = generateFirstCheck(rule, frameName, true);
     //}
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
+#### Snippet
+```java
+          // not supported
+          return false;
+          //method = generateExternalCall(rule, clause, GrammarUtil.getExternalRuleExpressions(subRule), nextName);
+          //return method + "(builder_, level_ + 1" + clause.toString() + ")";
+        }
 ```
 
 ## RuleId[id=FinalClass]
@@ -523,56 +522,6 @@ in `src/org/intellij/grammar/actions/BnfGenerateLexerAction.java`
     return s;
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/org/intellij/jflex/editor/JFlexBraceMatcher.java`
-#### Snippet
-```java
-
-  @Override
-  public BracePair @NotNull [] getPairs() {
-    return PAIRS;
-  }
-```
-
-## RuleId[id=TrivialIf]
-### TrivialIf
-`if` statement can be simplified
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-      MyElement<?> element = (MyElement<?>)o;
-
-      if (!delegate.equals(element.delegate)) return false;
-
-      return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      return true;
-    }
-    else if (element instanceof BnfChoice && (((BnfChoice)element).getExpressionList().size() == 1 || parent instanceof BnfChoice)) {
-      return true;
-    }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-    if (getAttribute(subRule, KnownAttribute.RECOVER_WHILE) != null) return true;
-    if (!getAttribute(subRule, KnownAttribute.HOOKS).isEmpty()) return true;
-    if (Rule.isExternal(subRule)) return true;
-    return false;
-  }
-```
-
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
@@ -646,6 +595,43 @@ in `src/org/intellij/grammar/Main.java`
         }
 ```
 
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
+      MyElement<?> element = (MyElement<?>)o;
+
+      if (!delegate.equals(element.delegate)) return false;
+
+      return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      return true;
+    }
+    else if (element instanceof BnfChoice && (((BnfChoice)element).getExpressionList().size() == 1 || parent instanceof BnfChoice)) {
+      return true;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+    if (getAttribute(subRule, KnownAttribute.RECOVER_WHILE) != null) return true;
+    if (!getAttribute(subRule, KnownAttribute.HOOKS).isEmpty()) return true;
+    if (Rule.isExternal(subRule)) return true;
+    return false;
+  }
+```
+
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `isReadOnly()` is identical to its super method
@@ -662,6 +648,18 @@ in `src/org/intellij/grammar/livePreview/LivePreviewFileType.java`
 ### RedundantMethodOverride
 Method `shouldEnterElement()` is identical to its super method
 in `src/org/intellij/grammar/BnfStructureViewFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean shouldEnterElement(Object element) {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `shouldEnterElement()` is identical to its super method
+in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
 #### Snippet
 ```java
 
@@ -707,31 +705,6 @@ in `src/org/intellij/grammar/BnfDocumentationProvider.java`
   }
 ```
 
-### RedundantMethodOverride
-Method `shouldEnterElement()` is identical to its super method
-in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean shouldEnterElement(Object element) {
-      return false;
-    }
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/org/intellij/grammar/Main.java`
-#### Snippet
-```java
-    }
-    catch (Throwable throwable) {
-      throwable.printStackTrace();
-    }
-    finally {
-```
-
 ## RuleId[id=DialogTitleCapitalization]
 ### DialogTitleCapitalization
 String 'Grammar-Kit BNF Live Preview' is not properly capitalized. It should have sentence capitalization
@@ -755,6 +728,19 @@ in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
         message = "unmatched input";
       }
       else {
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/org/intellij/grammar/Main.java`
+#### Snippet
+```java
+    }
+    catch (Throwable throwable) {
+      throwable.printStackTrace();
+    }
+    finally {
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -882,18 +868,6 @@ public class BnfStringRefContributor extends PsiReferenceContributor {
 ```
 
 ### StaticCollection
-Static collection `EMPTY_LIST`
-in `src/org/intellij/grammar/KnownAttribute.java`
-#### Snippet
-```java
-  public static @Nullable KnownAttribute<?> getAttribute(@Nullable String name) { return name == null ? null : ourAttributes.get(name); }
-
-  private static final ListValue EMPTY_LIST = new ListValue();
-
-  public static final KnownAttribute<String>       CLASS_HEADER              = create(true, String.class, "classHeader", BnfConstants.CLASS_HEADER_DEF);
-```
-
-### StaticCollection
 Static collection `ourAttributes`
 in `src/org/intellij/grammar/KnownAttribute.java`
 #### Snippet
@@ -906,15 +880,15 @@ public class KnownAttribute<T> {
 ```
 
 ### StaticCollection
-Static collection `ourBinders`
-in `src/org/intellij/grammar/livePreview/LiveHooksHelper.java`
+Static collection `EMPTY_LIST`
+in `src/org/intellij/grammar/KnownAttribute.java`
 #### Snippet
 ```java
+  public static @Nullable KnownAttribute<?> getAttribute(@Nullable String name) { return name == null ? null : ourAttributes.get(name); }
 
-  private static final Map<String, Object> ourHooks = new HashMap<>();
-  private static final Map<String, Object> ourBinders = new HashMap<>();
+  private static final ListValue EMPTY_LIST = new ListValue();
 
-  static {
+  public static final KnownAttribute<String>       CLASS_HEADER              = create(true, String.class, "classHeader", BnfConstants.CLASS_HEADER_DEF);
 ```
 
 ### StaticCollection
@@ -927,6 +901,18 @@ in `src/org/intellij/grammar/livePreview/LiveHooksHelper.java`
   private static final Map<String, Object> ourHooks = new HashMap<>();
   private static final Map<String, Object> ourBinders = new HashMap<>();
 
+```
+
+### StaticCollection
+Static collection `ourBinders`
+in `src/org/intellij/grammar/livePreview/LiveHooksHelper.java`
+#### Snippet
+```java
+
+  private static final Map<String, Object> ourHooks = new HashMap<>();
+  private static final Map<String, Object> ourBinders = new HashMap<>();
+
+  static {
 ```
 
 ### StaticCollection
@@ -1020,30 +1006,6 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
 in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
 #### Snippet
 ```java
-
-  public static String createClass(@NotNull PsiFile origin,
-                                   @NlsContexts.DialogTitle @NotNull String title,
-                                   @Nullable String baseClass,
-                                   @NotNull String suggestedName,
-```
-
-### UnstableApiUsage
-'com.intellij.openapi.util.NlsContexts.DialogTitle' is declared in unstable class 'com.intellij.openapi.util.NlsContexts' marked with @ApiStatus.Experimental
-in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
-#### Snippet
-```java
-
-  public static String createClass(@NotNull PsiFile origin,
-                                   @NlsContexts.DialogTitle @NotNull String title,
-                                   @Nullable String baseClass,
-                                   @NotNull String suggestedName,
-```
-
-### UnstableApiUsage
-'com.intellij.openapi.util.NlsContexts' is marked unstable with @ApiStatus.Experimental
-in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
-#### Snippet
-```java
   static String createClass(String className, PsiDirectory targetDirectory,
                             String baseClass,
                             @NlsContexts.Command String title,
@@ -1061,6 +1023,30 @@ in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
                             @NlsContexts.Command String title,
                             Consumer<? super PsiClass> consumer) {
     Project project = targetDirectory.getProject();
+```
+
+### UnstableApiUsage
+'com.intellij.openapi.util.NlsContexts' is marked unstable with @ApiStatus.Experimental
+in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
+#### Snippet
+```java
+
+  public static String createClass(@NotNull PsiFile origin,
+                                   @NlsContexts.DialogTitle @NotNull String title,
+                                   @Nullable String baseClass,
+                                   @NotNull String suggestedName,
+```
+
+### UnstableApiUsage
+'com.intellij.openapi.util.NlsContexts.DialogTitle' is declared in unstable class 'com.intellij.openapi.util.NlsContexts' marked with @ApiStatus.Experimental
+in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
+#### Snippet
+```java
+
+  public static String createClass(@NotNull PsiFile origin,
+                                   @NlsContexts.DialogTitle @NotNull String title,
+                                   @Nullable String baseClass,
+                                   @NotNull String suggestedName,
 ```
 
 ### UnstableApiUsage
